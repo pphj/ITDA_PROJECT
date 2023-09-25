@@ -5,9 +5,10 @@
 <!-- 오늘의 컨텐츠 -->
 <div class="popular-list-view-wrap">
     <div class="popular-list-area">
-        <div class="popular-list-top" style="padding-left: 20px; margin-bottom: 20px; text-align: center;">
-            <span style="font-size: 2.5rem; font-weight: bolder;
-             color: #01273C; text-align: center; font-family: '맑은 고딕';">오늘의 콘텐츠</span>
+        <div class="popular-list-top">
+            <span class="pop-top-text">
+            <sapn class="pop-hash">#</sapn> 신규 콘텐츠</span>
+            <p class="pop-top-sub">새롭게 작성된 신규 콘텐츠를 만나보세요.</p>
         </div>
         <div class="popular-list-bar">
             <button class="contents_category btn bt-item bt-hover bt-2  on" id="0"><span>전체</span>

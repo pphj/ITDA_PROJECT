@@ -5,16 +5,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainpage.css">
-    <script> var contextPath = "<%= request.getContextPath() %>"; </script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/style.css">
+  <!--  <link rel="stylesheet" href="resources/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="resources/css/common.css">
+    <link rel="stylesheet" href="resources/css/mainpage.css">
+    <script>
+        var contextPath = '<%= request.getContextPath() %>';
+    </script>
     <script src="${pageContext.request.contextPath}/resources/js/mainpage.js"></script>
+<jsp:include page="../include/header.jsp"/>
 </head>
 <body>
-<jsp:include page="../include/header.jsp"/>
 <jsp:include page="top.jsp"/>
 <div class="main_container">
     <div class="recommend_area">
@@ -42,16 +46,16 @@
                                         <h5 class="card-title">
 	                                        <t:if test="${c.boardTitle.length() >= 20}">
 	                                            <t:out value="${c.boardTitle.substring(0,20)}..."/>
-	                                    </h5>
 	                                        </t:if>
 	                                        <t:if test="${c.boardTitle.length() < 20}">
-	                                            <t:out value="${c.boardTitle}"/></h5>
+	                                            <t:out value="${c.boardTitle}"/>
 	                                        </t:if>
+                                        </h5>
                                         <p class="card-text">
-                                            <t:if test="${c.intro.length() >= 55}">
-                                                <t:out value="${c.intro.substring(0,55)}..."/>
+                                            <t:if test="${c.intro.length() >= 200}">
+                                                <t:out value="${c.intro.substring(0,200)}..."/>
                                             </t:if>
-                                            <t:if test="${c.intro.length() < 55}">
+                                            <t:if test="${c.intro.length() < 200}">
                                                 <t:out value="${c.intro}"/>
                                             </t:if>
                                         </p>
