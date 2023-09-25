@@ -1,0 +1,109 @@
+	#sellerback {
+		width: 100%;
+		display: flex;
+    	justify-content: center;
+    	text-align: center;
+	}
+	#sellerform {
+		width: 40%;
+		border: 1px solid black;
+		margin: 150px auto 50px auto;
+		background: white;
+	}
+
+	#section {
+		margin: 5px 0px;
+	    display: flex;
+	    flex-direction: row;
+	    flex-wrap: wrap;
+	    width: 550px;
+	    text-align: left;
+	}
+	.num0, .num1, .num2, .num3, .num4, .num5, 
+	.num6, .num7, .num8, .num9, .num10, .num11 {
+		text-align: center;
+		margin: 15px;
+	}
+	
+	.num12 {
+	text-align: center;
+	margin: 10px;
+	display: flex;
+	
+    }
+    
+    .center-div {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	}
+	
+	#name, #date_birth, #address1, #address2,
+	#zip_code, #password, #password_confirm {
+		width: 100%;
+		height: 40px;
+		outline: none;
+		border: none;
+		border-bottom: 1px solid black;
+	}
+	#id_butt {
+		width: 20%;
+		height: 40px;
+		background: rgb(1, 39, 60);
+		color: white;
+		border-radius: 3%;
+		cursor: pointer;
+	}
+	#profile {
+		height: 40px;
+	}
+	#phone {
+		width: 100%;
+		height: 40px;
+		outline: none;
+		border: none;
+		border-bottom: 1px solid black;
+	}
+	#email {
+		width: 100%;
+		height: 40px;
+		outline: none;
+		border: none;
+		border-bottom: 1px solid black;
+	}
+	#categories {
+		width: 100%;
+		height: 40px;
+		margin: 15px;
+	}
+	input[type="radio"] {
+  		margin-left: 30px;
+	}
+	#intro {
+		width: 100%;
+		height: 150px;
+		resize: none;
+	}
+	.signup_butt{
+		width: 45%;
+		height: 40px;
+		background: rgb(1, 39, 60);
+		color: white;
+		border-radius: 3%;
+		cursor: pointer;
+	}
+	.cancel_butt{
+		width: 45%;
+		height: 40px;
+		background: rgb(1, 39, 60);
+		color: white;
+		border-radius: 3%;
+		cursor: pointer;
+	}
+	#showid {
+		width: 100%;
+		height: 40px;
+		outline: none;
+		border: none;
+		border-bottom: 1px solid black;
+	}

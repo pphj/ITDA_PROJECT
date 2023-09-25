@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itda.ITDA.mybatis.mapper.Itda_UserMapper">
+	<select id="isId" resultType="Itda_User">
+		select * from itda_user where userId = #{userId}
+	</select>
+	
+	<insert id="insert" parameterType="Itda_User">
+		insert into itda_user
+	    (userId, userPw, userName, userBirth, userGender, userPhone,
+	    userAddress1, userAddress2, userPost, userEmail, userCategory,
+	    userJoindate, statusId, userProfile)
+	    values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userGender}, #{userPhone},
+	    #{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail}, #{userCategory},
+	    SYSDATE, 1, null)
+	</insert>
+</mapper>
