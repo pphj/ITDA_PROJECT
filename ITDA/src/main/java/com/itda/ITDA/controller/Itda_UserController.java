@@ -61,8 +61,8 @@ public class Itda_UserController {
 		return Itda_UserService.isId(userId);
 	}
 	
-	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join() {
+	@RequestMapping(value="/joinForm", method=RequestMethod.GET)
+	public String joinForm() {
 		return "member/joinForm";
 	}
 	
