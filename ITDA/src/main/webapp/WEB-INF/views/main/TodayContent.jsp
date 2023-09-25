@@ -25,7 +25,8 @@
     </div>
     <div class="loading">
         <div class="loader" style="display:flex; justify-content:center;">
-            <div class="dot"></div>
+        	<button class="load-more-button" style="border: 1px solid #959595;
+        	border-radius: 16px; color: #666; font-size: 12px; height: 36px; width: 80px;">더보기</button>
         </div>
         <br>
     </div>
