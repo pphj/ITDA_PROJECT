@@ -160,8 +160,8 @@ var SITE_MEMBER = function(){
 
 											<div class="over_h">
 												<div style="float:left;"> <a href="${pageContext.request.contextPath}/member/joinForm"
-													class="float_l">회원가입</a></div> <div style="text-align:right"> <a href="javascript:;" 
-													onclick="SITE_MEMBER.openFindPassword('L2RpYWxvZy9sb2dpbi5jbQ%3D%3D');"
+													class="float_l">회원가입</a></div> <div style="text-align:right"> 
+													<a href="${pageContext.request.contextPath}/member/FindIdPasswordForm"
 													class="float_r">아이디 · 비밀번호 찾기</a></div>
 											</div>
 
