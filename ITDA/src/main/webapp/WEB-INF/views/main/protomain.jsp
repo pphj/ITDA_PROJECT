@@ -23,6 +23,7 @@
             <ul class="recommend_cards">
                 <div style="position: relative; z-index: 1000; width:100%; height: 100%; top: 0px; 
                 transform: translate(-200px, 0px); will-change: transform;">
+                	<!-- 인기 게시글 로테이션 -->
                     <t:forEach var="c" items="${HotContentList}"> 	<!-- MainController에서 보낸 값 -->
                         <li class="reco_card" style="position: absolute; transform: translate(0% , 0px);">
                             <div class="card-view">
