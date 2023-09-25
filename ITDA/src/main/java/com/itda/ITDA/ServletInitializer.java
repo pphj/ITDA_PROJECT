@@ -11,7 +11,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		//configure : SpringApplicationBuilder를 이용하며, application.sources() 메서드를 사용해
 		//외부 서블릿 컨테이너에서 실행할 스프링 부트 애플리케이션을 설정해준다.
-		return application.sources(ItdaItdaProfectApplication.class);
+		return application.sources(ItdaApplication.class);
 	}
 
 }
