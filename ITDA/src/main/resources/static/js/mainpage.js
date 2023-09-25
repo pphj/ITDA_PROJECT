@@ -77,6 +77,7 @@ $(function () {
                     } else {
                         appendData += '<img src="resources/image/common/itda_logo3.png" class="popular-list-img"></li></a>'
                     }
+                    
                     $(".popular-list-ul").append(appendData);
                 });
             }
@@ -84,29 +85,29 @@ $(function () {
     }
 
     let isCategoryButtonOn = $('.contents_category.on').prop('id')
+    let isLoading = false; // 로딩 중인지 여부를 나타내는 변수 추가
 
     $('.contents_category').click(function () {					//오늘의 콘텐츠의 카테고리 버튼 클릭시
         if (isCategoryButtonOn == $(this).prop('id')) return;
         const categoryNum = $(this).prop('id');
-        console.log(categoryNum);
+        pageCount = FIRST_PAGE;
+        isCategoryButtonOn = categoryNum;
+        $(".popular-list-ul").html("");
+        // "더 보기" 버튼을 클릭한 것으로 처리하기 위해 isLoading 변수를 false로 설정
+        isLoading = false;
         callContents_ajax(categoryNum);
     });
 
     const FIRST_PAGE = 1;
     let pageCount = FIRST_PAGE;
     let isExecuted = false;
-    $(window).scroll(function () {								//신규 콘텐츠 스크롤할때
-        const totalHeight = $(document).height();
-        const currentScrollPosition = $(window).scrollTop();
-        if (!isExecuted && currentScrollPosition + 1188 >= totalHeight - 1) {
-            isExecuted = true;
-            setTimeout(() => {
-                pageCount++;
-                callContents_ajax(isCategoryButtonOn);
-                console.log(pageCount);
-                isExecuted = false;
-            }, 700);
-        }
+
+    $('.load-more-button').click(function () {                  //"더 보기" 버튼 클릭 이벤트
+        if (isLoading) return; // 이미 로딩 중인 경우 무시
+        isLoading = true; // 로딩 시작
+        pageCount++;
+        callContents_ajax(isCategoryButtonOn);
+        isLoading = false; // 로딩 종료
     });
 
     let firstEntrance = 0;
