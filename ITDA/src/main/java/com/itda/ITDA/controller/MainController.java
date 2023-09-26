@@ -80,4 +80,9 @@ public class MainController {
         }
 	}
 	
+	@GetMapping(value = "/search")
+	public String search() {
+		return "/main/search";
+	}
+	
 }

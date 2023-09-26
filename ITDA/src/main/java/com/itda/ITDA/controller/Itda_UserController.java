@@ -84,4 +84,9 @@ public class Itda_UserController {
 		}
 		
 	}
+	
+	@RequestMapping(value = "FindIdPasswordForm", method = RequestMethod.GET)
+	public String findIdPasswordForm() {
+		return "member/FindIdPasswordForm";
+	}
 }

@@ -68,8 +68,9 @@ var SITE_MEMBER = function(){
 						<a href="${pageContext.request.contextPath}/main" class="header_logo" ><img class="header_logo_img" alt="" src="resources/image/common/itda_logo3.png" ><span class="blind">잇:다</span></a>
 					</h1>
 				</div>
-			<div class="header_menu">
-				<a href="${pageContext.request.contextPath}/main/search" class="header_search"><span class="blind">검색</span></a>
+			<div class="header_menu2">   <!-- header_menu2 -->
+				<a class="header_search"
+				onclick="location.href='${pageContext.request.contextPath}/main/search'"><span class="blind">검색</span></a>
 			
 				
 		<ul id="right_btns">
@@ -108,10 +109,9 @@ var SITE_MEMBER = function(){
 					data-target="#myModal">로그인</button>
 				</div>
 
-				<!-- 헤더의 로그인 버튼 -->
+							<!-- 헤더의 로그인 버튼 -->
 
-
-				<!-- Modal -->
+								<!-- Modal -->
 				<form id="modalForm"
 					action="${pageContext.request.contextPath}/member/loginProcess"
 					method="post">
@@ -119,12 +119,12 @@ var SITE_MEMBER = function(){
 					<div class="modal fade" id="myModal">
 						<div class="modal-dialog">
 							<div class="modal-content">
-									<div class="modal-content">
+									<div class="modal-content"> 
 									<!-- 병합 -->
-										<div class="modal-header2">
+										<div class="modal-header2"> <!-- modal-header2 -->
 											<h2>로그인</h2>
 										</div>
-										<article class="modal_article login p_lr_space pb24">
+										<article class="modal_article2 login p_lr_space pb24"> <!-- modal_article2  -->
 											<button class="close" data-dismiss="modal" aria-label="Close"
 												data-toggle="tooltip" data-placement="bottom"
 												data-original-title="닫기">
@@ -139,19 +139,23 @@ var SITE_MEMBER = function(){
 												<input type="hidden" name="back_url_auth" value="">
 												<input type="hidden" name="used_login_btn" value="Y">
 
-												<div class="input_block">
-													<div class="input_form">
-														<input title="이메일" type="text" name="uid" value=""
-															placeholder="이메일"><i aria-hidden="true"
-															class="zmdi zmdi-check"></i>
-													</div>
-													<div class="input_form brt">
-														<input title="비밀번호" name="passwd" type="password" value=""
-															placeholder="비밀번호" autocomplete="off"><i
-															aria-hidden="true" class="zmdi zmdi-check"></i>
-													</div>
-												</div>
-												<!--input_form에 active클래스명이 붙으면 (인풋에 글자가 입력된 상태) 체크표시 활성화 -->
+														<div class="input_block">
+															<div class="input_form">
+											<!-- input_form -->	<input class="input_form2"			 
+																	title="아이디" type="text" name="uid" value=""
+																	placeholder="아이디"> <i aria-hidden="true"
+																	class="zmdi zmdi-check"></i>
+
+															</div>
+															<div class="input_form brt">
+											<!-- input_form -->	<input class="input_form2" 
+																title="비밀번호" name="passwd" type="password"
+																	value="" placeholder="비밀번호" autocomplete="off"
+																><i aria-hidden="true"
+																	class="zmdi zmdi-check"></i>
+															</div>
+														</div>
+														<!--input_form에 active클래스명이 붙으면 (인풋에 글자가 입력된 상태) 체크표시 활성화 -->
 
 												<div class="cheak_article">
 													<div class="checkbox checkbox-styled">
@@ -260,7 +264,7 @@ var SITE_MEMBER = function(){
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}">
 				</form>
-			<!-- login_modal end -->
+							<!-- login_modal end -->
 			<%
 			}
 			%>
