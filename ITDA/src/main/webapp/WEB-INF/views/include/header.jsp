@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="resources/css/login_modal.css">
-<link rel="stylesheet" href="resources/css/premium_service2.css">
-<link rel="favicon" href="resources/image/main/tv_icon.ico" type="image/x-icon">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login_modal.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/premium_service2.css">
+<link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
 <script> var contextPath = "<%=request.getContextPath()%>";
 </script>
 <script>
@@ -58,6 +59,7 @@ var SITE_MEMBER = function(){
 	
 	
 </script>
+</head>
 <header class="header_wrap as_home">
 	<div class="header">
 		<div class="header_inner">
@@ -65,7 +67,7 @@ var SITE_MEMBER = function(){
 				<div class="header_service">
 		<!-- 왼쪽 상단 로고 링크 -->
 					<h1 class="header_logo">
-						<a href="${pageContext.request.contextPath}/main" class="header_logo" ><img class="header_logo_img" alt="" src="resources/image/common/itda_logo3.png" ><span class="blind">잇:다</span></a>
+						<a href="${pageContext.request.contextPath}/main" class="header_logo" ><img class="header_logo_img" alt="" src="resources/image/common/itda_logo4.png" ><span class="blind">잇:다</span></a>
 					</h1>
 				</div>
 			<div class="header_menu">
@@ -270,4 +272,5 @@ var SITE_MEMBER = function(){
 				</div>
 			</div>
 		</div>
+		<hr>
 </header>

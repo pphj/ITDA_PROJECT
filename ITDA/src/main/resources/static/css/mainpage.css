@@ -162,7 +162,14 @@ p{
 
 /*channelList.jsp*/
 
-
+.row {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin-right: 50px;
+	margin-left: 50px;
+}
 .chlist_area {
     max-width: 1080px;
     margin: 0px auto 0px auto;
@@ -374,6 +381,15 @@ p{
     --dot2: #14B09B;
     --dot3: #EBE5D9;
 }
+
+.load-more-button {
+    border: 1px solid #ccc;
+    /* border-radius: 16px; */
+    color: #959595;
+    font-size: 13px;
+    height: 36px;
+    width: 100px;
+}    	
 
 .dot:before {
     margin: 15px;

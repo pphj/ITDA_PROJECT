@@ -26,8 +26,7 @@
     </div>
     <div class="loading">
         <div class="loader" style="display:flex; justify-content:center;">
-        	<button class="load-more-button" style="border: 1px solid #959595;
-        	border-radius: 16px; color: #666; font-size: 12px; height: 36px; width: 80px;">더보기</button>
+        	<button class="load-more-button btn bt-item bt-hover"><span>더보기</span></button>
         </div>
         <br>
     </div>
