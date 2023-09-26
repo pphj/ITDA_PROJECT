@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login_modal.css">
-<script> var contextPath = "<%=request.getContextPath()%>
-	";
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/premium_service2.css">
+<link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+<script> var contextPath = "<%=request.getContextPath()%>";
 </script>
 <script>
 	const result = "${result}";
@@ -57,22 +61,30 @@ var SITE_MEMBER = function(){
 	
 	
 </script>
-<div class="backyard">
-	<nav id="navbody">
+</head>
+<header class="header_wrap as_home">
+	<div class="header">
+		<div class="header_inner">
+			<div class="header_content">
+				<div class="header_service">
 		<!-- 왼쪽 상단 로고 링크 -->
-		<a id="logo-brand" href="${pageContext.request.contextPath}/main">
-			<img
-			src="${pageContext.request.contextPath}/resources/image/common/itda_logo.png"
-			style="width: 100px; height: auto;">
-		</a>
+					<h1 class="header_logo">
+						<a href="${pageContext.request.contextPath}/main" class="header_logo" ><img class="header_logo_img" alt="" src="${pageContext.request.contextPath}/resources/image/common/itda_logo4.png" ><span class="blind">잇:다</span></a>
+					</h1>
+				</div>
+			<div class="header_menu">   <!-- header_menu2 -->
+				<a class="header_search"
+				onclick="location.href='${pageContext.request.contextPath}/main/search'"><span class="blind">검색</span></a>
+			
+				
 		<ul id="right_btns">
-			<li id="search" style="margin-bottom: 24px;"><a id="search_btn"
+	<%-- 		<li id="search" style="margin-bottom: 24px;"><a id="search_btn"
 				onclick="location.href='${pageContext.request.contextPath}/main/search'">
 					<img
 					src="${pageContext.request.contextPath}/resources/image/common/search.png"
 					style="width: 30px; height: auto;">
 			</a></li>
-			<%
+	 --%>		<%
 			String userId = (String) session.getAttribute("userId");
 			String userProfilePath = (String) session.getAttribute("userProfilePath"); // 프로필 사진 경로 가져오기
 
@@ -94,15 +106,16 @@ var SITE_MEMBER = function(){
 			<%
 			} else {
 			%>
+			
+			<div class="header_user">
+				<div class="user_sign_in">
+				<button type="button" class="user_sign_in" data-toggle="modal"
+					data-target="#myModal">로그인</button>
+				</div>
 
-			<li id="login_modal">
-				<!-- 헤더의 로그인 버튼 -->
-				<button type="button" class="login_btn" data-toggle="modal"
-					data-target="#myModal"
-					style="color: #FBD1A7; background: rgb(1, 39, 60); border: none; ">로그인</button>
+							<!-- 헤더의 로그인 버튼 -->
 
-
-				<!-- Modal -->
+								<!-- Modal -->
 				<form id="modalForm"
 					action="${pageContext.request.contextPath}/member/loginProcess"
 					method="post">
@@ -110,17 +123,18 @@ var SITE_MEMBER = function(){
 					<div class="modal fade" id="myModal">
 						<div class="modal-dialog">
 							<div class="modal-content">
-									<div class="modal-content">
+									<div class="modal-content"> 
 									<!-- 병합 -->
-										<div class="modal-header2">
+										<div class="modal-header2"> <!-- modal-header2 -->
 											<h2>로그인</h2>
 										</div>
-										<article class="modal_article login p_lr_space pb24">
+										<article class="modal_article2 login p_lr_space pb24"> <!-- modal_article2  -->
 											<button class="close" data-dismiss="modal" aria-label="Close"
 												data-toggle="tooltip" data-placement="bottom"
 												data-original-title="닫기">
 												<i class="btl bt-times"></i>
 											</button>
+
 
 
 											<form action="/backpg/login.cm" method="post"
@@ -129,19 +143,23 @@ var SITE_MEMBER = function(){
 												<input type="hidden" name="back_url_auth" value="">
 												<input type="hidden" name="used_login_btn" value="Y">
 
-												<div class="input_block">
-													<div class="input_form">
-														<input title="아이디" type="text" name="uid" value=""
-															placeholder="아이디"><i aria-hidden="true"
-															class="zmdi zmdi-check"></i>
-													</div>
-													<div class="input_form brt">
-														<input title="비밀번호" name="passwd" type="password" value=""
-															placeholder="비밀번호" autocomplete="off"><i
-															aria-hidden="true" class="zmdi zmdi-check"></i>
-													</div>
-												</div>
-												<!--input_form에 active클래스명이 붙으면 (인풋에 글자가 입력된 상태) 체크표시 활성화 -->
+														<div class="input_block">
+															<div class="input_form">
+											<!-- input_form -->	<input class="input_form2"			 
+																	title="아이디" type="text" name="uid" value=""
+																	placeholder="아이디"> <i aria-hidden="true"
+																	class="zmdi zmdi-check"></i>
+
+															</div>
+															<div class="input_form brt">
+											<!-- input_form -->	<input class="input_form2" 
+																title="비밀번호" name="passwd" type="password"
+																	value="" placeholder="비밀번호" autocomplete="off"
+																><i aria-hidden="true"
+																	class="zmdi zmdi-check"></i>
+															</div>
+														</div>
+														<!--input_form에 active클래스명이 붙으면 (인풋에 글자가 입력된 상태) 체크표시 활성화 -->
 
 												<div class="cheak_article">
 													<div class="checkbox checkbox-styled">
@@ -159,9 +177,10 @@ var SITE_MEMBER = function(){
 											</form>
 
 											<div class="over_h">
-												<div style="float:left;"> <a href="${pageContext.request.contextPath}/member/joinForm"
-													class="float_l">회원가입</a></div> <div style="text-align:right"> 
-													<a href="${pageContext.request.contextPath}/member/FindIdPasswordForm"
+												<div style="float:left;"> <a href="javascript:;"
+													onclick="SITE_MEMBER.openJoinPatternChoice('Lw%3D%3D', '');"
+													class="float_l">회원가입</a></div> <div style="text-align:right"> <a href="javascript:;" 
+													onclick="SITE_MEMBER.openFindPassword('L2RpYWxvZy9sb2dpbi5jbQ%3D%3D');"
 													class="float_r">아이디 · 비밀번호 찾기</a></div>
 											</div>
 
@@ -249,11 +268,15 @@ var SITE_MEMBER = function(){
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}">
 				</form>
-			</li>
-			<!-- login_modal end -->
+							<!-- login_modal end -->
 			<%
 			}
 			%>
+			</div>
 		</ul>
-	</nav>
-</div>
+							</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+</header>

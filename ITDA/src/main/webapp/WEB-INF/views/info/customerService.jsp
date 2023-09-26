@@ -40,7 +40,10 @@
         <script src="https://static.hankyung.com/plugin/jquery-1.12.4.min.js"></script>
 		<script src="https://static.hankyung.com/plugin/jquery.cookie.js"></script>
 		<script type="text/javascript" src="https://static.hankyung.com/js/ga/googleTagManager.js?v=202309211654" async="true"></script>
+		<jsp:include page="../include/header.jsp"/>
+		
     </head>
+    
     <body>
         <div id="wrap" class="wrap sub">
             <!-- skip navi -->

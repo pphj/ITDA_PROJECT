@@ -2,10 +2,10 @@
 <head>
 <title>일반회원가입 페이지</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login_modal.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-	<script rel="stylesheet" href="${pageContext.request.contextPath}/resources/js/site_member.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login_modal.css">
+	  <script src="${pageContext.request.contextPath}/resources/js/site_member.js"></script>
 	
 	
 	
