@@ -16,9 +16,7 @@
             }
         });
     });
-	
-
-    function loadChannelList(categoryNum) {
+/*     function loadChannelList(categoryNum) {
 
         $.ajax({			//오늘의 채널
             type: "get",
@@ -55,11 +53,55 @@
                 alert("채널 목록을 불러오는 데 실패했습니다.");
             }
         });
-    }
+    } */	
+
+      function loadChannelList(categoryNum) {
+
+        $.ajax({			//오늘의 채널
+            type: "get",
+            url: "main/ChannelListAction",
+            data: {categoryNum: categoryNum},
+            dataType: "json",
+            success: function (data) {
+                var channelTable = $(".row");
+                channelTable.empty();
+
+                $.each(data, function (index, item) {
+                    var appendData = '<div class="col-md-4 col-sm-6">'
+                    	+ '<div class="model_item m-top-30">'
+                        + '<div class="model_img">';
+                    // 이미지 URL을 동적으로 설정합니다.
+                    var imageUrl = item.chprofile
+                        ? "resources/image/MemberUpload/" + item.ownerId + "/" + item.chprofile
+                        : "${pageContext.request.contextPath}/resources/image/common/itda_logo3.png";
+
+                    appendData += '<img src="' + imageUrl + '" alt="...">'
+                    + '<a href="channels/' + item.chNum + '">'
+                    + '<div class="model_caption">'
+                    + '<h5 class="text-white">' + item.chName + '</h5>'
+                    + '<p class="card-text2">' + item.chInfo + '</p>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>';
+
+                    channelTable.append(appendData);
+                });
+            },
+            error: function () {
+                alert("채널 목록을 불러오는 데 실패했습니다.");
+            }
+        });
+    } 
+ 
 </script>
 <div style="display: flex; justify-content: center;">
-    <h1>오늘의 채널</h1>
+<div class="ch_top">
+    <h3 class="today_ch">오늘의 채널<img class="tv" alt="" src="resources/image/main/tv_icon.png"></h3>
+    <p class="today_ch_sub">잇:다에서 추천하는 인기 채널</p>
 </div>
+</div>
+<div class="chlist_area">
 <div class="buttons-container">
     <div class="cate-button">
         <button class="channel_category btn bt-item bt-hover bt-2  on" id="0"><span>전체</span>
@@ -86,9 +128,13 @@
         </button>
     </div>
 </div>
+</div>
 
 <div class="container">
-    <div class="row area">
+    <div class="row">
+    
+    </div><!-- End of the second row -->
+</div>
 
     </div>
 </div>
