@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <head>
 <script>
 	$(document).ready(function(){
@@ -33,15 +32,15 @@
 </script>
 </head>
 <body>
-	<div class="backyard2">
-		<div class="intro" style="margin:20px auto 60px auto;">
-			<div id="title">
-				<img
-				src="${pageContext.request.contextPath}/resources/image/common/topimg.png"
-				style="width: 825px; height: 200; border: 1px solid black; border-radius: 15px;">
-				<div>
+	<div class="titleback">
+		<div class="inner">
+			<div class="banner">
+				<img class="baimg"
+				src="resources/image/common/mainbanner.png"
+				style="width: 1280px; height: 400px;">
+<!-- 				<div>
 					<button type="button" id="join_seller">판매회원 가입하기</button>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
