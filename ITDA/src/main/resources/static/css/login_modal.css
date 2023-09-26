@@ -560,6 +560,12 @@ article.modal_article .tab_wrap .btn_find {
 	border-bottom: 1px solid #4f4f4f;
 }
 
+	/* 아이디 비밀번호 입력창 위치 */
+.modal-dialog {
+/*	max-width: 500px; */
+    margin: 5rem auto;
+}
+
 
 /* 占쏙옙占쎈��占쏙옙 筌≪��由� end */
 
@@ -586,3 +592,5 @@ article.modal_article .tab_wrap .btn_find {
 } */
 
 /* ��占썼�占썼린占쏙옙占� 筌≪��由� end */
+
+
