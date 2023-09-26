@@ -2,10 +2,10 @@
 
 <body>
 <footer role="contentinfo" class="footer _STICKY_FOOTER">
+	<a href="${pageContext.request.contextPath}/info/customerService" style="color:white !important">공지사항</a>
 	<a href="#" class="page_top show _MOVE_TOP" style=""></a>
 	<div class="footer_naver_info_wrap">
 		<button id="_NAVER_INFO" type="button" class="footer_naver_info_button is_active _TOGGLE _IFRAME_RESIZE" data-target="_NAVER_INFO" data-classvalue="is_active" data-show-clk="fot.ninfoopen" data-hide-clk="fot.ninfoclose" data-cookie-name="P_NF">잇다(주) 사업자 정보</button>
-		 <a href="${pageContext.request.contextPath}/info/customerService" style="color:white !important">공지사항</a>		
 		<dl class="footer_naver_info_list">
 			<div class="footer_naver_info_item">
 				<dt class="footer_naver_info_title">사업자등록번호</dt>
