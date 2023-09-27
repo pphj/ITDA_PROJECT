@@ -867,7 +867,9 @@ html[data-useragent*='Trident'] .header {
 		padding-bottom: 15px;
 	}
 }
-
+.header_user .user_sign_in {
+    margin-top: 2px;
+}
 /* .header_user .user_sign_in {
 	display: inline-block;
 	vertical-align: top;
