@@ -1,5 +1,6 @@
 @charset "UTF-8";
 --톱니바퀴
+html{overflow-y:scroll;}
 
 .bloger_thumb {
 background-position: -250px -80px;
@@ -449,9 +450,9 @@ background-position: -250px -80px;
 	display: none
 }
 
-.card_banner, .wrap_contents {
+/* .card_banner, .wrap_contents {
 	overflow: hidden
-}
+} */
 
 .wrap_article .alert-wrap, .wrap_authorinfo .alert-wrap {
 	display: block;

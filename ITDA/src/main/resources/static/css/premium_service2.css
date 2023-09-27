@@ -133,6 +133,9 @@ button {
 	background-color: transparent;
 }
 
+a:hover{
+	text-decoration-line : none !important
+}
 
 
 .wrap {
@@ -584,6 +587,12 @@ html[data-useragent*='Trident'] .header {
 	}
 }
 
+.inline_header{
+    float: left;
+    margin-top: 10px;
+    
+}
+
 .header_inner {
 	padding-left: 20px;
 	padding-right: 24px;
@@ -824,6 +833,7 @@ html[data-useragent*='Trident'] .header {
 	display: inline-block;
 	vertical-align: top;
 	padding: 17px 8px;
+	cursor : pointer;
 }
 
 .header_search::before {
@@ -859,6 +869,7 @@ html[data-useragent*='Trident'] .header {
 	display: inline-block;
 	vertical-align: top;
 	padding: 13px 9px 12px;
+	margin-top : 2px;
 }
 
 @media (min-width: 1080px) {
@@ -882,7 +893,7 @@ html[data-useragent*='Trident'] .header {
 .header_user .user_sign_in {
 	display: inline-block;
 	vertical-align: top;
-	padding: 4px 0px 0px 0px;
+	padding: 5px 0px 0px 0px;
 	margin-left: -2px;
 	font-size: 12px;
 	font-weight: 500;
@@ -1147,6 +1158,7 @@ body:not(.body_mp) .flat_header_wrap .flat_header_logo {
 .flat_header {
 	position: relative;
 	height: 50px;
+	margin-top: 25px;
 }
 
 @media (min-width: 720px) {
@@ -21055,8 +21067,8 @@ a.viewer_channel_info_subscribe_link::before {
 	width: 90px;
 	margin: 0 auto;
 	border-radius: 6px;
-	background-image: -webkit-linear-gradient(134deg, #bb964a, #d5b679);
-	background-image: linear-gradient(316deg, #bb964a, #d5b679);
+	background-image: -webkit-linear-gradient(134deg, #00c6be, #00c6be);
+	background-image: linear-gradient(316deg, #00c6be, #00c6be);
 }
 
 .product_card_mini_wrap .card_coupon {
@@ -21840,7 +21852,7 @@ html[data-useragent*='Windows'] .popup_sub_price_desc {
 		margin-left: 5px;
 		font-size: 17px;
 		line-height: 18px;
-		color: #ab915e;
+		color: #00c6be;
 	}
 	.container_content .my_tab_item.is_active .my_tab_link .my_tab_text::before {
 		left: 0;
@@ -22013,7 +22025,7 @@ html[data-useragent*='Windows'] .popup_sub_price_desc {
 	font-size: 22px;
 	font-weight: 600;
 	letter-spacing: -0.2px;
-	color: #baa67e;
+	color: #00c6be;
 	margin-left: 1px;
 }
 
@@ -22339,7 +22351,7 @@ html[data-useragent*='Windows'] .popup_sub_price_desc {
 	font-size: 14px;
 	line-height: 17px;
 	letter-spacing: -0.3px;
-	color: #8f8f8f;
+	color: #666;
 }
 
 .my_channel_date_text {
@@ -22370,7 +22382,7 @@ html[data-useragent*='Windows'] .popup_sub_price_desc {
 	font-weight: 500;
 	line-height: 16px;
 	letter-spacing: -0.3px;
-	color: #baa67e;
+	color: #959595;
 }
 
 .my_channel_manage_link::after {
@@ -22664,13 +22676,14 @@ html[data-useragent*='Windows'] .popup_sub_price_desc {
 	width: 52px;
 	height: 52px;
 	margin-left: -27px;
-	border: 3px solid #fff;
+/* 	border: 3px solid #fff;
 	border-radius: 50%;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	-webkit-box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
 	box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
-}
+ */
+ }
 
 .my_detail_head_thumb img {
 	vertical-align: top;
@@ -23041,7 +23054,7 @@ html[data-useragent*='Windows'] .my_detail_info_item.as_change dt {
 }
 
 .my_detail_info_item dd em {
-	color: #baa67e;
+	color: #00c6bead;
 }
 
 .my_detail_info_item dd em.as_cancel {
@@ -23709,7 +23722,8 @@ html[data-useragent*='Windows'] .my_detail_info_desc {
 
 .my_subscriptions_tab_item[aria-selected='true'] .my_subscriptions_tab_button em {
 	font-weight: 600;
-	color: #baa67e;
+	color: #00c6be
+;
 }
 
 @media (min-width: 1080px) {
@@ -24232,7 +24246,7 @@ div.my_subscriptions_channel_link::after {
 	font-size: 16px;
 	line-height: 22px;
 	letter-spacing: -0.4px;
-	color: #384e92;
+	color: #666;
 }
 
 @media (min-width: 1080px) {
@@ -24493,7 +24507,7 @@ div.my_subscriptions_channel_link::after {
 	padding-bottom: 10px;
 	font-size: 14px;
 	line-height: 20px;
-	color: #baa67e;
+	color: #00c6bead;
 }
 
 .my_attention_item {
@@ -26319,7 +26333,7 @@ div.my_subscriptions_channel_link::after {
 	font-weight: 500;
 	line-height: 17px;
 	letter-spacing: -0.5px;
-	color: #baa67e;
+	color: #00c6bead;
 }
 
 .my_subscribe_payment_status.as_cancel {
@@ -26686,7 +26700,7 @@ div.my_subscriptions_channel_link::after {
 }
 
 .my_user {
-	padding-top: 5px;
+	padding-top: 30px;
 	padding-bottom: 17px;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 	text-align: center;
@@ -26909,17 +26923,17 @@ div.my_subscriptions_channel_link::after {
 }
 
 .my_coupon_register {
-	display: block;
-	padding: 10px;
-	margin-bottom: 20px;
-	font-size: 15px;
-	font-weight: 600;
-	line-height: 20px;
-	letter-spacing: -0.25px;
-	color: #ab915e;
-	text-align: center;
-	border-radius: 6px;
-	border: solid 1px rgba(186, 166, 126, 0.8);
+    display: block;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: -0.25px;
+    color: #00c6be;
+    text-align: center;
+    border-radius: 6px;
+    border: solid 1px rgb(0 198 190 / 80%);
 }
 
 .my_coupon_register::before {
@@ -27726,8 +27740,8 @@ div.my_subscriptions_channel_link::after {
 	max-width: 255px;
 	margin: 0 auto;
 	border-radius: 18px;
-	background-image: -webkit-linear-gradient(134deg, #bb964a, #d5b679);
-	background-image: linear-gradient(316deg, #bb964a, #d5b679);
+	background-image: -webkit-linear-gradient(134deg, #00c6be, #00c6be);
+	background-image: linear-gradient(316deg, #00c6be, #00c6be);
 }
 
 .mc_content {
@@ -28854,12 +28868,12 @@ html[data-useragent*='Trident'] .product_common {
 .product_refund_card .product_price em {
 	font-size: 16px;
 	font-weight: bold;
-	color: #baa67e;
+	color: #00c6bead;
 }
 
 .product_refund_card .product_price .price_unit {
 	font-weight: bold;
-	color: #baa67e;
+	color: #00c6bead;
 }
 
 .product_refund_card + .product_guide .guide_list {
@@ -30650,7 +30664,7 @@ html[data-useragent*='Windows'] .product_pay_info_item dt {
 }
 
 .product_real_pay_price {
-	color: #a1885f;
+	color: #00c6bead;
 }
 
 .product_pay_price.as_emphasis {
@@ -30791,7 +30805,7 @@ html[data-useragent*='Windows'] .product_pay_info_desc {
 }
 
 .pay_terms_check_all_input:checked + .pay_terms_check_all_label .pay_terms_check_all_icon {
-	background-color: #baa67e;
+	background-color: #00c6be;
 }
 
 .pay_terms_check_all_input:checked + .pay_terms_check_all_label .pay_terms_check_all_text em {
@@ -30876,7 +30890,7 @@ html[data-useragent*='Windows'] .product_pay_info_desc {
 }
 
 .pay_terms_check_input:checked + .pay_terms_check_label .pay_terms_check_icon::before, .pay_terms_check_input:checked + .pay_terms_check_label .pay_terms_check_icon::after {
-	background-color: #baa67e;
+	background-color: #00c6be;
 }
 
 .pay_terms_check_icon {

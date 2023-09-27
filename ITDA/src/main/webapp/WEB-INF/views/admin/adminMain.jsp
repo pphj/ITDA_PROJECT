@@ -110,11 +110,6 @@
 	      },
 	    });
 	    
-	    
-	
-	    
-	    
-	    
 	  });
   </script>
 </head>
@@ -123,6 +118,19 @@
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />
     <!-- End Navbar -->
+    <div class="card shadow-lg mx-4 card-profile-bottom">
+      <div class="card-body p-3">
+        <div class="row gx-4">
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                관리자 메인페이지
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 	<div class="container-fluid py-4">
 		<div class="row">
 			<div class="row mt-4">
