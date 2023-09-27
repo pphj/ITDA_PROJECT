@@ -869,6 +869,7 @@ html[data-useragent*='Trident'] .header {
 	display: inline-block;
 	vertical-align: top;
 	padding: 13px 9px 12px;
+	margin-top : 2px;
 }
 
 @media (min-width: 1080px) {
