@@ -13,7 +13,7 @@
     <script>
         var contextPath = '<%= request.getContextPath() %>';
     </script>
-    <script src="${pageContext.request.contextPath}/resources/js/mainpage.js"></script>
+    <script src="resources/js/mainpage.js"></script>
 <jsp:include page="../include/header.jsp"/>
 </head>
 <body>

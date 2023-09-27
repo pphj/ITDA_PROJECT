@@ -40,6 +40,8 @@
 		<script src="https://static.hankyung.com/plugin/jquery.cookie.js"></script>
 		<script type="text/javascript" src="https://static.hankyung.com/js/ga/googleTagManager.js?v=202309221514" async="true"></script>
 		<jsp:include page="../include/header.jsp"/>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/info/info.css" rel="stylesheet" />
+		
 		
     </head>
     <body>
