@@ -1,10 +1,11 @@
+\
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
 		<meta charset="UTF-8">
         <title>FAQ</title>
-        <link rel="canonical" href="https://www.hankyung.com/help">
+       <!--  <link rel="canonical" href="https://www.hankyung.com/help">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
         <meta name="robots" content="index,follow">
@@ -29,17 +30,19 @@
 
         <meta itemprop="name" content="고객센터 | 한국경제">
         <meta itemprop="description" content="한경 고객센터, 성공을 부르는 습관 한국경제신문 한경닷컴">
-        <meta itemprop="image" content="https://static.hankyung.com/img/logo/logo-news-sns.png">
+        <meta itemprop="image" content="https://static.hankyung.com/img/logo/logo-news-sns.png"> -->
 
         <link rel="shortcut icon" href="https://www.hankyung.com/favicon.ico">
         <link rel="apple-touch-icon" sizes="192x192" href="https://static.hankyung.com/resource/common/img/favicon/apple-touch-icon.png">
         <link rel="stylesheet" href="https://static.hankyung.com/css/www/w/common.ui.all.css?v=202309221514">
         <link rel="stylesheet" href="https://static.hankyung.com/resource/www/help/css/help.css?v=202309221514">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/info/info.css" rel="stylesheet" />
 
         <script src="https://static.hankyung.com/plugin/jquery-1.12.4.min.js"></script>
 		<script src="https://static.hankyung.com/plugin/jquery.cookie.js"></script>
 		<script type="text/javascript" src="https://static.hankyung.com/js/ga/googleTagManager.js?v=202309221514" async="true"></script>
 		<jsp:include page="../include/header.jsp"/>
+		
 		
     </head>
     <body>
