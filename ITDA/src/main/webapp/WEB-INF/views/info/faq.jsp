@@ -392,8 +392,8 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 				<ul class="faq-menu-list">
 
 					<li class="on"><a href="${pageContext.request.contextPath}/info/faq" target="">FAQ</a></li>
-					<li ><a href="${pageContext.request.contextPath}/info/customerService" target="">공지사항</a></li>
-					<li ><a href="${pageContext.request.contextPath}/info/help" target="">1:1문의<span class="icon-membersonly2">회원전용</span></a></li>
+					<li ><a href="${pageContext.request.contextPath}/info/notice" target="">공지사항</a></li>
+					<li ><a href="${pageContext.request.contextPath}/info/qna" target="">1:1문의<span class="icon-membersonly2">회원전용</span></a></li>
 				</ul>
 
 				<button type="button" class="btn-menu-more"><span class="blind">더보기</span></button>
