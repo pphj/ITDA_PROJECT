@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
@@ -5,20 +6,14 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<meta name="format-detection" content="telephone=no">
-	<title>네이버 프리미엄콘텐츠</title>
-		<link rel="stylesheet" href="/premium_service2.css">
-		<!--타이틀에 달린 작은 이미지-->
-	<link rel="shortcut icon" type="image/x-icon" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/favicon_M.ico" />
-	<link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="192x192" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
+	<!--타이틀 수정 필요-->
+	<title>상품명 이름 : 상세정보</title>
 	<base target="_parent">
-	<script>
+<!-- 	<script>
 		var g_ssc = nsc = "Mpremiumcontents.all";
 		var g_default_area = "art";
 
-		var svr = "one-service-premium-r-20230914-230914-164329-5bff964899-zf5k2";
+		var svr = "one-service-premium-r-20230914-230914-164329-5bff964899-h66vh";
 		var nelo = {
 			sampleNumber : 100,
 			maxCount : 100,
@@ -34,7 +29,7 @@
 		var PREMIUM_LOG_DOMAIN = "https://l.premium.naver.com";
 		var urlPrefix = "";
 		var newsDomain = "";
-		var layoutName = "my_payment_subscriptions";
+		var layoutName = "subscription";
 
 		var unitIds = [];
 		var divIds = [];
@@ -48,8 +43,10 @@
 		_paq.push(["setSiteId", "1"]);
 
 		var isPremiumReferer = false;
-	</script>
+	</script> -->
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
+		<jsp:include page="../include/header.jsp"></jsp:include>
+	
 </head>
 <body class="as_white_background body_mp">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
@@ -57,27 +54,24 @@
 	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>
 	<progress id="_CONTENT_INDICATOR" class="progress" max="100" value="0"></progress>
 </div>
-<header class="flat_header_wrap as_white_background">
+<!--<header class="flat_header_wrap as_white_background">
 	<div class="flat_header">
 	<h1 class="flat_header_logo">
-	<a href="/" class="link_premium" data-clk="my_order.pclogo"><span class="blind">Premium Contents</span></a>
+	<a href="/" class="link_premium" data-clk="prod_order.pclogo"><span class="blind">Premium Contents</span></a>
 	</h1>
-	<a href="#" class="button_back _BACK" data-clk="my_order.back">
+	<a href="#" class="button_back _BACK" data-clk="prod_order.back">
 		<span class="blind">이전으로</span>
 	</a>
 	<h2 class="flat_header_title">
-		<span class="flat_header_title_inner as_pc">
-			MY
-		</span>
 		<span class="flat_header_title_inner">
-			결제내역
+			상세정보
 		</span>
 	</h2>
 	</div>
-</header>
+</header>-->
 <hr>
-<script>
-	var svt = "20230917180557.811";
+<!-- <script>
+	var svt = "20230918020337.790";
 	var timestamp = svt.substr(0, 8);
 	var isLogin = true;
 
@@ -89,89 +83,133 @@
 
 	var envPhase = "production";
 	var isProduction = true;
-</script>
+</script> -->
 <div id="ct_wrap" class="container">
 	<div id="ct" class="container_inner">
 		<div class="container_main">
-			<div class="container_sidebar _CONTAINER_SIDEBAR">
-				<div class="container_sidebar_inner _GRID_TEMPLATE_COLUMN_SIDEBAR _CONTAINER_SIDEBAR_INNER"></div>
-			</div>
+		
 			<div class="container_content _GRID_TEMPLATE_COLUMN _STICKY_CONTENT">
-			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
-	<div class="my_sidebar_box">
-		<div class="my_user">
-			<a href="https://nid.naver.com/user2/help/myInfo?lang=ko_KR" class="my_user_modify_link" data-clk="my_lnb.myinfo">
-				<div class="my_user_img_wrap">
+			
+<div class="_PAY_ORDER_CONTENT" data-cp-name="usa" data-sub-id="nasdaq" data-ticket-id="sps-tck-1000000295" data-ticket-sale-type="SUBSCRIBE_PERIOD_PAYNOW">
+   
+    <div class="flat_header" style="margin-top: 40px;">
+    <div class="inline_header">
+		<a href="#" class="button_back _BACK"><img class="link_errow" style="width: 30px;" src="${pageContext.request.contextPath}/resources/image/content/errow_left.png">
+		<span class="blind">이전으로</span>
+	</a> 
+    </div>
+	<h2 class="flat_header_title">
+		<span class="flat_header_title_inner">
+			상세정보
+		</span>
+	</h2>
+	</div>
+		<div class="product_detail_card">
+			<div class="membership_card">
+				<div class="mc_content">
+					<div class="mc_text">
+						<span class="mct_sub">
+							<span class="mct_sub_text">개인</span>
+							<span class="mct_sub_text">월간이용권</span>
+						</span>
+						<strong class="mct_name">1개월 구독권</strong>
+					</div>
+					<div class="mc_price_info">
+						<span class="mcp_price">
+							<em class="mcp_number">3,900</em>
+							<span class="mcp_text">원/월</span>
+						</span>
+					</div>
 				</div>
-				<strong class="my_user_name">
-					닉네임
-				</strong>
-			</a>
-			<div class="my_user_link_wrap">
-				<a href="/my/payment/subscriptions" class="my_user_link is_payment is_active" data-clk="my_lnb.paydet">결제내역</a>
-				<a href="/my/coupons" class="my_user_link is_coupon" data-clk="my_lnb.coupon">쿠폰</a>
-				<a href="/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
 			</div>
+			<dl class="product_detail_benefit_list">
+				<dt>혜택</dt>
+				<dd>
+					<p class="product_detail_benefit">1개월 동안 콘텐츠 무제한 열람</p>
+				</dd>
+			</dl>
 		</div>
-		<div class="my_tab_wrap">
-			<ul class="my_tab">
-				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
-				</li>
-				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
-		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
-			<img class="_LAZY_LOADING" data-src="https://ssl.pstatic.net/static.news/image/news/m/2023/08/18/sidebar_banner.jpg" width="315" height="110" alt="">
-		</a>
-	</div>
-</div>
-<h2 class="my_title">결제 내역</h2>
-<div class="my_tab_wrap">
-	<ul class="my_tab">
-		<li class="my_tab_item is_active" data-clk="my_order.subs">
-			<a href="#" data-url="/my/payment/subscriptions" class="my_tab_link _LOCATION_REPLACE"><span class="my_tab_text">구독 결제 내역<em>1</em></span></a>
-		</li>
-	</ul>
-</div>
-<div class="my_payment">
-	<h2 class="my_section_title">구독 결제 내역 <em>1</em></h2>
-	<ul class="my_subscribe_payment_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_PAYMENT_SUBSCRIPTION_LIST" data-cursor-name="page" data-cursor="1" data-has-next="">
-		<li class="my_subscribe_payment_item">
-			<a href="/bangkuseok/bangkuseok1" class="my_subscribe_payment_thumb" data-clk="my_order.chlgo">
-				<img src="https://scs-phinf.pstatic.net/MjAyMjExMDNfMTcx/MDAxNjY3NDM3NTA3NzQw.6FO2E_Tk_6YwHAYi-50a26pOdDQWQebvFOM_6KR9xokg.724u8stegrnbL_DLl_Z5U8HfYQuesuVLGJIyeONubIUg.PNG/image%7Cpremium%7Cchannel%7Cbangkuseok%7C2022%7C11%7C03%7C1667437507721.png?type&#x3D;nfs200_200" width="48" height="48" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
-			</a>
-			<a href="/my/payment/subscriptions/2960786403" class="my_subscribe_payment_link" data-clk="my_order.subslist">
-				<div class="my_subscribe_payment_text">
-					<div class="my_subscribe_payment_info">
-						<strong class="my_subscribe_payment_channel">방구석 어학연수</strong>
-						<div class="my_subscribe_payment_name">방구석 어학연수</div>
-						<em class="my_subscribe_payment_price"><span class="num">0</span>원</em>
-					</div>
-					<div class="my_subscribe_payment">
-						<strong class="my_subscribe_payment_status false">
-							결제완료
-						</strong>
-						<div class="my_subscribe_payment_date">2023.09.08.</div>
-						<div class="my_subscribe_payment_episode"><span class="num">1</span>회차</div>
-					</div>
+	<div class="product_info_detail">
+		<button id="_CP_INFO" type="button" class="button_product_info is_selected _TOGGLE" data-target="_CP_INFO" data-classValue="is_selected" data-show-clk="prod_order.cpinfoopen" data-hide-clk="prod_order.cpinfoclose">판매자 정보</button>
+		<dl class="product_info_list">
+			<div class="product_info_item">
+				<dt>상호명</dt>
+				<dd>잇다(주)</dd>
+			</div>
+			<div class="product_info_item">
+				<dt>대표자</dt>
+				<dd>많다많다</dd>
+			</div>
+			<div class="product_info_item">
+				<dt>통신판매업번호</dt>
+				<dd>2023-서울종로-0000</dd>
+			</div>
+			<div class="product_info_item">
+				<dt>사업자등록번호</dt>
+				<dd>123-45-67890</dd>
+			</div>
+			<div class="product_info_item">
+				<dt>주소</dt>
+				<dd>(우:12345) 서울시 종로구 종로리 123</dd>
+			</div>
+			<div class="product_info_item">
+				<dt>이메일</dt>
+				<dd><a href="javascript:;" class="_LINK" data-url="mailto:westernant21@gmail.com">itda@itda.com</a></dd>
+			</div>
+			<div class="product_info_item">
+				<dt>전화번호</dt>
+				<dd><a href="javascript:;" class="_LINK" data-url="tel:01087504742">02-0000-0000</a></dd>
+			</div>
+		</dl>
+		<div class="_PURCHASE_PRODUCT_DETAIL_LIST_WRAP" data-ticket-id="sps-tck-1000000295" >
+			<button id="_PAY_CONTENT_INFO_0" type="button" class="button_product_info is_selected _TOGGLE" data-target="_PAY_CONTENT_INFO_0" data-classValue="is_selected" data-show-clk="prod_order.rodinfoopen" data-hide-clk="prod_order.prodinfoclose">상품정보제공 고시</button>
+			<dl class="product_info_list">
+				<div class="product_info_item">
+					<dt>제작자 또는 공급자</dt>
+					<dd>잇다(주)</dd>
 				</div>
-			</a>
-		</li>
-	</ul>
-	<div class="loading _CONTENT_LIST_LOADING" style="display:none;">
-		<div class="loader">
-			<div class="dot dot1"></div>
-			<div class="dot dot2"></div>
-			<div class="dot dot3"></div>
-			<div class="dot dot4"></div>
-			<div class="dot dot5"></div>
-			<div class="dot dot6"></div>
+				<div class="product_info_item">
+					<dt>이용조건·이용기간</dt>
+					<dd>상품 정보 참조</dd>
+				</div>
+				<div class="product_info_item">
+					<dt>상품 제공방식</dt>
+					<dd>상품 정보 참조</dd>
+				</div>
+				<div class="product_info_item">
+					<dt>최소시스템사양, 필수 소프트웨어</dt>
+					<dd>Chrome 브라우저, IE 11, Android 8.0 이상, iOS 14.0 이상</dd>
+				</div>
+				<div class="product_info_item">
+					<dt>청약철회 또는 계약해지에 따른 효과</dt>
+					<dd>청약철회등 환불 안내 기준 확인</dd>
+				</div>
+				<div class="product_info_item">
+					<dt>소비자 상담전화</dt>
+					<dd><a href="javascript:;" class="_LINK" data-url="tel:15881588">1588-1588</a></dd>
+				</div>
+			</dl>
+			<button id="_PAY_REFUND_INFO_0" type="button" class="button_product_info is_selected _TOGGLE" data-target="_PAY_REFUND_INFO_0" data-classValue="is_selected" data-show-clk="prod_order.revokeinfoopen" data-hide-clk="prod_order.revokeinfoclose">청약철회등 환불 안내</button>
+			<dl class="product_refund_list">
+				<div class="product_refund_item">
+					<dt>기본 조건</dt>
+					<dd>본 상품은 결제일 기준 7일 이내 콘텐츠 이용 이력이 없는 경우, 청약철회등이 가능하며 전액 환불됩니다.</dd>
+					<dd>상품의 콘텐츠 이용이 개시된 경우 또는 구매후 이용 가능한 날로부터 7일이 경과된 경우, 청약철회가 제한될 수 있습니다.</dd>
+					<dd>단건 상품 중 라이브 유형의 상품은 상품의 특성상 라이브 제공 개시 전까지만 청약철회등 가능하며, 일단 라이브가 시작되면 이용하지 않더라도 청약철회등이 불가능할 수 있습니다.</dd>
+					<dd>그룹 상품의 경우(구독 상품 중 그룹형 구독인 경우), 그룹 회원(초대를 통해 구독한 이용권자)의 이용도 상품 이용에 포함됩니다.</dd>
+					<dd>구매 시 적립 받은 네이버 포인트가 있는 경우, 청약철회등이 되면 즉시 회수 처리됩니다.</dd>
+					<dd>네이버가 발행한 쿠폰을 사용하여 구매한 뒤 청약철회등 된 경우, 해당 쿠폰은 재발급되어 다시 사용이 가능합니다. 단, 부분 환불된 경우 또는 유효기간이 지난 쿠폰의 경우는 재발급 불가합니다.</dd>
+					<dd>그 외에 판매자가 발행한 포인트/쿠폰의 경우 판매자가 정한 바에 따라 취급됩니다.</dd>
+					<dd>구매 조건, 추가 조건에서 정하지 않은 사항 또는 정함이 있더라도 법령에 반하는 사항은 전자상거래등에서의소비자보호에관한법률 등 관련 법령에서 정한 바에 따릅니다.</dd>
+				</div>
+			</dl>
 		</div>
+	</div>
+	<div class="floating_button_wrap _PURCHASE_PRODUCT_DETAIL_LIST_WRAP" data-ticket-id="sps-tck-1000000295">
+	<a href="${pageContext.request.contextPath}/product/subscriptions/info/order" class="floating_button _PURCHASE_PRODUCT_BUTTON" data-clk="prod_order.subs">
+		<span class="blind">프리미엄 채널</span>
+		구독하기
+	</a>
 	</div>
 </div>
 

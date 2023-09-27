@@ -1,13 +1,11 @@
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<meta name="format-detection" content="telephone=no">
-	<title>네이버 프리미엄콘텐츠</title>
-		<link rel="stylesheet" href="/premium_service2.css">
-	<link rel="shortcut icon" type="image/x-icon" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/favicon_M.ico" />
+	<title>MY : 잇다</title>
 	<link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
 	<link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
 	<link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
@@ -17,7 +15,7 @@
 		var g_ssc = nsc = "Mpremiumcontents.all";
 		var g_default_area = "art";
 
-		var svr = "one-service-premium-r-20230914-230914-164329-5bff964899-9fftb";
+		var svr = "one-service-premium-r-20230914-230914-164329-5bff964899-zf5k2";
 		var nelo = {
 			sampleNumber : 100,
 			maxCount : 100,
@@ -33,7 +31,7 @@
 		var PREMIUM_LOG_DOMAIN = "https://l.premium.naver.com";
 		var urlPrefix = "";
 		var newsDomain = "";
-		var layoutName = "my_payment_subscription";
+		var layoutName = "my_coupons";
 
 		var unitIds = [];
 		var divIds = [];
@@ -49,31 +47,17 @@
 		var isPremiumReferer = false;
 	</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
+	<jsp:include page="../include/header.jsp"></jsp:include>
 </head>
-<body class=" body_mp">
+<body class="as_white_background body_mp">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
 <div id="_CONTENT_INDICATOR_WRAP" style="display:none;">
 	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>
 	<progress id="_CONTENT_INDICATOR" class="progress" max="100" value="0"></progress>
 </div>
-<header class="flat_header_wrap ">
-	<div class="flat_header">
-	<h1 class="flat_header_logo">
-	<a href="/" class="link_premium" data-clk="my_order.pclogo"><span class="blind">Premium Contents</span></a>
-	</h1>
-	<a href="#" class="button_back _BACK" data-clk="my_order.back">
-		<span class="blind">이전으로</span>
-	</a>
-	<h2 class="flat_header_title">
-		<span class="flat_header_title_inner as_pc">
-			MY
-		</span>
-	</h2>
-	</div>
-</header>
-<hr>
+
 <script>
-	var svt = "20230917181250.936";
+	var svt = "20230917182352.683";
 	var timestamp = svt.substr(0, 8);
 	var isLogin = true;
 
@@ -88,9 +72,9 @@
 </script>
 <div id="ct_wrap" class="container">
 	<div id="ct" class="container_inner">
-			    <div class="flat_header">
+	    <div class="flat_header">
     <div class="inline_header">
-		<a href="#" class="button_back _BACK"><img class="link_premium" style="width: 30px;" src="image/content/errow_left.png">
+		<a href="#" class="button_back _BACK"><img class="link_premium" style="width: 30px;" src="${pageContext.request.contextPath}/resources/image/content/errow_left.png">
 		<span class="blind">이전으로</span>
 	</a> 
     </div>
@@ -116,18 +100,18 @@
 				</strong>
 			</a>
 			<div class="my_user_link_wrap">
-				<a href="/my/payment/subscriptions" class="my_user_link is_payment is_active" data-clk="my_lnb.paydet">결제내역</a>
-				<a href="/my/coupons" class="my_user_link is_coupon" data-clk="my_lnb.coupon">쿠폰</a>
-				<a href="/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
+				<a href="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_user_link is_payment" data-clk="my_lnb.paydet">결제내역</a>
+				<a href="${pageContext.request.contextPath}/my/coupons" class="my_user_link is_coupon is_active" data-clk="my_lnb.coupon">쿠폰</a>
+				<a href="${pageContext.request.contextPath}/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
 			</div>
 		</div>
 		<div class="my_tab_wrap">
 			<ul class="my_tab">
 				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
+					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
 				</li>
 				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
+					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
 				</li>
 			</ul>
 		</div>
@@ -138,131 +122,120 @@
 		</a>
 	</div>
 </div>
-<div class="my_detail_head">
-	<a href="/bangkuseok/bangkuseok1" class="my_detail_head_thumb" data-clk="my_order.chlgo">
-		<img src="https://scs-phinf.pstatic.net/MjAyMjExMDNfMTcx/MDAxNjY3NDM3NTA3NzQw.6FO2E_Tk_6YwHAYi-50a26pOdDQWQebvFOM_6KR9xokg.724u8stegrnbL_DLl_Z5U8HfYQuesuVLGJIyeONubIUg.PNG/image%7Cpremium%7Cchannel%7Cbangkuseok%7C2022%7C11%7C03%7C1667437507721.png?type&#x3D;nfs200_200" width="46" height="46" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
-		<i class="icon_premium"><span class="blind">프리미엄 채널</span></i>
-	</a>
-	<a href="/bangkuseok/bangkuseok1" class="my_detail_head_name" data-clk="my_order.chlgo">방구석 어학연수</a>
-</div>
-<div class="my_detail_card">
-	<div class="membership_card">
-		<div class="mc_content">
-			<div class="mc_text">
-				<span class="mct_sub">
-					<span class="mct_sub_text">개인</span>
-					<span class="mct_sub_text">월간이용권</span>
-				</span>
-				<strong class="mct_name">방구석 어학연수</strong>
-			</div>
-			<div class="mc_price_info">
-				<span class="mcp_price"><em class="mcp_number">4,900</em><span class="mcp_text">원/월</span></span>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="my_detail_talk">
-	<a href="#" class="my_detail_talk_link _TALKTALK_INQUIRY" data-clk="my_order.talk" data-talktalk-url="talk.naver.com/w45kvq" data-purchase-no="2960786403">톡톡 문의하기</a>
-</div>
-<div class="my_detail_content">
-	<div class="my_detail_titlewrap">
-		<h2 class="my_detail_title">구매 상품 정보</h2>
-	</div>
-	<dl class="my_detail_info">
-		<div class="my_detail_info_item">
-			<dt>상품명</dt>
-			<dd><div class="my_detail_info_name">방구석 어학연수</div></dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>채널명</dt>
-			<dd>방구석 어학연수</dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>이용회차</dt>
-			<dd><span class="num">1</span>회차</dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>이용기간</dt>
-			<dd><span class="num">2023.09.08. ~ 2023.10.08.</span></dd>
-		</div>
-	</dl>
-</div>
-<div class="my_detail_content">
-	<div class="my_detail_titlewrap">
-		<h2 class="my_detail_title">판매자 정보</h2>
-	</div>
-	<dl class="my_detail_info">
-		<div class="my_detail_info_item">
-			<dt>대표자</dt>
-			<dd>유혁주</dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>주소</dt>
-			<dd>(우:<span class="num">02755</span>)<br>
-				서울특별시 성북구 장위로15길 94-21 </dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>이메일</dt>
-			<dd><span class="num">gurwn1725@naver.com</span></dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>전화번호</dt>
-			<dd><span class="num">01041151725</span></dd>
-		</div>
-	</dl>
-</div>
-<div class="my_detail_content">
-	<div class="my_detail_titlewrap">
-		<h2 class="my_detail_title">구매 정보</h2>
-	</div>
-	<dl class="my_detail_info">
-		<div class="my_detail_info_item">
-			<dt>구매상태</dt>
-			<dd><em>결제 완료</em></dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>구매번호</dt>
-			<dd><span class="num">2960786403</span></dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>결제일</dt>
-			<dd><span class="num">2023.09.08. 14:57</span></dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>결제수단</dt>
-			<dd>쿠폰</dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>상품금액</dt>
-			<dd>
-				<span class="num">4,900</span>원
-			</dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>할인금액</dt>
-			<dd>
-				<span class="num">-4,900</span>원
-				<span class="my_detail_info_item_sub">(쿠폰: 무료 쿠폰)</span>
-			</dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>결제금액</dt>
-			<dd><em><span class="num">0</span>원</em></dd>
-		</div>
-	</dl>
-</div>
-<div class="my_detail_button_wrap">
-	<a href="#" class="my_detail_button _BACK" data-clk="my_order.back">이전</a>
-</div>
-<div class="my_detail_guide">
-	<strong class="my_detail_guide_title">구매 취소 안내</strong>
-	<ul class="my_detail_guide_list">
-		<li class="my_detail_guide_item">결제일 기준 7일 이내 콘텐츠 이용 이력이 없는 경우 청약철회등이 가능하며 전액 환불됩니다.</li>
-		<li class="my_detail_guide_item"><strong>구독 상품은 구독 해지 후 환불 신청이 가능합니다.</strong><br>구독 해지는 'MY > 구독 채널  탭 > 해당 구독 채널 상세페이지'에서 확인 가능합니다. <a href="/my/subscriptions" class="my_detail_guide_item_link" data-clk="my_order.">[구독채널 보기]</a></li>
-		<li class="my_detail_guide_item">상품의 콘텐츠 이용이 개시된 경우 또는 구매 후 이용가능한 날로부터 7일이 경과된 경우 청약철회가 제한될 수 있습니다.</li>
-		<li class="my_detail_guide_item">단건 상품 중 라이브 유형의 상품은 상품 특성상 라이브 제공 개시 전까지만 청약철회등 가능하며, 일단 라이브가 시작되면 이용하지 않았더라도 청약철회등이 불가능할 수 있습니다.</li>
-		<li class="my_detail_guide_item">청약철회등 및 결제 취소/환불 관련 자세한 사항은 이용 중이신 프리미엄콘텐츠 채널 하단 푸터에 노출된 판매자의 연락처로 문의해 주시기 바랍니다.</li>
+<h2 class="my_title">쿠폰</h2>
+<div class="my_tab_wrap">
+	<ul class="my_tab">
+		<li class="my_tab_item is_active">
+			<a href="#" data-url="${pageContext.request.contextPath}/my/coupons" class="my_tab_link _LOCATION_REPLACE" data-clk="my_coupon.valid"><span class="my_tab_text">보유한 쿠폰<em>1</em></span></a>
+		</li>
+		<li class="my_tab_item">
+			<a href="#" data-url="${pageContext.request.contextPath}/my/coupons?stype&#x3D;expired" class="my_tab_link _LOCATION_REPLACE" data-clk="my_coupon.expire"><span class="my_tab_text">종료된 쿠폰</span></a>
+		</li>
 	</ul>
+</div>
+<div class="my_coupon">
+	<a href="#" class="my_coupon_register _TOGGLE" data-target="_CONTENT_LAYER_COUPON_REDEEM" data-prevent-scroll="true" data-clk="my_coupon.redeem">쿠폰 등록</a>
+	<h3 class="my_coupon_title">
+		보유한 쿠폰
+		<em>1</em>
+	</h3>
+		<ul class="my_coupon_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_COUPON_LIST" data-stype="" data-cursor-name="page" data-cursor="1" data-has-next="">
+		<li class="my_coupon_item">
+			<div class="my_coupon_card">
+				<div class="myc_content">
+					<div class="myc_top">
+						<div class="myc_name">
+							<em class="myc_name_text">Welcome 20 (최대 2만원 할인)</em>
+						</div>
+						<em class="myc_badge">D-23</em>
+					</div>
+					<strong class="myc_title">
+						<span class="myc_title_discount">
+							<span class="myc_title_num">100</span>
+							<span class="myc_title_unit as_percent">%</span>
+						</span>
+						<span class="myc_title_text">할인</span>
+					</strong>
+					<div class="myc_sub">
+						<div class="myc_type">
+								구독 유지 시 다음 정기 결제일에 자동 사용
+														</div>
+						<div class="myc_info">
+							<span class="myc_info_title">채널 :</span>
+							<div class="myc_info_content">
+								<span class="myc_info_text">방구석 어학연수</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="myc_caution">
+					<button id="_COUPON_DESCRIPTION_171811956" class="myc_caution_button _TOGGLE" type="button" data-target="_COUPON_DESCRIPTION_171811956" data-classValue="is_open" data-show-clk="my_coupon.expopen" data-hide-clk="my_coupon.expclose">쿠폰설명 (유의사항)</button>
+					<ul class="myc_caution_list">
+						<li class="myc_caution_item">기간 : 2023.09.08. 14:57 ~ 2023.10.10. 14:57</li>
+						<li class="myc_caution_item">상품 :
+							<a href="${pageContext.request.contextPath}/bangkuseok/bangkuseok1/subscriptions" class="myc_caution_link" data-clk="my_coupon.subgo">구독권(전체)</a>
+						</li>
+						<li class="myc_caution_item">구독 상품 100% 할인 (최대 할인 금액 2만원, 차액 결제 필요)</li>
+					</ul>
+			</div>
+		</li>
+	</ul>
+	<div class="loading _CONTENT_LIST_LOADING" style="display:none;">
+		<div class="loader">
+			<div class="dot dot1"></div>
+			<div class="dot dot2"></div>
+			<div class="dot dot3"></div>
+			<div class="dot dot4"></div>
+			<div class="dot dot5"></div>
+			<div class="dot dot6"></div>
+		</div>
+	</div>
+	<dl class="my_setting_none">
+		<dt>이용 안내</dt>
+		<dd>발급된 쿠폰은 유효기간 내에서만 사용하실 수 있습니다.</dd>
+		<dd>유효기간이 경과한 미사용 쿠폰은 재발급이 불가합니다.</dd>
+		<dd>최근 1년 이내 사용완료된 쿠폰, 유효기간이 경과된 쿠폰, 사용 불가 조건의 쿠폰은 [종료된 쿠폰]에서 확인하실 수 있습니다.</dd>
+		<dd>쿠폰 적용 시 실결제금액이 100원 이상인 상품에만 쿠폰 적용이 가능합니다.</dd>
+		<dd>쿠폰은 중복 사용이 불가하며 한 건의 거래에 한 개의 쿠폰만 사용하실 수 있습니다.</dd>
+		<dd>쿠폰에 표기된 금액보다 적은 금액을 결제하시더라도 차액은 반환되지 않습니다. (ex. 1만원 쿠폰 할인을 적용하여 5천원 상품을 구매하더라도 차액은 모두 소진됨)</dd>
+		<dd>구독 상품을 구독중이고 해당 구독 상품에 사용 가능한 쿠폰이 있을 경우, 쿠폰은 다음 정기 결제에 자동 사용됩니다. 사용 가능한 쿠폰이 여러 개인 경우, 할인 금액이 높은 순 &gt; 유효기간 종료일이 빠른순으로 우선 사용됩니다.</dd>
+		<dd>2개 이상의 구독 상품을 구독중이고, 구독중인 상품들에 모두 사용 가능한 쿠폰이 있을 경우, 쿠폰은 구독중인 상품 중 다음 정기 결제일이 빠른 상품에 우선 사용됩니다.</dd>
+		<dd>다음 정기 결제에 사용할 쿠폰을 직접 선택하고 싶은 경우,<br>‘MY &gt; 구독채널 &gt; 채널관리‘에서 선택할 수 있으며, 별도로 설정하지 않은 경우는 위에 명시된 정기 결제 쿠폰 사용 우선순위에 따라 자동 사용됩니다.</dd>
+		<dd>네이버가 발행한 쿠폰을 사용하여 구매한 뒤 청약철회등 된 경우, 해당 쿠폰은 재발급되어 다시 사용이 가능합니다. 단, 부분 환불된 경우 또는 유효기간이 지난 쿠폰의 경우는 재발급 불가합니다.</dd>
+		<dd>그 외에 판매자가 발행한 포인트/쿠폰의 경우 판매자가 정한 바에 따라 취급됩니다.</dd>
+	</dl>
+</div>
+<div id="_CONTENT_LAYER_COUPON_REDEEM" class="content_layer_wrap as_coupon" style="display: none;">
+	<div class="content_layer">
+		<div class="content_layer_inside">
+			<div class="content_layer_header">
+				<h2 class="content_layer_title">
+					쿠폰 번호를 입력해주세요
+				</h2>
+				<button type="button" class="content_layer_close _TOGGLE _COUPON_REDEEM_RESET_BTN" data-target="_CONTENT_LAYER_COUPON_REDEEM" data-prevent-scroll="true" data-clk="my_coupon.layerclose">
+					<span class="blind">닫기</span>
+				</button>
+			</div>
+			<div class="content_layer_container">
+				<div class="content_layer_inner">
+					<div class="my_coupon">
+						<div class="coupon_enroll_wrap">
+							<input type="text" class="coupon_enroll_input _COUPON_REDEEM_CODE_INPUT" placeholder="쿠폰 번호를 입력해주세요" maxlength="8" autocomplete="off">
+						</div>
+						<dl class="my_setting_none">
+							<dt class="blind">제한 사항</dt>
+							<dd>유효 기간이 지난 쿠폰은 등록이 불가합니다.</dd>
+							<dd>쿠폰 등록이 5회 초과 실패한 경우, 고객센터로 문의해주세요.</dd>
+						</dl>
+					</div>
+					<div class="floating_button_wrap">
+						<button class="floating_button _COUPON_REDEEM_DOWNLOAD_BUTTON" disabled>확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 			</div>

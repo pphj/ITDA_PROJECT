@@ -142,7 +142,7 @@ p{
     border: 1px solid lightgray;
     width: 36px;
     height: 36px;
-    background-image: url(../image/common/left-arrow.png);
+    background-image: url(../../image/common/left-arrow.png);
     background-repeat: no-repeat;
     background-position: 42% 50%;
     background-size: 30%;
@@ -154,7 +154,7 @@ p{
     border: 1px solid lightgray;
     width: 36px;
     height: 36px;
-    background-image: url(../image/common/right-arrow.png);
+    background-image: url(../../image/common/right-arrow.png);
     background-repeat: no-repeat;
     background-position: 60% 50%;
     background-size: 30%;
