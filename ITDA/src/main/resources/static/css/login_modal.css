@@ -1,6 +1,291 @@
 @charset "EUC-KR";
 
-/* 로그인 모달 */
+/* 로그인 모달  */
+
+.modal-header2 h2 {
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	margin: 20px;
+}
+
+input,
+optgroup,
+select,
+textarea {
+	font-family: inherit;
+	font-size: inherit;
+	box-shadow: none;
+	padding: 12px 16px;
+	width: 100%;
+}
+
+.logincheckbox,
+.loginkeep {
+	display: inline-block
+}
+
+.btn.btn-naver {
+	background-color: #27d34a !important;
+	border-color: #27d34a !important;
+	background-image: url(https://vendor-cdn.imweb.me/images/naver_login2x.png);
+	background-size: 16px;
+	background-position: 13px 50%;
+	background-repeat: no-repeat;
+	color: #fff !important;
+	font-size: 14px;
+
+}
+
+.btn.btn-kakao {
+	background-color: #FFEB00 !important;
+	background-image: url(https://vendor-cdn.imweb.me/images/kakao_icon.png);
+	background-size: 20px;
+	background-position: 12px 49%;
+	background-repeat: no-repeat;
+	color: #3c1e1e !important;
+	border-color: #FFEB00 !important;
+	font-size: 14px;
+}
+
+.btn.btn-google {
+	background-color: #ffffff !important;
+	background-image: url(https://vendor-cdn.imweb.me/images/google_icon.png);
+	background-size: 19px;
+	background-position: 13px 50%;
+	background-repeat: no-repeat;
+	color: #000 !important;
+	border-color: #ccc !important;
+	font-size: 14px;
+	font-family: Sans-Serif;
+}
+
+.\!tw-block {
+	display: block !important;
+}
+
+/* 로그인 모달 end */
+
+
+/* 
+	세로형 로그인 모달 
+	
+	.modal-content {
+	position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+    align-content: center;
+    justify-content: space-around;
+    align-items: center;
+
+}
+ */
+
+
+
+/* 아이디 찾기 */
+
+article.modal_article {
+	color: #212121;
+	height: 100%;
+	padding: 10px 24px 24px;
+	border-radius: 4px;
+	z-index: 2500;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+article.modal_article h2 {
+	text-align: center;
+	font-size: 24px;
+	margin-bottom: 24px;
+	margin-top: 0;
+	height: 30px;
+	line-height: 30px;
+}
+
+.bts,
+.btb,
+.btm,
+.btl,
+.fab {
+	display: inline-block;
+	font: normal normal normal 14px/1 "Black Tie";
+	font-family: 'Black Tie' !important;
+	font-size: inherit;
+	vertical-align: -14.28571429%;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	transform: translate(0, 0)
+}
+
+article.modal_article h2.find_tit {
+	font-size: 15px;
+	line-height: 50px;
+	margin-bottom: 0 !important;
+	height: 50px;
+	line-height: 50px;
+}
+
+.force-padding {
+	padding: 24px;
+}
+
+article.modal_article .tab_wrap .btn_find {
+	outline: 0;
+	letter-spacing: 0;
+}
+
+.doz_sys .btn_find {
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+	color: #757575;
+	font-size: 14px;
+	line-height: 39px;
+	text-align: center;
+	background-color: #F3F3F3;
+	border-right: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #4f4f4f;
+}
+
+element.style {
+	padding-bottom: 0px;
+	border-bottom: none;
+}
+
+article.modal_article .select_wrap_id,
+article.modal_article .select_wrap_pw,
+article.modal_article .step04_select_wrap_id {
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+
+.input-group {
+	position: relative;
+	display: table;
+	border-collapse: separate
+}
+
+.select_wrap_id .input-group .form-control,
+.select_wrap_pw .input-group .form-control,
+.step04_select_wrap_id .input-group .form-control {
+	padding: 0 12px;
+	line-height: 40px;
+	width: 100%;
+	height: 40px;
+	border: 1px solid #E0E0E0;
+	border-radius: 2px;
+	box-shadow: none;
+}
+
+.select_wrap_id .input-group,
+.select_wrap_pw .input-group,
+.step04_select_wrap_id .input-group {
+	width: 100%;
+}
+
+.input-group {
+	position: relative;
+	display: table;
+	border-collapse: separate;
+}
+
+article.modal_article .btn-primary {
+	width: 100%;
+	height: 40px;
+	font-size: 14px;
+	border-radius: 2px;
+}
+
+
+.no-padding button {
+	padding: 0 8px;
+}
+
+.hidden {
+	display: none !important;
+}
+
+article.modal_article .tab_wrap .btn_find {
+	outline: 0;
+	letter-spacing: 0;
+}
+
+.doz_sys .btn_find.active {
+	color: #4f4f4f;
+	background-color: #FFFFFF;
+	border-right: 1px solid #4f4f4f;
+	border-left: 1px solid #4f4f4f;
+	border-top: 1px solid #4f4f4f;
+	line-height: 40px;
+	border-bottom: 0;
+}
+
+.doz_sys .btn_find {
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+	color: #757575;
+	font-size: 14px;
+	line-height: 39px;
+	text-align: center;
+	background-color: #F3F3F3;
+	border-right: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #4f4f4f;
+}
+
+
+/* 아이디 찾기 end */
+
+
+
+/* 비밀번호  찾기 */
+
+*:not(input):not(hr),
+::before,
+::after {
+	border-width: 0;
+	border-style: solid;
+	/* border-color: #e5e7eb; */
+}
+
+.mt8 {
+	margin-top : 8px !important;
+}
+
+.mb8 {
+	margin-bottom : 8px !important;
+}
+
+
+
+
+
+
+
+
+/* 비밀번호  찾기 end */
+=======
+a{
+	color : black;
+}
+
+/* 濡�洹몄�� 紐⑤�� */
 .modal-header2 h2 {
 	font-size: 24px;
 	font-weight: bold;
@@ -86,7 +371,7 @@ checkbox checkbox-styled {
 	display: block !important;
 }
 
-	/* 로그인 모달 텍스트 안보인 문제 */
+	/* 濡�洹몄�� 紐⑤�� ���ㅽ�� ��蹂댁�� 臾몄�� */
 .header_menu2 {
     position: absolute;
     top: 0;
@@ -99,10 +384,10 @@ p {
 	padding: 0;
 }
 
-/* 로그인 모달 end */
+/* 濡�洹몄�� 紐⑤�� end */
 
 /* 
-	占쎈�占쏙옙占� 嚥∽옙域밸�占쏙옙 筌��ㅿ옙占� 
+	����占썲��������占� �β�쎌����諛몌옙������ 嶺�占쏙옙�우����占� 
 	
 	.modal-content {
 	position: relative;
@@ -124,7 +409,7 @@ p {
 }
  */
 
-/* 아이디 찾기 */
+/* ���대�� 李얘린 */
 article.modal_article {
 	color: #212121;
 	height: 100%;
@@ -227,13 +512,6 @@ article.modal_article .select_wrap_id, article.modal_article .select_wrap_pw,
 	border-collapse: separate;
 }
 
-article.modal_article .btn-primary {
-	width: 100%;
-	height: 40px;
-	font-size: 14px;
-	border-radius: 2px;
-}
-
 .btn-primary, .btn.btn-primary, .design_setting_view .btn-primary:hover
 	{
 	background-color: ##007bff;
@@ -282,16 +560,16 @@ article.modal_article .tab_wrap .btn_find {
 	border-bottom: 1px solid #4f4f4f;
 }
 
-article.modal_article .btn-primary {
-	width: 100%;
-	height: 40px;
-	font-size: 14px;
-	border-radius: 2px;
+	/* 아이디 비밀번호 입력창 위치 */
+.modal-dialog {
+/*	max-width: 500px; */
+    margin: 5rem auto;
 }
 
-/* ���대�� 李얘린 end */
 
-/* 鍮�諛�踰��� 李얘린 */
+/* 占쏙옙占쎈��占쏙옙 筌≪��由� end */
+
+/* ��占썼�占썼린占쏙옙占� 筌≪��由� */
 *:not(input):not(hr), ::before, ::after {
 	border-width: 0;
 	border-style: solid;
@@ -313,4 +591,6 @@ article.modal_article .btn-primary {
 	margin: 80px auto;
 } */
 
-/* 鍮�諛�踰��� 李얘린 end */
+/* ��占썼�占썼린占쏙옙占� 筌≪��由� end */
+
+

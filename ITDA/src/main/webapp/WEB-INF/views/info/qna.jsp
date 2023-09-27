@@ -38,6 +38,8 @@
         <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-6V2CLLNXEB&amp;cx=c&amp;_slc=1"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-YR1S7BMWY7&amp;l=dataLayer&amp;cx=c"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y2XH7W3BRT&amp;l=dataLayer&amp;cx=c"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-T9TD5G7"></script><script src="https://static.hankyung.com/plugin/jquery-1.12.4.min.js"></script>
 		<script src="https://static.hankyung.com/plugin/jquery.cookie.js"></script>
 		<script type="text/javascript" src="https://static.hankyung.com/js/ga/googleTagManager.js?v=202309221514" async="true"></script>
+		<jsp:include page="../include/header.jsp"/>
+		
     </head>
     <body>
         <div id="wrap" class="wrap sub">
