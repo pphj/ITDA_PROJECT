@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.itda.ITDA.mybatis.mapper.ChannelMapper">
+<mapper namespace="com.itda.ITDA.mybatis.mapper.ChannelListMapper">
     
     <select id="getChannelDetail" resultType="ChannelList">
         SELECT *
@@ -10,5 +10,15 @@
         WHERE CHNUM = #{chnum}
     </select>
     
+    <select id="getBoardListByBoardNum" resultType="ChBoard">
+        SELECT *
+        FROM (
+            SELECT *
+            FROM chboard
+            WHERE chnum = #{chnum}
+            ORDER BY boardnum DESC
+        )
+        WHERE rownum &lt;= 10
+    </select>
  
 </mapper> 

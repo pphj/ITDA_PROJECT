@@ -10,12 +10,6 @@
 <link href="${pageContext.request.contextPath}/resources/css/channel/ChanelMain.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="../js/channel/channelMain.js">
 <jsp:include page="../include/header.jsp"/>
-<script>
-
-</script>
-<style>
-
-</style>
 </head>
 <body>
 
@@ -98,50 +92,52 @@
 		</div>
 		
 		<div id="wrapArticle" class="wrap_article #my_post">
-			
 			<div class="wrap_article_list">
-				<c:forEach var="c" items="${channeldetail}">
 				<ul class="list_article list_post1 #post_list">
-					<li data-articleuid="xTI_303" class="animation_up"
-						data-tiara-action-name="작가 프로필 > 글탭 > 리스트 클릭"
-						data-tiara-action-kind="ClickContent" data-tiara-layer="articles"
-						data-tiara-id="@@xTI">
-						<a href="/magazine/whatwetalkabout" class="link_category">
-							<em class="tit_category"> A에서 Z 사이에서 나눈 말 </em>
-						</a> 
-						<a href="${pageContext.request.contextPath}/contents/${channel.chNum}/${c.boardNum}" class="link_post has_image #post_listview"> 
-							<%-- <strong class="tit_subject">
-								<a href="${pageContext.request.contextPath}/contents/${channel.chNum}/${c.boardNum}">${c.boardTitle}</a>
-							</strong> --%>
-							
-						<strong class="tit_subject"> ${c.boardTitle}</strong>
-							<div class="post_thumb">
-								<img class="img_thumb" 
-								src="../image/channel/channel1.jpeg"
-								style="width: 120px; height: 120px;"
-								 alt="이미지정보">
-							</div>
-							
-							<div class="post_desc">
-								<div class="wrap_sub_content">
-									<span class="ico_bar"></span>
-									<span class="article_content"> 신간 3종의 데이터를 검수하고 강의 자료를
-										준비하며 19일간 자정께 집에 집에 닿았다. 회계 정리와 업무 메일 발송, 번거로운 잡무를 정리하며 허둥대다
-										보면 반나절이 허무하게 끝나버리는 하루하루를 보냈다. 구멍가게도 나름의 원리와 나름의 고충이 있다는 것은
-										출판사를 시작하며 알게 됐다. 새벽 일찍 밖을 나서서 늦은 저녁까지 깨어 있다고 해서 당장에 읽어주는 
-									</span>
+					<c:forEach var="c" items="${channeldetail}">
+						<li data-articleuid="xTI_303" class="animation_up"
+							data-tiara-action-name="작가 프로필 > 글탭 > 리스트 클릭"
+							data-tiara-action-kind="ClickContent" data-tiara-layer="articles"
+							data-tiara-id="@@xTI">
+							<a href="/magazine/whatwetalkabout" class="link_category">
+								<em class="tit_category"> A에서 Z 사이에서 나눈 말 </em>
+							</a> 
+							<a href="/@garangbimaker/303" class="link_post has_image #post_listview"> 
+								
+									<strong class="tit_subject">
+										<a href="${pageContext.request.contextPath}/contents/${channel.chNum}/${c.boardNum}">${c.boardTitle}</a>
+									</strong>
+								
+								<!-- <strong class="tit_subject"> E의 말 “아무것도 할 수 없어서 읽고 또 읽었어요.” </strong> -->
+								
+								<div class="post_thumb">
+									<img class="img_thumb" 
+									src="../image/channel/channel1.jpeg"
+									style="width: 120px; height: 120px;"
+									 alt="이미지정보">
 								</div>
-							</div> 
-							
-								<span class="post_append" style="white-space: nowrap"> 
-									<span class="ico_dot"></span> 
-									<span class="publish_time">8시간전</span>
-								</span>
-						</a>
-					</li>
+								
+								<div class="post_desc">
+									<div class="wrap_sub_content">
+										<span class="ico_bar"></span>
+										<span class="article_content"> 신간 3종의 데이터를 검수하고 강의 자료를
+											준비하며 19일간 자정께 집에 집에 닿았다. 회계 정리와 업무 메일 발송, 번거로운 잡무를 정리하며 허둥대다
+											보면 반나절이 허무하게 끝나버리는 하루하루를 보냈다. 구멍가게도 나름의 원리와 나름의 고충이 있다는 것은
+											출판사를 시작하며 알게 됐다. 새벽 일찍 밖을 나서서 늦은 저녁까지 깨어 있다고 해서 당장에 읽어주는 
+										</span>
+									</div>
+								</div> 
+								
+									<span class="post_append" style="white-space: nowrap"> 
+										<span class="ico_dot"></span> 
+										<span class="publish_time">8시간전</span>
+									</span>
+							</a>
+						</li>
+					</c:forEach>
 					
-					
-<!--				<li data-articleuid="xTI_303" class="animation_up"
+					<!--
+					<li data-articleuid="xTI_303" class="animation_up"
 						data-tiara-action-name="작가 프로필 > 글탭 > 리스트 클릭"
 						data-tiara-action-kind="ClickContent" data-tiara-layer="articles"
 						data-tiara-id="@@xTI">
@@ -175,12 +171,11 @@
 								</span>
 						</a>
 					</li>
--->
+					-->
 				</ul>
-				</c:forEach>
 			</div>
 		</div>
 	</div>
-	<jsp:include page="../include/footer.jsp"/>
+<!--<jsp:include page="../include/footer.jsp"/>-->
 </body>
 </html>
