@@ -112,6 +112,14 @@ public class Itda_User {
 	public void setUserJoindate(Timestamp userJoindate) {
 		this.userJoindate = userJoindate;
 	}
+	public String getAuth() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     
 }

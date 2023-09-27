@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"><head>
-	<meta charset="utf-8">
+	<!-- <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 	<meta name="format-detection" content="telephone=no">
 	<meta name="description" content="네이버 프리미엄 콘텐츠의 채널 및 콘텐츠 검색 결과를 확인할 수 있습니다.">
@@ -12,16 +12,19 @@
 	<meta name="twitter:title" content="채널 및 콘텐츠 검색 : 네이버 프리미엄 콘텐츠">
 	<meta name="twitter:site" content="프리미엄콘텐츠">
 	<meta name="twitter:image" content="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2022/12/08/og.jpg">
-	<meta name="twitter:description" content="네이버 프리미엄 콘텐츠의 채널 및 콘텐츠 검색 결과를 확인할 수 있습니다.">
-	<title>채널 및 콘텐츠 검색 : 네이버 프리미엄 콘텐츠</title>
-		<link rel="stylesheet" href="https://static-nnews.pstatic.net/css/min/20230914a/premium_service.css">
-	<link rel="shortcut icon" type="image/x-icon" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/favicon_M.ico">
-	<link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png">
-	<link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png">
-	<link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png">
-	<link rel="apple-touch-icon-precomposed" size="192x192" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png">
-	<base target="_parent">
-	<script async="" src="https://ntm.pstatic.net/ex/nlog.js"></script><script async="" src="https://ntm.pstatic.net/scripts/ntm_774a0c8e7c40.js"></script>
+	<meta name="twitter:description" content="네이버 프리미엄 콘텐츠의 채널 및 콘텐츠 검색 결과를 확인할 수 있습니다."> -->
+	<title>채널 및 콘텐츠 검색</title>
+	<link rel="stylesheet" href="https://static-nnews.pstatic.net/css/min/20230914a/premium_service.css">
+	<link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
+	<!-- 상단 타이틀 옆 이미지 -->	
+	<!-- <link rel="shortcut icon" type="image/x-icon" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/favicon_M.ico"> -->
+	<!-- <link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png"> -->
+	<!-- <link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png"> -->
+	<!-- <link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png"> -->
+	<!-- <link rel="apple-touch-icon-precomposed" size="192x192" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png"> -->
+	<!-- <base target="_parent"> -->
+	<script src="../resources/js/search/nlog.js"></script>
+	<script src="../resources/js/search/ntm_774a0c8e7c40.js"></script> 
 	<script>
 		var g_ssc = nsc = "Mpremiumcontents.all";
 		var g_default_area = "art";
@@ -58,7 +61,8 @@
 		var isPremiumReferer = false;
 		isPremiumReferer = true;
 	</script>
-	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
+	<!-- <script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script> -->
+	<script src="${pageContext.request.contextPath}/resources/js/search/itda_common.js"></script>
 <style>.osSwitch{position:relative;display:inline-block;width:34px;height:15.3px}.osSwitch input{opacity:0;width:0;height:0}.osSlider{position:absolute;top:0;left:0;right:0;bottom:0;border-radius:34px;background-color:#93a0b5;transition:0.4s}.osSlider:before{position:absolute;content:'';height:13px;width:13px;left:2px;bottom:1px;border-radius:50%;background-color:white;transition:0.4s}input:checked+.sliderGreen{background-color:#04d289}input:checked+.sliderRed{background-color:#ff3b30}input:not(:checked)+.defaultGreen{background-color:#04d289}input:checked+.osSlider:before{transform:translateX(17px)}
 </style><style>
     @font-face {
@@ -106,10 +110,10 @@
 				<div class="psp_head_content">
 			<a href="#" class="psp_back_button _BACK" data-clk="pch_search.back"><span class="blind">뒤로가기</span></a>
 			<div class="psp_input_wrap _SEARCH_INPUT_WRAP non_searching">
-				<input id="_SEARCH_INPUT" type="text" placeholder="프리미엄 채널, 콘텐츠를 검색해 보세요" class="psp_search_input" value="" data-url="/ch/search" data-search-query="" autocomplete="off">
+				<input id="_SEARCH_INPUT" type="text" placeholder="프리미엄 채널, 콘텐츠를 검색해 보세요" class="psp_search_input" value="" data-url="/main/search" data-search-query="" autocomplete="off">
 				<button id="_SEARCH_RESET_BTN" type="button" class="psp_input_cancel_button" data-clk="pch_search.close">삭제</button>
 			</div>
-			<button type="button" class="psp_search_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.search" data-url="/ch/search" data-search-value="true"><span class="blind">검색</span></button>
+			<button type="button" class="psp_search_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.search" data-url="${pageContext.request.contextPath}/main/search" data-search-value="true"><span class="blind">검색</span></button>
 				</div>
 			</div>
 		</div>
@@ -151,6 +155,8 @@
 				</div>
 			</div>
 		</div>
+		
+	<!--	인기 검색어 	
 		<div class="_TOP_SEARCH_KEYWORD">
 			<div class="premiumhome_keyword _TEMPLATE" data-template-id="SCS_PREMIUM_HOME_TOP_SEARCH_KEYWORD">
 				<h2 class="pk_h">인기검색어</h2>
@@ -172,9 +178,12 @@
 					</li>
 				</ul>
 			</div>
-		</div>
+		</div> -->
+		
 	</div>
 </div>
+
+
 
 			</div>
 			<div class="container_aside _CONTAINER_ASIDE">
@@ -245,7 +254,8 @@
 </div>
 </script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
-	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
+	<!-- <script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script> -->
+	    <script src="${pageContext.request.contextPath}/resources/js/search/itda_read.js"></script>
 <script>
 $(window).on("load", function() {
 	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");

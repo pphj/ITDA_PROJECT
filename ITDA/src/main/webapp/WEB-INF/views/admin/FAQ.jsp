@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid py-4">
+    <div class="container-fluid py-4" style="background: white;">
     <ul style="list-style: none; padding: 0; text-align: center; display: flex; justify-content: center;">
      <li>
       <button id="Q&A" style="border: none; border-bottom: 1px solid black;
@@ -70,7 +71,7 @@
 		 			<option value="10" selected>10</option>
 		 		</select>
 	 		</div>
-		 	<table class="table table-striped">
+		 	<table class="table">
 	 		<thead>
 	 		<tr>
 	 			<th colspan="3">Q&A</th>
@@ -89,12 +90,12 @@
 	 			<c:forEach var="F" items="${FAQList}">
 	 				<tr>
 	 					<td>		<%-- 번호 부분 --%>
+	 						&nbsp;&nbsp;&nbsp;&nbsp;
 	 						<c:out value="${num}" />					<%-- num 출력 --%>
 	 						<c:set var="num" value="${num-1}" />		<%-- num = num - 1 의미 --%>
 	 					</td>
 	 					<td>		<%-- 제목 부분 --%>
 	 						<div>
-	 							&nbsp;
 	 							<a href="FAQdetail?num=${F.faqNum}">
 	 								<c:if test="${F.faqTitle.length() >= 20}">
 	 									<c:out value="${F.faqTitle.substring(0,20)}..." escapeXml="true" />
@@ -105,9 +106,9 @@
 	 							</a>
 	 						</div>
 	 					</td>
-	 					<td><div>${F.QcateId}</div></td>
-	 					<td><div>${F.faqWriter}</div></td>
-	 					<td><div>${F.faqDate}</div></td>
+	 					<td><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${F.qcateId}</div></td>
+	 					<td><div>&nbsp;&nbsp;&nbsp;${F.faqWriter}</div></td>
+	 					<td><div><c:out value="${F.faqDate}" /></div></td>
 	 				</tr>
 	 			</c:forEach>
 	 		</tbody>
@@ -149,7 +150,6 @@
 		 					<a class="page-link" href="list?page=${page+1}">&nbsp;다음</a>
 		 				</li>
 		 			</c:if>
-		 			
 		 		</ul>
 		 	</div>
 		 	</c:if>
@@ -158,7 +158,7 @@
 		 		<h3 style="text-align: center">등록된 글이 없습니다.</h3>
 		 	</c:if>
 		 	
-		 	<button type="button" class="btn btn-info float-right">글 쓰 기</button>
+		 	<button type="button" id="faqwbtn" class="btn btn-success float-right">FAQ 작성</button>
 	 	</div>
     </div>
   </main>

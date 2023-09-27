@@ -5,7 +5,7 @@
     <head>
 		<meta charset="UTF-8">
         <title>공지사항</title>
-        <link rel="canonical" href="https://www.hankyung.com/help">
+      <!--   <link rel="canonical" href="https://www.hankyung.com/help">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
         <meta name="robots" content="index,follow">
@@ -30,19 +30,20 @@
 
         <meta itemprop="name" content="고객센터 | 한국경제">
         <meta itemprop="description" content="한경 고객센터, 성공을 부르는 습관 한국경제신문 한경닷컴">
-        <meta itemprop="image" content="https://static.hankyung.com/img/logo/logo-news-sns.png">
+        <meta itemprop="image" content="https://static.hankyung.com/img/logo/logo-news-sns.png"> -->
 
         <link rel="shortcut icon" href="https://www.hankyung.com/favicon.ico">
-        <link rel="apple-touch-icon" sizes="192x192" href="https://static.hankyung.com/resource/common/img/favicon/apple-touch-icon.png">
+       <!--  <link rel="apple-touch-icon" sizes="192x192" href="https://static.hankyung.com/resource/common/img/favicon/apple-touch-icon.png"> -->
+        <!-- 페이지 네이션 -->
         <link rel="stylesheet" href="https://static.hankyung.com/css/www/w/common.ui.all.css?v=202309211654">
-        <link rel="stylesheet" href="https://static.hankyung.com/resource/www/help/css/help.css?v=202309211654">
+        <!-- 공지사항 페이지 전체 css -->
+        <link rel="stylesheet" href="https://static.hankyung.com/resource/www/help/css/help.css?v=202309211654"> 
 
         <script src="https://static.hankyung.com/plugin/jquery-1.12.4.min.js"></script>
 		<script src="https://static.hankyung.com/plugin/jquery.cookie.js"></script>
 		<script type="text/javascript" src="https://static.hankyung.com/js/ga/googleTagManager.js?v=202309211654" async="true"></script>
-		
-		
 		<jsp:include page="../include/header.jsp"/>
+		
     </head>
     
     <body>
@@ -393,9 +394,9 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 					
 					<ul class="faq-menu-list">
 
-					<li class="on"><a href="${pageContext.request.contextPath}/info/customerService" target="">공지사항</a></li>
+					<li class="on"><a href="${pageContext.request.contextPath}/info/notice" target="">공지사항</a></li>
 					<li ><a href="${pageContext.request.contextPath}/info/faq">FAQ</a></li>
-					<li ><a href="${pageContext.request.contextPath}/info/help">1:1문의<span class="icon-membersonly2">회원전용</span></a></li>
+					<li ><a href="${pageContext.request.contextPath}/info/qna">1:1문의<span class="icon-membersonly2">회원전용</span></a></li>
 				</ul>
 					
 					<div class="list-basic">
@@ -406,7 +407,7 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 						<div class="list-item ">
 							<div class="col tit">
 								<a href="https://www.hankyung.com/help/notice/view?no=54"
-									class="notice-tit">한경 회원전용 콘텐츠(기사) 설문조사에 참여해주세요.</a>
+									class="notice-tit">itda 회원전용 콘텐츠 설문조사에 참여해주세요.</a>
 							</div>
 							<div class="col">
 								<span class="txt-num">2023.09.13</span>
@@ -415,7 +416,7 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 						<div class="list-item ">
 							<div class="col tit">
 								<a href="https://www.hankyung.com/help/notice/view?no=53"
-									class="notice-tit">한경닷컴 휴면회원 정책이 폐지됩니다.</a>
+									class="notice-tit">itda 휴면회원 정책이 폐지됩니다.</a>
 							</div>
 							<div class="col">
 								<span class="txt-num">2023.08.14</span>
@@ -433,7 +434,7 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 						<div class="list-item ">
 							<div class="col tit">
 								<a href="https://www.hankyung.com/help/notice/view?no=48"
-									class="notice-tit">한경 고객센터 오픈안내</a>
+									class="notice-tit">itda 고객센터 오픈안내</a>
 							</div>
 							<div class="col">
 								<span class="txt-num">2023.06.30</span>
@@ -451,7 +452,7 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 						<div class="list-item ">
 							<div class="col tit">
 								<a href="https://www.hankyung.com/help/notice/view?no=46"
-									class="notice-tit">한국경제 소셜 로그인 오픈 안내</a>
+									class="notice-tit">itda 소셜 로그인 오픈 안내</a>
 							</div>
 							<div class="col">
 								<span class="txt-num">2023.04.10</span>
@@ -460,7 +461,7 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 						<div class="list-item ">
 							<div class="col tit">
 								<a href="https://www.hankyung.com/help/notice/view?no=42"
-									class="notice-tit">한경온리 회원 서비스 업데이트 안내</a>
+									class="notice-tit">itda 회원 서비스 업데이트 안내</a>
 							</div>
 							<div class="col">
 								<span class="txt-num">2022.08.22</span>

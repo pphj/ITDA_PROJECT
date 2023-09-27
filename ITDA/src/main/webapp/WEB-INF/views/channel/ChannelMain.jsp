@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,36 +7,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- header 연결 -->
-<link href="${pageContext.request.contextPath}/resources/css/channel/header.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/channel/ChanelMain.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="../js/channel/channelMain.js">
+<jsp:include page="../include/header.jsp"/>
+<script>
+
+</script>
 <style>
 
 </style>
 </head>
 <body>
-	<!--  header  -->
-	<div class="header">
-		<img class="logo" src="../image/common/logo.png">
-		<div class="icon">
-			<p class="login">로그인</p>
-			<img class="search" src="../image/common/search.png">
-		</div>
-	</div>
-	<hr class="hr">
 
 	<!--  채널바  -->
 	<div class="wrap_profile">
 		<div class="bloger_thumb">
 			<img class="profileUserImage img_thumb"
-				src="../image/channel/channel.jpeg"
-				width="100" height="100" alt="이미지정보"
-				data-image="//img1.daumcdn.net/thumb/C500x500.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/xTI/image/CGONwj7UEwl7YWVC2V6i2IeoLxY.JPG">
+				src="../image/channel/${channel.chNum}/${channel.chProfile}"
+				width="100" height="100" alt="이미지정보">
 			<input class="profileUserImageUrl" type="hidden"
 				value="http://t1.daumcdn.net/brunch/service/user/xTI/image/CGONwj7UEwl7YWVC2V6i2IeoLxY.JPG">
 		</div>
 		<div class="wrap_profile_desc">
-			<strong class="profileUserName tit_bloger">[${channel.chname}]</strong>
+			<strong class="profileUserName tit_bloger">${channel.chName}</strong>
 
 			<dl class="blog_count ">
 				<dd>
@@ -104,7 +98,9 @@
 		</div>
 		
 		<div id="wrapArticle" class="wrap_article #my_post">
+			
 			<div class="wrap_article_list">
+				<c:forEach var="c" items="${channeldetail}">
 				<ul class="list_article list_post1 #post_list">
 					<li data-articleuid="xTI_303" class="animation_up"
 						data-tiara-action-name="작가 프로필 > 글탭 > 리스트 클릭"
@@ -113,9 +109,12 @@
 						<a href="/magazine/whatwetalkabout" class="link_category">
 							<em class="tit_category"> A에서 Z 사이에서 나눈 말 </em>
 						</a> 
-						<a href="/@garangbimaker/303" class="link_post has_image #post_listview"> 
-							<strong class="tit_subject"> E의 말 “아무것도 할 수 없어서 읽고 또 읽었어요.” </strong>
+						<a href="${pageContext.request.contextPath}/contents/${channel.chNum}/${c.boardNum}" class="link_post has_image #post_listview"> 
+							<%-- <strong class="tit_subject">
+								<a href="${pageContext.request.contextPath}/contents/${channel.chNum}/${c.boardNum}">${c.boardTitle}</a>
+							</strong> --%>
 							
+						<strong class="tit_subject"> ${c.boardTitle}</strong>
 							<div class="post_thumb">
 								<img class="img_thumb" 
 								src="../image/channel/channel1.jpeg"
@@ -125,7 +124,7 @@
 							
 							<div class="post_desc">
 								<div class="wrap_sub_content">
-									<em class="tit_sub">부산에서 독자 E의 말</em><span class="ico_bar"></span>
+									<span class="ico_bar"></span>
 									<span class="article_content"> 신간 3종의 데이터를 검수하고 강의 자료를
 										준비하며 19일간 자정께 집에 집에 닿았다. 회계 정리와 업무 메일 발송, 번거로운 잡무를 정리하며 허둥대다
 										보면 반나절이 허무하게 끝나버리는 하루하루를 보냈다. 구멍가게도 나름의 원리와 나름의 고충이 있다는 것은
@@ -142,7 +141,7 @@
 					</li>
 					
 					
-					<li data-articleuid="xTI_303" class="animation_up"
+<!--				<li data-articleuid="xTI_303" class="animation_up"
 						data-tiara-action-name="작가 프로필 > 글탭 > 리스트 클릭"
 						data-tiara-action-kind="ClickContent" data-tiara-layer="articles"
 						data-tiara-id="@@xTI">
@@ -161,7 +160,7 @@
 							
 							<div class="post_desc">
 								<div class="wrap_sub_content">
-									<em class="tit_sub">부산에서 독자 E의 말</em><span class="ico_bar"></span>
+									<span class="ico_bar"></span>
 									<span class="article_content"> 
 									올해 봄 둘째 아이가 유치원에서 동물원으로 소풍을 갔다. 알림장에는 '가정에서 직접 만든' 점심을 보내달라는 문구가 적혀 있었다. 구운 고기, 
 									밀키트 그리고 외식으로 아이들의 끼니를 이어나가고 있던 나는 난감해졌다. '가정에서 직접 만든' 음식이면 무얼 만들어야 하지. 
@@ -176,9 +175,12 @@
 								</span>
 						</a>
 					</li>
+-->
 				</ul>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
+	<jsp:include page="../include/footer.jsp"/>
 </body>
 </html>

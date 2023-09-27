@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login_modal.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/login_modal.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/premium_service2.css">
 <link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/common.css">
+
 <script> var contextPath = "<%=request.getContextPath()%>";
 </script>
 <script>
@@ -67,10 +71,10 @@ var SITE_MEMBER = function(){
 				<div class="header_service">
 		<!-- 왼쪽 상단 로고 링크 -->
 					<h1 class="header_logo">
-						<a href="${pageContext.request.contextPath}/main" class="header_logo" ><img class="header_logo_img" alt="" src="resources/image/common/itda_logo4.png" ><span class="blind">잇:다</span></a>
+						<a href="${pageContext.request.contextPath}/" class="header_logo" ><img class="header_logo_img" alt="" src="${pageContext.request.contextPath}/resources/image/common/itda_logo4.png" ><span class="blind">잇:다</span></a>
 					</h1>
 				</div>
-			<div class="header_menu2">   <!-- header_menu2 -->
+			<div class="header_menu">   <!-- header_menu2 -->
 				<a class="header_search"
 				onclick="location.href='${pageContext.request.contextPath}/main/search'"><span class="blind">검색</span></a>
 			
@@ -175,10 +179,9 @@ var SITE_MEMBER = function(){
 											</form>
 
 											<div class="over_h">
-												<div style="float:left;"> <a href="javascript:;"
-													onclick="SITE_MEMBER.openJoinPatternChoice('Lw%3D%3D', '');"
-													class="float_l">회원가입</a></div> <div style="text-align:right"> <a href="javascript:;" 
-													onclick="SITE_MEMBER.openFindPassword('L2RpYWxvZy9sb2dpbi5jbQ%3D%3D');"
+												<div style="float:left;"> <a href="${pageContext.request.contextPath}/member/joinForm"
+													class="float_l">회원가입</a></div> <div style="text-align:right"> 
+													<a href="${pageContext.request.contextPath}/member/FindIdPasswordForm"
 													class="float_r">아이디 · 비밀번호 찾기</a></div>
 											</div>
 
