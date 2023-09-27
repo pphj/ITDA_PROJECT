@@ -10,6 +10,188 @@
 <body>
 <script>
 
+
+$(function() {
+	 let checkid = false;
+     let checkemail = false;
+     let idcheck = ''; // 중복된 아이디 검사 결과를 저장하기 위한 변수 추가
+     
+     function checkId(id) {
+         return id === idcheck;
+     }
+
+     // 중복확인 버튼 클릭 핸들러를 추가합니다.
+     $("#id_butt").click(function() {
+         const pattern = /^\w{5,12}$/;
+         const input_id = $("#showid").val();
+
+         if (!pattern.test(input_id)) {
+             $("#message").css('color', 'red').html("영문자 숫자로 5 ~ 12자 가능합니다.");
+             checkid = false;
+             return;
+         }
+
+        
+        // Enter 키를 누를 때 폼 제출 방지
+        $("#sellerform").on("keydown", function (e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // 버튼 클릭 시 폼 제출
+        $("#submit_btn").on("click", function () {
+            $("#sellerform").submit();
+        });
+		
+        // 서버에 아이디 중복 확인 요청을 보내는 ajax 코드
+        $.ajax({
+            url: "/idcheck", // 실제 아이디 확인 서버 엔드포인트로 대체해야 함
+            data: { userId: input_id },
+            success: function (resp) {
+                if (resp == -1) {
+                    $("#message").css('color', 'green').html("사용 가능한 아이디 입니다.");
+                    checkid = true;
+                    idcheck = input_id;
+                } else {
+                    $("#message").css('color', 'red').html("사용중인 아이디 입니다.");
+                    checkid = false;
+                    idcheck = '';
+                }
+            }
+        });
+    });
+     
+     $("#cancel_btn").on("click", function () {
+    	 location.href = "<%=request.getContextPath()%>/main";
+    	});
+
+
+		// 회원가입 폼 제출 이벤트 리스너 등록
+		   $("#sellerform").submit(function(e) {
+							// 필요한 변수들을 가져옴
+							var id = $("#showid").val().trim();
+							var password = $('#password').val().trim();
+							var date_birth = $('#date_birth').val().trim();
+							var phone = $('#phone').val().trim();
+							var email = $("#email").val().trim();
+
+							//생년월일 중복 검사
+							if (!date_birth) {
+								alert("생년월일을 입력하세요");
+								$("input[name='date_birth']").val('').focus();
+								return false;
+							}
+
+							// 생년월일 유효성 검사
+							const dateOfBirthPattern = /^(19|20)\d\d-(0\d|1[0-2])-(0\d|1\d|2\d|3[01])$/; // YYYY-MM-DD 형식
+							if (!dateOfBirthPattern.test(date_birth)) {
+								alert("올바른 생년월일 형식인 YYYY-MM-DD로 입력하세요");
+								$('#date_birth').val('').focus();
+								return false;
+							}
+
+							// 아이디 입력 확인
+							if (id == '') {
+								alert('아이디를 입력하세요.');
+								$("#showid").focus();
+								return false;
+							}
+
+							// 아이디 중복 검사
+							if (!checkid) {
+								alert("사용 가능한 아이디인지 확인하세요.");
+								$("#showid").focus();
+								return false;
+							}
+
+							// 비밀번호 입력 확인
+							if (password == '') {
+								alert("비밀번호를 입력하세요");
+								$('#password').focus();
+								return false;
+							} else if ($("#password_confirm").val().trim() != password) {
+								alert("비밀번호가 일치하지 않습니다");
+								$("#password_confirm").focus();
+								return false;
+							}
+
+							//비밀번호 유효성 검사
+						    $("input[name=password]").on('keyup', function() {
+						        const password = $(this).val();
+						        const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{6,12}$/;
+
+						        if (!pattern.test(password)) {
+						            $("#password_message").css('color', 'red').html("비밀번호는 영문/숫자/특수문자를 모두 포함한 6 ~ 12자리로 작성해주세요.");
+						            checkpassword = false;
+						        } else {
+						            $("#password_message").css('color', 'green').html("비밀번호 형식에 맞습니다.");
+						            checkpassword = true;
+						        }
+						    });
+
+
+							// 이메일 입력 확인 및 유효성 검사
+							if (email == '') {
+								alert("이메일을 입력하세요");
+								$('#email').focus();
+								return false;
+							}
+							var pattern = /^[A-Za-z0-9_]{1,100}@[A-Za-z0-9_]{1,100}\.[A-Za-z0-9]{2,3}$/;
+							if (!pattern.test(email)) {
+								alert("이메일의 형식을 확인해주세요");
+								$('#email').val('').focus();
+								return false;
+							}
+
+							// 카테고리 선택 확인
+							var categorys = $('input[name="category"]:checked').length;
+							if (categorys === 0) {
+								alert("채널의 주제로 삼을 카테고리를 선택하세요");
+								return false;
+							}
+
+							// 전화번호 유효성 검사
+							var phone = $('#phone').val();
+							if (phone.trim().length == 13 || phone.trim().length == 14) {
+							const pattern = /^[0-9]{3,4}-[0-9]{4}-[0-9]{4}$/;
+								if (!pattern.test(phone)) {
+									alert("전화번호를 형식에 맞게 입력하세요")
+								    $('#phone').val('').focus();
+							        return false;
+								}
+							}
+							
+						});//submit end
+						
+						// 프로필 사진 업로드 및 미리보기 기능
+						$('input[type=file]').change(function(e){
+						    const inputfile = $(this).val().split('\\');
+						    const profileName = inputfile[inputfile.length - 1];
+						    const pattern = /(gif|jpg|jpeg|png)$/i;
+
+						    if (pattern.test(profileName)) {
+						        $('#profileLabel > .center-div').text(profileName);
+						        
+						        const reader = new FileReader();
+						        reader.readAsDataURL(event.target.files[0]);
+
+						        reader.onload = function(){
+						            $('#previewImage > img').attr('src', this.result);
+						        };
+						    } else {
+						        alert('이미지 파일(gif, jpg, jpeg, png)이 아닌 경우 업로드되지 않습니다.');
+						        $(this).val('');
+						        $('#profileLabel > .center-div').text('파일 선택');
+						        $('#previewImage > img').attr('src', '');
+						    }
+						});
+				        
+		let channelcheck = '';
+
+	});//ready end
+
 </script>
 <div id="sellerback">
     <form name="sellerform" id="sellerform" method="post" action="joinProcess" enctype="multipart/form-data">

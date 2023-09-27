@@ -7,6 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/common.css">
+
 <script> var contextPath = "<%=request.getContextPath()%>";
 </script>
 <script>
@@ -178,10 +179,9 @@ var SITE_MEMBER = function(){
 											</form>
 
 											<div class="over_h">
-												<div style="float:left;"> <a href="javascript:;"
-													onclick="SITE_MEMBER.openJoinPatternChoice('Lw%3D%3D', '');"
-													class="float_l">회원가입</a></div> <div style="text-align:right"> <a href="javascript:;" 
-													onclick="SITE_MEMBER.openFindPassword('L2RpYWxvZy9sb2dpbi5jbQ%3D%3D');"
+												<div style="float:left;"> <a href="${pageContext.request.contextPath}/member/joinForm"
+													class="float_l">회원가입</a></div> <div style="text-align:right"> 
+													<a href="${pageContext.request.contextPath}/member/FindIdPasswordForm"
 													class="float_r">아이디 · 비밀번호 찾기</a></div>
 											</div>
 
