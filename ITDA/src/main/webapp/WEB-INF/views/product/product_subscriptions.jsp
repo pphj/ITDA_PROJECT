@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
@@ -50,6 +51,8 @@
 		var isPremiumReferer = false;
 	</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
+	<jsp:include page="../include/header.jsp"></jsp:include>
+
 </head>
 <body class="as_white_background body_mp">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
@@ -95,7 +98,7 @@
 
     <div class="flat_header">
     <div class="inline_header">
-		<a href="#" class="button_back _BACK"><img class="link_premium" style="width: 30px;" src="image/content/errow_left.png">
+		<a href="#" class="button_back _BACK"><img class="link_premium" style="width: 30px;" src="${pageContext.request.contextPath}/resources/image/content/errow_left.png">
 		<span class="blind">이전으로</span>
 	</a> 
     </div>
@@ -298,22 +301,22 @@
 			</ul>
 		</div>
 	<div class="floating_button_wrap _PURCHASE_PRODUCT_DETAIL_LIST_WRAP" data-ticket-id="sps-tck-1000000295">
-	<a href="/usa/nasdaq/subscriptions/sps-tck-1000000295" class="floating_button _PURCHASE_PRODUCT_BUTTON" data-clk="prod_order.select">
+	<a href="${pageContext.request.contextPath}/product/subscriptions/info" class="floating_button _PURCHASE_PRODUCT_BUTTON" data-clk="prod_order.select">
 		선택하기
 	</a>
 	</div>
 	<div class="floating_button_wrap _PURCHASE_PRODUCT_DETAIL_LIST_WRAP" data-ticket-id="sps-tck-1000000825" style="display:none;">
-	<a href="/usa/nasdaq/subscriptions/sps-tck-1000000825" class="floating_button _PURCHASE_PRODUCT_BUTTON" data-clk="prod_order.select">
+	<a href="${pageContext.request.contextPath}/product/subscriptions/info" class="floating_button _PURCHASE_PRODUCT_BUTTON" data-clk="prod_order.select">
 		선택하기
 	</a>
 	</div>
 	<div class="floating_button_wrap _PURCHASE_PRODUCT_DETAIL_LIST_WRAP" data-ticket-id="sps-tck-1000000524" style="display:none;">
-	<a href="/usa/nasdaq/subscriptions/sps-tck-1000000524" class="floating_button _PURCHASE_PRODUCT_BUTTON" data-clk="prod_order.select">
+	<a href="${pageContext.request.contextPath}/product/subscriptions/info" class="floating_button _PURCHASE_PRODUCT_BUTTON" data-clk="prod_order.select">
 		선택하기
 	</a>
 	</div>
 	<div class="floating_button_wrap _PURCHASE_PRODUCT_DETAIL_LIST_WRAP" data-ticket-id="sps-tck-1000003964" style="display:none;">
-	<a href="/usa/nasdaq/subscriptions/sps-tck-1000003964" class="floating_button _PURCHASE_PRODUCT_BUTTON" data-clk="prod_order.select">
+	<a href="${pageContext.request.contextPath}/product/subscriptions/info" class="floating_button _PURCHASE_PRODUCT_BUTTON" data-clk="prod_order.select">
 		선택하기
 	</a>
 	</div>

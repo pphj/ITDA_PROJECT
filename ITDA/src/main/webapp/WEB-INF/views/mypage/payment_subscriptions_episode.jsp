@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
@@ -5,9 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<meta name="format-detection" content="telephone=no">
-	<title>네이버 프리미엄콘텐츠</title>
-		<link rel="stylesheet" href="/premium_service2.css">
-	<link rel="shortcut icon" type="image/x-icon" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/favicon_M.ico" />
+	<title>MY : 잇다</title>
 	<link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
 	<link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
 	<link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
@@ -17,7 +16,7 @@
 		var g_ssc = nsc = "Mpremiumcontents.all";
 		var g_default_area = "art";
 
-		var svr = "one-service-premium-r-20230914-230914-164329-5bff964899-nnwp8";
+		var svr = "one-service-premium-r-20230914-230914-164329-5bff964899-9fftb";
 		var nelo = {
 			sampleNumber : 100,
 			maxCount : 100,
@@ -33,7 +32,7 @@
 		var PREMIUM_LOG_DOMAIN = "https://l.premium.naver.com";
 		var urlPrefix = "";
 		var newsDomain = "";
-		var layoutName = "my_notification_marketing";
+		var layoutName = "my_payment_subscription";
 
 		var unitIds = [];
 		var divIds = [];
@@ -49,15 +48,17 @@
 		var isPremiumReferer = false;
 	</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
+	<jsp:include page="../include/header.jsp"></jsp:include>
+
 </head>
-<body class="as_white_background body_mp">
+<body class=" body_mp">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
 <div id="_CONTENT_INDICATOR_WRAP" style="display:none;">
 	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>
 	<progress id="_CONTENT_INDICATOR" class="progress" max="100" value="0"></progress>
 </div>
 <script>
-	var svt = "20230917184229.713";
+	var svt = "20230917181250.936";
 	var timestamp = svt.substr(0, 8);
 	var isLogin = true;
 
@@ -72,15 +73,16 @@
 </script>
 <div id="ct_wrap" class="container">
 	<div id="ct" class="container_inner">
-		    <div class="flat_header">
+	
+			    <div class="flat_header">
     <div class="inline_header">
-		<a href="#" class="button_back _BACK"><img class="link_premium" style="width: 30px;" src="image/content/errow_left.png">
+		<a href="#" class="button_back _BACK"><img class="link_premium" style="width: 30px;" src="${pageContext.request.contextPath}/resources/image/content/errow_left.png">
 		<span class="blind">이전으로</span>
 	</a> 
     </div>
 	<h2 class="flat_header_title">
 		<span class="flat_header_title_inner">
-			설정
+			MY
 		</span>
 	</h2>
 	</div>
@@ -100,9 +102,9 @@
 				</strong>
 			</a>
 			<div class="my_user_link_wrap">
-				<a href="/my/payment/subscriptions" class="my_user_link is_payment" data-clk="my_lnb.paydet">결제내역</a>
-				<a href="/my/coupons" class="my_user_link is_coupon" data-clk="my_lnb.coupon">쿠폰</a>
-				<a href="/my/notification" class="my_user_link is_setting is_active" data-clk="my_lnb.set">설정</a>
+				<a href="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_user_link is_payment is_active" data-clk="my_lnb.paydet">결제내역</a>
+				<a href="${pageContext.request.contextPath}/my/coupons" class="my_user_link is_coupon" data-clk="my_lnb.coupon">쿠폰</a>
+				<a href="${pageContext.request.contextPath}/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
 			</div>
 		</div>
 		<div class="my_tab_wrap">
@@ -122,46 +124,131 @@
 		</a>
 	</div>
 </div>
-<h2 class="my_title">설정</h2>
-<div class="my_tab_wrap">
-	<ul class="my_tab">
-		<li class="my_tab_item is_active">
-			<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="/my/notification/marketing" data-clk="my_lnb.setmrk">
-				<span class="my_tab_text">
-					소식받기 <span class=my_tab_sub_text>목록</span>
-					<em>1</em>
-				</span>
-			</a>
-		</li>
-	</ul>
+<div class="my_detail_head">
+	<a href="/bangkuseok/bangkuseok1" class="my_detail_head_thumb" data-clk="my_order.chlgo">
+<%-- 		<img src="https://scs-phinf.pstatic.net/MjAyMjExMDNfMTcx/MDAxNjY3NDM3NTA3NzQw.6FO2E_Tk_6YwHAYi-50a26pOdDQWQebvFOM_6KR9xokg.724u8stegrnbL_DLl_Z5U8HfYQuesuVLGJIyeONubIUg.PNG/image%7Cpremium%7Cchannel%7Cbangkuseok%7C2022%7C11%7C03%7C1667437507721.png?type&#x3D;nfs200_200" width="46" height="46" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+ --%>		<i class="icon_premium"><span class="blind">프리미엄 채널</span></i>
+	</a>
+	<a href="/bangkuseok/bangkuseok1" class="my_detail_head_name" data-clk="my_order.chlgo">방구석 어학연수</a>
 </div>
-<div class="my_setting as_news _TEMPLATE" data-template-id="SCS_PREMIUM_MY_NOTIFICATION_MARKETING_LIST">
-	<h3 class="my_setting_title">채널 소식받기</h3>
-	<p class="my_setting_desc">소식받기로 설정하신 채널 목록입니다. 톡톡으로 이벤트, 혜택 소식을 받고 싶지 않은 채널은 소식받기를 취소해주세요.</p>
-    <ul class="my_setting_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_NOTIFICATION_MARKETING_LIST" data-cursor-name="next" data-cursor="" data-has-next="">
-    	<li class="my_setting_item _MARKETING_BUTTON_WRAP">
-    		<a href="/slowpianist/pandapiano" class="my_setting_link" data-clk="my_setmrk.chlgo">
-    			<div class="my_setting_thumb">
-    				<img src="https://scs-phinf.pstatic.net/MjAyMzAzMDhfMTQ5/MDAxNjc4MjY2NDQ0NDY4.1iQvKFpgdcj2oIRpHnFYRAq7gObdl1dELIk6Y64E9tEg.EhkIlVrDnv_-YEHbCVRY8lz5yXkfE-51xmjQkzUhy4sg.JPEG/image%7Cpremium%7Cchannel%7Cslowpianist%7C2023%7C03%7C08%7C1678266444441.jpg?type&#x3D;nfs200_200" width="48" height="48" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
-    			</div>
-    			<strong class="my_setting_name">노애리의 피아노 이야기</strong>
-    		</a>
-    		<button type="button" aria-pressed="true" class="news_button _MARKETING_BUTTON" data-enabled="true" data-cp-name="slowpianist" data-sub-id="pandapiano" data-channel-name="노애리의 피아노 이야기" data-on-clk="my_setmrk.on" data-off-clk="my_setmrk.off">
-    		</button>
-    		<button type="button" style="display:none;" aria-pressed="false" class="news_button _MARKETING_BUTTON" data-enabled="false" data-cp-name="slowpianist" data-sub-id="pandapiano" data-channel-name="노애리의 피아노 이야기" data-on-clk="my_setmrk.on" data-off-clk="my_setmrk.off">
-    		</button>
-    	</li>
-    </ul>
-    <div class="loading _CONTENT_LIST_LOADING" style="display:none;">
-    	<div class="loader">
-    		<div class="dot dot1"></div>
-    		<div class="dot dot2"></div>
-    		<div class="dot dot3"></div>
-    		<div class="dot dot4"></div>
-    		<div class="dot dot5"></div>
-    		<div class="dot dot6"></div>
-    	</div>
-    </div>
+<div class="my_detail_card">
+	<div class="membership_card">
+		<div class="mc_content">
+			<div class="mc_text">
+				<span class="mct_sub">
+					<span class="mct_sub_text">개인</span>
+					<span class="mct_sub_text">월간이용권</span>
+				</span>
+				<strong class="mct_name">방구석 어학연수</strong>
+			</div>
+			<div class="mc_price_info">
+				<span class="mcp_price"><em class="mcp_number">4,900</em><span class="mcp_text">원/월</span></span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="my_detail_talk">
+	<a href="#" class="my_detail_talk_link _TALKTALK_INQUIRY" data-clk="my_order.talk" data-talktalk-url="talk.naver.com/w45kvq" data-purchase-no="2960786403">톡톡 문의하기</a>
+</div>
+<div class="my_detail_content">
+	<div class="my_detail_titlewrap">
+		<h2 class="my_detail_title">구매 상품 정보</h2>
+	</div>
+	<dl class="my_detail_info">
+		<div class="my_detail_info_item">
+			<dt>상품명</dt>
+			<dd><div class="my_detail_info_name">방구석 어학연수</div></dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>채널명</dt>
+			<dd>방구석 어학연수</dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>이용회차</dt>
+			<dd><span class="num">1</span>회차</dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>이용기간</dt>
+			<dd><span class="num">2023.09.08. ~ 2023.10.08.</span></dd>
+		</div>
+	</dl>
+</div>
+<div class="my_detail_content">
+	<div class="my_detail_titlewrap">
+		<h2 class="my_detail_title">판매자 정보</h2>
+	</div>
+	<dl class="my_detail_info">
+		<div class="my_detail_info_item">
+			<dt>대표자</dt>
+			<dd>잇다(주)</dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>주소</dt>
+			<dd>(우:<span class="num">12345</span>)<br>
+				서울특별시 종로구 종로0길 </dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>이메일</dt>
+			<dd><span class="num">itda@otda.com</span></dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>전화번호</dt>
+			<dd><span class="num">1588-1588</span></dd>
+		</div>
+	</dl>
+</div>
+<div class="my_detail_content">
+	<div class="my_detail_titlewrap">
+		<h2 class="my_detail_title">구매 정보</h2>
+	</div>
+	<dl class="my_detail_info">
+		<div class="my_detail_info_item">
+			<dt>구매상태</dt>
+			<dd><em>결제 완료</em></dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>구매번호</dt>
+			<dd><span class="num">2960786403</span></dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>결제일</dt>
+			<dd><span class="num">2023.09.08. 14:57</span></dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>결제수단</dt>
+			<dd>쿠폰</dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>상품금액</dt>
+			<dd>
+				<span class="num">4,900</span>원
+			</dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>할인금액</dt>
+			<dd>
+				<span class="num">-4,900</span>원
+				<span class="my_detail_info_item_sub">(쿠폰: 무료 쿠폰)</span>
+			</dd>
+		</div>
+		<div class="my_detail_info_item">
+			<dt>결제금액</dt>
+			<dd><em><span class="num">0</span>원</em></dd>
+		</div>
+	</dl>
+</div>
+<div class="my_detail_button_wrap">
+	<a href="#" class="my_detail_button _BACK" data-clk="my_order.back">이전</a>
+</div>
+<div class="my_detail_guide">
+	<strong class="my_detail_guide_title">구매 취소 안내</strong>
+	<ul class="my_detail_guide_list">
+		<li class="my_detail_guide_item">결제일 기준 7일 이내 콘텐츠 이용 이력이 없는 경우 청약철회등이 가능하며 전액 환불됩니다.</li>
+		<li class="my_detail_guide_item"><strong>구독 상품은 구독 해지 후 환불 신청이 가능합니다.</strong><br>구독 해지는 'MY > 구독 채널  탭 > 해당 구독 채널 상세페이지'에서 확인 가능합니다. <a href="/my/subscriptions" class="my_detail_guide_item_link" data-clk="my_order.">[구독채널 보기]</a></li>
+		<li class="my_detail_guide_item">상품의 콘텐츠 이용이 개시된 경우 또는 구매 후 이용가능한 날로부터 7일이 경과된 경우 청약철회가 제한될 수 있습니다.</li>
+		<li class="my_detail_guide_item">단건 상품 중 라이브 유형의 상품은 상품 특성상 라이브 제공 개시 전까지만 청약철회등 가능하며, 일단 라이브가 시작되면 이용하지 않았더라도 청약철회등이 불가능할 수 있습니다.</li>
+		<li class="my_detail_guide_item">청약철회등 및 결제 취소/환불 관련 자세한 사항은 이용 중이신 프리미엄콘텐츠 채널 하단 푸터에 노출된 판매자의 연락처로 문의해 주시기 바랍니다.</li>
+	</ul>
 </div>
 
 			</div>
@@ -340,4 +427,5 @@ $(window).on(eventType, function() {
 	}
 });
 </script>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

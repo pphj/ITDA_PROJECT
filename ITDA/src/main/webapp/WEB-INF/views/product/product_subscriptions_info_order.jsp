@@ -1,4 +1,4 @@
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
 <head>
@@ -7,15 +7,8 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="description" content="상위1% 투자자를 위한 국내 최고 수준의 미국주식 콘텐츠">
 	<title>결제하기 : 잇다</title>
-<!--		<link rel="stylesheet" href="https://static-nnews.pstatic.net/css/min/20230914a/premium_service.css">--><link rel="stylesheet" href="/premium_service2.css">
-
-	<link rel="shortcut icon" type="image/x-icon" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/favicon_M.ico" />
-	<link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="192x192" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
 	<base target="_parent">
-	<script>
+<!-- 	<script>
 		var g_ssc = nsc = "Mpremiumcontents.all";
 		var g_default_area = "art";
 
@@ -49,8 +42,9 @@
 		_paq.push(["setSiteId", "1"]);
 
 		var isPremiumReferer = false;
-	</script>
+	</script> -->
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
+<jsp:include page="../include/header.jsp"></jsp:include>
 </head>
 <body class="as_white_background body_mp">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
@@ -74,7 +68,7 @@
 	</div>
 </header>-->
 <hr>
-<script>
+<!-- <script>
 	var svt = "20230918020710.411";
 	var timestamp = svt.substr(0, 8);
 	var isLogin = true;
@@ -87,7 +81,7 @@
 
 	var envPhase = "production";
 	var isProduction = true;
-</script>
+</script> -->
 
 <div id="ct_wrap" class="container">
 	<div id="ct" class="container_inner">
@@ -97,7 +91,7 @@
 					
     <div class="flat_header" style="margin-top: 40px;">
     <div class="inline_header">
-		<a href="#" class="button_back _BACK"><img class="link_errow" style="width: 30px;" src="image/content/errow_left.png">
+		<a href="#" class="button_back _BACK"><img class="link_errow" style="width: 30px;" src="${pageContext.request.contextPath}/resources/image/content/errow_left.png">
 		<span class="blind">이전으로</span>
 	</a> 
     </div>
@@ -112,7 +106,7 @@
 <div class=" product_head as_no_title _PAY_ORDER_CONTENT" data-cp-name="usa" data-sub-id="nasdaq" data-ticket-id="sps-tck-1000000295" data-ticket-sale-type="SUBSCRIBE_PERIOD_PAYNOW">
     <div class="flat_header">
     <div class="inline_header">
-		<a href="#" class="button_back _BACK"><img class="link_errow" style="width: 30px;" src="image/content/errow_left.png">
+		<a href="#" class="button_back _BACK"><img class="link_errow" style="width: 30px;" src="${pageContext.request.contextPath}/resources/image/content/errow_left.png">
 		<span class="blind">이전으로</span>
 	</a> 
     </div>
@@ -240,51 +234,6 @@
 <div class="floating_button_wrap">
 <a href="#" class="floating_button _ORDER" data-action="subscribe" data-cp-name="usa" data-sub-id="nasdaq" data-ticket-id="sps-tck-1000000295" data-r-content-id="" data-user-realnm="Y" data-clk="prod_chek.pay" data-inventory-no="" data-order-restrictions="false" data-user-activity-restricted="false">결제하기</a>
 </div>
-<div class="business_info_wrap is_hidden _STICKY_FOOTER" data-grid-template-column-outside="true">
-<div class="business_info">
-	<h4 id="_PROVIDER_INFO" class="business_info_title">
-		<button type="button" class="business_info_button _TOGGLE _IFRAME_RESIZE" data-target="_PROVIDER_INFO" data-classvalue="is_active" data-show-clk="chlh_fot.cpinfoopen" data-hide-clk="chlh_fot.cpinfoclose">판매자 정보</button>
-	</h4>
-	<dl class="business_info_list">
-		<div class="business_info_item">
-			<dt class="business_item_info_title">상호명</dt>
-			<dd class="business_item_info_text">알데바란</dd>
-		</div>
-		<div class="business_info_item">
-			<dt class="business_item_info_title">대표자</dt>
-			<dd class="business_item_info_text">신승우</dd>
-		</div>
-		<div class="business_info_item">
-			<dt class="business_item_info_title">통신판매업번호</dt>
-			<dd class="business_item_info_text">2022-경기이천-0616</dd>
-		</div>
-		<div class="business_info_item">
-			<dt class="business_item_info_title">사업자등록번호</dt>
-			<dd class="business_item_info_text">282-81-02690</dd>
-		</div>
-		<div class="business_info_item">
-			<dt class="business_item_info_title">주소</dt>
-			<dd class="business_item_info_text">(우:17300) 경기도 이천시 신둔면 도암리 694-149 지층 A-9호</dd>
-		</div>
-		<div class="business_info_item">
-			<dt class="business_item_info_title">이메일</dt>
-			<dd class="business_item_info_text"><a href="javascript:;" class="_LINK" data-url="mailto:westernant21@gmail.com" data-clk="chlh_fot.cpinfomail">westernant21@gmail.com</a></dd>
-		</div>
-		<div class="business_info_item">
-			<dt class="business_item_info_title">전화번호</dt>
-			<dd class="business_item_info_text"><a href="javascript:;" class="_LINK" data-url="tel:01087504742" data-clk="chlh_fot.cpinfotel">01087504742</a></dd>
-		</div>
-		<div class="business_info_item">
-			<dt class="business_item_info_title">문의하기</dt>
-			<dd class="business_item_info_text"><a href="https://talk.naver.com/w4lgvq" class="business_item_info_talk" data-clk="chlh_fot.cpinfotalk"><span class="blind">톡톡상담</span></a></dd>
-		</div>
-	</dl>
-	<div class="business_info_caution">
-		<p><strong>판매자정보(전화번호, 이메일, 주소 등)는 해당 판매자의 명시적 동의 없이 영리 목적인 마케팅·광고 등 용도로 활용할 수 없습니다.</strong></p>
-		<p>판매자의 명시적 동의 없이 판매자의 정보를 수집 및 활용하여 영리 목적인 마케팅·광고 등 용도로 활용하는 경우 정보통신망법 등 관련 법령에 의거하여 과태료 부과 및 형사처벌의 대상이 될 수 있습니다.</p>
-	</div>
-</div>
-</div>
 <div id="_CONTENT_LAYER_REFUNDGUIDE" class="content_layer_wrap" style="display: none;">
 	<div class="content_layer">
 		<div class="content_layer_inside">
@@ -336,7 +285,7 @@
 		</div>
 	</div>
 </div>
-<div id="_CONTENT_LAYER_AGREEMENT" class="content_layer_wrap" style="display: none;">
+<!-- <div id="_CONTENT_LAYER_AGREEMENT" class="content_layer_wrap" style="display: none;">
 	<div class="content_layer">
 		<div class="content_layer_inside">
 			<div class="content_layer_header">
@@ -387,7 +336,7 @@
 		</div>
 	</div>
 </div>
-
+ -->
 			</div>
 			<div class="container_aside _CONTAINER_ASIDE">
 				<div class="container_aside_inner _GRID_TEMPLATE_COLUMN_ASIDE _CONTAINER_ASIDE_INNER"></div>

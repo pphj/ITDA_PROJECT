@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+
 
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
@@ -5,7 +7,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<meta name="format-detection" content="telephone=no">
-	<title>네이버 프리미엄콘텐츠</title>
+	<title>MY : 잇다</title>
 		<link rel="stylesheet" href="/premium_service2.css">
 	<link rel="shortcut icon" type="image/x-icon" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/favicon_M.ico" />
 	<link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
@@ -49,6 +51,8 @@
 		var isPremiumReferer = false;
 	</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
+	<jsp:include page="../include/header.jsp"></jsp:include>
+
 </head>
 <body class="as_my_home body_mp as_my_home">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
@@ -56,22 +60,6 @@
 	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>
 	<progress id="_CONTENT_INDICATOR" class="progress" max="100" value="0"></progress>
 </div>
-<header class="flat_header_wrap as_my_home">
-	<div class="flat_header">
-	<h1 class="flat_header_logo">
-	<a href="/" class="link_premium" data-clk="my_lnb.pclogo"><span class="blind">Premium Contents</span></a>
-	</h1>
-	<a href="#" class="button_close _BACK_ELSE_CLOSE" data-clk="my_lnb.close">
-		<span class="blind">이전으로</span>
-	</a>
-	<h2 class="flat_header_title">
-		<span class="flat_header_title_inner as_pc">
-			MY
-		</span>
-	</h2>
-	</div>
-</header>
-<hr>
 <script>
 	var svt = "20230917180054.709";
 	var timestamp = svt.substr(0, 8);
@@ -90,13 +78,13 @@
 	<div id="ct" class="container_inner">
 			    <div class="flat_header">
     <div class="inline_header">
-		<a href="#" class="button_back _BACK"><img class="link_premium" style="width: 30px;" src="image/content/errow_left.png">
+		<a href="#" class="button_back _BACK"><img class="link_premium" style="width: 30px;" src="${pageContext.request.contextPath}/resources/image/content/errow_left.png">
 		<span class="blind">이전으로</span>
 	</a> 
     </div>
 	<h2 class="flat_header_title">
 		<span class="flat_header_title_inner">
-			관심 콘텐츠
+			MY
 		</span>
 	</h2>
 	</div>
@@ -116,18 +104,18 @@
 				</strong>
 			</a>
 			<div class="my_user_link_wrap">
-				<a href="/my/payment/subscriptions" class="my_user_link is_payment" data-clk="my_lnb.paydet">결제내역</a>
-				<a href="/my/coupons" class="my_user_link is_coupon" data-clk="my_lnb.coupon">쿠폰</a>
-				<a href="/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
+				<a href="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_user_link is_payment" data-clk="my_lnb.paydet">결제내역</a>
+				<a href="${pageContext.request.contextPath}/my/coupons" class="my_user_link is_coupon" data-clk="my_lnb.coupon">쿠폰</a>
+				<a href="${pageContext.request.contextPath}/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
 			</div>
 		</div>
 		<div class="my_tab_wrap">
 			<ul class="my_tab">
 				<li class="my_tab_item is_active">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
+					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
 				</li>
 				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
+					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
 				</li>
 			</ul>
 		</div>
@@ -143,10 +131,10 @@
 	<div class="my_subscriptions_tab">
 		<ul class="my_subscriptions_tab_list" role="tablist">
 			<li class="my_subscriptions_tab_item" role="tab" aria-selected="false">
-				<button type="button" class="my_subscriptions_tab_button _LOCATION_REPLACE" data-url="/my/subscriptions" data-clk="my_subs.chl">채널<em>2</em></button>
+				<button type="button" class="my_subscriptions_tab_button _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions" data-clk="my_subs.chl">채널<em>2</em></button>
 			</li>
 			<li class="my_subscriptions_tab_item" role="tab" aria-selected="true">
-				<button type="button" class="my_subscriptions_tab_button _LOCATION_REPLACE" data-url="/my/subscriptions/contents" data-clk="my_subs.cont">최신 콘텐츠</button>
+				<button type="button" class="my_subscriptions_tab_button _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions/contents" data-clk="my_subs.cont">최신 콘텐츠</button>
 			</li>
 		</ul>
 		<div class="my_section_info_wrap">

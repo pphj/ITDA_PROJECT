@@ -6,6 +6,7 @@
 <link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 <script> var contextPath = "<%=request.getContextPath()%>";
 </script>
 <script>
@@ -69,7 +70,7 @@ var SITE_MEMBER = function(){
 				<div class="header_service">
 		<!-- 왼쪽 상단 로고 링크 -->
 					<h1 class="header_logo">
-						<a href="${pageContext.request.contextPath}/main" class="header_logo" ><img class="header_logo_img" alt="" src="${pageContext.request.contextPath}/resources/image/common/itda_logo4.png" ><span class="blind">잇:다</span></a>
+						<a href="${pageContext.request.contextPath}/" class="header_logo" ><img class="header_logo_img" alt="" src="${pageContext.request.contextPath}/resources/image/common/itda_logo4.png" ><span class="blind">잇:다</span></a>
 					</h1>
 				</div>
 			<div class="header_menu">   <!-- header_menu2 -->
