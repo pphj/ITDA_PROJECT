@@ -512,8 +512,8 @@ article.modal_article .select_wrap_id, article.modal_article .select_wrap_pw,
 	border-collapse: separate;
 }
 
-.btn-primary, .btn.btn-primary, .design_setting_view .btn-primary:hover
-	{
+.btn-primary, .btn.btn-primary, .design_setting_view .btn-primary:hover {
+	
 	background-color: ##007bff;
 	border-color: ##007bff;
 	color: #fff;

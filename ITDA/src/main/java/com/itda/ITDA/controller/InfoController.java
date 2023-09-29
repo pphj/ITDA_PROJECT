@@ -40,5 +40,12 @@ public class InfoController {
 		mv.setViewName("info/qna");
 		return mv;
 	}
+	
+	@GetMapping(value = "/requests")
+	public ModelAndView requests(ModelAndView mv) {
+	    mv.setViewName("info/requests");
+	    return mv;
+	}
+
 
 }

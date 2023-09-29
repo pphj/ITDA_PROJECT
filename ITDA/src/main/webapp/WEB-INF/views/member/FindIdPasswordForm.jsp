@@ -5,8 +5,23 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/login_modal.css">
-<script src="${pageContext.request.contextPath}/resources/js/site_member.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+	
+<script src="https://vendor-cdn.imweb.me/js/jquery.js?1627517460"></script> 
+
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery-ui.design.js?1627517437"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.fileupload.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.lazyload.min.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.smooth-scroll.min.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery-scrolltofixed.js?1669067096"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.trackpad-scroll-emulator.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.exif.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.canvasResize.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.number.min.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.timepicker.min.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.chosen.js?1619084781"></script> -->
+	
+
+
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 </head>
@@ -231,18 +246,52 @@
 
 
 <script>
-		var NOT_APP_PAGE = 'Y';
-		SITE_MEMBER.step();
-		SITE_MEMBER.initFindId({
-			"auth_data" : [],
-			"auth_anchor_list" : []
-		});
-		SITE_MEMBER.updateFindIdStatus();
-		TOKEN.setListToken();
-	</script>
+
+$(document).ready(function() {
+  var current_find_tab = 'findId';
+
+  function step() {
+    $('.btn_find').off('click').on('click', function() {
+      var tab_id = $(this).attr('data-tab');
+      current_find_tab = tab_id;
+      $('.btn_find').removeClass('active');
+      $('._find_tit').addClass('hidden');
+      $('._step').addClass('hidden');
+
+      $(this).addClass('active');
+      $('.' + tab_id).removeClass('hidden');
+      $('#' + tab_id).removeClass('hidden');
+
+      if (tab_id == 'findId') {
+        $('._find_id').removeClass('hidden');
+        $('._find_password').addClass('hidden');
+      } else if (tab_id == 'findPassword') {
+        $('._find_password').removeClass('hidden');
+        $('._find_id').addClass('hidden');
+      }
+    });
+  }
+
+  function updateFindIdStatus() {
+    $('._update_status').off('click').on('click', function() {
+      var tab_name = $(this).attr("data-tab");
+
+      if (tab_name == "find_id") {
+        $("._find_id").removeClass("hidden");
+        $("._find_password").addClass("hidden");
+      } else if (tab_name == "find_password") {
+        $("._find_password").removeClass("hidden");
+        $("._find_id").addClass("hidden");
+      }
+    });
+  }
+
+  step();
+  updateFindIdStatus();
+});
+</script>
+
 		</div>
 	</div>
 
 </body>
-
-

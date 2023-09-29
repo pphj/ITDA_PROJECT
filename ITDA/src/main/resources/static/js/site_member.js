@@ -812,7 +812,7 @@ var SITE_MEMBER = function(){
 			}
 		});
 	};
-site_mamber.js
+site_member.js
 	var openJoinTypeChoice = function(back_url, request_page, type_code){
 		$.ajax({
 			type: 'POST',
