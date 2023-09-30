@@ -17,7 +17,7 @@ $(function() {
      let idcheck = ''; // 중복된 아이디 검사 결과를 저장하기 위한 변수 추가
      
      function checkId(id) {
-         return id === idcheck;
+         return id == idcheck;
      }
 
      // 중복확인 버튼 클릭 핸들러를 추가합니다.
@@ -34,7 +34,7 @@ $(function() {
         
         // Enter 키를 누를 때 폼 제출 방지
         $("#sellerform").on("keydown", function (e) {
-            if (e.key === "Enter") {
+            if (e.key == "Enter") {
                 e.preventDefault();
                 return false;
             }
@@ -47,7 +47,7 @@ $(function() {
 		
         // 서버에 아이디 중복 확인 요청을 보내는 ajax 코드
         $.ajax({
-            url: "/idcheck", // 실제 아이디 확인 서버 엔드포인트로 대체해야 함
+            url: "/itda/member/idcheck", // 실제 아이디 확인 서버 엔드포인트로 대체해야 함
             data: { userId: input_id },
             success: function (resp) {
                 if (resp == -1) {
@@ -146,11 +146,12 @@ $(function() {
 							}
 
 							// 카테고리 선택 확인
-							var categorys = $('input[name="category"]:checked').length;
+							var categorys = $('input[name="userCategory"]:checked').length;
 							if (categorys === 0) {
-								alert("채널의 주제로 삼을 카테고리를 선택하세요");
-								return false;
+							    alert("채널의 주제로 삼을 카테고리를 선택하세요");
+							    return false;
 							}
+
 
 							// 전화번호 유효성 검사
 							var phone = $('#phone').val();
