@@ -162,6 +162,11 @@ a:hover{
 	overflow: hidden;
 }
 
+/* 마이페이지 배경 */
+.as_white_background{
+	background-color: #f6f6f4;
+}
+
 @media (max-width: 1079px) {
 	.mobile_hidden {
 		display: none !important;
