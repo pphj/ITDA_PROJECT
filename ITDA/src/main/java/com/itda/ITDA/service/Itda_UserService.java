@@ -9,5 +9,6 @@ public interface Itda_UserService {
 	int insert(Itda_User mem);
 
 	int isId(String userId, String userPw);
+
 	
 }

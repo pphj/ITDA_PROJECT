@@ -148,14 +148,14 @@ var SITE_MEMBER = function(){
 														<div class="input_block">
 															<div class="input_form">
 											<!-- input_form -->	<input class="input_form2"			 
-																	title="아이디" type="text" name="uid" value=""
+																	title="아이디" type="text" name="userId" value=""
 																	placeholder="아이디"> <i aria-hidden="true"
 																	class="zmdi zmdi-check"></i>
 
 															</div>
 															<div class="input_form brt">
 											<!-- input_form -->	<input class="input_form2" 
-																title="비밀번호" name="passwd" type="password"
+																title="비밀번호" name="userPw" type="password"
 																	value="" placeholder="비밀번호" autocomplete="off"
 																><i aria-hidden="true"
 																	class="zmdi zmdi-check"></i>

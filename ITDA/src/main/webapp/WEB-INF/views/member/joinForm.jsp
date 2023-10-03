@@ -47,7 +47,7 @@ $(function() {
 		
         // 서버에 아이디 중복 확인 요청을 보내는 ajax 코드
         $.ajax({
-            url: "/itda/member/idcheck", // 실제 아이디 확인 서버 엔드포인트로 대체해야 함
+            url: "/itda/member/idcheck", // "/idcheck" => "/itda/member/idcheck" 로 수정
             data: { userId: input_id },
             success: function (resp) {
                 if (resp == -1) {
@@ -62,6 +62,7 @@ $(function() {
             }
         });
     });
+
      
      $("#cancel_btn").on("click", function () {
     	 location.href = "<%=request.getContextPath()%>/main";

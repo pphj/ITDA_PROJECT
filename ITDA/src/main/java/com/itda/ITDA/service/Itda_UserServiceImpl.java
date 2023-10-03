@@ -44,4 +44,7 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return result;
 	}
 
+	
+
+
 }

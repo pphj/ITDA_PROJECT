@@ -37,7 +37,7 @@ public class CustomUserDetailService implements UserDetailsService {
 		
 		if (users == null) {
 			logger.info("username" + username + "not found");
-			throw new UsernameNotFoundException("uesrname" + username + "not found");
+			throw new UsernameNotFoundException("username" + username + "not found");
 		}
 		
 		//GrantedAuthority : 인증 개체에 부여된 권한을 나타내기 위한 인터페이스로 이를 구현한 구현체는

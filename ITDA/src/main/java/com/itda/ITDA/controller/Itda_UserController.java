@@ -84,6 +84,30 @@ public class Itda_UserController {
 		}
 
 	}
+	
+	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
+	public String loginProcess(@RequestParam("userId") String id, @RequestParam("userPw") String password,
+	                           HttpSession session, RedirectAttributes rattr) {
+	    // 아이디와 비밀번호를 사용하여 로그인 처리 로직을 구현합니다.
+	    // Itda_UserService.isId() 메소드로 아이디의 존재 여부 및 정보를 확인하고,
+	    // 해당 아이디의 사용자가 있다면 비밀번호 일치 여부도 검사합니다.
+	    // 성공 시 세션에 사용자 정보를 저장하고, 실패 시 에러 메시지 등을 설정합니다.
+
+		int result = Itda_UserService.isId(id, password);
+		logger.info("결과 : " + result);
+		logger.info("get parameter : " + id + " " + password);
+
+		if (result == 1) {
+			session.setAttribute("id", id);
+			return "redirect:/main/protomain";
+		} else {
+			rattr.addFlashAttribute("result", result);
+			return "/main/protomain";
+		}
+	}
+
+
+
 
 	@RequestMapping(value = "FindIdPasswordForm", method = RequestMethod.GET)
 	public String findIdPasswordForm() {
