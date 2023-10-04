@@ -51,22 +51,22 @@
       </div>
     </div>
 	<div class="container">
- 		<form action="FAQmodify" method="post" enctype="multipart/form-data" name="FAQmodify">
- 			<input type="hidden" name="faqNum" value="${FAQdata.fqaNum}">
+ 		<form action="FAQmodifyAction" method="post" enctype="multipart/form-data" name="FAQmodify">
+ 			<input type="hidden" name="adNum" value="${FAQdata.adNum}">
  			<h1>FAQ - 수정</h1>
  			<div class="form-group">
- 				<label for="faqWriter">작성자</label>
- 				<input type="text" name="faqWriter" class="form-control" value="${FAQdata.faqWriter}" readOnly>
+ 				<label for="adWriter">작성자</label>
+ 				<input type="text" name="adWriter" class="form-control" value="${FAQdata.adWriter}" readOnly>
  			</div>
  			<div class="form-group">
- 				<label for="faqTitle">제목</label>
- 				<textarea name="faqTitle" id="faqTitle" rows="1" maxlength="100"
- 						class="form-control">${FAQdata.faqTitle}</textarea>
+ 				<label for="adTitle">제목</label>
+ 				<textarea name="adTitle" id="adTitle" rows="1" maxlength="100"
+ 						class="form-control">${FAQdata.adTitle}</textarea>
  			</div>
  			<div class="form-group">
- 				<label for="faqContent">내용</label>
- 				<textarea name="faqContent" id="faqContent"
- 					   rows="10" class="form-control">${FAQdata.faqContent}</textarea>
+ 				<label for="adContent">내용</label>
+ 				<textarea name="adContent" id="adContent"
+ 					   rows="10" class="form-control">${FAQdata.adContent}</textarea>
  			</div>
  			<div class="form-group">
 			  <label for="QcateId">FAQ 카테고리</label>
@@ -81,9 +81,9 @@
 			  </select>
 			</div>
  			<div class="form-group">
- 				<label for="faqPassword">비밀번호</label>
- 				<input name="faqPassword" id="faqPassword" type="password" maxlength="30"
- 					   class="form-control" placeholder="Enter faqPassword">
+ 				<label for="adPassword">비밀번호</label>
+ 				<input name="adPassword" id="adPassword" type="password" maxlength="30"
+ 					   class="form-control" placeholder="Enter adPassword">
  			</div>
  			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
  			<div class="form-group">

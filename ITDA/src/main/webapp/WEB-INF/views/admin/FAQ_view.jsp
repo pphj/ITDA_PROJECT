@@ -58,23 +58,23 @@
  			</tr>
  			<tr>
  				<td><div>글쓴이</div></td>
- 				<td><div>${faqdata.faqWriter}</div></td>
+ 				<td><div>${faqdata.adWriter}</div></td>
  			</tr>
  			<tr>
  				<td><div>제목</div></td>
- 				<td><c:out value="${faqdata.faqTitle}" /></td>
+ 				<td><c:out value="${faqdata.adTitle}" /></td>
  			</tr>
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly>${faqdata.faqContent}</textarea></td>
+ 				<textarea class="form-control" rows="5" readOnly>${faqdata.adContent}</textarea></td>
  			</tr>
  			<tr>
  				<td colspan="2" class="center">
  					<sec:authorize access="isAuthenticated()">
  						<sec:authentication property="principal" var="pinfo" />
-		 				<c:if test="${id == faqWriter}">	<%-- 작성자거나 관리자일때 권한 부여 --%>
-		 					<a href="FAQmodify?num=${faqdata.faqNum}">			<%-- Controller와 주소가 동일해야 한다. 다르면 500에러 --%>
+		 				<c:if test="${id == adWriter}">	<%-- 작성자거나 관리자일때 권한 부여 --%>
+		 					<a href="FAQmodify?num=${faqdata.adNum}">			<%-- Controller와 주소가 동일해야 한다. 다르면 500에러 --%>
 		 						<button class="btn btn-warning">수정</button>			<%-- 수정 클릭시 BoardModifyView 실행 --%>
 		 					</a>
 		 				</c:if>
