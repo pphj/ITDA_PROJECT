@@ -60,8 +60,8 @@ $(function () {
                     } else {
                         $(".loader").css('display', 'flex');
                     }
-                    if (this.intro.length > 80) {
-                        this.intro = this.intro.substring(0, 80) + "...";
+                    if (this.intro.length > 100) {
+                        this.intro = this.intro.substring(0, 100) + "...";
                     }
                     if (this.boardTitle.length > 17) {
                         this.boardTitle = this.boardTitle.substring(0, 17) + "...";
@@ -70,7 +70,7 @@ $(function () {
                     
                     var appendData = '<a href="contents/' + this.chNum + '/' + this.boardNum + '" class="popular-list-card">'
                         + '<li class="popular-list-content"><span class="popular-list-title">' + this.boardTitle + '</span><br>'
-                        + '<p>' + this.intro + '</p></li>'
+                        + '<p class="popular-list-text">' + this.intro + '</p></li>'
                         + '<li class="popular-list-imgframe">';
                     if (this.thumbNail == null) {
                         appendData += '<img src="resources/image/common/itda_logo3.png" class="popular-list-img"></li></a>'
