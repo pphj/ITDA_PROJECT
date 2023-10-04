@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/login_modal.css">
@@ -12,6 +14,17 @@
 <script> var contextPath = "<%=request.getContextPath()%>";
 </script>
 <script>
+
+
+$(function() {
+	$("#logout").click(function(event){
+		event.preventDefault();
+		$("form[name=logout]").submit();
+	})
+})
+
+
+
 	const result = "${result}";
 
 	if (result == "joinSuccess") {
@@ -90,18 +103,18 @@ var SITE_MEMBER = function(){
 			
 	 --%>	
 	 			<%-- 프로필 사진 출력 보안 --%>
-	 	<%
-			String userId = (String) session.getAttribute("userId");
-			String userProfilePath = (String) session.getAttribute("userProfilePath"); // 프로필 사진 경로 가져오기
-
-			if (userId != null && !userId.equals("")) {
-			%>
-			<c:if test = "${empty id}">
+	 <sec:authorize access="isAnonymous()">
 	<script>
-		location.href="${pageContext.request.contextPath}/member/login";
+		  /*  location.href = "${pageContext.request.contextPath}";    */
+		  
 	</script>
-</c:if>
-
+</sec:authorize>
+			
+			<!-- 현재 사용자가 인증되지 않은(로그인하지 않은) 상태인지 확인 -->
+	<sec:authorize access="isAuthenticated()">
+			<sec:authentication property="principal" var="pinfo"/>
+				
+				
 			<!-- 로그인한 경우 프로필 사진을 표시합니다. -->
 			<div class="dropdown">
 				<button class="dropbtn">
@@ -109,14 +122,18 @@ var SITE_MEMBER = function(){
 						style="width: 30px; height: auto;" />
 				</button>
 				<div class="dropdown-content">
-					<a href="${pageContext.request.contextPath}/myPage">마이 페이지</a> <a
-						href="#" id="logoutLink">로그아웃</a>
+					<a href="${pageContext.request.contextPath}/myPage">마이 페이지</a>
+				<form action="${pageContext.request.contextPath}/member/logout" method="post"
+					style="margin-bottom:0px" name="logout">
+				<a class="nav-link" href="#" id="logout">
+					<span id="loginid">${pinfo.username}</span>님(로그아웃)	
+				</a>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				
+				</form>
 				</div>
 			</div>
-
-			<%
-			} else {
-			%>
+	</sec:authorize>
 			
 			<div class="header_user">
 				<div class="user_sign_in">
@@ -279,9 +296,6 @@ var SITE_MEMBER = function(){
 							value="${_csrf.token}">
 				</form>
 							<!-- login_modal end -->
-			<%
-			}
-			%>
 			</div>
 		</ul>
 							</div>

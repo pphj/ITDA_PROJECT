@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.itda.ITDA.security.JWTTokenFilter;
 import com.itda.ITDA.security.JWTTokenProvider;
-import com.itda.ITDA.security.SecurityService;
+import com.itda.ITDA.service.SecurityService;
 
 @EnableWebSecurity
 @Configuration
@@ -39,8 +39,8 @@ public class SecurityConfig {
    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
        //#1. 권한이 필요한 대상입니다.
        http.authorizeRequests()
-           .antMatchers("/test").authenticated()
-           .antMatchers("/test2").authenticated();
+           .antMatchers("/resources/**").permitAll()
+           .antMatchers("/**").permitAll();
        
        //#2. 세션을 쓰지 않습니다.
        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -63,7 +63,7 @@ public class SecurityConfig {
                response.setHeader("Content-Type", "application/download; UTF-8");
                String token = provider.createToken(user_id, auth.getAuthorities().stream().map(arg -> arg.getAuthority()).collect(Collectors.toList()));
                response.getWriter().write("{\"result\" : \""+token+"\" }");
-               
+               System.out.println(token);
            })       
            .failureHandler((request, response, auth) -> {  //로그인 실패시 행동을 정의 합니다.
                String ip = request.getRemoteAddr();

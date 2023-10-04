@@ -9,6 +9,7 @@ import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
 
 @Service
 public class Itda_UserServiceImpl implements Itda_UserService {
+	
 	private Itda_UserMapper dao;
 	private PasswordEncoder passwordEncoder;
 	
