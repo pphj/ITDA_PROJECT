@@ -28,7 +28,7 @@ public class SecurityUser implements UserDetails {
 		return userId; 
 	}
 
-   // isAccountNonExpired, isAccountNonLocked, isCredentialsNonExpired, isEnabled 메서드는 필요에 따라 구현해주셔야 합니다.
+   // isAccountNonExpired, isAccountNonLocked, isCredentialsNonExpired, isEnabled 메서드는 필요에 따라 구현해야 됨.
    // 이 메서드들은 계정의 유효성을 확인하고 계정의 활성화 여부를 판단하는데 사용됩니다.
 
    @Override

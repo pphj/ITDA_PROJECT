@@ -32,11 +32,13 @@ public class Itda_UserController {
 
 	private Itda_UserService Itda_UserService;
 	private PasswordEncoder passwordEncoder;
+	private HttpSession session; // HttpSession 객체 선언
 
 	@Autowired
-	public Itda_UserController(Itda_UserService Itda_UserService, PasswordEncoder passwordEncoder) {
+	public Itda_UserController(Itda_UserService Itda_UserService, PasswordEncoder passwordEncoder, HttpSession session) {
 		this.Itda_UserService = Itda_UserService;
 		this.passwordEncoder = passwordEncoder;
+		this.session = session; // HttpSession 객체 주입
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -68,26 +70,29 @@ public class Itda_UserController {
 
 	@RequestMapping(value = "/joinProcess", method = RequestMethod.POST)
 	public String insert(Itda_User mem, RedirectAttributes ra, Model model, HttpServletRequest request) {
-		String encPassword = passwordEncoder.encode(mem.getUserPw());
-		logger.info(encPassword);
-		mem.setUserPw(encPassword);
+	    String encPassword = passwordEncoder.encode(mem.getUserPw());
+	    logger.info(encPassword);
+	    mem.setUserPw(encPassword);
 
-		int result = Itda_UserService.insert(mem);
+	    int result = Itda_UserService.insert(mem);
 
-		if (result == 1) {
-			ra.addFlashAttribute("result", "joinSuccess");
-			return "redirect:/main/protomain";
-		} else {
-			model.addAttribute("url", request.getRequestURI());
-			model.addAttribute("message", "회원 가입 실패");
-			return "/main/protomain";
-		}
+	    if (result == 1) {
+	        // 회원 가입 성공 시 프로필 사진 경로를 세션에 저장
+	        session.setAttribute("userProfilePath", mem.getUserProfile());
 
+	        ra.addFlashAttribute("result", "joinSuccess");
+	        return "redirect:/";
+	    } else {
+	        model.addAttribute("url", request.getRequestURI());
+	        model.addAttribute("message", "회원 가입 실패");
+	        return "/main/protomain";
+	    }
 	}
+
 	
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	public String loginProcess(@RequestParam("userId") String id, @RequestParam("userPw") String password,
-	                           HttpSession session, RedirectAttributes rattr) {
+	                           HttpSession session, RedirectAttributes rattr) { //session 처리 보안
 	    // 아이디와 비밀번호를 사용하여 로그인 처리 로직을 구현합니다.
 	    // Itda_UserService.isId() 메소드로 아이디의 존재 여부 및 정보를 확인하고,
 	    // 해당 아이디의 사용자가 있다면 비밀번호 일치 여부도 검사합니다.
@@ -99,10 +104,10 @@ public class Itda_UserController {
 
 		if (result == 1) {
 			session.setAttribute("id", id);
-			return "redirect:/main/protomain";
+			return "redirect:/";
 		} else {
 			rattr.addFlashAttribute("result", result);
-			return "/main/protomain";
+			return "/";
 		}
 	}
 

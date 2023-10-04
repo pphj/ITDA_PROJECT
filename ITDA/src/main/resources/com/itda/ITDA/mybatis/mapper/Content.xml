@@ -42,4 +42,13 @@
 	<select id="selectchCate_Id" resultType="chCategory">
 		select * from chCategory
 	</select>
+	
+	<select id="getContentDetail" resultType="ChBoard">
+		select chboard.*, chboardcategory.chcate_name  
+		from chboard   join chboardcategory 
+				 on   chboard.chnum  =  chboardcategory.chnum 
+				 where boardnum = #{boardNum}
+				 and chboard.chcate_id = chboardcategory.chcate_id
+	</select>
+	
 </mapper>

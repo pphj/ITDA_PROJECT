@@ -30,6 +30,7 @@ public class JWTTokenFilter extends GenericFilterBean {
 			Authentication authentication = tokenProvider.getAuthentication(token);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
+		System.out.println(token);
 		chain.doFilter(request, response);
 	}
 

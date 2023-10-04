@@ -343,6 +343,11 @@ p{
     word-break: break-all;
 }
 
+.popular-list-text{
+	font-size: 12px;	
+}
+
+
 /*channelList.jsp*/
 
 .rounded-circle {

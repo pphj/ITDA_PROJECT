@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/login_modal.css">
@@ -86,12 +87,20 @@ var SITE_MEMBER = function(){
 					src="${pageContext.request.contextPath}/resources/image/common/search.png"
 					style="width: 30px; height: auto;">
 			</a></li>
-	 --%>		<%
+			
+	 --%>	
+	 			<%-- 프로필 사진 출력 보안 --%>
+	 	<%
 			String userId = (String) session.getAttribute("userId");
 			String userProfilePath = (String) session.getAttribute("userProfilePath"); // 프로필 사진 경로 가져오기
 
 			if (userId != null && !userId.equals("")) {
 			%>
+			<c:if test = "${empty id}">
+	<script>
+		location.href="${pageContext.request.contextPath}/member/login";
+	</script>
+</c:if>
 
 			<!-- 로그인한 경우 프로필 사진을 표시합니다. -->
 			<div class="dropdown">

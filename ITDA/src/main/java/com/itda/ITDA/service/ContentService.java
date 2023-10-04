@@ -20,5 +20,7 @@ public interface ContentService {
 	List<ChBoard> HotContentSelect();
 
 	List<ChCategory> selectchCate_Id();
+	
+	ChBoard getContentDetail(int boardnum);
 
 }
