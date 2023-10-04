@@ -4,16 +4,23 @@
 
 <mapper namespace="com.itda.ITDA.mybatis.mapper.Itda_UserMapper">
 	<select id="isId" resultType="Itda_User">
+		select * from itda_user where
+		userId = #{userId}
+	</select>
+
+	<select id="getUserById" resultType="Itda_User">
 		select * from itda_user where userId = #{userId}
 	</select>
-	
+
+
 	<insert id="insert" parameterType="Itda_User">
 		insert into itda_user
-	    (userId, userPw, userName, userBirth, userGender, userPhone,
-	    userAddress1, userAddress2, userPost, userEmail, userCategory,
-	    userJoindate, statusId, userProfile)
-	    values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userGender}, #{userPhone},
-	    #{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail}, #{userCategory},
-	    SYSDATE, 1, null)
+		(userId, userPw, userName, userBirth, userGender, userPhone,
+		userAddress1, userAddress2, userPost, userEmail, userCategory,
+		userJoindate, statusId, userProfile)
+		values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userGender}, #{userPhone},
+		#{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail},
+		#{userCategory},
+		SYSDATE, 1, null)
 	</insert>
 </mapper>

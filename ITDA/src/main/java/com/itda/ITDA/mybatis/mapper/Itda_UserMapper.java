@@ -14,5 +14,11 @@ public interface Itda_UserMapper {
 
 	int insert(Itda_User mem);
 
+	Itda_User getUserById(String userId);
+	
+	
+
 	
 }
+
+

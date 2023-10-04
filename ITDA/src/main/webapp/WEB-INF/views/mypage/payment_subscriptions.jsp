@@ -8,7 +8,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<title>MY : 잇다</title>
 	<base target="_parent">
-<!-- 	<script>
+ 	<script>
 		var g_ssc = nsc = "Mpremiumcontents.all";
 		var g_default_area = "art";
 
@@ -42,7 +42,7 @@
 		_paq.push(["setSiteId", "1"]);
 
 		var isPremiumReferer = false;
-	</script> -->
+	</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
 	<jsp:include page="../include/header.jsp"></jsp:include>
 

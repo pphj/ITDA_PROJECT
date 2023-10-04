@@ -2,7 +2,6 @@
 
 <body>
 <footer role="contentinfo" class="footer _STICKY_FOOTER">
-	<a href="${pageContext.request.contextPath}/info/notice" style="color:white !important">공지사항</a>
 	<a href="#" class="page_top show _MOVE_TOP" style=""></a>
 	<div class="footer_naver_info_wrap">
 		<button id="_NAVER_INFO" type="button" class="footer_naver_info_button is_active _TOGGLE _IFRAME_RESIZE" data-target="_NAVER_INFO" data-classvalue="is_active" data-show-clk="fot.ninfoopen" data-hide-clk="fot.ninfoclose" data-cookie-name="P_NF">잇다(주) 사업자 정보</button>
@@ -48,6 +47,7 @@
 			<div class="footer_sub_item"><a href="https://policy.naver.com/policy/privacy.html" class="footer_sub_link" data-clk="fot.privacy"><strong>개인정보처리방침</strong></a></div>
 			<div class="footer_sub_item"><a href="https://policy.naver.com/rules/disclaimer.html" class="footer_sub_link" data-clk="fot.legal">법적고지</a></div>
 			<div class="footer_sub_item"><a href="https://help.naver.com/service/24543?lang=ko" class="footer_sub_link" data-clk="fot.pccs">고객센터</a></div>
+			<div class="footer_sub_item"><a href="${pageContext.request.contextPath}/info/notice" class="footer_sub_link">공지사항</a></div>
 		</div>
 	</div>
 </footer>

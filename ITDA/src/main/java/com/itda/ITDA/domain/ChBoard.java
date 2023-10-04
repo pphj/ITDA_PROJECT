@@ -9,6 +9,7 @@ public class ChBoard {
 	private String boardTitle;
 	private int boardHeart;
 	private int chCate_Id;
+	private String chCate_Name;
 	private String boardOpen;
 	private String boardNore;
 	private Timestamp boardDate;
@@ -19,6 +20,16 @@ public class ChBoard {
 	private String boardContent;
 	private int cnt;
 	
+	
+	
+	
+	public String getChCate_Name() {
+		return chCate_Name;
+	}
+	
+	public void setChCate_Name(String chCate_Name) {
+		this.chCate_Name = chCate_Name;
+	}
 	
 	public int getCnt() {
 		return cnt;

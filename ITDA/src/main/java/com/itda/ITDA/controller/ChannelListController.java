@@ -8,9 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -75,6 +78,26 @@ public class ChannelListController {
     }
     
     
-    
+//    @RequestMapping(value="/{chnum}", method=RequestMethod.GET)
+//    public String ChannelMainPageNum(
+//    		@PathVariable(value="chnum") int chnum,
+//    		Model model) {
+//    	
+//        logger.info("채널 메인 페이지 표시 요청: chnum=" + chnum);
+//
+//        // 채널 정보를 가져옴
+//        ChannelList channel = channelList_Service.getChannelDetail(chnum);
+//
+//            // 채널 정보를 뷰로 전달
+//            model.addAttribute("channel", channel);
+//            
+//            // 채널과 연관된 게시물 목록을 가져옴
+//            List<ChBoard> channeldetail = channelList_Service.getBoardListByBoardNum(chnum);
+//            model.addAttribute("channeldetail", channeldetail);
+//        
+//        return "channel/ChannelMain";
+//    	
+//    }
+//    
   
 }

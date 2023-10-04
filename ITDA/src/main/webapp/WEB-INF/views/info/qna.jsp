@@ -3,7 +3,7 @@
 <html lang="ko"><head>
 		<meta charset="UTF-8">
         <title>1대1문의</title>
-        <link rel="canonical" href="https://www.hankyung.com/help">
+    <!--     <link rel="canonical" href="https://www.hankyung.com/help">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
         <meta name="robots" content="index,follow">
@@ -28,12 +28,12 @@
 
         <meta itemprop="name" content="고객센터 | 한국경제">
         <meta itemprop="description" content="한경 고객센터, 성공을 부르는 습관 한국경제신문 한경닷컴">
-        <meta itemprop="image" content="https://static.hankyung.com/img/logo/logo-news-sns.png">
+        <meta itemprop="image" content="https://static.hankyung.com/img/logo/logo-news-sns.png">  -->
 
         <link rel="shortcut icon" href="https://www.hankyung.com/favicon.ico">
         <link rel="apple-touch-icon" sizes="192x192" href="https://static.hankyung.com/resource/common/img/favicon/apple-touch-icon.png">
         <link rel="stylesheet" href="https://static.hankyung.com/css/www/w/common.ui.all.css?v=202309221514">
-        <link rel="stylesheet" href="https://static.hankyung.com/resource/www/help/css/help.css?v=202309221514">
+        <link rel="stylesheet" href="https://static.hankyung.com/resource/www/help/css/help.css?v=202309221514">  
 
         <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-6V2CLLNXEB&amp;cx=c&amp;_slc=1"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-YR1S7BMWY7&amp;l=dataLayer&amp;cx=c"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y2XH7W3BRT&amp;l=dataLayer&amp;cx=c"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-T9TD5G7"></script><script src="https://static.hankyung.com/plugin/jquery-1.12.4.min.js"></script>
 		<script src="https://static.hankyung.com/plugin/jquery.cookie.js"></script>
@@ -381,7 +381,7 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 		<section class="qna-wrap">
 			<div class="cont-top-area">
 				<h1 class="cont-tit">나의 1:1문의</h1>
-				<a href="https://www.hankyung.com/help/qna/write" class="btn-default">1:1 문의하기</a>
+				<a href="${pageContext.request.contextPath}/info/requests" class="btn-default">1:1 문의하기</a>
 			</div>
 
 

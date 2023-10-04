@@ -25,5 +25,9 @@ public interface ContentMapper {
 
 	List<ChCategory> selectchCate_Id();
 
+	ChBoard getContentDetail(int boardnum);
+
+	
+
 	
 }

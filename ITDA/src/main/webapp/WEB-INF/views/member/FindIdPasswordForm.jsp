@@ -5,8 +5,23 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/login_modal.css">
-<script src="${pageContext.request.contextPath}/resources/js/site_member.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+	
+<script src="https://vendor-cdn.imweb.me/js/jquery.js?1627517460"></script> 
+
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery-ui.design.js?1627517437"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.fileupload.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.lazyload.min.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.smooth-scroll.min.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery-scrolltofixed.js?1669067096"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.trackpad-scroll-emulator.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.exif.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.canvasResize.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.number.min.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.timepicker.min.js?1577682292"></script> -->
+<!-- <script src="https://vendor-cdn.imweb.me/js/jquery.chosen.js?1619084781"></script> -->
+	
+
+
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 </head>
@@ -231,18 +246,150 @@
 
 
 <script>
-		var NOT_APP_PAGE = 'Y';
-		SITE_MEMBER.step();
-		SITE_MEMBER.initFindId({
-			"auth_data" : [],
-			"auth_anchor_list" : []
-		});
-		SITE_MEMBER.updateFindIdStatus();
-		TOKEN.setListToken();
-	</script>
+
+		//아이디 찾기, 비밀번호 찾기 탭 기능 
+
+$(document).ready(function() {
+  var current_find_tab = 'findId';
+
+  function step() {
+    $('.btn_find').off('click').on('click', function() {
+      var tab_id = $(this).attr('data-tab');
+      current_find_tab = tab_id;
+      $('.btn_find').removeClass('active');
+      $('._find_tit').addClass('hidden');
+      $('._step').addClass('hidden');
+
+      $(this).addClass('active');
+      $('.' + tab_id).removeClass('hidden');
+      $('#' + tab_id).removeClass('hidden');
+
+      if (tab_id == 'findId') {
+        $('._find_id').removeClass('hidden');
+        $('._find_password').addClass('hidden');
+      } else if (tab_id == 'findPassword') {
+        $('._find_password').removeClass('hidden');
+        $('._find_id').addClass('hidden');
+      }
+    });
+  }
+
+  function updateFindIdStatus() {
+    $('._update_status').off('click').on('click', function() {
+      var tab_name = $(this).attr("data-tab");
+
+      if (tab_name == "find_id") {
+        $("._find_id").removeClass("hidden");
+        $("._find_password").addClass("hidden");
+      } else if (tab_name == "find_password") {
+        $("._find_password").removeClass("hidden");
+        $("._find_id").addClass("hidden");
+      }
+    });
+  }
+
+  step();
+  updateFindIdStatus();
+});
+
+		//아이디 찾기, 비밀번호 찾기 탭 기능 end
+
+
+	
+	
+		//아이디, 비밀번호 찾기 버튼 
+		
+	var SITE_MEMBER = {
+	findToken: '', // findToken 변수 초기화
+	findSubmit: function(step) {
+		var that = this;
+		if(step=='find'){
+			var status_find_id  	   = !($('._find_id').hasClass('hidden'));		   // 아이디 찾기 상태
+			var status_find_password   = !($('._find_password').hasClass('hidden'));   // 비밀번호 찾기 상태
+
+			var email_wrap = $('._find_id_email_wrap');			// 가입한 이메일로 찾기 영역
+			var nick_wrap  = $('._find_id_nick_wrap');			// 가입한 휴대폰으로 찾기 영역
+
+			var find_id_first_result_wrap   = $('#find_step2_info_1');
+			var find_id_second_result_wrap  = $('#find_step2_info_2');
+			
+			var only_email	  	 = $('._find_id_only_input_email').val(); // 가입한 이메일로 찾기만 있을 경우 입력되는 값
+			var is_find_id_only_email = false;
+			
+			var find_id_send_email_wrap = $('._find_id_send_email_wrap'); // 아이디, 비밀번호 재설정 메일 발송 영역
+			
+			var email 	 	  = $('._find_id_input_email').val();		// 아이디 찾기 이메일 입력값
+			var nick  	 	  = $('._find_id_input_nick').val();		// 아이디 찾기 이름 입력값
+			var	call_num 	  = $('._find_id_input_call_num').val();	// 아이디 찾기 전화번호 입력값
+
+			var regex = /[^0-9]/g; // 숫자가 아닌 문자열을 선택하는 정규식
+			if(call_num) call_num = call_num.replace(regex, "");
+
+			var find_pw_email = $('._find_pw_input_email').val(); 		// 비밀번호 찾기 이메일 입력값
+			
+			var is_auth_input = false;
+			var is_auth_dream_seucrity = $('._auth_dream_security_input').length;
+			var is_auth_mobilians 	   = $('._auth_mobilians_input').length;
+			var is_auth_inicis 		   = $('._auth_inicis_input').length;
+			if(is_auth_dream_seucrity > 0 || is_auth_mobilians > 0 || is_auth_inicis > 0){ // 본인인증 수단 한개라도 사용하고 있을 경우
+				is_auth_input = true;
+			}
+
+			
+			
+      
+      if (status_find_id) { // 아이디 찾기 상태인 경우
+        if (email_wrap.css('display') == 'block') { // 가입한 이메일로 찾기 입력 데이터 이외의 값 초기화
+          nick_wrap.val('');
+          call_num.val('');
+        } else if (nick_wrap.css('display') == 'block') { // 가입한 휴대폰으로 찾기 입력 데이터 이외의 값 초기화
+        	find_pw_email = '';
+        }
+      } else if (status_find_password) { // 비밀번호 찾기 상태인 경우
+        nick.val('');
+        call_num.val('');
+
+        find_pw_email = $('._find_pw_input_email').val(); 	// 비밀번호 찾기 이메일 입력값을 가져옵니다.
+      }
+
+      if (!find_pw_email) {
+				alert('입력하신 정보와 일치하는 계정이 없습니다. 다시 시도해주시거나 사이트 관리자에게 문의해주세요.'); 
+				return;
+		  }
+      
+		  $.ajax({
+			  url: '/api/find_id', 
+			  type: 'POST',
+			  data: { email_or_id: find_pw_email },
+			  success: function(response) {
+				  if (response.success) {
+					  that.findToken = response.token; 
+					  alert('We have sent an email with your ID.'); 
+				  } else {
+					  alert('No account found with that email or ID.'); 
+				  }
+			  },
+			  error: function(error) {
+				  console.error(error);
+				  alert('An error occurred.');
+			  }
+		  });
+    }
+    
+  }
+};
+
+
+
+		
+		
+		
+		//아이디, 비밀번호 찾기 버튼 end
+
+
+</script>
+
 		</div>
 	</div>
 
 </body>
-
-

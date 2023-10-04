@@ -28,6 +28,8 @@
   <meta name="_csrf" content="${_csrf.token}">
   <meta name="_csrf_header" content="${_csrf.headerName}">
 <script>
+const result="${result}";
+
 $(function(){
 	$("#adminlogin").click(function(){
 		$("#adminmodal").modal("show");
@@ -35,10 +37,11 @@ $(function(){
 })
 
 $(function(){
-	$("#adJoin").click(function(){
-		location.href = "${pageContext.request.contextPath}/adMember/join";
-	})	
-})
+		$("#logout").click(function(e){
+			e.preventDefault();
+			$("form[name=logout]").submit();
+		})
+	})
 </script>
 </head>
 <body class="g-sidenav-show   bg-gray-100">
@@ -100,17 +103,6 @@ $(function(){
 										<input type="checkbox" name="remember-me"
 										 style="margin-bottom: 15px;"> 로그인 유지하기
 									</label>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;
-		                        	<label id="adJoin">
-		                        		관리자 가입하기
-		                        	</label>
 		                        </div>
 		                        <div class="text-center">
 		                          <button type='submit' class="btn btn-primary my-4">로그인</button>
@@ -128,15 +120,18 @@ $(function(){
 	         </sec:authorize>
 	         <sec:authorize access="isAuthenticated()">
 				<sec:authentication property="principal" var="pinfo" />
-				<a class="nav-link" href="#" id="logout">
-					<span id="loginid">${pinfo.username}</span>님(로그아웃)
-				</a>
-			  </sec:authorize>
-	          <li class="nav-item px-3 d-flex align-items-center">
-	             <a href="javascript:;" class="nav-link text-white p-0">
+				<form action="${pageContext.request.contextPath}/adMember/logout" method="post" style="margin-bottom: 0px;" name="logout">
+					<a class="nav-link" href="#" id="logout">
+						<span id="loginId">${pinfo.username}</span>님(로그아웃)
+					</a>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				</form>
+			 </sec:authorize>
+	         <li class="nav-item px-3 d-flex align-items-center">
+	            <a href="javascript:;" class="nav-link text-white p-0">
 	               <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-	             </a>
-	          </li>
+	            </a>
+	         </li>
           </ul>
         </div>
       </div>
