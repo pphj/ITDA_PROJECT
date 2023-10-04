@@ -47,23 +47,23 @@
  		<form action="FAQadd" method="post" enctype="multipart/form-data" name="FAQform">
  			<h1>FAQ 작성 페이지</h1>
  			<div class="form-group">
- 				<label for="faqWriter">작성자</label>
- 				<input name="faqWriter" id="faqWriter" value="${pinfo.faqWriter}" readOnly
+ 				<label for="adWriter">작성자</label>
+ 				<input name="adWriter" id="adWriter" value="${pinfo.username}" readOnly
  					   type="text" class="form-control"">
  			</div>
  			<div class="form-group">
- 				<label for="faqPassword">비밀번호</label>
- 				<input name="faqPassword" id="faqPassword" type="password" maxlength="30"
+ 				<label for="adPassword">비밀번호</label>
+ 				<input name="adPassword" id="adPassword" type="password" maxlength="30"
  					   class="form-control" placeholder="Enter Password">
  			</div>
  			<div class="form-group">
- 				<label for="faqTitle">제목</label>
- 				<input name="faqTitle" id="faqTitle" type="text" maxlength="100"
+ 				<label for="adTitle">제목</label>
+ 				<input name="adTitle" id="adTitle" type="text" maxlength="100"
  					   class="form-control" placeholder="Enter Title">
  			</div>
  			<div class="form-group">
- 				<label for="faqContent">내용</label>
- 				<textarea name="faqContent" id="faqContent"
+ 				<label for="adContent">내용</label>
+ 				<textarea name="adContent" id="adContent"
  					   rows="10" class="form-control"></textarea>
  			</div>
  			<div class="form-group">

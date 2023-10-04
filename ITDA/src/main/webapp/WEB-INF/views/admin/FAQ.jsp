@@ -96,19 +96,41 @@
 	 					</td>
 	 					<td>		<%-- 제목 부분 --%>
 	 						<div>
-	 							<a href="FAQdetail?num=${F.faqNum}">
-	 								<c:if test="${F.faqTitle.length() >= 20}">
-	 									<c:out value="${F.faqTitle.substring(0,20)}..." escapeXml="true" />
+	 							<a href="FAQdetail?num=${F.adNum}">
+	 								<c:if test="${F.adTitle.length() >= 20}">
+	 									<c:out value="${F.adTitle.substring(0,20)}..." escapeXml="true" />
 	 								</c:if>
-	 								<c:if test="${F.faqTitle.length() < 20}">
-	 									<c:out value="${F.faqTitle}" escapeXml="true" />
+	 								<c:if test="${F.adTitle.length() < 20}">
+	 									<c:out value="${F.adTitle}" escapeXml="true" />
 	 								</c:if>
 	 							</a>
 	 						</div>
 	 					</td>
-	 					<td><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${F.qcateId}</div></td>
-	 					<td><div>&nbsp;&nbsp;&nbsp;${F.faqWriter}</div></td>
-	 					<td><div><c:out value="${F.faqDate}" /></div></td>
+	 					<c:choose>
+						    <c:when test="${F.qcateId == 1}">
+						        <td><div>&nbsp;&nbsp;홍보, 영리목적</div></td>
+						    </c:when>
+						    <c:when test="${F.qcateId == 2}">
+						        <td><div>&nbsp;&nbsp;불법 정보</div></td>
+						    </c:when>
+						    <c:when test="${F.qcateId == 3}">
+						        <td><div>&nbsp;&nbsp;음란, 청소년 유해</div></td>
+						    </c:when>
+						    <c:when test="${F.qcateId == 4}">
+						        <td><div>&nbsp;&nbsp;욕설, 비방, 차별, 혐오</div></td>
+						    </c:when>
+						    <c:when test="${F.qcateId == 5}">
+						        <td><div>&nbsp;&nbsp;도배, 스팸</div></td>
+						    </c:when>
+						    <c:when test="${F.qcateId == 6}">
+						        <td><div>&nbsp;&nbsp;개인정보 노출, 거래</div></td>
+						    </c:when>
+						    <c:otherwise>
+						        <td><div>&nbsp;&nbsp;기타</div></td>
+						    </c:otherwise>
+						</c:choose>
+	 					<td><div>&nbsp;&nbsp;&nbsp;${F.adWriter}</div></td>
+	 					<td><div><c:out value="${F.adDate}" /></div></td>
 	 				</tr>
 	 			</c:forEach>
 	 		</tbody>
