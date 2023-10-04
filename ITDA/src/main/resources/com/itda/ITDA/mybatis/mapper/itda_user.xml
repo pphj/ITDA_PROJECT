@@ -4,8 +4,8 @@
 
 <mapper namespace="com.itda.ITDA.mybatis.mapper.Itda_UserMapper">
 	<select id="isId" resultType="Itda_User">
-		select * from itda_user where
-		userId = #{userId}
+		select * from itda_user 
+		where userId = #{userId}
 	</select>
 
 	<select id="getUserById" resultType="Itda_User">
