@@ -79,6 +79,7 @@ public class Itda_UserController {
 	    if (result == 1) {
 	        // 회원 가입 성공 시 프로필 사진 경로를 세션에 저장
 	        session.setAttribute("userProfilePath", mem.getUserProfile());
+	        
 
 	        ra.addFlashAttribute("result", "joinSuccess");
 	        return "redirect:/";
