@@ -49,6 +49,12 @@ public class ContentServiceImpl implements ContentService {
 		return dao.selectchCate_Id();
 	}
 
+	@Override
+	public ChBoard getContentDetail(int boardnum) {
+		return dao.getContentDetail(boardnum);
+		
+	}
+
 
 
 }

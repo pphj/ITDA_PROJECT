@@ -162,10 +162,17 @@ a:hover{
 	overflow: hidden;
 }
 
+
+
 /* 마이페이지 배경 */
 .as_white_background{
 	background-color: #f6f6f4;
 }
+
+.as_my_home{
+	background-color: #f6f6f4;
+}
+
 
 @media (max-width: 1079px) {
 	.mobile_hidden {
@@ -1953,6 +1960,11 @@ html[data-useragent*='Windows'] .footer_sub_item {
 		-webkit-box-ordinal-group: 8;
 		-ms-flex-order: 7;
 		order: 7;
+	}
+	.footer_sub_item:nth-child(8) {
+		-webkit-box-ordinal-group: 9;
+		-ms-flex-order: 8;
+		order: 8;
 	}
 }
 
