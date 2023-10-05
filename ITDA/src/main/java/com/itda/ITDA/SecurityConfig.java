@@ -35,7 +35,7 @@ public class SecurityConfig {
       http.authorizeRequests()
       .antMatchers("/resources/**/**").permitAll()
       .antMatchers("/**/**").permitAll();
-    /*  .antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")
+    /*.antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")
       .antMatchers("/admin/**").access("hasAnyRole('SUPERADMIN','ADMIN')");*/
       
       http.formLogin().loginPage("/main/protomain")
@@ -46,10 +46,10 @@ public class SecurityConfig {
                   .failureHandler(loginFailHandler());
       
       //로그아웃 관련 설정
-      http.logout().logoutSuccessUrl("/")             // 로그아웃 후 이동할 주소 
-               .logoutUrl("/member/logout")                // 컨트롤러의 logout을 제거하는 대신 여기서 처리(post 방식 요구)
-               .invalidateHttpSession(true)               //로그아웃 시 세션 속성들 제거
-               .deleteCookies("remember-me", "JSESSION_ID");   // 쿠키 제거 
+      http.logout().logoutSuccessUrl("/")             		  // 로그아웃 후 이동할 주소 
+               .logoutUrl("/member/logout")                   // 컨트롤러의 logout을 제거하는 대신 여기서 처리(post 방식 요구)
+               .invalidateHttpSession(true)                   //로그아웃 시 세션 속성들 제거
+               .deleteCookies("remember-me", "JSESSION_ID");  // 쿠키 제거 
             
       http.rememberMe()
                .rememberMeParameter("remember-me")
