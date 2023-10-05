@@ -51,7 +51,7 @@
       </div>
     </div>
 	<div class="container">
- 		<form action="FAQmodifyAction" method="post" enctype="multipart/form-data" name="FAQmodify">
+ 		<form action="${pageContext.request.contextPath}/admin/FAQmodifyAction" method="post" enctype="multipart/form-data" name="FAQmodify">
  			<input type="hidden" name="adNum" value="${FAQdata.adNum}">
  			<h1>FAQ - 수정</h1>
  			<div class="form-group">

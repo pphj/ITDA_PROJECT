@@ -8,6 +8,7 @@
 		from (select rownum rnum, b.*
 			  from (select *
 			  		from adminboard
+			  		where key = 'FAQ'
 					order by adNum desc
 			  ) b
 			  where rownum &lt;= #{end}
@@ -16,7 +17,7 @@
 	</select>
 	
 	<select id="getFAQListCount" resultType="int">
-		select count(*) from adminboard
+		select count(*) from adminboard where key = 'FAQ'
 	</select>
 	
 	<select id="getFAQDetail" parameterType="int" resultType="AdminBoard">
@@ -39,9 +40,25 @@
 	</update>
 	
 	<select id="isadWriter" parameterType="Map" resultType="AdminBoard">
-		select * from adminboard
+		select adNum, adPassword from adminboard
 		where adNum = #{num}					<!-- BoardServiceImpl에서 put으로 설정해놓은 이름 -->
 		and adPassword = #{pass}
 	</select>
 	
+	<select id="getQNAList" parameterType="java.util.Map" resultType="AdminBoard">
+		select * 
+		from (select rownum rnum, b.*
+			  from (select *
+			  		from adminboard
+			  		where key = 'QNA'
+					order by adNum desc
+			  ) b
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<select id="getQNAListCount" resultType="int">
+		select count(*) from adminboard where key = 'QNA'
+	</select>
 </mapper>
