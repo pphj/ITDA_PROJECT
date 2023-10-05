@@ -10,4 +10,5 @@ public interface ChannelList_Service {
 	ChannelList getChannelDetail(int chnum);
 
 	List<ChBoard> getBoardListByBoardNum(int chnum);
+
 }

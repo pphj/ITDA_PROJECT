@@ -47,6 +47,12 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	
 	
 
+	@Override
+	public Itda_User getUserById(String userId) {
+		return dao.getUserById(userId);
+	}
+
+
 	
 
 

@@ -3,10 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <html>
 <head>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,7 +16,7 @@
 	<link href="${pageContext.request.contextPath}/resources/css/content/content_detail.css" type="text/css" rel="stylesheet">
     <jsp:include page="../include/header.jsp"/>
 
-<title>${co.boardTitle }</title>
+<title>${board.boardTitle }</title>
 </head>
 <body>
 <input type="hidden" id="LoginId" value="${userId}" name="LoginId">
@@ -26,24 +24,24 @@
 	<div class="board_detail_all_group">
 	<div class="board_detail_title_group">
 	<div class="board_detail_category">
-		<a href="${pageContext.request.contextPath}/channels/${co.chNum}" class="viewer_category_link">${co.chCate_Name}</a>
+		<a href="${pageContext.request.contextPath}/channels/${board.chNum}" class="viewer_category_link">${co.chCate_Name}</a>
 	</div>
 	<div class="board_detail_title_inline">
-		<span class="board_detail_title">${co.boardTitle }</span>
+		<span class="board_detail_title">${board.boardTitle }</span>
 	</div>
 	<div class="viewer_title_content">
-		<div class="viewer_date"><fmt:formatDate pattern="yyyy.MM.dd a HH:mm" value="${co.boardDate}"/>
+		<div class="viewer_date"><fmt:formatDate pattern="yyyy.MM.dd a HH:mm" value="${board.boardDate}"/>
 		</div>
 		<div class="viewer_count">
 			<div class="viewer_count_func_wrap">
 			     <div class="content_info">
                       <span class="content_comment_wrap">
-                            <a href="#" class="heart_butt" data-id="${co.boardNum}">
+                            <a href="#" class="heart_butt" data-id="${board.boardNum}">
                             	<img class="content_comment_img"
                              	src= '${pageContext.request.contextPath}/image/content/heart.png'>
                             	<span class="content_comment_count"></span>
-                            	<input type="hidden" name="boardHeart" value="${co.boardHeart}" id="boardHeart">
-                           		<em class="u_heart_count">${co.boardHeart}</em>
+                            	<input type="hidden" name="boardHeart" value="${board.boardHeart}" id="boardHeart">
+                           		<em class="u_heart_count">${board.boardHeart}</em>
                             </a>
                             <a href="#reply_area"><img class="content_comment_img2" src= '${pageContext.request.contextPath}/image/content/comment.png'>
                                 <span class="content_comment_count"></span>
@@ -56,8 +54,8 @@
 	</div>
 	</div>
 	<div class="viewer_main_text_group">
-		<div class="ck-content content_main_text">${co.boardContent }
-			<input type="hidden" name="num" value="${co.boardNum}" id="Reply_board_num">
+		<div class="ck-content content_main_text">${board.boardContent }
+			<input type="hidden" name="num" value="${board.boardNum}" id="Reply_board_num">
 		</div>
 	</div>
 	<div class="viewer_bottom_warp">
@@ -94,7 +92,7 @@
                       <span class="content_comment_wrap">
                             <a href><img class="content_comment_img" src= '${pageContext.request.contextPath}/image/content/heart.png'>
                                <span class="content_comment_count"></span>
-                           		<em class="u_heart_count">${co.boardHeart}</em>
+                           		<em class="u_heart_count">${board.boardHeart}</em>
                             </a>
                             <a href><img class="content_comment_img2" src= '${pageContext.request.contextPath}/image/content/comment.png'>
                                 <span class="content_comment_count"></span>
