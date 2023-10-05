@@ -446,7 +446,7 @@ background-position: -250px -80px;
 }
 
 .brunch_profile.layer_on .header_head_menubar, .brunch_profile.layer_on .service_header,
-	.brunch_profile.layer_on .wrap_contents {
+	.brunch_profile.layer_on .article_wrap_contents {
 	display: none
 }
 

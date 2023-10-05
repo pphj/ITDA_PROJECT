@@ -8,13 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itda.ITDA.domain.ChBoard;
@@ -35,11 +32,11 @@ public class ChannelListController {
     public ChannelListController(ChannelList_Service channelList_Service) {
        this.channelList_Service = channelList_Service;
     }
-
-
-    @GetMapping("/ChannelMain")
+    
+    @GetMapping(value="/{chnum}")
     public ModelAndView showChannelMainPage(
-            @RequestParam(name = "chnum") int chnum, // chnum을 파라미터로 전달 받음
+    		@PathVariable(value="chnum") int chnum, // chnum을 파라미터로 전달 받음
+    		
             ModelAndView mv, HttpServletRequest request,
             @RequestHeader(value = "referer", required = false) String beforeURL) {
         logger.info("referer:" + beforeURL);
@@ -57,6 +54,7 @@ public class ChannelListController {
 
         // 채널 정보를 가져옴
         ChannelList channel = channelList_Service.getChannelDetail(chnum);
+        
 
         if (channel == null) {
             logger.info("채널 메인 페이지 표시 실패: 해당 번호의 채널을 찾을 수 없습니다.");
@@ -72,12 +70,15 @@ public class ChannelListController {
             // 채널과 연관된 게시물 목록을 가져옴
             List<ChBoard> channeldetail = channelList_Service.getBoardListByBoardNum(chnum);
             mv.addObject("channeldetail", channeldetail);
+            
+//            ChBoard contentSelect = channelList_Service.selectChBoardWithCategory(boardNum);
+//            mv.addObject("contentSelect", contentSelect);
         }
 
         return mv;
     }
     
-    
+  
 //    @RequestMapping(value="/{chnum}", method=RequestMethod.GET)
 //    public String ChannelMainPageNum(
 //    		@PathVariable(value="chnum") int chnum,

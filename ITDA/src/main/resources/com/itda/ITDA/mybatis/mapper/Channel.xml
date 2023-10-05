@@ -10,15 +10,32 @@
         WHERE CHNUM = #{chnum}
     </select>
     
-    <select id="getBoardListByBoardNum" resultType="ChBoard">
+  <!--  <select id="getBoardListByBoardNum" resultType="ChBoard">
+      <![CDATA[
         SELECT *
         FROM (
             SELECT *
-            FROM chboard
-            WHERE chnum = #{chnum}
-            ORDER BY boardnum DESC
+            FROM CHBOARD
+            WHERE CHNUM = #{chnum}
+            ORDER BY BOARDHEART DESC
         )
-        WHERE rownum &lt;= 10
-    </select>
- 
+        WHERE ROWNUM <= 20
+      ]]>
+    </select> -->
+    
+    <select id="getBoardListByBoardNum" resultType="ChBoard">
+    <![CDATA[
+    SELECT *
+    FROM (
+        SELECT *
+        FROM chboard
+        JOIN chboardcategory ON chboard.chnum = chboardcategory.chnum
+        WHERE chboard.chnum = #{chnum}
+        ORDER BY boardHeart DESC
+    )
+    WHERE ROWNUM <= 20
+    ]]>
+</select>
+
+
 </mapper> 
