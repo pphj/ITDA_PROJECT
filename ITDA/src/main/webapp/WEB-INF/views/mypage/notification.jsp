@@ -97,7 +97,7 @@
 				<div class="my_user_img_wrap">
 				</div>
 				<strong class="my_user_name">
-					닉네임
+					${user.userName}
 				</strong>
 			</a>
 			<div class="my_user_link_wrap">

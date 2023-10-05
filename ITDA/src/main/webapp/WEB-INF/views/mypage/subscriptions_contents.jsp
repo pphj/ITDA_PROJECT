@@ -96,11 +96,11 @@
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
 	<div class="my_sidebar_box">
 		<div class="my_user">
-			<a href="https://nid.naver.com/user2/help/myInfo?lang=ko_KR" class="my_user_modify_link" data-clk="my_lnb.myinfo">
+			<a href="${pageContext.request.contextPath}/my/myInfo" class="my_user_modify_link">
 				<div class="my_user_img_wrap">
 				</div>
 				<strong class="my_user_name">
-					닉네임
+					${user.userName}
 				</strong>
 			</a>
 			<div class="my_user_link_wrap">

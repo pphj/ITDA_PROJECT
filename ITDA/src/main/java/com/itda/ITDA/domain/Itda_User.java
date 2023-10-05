@@ -3,6 +3,11 @@ package com.itda.ITDA.domain;
 import java.security.Timestamp;
 import java.sql.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Itda_User {
 	private String userId;
 	private String userPw;

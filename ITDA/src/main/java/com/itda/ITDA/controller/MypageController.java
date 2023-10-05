@@ -3,6 +3,7 @@ package com.itda.ITDA.controller;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,34 +20,18 @@ public class MypageController {
 	
 	private Itda_UserService itdaUserService;
 	
-	//@Autowired
+	@Autowired
 	public MypageController(Itda_UserService itdaUserService) {
-		
+		this.itdaUserService = itdaUserService;
 	}
 	
-//	// 마이페이지 메인(구독채널의 채널)
-//	@GetMapping(value="/subscriptions")
-//	public String goSubsctiptions(Model model,
-//			@Param("userId") String userId) {
-//		
-//		userId = "mond7";
-//		//logger.info("userId = " + userId);
-//		
-//		Itda_User user = itdaUserService.getUserById(userId);
-//		logger.info("userId = " + user.getUserId());
-//		
-//		model.addAttribute("user", user);
-//		
-//		
-//		return "mypage/subscriptions";
-//	}
 	
 	@GetMapping(value="/subscriptions")
 	public String goSubscriptions(Model model,
 	        @Param("userId") String userId) {
 
 	    // "mond7" 값을 userId로 설정
-	    userId = "mond7";
+	    userId = "mond4";
 
 	    Itda_User user = itdaUserService.getUserById(userId);
 	    logger.info("userId = " + user.getUserId());
@@ -56,13 +41,6 @@ public class MypageController {
 	    return "mypage/subscriptions";
 	}
 
-	
-	/*
-	 * @GetMapping(value = "/channelmain") 
-	 * public String Detail() { 
-	 * return ("channel/ChannelMain"); 
-	 * }
-	 */
 	
 	// 마이페이지 구독채널의 최신 콘텐츠
 	@GetMapping(value="/subscriptions/contents")
@@ -99,5 +77,7 @@ public class MypageController {
 	public String contents() {
 		return "mypage/contents";
 	}
+	
+
 
 }
