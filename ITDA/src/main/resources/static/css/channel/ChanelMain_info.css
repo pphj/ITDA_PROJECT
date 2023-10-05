@@ -434,13 +434,13 @@
 }
 
 .brunch_profile.layer_on .header_head_menubar, .brunch_profile.layer_on .service_header,
-	.brunch_profile.layer_on .wrap_contents {
+	.brunch_profile.layer_on {
 	display: none
 }
 
-.card_banner, .wrap_contents {
+/* .card_banner, .wrap_contents {
 	overflow: hidden
-}
+} */
 
 .wrap_article .alert-wrap, .wrap_authorinfo .alert-wrap {
 	display: block;
