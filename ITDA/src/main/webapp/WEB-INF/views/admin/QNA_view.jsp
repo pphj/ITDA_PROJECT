@@ -26,12 +26,6 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-	let result = "${result}";
-	if (result == 'passFail') {
-		alert("비밀번호가 일치하지 않습니다.");
-	}
-</script>
 </head>
 <body class="g-sidenav-show   bg-gray-100">
   <jsp:include page="adminList.jsp" />
@@ -57,30 +51,48 @@
  				<th colspan="2">&nbsp;</th>
  			</tr>
  			<tr>
- 				<td><div>글쓴이</div></td>
- 				<td><div>${faqdata.adWriter}</div></td>
+ 				<td><div>질문자</div></td>
+ 				<td><div>${qnadata.userId}</div></td>
  			</tr>
  			<tr>
  				<td><div>제목</div></td>
- 				<td><c:out value="${faqdata.adTitle}" /></td>
+ 				<td><c:out value="${qnadata.adTitle}" /></td>
+ 			</tr>
+ 			<tr>
+ 				<td><div>카테고리</div></td>
+ 				<c:choose>
+					<c:when test="${qnadata.qcateId == 1}">
+						<td><div>홍보, 영리목적</div></td>
+					</c:when>
+					<c:when test="${qnadata.qcateId == 2}">
+						<td><div>불법 정보</div></td>
+					</c:when>
+					<c:when test="${qnadata.qcateId == 3}">
+						<td><div>음란, 청소년 유해</div></td>
+					</c:when>
+					<c:when test="${qnadata.qcateId == 4}">
+						<td><div>욕설, 비방, 차별, 혐오</div></td>
+					</c:when>
+					<c:when test="${qnadata.qcateId == 5}">
+						<td><div>도배, 스팸</div></td>
+					</c:when>
+					<c:when test="${qnadata.qcateId == 6}">
+						<td><div>개인정보 노출, 거래</div></td>
+					</c:when>
+					<c:otherwise>
+						<td><div>기타</div></td>
+					</c:otherwise>
+				</c:choose>
  			</tr>
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly>${faqdata.adContent}</textarea></td>
+ 				<textarea class="form-control" rows="5" readOnly>${qnadata.adContent}</textarea></td>
  			</tr>
  			<tr>
  				<td colspan="2" class="center">
- 					<sec:authorize access="isAuthenticated()">
- 						<sec:authentication property="principal" var="pinfo" />
-		 				<c:if test="${id == adWriter}">	<%-- 작성자일때 권한 부여 --%>
-		 					<a href="${pageContext.request.contextPath}/admin/FAQmodify/${faqdata.adNum}">
-		 						<button class="btn btn-warning">수정</button>	
-		 					</a>
-		 				</c:if>
- 					</sec:authorize>
  					<a href="${pageContext.request.contextPath}/admin/FAQ">
- 						<button class="btn btn-success">FAQ 목록</button>		<%-- 목록 클릭시 FAQ리스트로 --%>
+ 						<button class="btn btn-success">목록</button>
  					</a>
  				</td>
  			</tr>

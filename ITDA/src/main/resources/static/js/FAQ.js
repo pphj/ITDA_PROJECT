@@ -1,11 +1,11 @@
 
-	function go(page){						//해당 페이지로 이동시키는 함수
+	function go(page, goURL){						//해당 페이지로 이동시키는 함수
 		const limit = $('#viewcount').val();
 		
 		//const data = `limit=${limit}&state=ajax&page=${page}`; 와 같은 의미
 		const data = {limit : limit, state : "ajax", page : page}
 		
-		ajax(data);							//ajax를 호출, 명칭은 마음대로 설정 가능
+		ajax(data, goURL);							//ajax를 호출, 명칭은 마음대로 설정 가능
 		
 	}
 	
@@ -34,16 +34,18 @@
 		return output;
 	}
 	
+
+		
 	
-	
-	function ajax(sdata) {
+	function ajax(sdata, goURL) {
 		console.log(sdata)
+
 		//let token = $("meta[name='_csrf']").attr("content");	
 		//let header = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({
 			type : "post",
 			data : sdata,
-			url	 : "FAQList_ajax",
+			url	 : goURL,
 			dataType : "json",
 			cache : false,
 			//beforeSend : function(xhr) {
@@ -58,7 +60,7 @@
 					let num = data.listcount - (data.page - 1) * data.limit;
 					console.log(num)
 					let output = "<tbody>";
-					$(data.FAQList).each(
+					$(data.List).each(
 						function(index, item) {
 							output += '<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + (num--) + '</td>'
 
@@ -68,12 +70,50 @@
 							
 							}
 							
-							output += "<td><div> &nbsp;"
-								    + ' <a href="FAQdetail?num=' + item.adNum + '">'
-								    + adTitle.replace(/</g,'&lt;').replace(/>/g,'&gt;')
-								    + '<td><div>&nbsp;&nbsp;' + item.qcateId + '</div></td>'
-									+ '<td><div>&nbsp;&nbsp;&nbsp;&nbsp;' + item.adWriter + '</div></td>'
-									+ '<td><div>' + item.adDate.substr(0,10) + '</div></td></tr>'
+							let qacategory = "";
+							switch (item.qcateId) {
+								case 1:
+									qacategory = "홍보, 영리목적";
+									break;
+								case 2:
+									qacategory = "불법 정보";
+									break;
+								case 3:
+									qacategory = "음란, 청소년 유해";
+									break;
+								case 4:
+									qacategory = "욕설, 비방, 차별, 혐오";
+									break;
+								case 5:
+									qacategory = "도배, 스팸";
+									break;
+								case 6:
+									qacategory = "개인정보 노출, 거래";
+									break;
+								case 7:
+									qacategory = "기타";4
+									break;
+								default:
+									qacategory = "출력 오류";
+							}
+							
+							if (item.userId === 'system') {
+								output += "<td><div> &nbsp;"
+										+ ' <a href="FAQ/' + item.adNum + '">'
+										+ adTitle.replace(/</g,'&lt;').replace(/>/g,'&gt;')
+										+ '<td><div>&nbsp;&nbsp;' + qacategory + '</div></td>'
+										+ '<td><div>&nbsp;&nbsp;&nbsp;&nbsp;' + item.adWriter + '</div></td>'
+										+ '<td><div>' + item.adDate.substr(0,10) + '</div></td></tr>'
+							}
+							
+							if (item.userId !== 'system') {
+								output += "<td><div> &nbsp;"
+								   		+ ' <a href="QNA/' + item.adNum + '">'
+								   	 	+ adTitle.replace(/</g,'&lt;').replace(/>/g,'&gt;')
+										+ '<td><div>&nbsp;&nbsp;' + qacategory + '</div></td>'
+										+ '<td><div>&nbsp;&nbsp;&nbsp;&nbsp;' + item.userId + '</div></td>'
+										+ '<td><div>' + item.adDate.substr(0,10) + '</div></td></tr>'
+							}
 							
 					})//each end
 					output += "</tbody>"
@@ -111,7 +151,12 @@
 					
 					$('.pagination').append(output);
 						 
-				}//data.listcount end
+				}else if (data.listcount = 1) {
+					$(".pagination").empty();
+					$('table').empty();
+					let output = '등록된 질문이 없습니다.';
+					$('table').append(output);
+				}
 				
 			},//success end
 			
@@ -126,13 +171,40 @@
 	
 	
 	$(function(){
+		$("#FAQ").addClass("button-active");
+		$("#tabUser").hide();
+	
+		$("#FAQ").on("click", function() {		// FAQ 버튼 클릭 시
+			goURL = "FAQList_ajax";
+			
+			$("#FAQ").addClass("button-active");
+			$("#QNA").removeClass("button-active");
+			$("#tabHead").text("FAQ");
+			$("#tabUser").hide();
+			$("#tabWriter").show();
+			$("#faqwbtn").show();
+			go(1, goURL);
+		});
+
+		$("#QNA").on("click", function() {		// Q&A 버튼 클릭 시
+			goURL = "QNAList_ajax";
+			
+			$("#QNA").addClass("button-active");
+			$("#FAQ").removeClass("button-active");
+			$("#tabHead").text("QNA");
+			$("#tabUser").show();
+			$("#tabWriter").hide();
+			$("#faqwbtn").hide();
+			go(1, goURL);
+		});
+		
 		$("#faqwbtn").click(function(){
-			location.href="FAQ_write";				//버튼 클릭시 write로 이동
+			location.href="FAQ_write";			//버튼 클릭시 write로 이동
 		
 		})// click end
 		
 		$("#viewcount").change(function(){
-			go(1); 								// 보여줄 페이지를 1페이지로 설정한다
+			go(1, "FAQList_ajax"); 					// 보여줄 페이지를 1페이지로 설정한다
 		
 		})//change end
 		
