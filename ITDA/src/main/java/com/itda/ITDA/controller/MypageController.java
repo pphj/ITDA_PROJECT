@@ -1,10 +1,16 @@
 package com.itda.ITDA.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.service.Itda_UserService;
 
 @Controller
 @RequestMapping(value= "/my")
@@ -12,27 +18,33 @@ public class MypageController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 	
-	//@Autowired
-	public MypageController() {
-		
+	private Itda_UserService itdaUserService;
+	
+	@Autowired
+	public MypageController(Itda_UserService itdaUserService) {
+		this.itdaUserService = itdaUserService;
 	}
 	
-	// 마이페이지 메인(구독채널의 채널)
+	
 	@GetMapping(value="/subscriptions")
-	public String subsctiptions() {
-		return "mypage/subscriptions";
+	public String goSubscriptions(Model model,
+	        @Param("userId") String userId) {
+
+	    // "mond7" 값을 userId로 설정
+	    userId = "mond4";
+
+	    Itda_User user = itdaUserService.getUserById(userId);
+	    logger.info("userId = " + user.getUserId());
+
+	    model.addAttribute("user", user);
+
+	    return "mypage/subscriptions";
 	}
-	
-	/*
-	 * @GetMapping(value = "/channelmain") 
-	 * public String Detail() { 
-	 * return ("channel/ChannelMain"); 
-	 * }
-	 */
+
 	
 	// 마이페이지 구독채널의 최신 콘텐츠
 	@GetMapping(value="/subscriptions/contents")
-	public String subscriptions_contents() {
+	public String subscriptionsContents() {
 		return"mypage/subscriptions_contents";
 	}
 	
@@ -50,13 +62,13 @@ public class MypageController {
 	
 	// 마이페이지 결제 내역
 	@GetMapping(value="/payment/subscriptions")
-	public String payment_subscriptions() {
+	public String paymentSubscriptions() {
 		return "mypage/payment_subscriptions";
 	}
 	
 	// 마이페이지 결제 내역 자세히 보기
 	@GetMapping(value="/payment/subscriptions/episode")
-	public String payment_subscriptions_episode() {
+	public String paymentSubscriptionsEpisode() {
 		return "mypage/payment_subscriptions_episode";
 	}
 	
@@ -65,5 +77,7 @@ public class MypageController {
 	public String contents() {
 		return "mypage/contents";
 	}
+	
+
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,9 +27,16 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/FAQ.js"></script>
-  <script>
-
-  </script>
+  <style>
+	.button-active {
+	  border: none;
+	  border-bottom: 1px solid black;
+	}
+	
+	.button-inactive {
+	  border: none;
+	}
+  </style>
 </head>
 <body class="g-sidenav-show   bg-gray-100">
   <jsp:include page="adminList.jsp" />
@@ -51,12 +59,10 @@
     <div class="container-fluid py-4" style="background: white;">
     <ul style="list-style: none; padding: 0; text-align: center; display: flex; justify-content: center;">
      <li>
-      <button id="Q&A" style="border: none; border-bottom: 1px solid black;
-       width: 60px; height: 35px;">Q&A</button>
+      <button id="FAQ" class="button-active">FAQ</button>
      </li>
      <li>
-      <button id="FAQ" style="border: none; margin-left: 3px;
-       width: 60px; height: 35px;">FAQ</button>
+      <button id="QNA" class="button-inactive">Q&A</button>
      </li>
     </ul>
     	<div class="container">
@@ -74,14 +80,15 @@
 		 	<table class="table">
 	 		<thead>
 	 		<tr>
-	 			<th colspan="3">Q&A</th>
+	 			<th colspan="3" id="tabHead">FAQ</th>
 	 			<th colspan="3"><span>글 개수 : ${listcount}</span></th>
 	 		</tr>
 	 		<tr>
 	 			<th><div>번호</div></th>
 	 			<th><div>제목</div></th>
 	 			<th><div>카테고리</div></th>
-	 			<th><div>작성자</div></th>
+	 			<th id="tabUser"><div>질문자</div></th>
+	 			<th id="tabWriter"><div>작성자</div></th>
 	 			<th><div>날짜</div></th>
 	 		</tr>
 	 		</thead>
@@ -96,7 +103,7 @@
 	 					</td>
 	 					<td>		<%-- 제목 부분 --%>
 	 						<div>
-	 							<a href="FAQdetail?num=${F.adNum}">
+	 							<a href="${pageContext.request.contextPath}/admin/FAQ/${F.adNum}">
 	 								<c:if test="${F.adTitle.length() >= 20}">
 	 									<c:out value="${F.adTitle.substring(0,20)}..." escapeXml="true" />
 	 								</c:if>
@@ -130,7 +137,12 @@
 						    </c:otherwise>
 						</c:choose>
 	 					<td><div>&nbsp;&nbsp;&nbsp;${F.adWriter}</div></td>
-	 					<td><div><c:out value="${F.adDate}" /></div></td>
+	 					<c:choose>
+						    <c:when test="${not empty F.adDate}">
+						        <c:set var="Date" value="${fn:substring(F.adDate, 0, 10)}" />
+						        <td><div>&nbsp;&nbsp;&nbsp;<c:out value="${Date}" /></div></td>
+						    </c:when>
+						</c:choose>
 	 				</tr>
 	 			</c:forEach>
 	 		</tbody>

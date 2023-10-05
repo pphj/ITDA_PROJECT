@@ -34,7 +34,7 @@ public class ContentController {
 		ChBoard board = contentService.getContentDetail(boardnum);
 		logger.info("boardNum = " + board.getBoardNum());
 		
-		model.addAttribute("co", board);
+		model.addAttribute("board", board);
 
 		
 		return "/content/content_detail";

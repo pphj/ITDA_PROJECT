@@ -73,14 +73,14 @@
  				<td colspan="2" class="center">
  					<sec:authorize access="isAuthenticated()">
  						<sec:authentication property="principal" var="pinfo" />
-		 				<c:if test="${id == adWriter}">	<%-- 작성자거나 관리자일때 권한 부여 --%>
-		 					<a href="FAQmodify?num=${faqdata.adNum}">			<%-- Controller와 주소가 동일해야 한다. 다르면 500에러 --%>
-		 						<button class="btn btn-warning">수정</button>			<%-- 수정 클릭시 BoardModifyView 실행 --%>
+		 				<c:if test="${id == adWriter}">	<%-- 작성자일때 권한 부여 --%>
+		 					<a href="${pageContext.request.contextPath}/admin/FAQmodify/${faqdata.adNum}">
+		 						<button class="btn btn-warning">수정</button>	
 		 					</a>
 		 				</c:if>
  					</sec:authorize>
- 					<a href="FAQ">
- 						<button class="btn btn-success">FAQ 목록</button>				<%-- 목록 클릭시 BoardList 실행 --%>
+ 					<a href="${pageContext.request.contextPath}/admin/FAQ">
+ 						<button class="btn btn-success">FAQ 목록</button>		<%-- 목록 클릭시 FAQ리스트로 --%>
  					</a>
  				</td>
  			</tr>
