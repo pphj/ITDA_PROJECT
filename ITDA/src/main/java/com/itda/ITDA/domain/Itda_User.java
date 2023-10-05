@@ -19,6 +19,16 @@ public class Itda_User {
 	private int statusId;
 	private Timestamp updateDate;
 	private String userProfile;
+	private String authName;
+	
+
+	public String getAuthName() {
+		return authName;
+	}
+
+	public void setAuthName(String authName) {
+		this.authName = authName;
+	}
 
 	public Timestamp getUpdateDate() {
 		return updateDate;
@@ -140,14 +150,6 @@ public class Itda_User {
 		this.userJoindate = userJoindate;
 	}
 
-	public String getAuth() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

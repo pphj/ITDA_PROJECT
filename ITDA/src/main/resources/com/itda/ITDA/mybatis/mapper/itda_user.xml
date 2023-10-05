@@ -8,9 +8,6 @@
 		userId = #{userId}
 	</select>
 
-	<select id="getUserById" resultType="Itda_User">
-		select * from itda_user where userId = #{userId}
-	</select>
 
 
 	<insert id="insert" parameterType="Itda_User">

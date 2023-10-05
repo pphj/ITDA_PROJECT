@@ -44,8 +44,8 @@ public class CustomUserDetailService implements UserDetailsService {
 		//					 권한을 생성자에 문자열로 넣어준다.
 		//SimpleGrantedAuthority : GrantedAuthority의 구현체기 때문에 GrantedAuthority대신 SimpleGrantedAuthority가 올 수 있다.
 		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
-		roles.add(new SimpleGrantedAuthority(users.getAuth()));
-		UserDetails user = new User(username, users.getPassword(), roles);
+		roles.add(new SimpleGrantedAuthority(users.getAuthName()));
+		UserDetails user = new User(username, users.getUserPw(), roles);
 		
 		return user;
 	}

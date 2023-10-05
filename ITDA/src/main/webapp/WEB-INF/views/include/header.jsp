@@ -11,10 +11,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/common.css">
 
-<script> var contextPath = "<%=request.getContextPath()%>";
-</script>
+<script> var contextPath = "<%=request.getContextPath()%>";</script>
 <script>
-
 
 $(function() {
 	$("#logout").click(function(event){
@@ -25,56 +23,7 @@ $(function() {
 
 
 
-	const result = "${result}";
 
-	if (result == "joinSuccess") {
-		alert("회원가입을 축하합니다");
-	} else if ("${loginfail}" == "loginFailMsg") {
-		alert("아이디나 비밀번호가 일치하지 않습니다");
-	}
-
-	$(function() {
-		$("#joinForm").click(function() {
-			location.href = "${pageContext.request.contextPath}/member/join";
-		})
-	})
-	
-var _jn='';
-var _jid='';
-var m_jn='';
-var m_jid='';
-var m_id='';
-var _id='';
-var SITE_MEMBER = function(){
-	var member_profile_id = 'member_profile';
-	var $member_profile, $join_form;
-	var address_format;
-
-	var terms_agree = false;
-	var _third_party, _marketing_sms_agree, _marketing_email_agree;
-
-	var policyConfirm = function(){
-	};
-
-	var openFindPassword = function(){
-		$.cocoaDialog.close();
-		$.ajax({
-			type: 'POST',
-			data: {d: 'd'},
-			url: ('/dialog/find_password.cm'),
-			dataType: 'html',
-			async: true,
-			cache: false,
-			success: function(html){
-				var $html = $(html);
-				$.cocoaDialog.open({type: 'site_find_password', custom_popup: $html, hide_event:function(){
-						$(window).unbind('keydown');
-					}});
-			}
-		});
-	};
-
-	
 	
 </script>
 </head>
@@ -94,52 +43,44 @@ var SITE_MEMBER = function(){
 			
 				
 		<ul id="right_btns">
-	<%-- 		<li id="search" style="margin-bottom: 24px;"><a id="search_btn"
-				onclick="location.href='${pageContext.request.contextPath}/main/search'">
-					<img
-					src="${pageContext.request.contextPath}/resources/image/common/search.png"
-					style="width: 30px; height: auto;">
-			</a></li>
-			
-	 --%>	
+	
 	 			<%-- 프로필 사진 출력 보안 --%>
-	 <sec:authorize access="isAnonymous()">
-	<script>
-		  /*  location.href = "${pageContext.request.contextPath}";    */
-		  
-	</script>
-</sec:authorize>
-			
-			<!-- 현재 사용자가 인증되지 않은(로그인하지 않은) 상태인지 확인 -->
-	<sec:authorize access="isAuthenticated()">
-			<sec:authentication property="principal" var="pinfo"/>
-				
-				
-			<!-- 로그인한 경우 프로필 사진을 표시합니다. -->
-			<div class="dropdown">
-				<button class="dropbtn">
-					<img id="profile_img" src="${userProfilePath}"
-						style="width: 30px; height: auto;" />
-				</button>
-				<div class="dropdown-content">
-					<a href="${pageContext.request.contextPath}/myPage">마이 페이지</a>
-				<form action="${pageContext.request.contextPath}/member/logout" method="post"
-					style="margin-bottom:0px" name="logout">
-				<a class="nav-link" href="#" id="logout">
-					<span id="loginid">${pinfo.username}</span>님(로그아웃)	
-				</a>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				
-				</form>
-				</div>
-			</div>
-	</sec:authorize>
-			
-			<div class="header_user">
+						<sec:authorize access="isAnonymous()">
+				<div class="header_user">		
 				<div class="user_sign_in">
 				<button type="button" class="user_sign_in" data-toggle="modal"
 					data-target="#myModal">로그인</button>
-				</div>
+				</div>		
+	
+						</sec:authorize>
+
+						<!-- 현재 사용자가 인증되지 않은(로그인하지 않은) 상태인지 확인 -->
+						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal" var="pinfo" />
+
+
+							<!-- 로그인한 경우 프로필 사진을 표시합니다. -->
+							<div class="dropdown">
+								<button class="dropbtn">
+									<img id="profile_img" src="${userProfilePath}"
+										style="width: 30px; height: auto;" />
+								</button>
+								<div class="dropdown-content">
+									<a href="${pageContext.request.contextPath}/myPage">마이 페이지</a>
+									<form action="${pageContext.request.contextPath}/member/logout"
+										method="post" style="margin-bottom: 0px" name="logout">
+										<a class="nav-link" href="#" id="logout"> <span
+											id="loginid">${pinfo.username}</span>님(로그아웃)
+										</a> <input type="hidden" name="${_csrf.parameterName}"
+											value="${_csrf.token}">
+
+									</form>
+								</div>
+							</div>
+						</sec:authorize>
+
+					
+				
 
 							<!-- 헤더의 로그인 버튼 -->
 
@@ -147,6 +88,9 @@ var SITE_MEMBER = function(){
 				<form id="modalForm"
 					action="${pageContext.request.contextPath}/member/loginProcess"
 					method="post">
+						
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}">
 
 					<div class="modal fade" id="myModal">
 						<div class="modal-dialog">
@@ -165,8 +109,6 @@ var SITE_MEMBER = function(){
 
 
 
-											<form action="/backpg/login.cm" method="post"
-												target="hidden_frame">
 												<input type="hidden" name="back_url" value="Lw%3D%3D">
 												<input type="hidden" name="back_url_auth" value="">
 												<input type="hidden" name="used_login_btn" value="Y">
@@ -202,7 +144,6 @@ var SITE_MEMBER = function(){
 													<button class="btn btn-primary btn-block"
 														style="font-size: 14px;">로그인</button>
 												</p>
-											</form>
 
 											<div class="over_h">
 												<div style="float:left;"> <a href="${pageContext.request.contextPath}/member/joinForm"
@@ -237,47 +178,7 @@ var SITE_MEMBER = function(){
 											</div>
 
 										
-											<script type="text/javascript">
-												if (typeof window.sessionStorage !== "undefined") {
-													if (typeof SITE_SHOP_DETAIL != "undefined") {
-														if (SITE_SHOP_DETAIL
-																.getCurrentProdNo()) {
-															SITE_SHOP_DETAIL
-																	.saveSelectedProd();
-														} else {
-															const itemsToKeep = [
-																	'history_reset',
-																	'undoList',
-																	'redoList' ];
-															for ( let key in sessionStorage) {
-																if (!itemsToKeep
-																		.includes(key)) {
-																	sessionStorage
-																			.removeItem(key);
-																}
-															}
-														}
-													} else {
-														const itemsToKeep = [
-																'history_reset',
-																'undoList',
-																'redoList' ];
-														for ( let key in sessionStorage) {
-															if (!itemsToKeep
-																	.includes(key)) {
-																sessionStorage
-																		.removeItem(key);
-															}
-														}
-													}
-
-													IMWEB_SESSIONSTORAGE
-															.clear('PROD_REVIEW_.*');
-													IMWEB_SESSIONSTORAGE
-															.clear('PROD_QNA_.*');
-												}
-												
-											</script>
+											
 											
 										</article>
 										<!-- 병합-end -->
@@ -291,9 +192,7 @@ var SITE_MEMBER = function(){
 						</div>
 						<!-- Modal end -->
 						
-						
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}">
+					
 				</form>
 							<!-- login_modal end -->
 			</div>
