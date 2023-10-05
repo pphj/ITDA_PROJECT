@@ -14,4 +14,6 @@ public interface ChannelListMapper {
 
 	List<ChBoard> getBoardListByBoardNum(int chnum);
 
+	ChBoard selectChBoardWithCategory(int boardNum);
+
 }

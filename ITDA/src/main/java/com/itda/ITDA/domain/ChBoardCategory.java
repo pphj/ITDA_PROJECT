@@ -21,9 +21,5 @@ public class ChBoardCategory {
 	public String getChCate_Name() {
 		return chCate_Name;
 	}
-	public void setChCate_Name(String chCate_Name) {
-		this.chCate_Name = chCate_Name;
-	}
-	
-	
+
 }

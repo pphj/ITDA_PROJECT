@@ -76,7 +76,7 @@
                         : "${pageContext.request.contextPath}/resources/image/common/itda_logo3.png";
 
                     appendData += '<img src="' + imageUrl + '" alt="...">'
-                    + '<a href="channels/' + item.chNum + '">'
+                    + '<a href="channels/' + item.chNum +'">'
                     + '<div class="model_caption">'
                     + '<h5 class="text-white">' + item.chName + '</h5>'
                     + '<p class="card-text2">' + item.chInfo + '</p>'

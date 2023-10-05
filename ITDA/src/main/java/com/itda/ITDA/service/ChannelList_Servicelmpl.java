@@ -28,5 +28,4 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	public List<ChBoard> getBoardListByBoardNum(int chnum) {
 		return dao.getBoardListByBoardNum(chnum);
 	}
-
 }
