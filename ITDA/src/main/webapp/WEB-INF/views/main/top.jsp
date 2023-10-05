@@ -36,7 +36,7 @@
 		<div class="inner">
 			<div class="banner">
 				<img class="baimg"
-				src="resources/image/common/mainbanner2.png"
+				src="${pageContext.request.contextPath}/resources/image/common/mainbanner2.png"
 				style="width: 1280px; height: 400px;">
 <!-- 				<div>
 					<button type="button" id="join_seller">판매회원 가입하기</button>

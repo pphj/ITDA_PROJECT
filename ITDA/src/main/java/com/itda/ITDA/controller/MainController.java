@@ -38,16 +38,15 @@ public class MainController {
 	}
 	
 	@GetMapping(value="/protomain")		//인기 게시글(카드 로테이션 부분) 로직 포함
-	public Map<String, Object> SetMain(ModelAndView mv) {
+	public ModelAndView SetMain(ModelAndView mv) {
 		
 		List<ChBoard> HotContentList = contentService.HotContentSelect();
 		List<ChCategory> chCategoryList = contentService.selectchCate_Id();
-		Map<String, Object> map = new HashMap<String, Object>();
 		
-		map.put("HotContentList", HotContentList);
-		map.put("chCategoryList", chCategoryList);
+		mv.addObject("HotContentList", HotContentList);
+		mv.addObject("chCategoryList", chCategoryList);
 		mv.setViewName("main/protomain");
-		return map;
+		return mv;
 	}
 	
 	@ResponseBody	//오늘의 컨텐츠
