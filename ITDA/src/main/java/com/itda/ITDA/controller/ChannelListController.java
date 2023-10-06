@@ -8,10 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itda.ITDA.domain.ChBoard;
@@ -28,22 +28,21 @@ public class ChannelListController {
   
     private ChannelList_Service channelList_Service;
     
+    // chnum 파라미터가 없거나 null인 경우에 대한 처리를 수행합니다.
+    final int WRONG_CHNUM = 0;
+    
     @Autowired
     public ChannelListController(ChannelList_Service channelList_Service) {
        this.channelList_Service = channelList_Service;
     }
     
-    @GetMapping(value="/{chnum}")
+    @RequestMapping(value="/{chnum}", method = RequestMethod.GET)
     public ModelAndView showChannelMainPage(
     		@PathVariable(value="chnum") int chnum, // chnum을 파라미터로 전달 받음
     		
-            ModelAndView mv, HttpServletRequest request,
-            @RequestHeader(value = "referer", required = false) String beforeURL) {
-        logger.info("referer:" + beforeURL);
+            ModelAndView mv, HttpServletRequest request) {
 
-        if (chnum == 0) {
-            // chnum 파라미터가 없거나 null인 경우에 대한 처리를 수행합니다.
-            // 예: 오류 페이지 표시 또는 다른 처리
+        if (chnum == WRONG_CHNUM) {
             logger.info("채널 메인 페이지 표시 실패: chnum 파라미터가 없거나 잘못된 값입니다.");
             mv.addObject("url", request.getRequestURI());
             mv.addObject("message", "채널 메인 페이지 표시 실패: chnum 파라미터가 없거나 잘못된 값입니다.");
@@ -52,11 +51,11 @@ public class ChannelListController {
 
         logger.info("채널 메인 페이지 표시 요청: chnum=" + chnum);
 
-        // 채널 정보를 가져옴
-        ChannelList channel = channelList_Service.getChannelDetail(chnum);
+        // 채널 리스트를 가져옴
+        ChannelList ChannelList = channelList_Service.getChannelDetail(chnum);
         
 
-        if (channel == null) {
+        if (ChannelList == null) {
             logger.info("채널 메인 페이지 표시 실패: 해당 번호의 채널을 찾을 수 없습니다.");
             mv.setViewName("error/error");
             mv.addObject("url", request.getRequestURI());
@@ -65,40 +64,15 @@ public class ChannelListController {
             //logger.info("채널 메인 페이지 표시 성공");
             // 채널 정보를 뷰로 전달
             mv.setViewName("channel/ChannelMain");
-            mv.addObject("channel", channel);
+            mv.addObject("ChannelList", ChannelList);
             
             // 채널과 연관된 게시물 목록을 가져옴
-            List<ChBoard> channeldetail = channelList_Service.getBoardListByBoardNum(chnum);
-            mv.addObject("channeldetail", channeldetail);
+            List<ChBoard> ChannelBoardList = channelList_Service.getBoardListByBoardNum(chnum);
+            mv.addObject("ChannelBoardList", ChannelBoardList);
             
-//            ChBoard contentSelect = channelList_Service.selectChBoardWithCategory(boardNum);
-//            mv.addObject("contentSelect", contentSelect);
         }
 
         return mv;
     }
     
-  
-//    @RequestMapping(value="/{chnum}", method=RequestMethod.GET)
-//    public String ChannelMainPageNum(
-//    		@PathVariable(value="chnum") int chnum,
-//    		Model model) {
-//    	
-//        logger.info("채널 메인 페이지 표시 요청: chnum=" + chnum);
-//
-//        // 채널 정보를 가져옴
-//        ChannelList channel = channelList_Service.getChannelDetail(chnum);
-//
-//            // 채널 정보를 뷰로 전달
-//            model.addAttribute("channel", channel);
-//            
-//            // 채널과 연관된 게시물 목록을 가져옴
-//            List<ChBoard> channeldetail = channelList_Service.getBoardListByBoardNum(chnum);
-//            model.addAttribute("channeldetail", channeldetail);
-//        
-//        return "channel/ChannelMain";
-//    	
-//    }
-//    
-  
 }
