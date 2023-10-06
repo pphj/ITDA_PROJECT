@@ -27,6 +27,7 @@ public class Itda_User {
 	private String authName;
 	
 
+	
 	public String getAuthName() {
 	    return "ROLE_" + authName; // "ROLE_"을 접두사로 추가
 	}

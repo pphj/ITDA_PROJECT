@@ -94,7 +94,9 @@
 			</div>
 			<div class="container_content _GRID_TEMPLATE_COLUMN _STICKY_CONTENT">
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
-	<div class="my_sidebar_box">
+<jsp:include page="../mypage/sidebar.jsp"></jsp:include>
+
+<%-- 	<div class="my_sidebar_box">
 		<div class="my_user">
 			<a href="${pageContext.request.contextPath}/my/myInfo" class="my_user_modify_link">
 				<div class="my_user_img_wrap">
@@ -119,7 +121,7 @@
 				</li>
 			</ul>
 		</div>
-	</div>
+	</div> --%>
 	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
 		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
 			<img class="_LAZY_LOADING" data-src="https://ssl.pstatic.net/static.news/image/news/m/2023/08/18/sidebar_banner.jpg" width="315" height="110" alt="">

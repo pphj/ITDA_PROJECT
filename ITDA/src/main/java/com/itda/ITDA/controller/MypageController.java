@@ -1,6 +1,9 @@
 package com.itda.ITDA.controller;
 
-import org.apache.ibatis.annotations.Param;
+import java.security.Principal;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.service.Itda_UserService;
+import com.itda.ITDA.util.Contstants;
 
 @Controller
 @RequestMapping(value= "/my")
@@ -28,17 +32,29 @@ public class MypageController {
 	
 	@GetMapping(value="/subscriptions")
 	public String goSubscriptions(Model model,
-	        @Param("userId") String userId) {
-
-	    // "mond7" 값을 userId로 설정
-	    userId = "mond4";
-
-	    Itda_User user = itdaUserService.getUserById(userId);
-	    logger.info("userId = " + user.getUserId());
-
-	    model.addAttribute("user", user);
-
-	    return "mypage/subscriptions";
+			HttpSession session, Principal principal) {
+		
+		String id = principal.getName();
+		logger.info("id : " + principal.getName());
+		
+		
+		int result = itdaUserService.isId(id);
+	    
+		logger.info("결과 : " + result);
+		
+	    if(result == Contstants.CONNECT_SUCCESS) {
+	    	
+	    	Itda_User vo = itdaUserService.read(id);
+	    	model.addAttribute("user", vo);
+	    	session.setAttribute("userName", vo.getUserName());
+	    	
+	    	return "mypage/subscriptions";
+	    } else {
+	    	logger.info("페이지 연결 에러");
+	    	return "redirect:/";
+	    }
+	    
+	    
 	}
 
 	

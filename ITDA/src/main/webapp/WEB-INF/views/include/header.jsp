@@ -64,7 +64,7 @@
 										style="width: 30px; height: auto;" />
 								</button>
 								<div class="dropdown-content">
-									<a href="${pageContext.request.contextPath}/myPage">마이 페이지</a>
+									<a href="${pageContext.request.contextPath}/my/subscriptions">마이 페이지</a>
 									<form action="${pageContext.request.contextPath}/member/logout"
 										method="post" style="margin-bottom: 0px" name="logout">
 										<a class="nav-link" href="#" id="logout"> <span

@@ -16,7 +16,6 @@
   <link href="${pageContext.request.contextPath}/resources/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="${pageContext.request.contextPath}/resources/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="${pageContext.request.contextPath}/resources/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
     <!--   Core JS Files   -->
@@ -24,8 +23,14 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/qnaView.js"></script>
+  <script> var contextPath = "<%=request.getContextPath()%>";</script>
+<style>
+	.table {
+		width: 100%;
+	}
+</style>
 </head>
 <body class="g-sidenav-show   bg-gray-100">
   <jsp:include page="adminList.jsp" />
@@ -90,13 +95,44 @@
  				<textarea class="form-control" rows="5" readOnly>${qnadata.adContent}</textarea></td>
  			</tr>
  			<tr>
- 				<td colspan="2" class="center">
+ 				<td colspan="2" class="center" style="text-align: center;">
+ 					<button class="btn btn-primary btn-sm btn-round">
+	 					<i class="ni ni-check-bold">
+	 					</i><span id="count">${count}</span>
+ 					</button>
  					<a href="${pageContext.request.contextPath}/admin/FAQ">
- 						<button class="btn btn-success">목록</button>
+ 						<button class="btn btn-success btn-sm btn-round">
+ 							<i class="ni ni-bullet-list-67"></i> 목록
+ 						</button>
  					</a>
  				</td>
  			</tr>
  		</table>
+ 		<%-- 댓글 --%>
+ 		<div id="qnaReply">
+	 		<button class="btn btn-info float-left btn-sm btn-round">총 1000자까지 가능합니다.</button>
+	 		<button id="qnaWrite" class="btn btn-info btn-sm btn-round" style="float: right;">답변 등록</button>
+	 		<textarea rows="3" class="form-control" id="qnaReplyContent" maxLength="1000"
+	 			style="margin-bottom: 30px;">
+	 		</textarea>
+	 		<form name="forNum">
+	 			<input type="hidden" name="num" value="${qnadata.adNum}" id="adNum">
+	 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	 		</form>
+	 		<table class="table">
+	 			<thead>
+	 				<tr>
+	 					<td colspan="1" class="text-center">번호</td>
+	 					<td colspan="1">답변자</td>
+	 					<td colspan="2">내용</td>
+	 					<td colspan="1" class="text-right">날짜</td>
+	 				</tr>
+	 			</thead>
+	 			<tbody>
+	 			</tbody>
+	 		</table>
+	 		<div id="message" style="margin-bottom: 30px;"></div>
+	 	</div>
  	</div>
 </body>
 </html>

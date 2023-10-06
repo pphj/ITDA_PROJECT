@@ -10,7 +10,8 @@ public interface Itda_UserService {
 
 	int isId(String userId, String userPw);
 
-	Itda_User getUserById(String userId);
+	Itda_User read(String id);
+
 
 	
 }
