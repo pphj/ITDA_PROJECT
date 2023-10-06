@@ -1,4 +1,7 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
 <head>
@@ -111,13 +114,14 @@
 			</div>
 			<div class="container_content _GRID_TEMPLATE_COLUMN _STICKY_CONTENT">
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
-	<div class="my_sidebar_box">
+			<jsp:include page="../mypage/sidebar.jsp"></jsp:include>
+<%-- 	<div class="my_sidebar_box">
 		<div class="my_user">
 			<a href="${pageContext.request.contextPath}/user/myInfo" class="my_user_modify_link">
 				<div class="my_user_img_wrap">
 				</div>
 				<strong class="my_user_name">
-					${user.userName}
+					${user.userName} 
 				</strong>
 			</a>
 			<div class="my_user_link_wrap">
@@ -136,7 +140,7 @@
 				</li>
 			</ul>
 		</div>
-	</div>
+	</div> --%>
 	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
 		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
 		<!--프리미엄 콘텐츠 소개페이지로 넘어감-->

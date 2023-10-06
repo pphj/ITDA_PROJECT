@@ -12394,8 +12394,9 @@ body.as_feed_type .channel_playlist_flick_button.as_next {
 	}
 }
 
-@media (min-width: 1080px) {
+/* @media (min-width: 1080px) {
 	.channel_category_list {
+		margin-bottom: 100px;
 		height: 100%;
 		padding: 16px 40px 30px;
 		border-radius: 10px;
@@ -12406,7 +12407,21 @@ body.as_feed_type .channel_playlist_flick_button.as_next {
 		background-color: #fff;
 	}
 }
+ */
 
+@media {
+	.channel_category_list {
+		margin-bottom: 100px;
+		height: 100%;
+		padding: 16px 40px 30px;
+		border-radius: 10px;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		-webkit-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05), 0 0 1px 0 rgba(0, 0, 0, 0.07);
+		box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05), 0 0 1px 0 rgba(0, 0, 0, 0.07);
+		background-color: #fff;
+	}
+}
 .channel_category_item {
 	border-bottom: 1px solid rgba(34, 34, 34, 0.1);
 }
@@ -21824,14 +21839,14 @@ html[data-useragent*='Windows'] .popup_sub_price_desc {
 	flex-basis: auto;
 }
 
-.my_tab_item.is_active .my_tab_link {
+/* .my_tab_item.is_active .my_tab_link {
 	color: #222;
 }
-
+ */
 @media (min-width: 1080px) {
-	.my_tab_item.is_active .my_tab_link {
+/* 	.my_tab_item.is_active .my_tab_link {
 		font-weight: bold;
-	}
+	} */
 }
 
 .my_tab_item.is_active .my_tab_text::before {
@@ -21841,7 +21856,7 @@ html[data-useragent*='Windows'] .popup_sub_price_desc {
 	left: -3px;
 	border-radius: 1.5px;
 	height: 3px;
-	background-color: #222;
+	/*background-color: #222;*/
 	content: '';
 }
 

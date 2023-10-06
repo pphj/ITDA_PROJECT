@@ -24,7 +24,7 @@
 	<div class="board_detail_all_group">
 	<div class="board_detail_title_group">
 	<div class="board_detail_category">
-		<a href="${pageContext.request.contextPath}/channels/${board.chNum}" class="viewer_category_link">${co.chCate_Name}</a>
+		<a href="${pageContext.request.contextPath}/channels/${board.chNum}" class="viewer_category_link">${board.chCate_Name}</a>
 	</div>
 	<div class="board_detail_title_inline">
 		<span class="board_detail_title">${board.boardTitle }</span>

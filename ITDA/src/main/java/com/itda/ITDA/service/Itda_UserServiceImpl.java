@@ -17,6 +17,7 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	public Itda_UserServiceImpl(Itda_UserMapper dao, PasswordEncoder passwordEncoder) {
 		this.dao = dao;
 		this.passwordEncoder = passwordEncoder;
+		
 	}
 
 	@Override
@@ -44,13 +45,12 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		}
 		return result;
 	}
-	
-	
 
 	@Override
-	public Itda_User getUserById(String userId) {
-		return dao.getUserById(userId);
+	public Itda_User read(String id) {
+		return dao.read(id);
 	}
+
 
 
 	
