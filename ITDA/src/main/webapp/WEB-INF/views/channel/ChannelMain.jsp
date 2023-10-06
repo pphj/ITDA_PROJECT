@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +102,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div id="wrapArticle" class="wrap_article #my_post">
 						<div class="wrap_article_list">
 							<c:forEach var="c" items="${ChannelBoardList}">
@@ -114,25 +114,27 @@
 										</a>
 										<a href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}"
 											class="link_post has_image #post_listview">
-											<strong class="tit_subject"> <%-- 글자 수 제한 적용 --%> 
-												<c:set var="limitedTitle" value="${c.boardTitle}" /> 
-														<c:choose>
-																<c:when test="${fn:length(c.boardTitle) > 35}">
-																	<c:set var="limitedTitle" value="${fn:substring(c.boardTitle, 0, 35)}..." />
-																</c:when>
-														</c:choose> ${limitedTitle}
+											<strong class="tit_subject"> <%-- 글자 수 제한 적용 --%> <c:set var="limitedTitle" value="${c.boardTitle}" /> <c:choose>
+													<c:when test="${fn:length(c.boardTitle) > 35}">
+														<c:set var="limitedTitle" value="${fn:substring(c.boardTitle, 0, 35)}..." />
+													</c:when>
+												</c:choose> ${limitedTitle}
 											</strong>
+
 											<div class="post_thumb">
-												<img class="img_thumb" src="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.thumbNail}"
+												<img class="img_thumb" src="../image/contents/${ChannelList.chNum}/a/${c.thumbNail}"
 													style="width: 120px; height: 120px;" alt="이미지정보">
 												<!-- src="../image/channel/channel1.jpeg" -->
 											</div>
+
 											<div class="post_desc">
+
 												<div class="wrap_sub_content">
 													<span class="ico_bar"></span>
 													<span class="article_content"> ${c.intro} </span>
 												</div>
 											</div>
+
 											<span class="post_append" style="white-space: nowrap">
 												<span class="ico_dot"></span>
 												<span class="publish_time">8시간전</span>
@@ -141,11 +143,15 @@
 									</li>
 								</ul>
 							</c:forEach>
-						</div><!-- <div class="wrap_article_list"> -->
-					</div><!-- 	<div id="wrapArticle" class="wrap_article #my_post"> -->
-				</div><!-- <div class="wrap_contents"> 게시글 -->
-			</div><!--<div class="tab_content">-->
-			
+						</div>
+						<!-- <div class="wrap_article_list"> -->
+					</div>
+					<!-- 	<div id="wrapArticle" class="wrap_article #my_post"> -->
+				</div>
+				<!-- <div class="wrap_contents"> 게시글 -->
+			</div>
+			<!--<div class="tab_content">-->
+
 			<!-- 작가소개 -->
 			<div class="tab_content" id="info">
 				<div class="author_intro animation_up">
@@ -296,59 +302,17 @@
 								<div class="channel_category_num">493</div>
 							</a>
 						</li>
-						<li class="channel_category_item">
-							<a href="/usa/nasdaq/contents?categoryId=17be87ffaa1000h5l" class="channel_category_link" data-clk="chlh_category.list">
-								<strong class="channel_category_name">지난주 실적과 이슈</strong>
-								<div class="channel_category_num">103</div>
-							</a>
-						</li>
-						<li class="channel_category_item">
-							<a href="/usa/nasdaq/contents?categoryId=17be8803899000vts" class="channel_category_link" data-clk="chlh_category.list">
-								<strong class="channel_category_name">시장경제의 이해</strong>
-								<div class="channel_category_num">113</div>
-							</a>
-						</li>
-						<li class="channel_category_item">
-							<a href="/usa/nasdaq/contents?categoryId=17be880c024000lq0" class="channel_category_link" data-clk="chlh_category.list">
-								<strong class="channel_category_name">신기술과 테마</strong>
-								<div class="channel_category_num">97</div>
-							</a>
-						</li>
-						<li class="channel_category_item">
-							<a href="/usa/nasdaq/contents?categoryId=17be8815662000j2x" class="channel_category_link" data-clk="chlh_category.list">
-								<strong class="channel_category_name">개별회사 소개</strong>
-								<div class="channel_category_num">66</div>
-							</a>
-						</li>
-						<li class="channel_category_item">
-							<a href="/usa/nasdaq/contents?categoryId=17be8812f2d000wzk" class="channel_category_link" data-clk="chlh_category.list">
-								<strong class="channel_category_name">SEC공시분석 강좌</strong>
-								<div class="channel_category_num">27</div>
-							</a>
-						</li>
-						<li class="channel_category_item">
-							<a href="/usa/nasdaq/contents?categoryId=17d75a3ca2d000mlo" class="channel_category_link" data-clk="chlh_category.list">
-								<strong class="channel_category_name">투자 방법론</strong>
-								<div class="channel_category_num">59</div>
-							</a>
-						</li>
-						<li class="channel_category_item">
-							<a href="/usa/nasdaq/contents?categoryId=17c68e9a677000nan" class="channel_category_link" data-clk="chlh_category.list">
-								<strong class="channel_category_name">미주사 정보국</strong>
-								<div class="channel_category_num">3</div>
-							</a>
-						</li>
-						<li class="channel_category_item">
-							<a href="/usa/nasdaq/contents?categoryId=17be86622ec000mfd" class="channel_category_link" data-clk="chlh_category.list">
-								<strong class="channel_category_name">공지사항</strong>
-								<div class="channel_category_num">23</div>
-							</a>
-						</li>
+						<c:forEach var="c" items="${ChannelBoardList}">
+							<li class="channel_category_item">
+								<a href="/magazine/whatwetalkabout" class="channel_category_link" data-clk="chlh_category.listall">
+									<strong class="channel_category_name">${c.chCate_Name}</strong>
+									<div class="channel_category_num">103</div>
+								</a>
+							</li>
+						</c:forEach>
 					</ul>
-				</div>
-				<!-- 	<div class="wrap_contents"> 카테고리 -->
-			</div>
-			<!-- <div class="tab_content"> -->
+				</div><!-- 	<div class="wrap_contents"> 카테고리 -->
+			</div><!-- <div class="tab_content"> -->
 		</div>
 		<!-- <div class="wrap_contents"> -->
 	</main>

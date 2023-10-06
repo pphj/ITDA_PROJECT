@@ -7,24 +7,25 @@
 
 	<select id="getChannelDetail" resultType="ChannelList">
 		SELECT *
-		FROM CHANNELLIST
+		FROM
+		CHANNELLIST
 		WHERE CHNUM = #{chnum}
 	</select>
 
 
 
 	<select id="getBoardListByBoardNum" resultType="ChBoard">
-    <![CDATA[
-    SELECT chCate_Name, boardNum, boardTitle, thumbNail, intro
-    FROM (
-        SELECT *
-        FROM chboard
-        JOIN chboardcategory ON chboard.chnum = chboardcategory.chnum
-        WHERE chboard.chnum = #{chnum}
-        ORDER BY boardHeart DESC
-    )
-    WHERE ROWNUM <= 20
-    ]]>
+	    <![CDATA[
+	    SELECT chCate_Name, boardNum, boardTitle, thumbNail, intro, boardDate
+	    FROM (
+	        SELECT *
+	        FROM chboard
+	        JOIN chboardcategory ON chboard.chnum = chboardcategory.chnum
+	        WHERE chboard.chnum = #{chnum}
+	        ORDER BY boardHeart DESC
+	    )
+	    WHERE ROWNUM <= 20
+	    ]]>
 	</select>
 
 
