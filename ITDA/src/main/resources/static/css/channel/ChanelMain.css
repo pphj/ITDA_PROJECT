@@ -389,6 +389,11 @@ background-position: -250px -80px;
 	width: 33.3333%
 }
 
+.tab_contents .list_tab .on .link_tab {
+    border-color: #333;
+    color: #333;
+}
+
 .tab_contents .list_tab .link_tab {
 	border-top: 1px solid transparent;
 	color: #959595;
@@ -417,11 +422,6 @@ background-position: -250px -80px;
 	right: 0;
 	top: 1px;
 	width: 4px
-}
-
-.tab_contents .list_tab .on .link_tab {
-	border-color: #333;
-	color: #333
 }
 
 .tab_contents li.wrap_report_profile {
@@ -574,6 +574,13 @@ a {
 	overflow: hidden;
 	padding: 0 120px;
 	width: 700px;
+}
+
+.wrap_article_list .list_article .tit_category {
+    border-bottom: 1px solid #00c6be;
+    display: inline-block;
+    line-height: 14px;
+    min-width: 20px;
 }
 
 dl, li, menu, ol, ul {

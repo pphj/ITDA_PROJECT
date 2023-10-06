@@ -62,5 +62,21 @@ public class adminServiceImpl implements adminService {
 		return dao.FAQModify(FAQdata);
 	}
 
+	@Override
+	public int getQNAListCount() {
+		return dao.getQNAListCount();
+	}
+
+	@Override
+	public List<AdminBoard> getQNAList(int page, int limit) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
+		map.put("start", startrow);
+		map.put("end", endrow);
+		
+		return dao.getQNAList(map);
+	}
+
 	
 }
