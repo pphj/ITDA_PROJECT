@@ -5,10 +5,10 @@
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/login_modal.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/premium_service2.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/premium_service2.css">
 <link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/common.css">
 
 <script> var contextPath = "<%=request.getContextPath()%>";</script>
