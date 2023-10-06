@@ -61,4 +61,42 @@
 	<select id="getQNAListCount" resultType="int">
 		select count(*) from adminboard where key = 'QNA'
 	</select>
+	
+	<select id="getQnaReplyList" parameterType="map" resultType="QnaReply">
+		select * from(select rownum rnum, q.*
+					  from( select qnaReplyNum, adNum, adminId,
+					  	    qnaReplyContent, qnaReplyDate, qnaReplyUpdate
+							from QNAREPLY
+							where adNum = #{adNum}
+							and qnaReplyState = 'Y'
+							order by qnaReplyNum desc
+						  ) q
+					  where rownum &lt;= #{end}
+					  )
+		where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="getQnaReplyListCount" resultType="int" parameterType="int">
+		select count(*) from QNAREPLY
+		where adNum = #{adNum}
+		and qnaReplyState = 'Y' 
+	</select>
+	
+	<insert id="QnaReplyInsert" parameterType="QnaReply">
+		insert into QNAREPLY
+		values(QNAREPLY_SEQ.nextval, #{adNum}, #{adminId}, #{qnaReplyContent},
+		SYSDATE, null, 'Y')
+	</insert>
+	
+	<update id="QnaReplyUpdate" parameterType="QnaReply">
+		update QNAREPLY
+		set qnaReplyContent = #{qnaReplyContent}
+		where qnaReplyNum = #{qnaReplyNum}
+	</update>
+	
+	<update id="QnaReplyDelete" parameterType="QnaReply">
+		update QNAREPLY
+		set qnaReplyState = 'N'
+		where qnaReplyNum = #{qnaReplyNum}
+	</update>
 </mapper>

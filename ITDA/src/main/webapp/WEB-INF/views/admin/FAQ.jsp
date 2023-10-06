@@ -16,7 +16,6 @@
   <link href="${pageContext.request.contextPath}/resources/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="${pageContext.request.contextPath}/resources/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="${pageContext.request.contextPath}/resources/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
     <!--   Core JS Files   -->
@@ -28,6 +27,9 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/FAQ.js"></script>
   <style>
+  	.container{
+  		width: 100%;
+  	}
 	.button-active {
 	  border: none;
 	  border-bottom: 1px solid black;
@@ -192,7 +194,7 @@
 		 		<h3 style="text-align: center">등록된 글이 없습니다.</h3>
 		 	</c:if>
 		 	
-		 	<button type="button" id="faqwbtn" class="btn btn-success float-right">FAQ 작성</button>
+		 	<button type="button" id="faqwbtn" class="btn btn-success float-right btn-sm btn-round">FAQ 작성</button>
 	 	</div>
     </div>
   </main>
