@@ -21824,14 +21824,14 @@ html[data-useragent*='Windows'] .popup_sub_price_desc {
 	flex-basis: auto;
 }
 
-.my_tab_item.is_active .my_tab_link {
+/* .my_tab_item.is_active .my_tab_link {
 	color: #222;
 }
-
+ */
 @media (min-width: 1080px) {
-	.my_tab_item.is_active .my_tab_link {
+/* 	.my_tab_item.is_active .my_tab_link {
 		font-weight: bold;
-	}
+	} */
 }
 
 .my_tab_item.is_active .my_tab_text::before {
@@ -21841,7 +21841,7 @@ html[data-useragent*='Windows'] .popup_sub_price_desc {
 	left: -3px;
 	border-radius: 1.5px;
 	height: 3px;
-	background-color: #222;
+	/*background-color: #222;*/
 	content: '';
 }
 

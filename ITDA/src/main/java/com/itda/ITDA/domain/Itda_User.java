@@ -27,8 +27,9 @@ public class Itda_User {
 	private String authName;
 	
 
+	
 	public String getAuthName() {
-		return authName;
+		return "ROLE_" + authName;
 	}
 
 	public void setAuthName(String authName) {
