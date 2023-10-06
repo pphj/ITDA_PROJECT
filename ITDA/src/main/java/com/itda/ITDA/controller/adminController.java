@@ -23,7 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.AdminBoard;
 import com.itda.ITDA.domain.PaginationDTO;
+import com.itda.ITDA.domain.QnaReply;
 import com.itda.ITDA.service.adminService;
+import com.itda.ITDA.service.qnaReplyService;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,10 +38,12 @@ public class adminController {
 	private static final Logger logger = LoggerFactory.getLogger(adminController.class);
 	
 	private adminService adminService;
+	private qnaReplyService qnaReplyService;
 	
 	@Autowired
-	public adminController(adminService adminService) {
+	public adminController(adminService adminService, qnaReplyService qnaReplyService) {
 		this.adminService=adminService;
+		this.qnaReplyService=qnaReplyService;
 	}
 	
 	@RequestMapping(value="/Main")
@@ -208,6 +212,8 @@ public class adminController {
 		return map;
 	}
 	
+	
+	
 	@GetMapping("/QNA/{num}")
 	public ModelAndView QNADetail(@PathVariable("num") int num, ModelAndView mv, HttpServletRequest request,
 			@RequestHeader(value="referer", required=false) String beforeURL) {
@@ -223,11 +229,44 @@ public class adminController {
 			mv.addObject("message", "상세보기 실패");
 		}else {
 			logger.info("QNA 상세보기 성공");
+			int count = qnaReplyService.getQnaReplyListCount(num);
 			mv.setViewName("admin/QNA_view");
+			mv.addObject("count", count);
 			mv.addObject("qnadata", qna);
 		}
 		return mv;
 	}
+	
+	@ResponseBody
+	@PostMapping(value="/QnaReplyList")					//adNum -> qnaView.js 의 data값과 맞춰줘야한다
+	public Map<String, Object> QnaReplyList(int adNum, int page) {
+		List<QnaReply> list = qnaReplyService.getQnaReplyList(adNum, page);
+		int listcount = qnaReplyService.getQnaReplyListCount(adNum);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("listcount", listcount);
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/QnaReplyInsert")
+	public int QnaReplyInsert(QnaReply QnaReply) {
+		return qnaReplyService.QnaReplyInsert(QnaReply);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/QnaReplyUpdate")
+	public int QnaReplyUpdate(QnaReply QnaReply) {
+		return qnaReplyService.QnaReplyUpdate(QnaReply);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/QnaReplyDelete")
+	public int QnaReplyDelete(QnaReply qnaReply) {
+		return qnaReplyService.QnaReplyDelete(qnaReply);
+	}
+	
 	
 	@RequestMapping(value="/userNotice")
 	public ModelAndView SetUserNotice(ModelAndView mv) {
