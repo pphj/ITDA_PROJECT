@@ -17,6 +17,7 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	public Itda_UserServiceImpl(Itda_UserMapper dao, PasswordEncoder passwordEncoder) {
 		this.dao = dao;
 		this.passwordEncoder = passwordEncoder;
+		
 	}
 
 	@Override

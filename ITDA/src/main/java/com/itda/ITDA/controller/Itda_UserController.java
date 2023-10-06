@@ -21,8 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.Itda_User;
-import com.itda.ITDA.domain.MailVO;
+import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.service.Itda_UserService;
+import com.itda.ITDA.service.UserCategoryService;
 
 //DAO와 Service가 작성되어야 Controller가 완성된다
 @Controller
@@ -32,12 +33,14 @@ public class Itda_UserController {
 
 	private Itda_UserService Itda_UserService;
 	private PasswordEncoder passwordEncoder;
+	private UserCategoryService userCategoryService;
 	private HttpSession session; // HttpSession 객체 선언
 
 	@Autowired
-	public Itda_UserController(Itda_UserService Itda_UserService, PasswordEncoder passwordEncoder, HttpSession session) {
+	public Itda_UserController(Itda_UserService Itda_UserService, UserCategoryService userCategoryService, PasswordEncoder passwordEncoder, HttpSession session) {
 		this.Itda_UserService = Itda_UserService;
 		this.passwordEncoder = passwordEncoder;
+		this.userCategoryService = userCategoryService;
 		this.session = session; // HttpSession 객체 주입
 	}
 
@@ -80,6 +83,16 @@ public class Itda_UserController {
 	        // 회원 가입 성공 시 프로필 사진 경로를 세션에 저장
 	        session.setAttribute("userProfilePath", mem.getUserProfile());
 	        
+
+	        String[] selectedCategories = request.getParameterValues("categories");
+	        if (selectedCategories != null) {
+	            for (String category : selectedCategories) {
+	                UserCategory userCategory = new UserCategory();
+	                userCategory.setUserId(mem.getUserId());
+	                userCategory.setCate_Id(Integer.parseInt(category));
+	                userCategoryService.save(userCategory);
+	            }
+	        }
 
 	        ra.addFlashAttribute("result", "joinSuccess");
 	        return "redirect:/";

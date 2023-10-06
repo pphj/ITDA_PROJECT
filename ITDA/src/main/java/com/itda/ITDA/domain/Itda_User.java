@@ -28,8 +28,9 @@ public class Itda_User {
 	
 
 	public String getAuthName() {
-		return authName;
+	    return "ROLE_" + authName; // "ROLE_"을 접두사로 추가
 	}
+
 
 	public void setAuthName(String authName) {
 		this.authName = authName;
@@ -154,6 +155,10 @@ public class Itda_User {
 	public void setUserJoindate(Timestamp userJoindate) {
 		this.userJoindate = userJoindate;
 	}
+
+
+	
+
 
 	
 
