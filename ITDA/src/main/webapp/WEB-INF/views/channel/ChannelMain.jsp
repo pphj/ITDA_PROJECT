@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +52,7 @@
 		</div>
 	</div>
 	<!-- <div class="wrap_profile"> 채널바 -->
-	
+
 	<!-- 탭 메뉴 -->
 	<div class="tab_contents">
 		<!-- <ul id="contentsTab" class="list_tab">
@@ -74,12 +75,12 @@
 				</a>
 			</li>
 			<li>
- 				<a href="javascript:void(0);" class="articleTab link_tab" id="articles_tab" onclick="onTabClick('articles')">
+				<a href="javascript:void(0);" class="articleTab link_tab" id="articles_tab" onclick="onTabClick('articles')">
 					<span class="txt_tab">게시글</span>
 				</a>
 			</li>
 			<li>
-				 <a href="javascript:void(0);" class="magazineTab link_tab" id="works_tab" onclick="onTabClick('works')">
+				<a href="javascript:void(0);" class="magazineTab link_tab" id="works_tab" onclick="onTabClick('works')">
 					<span class="txt_tab">카테고리</span>
 				</a>
 			</li>
@@ -101,6 +102,7 @@
 							</div>
 						</div>
 					</div>
+					
 					<div id="wrapArticle" class="wrap_article #my_post">
 						<div class="wrap_article_list">
 							<c:forEach var="c" items="${ChannelBoardList}">
@@ -112,7 +114,14 @@
 										</a>
 										<a href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}"
 											class="link_post has_image #post_listview">
-											<strong class="tit_subject">${c.boardTitle}</strong>
+											<strong class="tit_subject"> <%-- 글자 수 제한 적용 --%> 
+												<c:set var="limitedTitle" value="${c.boardTitle}" /> 
+														<c:choose>
+																<c:when test="${fn:length(c.boardTitle) > 35}">
+																	<c:set var="limitedTitle" value="${fn:substring(c.boardTitle, 0, 35)}..." />
+																</c:when>
+														</c:choose> ${limitedTitle}
+											</strong>
 											<div class="post_thumb">
 												<img class="img_thumb" src="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.thumbNail}"
 													style="width: 120px; height: 120px;" alt="이미지정보">
@@ -132,17 +141,16 @@
 									</li>
 								</ul>
 							</c:forEach>
-						</div>
-					</div>
-				</div>
-				<!-- <div class="wrap_contents"> 게시글 -->
-			</div>
-			<!--<div class="tab_content">-->
+						</div><!-- <div class="wrap_article_list"> -->
+					</div><!-- 	<div id="wrapArticle" class="wrap_article #my_post"> -->
+				</div><!-- <div class="wrap_contents"> 게시글 -->
+			</div><!--<div class="tab_content">-->
+			
 			<!-- 작가소개 -->
 			<div class="tab_content" id="info">
 				<div class="author_intro animation_up">
 					<strong class="tit_intro">채널소개</strong>
-					<p class="desc_intro">마음속에 담아둔 말이 많은 내과 의사. 마흔을 앞둔 지금, 의학 '드라마'가 아닌 진짜 이야기를 쓰고 싶습니다.</p>
+					<p class="desc_intro">${ChannelList.chInfo}</p>
 					<ul class="list_tag">
 						<li>
 							<a href="/keyword/profile/에세이" class="link_tag #profilekeyword">에세이</a>
