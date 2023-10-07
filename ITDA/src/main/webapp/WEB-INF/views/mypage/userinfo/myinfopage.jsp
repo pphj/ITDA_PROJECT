@@ -297,6 +297,20 @@
                 </button>
             </div>
         </li>
+        <li>
+            <div id="phoneNoRegDiv" class="row_item phone ">
+                <span id="phoneNoRegSpan"
+                      class="item_text">${user.userPost}&nbsp;&nbsp;
+                     ${user.userAddress1}&nbsp;${user.userAddress2}</span>
+                <button type="button" id="phoneNoRegBtn"
+                        class="btn_edit"
+                        onclick="showPhoneNumberChangePopUp()">
+                    <span id="phoneNoRegBtnTxt"
+                          class="text">수정</span>
+                          
+                </button>
+            </div>
+        </li>
     </ul>
 </div>
 
