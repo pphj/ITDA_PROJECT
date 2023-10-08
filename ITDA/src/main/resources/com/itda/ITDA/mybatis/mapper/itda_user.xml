@@ -30,4 +30,13 @@
 		from itda_user
 		where userId = #{userId}
 	</select>
+	
+	<update id="userAddressUpdate" parameterType="hashMap">
+		update itda_User
+		set 
+			userPost = #{userPost}, 
+			userAddress1 = #{userAddress1},
+			userAddress2 = #{userAddress2}
+		where userId = #{userId}
+	</update>
 </mapper>

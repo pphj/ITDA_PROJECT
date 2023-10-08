@@ -13,7 +13,7 @@
 
 <title>로그인 비밀번호 변경 : 네이버ID</title>
 
-<script type="text/javascript" src="/inc/common/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/mypage/common/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mypage/help_member.css">
 <link href="https://nid.naver.com/favicon_1024.png" rel="apple-touch-icon-precomposed" sizes="1024x1024" />
 <script type="text/javascript" src="https://nid.naver.com/js/clickcr.js"></script>
@@ -303,7 +303,7 @@ function showMenu(subMenu) {
 					<legend>비밀번호 변경</legend>
 					<p class="spc_row">
 						<label id="lb_now_pw" for="now_pw">현재 비밀번호</label>
-						<input type="password" name="now_pw" id="now_pw" maxlength="20" style="width:336px" title="현재 비밀번호 입력"
+						<input type="password" name="userPw" id="now_pw" maxlength="20" style="width:336px" title="현재 비밀번호 입력"
 								onFocus="convertDiv('now_pw', 'none')"
 								onBlur="convertDiv('now_pw', 'block');showCapslockForNowPw(-1);"
 								onkeyup="showCapslockForNowPw(1);"
@@ -319,7 +319,7 @@ function showMenu(subMenu) {
 					</div>
 					<p class="spc_row2">
 						<label id="lb_new_pw" for="new_pw">새 비밀번호</label>
-						<input type="password" id="new_pw" name="new_pw" maxlength="20" style="width:260px" title="새 비밀번호 입력"
+						<input type="password" id="new_pw" name="userPw" maxlength="20" style="width:260px" title="새 비밀번호 입력"
 								onFocus="convertDiv('new_pw','none');checkpwd_login('new_pw','now_pw');"
 								onBlur="convertDiv('new_pw','block');showhelpmsg(-1);" 
 								onkeyup="checkShiftUp(event);checkpwd_login('new_pw','now_pw');"

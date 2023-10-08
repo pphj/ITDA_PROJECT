@@ -142,6 +142,18 @@ hr {
     background-repeat: no-repeat
 }
 
+.row_item.post::before{
+    background-image: url("../../../resources/image/mypage/location_icon.png");
+    background-size: 18px 18px;
+    background-repeat: no-repeat
+}
+
+/* 주소입력창 텍스트 */
+.address_text{
+	margin-top : 15px;
+	margin-bottom: 10px;
+}
+
 .dimmed {
     position: fixed;
     top: 0;
@@ -1719,12 +1731,19 @@ h1,h2,h3,h4,h5,h6 {
     }
 }
 
-.row_item.abroad::before,.row_item.birth::before,.row_item.connect::before,.row_item.delivery::before,.row_item.history::before,.row_item.list::before,.row_item.lock::before,.row_item.loginalarm::before,.row_item.mail::before,.row_item.name::before,.row_item.only::before,.row_item.other::before,.row_item.person::before,.row_item.phone::before,.row_item.privacy::before,.row_item.step::before {
+.row_item.abroad::before,.row_item.birth::before,.row_item.connect::before,.row_item.delivery::before,.row_item.history::before,.row_item.list::before,.row_item.lock::before,.row_item.loginalarm::before,.row_item.mail::before,.row_item.name::before,.row_item.only::before,.row_item.other::before,.row_item.person::before,.row_item.phone::before,.row_item.privacy::before,.row_item.step::before,.row_item.post::before {
     content: '';
     position: absolute;
     top: 10px;
     left: 0;
     background-position: -250px -26px;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px
+}
+
+.row_item.post::before {
+    background-position: 3px 0px;
     background-repeat: no-repeat;
     width: 24px;
     height: 24px

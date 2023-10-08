@@ -17,6 +17,8 @@ public interface Itda_UserMapper {
 	Itda_User goSubsctiptions(String userId);
 
 	Itda_User read(String id);
+
+	int userAddressUpdate(Map map);
 	
 	
 }
