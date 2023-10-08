@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.Itda_User;
@@ -71,8 +70,7 @@ public class UserInfoController {
 	public String userAddressUpdatePro(Itda_User user, 
 										Model model,
 										RedirectAttributes rattr,
-										Principal principal
-										) {
+										Principal principal) {
 		
 				
 		String id = principal.getName();

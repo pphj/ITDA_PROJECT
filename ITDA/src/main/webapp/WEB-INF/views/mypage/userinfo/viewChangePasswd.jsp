@@ -174,7 +174,7 @@ function initializeForm(){
 }
 
 function goSecurityAfterCancel(){
-	document.location.href = "/user2/help/myInfoV2?lang=ko_KR";
+	document.location.href = "${pageContext.request.contextPath}/user/myInfo";
 }
 
 function reCaptcha() {

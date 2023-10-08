@@ -736,7 +736,6 @@
                 <!--주소 팝업콘텐츠영역-->
 
 
-                 <form action="/addressUpdatePro" method="post">
                  <div class="contact_edit_popup" style="width:329px;">
                         <h4 class="contact_edit_title">
                                 <strong class="bold">${user.userName}님</strong>의 회원정보 중
@@ -760,13 +759,14 @@
                     <span>상세주소  </span> 
                     </div>
                     <div class="popup_row">
-                       <input type="text" id="sample6_detailAddress"  placeholder="상세주소" class="popup_input" name="userAddress2">
+                       <input type="text" id="sample6_detailAddress"  placeholder="상세주소" class="popup_input" name="userAddress1">
                         
                     </div>
                     <div class="popup_row"> 
                        <input type="text" id="sample6_extraAddress" placeholder="참고항목" class="popup_input" name="userAddress2">
                         
                     </div>
+                    <p id="e_addressNo" class="popup_error"></p>
                             
                         </fieldset>
                     
