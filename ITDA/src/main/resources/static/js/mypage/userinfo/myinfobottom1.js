@@ -34,6 +34,8 @@ input2.addEventListener("keydown", function(event) {
 	addform.submit();
 	}
 	});
+	
+	
 
     function show2StepVerificationPopUp() {
         displayObj('dimmed2');
