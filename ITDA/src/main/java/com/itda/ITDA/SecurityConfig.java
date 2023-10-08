@@ -34,7 +34,8 @@ public class SecurityConfig {
       //접근 권한 설정
       http.authorizeRequests()
       .antMatchers("/resources/**/**").permitAll()
-      .antMatchers("/**/**").permitAll();
+      .antMatchers("/**/**").permitAll()
+      .antMatchers("/joinProcess").permitAll();
     /*.antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")
       .antMatchers("/admin/**").access("hasAnyRole('SUPERADMIN','ADMIN')");*/
       

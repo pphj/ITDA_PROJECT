@@ -20,6 +20,8 @@
 		#{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail},
 		#{userCategory},
 		SYSDATE, 1, null)
+		
+		
 	</insert>
 	
 	<select id="read" resultType="Itda_User">
