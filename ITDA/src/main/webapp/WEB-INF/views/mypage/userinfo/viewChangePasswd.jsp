@@ -11,7 +11,7 @@
 <meta http-equiv="Cache-Control" content="post-check=0, pre-check=0">
 <meta http-equiv="Pragma" content="No-Cache">
 
-<title>로그인 비밀번호 변경 : 네이버ID</title>
+<title>로그인 비밀번호 변경</title>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/mypage/common/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mypage/help_member.css">
@@ -45,9 +45,50 @@
 	function clearDocs(){}
 </script>
 <meta name="decorator" content="NEW_USER_MYINFO">
-<script type="text/javascript" src="https://nid.naver.com/inc/common/js/ko/passwdAjax.js?20180530"></script>
-<script type="text/javascript" src="/inc/common/js/rsaAll.js"></script>
+<!-- <script type="text/javascript" src="https://nid.naver.com/inc/common/js/ko/passwdAjax.js?20180530"></script> -->
+<!-- <script type="text/javascript" src="/inc/common/js/rsaAll.js"></script>
 <script type="text/javascript" src="https://nid.naver.com/inc/user/js/soundCaptcha.js?20220411"></script>
+ --><script type="text/javascript">
+
+// 비밀번호 확인 ajax
+$(function() {
+    let contextpath = "${pageContext.request.contextPath}";
+    let checkPw = false;
+    var header = '${_csrf.headerName}';
+    var token = '${_csrf.token}';
+
+    $("input[id=now_pw]").on('keyup', function() {
+        // 현재 비밀번호 입력값을 가져옴
+        let userPw = $(this).val();
+
+        $.ajax({
+            type: "POST",
+            url: contextpath + "/user/myInfo/passwdCheck", 
+            beforeSend : function(xhr){
+        		xhr.setRequestHeader(header, token);
+        	},
+            data: { "userPw": userPw },
+            dataType: "json",
+            success: function(result) {
+                console.log(result);
+
+                if (result === 1) {
+                    $('#now_pw').html("비밀번호 일치");
+                    checkPw = true;
+                } else {
+                    $("#now_pw").html("비밀번호 불일치");
+                    checkPw = false;
+                }
+            },
+            error: function(error) {
+                console.log("error: " + error);
+            }
+        });
+    });
+});
+
+
+</script>
 <script type="text/javascript">
 var nsc = "my.private"+ "";
 var ccsrv = "cc.naver.com";
@@ -95,8 +136,8 @@ function mainSubmit() {
 		document.fm.tempChkBlockIp.value = document.fm.chkBlockIp.checked;
 		
 		createRsaKey();
-		lua_do('changePW_PC' , arguments.callee.name,INFO_CHECK_POINT_SUBMIT, document.fm.token_help.value, true,'');
-		return true;
+/* 		lua_do('changePW_PC' , arguments.callee.name,INFO_CHECK_POINT_SUBMIT, document.fm.token_help.value, true,'');
+ */		return true;
 	}
 	return false;
 }
@@ -136,11 +177,11 @@ function toggle(obj){
 
 function createRsaKey() {
 	var rsa = new RSAKey();
-	var sessionKey = "Q7KvaJGQHGr9Fyj3";
-	var keyName = "100019106";
-	var eValue = "92db2cb09094419171a4c72ce995204c1e94573c1c3bc06ad344b493f3e6a69cf02b59c6954d8dee7bc581525b63552466b2c19e87c0874b10ed7ee068cd8bb911db06aa001f69c020a3d3ce60c7688a5a0ef19d792fb67db455e8d2bc24d2f08c3a269f81cd94c72280f61ea95493de07a79576f53fb8d2ec0242263aa6d389";
-	var nValue = "010001";
-	var id = "vldzmskcy";
+	var sessionKey = "";
+	var keyName = "";
+	var eValue = "";
+	var nValue = "";
+	var id = "";
 	rsa.setPublic(eValue, nValue);
     
 	if (sessionKey == "" || eValue == "" || nValue == "" || keyName == "") {
@@ -289,13 +330,13 @@ function showMenu(subMenu) {
 		</div>
 		<div class="spc_content">
 			<form id="fm" name="fm">
-			<input type="hidden" name="token_help" value="IbPEbvGbQUCeaV41" />
+			<input type="hidden" name="token_help" value="" />
 			<input type="hidden" name="menu" value="security" />
 			<input type="hidden" id="encPasswd" name="encPasswd">
 			<input type="hidden" id="encNewPasswd" name="encNewPasswd">
 			<input type="hidden" id="encNm" name="encNm">		
 			<input type="hidden" id="captcha_type" name="captcha_type" value="image">
-			<input type="hidden" id="chptchakey" name="chptchakey" value="iaMwGb2uMIqmTPxi">
+			<input type="hidden" id="chptchakey" name="chptchakey" value="">
 			<input type="hidden" id="tempAutoValue" name="tempAutoValue">
 			<input type="hidden" id="tempChkBlockIp" name="tempChkBlockIp">
 			
@@ -527,6 +568,8 @@ function showMenu(subMenu) {
 						<button type="button" onclick="goSecurityAfterCancel();clickcr(this,'npw.reload','','',event);">취소</button>
 					</p>
 				</fieldset>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
+				
 			</form>
 		</div>
 	</div>
@@ -686,8 +729,8 @@ $(document).ready(function() {
         var nowTime = new Date();
         var ttime = nowTime - totalTime;
         
-        lua_do2('ChangePW_PC', arguments.callee.name, normalCount + "^" + time + "^" + ctime + "^" + rtime  + "^" + ttime + "^" + reCaptchaCount, document.fm.token_help.value, true,'');        
-        
+/*         lua_do2('ChangePW_PC', arguments.callee.name, normalCount + "^" + time + "^" + ctime + "^" + rtime  + "^" + ttime + "^" + reCaptchaCount, document.fm.token_help.value, true,'');        
+ */        
     });
 
     $("#fm").submit(function(e) {
@@ -701,10 +744,12 @@ $(document).ready(function() {
 			_submitFlag = false;
             return false;
         }
+        
+        let contextpath = "${pageContext.request.contextPath}";
 
         $.ajax({
             type: "POST",
-            url: "/user2/help/myInfo?m=actionChangePasswd",
+            url: contextpath + "/user/myInfo/passWdChangePro", 
             data: $(this).serialize(), // serializes the form's elements.
             success : function(data) {
                 _showExitPopup = false;
@@ -721,13 +766,13 @@ $(document).ready(function() {
                     if (confirmReturnMessage(obj.resultMsg)) {
                         document.location.href = "/user2/help/pwInquiry?lang=ko_KR";
                     } else {
-                        document.location.href = "/user2/help/myInfo?m=viewChangePasswd&token_help=IbPEbvGbQUCeaV41&lang=ko_KR";
+                        document.location.href = "/user2/help/myInfo?m=viewChangePasswd&token_help=";
 					}
 					return;
                 }
 				alertReturnMessage(obj.resultMsg);
 				if (obj.resultCode === -2) {
-					document.location.href = "/user2/help/myInfo?m=viewChangePasswd&token_help=IbPEbvGbQUCeaV41&lang=ko_KR";
+					document.location.href = "/user2/help/myInfo?m=viewChangePasswd&token_help=&lang=ko_KR";
 				} else {
 					document.location.href = "/user2/help/myInfoV2?lang=ko_KR";
 				}
@@ -752,7 +797,7 @@ $(document).ready(function() {
         if (selected == 'logoutAll') {
             $.ajax({
                 type: "POST",
-                url: "/user2/help/myInfo?m=actionChangePasswdComplete&token_help=IbPEbvGbQUCeaV41",
+                url: "/user2/help/myInfo?m=actionChangePasswdComplete&token_help=",
                 success : function(data) {
                     handleSessionExpiredErr(data);
 
@@ -812,7 +857,7 @@ function showPasswordChangeComplete() {
 function handleSessionExpiredErr(data) {
     if (data && data.indexOf("-9|") === 0) {
         alertReturnMessage(data.split("|")[1]);
-        document.location.href = "/user2/help/myInfoV2?lang=ko_KR";
+        document.location.href = "/user/myInfo";
     }
 }
 </script>
@@ -830,8 +875,8 @@ function handleSessionExpiredErr(data) {
 	<span class="copyright">Copyright &copy; <a href="http://www.navercorp.com/ko/index.nhn " onclick="clickcr(this,'fot.navercorp','','',event);" target="_blank">NAVER Corp.</a> All Rights Reserved.</span>
 </address>
 
-<script type="text/javascript" src="/inc/common/js/jquery.resize.js"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript" src="/inc/common/js/jquery.resize.js"></script> -->
+ <script type="text/javascript">
 var ua = window.navigator.userAgent.toLowerCase();
 var cur_container_height = Number(document.getElementById("content").clientHeight);
 var min_container_height = 647;
@@ -880,7 +925,7 @@ function setContainerHeight(height) {
 	}
 }
 </script>	</div>
-</div>
+ --></div>
 
 <script type="text/javascript">
 getGNB();

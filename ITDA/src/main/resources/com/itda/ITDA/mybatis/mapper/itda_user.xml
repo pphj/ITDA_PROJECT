@@ -39,4 +39,17 @@
 			userAddress2 = #{userAddress2}
 		where userId = #{userId}
 	</update>
+	
+	<select id="pwCheck" resultType="Itda_User">
+		select userPw 
+		from itda_user 
+		where userId = #{userId}
+	</select>
+	
+	<update id="pwUpdate" parameterType="hashMap">
+		update itda_user
+		set	userPw = #{userPw}
+		where userId = #{userId}
+	</update>
+	
 </mapper>

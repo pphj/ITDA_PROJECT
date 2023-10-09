@@ -58,6 +58,17 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return dao.userAddressUpdate(map);
 	}
 
+	@Override
+	public Itda_User pwCheck(String id) {
+		return dao.pwCheck(id);
+	}
+
+	@Override
+	public void pwUpdate(Map map) {
+		dao.pwUpdate(map);
+		
+	}
+
 
 
 	

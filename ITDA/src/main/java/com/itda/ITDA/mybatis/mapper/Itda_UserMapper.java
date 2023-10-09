@@ -19,6 +19,10 @@ public interface Itda_UserMapper {
 	Itda_User read(String id);
 
 	int userAddressUpdate(Map map);
+
+	Itda_User pwCheck(String id);
+
+	void pwUpdate(Map map);
 	
 	
 }
