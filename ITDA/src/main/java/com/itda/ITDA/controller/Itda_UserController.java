@@ -90,7 +90,8 @@ public class Itda_UserController {
 	                     @RequestParam(value = "profile", required = false) MultipartFile file,
 	                     RedirectAttributes ra, 
 	                     Model model,
-	                     HttpServletRequest request) {
+	                     HttpServletRequest request,
+	                     HttpSession session) {  // HttpSession 객체를 파라미터로 추가합니다.
 	    String encPassword = passwordEncoder.encode(mem.getUserPw());
 	    logger.info(encPassword);
 	    mem.setUserPw(encPassword);
@@ -120,6 +121,7 @@ public class Itda_UserController {
 	                            file.getOriginalFilename();
 
 	           mem.setUserProfile(urlPath);  // 업로그한 이미지 URL set
+	           session.setAttribute("userProfilePath", urlPath);  // 세션에 이미지 URL 저장
 
 	       } catch (IOException e) {
 	           e.printStackTrace();
@@ -141,6 +143,7 @@ public class Itda_UserController {
 	        return "/main/protomain";
 	    }
 	}
+
 
 //	 @PostMapping("/joinProcess")
 //	    public String insert(@ModelAttribute Itda_User mem, 
