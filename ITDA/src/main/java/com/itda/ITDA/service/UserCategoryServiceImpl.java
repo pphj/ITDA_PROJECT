@@ -29,11 +29,10 @@ public class UserCategoryServiceImpl implements UserCategoryService {
 
 	}
 
-	@Override
-	public void save(UserCategory userCategory) {
-		// TODO Auto-generated method stub
-		
-	}
+	 @Override
+	 public void save(UserCategory userCategory) {
+		    userCategoryMapper.save(userCategory);
+		}
 
 	
 

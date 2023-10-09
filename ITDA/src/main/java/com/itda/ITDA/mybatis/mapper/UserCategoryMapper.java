@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserCategoryMapper {
 
-	void insert(UserCategory userCategroy); 
+	void save(UserCategory userCategory);
+
 		
 }
