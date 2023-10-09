@@ -18,7 +18,7 @@
 <link href="https://nid.naver.com/favicon_1024.png" rel="apple-touch-icon-precomposed" sizes="1024x1024" />
 <script type="text/javascript" src="https://nid.naver.com/js/clickcr.js"></script>
 <script type="text/javascript" src="/inc/common/js/lcs_nclicks.js?r=20220411"></script>
-<script type="text/javascript" src="https://nid.naver.com/inc/common/js/ko/commonUtil.js?20170214"></script>
+<script type="application/json" src="${pageContext.request.contextPath}/resources/js/mypage/userinfo/commonUtil.js"></script>
 <script type="text/javascript" src="/inc/common/js/lua.js?r=20220411"></script>
 <script type="text/javascript">
 	var gnb_option = {
@@ -45,10 +45,11 @@
 	function clearDocs(){}
 </script>
 <meta name="decorator" content="NEW_USER_MYINFO">
-<!-- <script type="text/javascript" src="https://nid.naver.com/inc/common/js/ko/passwdAjax.js?20180530"></script> -->
-<!-- <script type="text/javascript" src="/inc/common/js/rsaAll.js"></script>
-<script type="text/javascript" src="https://nid.naver.com/inc/user/js/soundCaptcha.js?20220411"></script>
- --><script type="text/javascript">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/mypage/userinfo/passwdAjax.js"></script>
+<!-- <script type="text/javascript" src="/inc/common/js/rsaAll.js"></script> -->
+<!-- <script type="text/javascript" src="https://nid.naver.com/inc/user/js/soundCaptcha.js?20220411"></script> -->
+
+ <script type="text/javascript">
 
 // 비밀번호 확인 ajax
 $(function() {
