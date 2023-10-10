@@ -446,8 +446,6 @@ function convertDiv(obj, stat){
 					<p class="btn_area_btm">
 						<button type="submit" id="changeSubmit">확인</button>
 						<button type="button" onclick="goSecurityAfterCancel();">취소</button>
-<%-- 					<button type="submit" id="changeSubmit" onclick="clickcr(this,'npw.confirm','','',event);">확인</button>
-						<button type="button" onclick="goSecurityAfterCancel(); clickcr(this,'npw.reload','','',event);">취소</button> --%>
 					</p>
 				</fieldset>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
@@ -499,23 +497,26 @@ $("#fm").submit(function(e) {
     // 양식을 제출합니다.
     $("#fm").submit();
     return true;
+    
 }); */
 
     var _submitFlag = false;
     var addform = $("#fm");
 
     $("#changeSubmit").on("click", function(event) {
+		event.preventDefault();
         if(_submitFlag = false){
         	return false;
         }else if(!mainSubmit()){
         	 return false;
         }else{
-			event.preventDefault();
         	let contextpath = "${pageContext.request.contextPath}";
         	
 			 $("#fm").attr("action", contextpath + "/user/myInfo/passWdChangePro"); // 경로와 메서드 속성을 설정합니다.
 			 $("#fm").attr("method", "POST");
 			 $("#fm").submit();
+			 
+			 alert("비밀번호가 변경 되었습니다.");
 			 
         }
 
