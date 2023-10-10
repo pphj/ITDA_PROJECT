@@ -1,5 +1,6 @@
 package com.itda.ITDA.mybatis.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -19,10 +20,18 @@ public interface ChannelListMapper {
 
 	/*int getChannelCategoryCount();*/
 
-	List<ChBoardCategory> getChnnelCategorylist(int chnum);
+	List<ChBoardCategory> getChannelCategoryList(int chnum);
 
 	/*seller
 	ChannelList getChannelSellerDetail(int chnum);
 	*/
+
+	List<ChBoard> getAllChannelCategoryData(int channelnum, String order, int page, int limit);
+
+	int getAllChannelCategoryCount(int channelnum);
+
+	List<ChBoard> getChannelCategoryData(HashMap<String, Integer> map);
+
+	int getChannelCategoryCount(int channelnum, int categoryId);
 
 }

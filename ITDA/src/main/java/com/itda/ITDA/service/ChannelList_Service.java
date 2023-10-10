@@ -16,8 +16,16 @@ public interface ChannelList_Service {
 
 	/*int getChannelCategoryCount();*/
 
-	List<ChBoardCategory> getChnnelCategorylist(int chnum);
+	List<ChBoardCategory> getChannelCategoryList(int chnum);
 
 	/*ChannelList getChannelSellerDetail(int chnum);*/
+
+	List<ChBoard> getAllChannelCategoryData(int channelnum, String order, int page, int limit);
+
+	int getAllChannelCategoryCount(int channelnum);
+
+	List<ChBoard> getChannelCategoryData(int channelnum, int categoryId, int page, int limit);
+
+	int getChannelCategoryCount(int channelnum, int categoryId);
 
 }

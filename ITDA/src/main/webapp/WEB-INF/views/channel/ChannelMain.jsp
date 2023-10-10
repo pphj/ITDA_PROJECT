@@ -337,7 +337,7 @@
 						</li>
 						<c:forEach var="c" items="${ChannelCategory}">
 							<li class="channel_category_item">	
-								<a href="${pageContext.request.contextPath}/channel/contentlist.co?channelnum=${ChannelList.chNum}&chcate_name=${chcategorylist.chCate_Name}&chcate_id=${chcategorylist.chCate_Id}&chname=${ChannelList.chName}"
+								<a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}" 
 										class="channel_category_link">
  									<strong class="channel_category_name">${c.chCate_Name}</strong>
 										<!-- <div class="channel_category_num">갯수</div> -->								

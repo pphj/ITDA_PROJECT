@@ -47,7 +47,7 @@
 		C.chCate_Name
 	</select> -->
 	
-	<select id="getChnnelCategorylist" resultType="ChBoardCategory">
+	<select id="getChannelCategoryList" resultType="ChBoardCategory">
 		SELECT * FROM chboardcategory
 	    WHERE chnum = #{chNum}
 	    ORDER BY chcate_name
@@ -61,5 +61,59 @@
 		WHERE CHNUM = #{chnum}
 	</select>
 	-->
+	
+	<select id="getAllChannelCategoryData" resultType="ChBoard" parameterType="map">
+		 SELECT *
+		    FROM (
+		        SELECT ROWNUM rnum, j.*
+		        FROM (
+		            SELECT
+		                chboard.*,
+		                NVL(cnt, 0) cnt,
+		                (
+		                    SELECT chcate_name
+		                    FROM chboardcategory c
+		                    WHERE c.chcate_id = chboard.chcate_id
+		                ) chcate_name
+		            FROM chboard
+		            LEFT JOIN (
+		                SELECT boardnum, COUNT(*) cnt
+		                FROM boardreply
+		                GROUP BY boardnum
+		            ) f ON chboard.boardnum = f.boardnum
+		            WHERE chboard.chnum = #{chnum}
+		            ORDER BY boardDate ${order}, chboard.boardnum DESC
+		        ) j
+		        WHERE ROWNUM &lt;= #{end}
+		    )
+		    WHERE rnum &gt;= #{start}
+	</select>
+	
+	<select id="getAllChannelCategoryCount" resultType="int">
+		SELECT COUNT(*) FROM chboard WHERE chnum = #{chnum}
+	</select>
+	
+	<select id="getChannelCategoryData" resultType="ChBoard">
+	    <![CDATA[
+	        SELECT *
+	        FROM (
+	            SELECT rownum rnum, j.*
+	            FROM (
+	                SELECT *
+	                FROM chboard
+	                NATURAL JOIN chboardcategory
+	                WHERE chnum = #{channelnum}
+	                AND chcate_id = #{categoryId}
+	            ) j
+	            WHERE rownum <= #{endRow}
+	        )
+	        WHERE rnum >= #{startRow} AND rnum <= #{endRow}
+	        ORDER BY boardDate ASC
+	     ]]>
+	</select>
+	
+	<select id="getChannelCategoryCount" resultType="java.lang.Integer">
+  		 SELECT COUNT(*) FROM chboard
+	</select>
 	
 </mapper> 
