@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/seller")
 public class Itda_SellerController {
-
+	
     @Autowired
     private SellerService sellerService;  // SellerService를 주입합니다. (SellerService는 실제로 구현해야 합니다)
 
