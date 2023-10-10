@@ -35,7 +35,9 @@ public class SecurityConfig {
       http.authorizeRequests()
       .antMatchers("/resources/**/**").permitAll()
       .antMatchers("/**/**").permitAll()
-      .antMatchers("/joinProcess").permitAll();
+      .antMatchers("/joinProcess").permitAll()
+      .antMatchers("/seller/sellerCheck").permitAll(); // "/seller/sellerCheck" 엔드포인트는 권한 없이 접근 허용
+      
     /*.antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")
       .antMatchers("/admin/**").access("hasAnyRole('SUPERADMIN','ADMIN')");*/
       
