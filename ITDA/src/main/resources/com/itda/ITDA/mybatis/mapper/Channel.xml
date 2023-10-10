@@ -48,10 +48,9 @@
 	</select> -->
 	
 	<select id="getChnnelCategorylist" resultType="ChBoardCategory">
-		SELECT *
-		FROM CHBOARDCATEGORY
-		WHERE chNum = #{chnum}
-		ORDER BY chcate_id ASC
+		SELECT * FROM chboardcategory
+	    WHERE chnum = #{chNum}
+	    ORDER BY chcate_name
 	</select>
 	
 	<!-- seller 

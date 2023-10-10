@@ -95,10 +95,11 @@ public class ChannelListController {
 
 		// 채널과 연관된 카테고리 목록을 가져옴
 		List<ChBoardCategory> chcategorylist = channelList_Service.getChnnelCategorylist(chnum);
-		mv.setViewName("chcategorylist");
+		mv.setViewName("content/content_list");
 		mv.addObject("chcategorylist", chcategorylist);
 
 		return mv;
 	}
+
 
 }
