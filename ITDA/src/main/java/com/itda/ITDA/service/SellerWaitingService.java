@@ -1,4 +1,4 @@
-package com.itda.ITDA.controller;
+package com.itda.ITDA.service;
 
 public class SellerWaitingService {
 
