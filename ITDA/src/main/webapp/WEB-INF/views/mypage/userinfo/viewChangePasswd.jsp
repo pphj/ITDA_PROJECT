@@ -214,21 +214,17 @@ function convertDiv(obj, stat){
 		</div>
 		<div class="spc_content">
 			<form id="fm" name="fm">
-			<input type="hidden" name="token_help" value="" />
-			<input type="hidden" name="menu" value="security" />
 			<input type="hidden" id="encPasswd" name="encPasswd">
 			<input type="hidden" id="encNewPasswd" name="encNewPasswd">
 			<input type="hidden" id="encNm" name="encNm">		
 			<input type="hidden" id="captcha_type" name="captcha_type" value="image">
 			<input type="hidden" id="chptchakey" name="chptchakey" value="">
-			<input type="hidden" id="tempAutoValue" name="tempAutoValue">
-			<input type="hidden" id="tempChkBlockIp" name="tempChkBlockIp">
 			
 				<fieldset>
 					<legend>비밀번호 변경</legend>
 					<p class="spc_row">
 						<label id="lb_now_pw" for="now_pw">현재 비밀번호</label>
-						<input type="password" name="userPw" id="now_pw" maxlength="20" style="width:336px" title="현재 비밀번호 입력"
+						<input type="password" id="now_pw" maxlength="20" style="width:336px" title="현재 비밀번호 입력"
 								onFocus="convertDiv('now_pw', 'none')"
 								onBlur="convertDiv('now_pw', 'block')"><!-- showCapslockForNowPw(-1);"
 								onkeyup="showCapslockForNowPw(1);"
@@ -504,20 +500,23 @@ $("#fm").submit(function(e) {
     $("#fm").submit();
     return true;
 }); */
+
     var _submitFlag = false;
     var addform = $("#fm");
 
     $("#changeSubmit").on("click", function(event) {
-
         if(_submitFlag = false){
         	return false;
         }else if(!mainSubmit()){
         	 return false;
         }else{
+			event.preventDefault();
         	let contextpath = "${pageContext.request.contextPath}";
-        	addform.action = contextpath + "/user/myInfo/passWdChangePro";
-        	addform.method = "Post";
-        	return true;
+        	
+			 $("#fm").attr("action", contextpath + "/user/myInfo/passWdChangePro"); // 경로와 메서드 속성을 설정합니다.
+			 $("#fm").attr("method", "POST");
+			 $("#fm").submit();
+			 
         }
 
     });

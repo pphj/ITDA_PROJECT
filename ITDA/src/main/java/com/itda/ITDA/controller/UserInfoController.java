@@ -138,7 +138,7 @@ public class UserInfoController {
 	}
 	
 	// 비밀번호 변경
-	@PostMapping("/passWdChangePro")
+	@PostMapping("myInfo/passWdChangePro")
 	public String passWdChangeProcess(Itda_User user,
 									Principal principal) {
 		
@@ -151,12 +151,12 @@ public class UserInfoController {
 		
 		String userPw = encoder.encode(user.getUserPw());
 
-		Map map = new HashMap();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("userId", id);
 		map.put("userPw", userPw);
 		itdaUserService.pwUpdate(map);
-		user.setUserPw(userPw);
-		logger.info("비밀번호 암호화 후 : " + user.getUserPw());
+
+		logger.info("비밀번호 암호화 후 : " + userPw);
 
 		logger.info("비밀번호 변경 성공");
 		
