@@ -141,6 +141,7 @@
 
         <!-- footerLeft -->
         <footer class="left_footer" role="contentinfo">
+        <form>
             <ul class="left_guide">
                 <li><a href="javascript:;" onclick="logout()" class="left_item">
                         <div class="footer_text">로그아웃</div>
@@ -158,6 +159,9 @@
                     </ul>
                 </li>
             </ul>
+            <input type="hidden" name="${_csrf.parameterName}"
+							                value="${_csrf.token}">
+	        </form>
             <div class="footer_logo"><span class="logo"><span class="blind">잇다</span></span></div>
         </footer>
         <!-- //footerLeft -->
@@ -192,39 +196,13 @@
         }
     }
 
-/*     function logout() {
+    function logout() {
         nclk(this,'fot.logout','','',event);
         if (confirm("로그아웃 하시겠습니까?") == true) {
             var returnUrl = "${pageContext.request.contextPath}/member/logout";
-            $(location).attr('href', returnUrl);
+            $(location).attr('href', '${pageContext.request.contextPath}/');
         }
     }
- */
- 
- function logout() {
-	    nclk(this, 'fot.logout', '', '', event);
-	    
-	    if (confirm("로그아웃 하시겠습니까?")) {
-	        var logoutUrl = "${pageContext.request.contextPath}/member/logout";
-	        
-	        $.ajax({
-	            type: "POST",
-	            url: logoutUrl,
-	            data: {}, // 필요한 데이터가 있다면 이곳에 추가
-	            success: function(response) {
-	                // 로그아웃 성공 시 수행할 동작
-	                console.log("로그아웃 성공");
-	                // 로그아웃 후 다시 로그인 페이지로 리다이렉트하거나 필요한 작업을 수행할 수 있습니다.
-	                // 예: window.location.href = "로그인 페이지 URL";
-	            },
-	            error: function(xhr, textStatus, error) {
-	                // 로그아웃 실패 시 수행할 동작
-	                console.error("로그아웃 실패: " + error);
-	                // 실패 시 사용자에게 메시지 표시 또는 다른 작업을 수행할 수 있습니다.
-	            }
-	        });
-	    }
-	}
 
     function goHelpPage() {
         nclk(this,'fot.help','','',event);
