@@ -11,16 +11,16 @@
 
 
 
-	<insert id="insert" parameterType="Itda_User">
-		insert into itda_user
-		(userId, userPw, userName, userBirth, userGender, userPhone,
-		userAddress1, userAddress2, userPost, userEmail, userCategory,
-		userJoindate, statusId, userProfile)
-		values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userGender}, #{userPhone},
-		#{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail},
-		#{userCategory},
-		SYSDATE, 1, null)
-	</insert>
+	 <insert id="insert" parameterType="Itda_User">
+        insert into itda_user
+        (userId, userPw, userName, userBirth, userGender, userPhone,
+        userAddress1, userAddress2, userPost, userEmail, userCategory,
+        userJoindate, statusId, userProfile)
+        values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userGender}, #{userPhone},
+        #{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail},
+        #{userCategory},
+        SYSDATE, 1, #{userProfile})
+    </insert>
 	
 	<select id="read" resultType="Itda_User">
 		select

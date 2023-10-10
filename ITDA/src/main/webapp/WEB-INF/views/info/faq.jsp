@@ -1,4 +1,4 @@
-\
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -36,13 +36,16 @@
         <link rel="apple-touch-icon" sizes="192x192" href="https://static.hankyung.com/resource/common/img/favicon/apple-touch-icon.png">
         <link rel="stylesheet" href="https://static.hankyung.com/css/www/w/common.ui.all.css?v=202309221514">
         <link rel="stylesheet" href="https://static.hankyung.com/resource/www/help/css/help.css?v=202309221514">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/info/info.css" rel="stylesheet" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/info/faq.css" rel="stylesheet" />
+        
 
         <script src="https://static.hankyung.com/plugin/jquery-1.12.4.min.js"></script>
 		<script src="https://static.hankyung.com/plugin/jquery.cookie.js"></script>
 		<script type="text/javascript" src="https://static.hankyung.com/js/ga/googleTagManager.js?v=202309221514" async="true"></script>
 		<jsp:include page="../include/header.jsp"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/info/info.css" rel="stylesheet" />
+		
+		
 		
 		
 		
@@ -416,16 +419,13 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 								<a role="tab" aria-selected="true" href="${pageContext.request.contextPath}/info/faq">전체</a>
 							</li>
 							<li >
-								<a role="tab" aria-selected="false" href="https://www.hankyung.com/help/faq/account?cate=15">소셜</a>
+								<a role="tab" aria-selected="false" >회원가입</a>
 							</li>
 							<li >
-								<a role="tab" aria-selected="false" href="https://www.hankyung.com/help/faq/account?cate=14">회원가입</a>
+								<a role="tab" aria-selected="false" >로그인</a>
 							</li>
 							<li >
-								<a role="tab" aria-selected="false" href="https://www.hankyung.com/help/faq/account?cate=46">로그인</a>
-							</li>
-							<li >
-								<a role="tab" aria-selected="false" href="https://www.hankyung.com/help/faq/account?cate=47">계정관리</a>
+								<a role="tab" aria-selected="false" >계정관리</a>
 							</li>
 						</ul>
 					</div>
@@ -433,194 +433,6 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 
 
 				<div class="faq-list ">
-					<div class="faq-item" data-no="11"> <!-- 활성화 .on -->
-						<a role="button" class="faq-item-tit">
-							<span class="faq-category faq-cate1">소셜</span>
-							<em class="faq-q">
-								소셜 회원가입은 어떻게 하나요?
-
-							</em>
-						</a>
-
-						<div class="faq-item-cont">
-							<div class="faq-cont-area">
-								<div class="faq-a editor-area">
-
-									소셜 회원가입은 별도의 회원가입 단계를 거치지 않고 사용중인 SNS의 계정을 이용해서 필수 약관만 동의하여 회원이 되는 방법입니다. 로그인 수단으로 사용하고자 하는 SNS에 로그인 한 후 연동약관에 동의하고 한국경제 회원약관에 동의하면 간편히 회원가입이 완료됩니다.
-								</div>
-							</div>
-							<ul class="down-list">
-							</ul>
-						</div>
-					</div>
-					<div class="faq-item" data-no="12"> <!-- 활성화 .on -->
-						<a role="button" class="faq-item-tit">
-							<span class="faq-category faq-cate1">소셜</span>
-							<em class="faq-q">
-								기존에 이메일로 가입한 사용자는 소셜가입을 할 수 없나요?
-
-							</em>
-						</a>
-
-						<div class="faq-item-cont">
-							<div class="faq-cont-area">
-								<div class="faq-a editor-area">
-
-									소셜 가입은 신규회원부터 가능합니다. 이전에 가입한 사용자는 가입된 이메일주소와 다른 SNS서비스로 다시 가입하거나 탈퇴 후 가입하셔야 합니다. 단, 탈퇴후 30일이 지나야 재가입이 가능하며 사용중인 유료상품이 있을 경우 새 아이디로 이전은 불가능하니 유의하시기 바랍니다.
-								</div>
-							</div>
-							<ul class="down-list">
-							</ul>
-						</div>
-					</div>
-					<div class="faq-item" data-no="13"> <!-- 활성화 .on -->
-						<a role="button" class="faq-item-tit">
-							<span class="faq-category faq-cate1">소셜</span>
-							<em class="faq-q">
-								네이버 소셜 가입을 하려고 하는데 이미 네이버 소셜로 가입된 계정이라고 합니다.
-
-							</em>
-						</a>
-
-						<div class="faq-item-cont">
-							<div class="faq-cont-area">
-								<div class="faq-a editor-area">
-
-									한국경제 회원은 가입수단과 관계없이 이메일주소로 회원을 식별합니다. 소셜가입 하려는 네이버 계정의 연락처이메일이 이미 가입된 네이버계정의 이메일로 설정되어있을 경우 이미 가입된 계정으로 인식합니다. 네이버 뿐 아니라 카카오나 애플에서도 대표이메일을 다르게 설정했을 경우 이미 가입된 계정이라고 안내될 수 있습니다.<br />
-1) 네이버PC: 네이버 홈페이지에서 로그인 > 닉네임 클릭 > 내프로필 > 연락처이메일 변경<br />
-2) 카카오톡앱: 카카오톡 실행 > 더보기 > 설정 > 카카오계정 > 대표이메일 변경<br />
-3) 애플:애플 홈페이지에서 로그인 > https://appleid.apple.com/account/manage 접속 > 로그인 및 보안 > Apple ID > Apple ID 변경
-								</div>
-							</div>
-							<ul class="down-list">
-							</ul>
-						</div>
-					</div>
-					<div class="faq-item" data-no="14"> <!-- 활성화 .on -->
-						<a role="button" class="faq-item-tit">
-							<span class="faq-category faq-cate1">소셜</span>
-							<em class="faq-q">
-								네이버로 소셜가입한 한국경제계정을 탈퇴한 후 다른 네이버 계정으로 다시 소셜 가입하려고 했더니 탈퇴계정이라고 안내가 되고 회원가입이 진행이 되지 않습니다.
-
-							</em>
-						</a>
-
-						<div class="faq-item-cont">
-							<div class="faq-cont-area">
-								<div class="faq-a editor-area">
-
-									브라우저를 사용할 때 일부 웹사이트 정보는 캐시 및 쿠키 형태로 저장됩니다. 브라우저에 남아있는 탈퇴한 계정정보의 캐시 및 쿠키를 삭제해주세요.<br />
-<br />
-* 캐시 삭제 안내<br />
-1. PC<br />
-- 크롬 브라우저<br />
-1) 오른쪽 상단에서 더보기(...)를 클릭합니다.<br />
-2) [도구 더보기] > [인터넷 사용 기록 삭제]를 클릭합니다.<br />
-3) 상단에서 기간을 선택합니다. 모든 항목을 삭제하려면 [전체]를 선택합니다.<br />
-4) '캐시된 이미지 또는 파일'과 '쿠키 및 기타 사이트 및 프러그인 데이터' 옆의 체크박스를 선택합니다.<br />
-<br />
-- 엣지(Edge) 브라우저<br />
-1) 오른쪽 상단에서 더보기(...)를 클릭합니다.<br />
-2) [설정] > [개인 정보 및 서비스]를 클릭합니다.<br />
-3) [검색 데이터 지우기 항목]에서 [지울 항목 선택] 버튼을 클릭합니다.<br />
-4) 상단에서 시간 범위를 선택합니다. 모든 항목을 삭제하려면 [모든시간]을 선택합니다.<br />
-5) '쿠키 및 기타 사이트 데이터'와 '캐시된 이미지 및 파일'을 선택합니다. <br />
-6) [지금 지우기] 버튼을 클릭합니다.<br />
-<br />
-2. 안드로이드(갤럭시)<br />
-- 크롬 브라우저<br />
-1) 오른쪽 상단의 더보기 > 방문기록을 클릭합니다.<br />
-2) 인터넷 사용 기록 삭제...을 클릭합니다.<br />
-3) 상단에서 기간을 선택합니다. 모든 항목을 삭제하려면 '전체기간'을 선택합니다.<br />
-4) 인터넷 사용 기록 삭제를 클릭합니다.<br />
-<br />
-- 삼성 브라우저<br />
-1) 오른쪽 하단에서 메뉴바 > 설정을 클릭합니다.<br />
-2) 인터넷 사용 기록을 클릭합니다.<br />
-3) 인터넷 사용 기록 삭제를 클릭합니다.<br />
-4) 사용기록, 쿠키 및 사이트 데이터, 캐시 이미지와 파일을 체크한 후 삭제 버튼을 클릭합니다.<br />
-<br />
-3. iOS(아이폰)<br />
-- 크롬 브라우저<br />
-1) 오른쪽 하단의 더보기(...) > 방문기록을 클릭합니다.<br />
-2) 인터넷 사용 기록 삭제를 클릭합니다.<br />
-3) 상단에서 기간을 선택합니다. 모든 항목을 삭제하려면 '전체기간'을 선택합니다.<br />
-4) 인터넷 사용 기록 삭제를 클릭합니다.<br />
-<br />
-- 사파리(Safari)<br />
-1) 홈 화면에서 설정 앱을 실행 후 사파리 앱을 선택합니다.<br />
-2) 방문 기록 및 웹 사이트 데이터 지우기를 클릭합니다.<br />
-3) 방문 기록 및 데이터 지우기를 클릭합니다.<br />
-<br />
-캐시 및 쿠키를 삭제하면 다음과 같은 결과가 나타나오니 유의하시기바랍니다.<br />
-- 사이트의 일부 설정이 삭제됩니다. 예를 들어, 로그인한 상태라면 다시 로그인해야합니다.<br />
-- 이미지 등 일부 콘텐츠를 다시 로드해야 하기 때문에 일부 사이트가 느려질 수 있습니다. 다음 방문 시에는 이미지 등 페이지의 일부를 기억하고 있기 때문에 더 빠르게 열 수 있습니다.
-								</div>
-							</div>
-							<ul class="down-list">
-							</ul>
-						</div>
-					</div>
-					<div class="faq-item" data-no="15"> <!-- 활성화 .on -->
-						<a role="button" class="faq-item-tit">
-							<span class="faq-category faq-cate1">소셜</span>
-							<em class="faq-q">
-								카카오톡 인앱 브라우저로 구글로 소셜 로그인을 시도하였으나, "액세스 차단됨: 승인 오류" 라는 메시지가 뜹니다.
-
-							</em>
-						</a>
-
-						<div class="faq-item-cont">
-							<div class="faq-cont-area">
-								<div class="faq-a editor-area">
-
-									구글은 카카오톡 내앱 브라우저에서의 접속 시도를 정상적이지 않은 접근(웹뷰)으로 판단하며 차단합니다. 구글 소셜 로그인을 하려면 카카오톡이 아닌, 다른 브라우저(삼성, 사파리, 크롬 등)에서 진행해주시기 바랍니다.
-								</div>
-							</div>
-							<ul class="down-list">
-							</ul>
-						</div>
-					</div>
-					<div class="faq-item" data-no="16"> <!-- 활성화 .on -->
-						<a role="button" class="faq-item-tit">
-							<span class="faq-category faq-cate1">소셜</span>
-							<em class="faq-q">
-								계정관리에서 보이는 이름과 휴대전화번호 정보를 수정하고 싶습니다.
-
-							</em>
-						</a>
-
-						<div class="faq-item-cont">
-							<div class="faq-cont-area">
-								<div class="faq-a editor-area">
-
-									현재 계정관리에서 이름과 휴대전화번호를 수정하는 기능은 제공되지 않습니다. 이메일문의 또는 유선으로 문의주시면 도와드리겠습니다.
-								</div>
-							</div>
-							<ul class="down-list">
-							</ul>
-						</div>
-					</div>
-					<div class="faq-item" data-no="17"> <!-- 활성화 .on -->
-						<a role="button" class="faq-item-tit">
-							<span class="faq-category faq-cate1">소셜</span>
-							<em class="faq-q">
-								소셜 로그인으로 꾸준히 사용중이었는데, 어느날 접속했더니 회원가입으로 연결됩니다.
-
-							</em>
-						</a>
-
-						<div class="faq-item-cont">
-							<div class="faq-cont-area">
-								<div class="faq-a editor-area">
-
-									접속한 기기의 브라우저에 로그인된 계정이 평소 로그인할 때 사용하던 계정이 맞는지 확인해주세요. 구글이나 네이버는 하나의 기기에 여러개의 아이디가 로그인되어있을 수 있습니다. 모두 로그아웃한 후 한국경제에 소셜 가입했던 계정으로 로그인 후 다시 시도해주세요.
-								</div>
-							</div>
-							<ul class="down-list">
-							</ul>
-						</div>
-					</div>
 					<div class="faq-item" data-no="1"> <!-- 활성화 .on -->
 						<a role="button" class="faq-item-tit">
 							<span class="faq-category faq-cate2">회원가입</span>
@@ -1089,7 +901,6 @@ Korean Economic Daily integration members do not classify Korean and foreign mem
 							</ul>
 						</div>
 					</div>
-				</div>
 			</div>
 		</section>
 	</div>
@@ -1099,44 +910,97 @@ Korean Economic Daily integration members do not classify Korean and foreign mem
 
 <script>
 
-	$(function (){
-		const urlParams = new URL(location.href).searchParams;
 
-		const no = urlParams.get('no');
-		// 검색페이지에서 진입 시 해당 컨텐츠 활성화
-		if(no){
-			$('.faq-item[data-no='+no+']').toggleClass('on');
-			$('html, body').animate( { scrollTop : $('.faq-item[data-no='+no+']').offset().top }, 300 );
-		}
+$(function() {
+	  const urlParams = new URL(location.href).searchParams;
+	  const no = urlParams.get('no');
 
+	  // 검색페이지에서 진입 시 해당 컨텐츠 활성화
+	  if (no) {
+	    $('.faq-item[data-no=' + no + ']').toggleClass('on');
+	    $('html, body').animate({ scrollTop: $('.faq-item[data-no=' + no + ']').offset().top }, 300);
+	  }
 
-		$('.faq-item-tit').click(function() {
-			$(this).parents('.faq-item').toggleClass('on');
+	  function toggleFaqItem() {
+	    $(this).parents('.faq-item').toggleClass('on');
+	    $(this).siblings('.faq-answer').slideToggle();
+	  }
+
+	  $('.faq-item-tit').click(toggleFaqItem);
+
+	   // 탭 클릭 이벤트 핸들러
+	   $('.tab-type1 li').click(function() {
+	     // 모든 탭에서 on 클래스 제거
+	     $('.tab-type1 li').removeClass('on');
+
+	     // 클릭된 탭에 on 클래스 추가
+	     $(this).addClass('on');
+	   });
+
+	   // 전체 탭 클릭 시
+	   $('.tab-type1 li:first-child').click(function() {
+	     // 모든 FAQ 아이템 비활성화 및 답변 숨김
+	     $('.faq-item').removeClass('on');
+	     $('.faq-answer').slideUp();
+	     
+	     // 모든 FAQ 아이템 활성화 및 답변 노출
+	     $('span.faq-category.faq-cate2')
+	       .closest('.faq-item')
+	       .addClass('on')
+	       .find('.faq-answer')
+	       .slideDown();
+
+	     $('html, body').animate({ scrollTop: $('.tab-wrap').offset().top - 60 }, 300);
+
+	   });
+
+	   // 회원가입 탭 클릭 시
+	   $('.tab-type1 li:nth-child(2)').click(function() {
+		// 모든 FAQ 항목 보여주기 
+		$('.faq-item') 
+		   .show(); 
+
+		// 로그인과 계정관리에 대한 질문과 답변을 히든으로 가려줌 
+		$('span.faq-category.faq-cate4, span.faq-category.faq-cate3') 
+		   .closest('.faq-item') 
+		   .hide(); 
+
+		$('html, body').animate({ scrollTop: $('.tab-wrap').offset().top - 60 }, 300);
+
 		});
+		
+		// 로그인 탭 클릭 시
+		$('.tab-type1 li:nth-child(3)').click(function() {
+		  // 모든 FAQ 항목 보여주기 
+		  $('.faq-item') 
+		     .show(); 
 
+		  // 회원가입과 계정관리에 대한 질문과 답변을 히든으로 가려줌 
+		  $('span.faq-category.faq-cate2, span.faq-category.faq-cate4') 
+		     .closest('.faq-item') 
+		     .hide(); 
 
-		$('.btn-menu-more').click(function() {
-			$(this).toggleClass('active');
-			$(this).parents('.faq-menu-area').toggleClass('on');
+		  $('html, body').animate({ scrollTop: $('.tab-wrap').offset().top - 60 }, 300);
+
 		});
+		
+		// 계정관리 탭 클릭 시
+		$('.tab-type1 li:nth-child(4)').click(function() {
+		  // 모든 FAQ 항목 보여주기 
+		  $('.faq-item') 
+		     .show(); 
 
+		    // 회원가입과 로그인에 대한 질문과 답변을 히든으로 가려줌 
+		    $('span.faq-category.faq-cate2, span.faq-category.faq-cate3') 
+		      .closest('.faq-item') 
+		      .hide(); 
 
-		function menuResize() {
-			var faqHeight = $('.faq-menu-list').outerHeight();
+		    $('html, body').animate({ scrollTop: $('.tab-wrap').offset().top - 60 }, 300);
 
-			if(faqHeight > 86 && window.outerWidth < 1180) {
-				$('.faq-menu-area').addClass('unfold');
-			} else {
-				$('.faq-menu-area').removeClass('unfold');
-			};
-		}
-		menuResize();
-		$(window).resize(function(){
-			if (window.outerWidth < 1180) {
-				menuResize();
-			}
 		});
 	});
+
+
 </script>
             <!-- // contents -->
 
