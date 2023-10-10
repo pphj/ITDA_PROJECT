@@ -6,8 +6,10 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
 import com.itda.ITDA.domain.QnaReply;
+import com.itda.ITDA.domain.SellerWaiting;
 
 @Mapper
 public interface AdminMapper {
@@ -38,7 +40,39 @@ public interface AdminMapper {
 
 	public int QnaReplyDelete(QnaReply qnaReply);
 
-	
+	public List<AdminBoard> getUserNoticeList(HashMap<String, Integer> map);
+
+	public int getUserNoticeListCount();
+
+	public AdminBoard getUserNoticeDetail(int num);
+
+	public void userNoticeInsert(AdminBoard userNotice);
+
+	public int userNoticeUpdate(AdminBoard userNoticeData);
+
+	public void setAdViewUpdate(int num);
+
+	public int getItdaNoticeListCount();
+
+	public List<AdminBoard> getItdaNoticeList(HashMap<String, Integer> map);
+
+	public void itdaNoticeInsert(AdminBoard itdaNotice);
+
+	public int itdaNoticeUpdate(AdminBoard itdaNoticeData);
+
+	public AdminBoard getItdaNoticeDetail(int num);
+
+	public int noticeDelete(int num);
+
+	public int getAdminApproveListCount();
+
+	public List<Admin> getAdminApproveList(HashMap<String, Integer> map);
+
+	public int adminApproveUpdate(String adminId, String authName);
+
+	public int getSellerApproveListCount();
+
+	public List<SellerWaiting> getSellerApproveList(HashMap<String, Integer> map);
 
 
 }

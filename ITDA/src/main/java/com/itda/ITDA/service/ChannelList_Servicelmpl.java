@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.ChBoard;
+import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.mybatis.mapper.ChannelListMapper;
 
@@ -28,5 +29,20 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	public List<ChBoard> getBoardListByBoardNum(int chnum) {
 		return dao.getBoardListByBoardNum(chnum);
 	}
+
+	@Override
+	public List<ChBoardCategory> getChannelCategory(int chnum) {
+		return dao.getChannelCategory(chnum);
+	}
+
+	@Override
+	public List<ChBoardCategory> getChnnelCategorylist(int chnum) {
+		return dao.getChnnelCategorylist(chnum);
+	}
+
+	/*@Override
+	public int getChannelCategoryCount() {
+		return dao.getChannelCategoryCount();
+	}*/
 
 }

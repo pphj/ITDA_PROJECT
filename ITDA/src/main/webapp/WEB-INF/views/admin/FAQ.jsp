@@ -25,7 +25,7 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/FAQ.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/admin/FAQ.js"></script>
   <style>
   	.container{
   		width: 100%;
@@ -82,28 +82,27 @@
 		 	<table class="table">
 	 		<thead>
 	 		<tr>
-	 			<th colspan="3" id="tabHead">FAQ</th>
-	 			<th colspan="3"><span>글 개수 : ${listcount}</span></th>
+	 			<th colspan="4" id="tabHead">FAQ</th>
+	 			<th colspan="1"><span>글 개수 : ${listcount}</span></th>
 	 		</tr>
 	 		<tr>
-	 			<th><div>번호</div></th>
-	 			<th><div>제목</div></th>
-	 			<th><div>카테고리</div></th>
-	 			<th id="tabUser"><div>질문자</div></th>
-	 			<th id="tabWriter"><div>작성자</div></th>
-	 			<th><div>날짜</div></th>
+	 			<th class="text-center"><div>번호</div></th>
+	 			<th class="text-center"><div>제목</div></th>
+	 			<th class="text-center"><div>카테고리</div></th>
+	 			<th id="tabUser" class="text-center"><div>질문자</div></th>
+	 			<th id="tabWriter" class="text-center"><div>작성자</div></th>
+	 			<th class="text-center"><div>날짜</div></th>
 	 		</tr>
 	 		</thead>
 	 		<tbody>
 	 			<c:set var="num" value="${listcount-(page-1)*limit}" />
 	 			<c:forEach var="F" items="${FAQList}">
 	 				<tr>
-	 					<td>		<%-- 번호 부분 --%>
-	 						&nbsp;&nbsp;&nbsp;&nbsp;
+	 					<td class="text-center">		<%-- 번호 부분 --%>
 	 						<c:out value="${num}" />					<%-- num 출력 --%>
 	 						<c:set var="num" value="${num-1}" />		<%-- num = num - 1 의미 --%>
 	 					</td>
-	 					<td>		<%-- 제목 부분 --%>
+	 					<td class="text-center">		<%-- 제목 부분 --%>
 	 						<div>
 	 							<a href="${pageContext.request.contextPath}/admin/FAQ/${F.adNum}">
 	 								<c:if test="${F.adTitle.length() >= 20}">
@@ -117,32 +116,32 @@
 	 					</td>
 	 					<c:choose>
 						    <c:when test="${F.qcateId == 1}">
-						        <td><div>&nbsp;&nbsp;홍보, 영리목적</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;홍보, 영리목적</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 2}">
-						        <td><div>&nbsp;&nbsp;불법 정보</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;불법 정보</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 3}">
-						        <td><div>&nbsp;&nbsp;음란, 청소년 유해</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;음란, 청소년 유해</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 4}">
-						        <td><div>&nbsp;&nbsp;욕설, 비방, 차별, 혐오</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;욕설, 비방, 차별, 혐오</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 5}">
-						        <td><div>&nbsp;&nbsp;도배, 스팸</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;도배, 스팸</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 6}">
-						        <td><div>&nbsp;&nbsp;개인정보 노출, 거래</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;개인정보 노출, 거래</div></td>
 						    </c:when>
 						    <c:otherwise>
-						        <td><div>&nbsp;&nbsp;기타</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;기타</div></td>
 						    </c:otherwise>
 						</c:choose>
-	 					<td><div>&nbsp;&nbsp;&nbsp;${F.adWriter}</div></td>
+	 					<td class="text-center"><div>${F.adWriter}</div></td>
 	 					<c:choose>
 						    <c:when test="${not empty F.adDate}">
 						        <c:set var="Date" value="${fn:substring(F.adDate, 0, 10)}" />
-						        <td><div>&nbsp;&nbsp;&nbsp;<c:out value="${Date}" /></div></td>
+						        <td class="text-center"><div><c:out value="${Date}" /></div></td>
 						    </c:when>
 						</c:choose>
 	 				</tr>

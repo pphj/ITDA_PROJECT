@@ -23,7 +23,7 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/admin/list.js"></script>
   <script>
 
   </script>
