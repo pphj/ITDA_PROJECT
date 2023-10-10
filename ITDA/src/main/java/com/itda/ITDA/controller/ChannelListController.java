@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itda.ITDA.domain.ChBoard;
+import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.service.ChannelList_Service;
 
@@ -69,9 +70,36 @@ public class ChannelListController {
 			List<ChBoard> ChannelBoardList = channelList_Service.getBoardListByBoardNum(chnum);
 			mv.addObject("ChannelBoardList", ChannelBoardList);
 
+			// 채널과 연관된 카테고리 목록을 가져옴
+			List<ChBoardCategory> ChannelCategory = channelList_Service.getChannelCategory(chnum);
+			mv.addObject("ChannelCategory", ChannelCategory);
+
 		}
 
 		return mv;
 	}
+
+	@RequestMapping(value = "/chcategorylist.co", method = RequestMethod.GET)
+	public ModelAndView showContentList(@PathVariable(value = "chnum") int chnum, ModelAndView mv,
+			HttpServletRequest request) {
+
+		if (chnum == WRONG_CHNUM)
+		{
+			logger.info("컨텐츠 목록 페이지 표시 실패: channelnum 파라미터가 없거나 잘못된 값입니다.");
+			mv.addObject("url", request.getRequestURI());
+			mv.addObject("message", "컨텐츠 목록 페이지 표시 실패: channelnum 파라미터가 없거나 잘못된 값입니다.");
+			return mv;
+		}
+
+		logger.info("컨텐츠 목록 페이지 표시 요청: channelnum=" + chnum);
+
+		// 채널과 연관된 카테고리 목록을 가져옴
+		List<ChBoardCategory> chcategorylist = channelList_Service.getChnnelCategorylist(chnum);
+		mv.setViewName("content/content_list");
+		mv.addObject("chcategorylist", chcategorylist);
+
+		return mv;
+	}
+
 
 }

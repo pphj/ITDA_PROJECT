@@ -575,22 +575,9 @@ li {
 	opacity: .9;
 }
 
-.area_magazine .txt_default {
-	color: #959595;
-	float: left;
-	padding-top: 21px
-}
-
 .box_subject.deny_on .input_info, .box_url.deny_on .input_info, .box_url.deny_on .txt_default
 	{
 	padding-top: 10px
-}
-
-.txt_default .ico_plus {
-	height: 17px;
-	margin-right: 3px;
-	vertical-align: sub;
-	width: 17px
 }
 
 ul {

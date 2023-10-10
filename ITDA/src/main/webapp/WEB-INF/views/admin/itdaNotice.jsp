@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +25,7 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/admin/itdaNotice.js"></script>
   <script>
 
   </script>
@@ -48,66 +50,59 @@
     </div>
     <div class="container-fluid py-4">
     	<div class="container">
- 		<c:if test="${listcount > 0}">
- 		<div class="rows">
- 		<span>줄보기</span>
- 		<select class="form-control" id="viewcount">
- 			<option value="1">1</option>
- 			<option value="3">3</option>
- 			<option value="5">5</option>
- 			<option value="7">7</option>
- 			<option value="10" selected>10</option>
- 		</select>
- 		</div>
-	 	<table class="table table-striped">
+	 		<c:if test="${listcount > 0}">
+	 		<div class="rows" style="width: 48px; float: right;">
+		 		<span>줄보기</span>
+		 		<select class="form-control" id="viewcount">
+		 			<option value="1">1</option>
+		 			<option value="3">3</option>
+		 			<option value="5">5</option>
+		 			<option value="7">7</option>
+		 			<option value="10" selected>10</option>
+		 		</select>
+	 		</div>
+		 	<table class="table">
 	 		<thead>
 	 		<tr>
-	 			<th colspan="3">게시판 - list</th>
-	 			<th colspan="2"><span>글 개수 : ${listcount}</span></th>
+	 			<th colspan="4">사내 공지사항</th>
+	 			<th colspan="1"><span>글 개수 : ${listcount}</span></th>
 	 		</tr>
 	 		<tr>
-	 			<th><div>번호</div></th>
-	 			<th><div>제목</div></th>
-	 			<th><div>작성자</div></th>
-	 			<th><div>날짜</div></th>
-	 			<th><div>조회수</div></th>
+	 			<th class="text-center"><div>번호</div></th>
+	 			<th class="text-center"><div>제목</div></th>
+	 			<th class="text-center"><div>작성자</div></th>
+	 			<th class="text-center"><div>날짜</div></th>
+	 			<th class="text-center"><div>조회수</div></th>
 	 		</tr>
 	 		</thead>
 	 		<tbody>
 	 			<c:set var="num" value="${listcount-(page-1)*limit}" />
-	 			<c:forEach var="b" items="${boardlist}">
+	 			<c:forEach var="F" items="${itdaNoticeList}">
 	 				<tr>
-	 					<td>		<%-- 번호 부분 --%>
+	 					<td class="text-center">		<%-- 번호 부분 --%>
 	 						<c:out value="${num}" />					<%-- num 출력 --%>
 	 						<c:set var="num" value="${num-1}" />		<%-- num = num - 1 의미 --%>
 	 					</td>
-	 					<td>		<%-- 제목 부분 --%>
+	 					<td class="text-center">		<%-- 제목 부분 --%>
 	 						<div>
-	 							<c:if test="${b.board_re_lev != 0}">	<%-- 답글인 경우 (boardlist의 데이터를 b로 선언해 불러올때는 대문자로 써줘야 한다) --%>
-	 								<c:forEach var="a" begin="0" end="${b.board_re_lev*2}" step="1">
-	 								&nbsp;		
-	 								</c:forEach>
-	 								<img src="${pageContext.request.contextPath}/resources/image/line.gif">
-	 							</c:if>
-	 							
-	 							<c:if test="${b.board_re_lev == 0}">	<%-- 원문인 경우--%>
-	 								&nbsp;			<%-- 원문글을 나타내기 위해 살짝 여백을 줌 --%>
-	 							</c:if>
-	 							
-	 							<a href="detail?num=${b.board_num}">
-	 								<c:if test="${b.board_subject.length() >= 20}">
-	 									<c:out value="${b.board_subject.substring(0,20)}..." escapeXml="true" />
+	 							<a href="${pageContext.request.contextPath}/admin/itdaNotice/${F.adNum}">
+	 								<c:if test="${F.adTitle.length() >= 20}">
+	 									<c:out value="${F.adTitle.substring(0,20)}..." escapeXml="true" />
 	 								</c:if>
-	 								<c:if test="${b.board_subject.length() < 20}">
-	 									<c:out value="${b.board_subject}" escapeXml="true" />
+	 								<c:if test="${F.adTitle.length() < 20}">
+	 									<c:out value="${F.adTitle}" escapeXml="true" />
 	 								</c:if>
 	 							</a>
-	 							<span class="small">[${b.cnt}]</span>
 	 						</div>
 	 					</td>
-	 					<td><div>${b.board_name}</div></td>
-	 					<td><div>${b.board_date}</div></td>
-	 					<td><div>${b.board_readcount}</div></td>
+	 					<td class="text-center"><div>${F.adWriter}</div></td>
+	 					<c:choose>
+						    <c:when test="${not empty F.adDate}">
+						        <c:set var="Date" value="${fn:substring(F.adDate, 0, 10)}" />
+						        <td class="text-center"><div><c:out value="${Date}" /></div></td>
+						    </c:when>
+						</c:choose>
+						<td class="text-center"><div>${F.adView}</div></td>
 	 				</tr>
 	 			</c:forEach>
 	 		</tbody>
@@ -149,7 +144,6 @@
 		 					<a class="page-link" href="list?page=${page+1}">&nbsp;다음</a>
 		 				</li>
 		 			</c:if>
-		 			
 		 		</ul>
 		 	</div>
 		 	</c:if>
@@ -158,7 +152,7 @@
 		 		<h3 style="text-align: center">등록된 글이 없습니다.</h3>
 		 	</c:if>
 		 	
-		 	<button type="button" class="btn btn-info float-right">글 쓰 기</button>
+		 	<button type="button" id="itdaNoticeWbtn" class="btn btn-success float-right btn-sm btn-round">사내 공지 작성</button>
 	 	</div>
     </div>
   </main>
