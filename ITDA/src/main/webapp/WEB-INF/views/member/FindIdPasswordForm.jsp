@@ -380,11 +380,51 @@ $(document).ready(function() {
 };
 
 
-
-		
-		
-		
 		//아이디, 비밀번호 찾기 버튼 end
+		
+			// step 1
+		$('input:radio[name=findIdStep01]').change(function(){
+			// 가입한 이메일로 찾기 비활성화
+			$('._step01_find_id_email_input_wrap').hide();
+			$('._find_id_input_email').val('');
+
+			// 가입한 휴대폰으로 찾기 비활성화
+			$('._step01_find_id_name_and_phone_input_wrap').hide();
+			$('._find_id_input_nick').val('');
+			$('._find_id_input_call_num').val('');
+
+			var find_id_step_01_btn_wrap = $('._find_id_step_01_btn_wrap'); // 버튼 링크 설정
+			var checked_radio_val = $('input:radio[name=findIdStep01]:checked').val();
+			find_id_step_01_btn_wrap.children().remove();
+			switch(checked_radio_val){
+				case 'find_id_email':
+					$('._step01_find_id_email_input_wrap').show(); // 가입한 이메일로 찾기 영역 활성화
+					$('._find_id_input_nick').val('');			   // 가입한 이메일로 찾기 입력폼의 데이터만 입력되게 나머지 값 초기화
+					$('._find_id_input_call_num').val('');		   // 가입한 이메일로 찾기 입력폼의 데이터만 입력되게 나머지 값 초기화
+
+					find_id_step_01_btn_wrap.append("<button class='btn btn-primary _update_status' data-tab='find_id' onclick=SITE_MEMBER.findSubmit('find');>"+LOCALIZE.버튼_아이디찾기()+"</button>");
+					break;
+				case 'find_id_name_and_phone':
+					$('._step01_find_id_name_and_phone_input_wrap').show(); // 가입한 휴대폰 찾기 영역 활성화
+					$('._find_id_input_email').val('');						// 가입한 휴대폰 찾기 영역 입력폼의 데이터만 입력되게 나머지 값 초기화
+
+					find_id_step_01_btn_wrap.append("<button class='btn btn-primary _update_status' data-tab='find_id' onclick=SITE_MEMBER.findSubmit('find');>"+LOCALIZE.버튼_아이디찾기()+"</button>");
+					break;
+				case 'find_id_dream_security':
+					find_id_step_01_btn_wrap.append("<button class='btn btn-primary' "+obj.auth_anchor_list.dream_security+">"+LOCALIZE.버튼_아이디찾기()+"</button>");
+					break;
+				case 'find_id_mobilians':
+					find_id_step_01_btn_wrap.append("<button class='btn btn-primary' "+obj.auth_anchor_list.mobilians+">"+LOCALIZE.버튼_아이디찾기()+"</button>");
+					break;
+				case 'find_id_inicis':
+					find_id_step_01_btn_wrap.append("<button class='btn btn-primary' "+obj.auth_anchor_list.inicis+">"+LOCALIZE.버튼_아이디찾기()+"</button>");
+					break;
+				case 'find_id_combination':
+					find_id_step_01_btn_wrap.append("<button class='btn btn-primary' "+obj.auth_anchor_list.combination+">"+LOCALIZE.버튼_아이디찾기()+"</button>");
+					break;
+			}
+		});
+
 
 
 </script>

@@ -11,16 +11,16 @@
 
 
 
-	<insert id="insert" parameterType="Itda_User">
-		insert into itda_user
-		(userId, userPw, userName, userBirth, userGender, userPhone,
-		userAddress1, userAddress2, userPost, userEmail, userCategory,
-		userJoindate, statusId, userProfile)
-		values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userGender}, #{userPhone},
-		#{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail},
-		#{userCategory},
-		SYSDATE, 1, null)
-	</insert>
+	 <insert id="insert" parameterType="Itda_User">
+        insert into itda_user
+        (userId, userPw, userName, userBirth, userGender, userPhone,
+        userAddress1, userAddress2, userPost, userEmail, userCategory,
+        userJoindate, statusId, userProfile)
+        values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userGender}, #{userPhone},
+        #{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail},
+        #{userCategory},
+        SYSDATE, 1, #{userProfile})
+    </insert>
 	
 	<select id="read" resultType="Itda_User">
 		select
@@ -30,4 +30,26 @@
 		from itda_user
 		where userId = #{userId}
 	</select>
+	
+	<update id="userAddressUpdate" parameterType="hashMap">
+		update itda_User
+		set 
+			userPost = #{userPost}, 
+			userAddress1 = #{userAddress1},
+			userAddress2 = #{userAddress2}
+		where userId = #{userId}
+	</update>
+	
+	<select id="pwCheck" resultType="Itda_User">
+		select userPw 
+		from itda_user 
+		where userId = #{userId}
+	</select>
+	
+	<update id="pwUpdate" parameterType="hashMap">
+		update itda_user
+		set	userPw = #{userPw}
+		where userId = #{userId}
+	</update>
+	
 </mapper>

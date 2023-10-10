@@ -37,7 +37,7 @@ public class qnaReplyServiceImpl implements qnaReplyService {
 	public int getQnaReplyListCount(int adNum) {
 		return dao.getQnaReplyListCount(adNum);
 	}
-
+	
 	@Override
 	public int QnaReplyInsert(QnaReply qnaReply) {
 		return dao.QnaReplyInsert(qnaReply);

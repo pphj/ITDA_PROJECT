@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
-<script>
+<%-- <script>
 	$(document).ready(function(){
 		$("#join_seller").click(function(e){
 			var id = `<%= session.getAttribute("userId") %>`;
@@ -29,18 +29,17 @@
 		});//click end
 		
 	});//ready end
-</script>
+</script> --%>
 </head>
+
 <body>
 	<div class="titleback">
 		<div class="inner">
-			<div class="banner">
+			<div class="banner" style="position: relative;">
 				<img class="baimg"
-				src="${pageContext.request.contextPath}/resources/image/common/mainbanner2.png"
-				style="width: 1280px; height: 400px;">
-<!-- 				<div>
-					<button type="button" id="join_seller">판매회원 가입하기</button>
-				</div> -->
+					src="${pageContext.request.contextPath}/resources/image/common/mainbanner2.png"
+					style="width: 1280px; height: 400px;">
+				<button type="button" id="join_seller" style="position: absolute; top: calc(50% + 1cm); left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; width: 3cm; height: 1cm; white-space: nowrap; color: #00c6be;">판매회원 가입하기</button>
 			</div>
 		</div>
 	</div>

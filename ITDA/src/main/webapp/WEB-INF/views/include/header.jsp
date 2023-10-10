@@ -5,10 +5,10 @@
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/login_modal.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/premium_service2.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/premium_service2.css">
 <link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/common.css">
 
 <script> var contextPath = "<%=request.getContextPath()%>";</script>
@@ -57,23 +57,31 @@
 							<sec:authentication property="principal" var="pinfo" />
 
 
-							<!-- 로그인한 경우 프로필 사진을 표시합니다. -->
+						<!-- 로그인한 경우 프로필 사진을 표시합니다. -->
 							<div class="dropdown">
 								<button class="dropbtn">
-									<img id="profile_img" src="${userProfilePath}"
-										style="width: 30px; height: auto;" />
-								</button>
-								<div class="dropdown-content">
-									<a href="${pageContext.request.contextPath}/my/subscriptions">마이 페이지</a>
-									<form action="${pageContext.request.contextPath}/member/logout"
-										method="post" style="margin-bottom: 0px" name="logout">
-										<a class="nav-link" href="#" id="logout"> <span
-											id="loginid">${pinfo.username}</span>님(로그아웃)
-										</a> <input type="hidden" name="${_csrf.parameterName}"
-											value="${_csrf.token}">
-
-									</form>
-								</div>
+									<c:choose>
+										<c:when test="${empty userProfilePath}">
+											<img id="profile_img" src="${pageContext.request.contextPath}/image/main/login.png"
+												style="width: 30px; height: auto;" />
+										</c:when>
+										<c:otherwise>
+											<img id="profile_img" src="${pageContext.request.contextPath}${userProfilePath}"
+												style="width: 30px; height: auto;" />
+										</c:otherwise>
+							        </c:choose>
+							    </button>
+							    <div class="dropdown-content">
+							        <a href="${pageContext.request.contextPath}/my/subscriptions">마이 페이지</a>
+							        <form action="${pageContext.request.contextPath}/member/logout"
+							            method="post" style="margin-bottom: 0px" name="logout">
+							            <a class="nav-link" href="#" id="logout"> 
+							                <span id="loginid">${pinfo.username}</span>님(로그아웃)
+							            </a> 
+							            <input type="hidden" name="${_csrf.parameterName}"
+							                value="${_csrf.token}">
+							        </form>
+							    </div>
 							</div>
 						</sec:authorize>
 
