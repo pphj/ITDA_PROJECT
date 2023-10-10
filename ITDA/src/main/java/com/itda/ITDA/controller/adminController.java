@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
 import com.itda.ITDA.domain.PaginationDTO;
 import com.itda.ITDA.domain.QnaReply;
+import com.itda.ITDA.domain.SellerWaiting;
 import com.itda.ITDA.service.adminService;
 import com.itda.ITDA.service.qnaReplyService;
 
@@ -117,7 +119,7 @@ public class adminController {
 			@RequestHeader(value="referer", required=false) String beforeURL) {
 		
 		logger.info("referer : " + beforeURL);					//header에서 "referer"를 통해 알 수있다
-		if (beforeURL != null && beforeURL.endsWith("list")) {	//예) localhost:8088/itda/FAQ/5
+		if (beforeURL != null && beforeURL.endsWith("FAQ")) {	//예) localhost:8088/itda/FAQ/5
 		}
 		
 		AdminBoard faq = adminService.getFAQDetail(num);
@@ -127,29 +129,29 @@ public class adminController {
 			mv.addObject("message", "상세보기 실패");
 		}else {
 			logger.info("FAQ 상세보기 성공");
-			mv.setViewName("admin/FAQ_view");
+			mv.setViewName("admin/faq_View");
 			mv.addObject("faqdata", faq);
 		}
 		return mv;
 	}
 	
 	
-	@GetMapping(value="/FAQ_write")
+	@GetMapping(value="/faq_Write")
 	public String FAQ_write() {
-		return "admin/FAQ_write";
+		return "admin/faq_Write";
 	}
 	
 	
-	@PostMapping(value="/FAQadd")
-	public String FAQadd(AdminBoard faq, HttpServletRequest request) throws Exception {
+	@PostMapping(value="/faqInsert")
+	public String faqInsert(AdminBoard faq, HttpServletRequest request) throws Exception {
 		adminService.insertFAQ(faq);		//insert 메소드 호출
 		logger.info(faq.toString());		//값을 확인하기 위해 logger 사용
 		return "redirect:FAQ";
 	}
 	
 	
-	@GetMapping("/FAQmodify/{num}")
-	public ModelAndView ModifyView(@PathVariable("num") int num, ModelAndView mv,
+	@GetMapping("/faqUpdate/{num}")
+	public ModelAndView faqUpdateView(@PathVariable("num") int num, ModelAndView mv,
 															HttpServletRequest request) {
 		AdminBoard faq = adminService.getFAQDetail(num);
 		if (faq == null) {									//글 불러오기 실패시
@@ -161,20 +163,20 @@ public class adminController {
 		
 		logger.info("FAQ 수정보기 성공");
 		mv.addObject("FAQdata", faq);		//수정 페이지로 이동시 원문글을 보여줘야 하기 때문에
-		mv.setViewName("admin/FAQ_modify");	//수정 페이지로 이동
+		mv.setViewName("admin/faq_Update");	//수정 페이지로 이동
 		return mv;
 	}
 	
 	
-	@PostMapping("/FAQmodifyAction")
-	public String FAQModifyAction(AdminBoard FAQdata, String check, Model mv, HttpServletRequest request,
+	@PostMapping("/faqUpdateAction")
+	public String FAQModifyAction(AdminBoard FAQdata, Model mv, HttpServletRequest request,
 													RedirectAttributes ra) throws Exception {
 		boolean admincheck = adminService.isadWriter(FAQdata.getAdNum(), FAQdata.getAdPassword());
 		String url = "";
 		if (admincheck == false) {
 			ra.addFlashAttribute("result", "passFail");
 			ra.addAttribute("num", FAQdata.getAdNum());
-			return "redirect:FAQmodify/{num}";
+			return "redirect:faqUpdate/{num}";
 		}
 		
 		int result = adminService.FAQModify(FAQdata);
@@ -230,7 +232,7 @@ public class adminController {
 		}else {
 			logger.info("QNA 상세보기 성공");
 			int count = qnaReplyService.getQnaReplyListCount(num);
-			mv.setViewName("admin/QNA_view");
+			mv.setViewName("admin/QNA_View");
 			mv.addObject("count", count);
 			mv.addObject("qnadata", qna);
 		}
@@ -269,28 +271,379 @@ public class adminController {
 	
 	
 	@RequestMapping(value="/userNotice")
-	public ModelAndView SetUserNotice(ModelAndView mv) {
+	public ModelAndView SetUserNotice(@RequestParam(value="page", defaultValue="1",
+										required=false) int page, ModelAndView mv) {
+		PaginationDTO p = calculatePagination(page, 10, adminService.getUserNoticeListCount());
+		
+		List<AdminBoard> userNoticeList = adminService.getUserNoticeList(page, 10);
+		
+		mv.addObject("page", page);
+		mv.addObject("maxpage", p.getMaxPage());		
+		mv.addObject("startpage", p.getStartPage());	
+		mv.addObject("endpage", p.getEndPage());		
+		mv.addObject("listcount", p.getListCount());	
+		mv.addObject("userNoticeList", userNoticeList);				//해당 페이지의 글 목록 리스트
+		mv.addObject("limit", 10);
 		mv.setViewName("admin/userNotice");
 		return mv;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/userNoticeList_ajax")
+	public Map<String, Object> UserNoticeListAjax(
+			@RequestParam(value="page", defaultValue="1", required=false) int page,
+			@RequestParam(value="limit", defaultValue="10", required=false) int limit){
+		
+		PaginationDTO p = calculatePagination(page, limit, adminService.getUserNoticeListCount());
+		
+		List<AdminBoard> userNoticeList = adminService.getUserNoticeList(page, limit);	//리스트를 받아옴
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("page", page);
+		map.put("maxpage", p.getMaxPage());
+		map.put("startpage", p.getStartPage());
+		map.put("endpage", p.getEndPage());
+		map.put("listcount", p.getListCount());
+		map.put("userNoticeList", userNoticeList);				//해당 페이지의 글 목록 리스트
+		map.put("limit", limit);
+		
+		return map;
+	}
+	
+	
+	@GetMapping("/userNotice/{num}")
+	public ModelAndView UserNoticeDetail(
+			@PathVariable("num") int num, ModelAndView mv, HttpServletRequest request,
+			@RequestHeader(value="referer", required=false) String beforeURL) {
+		
+		logger.info("referer : " + beforeURL);
+		if (beforeURL != null && beforeURL.endsWith("userNotice")) {
+			adminService.setAdViewUpdate(num);
+		}
+		
+		AdminBoard userNoticeData = adminService.getUserNoticeDetail(num);
+		if (userNoticeData == null) {
+			logger.info("userNotice 상세보기 실패");
+			mv.addObject("url", request.getRequestURI());
+			mv.addObject("message", "상세보기 실패");
+		}else {
+			logger.info("userNotice 상세보기 성공");
+			mv.setViewName("admin/userNotice_View");
+			mv.addObject("userNoticeData", userNoticeData);
+		}
+		return mv;
+	}
+	
+	
+	@GetMapping(value="/userNotice_Write")
+	public String UserNotice_Write() {
+		return "admin/userNotice_Write";
+	}
+	
+	
+	@PostMapping(value="/userNoticeInsert")
+	public String UserNoticeInsert(AdminBoard userNotice, HttpServletRequest request) throws Exception {
+		adminService.userNoticeInsert(userNotice);		//insert 메소드 호출
+		logger.info(userNotice.toString());		//값을 확인하기 위해 logger 사용
+		return "redirect:userNotice";
+	}
+	
+	
+	@GetMapping("/userNoticeUpdate/{num}")
+	public ModelAndView UserNoticeUpdateView(@PathVariable("num") int num, ModelAndView mv,
+															HttpServletRequest request) {
+		AdminBoard userNoticeData = adminService.getUserNoticeDetail(num);
+		if (userNoticeData == null) {									//글 불러오기 실패시
+			logger.info("userNotice 수정보기 실패");
+			mv.addObject("url", request.getRequestURL());
+			mv.addObject("message", "userNotice 수정보기 실패");
+			return mv;
+		}
+		
+		logger.info("userNotice 수정보기 성공");
+		mv.addObject("userNoticeData", userNoticeData);		//수정 페이지로 이동시 원문글을 보여줘야 하기 때문에
+		mv.setViewName("admin/userNotice_Update");	//수정 페이지로 이동
+		return mv;
+	}
+	
+	
+	@PostMapping("/userNoticeUpdateAction")
+	public String UserNoticeUpdateAction(AdminBoard userNoticeData, Model mv, HttpServletRequest request,
+													RedirectAttributes ra) throws Exception {
+		boolean admincheck = adminService.isadWriter(userNoticeData.getAdNum(), userNoticeData.getAdPassword());
+		String url = "";
+		if (admincheck == false) {
+			ra.addFlashAttribute("result", "passFail");
+			ra.addAttribute("num", userNoticeData.getAdNum());
+			return "redirect:userNoticeUpdate/{num}";
+		}
+		
+		int result = adminService.userNoticeUpdate(userNoticeData);
+		if (result == 0) {
+			logger.info("userNotice 수정 실패");
+			mv.addAttribute("url", request.getRequestURL());
+			mv.addAttribute("message", "userNotice 수정 실패");
+			url = "error/error";
+		}else {
+			logger.info("userNotice 수정 완료");
+			url = "redirect:userNotice/{num}";
+			ra.addAttribute("num", userNoticeData.getAdNum());
+		}
+		return url;
+	}
+	
+	@PostMapping("/userNoticeDelete")
+	public String userNoticeDeleteAction(AdminBoard userNoticeData, int num,
+							Model mv, RedirectAttributes ra, HttpServletRequest request) {
+		boolean admincheck = adminService.isadWriter(num, userNoticeData.getAdPassword());
+		
+		if (admincheck == false) {
+			ra.addFlashAttribute("result", "passFail");
+			ra.addAttribute("num", num);
+			return "redirect:userNotice/{num}";
+		}
+		int result = adminService.noticeDelete(num);
+		
+		if (result == 0) {
+			logger.info("공지 삭제 실패");
+			mv.addAttribute("url", request.getRequestURL());
+			mv.addAttribute("message", "공지 삭제 실패");
+			return "error/error";
+		}
+		logger.info("공지 삭제 성공");
+		ra.addFlashAttribute("result", "deleteSuccess");
+		return "redirect:userNotice";
+	}
+	
+	
+	@RequestMapping(value="/itdaNotice")
+	public ModelAndView SetItdaNotice(@RequestParam(value="page", defaultValue="1",
+										required=false) int page, ModelAndView mv) {
+	PaginationDTO p = calculatePagination(page, 10, adminService.getItdaNoticeListCount());
+	
+	List<AdminBoard> itdaNoticeList = adminService.getItdaNoticeList(page, 10);
+	
+	mv.addObject("page", page);
+	mv.addObject("maxpage", p.getMaxPage());		
+	mv.addObject("startpage", p.getStartPage());	
+	mv.addObject("endpage", p.getEndPage());		
+	mv.addObject("listcount", p.getListCount());	
+	mv.addObject("itdaNoticeList", itdaNoticeList);				//해당 페이지의 글 목록 리스트
+	mv.addObject("limit", 10);
+	mv.setViewName("admin/itdaNotice");
+	return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/itdaNoticeList_ajax")
+	public Map<String, Object> ItdaNoticeListAjax(
+			@RequestParam(value="page", defaultValue="1", required=false) int page,
+			@RequestParam(value="limit", defaultValue="10", required=false) int limit){
+		
+		PaginationDTO p = calculatePagination(page, limit, adminService.getItdaNoticeListCount());
+		
+		List<AdminBoard> itdaNoticeList = adminService.getItdaNoticeList(page, limit);	//리스트를 받아옴
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("page", page);
+		map.put("maxpage", p.getMaxPage());
+		map.put("startpage", p.getStartPage());
+		map.put("endpage", p.getEndPage());
+		map.put("listcount", p.getListCount());
+		map.put("itdaNoticeList", itdaNoticeList);				//해당 페이지의 글 목록 리스트
+		map.put("limit", limit);
+		
+		return map;
+	}
+	
+	
+	@GetMapping("/itdaNotice/{num}")
+	public ModelAndView ItdaNoticeDetail(
+			@PathVariable("num") int num, ModelAndView mv, HttpServletRequest request,
+			@RequestHeader(value="referer", required=false) String beforeURL) {
+		
+		logger.info("referer : " + beforeURL);
+		if (beforeURL != null && beforeURL.endsWith("itdaNotice")) {
+			adminService.setAdViewUpdate(num);
+		}
+		
+		AdminBoard itdaNoticeData = adminService.getItdaNoticeDetail(num);
+		if (itdaNoticeData == null) {
+			logger.info("itdaNotice 상세보기 실패");
+			mv.addObject("url", request.getRequestURI());
+			mv.addObject("message", "상세보기 실패");
+		}else {
+			logger.info("itdaNotice 상세보기 성공");
+			mv.setViewName("admin/itdaNotice_View");
+			mv.addObject("itdaNoticeData", itdaNoticeData);
+		}
+		return mv;
+	}
+	
+	
+	@GetMapping(value="/itdaNotice_Write")
+	public String ItdaNotice_Write() {
+		return "admin/itdaNotice_Write";
+	}
+	
+	
+	@PostMapping(value="/itdaNoticeInsert")
+	public String ItdaNoticeInsert(AdminBoard itdaNotice, HttpServletRequest request) throws Exception {
+		adminService.itdaNoticeInsert(itdaNotice);		//insert 메소드 호출
+		logger.info(itdaNotice.toString());			//값을 확인하기 위해 logger 사용
+		return "redirect:itdaNotice";
+	}
+	
+	
+	@GetMapping("/itdaNoticeUpdate/{num}")
+	public ModelAndView ItdaNoticeUpdateView(@PathVariable("num") int num, ModelAndView mv,
+															HttpServletRequest request) {
+		AdminBoard itdaNoticeData = adminService.getItdaNoticeDetail(num);
+		if (itdaNoticeData == null) {									//글 불러오기 실패시
+			logger.info("itdaNotice 수정보기 실패");
+			mv.addObject("url", request.getRequestURL());
+			mv.addObject("message", "itdaNotice 수정보기 실패");
+			return mv;
+		}
+		
+		logger.info("itdaNotice 수정보기 성공");
+		mv.addObject("itdaNoticeData", itdaNoticeData);		//수정 페이지로 이동시 원문글을 보여줘야 하기 때문에
+		mv.setViewName("admin/itdaNotice_Update");	//수정 페이지로 이동
+		return mv;
+	}
+	
+	
+	@PostMapping("/itdaNoticeUpdateAction")
+	public String ItdaNoticeUpdateAction(AdminBoard itdaNoticeData, Model mv, HttpServletRequest request,
+													RedirectAttributes ra) throws Exception {
+		boolean admincheck = adminService.isadWriter(itdaNoticeData.getAdNum(), itdaNoticeData.getAdPassword());
+		String url = "";
+		if (admincheck == false) {
+			ra.addFlashAttribute("result", "passFail");
+			ra.addAttribute("num", itdaNoticeData.getAdNum());
+			return "redirect:itdaNoticeUpdate/{num}";
+		}
+		
+		int result = adminService.itdaNoticeUpdate(itdaNoticeData);
+		if (result == 0) {
+			logger.info("itdaNotice 수정 실패");
+			mv.addAttribute("url", request.getRequestURL());
+			mv.addAttribute("message", "itdaNotice 수정 실패");
+			url = "error/error";
+		}else {
+			logger.info("itdaNotice 수정 완료");
+			url = "redirect:itdaNotice/{num}";
+			ra.addAttribute("num", itdaNoticeData.getAdNum());
+		}
+		return url;
+	}
+	
+	@PostMapping("/itdaNoticeDelete")
+	public String itdaNoticeDeleteAction(AdminBoard itdaNoticeData, int num,
+							Model mv, RedirectAttributes ra, HttpServletRequest request) {
+		boolean admincheck = adminService.isadWriter(num, itdaNoticeData.getAdPassword());
+		
+		if (admincheck == false) {
+		ra.addFlashAttribute("result", "passFail");
+		ra.addAttribute("num", num);
+		return "redirect:itdaNotice/{num}";
+		}
+		int result = adminService.noticeDelete(num);
+		
+		if (result == 0) {
+		logger.info("공지 삭제 실패");
+		mv.addAttribute("url", request.getRequestURL());
+		mv.addAttribute("message", "공지 삭제 실패");
+		return "error/error";
+		}
+		logger.info("공지 삭제 성공");
+		ra.addFlashAttribute("result", "deleteSuccess");
+		return "redirect:itdaNotice";
+	}
+	
+	
+	@RequestMapping(value="/adminApprove")
+	public ModelAndView SetAdminApprove(
+			@RequestParam(value="page", defaultValue="1",required=false) int page, ModelAndView mv) {
+	PaginationDTO p = calculatePagination(page, 10, adminService.getAdminApproveListCount());
+	
+	List<Admin> adminApproveList = adminService.getAdminApproveList(page, 10);
+	
+	mv.addObject("page", page);
+	mv.addObject("maxpage", p.getMaxPage());		
+	mv.addObject("startpage", p.getStartPage());	
+	mv.addObject("endpage", p.getEndPage());		
+	mv.addObject("listcount", p.getListCount());	
+	mv.addObject("adminApproveList", adminApproveList);				//해당 페이지의 글 목록 리스트
+	mv.addObject("limit", 10);
+	mv.setViewName("admin/adminApprove");
+	return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/adminApproveList_ajax")
+	public Map<String, Object> adminApproveListAjax(
+			@RequestParam(value="page", defaultValue="1", required=false) int page,
+			@RequestParam(value="limit", defaultValue="10", required=false) int limit){
+		
+		PaginationDTO p = calculatePagination(page, limit, adminService.getAdminApproveListCount());
+		
+		List<Admin> adminApproveList = adminService.getAdminApproveList(page, limit);	//리스트를 받아옴
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("page", page);
+		map.put("maxpage", p.getMaxPage());
+		map.put("startpage", p.getStartPage());
+		map.put("endpage", p.getEndPage());
+		map.put("listcount", p.getListCount());
+		map.put("adminApproveList", adminApproveList);				//해당 페이지의 글 목록 리스트
+		map.put("limit", limit);
+		
+		return map;
+	}
+	
+	@PostMapping("/authApproveUpdate")
+	public String adminApproveUpdateAction(
+			@RequestParam(value="adminId") String adminId,
+			@RequestParam(value="authName") String authName, Model mv,
+			HttpServletRequest request) throws Exception {
+		
+		String url = "";
+		
+		int result = adminService.adminApproveUpdate(adminId, authName);
+		if (result == 0) {
+			logger.info("권한 수정 실패");
+			mv.addAttribute("url", request.getRequestURL());
+			mv.addAttribute("message", "권한 수정 실패");
+			url = "error/error";
+		}else {
+			logger.info("권한 수정 완료");
+			mv.addAttribute("url", request.getRequestURL());
+			mv.addAttribute("message", "권한 수정 완료");
+			url = "redirect:adminApprove";
+		}
+		return url;
+	}
+	
+	
 	@RequestMapping(value="/sellerApprove")
-	public ModelAndView SetSellerApprove(ModelAndView mv) {
+	public ModelAndView SetSellerApprove(@RequestParam(value="page",
+							defaultValue="1",required=false) int page, ModelAndView mv) {
+		PaginationDTO p = calculatePagination(page, 10, adminService.getSellerApproveListCount());
+		
+		List<SellerWaiting> sellerApproveList = adminService.getSellerApproveList(page, 10);
+		
+		mv.addObject("page", page);
+		mv.addObject("maxpage", p.getMaxPage());		
+		mv.addObject("startpage", p.getStartPage());	
+		mv.addObject("endpage", p.getEndPage());		
+		mv.addObject("listcount", p.getListCount());	
+		mv.addObject("sellerApproveList", sellerApproveList);				//해당 페이지의 글 목록 리스트
+		mv.addObject("limit", 10);
 		mv.setViewName("admin/sellerApprove");
 		return mv;
 	}
 	
-	@RequestMapping(value="/itdaNotice")
-	public ModelAndView SetItdaNotice(ModelAndView mv) {
-		mv.setViewName("admin/itdaNotice");
-		return mv;
-	}
-	
-	@RequestMapping(value="/adminApprove")
-	public ModelAndView SetAdminApprove(ModelAndView mv) {
-		mv.setViewName("admin/adminApprove");
-		return mv;
-	}
 	
 	@RequestMapping(value="/problem")
 	public ModelAndView SetProblem(ModelAndView mv) {
