@@ -73,11 +73,13 @@
 
     <!--N로고/잇다ID-->
     <div class="gnb_area">
-        <a href="https://www.naver.com/" class="logo" onclick="nclk(this,'gnb.naver','','',event)">
+        <a href="${pageContext.request.contextPath}/" onclick="nclk(this,'gnb.naver','','',event)">
+        <img class="header_logo_img" alt=""
+							src="${pageContext.request.contextPath}/resources/image/common/itda_logo4.png">
             <span class="blind">잇다</span>
         </a>
-        <a href="/user2/help/myInfoV2?lang=ko_KR" class="gnb_title" onclick="nclk(this,'gnb.naverID','','',event)">
-            <h1 class="text"><span class="blind">잇다ID</span></h1>
+        <a href="${pageContext.request.contextPath}/user/myInfo" class="gnb_title" onclick="nclk(this,'gnb.naverID','','',event)">
+            <h1><span class="blind">잇다ID</span></h1>
         </a>
     </div>
 
@@ -111,12 +113,11 @@
 
         <ul class="left_menu" role="menu">
             <li>
-                <a href="/user2/help/myInfoV2?m=viewProfile&lang=ko_KR" class="left_item" role="menuitem" onclick="nclk(this,'lnb.info','','',event)"
-                   aria-current=>
+                <div class="left_item" role="menuitem" aria-current=>
                     <div class="menu_text ">내프로필</div>
-                </a>
+                </div>
             </li>
-            <li>
+<!--             <li>
                 <a href="/user2/help/myInfoV2?m=viewSecurity&lang=ko_KR" class="left_item" role="menuitem" onclick="nclk(this,'lnb.protect','','',event)"
                    aria-current=>
                     <div class="menu_text ">보안설정</div>
@@ -128,7 +129,7 @@
                    aria-current=>
                     <div class="menu_text ">이력관리</div>
                 </a>
-            </li>
+            </li> -->
         </ul>
 
 <!--
@@ -141,15 +142,23 @@
 
         <!-- footerLeft -->
         <footer class="left_footer" role="contentinfo">
-        <form>
             <ul class="left_guide">
-                <li><a href="javascript:;" onclick="logout()" class="left_item">
-                        <div class="footer_text">로그아웃</div>
-                    </a></li>
+                <li>
+                        <div>
+                <a href="javascript:;" onclick="logout()" class="left_item">
+                <form action="${pageContext.request.contextPath}/member/logout"
+							            method="post" name="logout">
+                        <button class="footer_text" type="submit">로그아웃</button>
+                    <input type="hidden" name="${_csrf.parameterName}"
+							                value="${_csrf.token}">
+                </form>
+                    </a>
+                        </div>
+                    </li>
                 <li><a href="javascript:;" onclick="goHelpPage()" class="left_item">
                         <div class="footer_text">고객센터</div>
                     </a></li>
-                <li>
+<!--                 <li>
                     <a id="leftLangSelectListBtn" href="javascript:;" onclick="toggleLeftLangSelectList()" class="left_item arrow" aria-expanded="false">
                         <div class="footer_text">한국어</div>
                     </a>
@@ -157,12 +166,10 @@
                         <li class="lang_list"><a href="javascript:;" class="lang_item" role="button" aria-selected="true"><span class="text">한국어</span></a></li>
                         <li class="lang_list"><a href="javascript:;" class="lang_item" role="button" aria-selected="false"><span class="text">English</span></a></li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
-            <input type="hidden" name="${_csrf.parameterName}"
-							                value="${_csrf.token}">
-	        </form>
-            <div class="footer_logo"><span class="logo"><span class="blind">잇다</span></span></div>
+            <div class="footer_logo"><img class="bottom_logo_img" alt=""
+							src="${pageContext.request.contextPath}/resources/image/common/itda_logo5.png"><span><span class="blind">잇다</span></span></div>
         </footer>
         <!-- //footerLeft -->
 
@@ -196,17 +203,30 @@
         }
     }
 
-    function logout() {
+     function logout() {
         nclk(this,'fot.logout','','',event);
         if (confirm("로그아웃 하시겠습니까?") == true) {
+			event.preventDefault();
             var returnUrl = "${pageContext.request.contextPath}/member/logout";
-            $(location).attr('href', '${pageContext.request.contextPath}/');
+			$("form[name=logout]").submit();
+            $(location).attr('href', returnUrl);
+        }
+    } 
+
+
+    function logout() {
+        nclk(this, 'fot.logout', '', '', event);
+        event.preventDefault();
+        if (confirm("로그아웃 하시겠습니까?")) {
+            $("form[name=logout]").submit();
         }
     }
 
+
+    
     function goHelpPage() {
         nclk(this,'fot.help','','',event);
-        document.location.href = "https://help.naver.com/support/alias/membership/p.membership/532.naver";
+        document.location.href = "${pageContext.request.contextPath}/info/faq";
     }
 
     function changeLanguage() {
@@ -258,10 +278,9 @@
 
 <!--내프로필-->
 <div class="account_box">
-    <a href="/user2/help/myInfoV2?m=viewProfile&lang=ko_KR" class="title"
-       onclick="nclk(this,'nid.myprofilego','','',event)">
+    <div class="title">
         <h2 class="title_text">내프로필</h2>
-    </a>
+    </div>
 
     <ul class="account_row">
         <li>
@@ -322,10 +341,9 @@
 
 <!--보안설정-->
 <div class="account_box">
-    <a href="/user2/help/myInfoV2?m=viewSecurity&lang=ko_KR" class="title"
-       onclick="nclk(this,'nid.securitygo','','',event)">
+    <div class="title">
         <h2 class="title_text">보안설정</h2>
-    </a>
+    </div>
 
     <ul class="account_row">
         <li>
@@ -337,7 +355,7 @@
                 </button>
             </div>
         </li>
-        <li>
+ <!--        <li>
             <div class="row_item step">
                 <span class="item_text">2단계 인증</span>
                 <button type="button"
@@ -429,12 +447,12 @@
                     </label>
                 </div>
             </div>
-        </li>
+        </li> -->
     </ul>
 </div>
 
 <!--이력관리-->
-<div class="account_box">
+<!-- <div class="account_box">
     <a href="/user2/help/myInfoV2?m=viewManageHistory&lang=ko_KR" class="title"
        onclick="nclk(this,'nid.historygo','','',event)">
         <h2 class="title_text">이력관리</h2>
@@ -469,10 +487,10 @@
             </div>
         </li>
     </ul>
-</div>
-<script type="text/javascript" src="/inc/user/js/loginSafetyV2_home.js"></script>
+</div> -->
+<!-- <script type="text/javascript" src="/inc/user/js/loginSafetyV2_home.js"></script> -->
 <script>
-    window.onpageshow = function() {
+/*     window.onpageshow = function() {
         if (window.performance && window.PerformanceNavigation && performance.navigation.type === PerformanceNavigation.TYPE_BACK_FORWARD) {
             document.getElementById("selTp1Option" + loginSafetyInfo.info.userRegion1).selected = "true";
             document.getElementById("selTp2Option" + loginSafetyInfo.info.userRegion2).selected = "true";
@@ -498,7 +516,7 @@
                 , {val: "09", text: "제주도"}
             ],
             lang: "ko_KR",
-            token: "pEaPb81n2UFfp9f2",
+            token: " ",
             useAbroadIpBlock: true,
             useRegionIpBlock: false,
             userRegion1: "",
@@ -553,7 +571,7 @@
             }
         }
     };
-
+ */
     function goChangePassword() {
         nclk(this,'nid.pswchg','','',event);
         document.location.href = "${pageContext.request.contextPath}/user/myInfo/viewChangePasswd";
@@ -612,7 +630,7 @@
 
 
 <!--관련링크-->
-<div class="link_cover">
+<!-- <div class="link_cover">
     <div class="link_area">
         <ul class="link_list">
             <li>
@@ -627,7 +645,7 @@
             </li>
         </ul>
     </div>
-</div>
+</div> -->
 
 <script>
 
@@ -645,16 +663,27 @@
     <div class="footer_home">
         <ul class="guide_link">
             <li>
-                <a href="javascript:;" onclick="logout()" class="guide_item">
-                    <span class="footer_text">로그아웃</span>
+               
+            
+                <a href="javascript:;" onclick="logout()" class="guide_item" >
+                    <span>
+                    <form action="${pageContext.request.contextPath}/member/logout"
+							            method="post" name="logout">
+                    <button class="footer_text" type="submit">로그아웃</button>
+                                    <input type="hidden" name="${_csrf.parameterName}"
+							                value="${_csrf.token}">
+                                    </form>
+                    
+                    </span>
                 </a>
+
             </li>
             <li>
                 <a href="javascript:;" onclick="goHelpPage()" class="guide_item">
                     <span class="footer_text">고객센터</span>
                 </a>
             </li>
-            <li>
+<!--             <li>
                 <a id="langSelectListBtn" href="javascript:;" onclick="toggleLangSelectList()" class="guide_item arrow" aria-expanded="false">
                     <span class="footer_text">한국어</span>
                 </a>
@@ -662,9 +691,10 @@
                     <li><a href="javascript:;" class="lang_item" role="button" aria-selected="true"><span class="text">한국어</span></a></li>
                     <li><a href="javascript:;" class="lang_item" role="button" aria-selected="false"><span class="text">English</span></a></li>
                 </ul>
-            </li>
+            </li> -->
         </ul>
-        <div class="footer_logo"><span class="logo"><span class="blind">잇다</span></span></div>
+        <div class="footer_logo"><img class="bottom_logo_img" alt=""
+							src="${pageContext.request.contextPath}/resources/image/common/itda_logo5.png"><span><span class="blind">잇다</span></span></div>
     </div>
 </footer>
 <script>
@@ -718,7 +748,7 @@
     </div>
 </div>
 <form id="fm" name="fm">
-    <input type="hidden" name="token_help" id="token_help" value="pEaPb81n2UFfp9f2"/>
+    <input type="hidden" name="token_help" id="token_help" value=" "/>
     <input type="hidden" name="isEmailYn" id="isEmailYn" value="N" />
     <input type="hidden" name="isPhoneYn" id="isPhoneYn" value="Y"  />
     <input type="hidden" name="phoneAuthYn" id="phoneAuthYn" value="N"/>
@@ -1360,7 +1390,7 @@
 </form>
 <form name="formAuth" method="post" action="/user2/help/changeUserInfo?m=actionUserMobile">
     <input type=hidden name="authRes" value=""/>
-    <input type=hidden name="token_help" value="pEaPb81n2UFfp9f2"/>
+    <input type=hidden name="token_help" value=" "/>
 </form>
 
     
@@ -1385,7 +1415,7 @@
                         <strong>OTP 로그인을 해제한 후, 2단계 인증을 설정하세요.</strong>
                     </div>
                     <div class="btn_duo_popup ratio">
-                        <a href="/user2/help/2StepVerif?m=viewReleaseSettings&token_help=pEaPb81n2UFfp9f2&lang=ko_KR"
+                        <a href="/user2/help/2StepVerif?m=viewReleaseSettings&token_help= &lang=ko_KR"
                            class="btn_item on" role="button" onclick="nclk(this,'2fc.otprelease','','',event)">
                             <span class="btn_text">OTP 해제하기</span>
                         </a>

@@ -62,12 +62,10 @@
 								<button class="dropbtn">
 									<c:choose>
 										<c:when test="${empty userProfilePath}">
-											<img id="profile_img" src="${pageContext.request.contextPath}/image/main/login.png"
-												style="width: 30px; height: auto;" />
+											<img id="profile_img" src="${pageContext.request.contextPath}/image/main/login.png"/>
 										</c:when>
 										<c:otherwise>
-											<img id="profile_img" src="${pageContext.request.contextPath}${userProfilePath}"
-												style="width: 30px; height: auto;" />
+											<img id="profile_img" src="${pageContext.request.contextPath}${userProfilePath}"/>
 										</c:otherwise>
 							        </c:choose>
 							    </button>

@@ -135,12 +135,12 @@ function initializeForm(){
 	document.getElementById("lb_conf_pw").style.display = "block";
 	document.getElementById("chkBlockIp").checked = false;
 }
-
+*/
 function goSecurityAfterCancel(){
 	document.location.href = "${pageContext.request.contextPath}/user/myInfo";
 }
 
-
+/*
 function hiddenText(objName){
 	document.getElementById(objName).className = "blind";
 }
@@ -180,8 +180,11 @@ function convertDiv(obj, stat){
 	<div id="header">
 		<div class="top">
 			<h1>
-				<a href="http://www.naver.com" target="_top" onclick="clickcr(this,'STA.naver','','',event);" class="link_logo"><span class="sptxt">NAVER</span><em></em></a>
-				<a href="/user2/help/myInfo?lang=ko_KR" onclick="clickcr(this,'STA.my','','',event);" class="link_subtit "><span class="sptxt">네이버ID</span><em></em></a>
+			   <a href="${pageContext.request.contextPath}/" onclick="clickcr(this,'STA.my','','',event);">
+       			 <img class="header_logo_img" src="${pageContext.request.contextPath}/resources/image/common/itda_logo6.png">
+            <span class="blind">잇다</span>
+				<a href="http://www.naver.com" target="_top" onclick="clickcr(this,'STA.naver','','',event);"><span class="sptxt">NAVER</span><em></em></a>
+				<a href="/user2/help/myInfo?lang=ko_KR" onclick="clickcr(this,'STA.my','','',event);" ><span class="sptxt">네이버ID</span><em></em></a>
 			</h1>
 			<div class="gnb_area">
 				<div id="gnb" class="gnb_one">
@@ -193,8 +196,8 @@ function convertDiv(obj, stat){
 			<div class="lnb">
 	            <ul role="menu">
 					<li id="nid" role="presentation"><a href="${pageContext.request.contextPath}/user/myInfo" role="menuitem" onclick="clickcr(this,'lnb.info','','',event);">내프로필<em></em></a></li>
-					<li id="security" role="presentation"><a href="/user2/help/myInfoV2?m=viewSecurity&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.protect','','',event);">보안설정<em></em></a></li>
-					<li id="manageHistory" role="presentation"><a href="/user2/help/myInfoV2?m=viewManageHistory&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.history','','',event);">이력관리<em></em></a></li>
+<!-- 					<li id="security" role="presentation"><a href="/user2/help/myInfoV2?m=viewSecurity&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.protect','','',event);">보안설정<em></em></a></li>
+					<li id="manageHistory" role="presentation"><a href="/user2/help/myInfoV2?m=viewManageHistory&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.history','','',event);">이력관리<em></em></a></li> -->
 				</ul>
 			</div>
 		</div>

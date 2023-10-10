@@ -4,6 +4,15 @@ body {
 	margin: 0;
 }
 
+
+
+#profile_img{
+	width: 30px; 
+	height: auto; 
+	margin-top:3px;
+	background:#fff;
+}
+
 .footer_logo_img{
 	height: 70px;
 	display: block;
@@ -13,7 +22,7 @@ body {
 .header_logo_img{
 	width: 117px;
 	height: 35px;
-	margin-top: 14px;
+	margin-top: 13px;
 }
 
 .tv{
@@ -187,7 +196,7 @@ body {
 }
 
 .dropbtn {
-	background: rgb(1, 39, 60);
+	background: #fff;
 	border: none;
 	margin-left: 10px;
 	margin-bottom: 24px;
