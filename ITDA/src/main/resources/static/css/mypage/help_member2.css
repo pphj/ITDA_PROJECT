@@ -81,11 +81,6 @@ hr {
     display: none
 }
 
-.header_logo_img{
-	width: 70px;
-	margin-top: -5px;
-}
-
 .blind,legend {
     position: absolute;
     clip: rect(0 0 0 0);
@@ -301,9 +296,8 @@ hr {
     height: 22px;
     padding: 9px 12px 0;
     color: #fff;
-    border: 1px solid #00c6be;
-    background-color: #00c6be
-
+    border: 1px solid #00c73c;
+    background-color: #00c73c
 }
 
 .btn_wrap {
@@ -463,7 +457,7 @@ body {
     z-index: 30;
     width: 100%;
     margin: 0;
-    background-color: #fff;
+    background-color: #00c73c
 }
 
 #container {
@@ -864,7 +858,7 @@ body {
 #lnb_area {
     height: 39px;
     margin-top: -1px;
-    border-top: 1px solid #333333;
+    border-top: 1px solid #00af35;
     border-bottom: 1px solid #e5e5e5;
     background-color: #fff
 }
@@ -14163,8 +14157,7 @@ body:first-of-type #bw_content2 .function_btn .btn_wrap1 p {
     margin-top: 0;
     color: #fff;
     border: none;
-    background: #00c6be;
-
+    background: #1fbc02
 }
 
 .spc_content fieldset>div.captcha_member {

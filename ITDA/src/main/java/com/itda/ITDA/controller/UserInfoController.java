@@ -167,6 +167,10 @@ public class UserInfoController {
 		
 	}
 			
+	@RequestMapping("/myProfile")
+	public String changeMyProfile() {
+		return "mypage/userinfo/myProfile";
+	}
 	
 
 }

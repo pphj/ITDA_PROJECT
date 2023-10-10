@@ -166,6 +166,7 @@ function convertDiv(obj, stat){
  
 
 </script>
+<jsp:include page="../../include/header.jsp"></jsp:include>
 </head>
 
 <body onclick="clearDocs();gnbClose();" id="mainBody">
@@ -173,12 +174,12 @@ function convertDiv(obj, stat){
 	<!-- 스킵네비게이션 : 웹접근성대응-->
 	<div id="u_skip">
 <!-- [D] 주메뉴가 존재하는 페이지에 적용 -->
-<a href="#lnb" onclick="document.getElementById('lnb_area').tabIndex=-1;document.getElementById('lnb_area').focus();return false;"><span>주메뉴로 바로가기</span></a>
+<!-- <a href="#lnb" onclick="document.getElementById('lnb_area').tabIndex=-1;document.getElementById('lnb_area').focus();return false;"><span>주메뉴로 바로가기</span></a>
 <a href="#content" onclick="document.getElementById('content').tabIndex=-1;document.getElementById('content').focus();return false;"><span>본문으로 바로가기</span></a>
-	</div>
+ -->	</div>
 	<!-- //스킵네비게이션 -->
 	<div id="header">
-		<div class="top">
+<%-- 		<div class="top">
 			<h1>
 			   <a href="${pageContext.request.contextPath}/" onclick="clickcr(this,'STA.my','','',event);">
        			 <img class="header_logo_img" src="${pageContext.request.contextPath}/resources/image/common/itda_logo6.png">
@@ -191,7 +192,7 @@ function convertDiv(obj, stat){
 					<script type='text/javascript' charset='utf-8' src='https://static.nid.naver.com/template/gnb_utf8.nhn?2023. 10. 5'></script>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 		<div id="lnb_area">
 			<div class="lnb">
 	            <ul role="menu">

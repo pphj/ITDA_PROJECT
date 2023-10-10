@@ -53,6 +53,7 @@
 	document.msCapsLockWarningOff = true;
 	function setContainerHeight(height) {}
 	function clearDocs(){}
+	
 </script>
 <meta name="decorator" content="NEW_USER_MYINFO_V2">
     <script type="text/javascript">
@@ -190,7 +191,7 @@
 
     function changeImage() {
         nclk(this,'nid.prfedit','','',event);
-        document.location.href = "/user2/help/naverProfile?lang=ko_KR&returnUrl=" + rurl;
+        document.location.href = "${pageContext.request.contextPath}/user/myProfile";
     }
 
     function landscapeHandler() {
@@ -229,14 +230,14 @@
         document.location.href = "${pageContext.request.contextPath}/info/faq";
     }
 
-    function changeLanguage() {
+/*     function changeLanguage() {
         var baseUrl = "/user2/help/myInfoV2?";
 
 
         nclk(this,'fot.english','','',event);
         baseUrl += "lang=en_US";
         document.location.href = baseUrl;
-    }
+    } */
 
     function toggleLeftLangSelectList() {
         nclk(this, 'fot.lang', '', '', event);

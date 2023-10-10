@@ -183,6 +183,7 @@ body {
 }
 
 .dropdown-content {
+	font-size:12px;
 	display: none;
 	position: absolute;
 	background-color: #f9f9f9;
