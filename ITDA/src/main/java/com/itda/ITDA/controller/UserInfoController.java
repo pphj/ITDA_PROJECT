@@ -91,6 +91,8 @@ public class UserInfoController {
 		
 		int result = itdaUserService.userAddressUpdate(map);
 		
+		
+		
 		if(id != null && result == Constants.UPDATE_SUCCESS) {
 
 			
@@ -151,6 +153,7 @@ public class UserInfoController {
 		
 		String userPw = encoder.encode(user.getUserPw());
 
+		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("userId", id);
 		map.put("userPw", userPw);
