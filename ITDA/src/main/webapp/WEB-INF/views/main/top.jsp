@@ -89,9 +89,9 @@
                 <img class="baimg"
                     src="${pageContext.request.contextPath}/resources/image/common/mainbanner2.png"
                     style="width: 1280px; height: 400px;">
-                <a href="" id ="join_seller"
-                   style ="position:absolute;top :calc(50% + 1cm);left :50%;transform :translate(-50%, -50%);padding :10px 20px;width :3cm;height :1cm;white-space :
-					nowrap;color:#00c6be;">판매회원 가입하기</a>
+               <a href="" id="join_seller" style="position:absolute; top: calc(50% + 1cm); left: 50%; transform: translate(-50%, -50%); 
+               padding: 10px 25px; width: 3.5cm; height: 1cm; white-space: nowrap; color:#00c6be;">판매회원 가입하기</a>
+
             </div>
         </div>  
     </div>  
