@@ -19,24 +19,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/seller")
 public class Itda_SellerController {
 
-	@Autowired
-	private SellerService sellerService;
+    @Autowired
+    private SellerService sellerService;
 
-	@GetMapping("/join")
-	public ModelAndView showSellerJoinForm(HttpSession session) {
-		ModelAndView mv = new ModelAndView();
-		
-		Itda_User user = (Itda_User) session.getAttribute("user");
+    @GetMapping("/join")
+    public ModelAndView showSellerJoinForm(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
 
-		if (user == null) {
-			mv.setViewName("redirect:/");
-			return mv; // 로그인이 필요한 경우 리다이렉트하여 종료
-		}
+        Itda_User user = (Itda_User) session.getAttribute("user");
 
-		Seller seller = new Seller();
-		mv.addObject("seller", seller);
-        mv.setViewName("Seller_Form");
-        
+        Seller seller = new Seller();
+        mv.addObject("seller", seller);
+        mv.addObject("userId", user.getUserId()); // userId 값을 모델에 추가
+        mv.setViewName("member/Seller_Form");
+
         return mv;
     }
 
@@ -54,13 +50,17 @@ public class Itda_SellerController {
     @ResponseBody
     public String checkSellerRegistration(@RequestParam("userId") String userId, HttpSession session) {
         Itda_User user = (Itda_User) session.getAttribute("user");
-        
+
         if (user == null) {
             return "false"; // 로그인되지 않은 경우 false 반환
         }
-        
+
         boolean isRegistered = sellerService.isSeller(userId);
-        
-        return String.valueOf(isRegistered);
+
+		if (isRegistered) {
+			return "true"; // 이미 등록된 경우 true 반환
+		} else {
+			return "false"; // 등록되지 않은 경우 false 반환
+		}
     }
 }
