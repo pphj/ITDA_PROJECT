@@ -93,7 +93,7 @@
             submitFlag = true;
         }
 
-        var token = 'pEaPb81n2UFfp9f2';
+        var token = ;
         var phoneNo = document.getElementById("phoneNo").value;
         var mobileYn = document.getElementById("mobileYn").value;
 
@@ -200,7 +200,7 @@
             submitFlag = true;
         }
 
-        var token = 'pEaPb81n2UFfp9f2';
+        var token = '';
         var authNo = document.getElementById("authNo").value;
         var mobileYn = document.getElementById("mobileYn").value;
 
@@ -335,7 +335,7 @@
             submitFlag = true;
         }
 
-        var token = 'pEaPb81n2UFfp9f2';
+        var token = '';
         var myLetterEmail = element_confirmMyLetterEmail.value;
 
         var urls = CHANGE_USER_INFO_URL + "?m=checkMyLetterEmail&token_help=" + token;
@@ -441,7 +441,7 @@
             submitFlag = true;
         }
 
-        var token = 'pEaPb81n2UFfp9f2';
+        var token = '';
         var email = document.getElementById(obj).value;
         var urls = CHANGE_USER_INFO_URL + "?m=sendAuthNoForEmail&token_help=" + token;
 
@@ -530,7 +530,7 @@
             submitFlag = true;
         }
 
-        var token = 'pEaPb81n2UFfp9f2';
+        var token = '';
         var myLetterEmail = element_myLetterEmail.value;
         var authNo = element_myLetterEmailAuthNo.value;
 
@@ -643,7 +643,7 @@
             submitFlag = true;
         }
 
-        var token = 'pEaPb81n2UFfp9f2';
+        var token = '';
         var pswdEmail = element_confirmPswdEmail.value;
 
         var urls = CHANGE_USER_INFO_URL + "?m=checkPasswdEmail&token_help=" + token;
@@ -747,7 +747,7 @@
             submitFlag = true;
         }
 
-        var token = 'pEaPb81n2UFfp9f2';
+        var token = '';
         var pswdEmail = element_pswdEmail.value;
         var authNo = element_pswdEmailAuthNo.value;
 
@@ -806,7 +806,7 @@
             nclk(this, 'inf.recoveryverify', '', '', event);
         }
 
-        winOpenAtCenter("/user2/help/changeUserInfo?m=viewUserMobile&token_help=pEaPb81n2UFfp9f2&emailType=" + emailType, "auth", 400, 490, 'auto');
+        winOpenAtCenter("/user2/help/changeUserInfo?m=viewUserMobile&token_help= &emailType=" + emailType, "auth", 400, 490, 'auto');
 
         return;
     }

@@ -18,14 +18,14 @@ import com.itda.ITDA.util.Constants;
 
 @Controller
 @RequestMapping(value= "/my")
-public class MypageController {
+public class MyContentsPageController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MyContentsPageController.class);
 	
 	private Itda_UserService itdaUserService;
 	
 	@Autowired
-	public MypageController(Itda_UserService itdaUserService) {
+	public MyContentsPageController(Itda_UserService itdaUserService) {
 		this.itdaUserService = itdaUserService;
 	}
 	
