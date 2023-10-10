@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper
-	namespace="com.itda.ITDA.mybatis.mapper.ChannelListMapper">
+<mapper namespace="com.itda.ITDA.mybatis.mapper.ChannelListMapper">
 
 	<select id="getChannelDetail" resultType="ChannelList">
 		SELECT *
@@ -28,5 +27,40 @@
 	    ]]>
 	</select>
 
+	<select id="getChannelCategory" resultType="ChBoardCategory">
+		SELECT DISTINCT
+		chCate_Id, chCate_Name
+		FROM ChBoardCategory
+		WHERE ChBoardCategory.chnum
+		= #{chnum}
+		ORDER BY chCate_Name ASC
+	</select>
 
+	<!-- <select id="getChannelCategoryCount" resultType="int">
+		SELECT
+		COUNT(B.boardNum)
+		FROM ChBoardCategory C
+		INNER JOIN ChBoard B ON
+		C.chCate_Id = B.chCate_Id
+		WHERE B.chnum = #{chnum}
+		GROUP BY
+		C.chCate_Name
+	</select> -->
+	
+	<select id="getChnnelCategorylist" resultType="ChBoardCategory">
+		SELECT *
+		FROM CHBOARDCATEGORY
+		WHERE chNum = #{chnum}
+		ORDER BY chcate_id ASC
+	</select>
+	
+	<!-- seller 
+	<select id="getChannelSellerDetail" resultType="ChannelList">
+		SELECT *
+		FROM
+		CHANNELLIST
+		WHERE CHNUM = #{chnum}
+	</select>
+	-->
+	
 </mapper> 
