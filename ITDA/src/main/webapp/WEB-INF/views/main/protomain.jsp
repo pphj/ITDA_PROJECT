@@ -14,6 +14,7 @@
         var contextPath = '<%= request.getContextPath() %>';
     </script>
     <script src="${pageContext.request.contextPath}/resources/js/mainpage.js"></script>
+    <title>잇다:세상의 모든 콘텐츠</title>
 <jsp:include page="../include/header.jsp"/>
 </head>
 <body>

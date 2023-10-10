@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.service.Itda_UserService;
-import com.itda.ITDA.util.Contstants;
+import com.itda.ITDA.util.Constants;
 
 @Controller
 @RequestMapping(value= "/my")
-public class MypageController {
+public class MyContentsPageController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MyContentsPageController.class);
 	
 	private Itda_UserService itdaUserService;
 	
 	@Autowired
-	public MypageController(Itda_UserService itdaUserService) {
+	public MyContentsPageController(Itda_UserService itdaUserService) {
 		this.itdaUserService = itdaUserService;
 	}
 	
@@ -42,7 +42,7 @@ public class MypageController {
 	    
 		logger.info("결과 : " + result);
 		
-	    if(result == Contstants.CONNECT_SUCCESS) {
+	    if(result == Constants.CONNECT_SUCCESS) {
 	    	
 	    	Itda_User vo = itdaUserService.read(id);
 	    	model.addAttribute("user", vo);
