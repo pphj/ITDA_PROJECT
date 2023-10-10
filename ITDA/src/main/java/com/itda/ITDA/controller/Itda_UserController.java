@@ -145,82 +145,68 @@ public class Itda_UserController {
 	}
 
 
-//	 @PostMapping("/joinProcess")
-//	    public String insert(@ModelAttribute Itda_User mem, 
-//	                         @RequestParam(value = "file", required = false) MultipartFile file,
-//	                         RedirectAttributes ra, 
-//	                         Model model,
-//	                         HttpServletRequest request) {
-//	    String encPassword = passwordEncoder.encode(mem.getUserPw());
-//	    logger.info(encPassword);
-//	    mem.setUserPw(encPassword);
-//
-//	    // 이미지를 저장할 디렉토리 경로를 설정합니다.
-//	    String saveFolder = "resources/static/image/Member";
-//	    
-//	    // getRealPath 메소드는 서버의 실제 경로를 반환합니다.
-//	    String realFolder = request.getServletContext().getRealPath(saveFolder);
-//	    
-//	    // 사용자 ID별로 폴더를 생성하기 위해 경로에 사용자 ID를 추가합니다.
-//        String userFolder = imageUploadDir + File.separator + mem.getUserId();
-//        
-//       // FolderService.createFolder 메소드는 해당 경로에 폴더가 없으면 새 폴더를 생성합니다.
-//       FolderService.createFolder(userFolder);
-//
-//       // 날짜별로 폴더를 생성하기 위해 오늘 날짜 정보가 포함된 문자열을 경로에 추가합니다. 
-//       userFolder += File.separator + DateService.toDay();
-//       
-//       // 날짜별 폴더 생성
-//       FolderService.createFolder(userFolder);
-//
-//	   if (file != null && !file.isEmpty()) {
-//	       try {
-//	           byte[] bytes = file.getBytes();  // 파일의 내용을 바이트 배열로 읽어옵니다.
-//
-//	           Path path = Paths.get(userFolder + File.separator + file.getOriginalFilename());  // 파일을 저장할 절대경로 객체(Path) 생성
-//	           
-//	           Files.write(path, bytes);  // 해당 경로에 파일 쓰기
-//
-//	           String urlPath = saveFolder + "/" + mem.getUserId() + "/" +
-//	                            DateService.toDay() + "/" +
-//	                            file.getOriginalFilename();
-//
-//	           mem.setUserProfile(urlPath);  // 업로그한 이미지 URL set
-//
-//	       } catch (IOException e) {
-//	           e.printStackTrace();
-//	       }
-//	   } else {  
-//	        mem.setUserProfile("/static/image/main/login.png");  
-//	        session.setAttribute("userProfilePath", "/static/image/main/login.png");  
-//	   }
-//
-//		// DB에 회원정보 저장하고 결과값 받기
-//		int result = Itda_UserService.insert(mem);
-//
-//		if (result == 1) {  
-//			// 회원 가입 성공 시 
-//
-//			String selectedCategory = request.getParameter("userCategory");
-//			if (selectedCategory != null) {  
-//				// 선택된 카테고리가 있다면 
-//
-//				UserCategory userCategory = new UserCategory();
-//				userCategory.setUserId(mem.getUserId());  
-//				userCategory.setCate_Id(Integer.parseInt(selectedCategory)); 
-//				userCategoryService.save(userCategory);  
-//		    }
-//		    
-//		    
-//		    ra.addFlashAttribute("result", "joinSuccess");  
-//		    return "redirect:/";  
-//		} else {  
-//			// 회원 가입 실패 시 
-//			model.addAttribute("url", request.getRequestURI());
-//			model.addAttribute("message", "회원 가입 실패");
-//			return "/main/protomain";
-//	    }
-//	}
+	/*
+	 * @@userCategory 저장 로직 추가 버전
+	 * 
+	 * @PostMapping("/joinProcess") public String insert(@ModelAttribute Itda_User
+	 * mem,
+	 * 
+	 * @RequestParam(value = "file", required = false) MultipartFile file,
+	 * RedirectAttributes ra, Model model, HttpServletRequest request) { String
+	 * encPassword = passwordEncoder.encode(mem.getUserPw());
+	 * logger.info(encPassword); mem.setUserPw(encPassword);
+	 * 
+	 * // 이미지를 저장할 디렉토리 경로를 설정합니다. String saveFolder =
+	 * "resources/static/image/Member";
+	 * 
+	 * // getRealPath 메소드는 서버의 실제 경로를 반환합니다. String realFolder =
+	 * request.getServletContext().getRealPath(saveFolder);
+	 * 
+	 * // 사용자 ID별로 폴더를 생성하기 위해 경로에 사용자 ID를 추가합니다. String userFolder = imageUploadDir
+	 * + File.separator + mem.getUserId();
+	 * 
+	 * // FolderService.createFolder 메소드는 해당 경로에 폴더가 없으면 새 폴더를 생성합니다.
+	 * FolderService.createFolder(userFolder);
+	 * 
+	 * // 날짜별로 폴더를 생성하기 위해 오늘 날짜 정보가 포함된 문자열을 경로에 추가합니다. userFolder +=
+	 * File.separator + DateService.toDay();
+	 * 
+	 * // 날짜별 폴더 생성 FolderService.createFolder(userFolder);
+	 * 
+	 * if (file != null && !file.isEmpty()) { try { byte[] bytes = file.getBytes();
+	 * // 파일의 내용을 바이트 배열로 읽어옵니다.
+	 * 
+	 * Path path = Paths.get(userFolder + File.separator +
+	 * file.getOriginalFilename()); // 파일을 저장할 절대경로 객체(Path) 생성
+	 * 
+	 * Files.write(path, bytes); // 해당 경로에 파일 쓰기
+	 * 
+	 * String urlPath = saveFolder + "/" + mem.getUserId() + "/" +
+	 * DateService.toDay() + "/" + file.getOriginalFilename();
+	 * 
+	 * mem.setUserProfile(urlPath); // 업로그한 이미지 URL set
+	 * 
+	 * } catch (IOException e) { e.printStackTrace(); } } else {
+	 * mem.setUserProfile("/static/image/main/login.png");
+	 * session.setAttribute("userProfilePath", "/static/image/main/login.png"); }
+	 * 
+	 * // DB에 회원정보 저장하고 결과값 받기 int result = Itda_UserService.insert(mem);
+	 * 
+	 * if (result == 1) { // 회원 가입 성공 시
+	 * 
+	 * String selectedCategory = request.getParameter("userCategory"); if
+	 * (selectedCategory != null) { // 선택된 카테고리가 있다면
+	 * 
+	 * UserCategory userCategory = new UserCategory();
+	 * userCategory.setUserId(mem.getUserId());
+	 * userCategory.setCate_Id(Integer.parseInt(selectedCategory));
+	 * userCategoryService.save(userCategory); }
+	 * 
+	 * 
+	 * ra.addFlashAttribute("result", "joinSuccess"); return "redirect:/"; } else {
+	 * // 회원 가입 실패 시 model.addAttribute("url", request.getRequestURI());
+	 * model.addAttribute("message", "회원 가입 실패"); return "/main/protomain"; } }
+	 */
 
 
 

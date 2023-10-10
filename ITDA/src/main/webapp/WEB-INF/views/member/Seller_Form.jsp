@@ -168,7 +168,7 @@ $(function() {
 <body style="margin: 0;">
 <div id="sellerback">
 <form name='sellerform' id='sellerform' enctype="multipart/form-data" method='post'
- action='${pageContext.request.contextPath}/sellerjoinprocess.me'>
+ action='${pageContext.request.contextPath}/sellerjoinprocess'>
 	<h1 style="margin: 30px 50px;">Join Seller</h1>
 	<div class='num0'>
 		<label for='id' style="float: left;">&nbsp;아이디</label>
