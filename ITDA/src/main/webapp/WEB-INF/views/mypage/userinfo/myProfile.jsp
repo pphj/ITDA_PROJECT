@@ -70,8 +70,8 @@
 		<div class="lnb">
 			<ul role="menu">
 				<li id="nid" role="presentation"><a href="/user2/help/myInfoV2?m=viewProfile&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.info','','',event);">내프로필<em></em></a></li>
-				<li id="security" role="presentation"><a href="/user2/help/myInfoV2?m=viewSecurity&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.protect','','',event);">보안설정<em></em></a></li>
-				<li id="manageHistory" role="presentation"><a href="/user2/help/myInfoV2?m=viewManageHistory&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.history','','',event);">이력관리<em></em></a></li>
+				<!-- <li id="security" role="presentation"><a href="/user2/help/myInfoV2?m=viewSecurity&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.protect','','',event);">보안설정<em></em></a></li>
+				<li id="manageHistory" role="presentation"><a href="/user2/help/myInfoV2?m=viewManageHistory&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.history','','',event);">이력관리<em></em></a></li> -->
 			</ul>
 		</div>
 	</div>
@@ -197,8 +197,7 @@
             defaultImageUrl : "https://static.nid.naver.com/images/web/user/default.png",
             imageUrl : "",
             token : "",
-            id : "vldzmskcy",
-            lang : "ko_KR",
+            id : "",
             deleteYn : "N",
             originImageUrl : "",
             originNickname : ""
@@ -244,7 +243,7 @@
     }
 
     // 아바타 팝업 띄움
-    function showAvatarWindow() {
+/*     function showAvatarWindow() {
         var avatarUrl = "http://avatar.nid.naver.com?lang=ko_KR&key= &url=viewModifyProfile&mode=1";
         childWindow = window.open(avatarUrl, "avatar_popup", "width=490px, height=675px, resizeable=false");
         childWindowCheck = setInterval(function () {
@@ -272,7 +271,7 @@
         }
 
         return message;
-    }
+    } */
 
     // IE 호환성 지원관련
     $("a").click(function(event) {
@@ -287,16 +286,7 @@
 	</div>
 
 	<div id="footer">
-<ul class="policy_lst">
-<li><a href="http://policy.naver.com/policy/privacy.html" onclick="clickcr(this,'fot.privacy','','',event);"><strong>개인정보처리방침</strong></a><span class="bar"></span></li>
-<li><a href="http://policy.naver.com/rules/disclaimer.html" onclick="clickcr(this,'fot.disclaimer','','',event);">책임의 한계와 법적 고지</a><span class="bar"></span></li>
-<li><a href="https://help.naver.com/support/alias/membership/p.membership/p.membership_26.naver" onclick="clickcr(this,'fot.memberhelp','','',event);">회원정보 고객센터</a></li>
-
-</ul>
-<address>
-	<a href="http://www.navercorp.com/" target="_blank"  onclick="clickcr(this,'fot.nhncorp','','',event);" class="logo">NAVER</a>
-	<span class="copyright">Copyright &copy; <a href="http://www.navercorp.com/ko/index.nhn " onclick="clickcr(this,'fot.navercorp','','',event);" target="_blank">NAVER Corp.</a> All Rights Reserved.</span>
-</address>
+	<jsp:include page="../../include/footer.jsp"></jsp:include>
 
 <script type="text/javascript" src="/inc/common/js/jquery.resize.js"></script>
 <script type="text/javascript">
@@ -357,5 +347,7 @@ function setContainerHeight(height) {
 		setContainerHeight(document.getElementById('content').clientHeight);
 	}
 </script>
+
+
 </body>
 </html>

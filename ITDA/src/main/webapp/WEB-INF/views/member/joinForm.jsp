@@ -293,7 +293,8 @@ $(function() {
                 <button type='submit' value="일반회원가입" class='signup_butt'>일반회원가입</button>
                <button type='button' value="취소" class='cancel_butt' id='cancel_btn'>취소</button>
             </div>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+        <input type="hidden" name="${_csrf
+        .parameterName}" value="${_csrf.token}">
         </form>
     </div>
 </body>

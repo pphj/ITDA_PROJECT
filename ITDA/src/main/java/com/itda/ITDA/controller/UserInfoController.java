@@ -172,5 +172,10 @@ public class UserInfoController {
 		return "mypage/userinfo/myProfile";
 	}
 	
+	@RequestMapping("leave")
+	public String userLeaveView() {
+		return "mypage/userinfo/userleave";
+	}
+	
 
 }

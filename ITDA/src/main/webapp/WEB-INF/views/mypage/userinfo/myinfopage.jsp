@@ -97,16 +97,6 @@
                 <p class="useid">${user.userName }</p>
                 <p class="usemail">${user.userId }</p>
             </div>
-<!--
-            <div class="alarm_area">
-                <a href="https://talk.naver.com/ct/wc4bsu#nafullscreen" onclick="nclk(this,'nid.talktalkcheck','','',event)">
-                    <span class="alarm_text">[보안기능] 새로운 환경에서 로그인 되었습니다.</span>
-                </a>
-                <a href="https://talk.naver.com/ct/wc4bsu#nafullscreen" onclick="nclk(this,'nid.talktalkcheck','','',event)">
-                    <span class="alarm_more">+23</span>
-                </a>
-            </div>
--->
         </div>
     </div>
 
@@ -118,28 +108,8 @@
                     <div class="menu_text ">내프로필</div>
                 </div>
             </li>
-<!--             <li>
-                <a href="/user2/help/myInfoV2?m=viewSecurity&lang=ko_KR" class="left_item" role="menuitem" onclick="nclk(this,'lnb.protect','','',event)"
-                   aria-current=>
-                    <div class="menu_text ">보안설정</div>
-                </a>
-            </li>
-            <li>
-                <a href="/user2/help/myInfoV2?m=viewManageHistory&lang=ko_KR" class="left_item"
-                   role="menuitem" onclick="nclk(this,'lnb.history','','',event)"
-                   aria-current=>
-                    <div class="menu_text ">이력관리</div>
-                </a>
-            </li> -->
-        </ul>
 
-<!--
-        <div class="left_banner">
-            <a href="javascript:;" class="banner" style="background-color: #22afff;" onclick="nclk(this,'nid.banner2Step','','',event);go2StepVerification();">
-                <img src="https://ssl.pstatic.net/static/nid/account/banner/naverid_banner_01.png" width="100%" height="100%" alt="새벽 4시에 로그인? 2단계 인증, 늦기 전에 미리 설정!" class="img_banner">
-            </a>
-        </div>
--->
+        </ul>
 
         <!-- footerLeft -->
         <footer class="left_footer" role="contentinfo">
@@ -159,15 +129,7 @@
                 <li><a href="javascript:;" onclick="goHelpPage()" class="left_item">
                         <div class="footer_text">고객센터</div>
                     </a></li>
-<!--                 <li>
-                    <a id="leftLangSelectListBtn" href="javascript:;" onclick="toggleLeftLangSelectList()" class="left_item arrow" aria-expanded="false">
-                        <div class="footer_text">한국어</div>
-                    </a>
-                    <ul id="leftLangSelectList" class="footer_lang" style="display: none;" role="listbox" aria-label="언어선택목록">
-                        <li class="lang_list"><a href="javascript:;" class="lang_item" role="button" aria-selected="true"><span class="text">한국어</span></a></li>
-                        <li class="lang_list"><a href="javascript:;" class="lang_item" role="button" aria-selected="false"><span class="text">English</span></a></li>
-                    </ul>
-                </li> -->
+
             </ul>
             <div class="footer_logo"><img class="bottom_logo_img" alt=""
 							src="${pageContext.request.contextPath}/resources/image/common/itda_logo5.png"><span><span class="blind">잇다</span></span></div>
@@ -230,14 +192,7 @@
         document.location.href = "${pageContext.request.contextPath}/info/faq";
     }
 
-/*     function changeLanguage() {
-        var baseUrl = "/user2/help/myInfoV2?";
 
-
-        nclk(this,'fot.english','','',event);
-        baseUrl += "lang=en_US";
-        document.location.href = baseUrl;
-    } */
 
     function toggleLeftLangSelectList() {
         nclk(this, 'fot.lang', '', '', event);
@@ -356,223 +311,19 @@
                 </button>
             </div>
         </li>
- <!--        <li>
-            <div class="row_item step">
-                <span class="item_text">2단계 인증</span>
-                <button type="button"
-                        class="btn_accent"
-                        onclick="excuteNclicksAs2StepVerification();go2StepVerification()">
-                    <span class="text">
-                            설정
-                    </span>
-                </button>
-            </div>
-        </li>
-        <li>
-            <div class="row_item other">
-                <span class="item_text">타지역 로그인 차단</span>
-                <div class="btn_switch">
-                    <input type="checkbox" id="regionIp" class="switch_checkbox" onclick="excuteNclicksAsRegionIp()">
-                    <label for="regionIp" class="switch_btn">
-                        <span id="regionIp_toggle_switch_on" class="switch_on" role="checkbox"
-                              aria-checked="false">ON</span>
-                        <span id="regionIp_toggle_switch_off" class="switch_off" role="checkbox"
-                              aria-checked="true">OFF</span>
-                    </label>
-                </div>
-            </div>
-            <div id="divRegionIp" class="row_item location" style="display: none">
-                <div class="location_select">
-                    <select id="selTp1" title="지역설정" class="sel"
-                            onchange="nclk(this,'nid.blockregionfrs','','',event)">
-                            <option id="selTp1Option" value="">로그인을 허용할 지역 선택</option>
-                                <option id="selTp1Option01" value="01"
-                                        >서울시/인천시/경기도</option>
-                                <option id="selTp1Option02" value="02"
-                                        >강원도</option>
-                                <option id="selTp1Option03" value="03"
-                                        >대전시/세종시/충청남도</option>
-                                <option id="selTp1Option04" value="04"
-                                        >충청북도</option>
-                                <option id="selTp1Option05" value="05"
-                                        >대구시/경상북도</option>
-                                <option id="selTp1Option06" value="06"
-                                        >부산시/울산시/경상남도</option>
-                                <option id="selTp1Option07" value="07"
-                                        >전라북도</option>
-                                <option id="selTp1Option08" value="08"
-                                        >광주시/전라남도</option>
-                                <option id="selTp1Option09" value="09"
-                                        >제주도</option>
-                    </select>
-                </div>
-                <div class="location_select">
-                    <select id="selTp2" title="지역설정" class="sel"
-                            onchange="nclk(this,'nid.blockregionscd','','',event)">
-                            <option id="selTp2Option" value="">로그인을 허용할 지역 선택2</option>
-                                <option id="selTp2Option01" value="01"
-                                        >서울시/인천시/경기도</option>
-                                <option id="selTp2Option02" value="02"
-                                        >강원도</option>
-                                <option id="selTp2Option03" value="03"
-                                        >대전시/세종시/충청남도</option>
-                                <option id="selTp2Option04" value="04"
-                                        >충청북도</option>
-                                <option id="selTp2Option05" value="05"
-                                        >대구시/경상북도</option>
-                                <option id="selTp2Option06" value="06"
-                                        >부산시/울산시/경상남도</option>
-                                <option id="selTp2Option07" value="07"
-                                        >전라북도</option>
-                                <option id="selTp2Option08" value="08"
-                                        >광주시/전라남도</option>
-                                <option id="selTp2Option09" value="09"
-                                        >제주도</option>
-                    </select>
-                </div>
-                <p class="location_note">
-								이외 지역 로그인 시 차단<br>해외 로그인 차단도 함께 실행됩니다.
-							</p>
-            </div>
-        </li>
-        <li>
-            <div class="row_item abroad">
-                <span class="item_text">해외 로그인 차단</span>
-                <div class="btn_switch">
-                    <input type="checkbox" id="abroadIp" class="switch_checkbox" onclick="excuteNclicksAsAbroadIp()">
-                    <label for="abroadIp" class="switch_btn">
-                        <span id="abroadIp_toggle_switch_on" class="switch_on" role="checkbox"
-                              aria-checked="false">ON</span>
-                        <span id="abroadIp_toggle_switch_off" class="switch_off" role="checkbox"
-                              aria-checked="true">OFF</span>
-                    </label>
-                </div>
-            </div>
-        </li> -->
+ 
     </ul>
 </div>
 
+<div class="account_box">
+    <div class="title2">
+        <h5 class="title_text2"><a href="${pageContext.request.contextPath}/user/leave" class=".href-title">회원탈퇴 ></a></h5>
+    </div>
+
 <!--이력관리-->
-<!-- <div class="account_box">
-    <a href="/user2/help/myInfoV2?m=viewManageHistory&lang=ko_KR" class="title"
-       onclick="nclk(this,'nid.historygo','','',event)">
-        <h2 class="title_text">이력관리</h2>
-    </a>
 
-    <ul class="account_row">
-        <li>
-            <div class="row_item list">
-                <span class="item_text">로그인 목록</span>
-                <button type="button" class="btn_logout"
-                        onclick="goLoginStatus()">
-                    <span class="text">확인</span>
-                </button>
-            </div>
-        </li>
-        <li>
-            <div class="row_item history">
-                <span class="item_text">내 활동 기록 보기</span>
-                <button type="button" class="btn_edit"
-                        onclick="goMyActivityLog()">
-                    <span class="text">확인</span>
-                </button>
-            </div>
-        </li>
-        <li>
-            <div class="row_item connect">
-                <span class="item_text">연결된 서비스 관리</span>
-                <button type="button" class="btn_edit"
-                        onclick="goConnectedWithNaver()">
-                    <span class="text">확인</span>
-                </button>
-            </div>
-        </li>
-    </ul>
-</div> -->
-<!-- <script type="text/javascript" src="/inc/user/js/loginSafetyV2_home.js"></script> -->
 <script>
-/*     window.onpageshow = function() {
-        if (window.performance && window.PerformanceNavigation && performance.navigation.type === PerformanceNavigation.TYPE_BACK_FORWARD) {
-            document.getElementById("selTp1Option" + loginSafetyInfo.info.userRegion1).selected = "true";
-            document.getElementById("selTp2Option" + loginSafetyInfo.info.userRegion2).selected = "true";
-        }
-    }
 
-    $(document).ready(function () {
-        loginSafety.init(loginSafetyInfo.info, loginSafetyInfo.message, loginSafetyInfo.dom, loginSafetyInfo.method, loginSafetyInfo.url);
-    });
-
-    var loginSafetyInfo = {
-        info: {
-            regionList: [
-                {val: "", text: "지역선택 "}
-                , {val: "01", text: "서울시/인천시/경기도"}
-                , {val: "02", text: "강원도"}
-                , {val: "03", text: "대전시/세종시/충청남도"}
-                , {val: "04", text: "충청북도"}
-                , {val: "05", text: "대구시/경상북도"}
-                , {val: "06", text: "부산시/울산시/경상남도"}
-                , {val: "07", text: "전라북도"}
-                , {val: "08", text: "광주시/전라남도"}
-                , {val: "09", text: "제주도"}
-            ],
-            lang: "ko_KR",
-            token: " ",
-            useAbroadIpBlock: true,
-            useRegionIpBlock: false,
-            userRegion1: "",
-            userRegion2: "",
-            beforeUserRegion1: "",
-            beforeUserRegion2: ""
-        },
-
-        url: {
-            securityMainUrl: "/user2/help/myInfoV2?m=viewSecurity&lang=ko_KR"
-        },
-
-        message: {
-            temporaryAccessErr: "일시적인 오류입니다. 잠시 후 다시 시도해 주세요.",
-            pleaseSelectRegion: "지역을 선택해 주세요 ",
-            releaseRegionIpBlockFirst: "타지역 설정 해제 후, 변경이 가능합니다."
-        },
-
-        dom: {
-            $regionIpPanel: $("#divRegionIp"),
-            $regionIpBlockBtn: $("#regionIp"),
-            $regionSelBox1: $("#selTp1"),
-            $regionSelBox2: $("#selTp2"),
-            $abroadIpBlockBtn: $("#abroadIp")
-        },
-
-        method: {
-            turnOnBtn: function ($btn) {
-                $btn.prop("checked", true);
-                if ($btn.attr('id') === 'regionIp') {
-                    $('#regionIp_toggle_switch_on').attr('aria-checked', 'true');
-                    $('#regionIp_toggle_switch_off').attr('aria-checked', 'false');
-                } else {
-                    $('#abroadIp_toggle_switch_on').attr('aria-checked', 'true');
-                    $('#abroadIp_toggle_switch_off').attr('aria-checked', 'false');
-                }
-            },
-
-            turnOffBtn: function ($btn) {
-                $btn.prop("checked", false);
-                if ($btn.attr('id') === 'regionIp') {
-                    $('#regionIp_toggle_switch_on').attr('aria-checked', 'false');
-                    $('#regionIp_toggle_switch_off').attr('aria-checked', 'true');
-                } else {
-                    $('#abroadIp_toggle_switch_on').attr('aria-checked', 'false');
-                    $('#abroadIp_toggle_switch_off').attr('aria-checked', 'true');
-                }
-            },
-
-            isTurnOn: function ($btn) {
-                return $btn.prop("checked");
-            }
-        }
-    };
- */
     function goChangePassword() {
         nclk(this,'nid.pswchg','','',event);
         document.location.href = "${pageContext.request.contextPath}/user/myInfo/viewChangePasswd";
@@ -631,22 +382,7 @@
 
 
 <!--관련링크-->
-<!-- <div class="link_cover">
-    <div class="link_area">
-        <ul class="link_list">
-            <li>
-                <button type="button" class="link_item" onclick="goSmartBotChat()">
-                    <span class="link_text">스마트봇 상담</span>
-                </button>
-            </li>
-            <li>
-                <button type="button" class="link_item" onclick="goMemberTalkTalk()">
-                    <span class="link_text">회원톡톡</span>
-                </button>
-            </li>
-        </ul>
-    </div>
-</div> -->
+
 
 <script>
 
@@ -684,15 +420,6 @@
                     <span class="footer_text">고객센터</span>
                 </a>
             </li>
-<!--             <li>
-                <a id="langSelectListBtn" href="javascript:;" onclick="toggleLangSelectList()" class="guide_item arrow" aria-expanded="false">
-                    <span class="footer_text">한국어</span>
-                </a>
-                <ul id="langSelectList" class="footer_lang" style="display: none;" role="listbox" aria-label="언어선택목록">
-                    <li><a href="javascript:;" class="lang_item" role="button" aria-selected="true"><span class="text">한국어</span></a></li>
-                    <li><a href="javascript:;" class="lang_item" role="button" aria-selected="false"><span class="text">English</span></a></li>
-                </ul>
-            </li> -->
         </ul>
         <div class="footer_logo"><img class="bottom_logo_img" alt=""
 							src="${pageContext.request.contextPath}/resources/image/common/itda_logo5.png"><span><span class="blind">잇다</span></span></div>

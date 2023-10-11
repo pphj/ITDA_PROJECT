@@ -88,7 +88,18 @@ address,em {
 
 a {
     text-decoration: none;
-    cursor: pointer
+    cursor: pointer;
+    
+}
+
+a:active {
+	color:#959595;
+  text-decoration: none;
+}
+
+a:visited {
+  color:#959595;
+  text-decoration: none;
 }
 
 table {
@@ -1528,6 +1539,14 @@ h1,h2,h3,h4,h5,h6 {
 /*     background-image: linear-gradient(98deg,#03c75a,#49c6dd) */
 }
 
+.account_box .title2 {
+    position: relative;
+    display: block;
+    padding: 15px 38px 13px 18px;
+    border-radius: 12px 12px 0 0;
+/*     background-image: linear-gradient(98deg,#03c75a,#49c6dd) */
+}
+
 .account_box .title::after {
     content: '';
     position: absolute;
@@ -1546,6 +1565,20 @@ h1,h2,h3,h4,h5,h6 {
     letter-spacing: -.19px;
     color: #333333
 
+}
+
+.account_box .title_text2 {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -.19px;
+    color: #959595
+
+}
+
+.href-title{
+	color: #959595;
+	font-size: 14px;
+	text-decoration:none;
 }
 
 .account_box .account_row {
