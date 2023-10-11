@@ -39,8 +39,8 @@
 				<div class="content_line">
 					<div class="content_tap_wrap">
 						<h3 class="content_head">
-							<span class="content_cate_title"><c:out
-									value="${param.chcate_name}" default='전체글' /></span><em>${listcount }</em>
+							<span class="content_cate_title">
+								<c:out value="${param.chcate_name}" default='전체글' /></span><em>${listcount}</em>
 						</h3>
 					</div>
 					<div class="category_sorting_wrap">
@@ -48,11 +48,11 @@
 
 							<ul class="sorting_list">
 								<li class="sorting_item" role="radio" aria-checked="true"><a
-									href="contentlist.co?channelnum=${param.channelnum}&chcate_id=${param.chcate_id}&chcate_name=<c:out value="${param.chcate_name}"  default='전체글'/>&chname=${param.chname}&order=desc"
+									href="contentlist.co?chnum=${param.channelnum}&chcate_id=${param.chcate_id}&chcate_name=<c:out value="${param.chcate_name}"  default='전체글'/>&chname=${param.chname}&order=desc"
 									class="sorting_link" id="sort_desc" onClick="sort_desc()"></a>
 								</li>
 								<li class="sorting_item" role="radio"><a
-									href="contentlist.co?channelnum=${param.channelnum}&chcate_id=${param.chcate_id}&chcate_name=<c:out value="${param.chcate_name}"  default='전체글'/>&chname=${param.chname}&order=asc"
+									href="contentlist.co?chnum=${param.channelnum}&chcate_id=${param.chcate_id}&chcate_name=<c:out value="${param.chcate_name}"  default='전체글'/>&chname=${param.chname}&order=asc"
 									class="sorting_link" id="sort_asc" onClick="sort_asc()"></a>
 								</li>
 							</ul>
@@ -90,11 +90,11 @@
                              <input type="hidden" name="order" value="${order }">
 							<ul class="sorting_list">
 								<li class="sorting_item" role="radio" aria-checked="true"><a
-									href="contentlist.co?page=${page}&channelnum=${param.channelnum}&chcate_id=${param.chcate_id}&chcate_name=<c:out value="${param.chcate_name}"  default='전체글'/>&chname=${param.chname}&order=desc"
+									href="contentlist.co?page=${page}&chnum=${param.channelnum}&chcate_id=${param.chcate_id}&chcate_name=<c:out value="${param.chcate_name}"  default='전체글'/>&chname=${param.chname}&order=desc"
 									class="sorting_link" id="sort_desc" >최신순</a>
 								</li>
 								<li class="sorting_item" role="radio"><a
-									href="contentlist.co?page=${page}&channelnum=${param.channelnum}&chcate_id=${param.chcate_id}&chcate_name=<c:out value="${param.chcate_name}"  default='전체글'/>&chname=${param.chname}&order=asc"
+									href="contentlist.co?page=${page}&chnum=${param.channelnum}&chcate_id=${param.chcate_id}&chcate_name=<c:out value="${param.chcate_name}"  default='전체글'/>&chname=${param.chname}&order=asc"
 									class="sorting_link" id="sort_asc" >과거순</a>
 								</li>
 							</ul>
@@ -117,7 +117,7 @@
 										<a class="content_text_link"
 											href="${pageContext.request.contextPath}/contents/${param.channelnum}/${b.boardNum}">
 
-											<strong class="content_title">${b.chcate_name }</strong> 
+											<strong class="content_title">${b.chCate_Name}</strong> 
 											<c:if
 												test="${b.boardTitle.length()>=20}">
 												<c:out value="${b.boardTitle.substring(0,20)}..." />
@@ -155,7 +155,7 @@
 				</c:if>
 				<c:if test="${page > 1}">
 					<li class="page-item"><a
-						href="contentlist.co?order=${order }&channelnum=${param.channelnum}&chcate_name=<c:out value="${param.chcate_name}" default='전체글' />&chcate_id=${param.chcate_id}&chname=${param.chname}&page=${page-1}"
+						href="contentlist.co?order=${order }&chnum=${param.channelnum}&chcate_name=<c:out value="${param.chcate_name}" default='전체글' />&chcate_id=${param.chcate_id}&chname=${param.chname}&page=${page-1}"
 						class="page-link">이전&nbsp;</a></li>
 				</c:if>
 
@@ -165,7 +165,7 @@
 					</c:if>
 					<c:if test="${a != page }">
 						<li class="page-item"><a
-							href="contentlist.co?order=${order }&channelnum=${param.channelnum}&chcate_name=<c:out value="${param.chcate_name}" default='전체글' />&chcate_id=${param.chcate_id}&chname=${param.chname}&page=${a}"
+							href="contentlist.co?order=${order }&chnum=${param.channelnum}&chcate_name=<c:out value="${param.chcate_name}" default='전체글' />&chcate_id=${param.chcate_id}&chname=${param.chname}&page=${a}"
 							class="page-link">${a}</a></li>
 					</c:if>
 				</c:forEach>
@@ -175,7 +175,7 @@
 				</c:if>
 				<c:if test="${page < maxpage }">
 					<li class="page-item"><a
-						href="contentlist.co?order=${order }&channelnum=${param.channelnum}&chcate_name=<c:out value="${param.chcate_name}" default='전체글' />&chcate_id=${param.chcate_id}&chname=${param.chname}&page=${page+1}"
+						href="contentlist.co?order=${order }&chnum=${param.channelnum}&chcate_name=<c:out value="${param.chcate_name}" default='전체글' />&chcate_id=${param.chcate_id}&chname=${param.chname}&page=${page+1}"
 						class="page-link">&nbsp;다음</a></li>
 				</c:if>
 			</ul>

@@ -171,10 +171,11 @@
 												</div>
 											</div>
 
+											<!-- 
 											<span class="post_append" style="white-space: nowrap">
 												<span class="ico_dot"></span>
 												<span class="publish_time">8시간전</span>
-											</span>
+											</span> -->
 										</a>
 									</li>
 								</ul>
@@ -330,7 +331,7 @@
 				<div class="category_wrap_contents">
 					<ul class="channel_category_list">
 						<li class="channel_category_item">
-							<a href="/usa/nasdaq/contents" class="channel_category_link" data-clk="chlh_category.listall">
+							<a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_id=0&chname=${ChannelList.chName}" class="channel_category_link">
 								<strong class="channel_category_name">전체</strong>
 										<!-- <div class="channel_category_num">493</div>  -->
 							</a>

@@ -86,7 +86,7 @@ public class ChannelListController {
 			HttpServletRequest request, @RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "limit", defaultValue = "10") int limit,
 			@RequestParam(name = "order", defaultValue = "desc") String order,
-			@RequestParam(name = "chcate_id", defaultValue = "0") int categoryId,
+			@RequestParam(name = "chcate_id", defaultValue = "0") int chCate_Id,
 			@RequestParam(name = "state", required = false) String state) {
 
 		if (chnum == WRONG_CHNUM)
@@ -104,14 +104,15 @@ public class ChannelListController {
 			List<ChBoard> contentlist = new ArrayList<ChBoard>();
 			int listcount = 0;
 
-			if (categoryId == 0)
+			if (chCate_Id == 0)
 			{ // 전체
 				contentlist = channelList_Service.getAllChannelCategoryData(chnum, order, page, limit);
 				listcount = channelList_Service.getAllChannelCategoryCount(chnum);
 			} else
 			{ // 카테고리
-				contentlist = channelList_Service.getChannelCategoryData(chnum, categoryId, page, limit);
-				listcount = channelList_Service.getChannelCategoryCount(chnum, categoryId);
+				contentlist = channelList_Service.getChannelCategoryData(chnum, chCate_Id, page, limit);
+				System.out.println(contentlist.get(0).getBoardDate());
+				listcount = channelList_Service.getChannelCategoryCount(chnum, chCate_Id);
 			}
 
 			int maxpage = (listcount + limit - 1) / limit;
@@ -124,7 +125,7 @@ public class ChannelListController {
 			mv.addObject("limit", limit);
 			mv.addObject("channelnum", chnum);
 			mv.addObject("order", order);
-			mv.addObject("chcate_id", categoryId);
+			mv.addObject("chCate_Id", chCate_Id);
 			mv.addObject("state", state);
 			mv.addObject("maxpage", maxpage);
 			mv.addObject("startpage", startpage);

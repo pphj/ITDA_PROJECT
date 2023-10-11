@@ -47,31 +47,34 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	}*/
 
 	@Override
-	public List<ChBoard> getAllChannelCategoryData(int channelnum, String order, int page, int limit) {
-		return dao.getAllChannelCategoryData(channelnum, order, page, limit);
+	public List<ChBoard> getAllChannelCategoryData(int chnum, String order, int page, int limit) {
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
+		return dao.getAllChannelCategoryData(chnum, order, startrow, endrow);
+	}
+
+
+	@Override
+	public int getAllChannelCategoryCount(int chnum) {
+		return dao.getAllChannelCategoryCount(chnum);
 	}
 
 	@Override
-	public int getAllChannelCategoryCount(int channelnum) {
-		return dao.getAllChannelCategoryCount(channelnum);
-	}
-
-	@Override
-	public List<ChBoard> getChannelCategoryData(int channelnum, int categoryId, int page, int limit) {
+	public List<ChBoard> getChannelCategoryData(int chnum, int chCate_Id, int page, int limit) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		int startrow = (page - 1) * limit + 1;
 		int endrow = startrow + limit - 1;
 		map.put("startrow", startrow);
 		map.put("endrow", endrow);
-		map.put("channelnum", channelnum);
-		map.put("categoryId", categoryId);
+		map.put("chnum", chnum);
+		map.put("chCate_Id", chCate_Id);
 
 		return dao.getChannelCategoryData(map);
 	}
 
 	@Override
-	public int getChannelCategoryCount(int channelnum, int categoryId) {
-		return dao.getChannelCategoryCount(channelnum, categoryId);
+	public int getChannelCategoryCount(int chnum, int chCate_Id) {
+		return dao.getChannelCategoryCount(chnum, chCate_Id);
 	}
 
 }

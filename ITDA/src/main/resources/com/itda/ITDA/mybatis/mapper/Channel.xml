@@ -63,30 +63,26 @@
 	-->
 	
 	<select id="getAllChannelCategoryData" resultType="ChBoard" parameterType="map">
-		 SELECT *
-		    FROM (
-		        SELECT ROWNUM rnum, j.*
-		        FROM (
-		            SELECT
-		                chboard.*,
-		                NVL(cnt, 0) cnt,
-		                (
-		                    SELECT chcate_name
-		                    FROM chboardcategory c
-		                    WHERE c.chcate_id = chboard.chcate_id
-		                ) chcate_name
-		            FROM chboard
-		            LEFT JOIN (
-		                SELECT boardnum, COUNT(*) cnt
-		                FROM boardreply
-		                GROUP BY boardnum
-		            ) f ON chboard.boardnum = f.boardnum
-		            WHERE chboard.chnum = #{chnum}
-		            ORDER BY boardDate ${order}, chboard.boardnum DESC
-		        ) j
-		        WHERE ROWNUM &lt;= #{end}
-		    )
-		    WHERE rnum &gt;= #{start}
+		<![CDATA[
+			SELECT *
+			FROM (
+			    SELECT rownum rnum, j.*
+			    FROM (
+			        SELECT chboard.*, nvl(cnt, 0) cnt,
+			               (SELECT chcate_name FROM chboardcategory c WHERE c.chcate_id = chboard.chcate_id) chcate_name
+			        FROM chboard
+			        LEFT JOIN (
+			            SELECT boardnum, COUNT(*) cnt
+			            FROM boardreply
+			            GROUP BY boardnum
+			        ) f ON chboard.boardnum = f.boardnum
+			        WHERE chboard.chnum = #{chnum}
+			        ORDER BY boardDate ${order}, chboard.boardnum DESC
+			    ) j
+			    WHERE rownum <= #{endrow}
+			)
+			WHERE rnum >= #{startrow} AND rnum <= #{endrow}
+		]]>
 	</select>
 	
 	<select id="getAllChannelCategoryCount" resultType="int">
@@ -102,18 +98,21 @@
 	                SELECT *
 	                FROM chboard
 	                NATURAL JOIN chboardcategory
-	                WHERE chnum = #{channelnum}
-	                AND chcate_id = #{categoryId}
+	                WHERE chnum = #{chnum}
+	                AND chcate_id = #{chCate_Id}
 	            ) j
-	            WHERE rownum <= #{endRow}
+	            WHERE rownum <= #{endrow}
 	        )
-	        WHERE rnum >= #{startRow} AND rnum <= #{endRow}
+	        WHERE rnum >= #{startrow} AND rnum <= #{endrow}
 	        ORDER BY boardDate ASC
 	     ]]>
 	</select>
 	
-	<select id="getChannelCategoryCount" resultType="java.lang.Integer">
-  		 SELECT COUNT(*) FROM chboard
+	<select id="getChannelCategoryCount" resultType="int">
+	    SELECT COUNT(*)
+	    FROM chboard
+	    WHERE chnum = #{chnum}
+	    AND chCate_Id = #{chCate_Id}
 	</select>
-	
+		
 </mapper> 

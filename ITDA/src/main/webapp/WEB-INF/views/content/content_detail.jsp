@@ -30,7 +30,7 @@
 		<span class="board_detail_title">${board.boardTitle }</span>
 	</div>
 	<div class="viewer_title_content">
-		<div class="viewer_date"><fmt:formatDate pattern="yyyy.MM.dd a HH:mm" value="${board.boardDate}"/>
+		<div class="viewer_date">${board.boardDate}
 		</div>
 		<div class="viewer_count">
 			<div class="viewer_count_func_wrap">

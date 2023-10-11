@@ -25,13 +25,12 @@ public interface ChannelListMapper {
 	/*seller
 	ChannelList getChannelSellerDetail(int chnum);
 	*/
-
-	List<ChBoard> getAllChannelCategoryData(int channelnum, String order, int page, int limit);
+	List<ChBoard> getAllChannelCategoryData(int chnum, String order, int startrow, int endrow);
 
 	int getAllChannelCategoryCount(int channelnum);
 
 	List<ChBoard> getChannelCategoryData(HashMap<String, Integer> map);
 
-	int getChannelCategoryCount(int channelnum, int categoryId);
+	int getChannelCategoryCount(int chnum, int chCate_Id);
 
 }
