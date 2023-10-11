@@ -337,7 +337,8 @@ function setContainerHeight(height) {
 		changeContentSize();
 	}
 }
-</script>	</div>
+</script>	
+</div>
 </div>
 
 <script type="text/javascript">

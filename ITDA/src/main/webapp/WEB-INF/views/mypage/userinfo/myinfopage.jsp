@@ -317,7 +317,7 @@
 
 <div class="account_box">
     <div class="title2">
-        <h5 class="title_text2"><a href="${pageContext.request.contextPath}/user/leave" class=".href-title">회원탈퇴 ></a></h5>
+        <h5 class="title_text2"><a href="${pageContext.request.contextPath}/user/leave" class="href-title">회원탈퇴 ></a></h5>
     </div>
 
 <!--이력관리-->

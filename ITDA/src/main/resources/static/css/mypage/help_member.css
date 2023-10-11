@@ -81,6 +81,9 @@ hr {
     display: none
 }
 
+.contentbodywrap{
+}
+
 .header_logo_img{
 	width: 70px;
 	margin-top: -5px;
@@ -213,7 +216,7 @@ hr {
 }
 
 .btn_model[href] .btn3 {
-    color: #08a600
+    color: #00c6be
 }
 
 .btn_model .btn4,.btn_model .btn5,.btn_model .btn6 {
@@ -489,8 +492,8 @@ body {
     position: relative;
     z-index: 10;
     clear: both;
-    margin: 0 auto;
-    padding: 0 20px
+/*     margin: 0 auto;
+    padding: 0 20px */
 }
 
 .skin_main {
@@ -14397,7 +14400,7 @@ body:first-of-type #bw_content2 .function_btn .btn_wrap1 p {
 }
 
 .dropout_agree_area .contxt em {
-    color: #390
+    color: #00c6be
 }
 
 .dropout_agree_area+.btn_area_w {

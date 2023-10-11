@@ -48,7 +48,7 @@ $(function() {
 
         $.ajax({
             type: "POST",
-            url: contextpath + "/user/myInfo/passwdCheck", 
+            url: contextpath + "/user/passwdCheck", 
             beforeSend : function(xhr){
         		xhr.setRequestHeader(header, token);
         	},
@@ -170,6 +170,7 @@ function convertDiv(obj, stat){
 </head>
 
 <body onclick="clearDocs();gnbClose();" id="mainBody">
+<div class="contentbodywrap">
 <div id="wrap">
 	<!-- 스킵네비게이션 : 웹접근성대응-->
 	<div id="u_skip">
@@ -202,7 +203,6 @@ function convertDiv(obj, stat){
 				</ul>
 			</div>
 		</div>
-	</div>
 	</div>
 
 	<div id="container">
@@ -460,7 +460,10 @@ function convertDiv(obj, stat){
 	<!-- //section_pwconfirm -->
 </div>
 </div>
+
 <hr />
+
+
 
 <script type="text/javascript">
 
@@ -532,6 +535,13 @@ $("#fm").submit(function(e) {
 
 
 </script>
+	</div>
+
+ 	<div id="footer">
+
+</div>
+</div>
+ 	<jsp:include page="../../include/footer.jsp"></jsp:include>
 
 
 

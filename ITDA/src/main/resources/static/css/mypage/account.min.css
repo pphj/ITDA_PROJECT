@@ -4073,7 +4073,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .contact_edit_title .accent {
-    color: #03c75a
+    color: #00c6be;
 }
 
 .contact_edit_title .bold {
@@ -4244,7 +4244,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .btn_duo_popup .btn_item.on {
-    background-color: #03d580
+    background-color: #00c6be;
 }
 
 .btn_duo_popup .btn_item .btn_text {
