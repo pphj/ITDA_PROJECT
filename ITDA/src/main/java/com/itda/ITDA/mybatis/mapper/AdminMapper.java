@@ -8,7 +8,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
+import com.itda.ITDA.domain.BoardWarn;
 import com.itda.ITDA.domain.QnaReply;
+import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.SellerWaiting;
 
 @Mapper
@@ -73,6 +75,32 @@ public interface AdminMapper {
 	public int getSellerApproveListCount();
 
 	public List<SellerWaiting> getSellerApproveList(HashMap<String, Integer> map);
+
+	public int sellerWaitingUpdateY(String userId);
+
+	public int sellerWaitingUpdateN(String userId);
+
+	public int getProblemBoardCount();
+	
+	public int getProblemReplyCount();
+
+	public List<BoardWarn> problemList(HashMap<String, Integer> map);
+
+	public int sellerInsert(String userId, String waitPhone, String waitEmail);
+
+	public int problemListCount();
+
+	public int userUpdatePause(String userId);
+
+	public int userUpdateStop(String userId);
+
+	public int userUpdateClear(String userId);
+
+	public List<ReplyWarn> replyProblemDetail(String sickId);
+
+	public List<BoardWarn> boardProblemDetail(String sickId);
+
+
 
 
 }

@@ -60,17 +60,17 @@
 						function(index, item) {
 							output += '<tr><td class="text-center">&nbsp;&nbsp;' + (num--) + '</td>'
 							
-							output += '<td class="text-center"><div>' + item.userId + '</div></td>'
-									+ '<td class="text-center"><div>' + item.WPhone + '</div></td>'
-									+ '<td class="text-center"><div>' + item.WEmail + '</div></td>'
-									+ '<td class="text-center"><div>' + item.waitDate + '</div></td>'
+							output += '<td class="text-center targetUserId"><div>' + item.userId + '</div></td>'
+									+ '<td class="text-center targetWaitPhone"><div>' + item.waitPhone + '</div></td>'
+									+ '<td class="text-center targetWaitEmail"><div>' + item.waitEmail + '</div></td>'
+									+ '<td class="text-center"><div>' + item.waitDate.substr(0,10) + '</div></td>'
 									+ '<td class="td-actions text-center">'
 							        + '<button type="button" rel="tooltip"'
-							        + ' class="btn btn-info btn-icon btn-sm sellerUpdate" data-original-title="" title="">'
+							        + ' class="btn btn-info btn-icon btn-fab sellerUpdate" data-original-title="" title="">'
 							        + ' 	<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;승인'
-							        + '</button>'
+							        + '</button>&nbsp;'
 							        + '<button type="button" rel="tooltip"'
-							        + ' class="btn btn-danger btn-icon btn-sm sellerCancle" data-original-title="" title="">'
+							        + ' class="btn btn-danger btn-icon btn-fab sellerCancel" data-original-title="" title="">'
 							        + '		<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;거부'
 							        + '</button>'
 							        + '</td></tr>'
@@ -122,20 +122,38 @@
 		
 	}//ready end
 	
+	$(document).on("click", ".sellerUpdate", function() {
+		let targetUserId = $(this).closest("tr").find(".targetUserId").text();
+	    let targetWaitPhone = $(this).closest("tr").find(".targetWaitPhone").text();
+	    let targetWaitEmail = $(this).closest("tr").find(".targetWaitEmail").text();
 	
+	    // 해당 데이터를 폼에 설정
+	    $(".selectUserId").val(targetUserId);
+	    $(".selectWPhone").val(targetWaitPhone);
+	    $(".selectWEmail").val(targetWaitEmail);
+	    $("#sellerApproveForm input[name='approve']").val("Y");
+	
+	    // 승인 여부를 확인하는 다이얼로그
+	    let result = confirm("판매자 가입을 승인하시겠습니까?");
+	    
+	    if (result) {
+	        $("form[name='sellerApproveForm']").submit(); // 폼 제출
+	    }
+	});// click end
+	
+	$(document).on("click", ".sellerCancel", function() {
+	    let targetUserId = $(this).closest("tr").find(".targetUserId").text();
+	    $(".selectUserId").val(targetUserId);
+	    $("#sellerApproveForm input[name='approve']").val("N");
+	    
+	    let result = confirm("판매자 가입을 거부하시겠습니까?");
+	    
+	    if (result) {
+	        $("form[name='sellerApproveForm']").submit();
+	    }
+	});
 	
 	$(function(){
-		$(".sellerUpdate").click(function(){
-			let targetUserId = $(this).closest("tr").find(".targetUserId").text();
-    		$("#selectUserId").val(targetUserId);
-    		
-    		var result = confirm("정말 승인하시겠습니까?");
-		    
-		    if (result) {
-		        $("form[name='sellerApproveForm']").submit();
-		    }
-		})// click end
-		
 		$("#viewcount").change(function(){
 			go(1); 									// 보여줄 페이지를 1페이지로 설정한다
 		

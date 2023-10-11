@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
+import com.itda.ITDA.domain.BoardWarn;
+import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.SellerWaiting;
 import com.itda.ITDA.mybatis.mapper.AdminMapper;
 
@@ -190,5 +192,70 @@ public class adminServiceImpl implements adminService {
 		return dao.getSellerApproveList(map);
 	}
 
+	@Override
+	public int sellerWaitingUpdateY(String userId) {
+		return dao.sellerWaitingUpdateY(userId);
+	}
+
+	@Override
+	public int sellerWaitingUpdateN(String userId) {
+		return dao.sellerWaitingUpdateN(userId);
+	}
+
+	@Override
+	public int getProblemBoardCount() {
+		return dao.getProblemBoardCount();
+	}
+
+	@Override
+	public int getProblemReplyCount() {
+		return dao.getProblemReplyCount();
+	}
+
+	@Override
+	public List<BoardWarn> problemList(int page, int limit) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
+		map.put("start", startrow);
+		map.put("end", endrow);
+		
+		return dao.problemList(map);
+	}
+
+	@Override
+	public int sellerInsert(String userId, String waitPhone, String waitEmail) {
+		return dao.sellerInsert(userId, waitPhone, waitEmail);
+	}
+
+	@Override
+	public int getProblemListCount() {
+		return dao.problemListCount();
+	}
+
+	@Override
+	public int userUpdatePause(String userId) {
+		return dao.userUpdatePause(userId);
+	}
+
+	@Override
+	public int userUpdateStop(String userId) {
+		return dao.userUpdateStop(userId);
+	}
+
+	@Override
+	public int userUpdateClear(String userId) {
+		return dao.userUpdateClear(userId);
+	}
+
+	@Override
+	public List<ReplyWarn> replyProblemDetail(String sickId) {
+		return dao.replyProblemDetail(sickId);
+	}
+
+	@Override
+	public List<BoardWarn> boardProblemDetail(String sickId) {
+		return dao.boardProblemDetail(sickId);
+	}
 	
 }
