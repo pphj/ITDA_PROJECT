@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.service.ChannelList_Service;
 
 //DAO와 Service가 작성되어야 Controller가 완성된다
@@ -39,7 +40,7 @@ public class ChannelListController {
 
 	@RequestMapping(value = "/{chnum}", method = RequestMethod.GET)
 	public ModelAndView showChannelMainPage(@PathVariable(value = "chnum") int chnum, // chnum을 파라미터로 전달 받음
-
+			String userid,
 			ModelAndView mv, HttpServletRequest request) {
 
 		if (chnum == WRONG_CHNUM)
@@ -54,6 +55,9 @@ public class ChannelListController {
 
 		// 채널 리스트를 가져옴
 		ChannelList ChannelList = channelList_Service.getChannelDetail(chnum);
+		
+		// 채널주인 확인
+		Seller sellerinfo = channelList_Service.getSellerInfo(userid);
 
 		if (ChannelList == null)
 		{
@@ -67,6 +71,8 @@ public class ChannelListController {
 			// 채널 정보를 뷰로 전달
 			mv.setViewName("channel/ChannelMain");
 			mv.addObject("ChannelList", ChannelList);
+
+			mv.addObject("sellerinfo", sellerinfo);
 
 			// 채널과 연관된 게시물 목록을 가져옴
 			List<ChBoard> ChannelBoardList = channelList_Service.getBoardListByBoardNum(chnum);
@@ -108,11 +114,13 @@ public class ChannelListController {
 			{ // 전체
 				contentlist = channelList_Service.getAllChannelCategoryData(chnum, order, page, limit);
 				listcount = channelList_Service.getAllChannelCategoryCount(chnum);
+
 			} else
 			{ // 카테고리
 				contentlist = channelList_Service.getChannelCategoryData(chnum, chCate_Id, page, limit);
 				System.out.println(contentlist.get(0).getBoardDate());
 				listcount = channelList_Service.getChannelCategoryCount(chnum, chCate_Id);
+
 			}
 
 			int maxpage = (listcount + limit - 1) / limit;
@@ -136,6 +144,5 @@ public class ChannelListController {
 		}
 		return mv;
 	}
-
 
 }

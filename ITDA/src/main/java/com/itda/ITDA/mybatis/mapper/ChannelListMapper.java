@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.Seller;
 
 @Mapper
 public interface ChannelListMapper {
@@ -32,5 +33,7 @@ public interface ChannelListMapper {
 	List<ChBoard> getChannelCategoryData(HashMap<String, Integer> map);
 
 	int getChannelCategoryCount(int chnum, int chCate_Id);
+
+	Seller getSellerInfo(String userid);
 
 }

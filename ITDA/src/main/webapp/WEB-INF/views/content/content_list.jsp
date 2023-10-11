@@ -89,7 +89,7 @@
 					</div>
 					<div class="category_sorting_wrap">
 						<div class="sorting_wrap">
-							<input type="hidden" name="order" value="${order }">
+							<input type="hidden" name="order" value="${order}">
 							<ul class="sorting_list">
 								<li class="sorting_item" role="radio" aria-checked="true">
 									<a
@@ -119,6 +119,8 @@
 									<div class="content_text">
 										<a class="content_text_link" href="${pageContext.request.contextPath}/contents/${param.chnum}/${b.boardNum}"> 
 										<strong class="content_title" style="color: #666666">${b.chCate_Name}</strong> 
+										 
+										
 											<span class="content_title" style="color: #959595; font-size: 15px;">
 												<c:if test="${b.boardTitle.length()>=20}">
 													<c:out value="${b.boardTitle.substring(0,20)}..." />

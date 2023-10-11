@@ -114,5 +114,12 @@
 	    WHERE chnum = #{chnum}
 	    AND chCate_Id = #{chCate_Id}
 	</select>
+	
+	<select id="getSellerInfo" resultType="Seller">
+	   SELECT * FROM SELLER
+	   WHERE userId = #{userid}
+	</select>
+
+	
 		
 </mapper> 

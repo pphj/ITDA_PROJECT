@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.mybatis.mapper.ChannelListMapper;
 
 @Service
@@ -75,6 +76,11 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	@Override
 	public int getChannelCategoryCount(int chnum, int chCate_Id) {
 		return dao.getChannelCategoryCount(chnum, chCate_Id);
+	}
+
+	@Override
+	public Seller getSellerInfo(String userid) {
+		return dao.getSellerInfo(userid);
 	}
 
 }

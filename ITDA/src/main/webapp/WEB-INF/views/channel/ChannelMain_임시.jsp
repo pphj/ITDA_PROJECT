@@ -42,13 +42,17 @@
 		<div class="wrap_profile_btn">
 			<input type="hidden" name="myWriter" value="false">
 			<span class="#my_follow follow_button_wrapper">
-					<!--  security 적용 해야함 -->
-					<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
-						<span class="txt_default">
-							<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글작성
-						</span>
-					</button>
-				
+			
+					<sec:authorize access="isAuthenticated()">
+	               	<sec:authentication property="principal" var="pinfo"/>
+			               	<c:if test="${sellerinfo.userId == pinfo.userId}">
+								<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
+									<span class="txt_default">
+										<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글작성
+									</span>
+								</button>
+							</c:if>
+					</sec:authorize>
 					
 					<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
 						<span class="txt_default">
@@ -65,7 +69,9 @@
 		
 		<div class="moe_control">
 			<!-- 메뉴더보기 클릭시 ctrl_on 클래스 추가 -->
-						<!--  security 적용 해야함 -->
+			<sec:authorize access="isAuthenticated()">
+            <sec:authentication property="principal" var="pinfo"/>
+            		<c:if test="${ChannelList.ownerId == pinfo.username || pinfo.username =='admin' }">
 						<button type="button" class="setting_button" style="background-color: white; border: none;">
 							<span class="txt_default2">
 								<img class="setting_img" src="${pageContext.request.contextPath}/resources/image/channel/setting.png"
@@ -79,6 +85,8 @@
 						                </div>
 						      </div>
 						 -->
+					</c:if>
+			</sec:authorize>
 		</div><!-- <div class="moe_control"> -->
 	</div>
 	<!-- <div class="wrap_profile"> 채널바 -->
