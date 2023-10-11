@@ -24,8 +24,6 @@ public class SellerServicempl implements SellerService {
 
 	    @Override
 	    public void saveSeller(Seller seller) {
-	        // 판매회원 정보 저장 로직 구현
-
-	        // 예시: 판매회원 정보를 데이터베이스에 저장하는 코드 작성
+	    	sellerMapper.insert(seller);
 	    }
 	}

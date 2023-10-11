@@ -8,5 +8,7 @@ import com.itda.ITDA.domain.Seller;
 public interface SellerMapper {
 	Seller findById(String userId);
 
-	void save(Seller seller);
+	void insert(Seller seller);
+		
+	
 }

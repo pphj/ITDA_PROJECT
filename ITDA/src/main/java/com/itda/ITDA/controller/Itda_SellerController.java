@@ -5,6 +5,7 @@ import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.service.SellerService;
 
 import java.security.Principal;
+import java.sql.Timestamp;
 
 import javax.servlet.http.HttpSession;
 
@@ -30,7 +31,7 @@ public class Itda_SellerController {
         ModelAndView mv = new ModelAndView();
 
         String userId = (String) session.getAttribute("userId");
-        System.out.println("userId" + userId);
+        
         if (userId == null) {
             // 세션에 "userId" 속성이 없는 경우, 로그인 페이지로 리다이렉트하거나 적절한 처리를 수행할 수 있습니다.
             // 여기서는 임시로 로그인 페이지로 리다이렉트합니다.
@@ -48,14 +49,43 @@ public class Itda_SellerController {
 
 
     @PostMapping("/sellerjoinprocess")
-    public String processSellerJoin(@ModelAttribute("seller") Seller seller) {
-        // 판매회원 가입 처리 로직 작성
+    public String processSellerJoin(@RequestParam("userid") String userId,
+                                    @RequestParam("phone") String sellerPhone,
+                                    @RequestParam("email") String sellerEmail,
+                                    HttpSession session) {
+        
+        // 세션에서 사용자 ID 가져오기
+        String sessionUserId = (String) session.getAttribute("userId");
+       
+        if (sessionUserId == null || !sessionUserId.equals(userId)) {
+            return "redirect:/login";
+        }
 
-        // 판매회원 저장
-        sellerService.saveSeller(seller);
-
-        return "redirect:/main";
+        // 이미 판매회원으로 등록된 경우
+        if (sellerService.isSeller(sessionUserId)) {
+            return "redirect:/";  // 이미 판매회원인 경우 리다이렉트할 페이지
+        }
+       
+        Seller seller = new Seller();
+        
+        seller.setUserId(sessionUserId);
+        seller.setSellerPhone(sellerPhone);
+        seller.setSellerEmail(sellerEmail);
+        
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        seller.setSellerJoinDate(currentTimestamp);  // 현재 시간으로 가입 날짜 설정
+        
+       // waitState 컬럼 값 설정 ('W'로 설정)
+       seller.setWaitState("W");
+       
+       // 판매회원 저장
+       sellerService.saveSeller(seller);
+       
+       return "redirect:/";  // 가입 완료 후 리다이렉트할 페이지.
     }
+
+
+
 
 
     @PostMapping("/sellerCheck")
@@ -64,8 +94,6 @@ public class Itda_SellerController {
     		HttpSession session) {
         Itda_User user = (Itda_User) session.getAttribute("user");
         
-        System.out.println("request userId : " + userId);
-
         if (user == null) {
             return "false"; // 로그인되지 않은 경우 false 반환
         }
