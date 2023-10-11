@@ -47,13 +47,13 @@
                 $.ajax({
                     url: contextPath + '/seller/sellerCheck',
                     type: 'POST',
-                    data: {userId : id, _csrf : '${_csrf.token}'},
+                    data: {"userId" : id, _csrf : '${_csrf.token}'},
                     success: function(data) {
                     	console.log(data);
                         if (data == 'true') {
                             alert("이미 판매회원으로 등록된 아이디입니다.");
                         } else {
-                            location.href = contextPath + '/member/Seller_Form.jsp';
+                        	location.href = contextPath + "/seller/join";
                         }
                     },
                     error: function(request, status, error){
