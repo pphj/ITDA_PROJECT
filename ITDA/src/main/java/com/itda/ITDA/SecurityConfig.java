@@ -36,7 +36,8 @@ public class SecurityConfig {
       .antMatchers("/resources/**/**").permitAll()
       .antMatchers("/**/**").permitAll()
       .antMatchers("/joinProcess").permitAll()
-      .antMatchers("/seller/sellerCheck").permitAll(); // "/seller/sellerCheck" 엔드포인트는 권한 없이 접근 허용
+      .antMatchers("/seller/sellerCheck").permitAll()
+      .antMatchers("/resources/static/image/Member/**").authenticated();
       
     /*.antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")
       .antMatchers("/admin/**").access("hasAnyRole('SUPERADMIN','ADMIN')");*/
