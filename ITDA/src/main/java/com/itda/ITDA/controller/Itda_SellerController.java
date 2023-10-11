@@ -88,22 +88,20 @@ public class Itda_SellerController {
 
 
 
-    @PostMapping("/sellerCheck")
-    @ResponseBody
-    public String checkSellerRegistration(@RequestParam("userId") String userId, 
-    		HttpSession session) {
-        Itda_User user = (Itda_User) session.getAttribute("user");
-        
-        if (user == null) {
-            return "false"; // 로그인되지 않은 경우 false 반환
-        }
+	@PostMapping("/sellerCheck")
+	@ResponseBody
+	public String checkSellerRegistration(@RequestParam("userId") String userId, HttpSession session) {
+		Itda_User user = (Itda_User) session.getAttribute("user");
 
-        boolean isRegistered = sellerService.isSeller(userId);
+		if (user != null) { // 로그인된 경우
+			boolean isRegistered = sellerService.isSeller(userId);
 
-		if (isRegistered = true) {
-			return "true"; // 이미 등록된 경우 true 반환
-		} else {
-			return "false"; // 등록되지 않은 경우 false 반환
+			if (isRegistered) {
+				return "true"; // 이미 등록된 경우 true 반환
+			}
 		}
-    }
+
+		return "false"; // 로그인되지 않거나 등록되지 않은 경우 false 반환
+	}
+
 }

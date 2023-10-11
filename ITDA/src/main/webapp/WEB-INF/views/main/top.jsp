@@ -3,36 +3,8 @@
 
 <head>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<%-- <script>
-	$(document).ready(function(){
-		$("#join_seller").click(function(e){
-			var id = `<%= session.getAttribute("userId") %>`;
-			var contextPath = '<%= request.getContextPath() %>';
-			
-			if (id == 'null') {
-				e.preventDefault();
-				alert("로그인이 필요합니다.");
-				
-			}else {
-				$.ajax({
-					type : 'post',
-					url : contextPath + "/sellerCheck",
-					data : {userId : id},
-					success : function (rdata) {
-						if (rdata === "true") {
-							alert("이미 판매회원으로 등록된 아이디입니다.");
-						}else {
-							location.href = contextPath + "/sellerjoin.me";
-						}
-					}
-					
-				});//ajax end
-			}
-			
-		});//click end
-		
-	});//ready end
-</script> --%>
+
+
 
 <!-- 로그인 상태일 때 -->
 <sec:authorize access="isAuthenticated()">
@@ -89,7 +61,7 @@
                 <img class="baimg"
                     src="${pageContext.request.contextPath}/resources/image/common/mainbanner2.png"
                     style="width: 1280px; height: 400px;">
-               <a href="" id="join_seller" style="position:absolute; top: calc(50% + 1cm); left: 50%; transform: translate(-50%, -50%); 
+               <a href="#" id="join_seller" style="position:absolute; top: calc(50% + 1cm); left: 50%; transform: translate(-50%, -50%); 
                padding: 10px 25px; width: 3.5cm; height: 1cm; white-space: nowrap; color:#00c6be;">판매회원 가입하기</a>
 
             </div>
