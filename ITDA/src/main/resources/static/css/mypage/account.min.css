@@ -88,7 +88,18 @@ address,em {
 
 a {
     text-decoration: none;
-    cursor: pointer
+    cursor: pointer;
+    
+}
+
+a:active {
+	color:#959595;
+  text-decoration: none;
+}
+
+a:visited {
+  color:#959595;
+  text-decoration: none;
 }
 
 table {
@@ -118,7 +129,22 @@ hr {
     display: none!important
 }
 
-.gnb_area .gnb_title .text,.gnb_area .logo,.header_service .btn_close::after,.logo_wrap .logo,.path_item .path_name::after,.steal_box .steal_box_title .icon_steal_infor {
+/*header 로고 이미지*/
+.header_logo_img {
+    width: 117px;
+    height: 35px;
+    margin-top: 14px;
+}
+
+/* header 옆 글씨 */
+
+
+.bottom_logo_img{
+	width: 75px;
+	
+}
+
+.gnb_area .gnb_title,.gnb_area .logo,.header_service .btn_close::after,.logo_wrap .logo,.path_item .path_name::after,.steal_box .steal_box_title .icon_steal_infor {
     background-image: url(https://ssl.pstatic.net/static/nid/account/m_sp_00_common_28d50045.png);
     background-size: 157px 137px;
     background-repeat: no-repeat
@@ -130,7 +156,7 @@ hr {
     background-repeat: no-repeat
 }
 
-.account_box .title::after,.alarm_area .alarm_more::after,.alarm_area .alarm_text::before,.alarm_login .alarm_close::before,.alarm_login .icon_alarm_chatbot,.btn_exit::before,.btn_link .text::after,.close_popup,.footer .footer_logo .logo,.footer .guide_link .guide_item.arrow::after,.function_item .icon_camera,.function_item .icon_cloud,.function_item .icon_dustbox,.function_item .icon_z,.function_list .nudge_zepeto::after,.header_edit .btn_before::after,.header_other .other_inner .btn_before::after,.icon_connect,.link_info,.link_list .link_info,.link_right::after,.location_select::after,.manage_box .icon_write::before,.manage_box .name_arrow,.path_item .icon_bell,.path_item .icon_chatbot,.popup_row.select::after,.profile_area .photo .photo_edit::before,.profile_check .typical::before,.profile_check input:checked+.typical::before,.profile_edit_popup .close_popup,.profile_nickname .btn_delete::before,.qrend_close::before,.qrend_text::before,.row_item.abroad::before,.row_item.birth::before,.row_item.connect::before,.row_item.delivery::before,.row_item.history::before,.row_item.list::before,.row_item.lock::before,.row_item.loginalarm::before,.row_item.mail::before,.row_item.name::before,.row_item.only::before,.row_item.other::before,.row_item.person::before,.row_item.phone::before,.row_item.privacy::before,.row_item.step::before,.service_item .icon_cert,.service_item .icon_certificate,.service_item .icon_electronic,.service_item .icon_license,.service_item .icon_qrcheckin,.service_item .icon_qrpass,.service_item .icon_student,.service_item .icon_vaccine,.service_item .icon_vaccine_pass,.service_item .service_state::after,.slider_area .minus::before,.slider_area .minus:hover::before,.slider_area .plus::before,.slider_area .plus:hover::before,.subindex_alarm .alarm_box::after,.subindex_alarm .alarm_box::before,.title_link::after {
+.account_box .title::after,.alarm_area .alarm_more::after,.alarm_area .alarm_text::before,.alarm_login .alarm_close::before,.alarm_login .icon_alarm_chatbot,.btn_exit::before,.btn_link,.close_popup,.footer .footer_logo .logo,.footer .guide_link .guide_item.arrow::after,.function_item .icon_camera,.function_item .icon_cloud,.function_item .icon_dustbox,.function_item .icon_z,.function_list .nudge_zepeto::after,.header_edit .btn_before::after,.header_other .other_inner .btn_before::after,.icon_connect,.link_info,.link_list .link_info,.link_right::after,.location_select::after,.manage_box .icon_write::before,.manage_box .name_arrow,.path_item .icon_bell,.path_item .icon_chatbot,.popup_row.select::after,.profile_area .photo .photo_edit::before,.profile_check .typical::before,.profile_check input:checked+.typical::before,.profile_edit_popup .close_popup,.profile_nickname .btn_delete::before,.qrend_close::before,.qrend_text::before,.row_item.abroad::before,.row_item.birth::before,.row_item.connect::before,.row_item.delivery::before,.row_item.history::before,.row_item.list::before,.row_item.lock::before,.row_item.loginalarm::before,.row_item.mail::before,.row_item.name::before,.row_item.only::before,.row_item.other::before,.row_item.person::before,.row_item.phone::before,.row_item.privacy::before,.row_item.step::before,.service_item .icon_cert,.service_item .icon_certificate,.service_item .icon_electronic,.service_item .icon_license,.service_item .icon_qrcheckin,.service_item .icon_qrpass,.service_item .icon_student,.service_item .icon_vaccine,.service_item .icon_vaccine_pass,.service_item .service_state::after,.slider_area .minus::before,.slider_area .minus:hover::before,.slider_area .plus::before,.slider_area .plus:hover::before,.subindex_alarm .alarm_box::after,.subindex_alarm .alarm_box::before,.title_link::after {
     background-image: url(https://ssl.pstatic.net/static/nid/account/m_sp_01_home_16ebd894.png);
     background-size: 274px 260px;
     background-repeat: no-repeat
@@ -457,21 +483,21 @@ h1,h2,h3,h4,h5,h6 {
 .gnb_area {
     position: relative;
     height: 48px;
-    padding: 13px 10px 10px 56px;
+    padding: 13px 10px 10px 20px;
     box-sizing: border-box
 }
 
 @media all and (min-width: 768px) {
     .gnb_area {
         height:60px;
-        padding: 16px 10px 16px 56px
+        padding: 16px 10px 16px 20px
     }
 }
 
 @media all and (min-width: 1024px) {
     .gnb_area {
         height:78px;
-        padding: 24px 10px 24px 56px
+        padding: 24px 10px 24px 20px
     }
 }
 
@@ -580,7 +606,7 @@ h1,h2,h3,h4,h5,h6 {
     height: 30px;
     border-radius: 50%;
     border: 2px solid #fff;
-    background-color: #02da78;
+    background-color: #00c6be;
     box-shadow: 2px 6px 8px 0 rgba(30,30,35,.08);
     box-sizing: border-box
 }
@@ -1509,7 +1535,16 @@ h1,h2,h3,h4,h5,h6 {
     display: block;
     padding: 15px 38px 13px 18px;
     border-radius: 12px 12px 0 0;
-    background-image: linear-gradient(98deg,#03c75a,#49c6dd)
+    border-bottom: 1px solid #333333; 
+/*     background-image: linear-gradient(98deg,#03c75a,#49c6dd) */
+}
+
+.account_box .title2 {
+    position: relative;
+    display: block;
+    padding: 15px 38px 13px 18px;
+    border-radius: 12px 12px 0 0;
+/*     background-image: linear-gradient(98deg,#03c75a,#49c6dd) */
 }
 
 .account_box .title::after {
@@ -1528,7 +1563,22 @@ h1,h2,h3,h4,h5,h6 {
     font-weight: 700;
     line-height: 20px;
     letter-spacing: -.19px;
-    color: #fff
+    color: #333333
+
+}
+
+.account_box .title_text2 {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -.19px;
+    color: #959595
+
+}
+
+.href-title{
+	color: #959595;
+	font-size: 14px;
+	text-decoration:none;
 }
 
 .account_box .account_row {
@@ -3803,7 +3853,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .btn_accent .text {
-    color: #03c75a
+    color: #00c6be;
 }
 
 @media all and (max-width: 320px) {
@@ -4023,7 +4073,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .contact_edit_title .accent {
-    color: #03c75a
+    color: #00c6be;
 }
 
 .contact_edit_title .bold {
@@ -4194,7 +4244,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .btn_duo_popup .btn_item.on {
-    background-color: #03d580
+    background-color: #00c6be;
 }
 
 .btn_duo_popup .btn_item .btn_text {

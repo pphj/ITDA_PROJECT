@@ -48,7 +48,7 @@ $(function() {
 
         $.ajax({
             type: "POST",
-            url: contextpath + "/user/myInfo/passwdCheck", 
+            url: contextpath + "/user/passwdCheck", 
             beforeSend : function(xhr){
         		xhr.setRequestHeader(header, token);
         	},
@@ -135,12 +135,12 @@ function initializeForm(){
 	document.getElementById("lb_conf_pw").style.display = "block";
 	document.getElementById("chkBlockIp").checked = false;
 }
-
+*/
 function goSecurityAfterCancel(){
 	document.location.href = "${pageContext.request.contextPath}/user/myInfo";
 }
 
-
+/*
 function hiddenText(objName){
 	document.getElementById(objName).className = "blind";
 }
@@ -166,39 +166,43 @@ function convertDiv(obj, stat){
  
 
 </script>
+<jsp:include page="../../include/header.jsp"></jsp:include>
 </head>
 
 <body onclick="clearDocs();gnbClose();" id="mainBody">
+<div class="contentbodywrap">
 <div id="wrap">
 	<!-- 스킵네비게이션 : 웹접근성대응-->
 	<div id="u_skip">
 <!-- [D] 주메뉴가 존재하는 페이지에 적용 -->
-<a href="#lnb" onclick="document.getElementById('lnb_area').tabIndex=-1;document.getElementById('lnb_area').focus();return false;"><span>주메뉴로 바로가기</span></a>
+<!-- <a href="#lnb" onclick="document.getElementById('lnb_area').tabIndex=-1;document.getElementById('lnb_area').focus();return false;"><span>주메뉴로 바로가기</span></a>
 <a href="#content" onclick="document.getElementById('content').tabIndex=-1;document.getElementById('content').focus();return false;"><span>본문으로 바로가기</span></a>
-	</div>
+ -->	</div>
 	<!-- //스킵네비게이션 -->
 	<div id="header">
-		<div class="top">
+<%-- 		<div class="top">
 			<h1>
-				<a href="http://www.naver.com" target="_top" onclick="clickcr(this,'STA.naver','','',event);" class="link_logo"><span class="sptxt">NAVER</span><em></em></a>
-				<a href="/user2/help/myInfo?lang=ko_KR" onclick="clickcr(this,'STA.my','','',event);" class="link_subtit "><span class="sptxt">네이버ID</span><em></em></a>
+			   <a href="${pageContext.request.contextPath}/" onclick="clickcr(this,'STA.my','','',event);">
+       			 <img class="header_logo_img" src="${pageContext.request.contextPath}/resources/image/common/itda_logo6.png">
+            <span class="blind">잇다</span>
+				<a href="http://www.naver.com" target="_top" onclick="clickcr(this,'STA.naver','','',event);"><span class="sptxt">NAVER</span><em></em></a>
+				<a href="/user2/help/myInfo?lang=ko_KR" onclick="clickcr(this,'STA.my','','',event);" ><span class="sptxt">네이버ID</span><em></em></a>
 			</h1>
 			<div class="gnb_area">
 				<div id="gnb" class="gnb_one">
 					<script type='text/javascript' charset='utf-8' src='https://static.nid.naver.com/template/gnb_utf8.nhn?2023. 10. 5'></script>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 		<div id="lnb_area">
 			<div class="lnb">
 	            <ul role="menu">
 					<li id="nid" role="presentation"><a href="${pageContext.request.contextPath}/user/myInfo" role="menuitem" onclick="clickcr(this,'lnb.info','','',event);">내프로필<em></em></a></li>
-					<li id="security" role="presentation"><a href="/user2/help/myInfoV2?m=viewSecurity&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.protect','','',event);">보안설정<em></em></a></li>
-					<li id="manageHistory" role="presentation"><a href="/user2/help/myInfoV2?m=viewManageHistory&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.history','','',event);">이력관리<em></em></a></li>
+<!-- 					<li id="security" role="presentation"><a href="/user2/help/myInfoV2?m=viewSecurity&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.protect','','',event);">보안설정<em></em></a></li>
+					<li id="manageHistory" role="presentation"><a href="/user2/help/myInfoV2?m=viewManageHistory&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.history','','',event);">이력관리<em></em></a></li> -->
 				</ul>
 			</div>
 		</div>
-	</div>
 	</div>
 
 	<div id="container">
@@ -446,8 +450,6 @@ function convertDiv(obj, stat){
 					<p class="btn_area_btm">
 						<button type="submit" id="changeSubmit">확인</button>
 						<button type="button" onclick="goSecurityAfterCancel();">취소</button>
-<%-- 					<button type="submit" id="changeSubmit" onclick="clickcr(this,'npw.confirm','','',event);">확인</button>
-						<button type="button" onclick="goSecurityAfterCancel(); clickcr(this,'npw.reload','','',event);">취소</button> --%>
 					</p>
 				</fieldset>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
@@ -458,7 +460,10 @@ function convertDiv(obj, stat){
 	<!-- //section_pwconfirm -->
 </div>
 </div>
+
 <hr />
+
+
 
 <script type="text/javascript">
 
@@ -499,23 +504,26 @@ $("#fm").submit(function(e) {
     // 양식을 제출합니다.
     $("#fm").submit();
     return true;
+    
 }); */
 
     var _submitFlag = false;
     var addform = $("#fm");
 
     $("#changeSubmit").on("click", function(event) {
+		event.preventDefault();
         if(_submitFlag = false){
         	return false;
         }else if(!mainSubmit()){
         	 return false;
         }else{
-			event.preventDefault();
         	let contextpath = "${pageContext.request.contextPath}";
         	
 			 $("#fm").attr("action", contextpath + "/user/myInfo/passWdChangePro"); // 경로와 메서드 속성을 설정합니다.
 			 $("#fm").attr("method", "POST");
 			 $("#fm").submit();
+			 
+			 alert("비밀번호가 변경 되었습니다.");
 			 
         }
 
@@ -527,6 +535,13 @@ $("#fm").submit(function(e) {
 
 
 </script>
+	</div>
+
+ 	<div id="footer">
+
+</div>
+</div>
+ 	<jsp:include page="../../include/footer.jsp"></jsp:include>
 
 
 

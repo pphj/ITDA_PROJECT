@@ -81,7 +81,7 @@ public class UserInfoController {
 				
 		String id = principal.getName();
 		
-		Map map = new HashMap();
+		Map<String, String> map = new HashMap<String, String>();
 		
 		map.put("userId", id);
 		map.put("userPost", user.getUserPost());
@@ -113,7 +113,7 @@ public class UserInfoController {
 	
 	// 기존 비밀번호 일치여부 확인
 	@ResponseBody
-	@RequestMapping("myInfo/passwdCheck")
+	@RequestMapping("/passwdCheck")
 	public int checkPasswd(	@RequestParam("userPw") String userPw, 
 							Principal principal) throws Exception {
 		
@@ -140,7 +140,7 @@ public class UserInfoController {
 	}
 	
 	// 비밀번호 변경
-	@PostMapping("myInfo/passWdChangePro")
+	@PostMapping("/passWdChangePro")
 	public String passWdChangeProcess(Itda_User user,
 									Principal principal) {
 		
@@ -167,6 +167,27 @@ public class UserInfoController {
 		
 	}
 			
+	@RequestMapping("/myProfile")
+	public String changeMyProfile() {
+		return "mypage/userinfo/myProfile";
+	}
+	
+	@RequestMapping("/leave")
+	public String userLeaveView() {
+		return "mypage/userinfo/userLeave";
+	}
+	
+	@PostMapping("leave/passwdInput")
+	public String userLeavePasswdInput() {
+		return "mypage/userinfo/userLeave_pw_input";
+	}
+	
+	@PostMapping("leave/leaveReason")
+	public String userLeaveReason() {
+		return "mypage/userinfo/userLeaveReason";
+	}
+	
+	
 	
 
 }
