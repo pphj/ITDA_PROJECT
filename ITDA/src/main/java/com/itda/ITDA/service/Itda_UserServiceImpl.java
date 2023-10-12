@@ -1,5 +1,6 @@
 package com.itda.ITDA.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
 
 @Service
@@ -68,6 +70,18 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		dao.pwUpdate(map);
 		
 	}
+
+	@Override
+	public Itda_User getUserName(String id) {
+		return dao.getUserName(id);
+	}
+
+	@Override
+	public List<UserLeaveReason> getLeaveReasonCategory() {
+		return dao.getLeaveReasonCategory();
+	}
+
+
 	
 	
 

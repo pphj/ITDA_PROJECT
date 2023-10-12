@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -112,11 +114,11 @@ function mainSubmit(){
     if(!isChecked){
         alert('탈퇴사유를 선택해 주세요.');
         return;
-    }else if(isChecked && radioCheckedValue == '11' && document.fm.proposal.value == ""){
+    }else if(isChecked && radioCheckedValue == '9' && document.fm.proposal.value == ""){
         alert('잇다에 바라는 점을 입력해 주세요.');
         document.fm.proposal.focus();
         return;
-    } else if(isChecked && radioCheckedValue == '11' && document.fm.proposal.value.length > 100 ){
+    } else if(isChecked && radioCheckedValue == '9' && document.fm.proposal.value.length > 100 ){
         alert('잇다에 바라는 점을 100자 이내로 입력해 주세요.');
         document.fm.proposal.value="";
         document.fm.proposal.focus();
@@ -322,16 +324,17 @@ function showMenu(subMenu) {
 		<div class="sd2_header">
 			<h3>탈퇴아이디 확인</h3>
 		</div>
+		<sec:authentication property="principal" var="pinfo" />
 
 		<table class="table2">
 			<col style="width:125px"><col>
 			<tr class="first">
 				<th scope="row">아이디</th>
-				<td>{}</td>
+				<td>${pinfo.username}</td>
 			</tr>
 			<tr>
 				<th scope="row">이름</th>
-				<td>{}</td>
+				<td>${userName.userName}</td>
 			</tr>
 		</table>
 		
@@ -344,19 +347,21 @@ function showMenu(subMenu) {
 			
 			<div class="box3">
 				<ul>
-					<li><input name="reason" type="radio" value="1" class="input_radio" id="rs1" onclick="javascript:void(setTextbox('unset'));" /><label for="rs1">사생활 기록 삭제 목적</label></li>
-					<li><input name="reason" type="radio" value="2" class="input_radio" id="rs2" onclick="javascript:void(setTextbox('unset'));" /><label for="rs2">새 아이디 생성 목적</label></li>
-					<li><input name="reason" type="radio" value="3" class="input_radio" id="rs3" onclick="javascript:void(setTextbox('unset'));" /><label for="rs3">이벤트 등의 목적으로 한시 사용함</label></li>
-					<li><input name="reason" type="radio" value="4" class="input_radio" id="rs4" onclick="javascript:void(setTextbox('unset'));" /><label for="rs4">서비스 기능 불편</label></li>
-					<li><input name="reason" type="radio" value="5" class="input_radio" id="rs5" onclick="javascript:void(setTextbox('unset'));" /><label for="rs5">제재조치로 이용제한됨</label></li>
-					<li><input name="reason" type="radio" value="6" class="input_radio" id="rs6" onclick="javascript:void(setTextbox('unset'));" /><label for="rs6">네이버 정책 불만</label></li>
-					<li><input name="reason" type="radio" value="7" class="input_radio" id="rs7" onclick="javascript:void(setTextbox('unset'));" /><label for="rs7">개인정보 및 보안 우려</label></li>
-					<li><input name="reason" type="radio" value="8" class="input_radio" id="rs8" onclick="javascript:void(setTextbox('unset'));" /><label for="rs8">네이버 이용 안 함</label></li>
+				<c:forEach var="reason" items="${reason}" begin="0" end="7">
+				    <li>
+				        <input name="reason" type="radio" value="${reason.leaveReason_id}" class="input_radio" id="rs_${reason.leaveReason_id}" onclick="javascript:void(setTextbox('unset'));" />
+				        <label for="rs_${reason.leaveReason_id}">${reason.leaveReason_name}</label>
+				    </li>
+				</c:forEach>
 					<li class="last">
-						<input name="reason" type="radio" value="9" class="input_radio" id="rs9" onclick="javascript:void(setTextbox('set'));" /><label for="rs9">기타</label>
+						<c:forEach var="reason" items="${reason}" varStatus="status">
+						    <c:if test="${status.index eq 8}">
+						        <input name="reason" type="radio" value="9" class="input_radio" id="rs9" onclick="javascript:void(setTextbox('set'));" />${reason.leaveReason_name}<label for="rs9"></label>
+						    </c:if>
+						</c:forEach>
 						<!-- [D] 감추기 보이기 display:block/none -->
 						<div class="txtbox_w" id="div_proposal" style="display:block">
-							<textarea type="text" name="proposal" id="proposal" title="탈퇴 사유 입력" 
+							<textarea type="text" name="userLeaveReason" id="proposal" title="탈퇴 사유 입력" 
 						          cols="40" rows="2"  
 						          onkeyup="chr_type(this.value, event);" 
 						          onclick="javascript:void(setTextArea());" 
@@ -375,6 +380,7 @@ function showMenu(subMenu) {
 					<a href="${pageContext.request.contextPath}" onclick="clickcr(this,'otn.quitappcancel','','',event);" class="btn_model"><b class="btn2">탈퇴취소</b></a>
 				</p>
 			</div>
+			  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		</form>
 
 	<div id="footer">
