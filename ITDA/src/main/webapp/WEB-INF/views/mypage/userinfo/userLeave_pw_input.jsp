@@ -89,6 +89,8 @@ function mainSubmit() {
             } else {
                 $("#upw").html("비밀번호 불일치");
                 alert("비밀번호가 일치하지 않습니다.");
+                document.fm.upw.value = "";
+                document.fm.upw.focus();
                 checkPw = false;
             }
         },
