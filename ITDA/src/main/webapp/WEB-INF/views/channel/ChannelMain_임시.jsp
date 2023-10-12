@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,21 +13,12 @@
 <link href="${pageContext.request.contextPath}/resources/css/channel/ChanelMain_info.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/channel/ChanelMain_category.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/channel/ChanelMain_Seller.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/resources/css/channel/ChanelMain_Sellercategory.css" rel="stylesheet"
-	type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/channel/ChanelMain_Sellercategory.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/channel/ChanelMain_Sellerinfo.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/channel/B.Home.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/channel/ChannelMain.js"></script>
 <jsp:include page="../include/header.jsp" />
-<script>
-$(document).ready(function(){
-  $("#settingButton").click(function(){
-    $(".layer_action_ctrl").toggle();
-  });
-});
-</script>
 </head>
 <body>
 	<!--  채널바  -->
@@ -41,7 +32,9 @@ $(document).ready(function(){
 			<strong class="profileUserName tit_bloger">${ChannelList.chName}</strong>
 			<dl class="blog_count ">
 				<dd>
-					<a href="/@garangbimaker/follower" class="link_count #follower"> <em class="txt_g">구독자</em> <span class="num_count">4,460</span>
+					<a href="/@garangbimaker/follower" class="link_count #follower">
+						<em class="txt_g">구독자</em>
+						<span class="num_count">4,460</span>
 					</a>
 				</dd>
 			</dl>
@@ -49,47 +42,52 @@ $(document).ready(function(){
 		<div class="wrap_profile_btn">
 			<input type="hidden" name="myWriter" value="false">
 			<span class="#my_follow follow_button_wrapper">
-				<!--  security 적용 해야함 -->
-				<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
-					<span class="txt_default">
-						<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글작성
-					</span>
-				</button>
-
-
-				<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
-					<span class="txt_default">
-						<img class="ico_plus" src="../image/channel/ico-plus.png" alt="알림 버튼 아이콘">알림
-					</span>
-				</button>
-				<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
-					<span class="txt_default">
-						<img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 버튼 아이콘">구독
-					</span>
-				</button>
+			
+					<sec:authorize access="isAuthenticated()">
+	               	<sec:authentication property="principal" var="pinfo"/>
+			               	<c:if test="${sellerinfo.userId == pinfo.userId}">
+								<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
+									<span class="txt_default">
+										<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글작성
+									</span>
+								</button>
+							</c:if>
+					</sec:authorize>
+					
+					<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
+						<span class="txt_default">
+							<img class="ico_plus" src="../image/channel/ico-plus.png" alt="알림 버튼 아이콘">알림
+						</span>
+					</button>
+					<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
+						<span class="txt_default">
+							<img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 버튼 아이콘">구독
+						</span>
+					</button>
 			</span>
-		</div>
-		<!-- <div class="wrap_profile_btn"> -->
-
+		</div><!-- <div class="wrap_profile_btn"> -->
+		
 		<div class="moe_control">
 			<!-- 메뉴더보기 클릭시 ctrl_on 클래스 추가 -->
-			<!--  security 적용 해야함 -->
-			<button type="button" class="setting_button" style="background-color: white; border: none;" id="settingButton">
-				<span class="txt_default2">
-					<img class="setting_img" src="${pageContext.request.contextPath}/resources/image/channel/setting.png"
-						style="width: 30px; height: 30px; padding-left: 660px; opacity: 0.6;" alt="메뉴 더보기">
-				</span>
-			</button>
-
-			<div class="layer_action_ctrl" style="display: none;">
-				<div class="inner_action_ctrl">
-					<button type="button" class="btnBlockProfile btn_ctrl requireLogin">차단하기</button><br>
-					<button type="button" class="btnReportProfile btn_ctrl requireLogin">신고하기</button>
-				</div>
-			</div>
-
-		</div>
-		<!-- <div class="moe_control"> -->
+			<sec:authorize access="isAuthenticated()">
+            <sec:authentication property="principal" var="pinfo"/>
+            		<c:if test="${ChannelList.ownerId == pinfo.username || pinfo.username =='admin' }">
+						<button type="button" class="setting_button" style="background-color: white; border: none;">
+							<span class="txt_default2">
+								<img class="setting_img" src="${pageContext.request.contextPath}/resources/image/channel/setting.png"
+									style="width: 30px; height: 30px; padding-left: 660px; opacity: 0.6;" alt="메뉴 더보기">
+							</span>
+						</button>
+						<!-- <div class="layer_action_ctrl">
+						                <div class="inner_action_ctrl">
+						                       <button type="button" class="btnBlockProfile btn_ctrl requireLogin">차단하기</button>
+						                       <button type="button" class="btnReportProfile btn_ctrl requireLogin">신고하기</button>
+						                </div>
+						      </div>
+						 -->
+					</c:if>
+			</sec:authorize>
+		</div><!-- <div class="moe_control"> -->
 	</div>
 	<!-- <div class="wrap_profile"> 채널바 -->
 
@@ -108,27 +106,26 @@ $(document).ready(function(){
 					class="txt_tab">카테고리</span>
 			</a></li>
 		</ul> -->
-
+		
 		<ul id="contentsTab" class="list_tab">
 			<li>
-				<a href="javascript:void(0);" class="infoTab link_tab #info_open" id="info_tab" onclick="onTabClick('info')"> <span
-						class="txt_tab">채널소개</span>
+				<a href="javascript:void(0);" class="infoTab link_tab #info_open" id="info_tab" onclick="onTabClick('info')">
+					<span class="txt_tab">채널소개</span>
 				</a>
 			</li>
 			<li>
-				<a href="javascript:void(0);" class="articleTab link_tab" id="articles_tab" onclick="onTabClick('articles')"> <span
-						class="txt_tab">게시글</span>
+				<a href="javascript:void(0);" class="articleTab link_tab" id="articles_tab" onclick="onTabClick('articles')">
+					<span class="txt_tab">게시글</span>
 				</a>
 			</li>
 			<li>
-				<a href="javascript:void(0);" class="magazineTab link_tab" id="works_tab" onclick="onTabClick('works')"> <span
-						class="txt_tab">카테고리</span>
+				<a href="javascript:void(0);" class="magazineTab link_tab" id="works_tab" onclick="onTabClick('works')">
+					<span class="txt_tab">카테고리</span>
 				</a>
 			</li>
 		</ul>
-	</div>
-	<!-- <div class="tab_contents"> 탭 메뉴-->
-
+	</div><!-- <div class="tab_contents"> 탭 메뉴-->
+	
 	<main>
 		<div class="wrap_contents">
 			<!-- 게시글(글) -->
@@ -151,15 +148,17 @@ $(document).ready(function(){
 								<ul class="list_article list_post1 #post_list">
 									<li data-articleuid="xTI_303" class="animation_up" data-tiara-action-name="작가 프로필 > 글탭 > 리스트 클릭"
 										data-tiara-action-kind="ClickContent" data-tiara-layer="articles" data-tiara-id="@@xTI">
-										<a href="/magazine/whatwetalkabout" class="link_category"> <em class="tit_category">${c.chCate_Name}</em>
-										</a> <a href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}"
-											class="link_post has_image #post_listview"> <strong class="tit_subject"> <%-- 글자 수 제한 적용 --%> <c:set
-													var="limitedTitle" value="${c.boardTitle}" /> <c:choose>
+										<a href="/magazine/whatwetalkabout" class="link_category">
+											<em class="tit_category">${c.chCate_Name}</em>
+										</a>
+										<a href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}"
+											class="link_post has_image #post_listview">
+											<strong class="tit_subject"> <%-- 글자 수 제한 적용 --%> <c:set var="limitedTitle" value="${c.boardTitle}" /> <c:choose>
 													<c:when test="${fn:length(c.boardTitle) > 35}">
 														<c:set var="limitedTitle" value="${fn:substring(c.boardTitle, 0, 35)}..." />
 													</c:when>
 												</c:choose> ${limitedTitle}
-										</strong>
+											</strong>
 
 											<div class="post_thumb">
 												<img class="img_thumb" src="../image/contents/${ChannelList.chNum}/a/${c.thumbNail}"
@@ -173,7 +172,9 @@ $(document).ready(function(){
 													<span class="ico_bar"></span>
 													<span class="article_content"> ${c.intro} </span>
 												</div>
-											</div> <!-- 
+											</div>
+
+											<!-- 
 											<span class="post_append" style="white-space: nowrap">
 												<span class="ico_dot"></span>
 												<span class="publish_time">8시간전</span>
@@ -182,14 +183,10 @@ $(document).ready(function(){
 									</li>
 								</ul>
 							</c:forEach>
-						</div>
-						<!-- <div class="wrap_article_list"> -->
-					</div>
-					<!-- 	<div id="wrapArticle" class="wrap_article #my_post"> -->
-				</div>
-				<!-- <div class="wrap_contents"> 게시글 -->
-			</div>
-			<!--<div class="tab_content">-->
+						</div><!-- <div class="wrap_article_list"> -->
+					</div><!-- 	<div id="wrapArticle" class="wrap_article #my_post"> -->
+				</div><!-- <div class="wrap_contents"> 게시글 -->
+			</div><!--<div class="tab_content">-->
 
 			<!-- 작가소개 -->
 			<div class="tab_content" id="info">
@@ -217,9 +214,8 @@ $(document).ready(function(){
 							<a href="/keyword/profile/교수" class="link_tag #profilekeyword">교수</a>
 						</li>
 					</ul> -->
-				</div>
-				<!-- <div class="author_intro animation_up"> 작가소개 -->
-
+				</div><!-- <div class="author_intro animation_up"> 작가소개 -->
+				
 				<!-- 통계 -->
 				<div class="author_intro animation_up">
 					<strong class="tit_intro">구독자 통계</strong>
@@ -333,30 +329,29 @@ $(document).ready(function(){
 				<!-- 	<div class="author_intro animation_up"> 통계 -->
 			</div>
 			<!-- <div class="tab_content" -->
-
+			
 			<!-- 카테고리 내용 -->
 			<div class="tab_content" id="works">
 				<div class="category_wrap_contents">
 					<ul class="channel_category_list">
 						<li class="channel_category_item">
-							<a
-								href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_id=0&chname=${ChannelList.chName}"
-								class="channel_category_link"> <strong class="channel_category_name">전체</strong> <!-- <div class="channel_category_num">493</div>  -->
+							<a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_id=0&chname=${ChannelList.chName}" class="channel_category_link">
+								<strong class="channel_category_name">전체</strong>
+										<!-- <div class="channel_category_num">493</div>  -->
 							</a>
 						</li>
 						<c:forEach var="c" items="${ChannelCategory}">
-							<li class="channel_category_item">
-								<a
-									href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}"
-									class="channel_category_link"> <strong class="channel_category_name">${c.chCate_Name}</strong> <!-- <div class="channel_category_num">갯수</div> -->
+							<li class="channel_category_item">	
+								<a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}" 
+										class="channel_category_link">
+ 									<strong class="channel_category_name">${c.chCate_Name}</strong>
+										<!-- <div class="channel_category_num">갯수</div> -->								
 								</a>
 							</li>
 						</c:forEach>
 					</ul>
-				</div>
-				<!-- 	<div class="wrap_contents"> 카테고리 -->
-			</div>
-			<!-- <div class="tab_content"> -->
+				</div><!-- 	<div class="wrap_contents"> 카테고리 -->
+			</div><!-- <div class="tab_content"> -->
 		</div>
 		<!-- <div class="wrap_contents"> -->
 	</main>

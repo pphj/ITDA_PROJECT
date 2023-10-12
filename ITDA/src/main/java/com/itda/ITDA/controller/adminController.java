@@ -23,8 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
+import com.itda.ITDA.domain.BoardWarn;
 import com.itda.ITDA.domain.PaginationDTO;
 import com.itda.ITDA.domain.QnaReply;
+import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.SellerWaiting;
 import com.itda.ITDA.service.adminService;
 import com.itda.ITDA.service.qnaReplyService;
@@ -644,10 +646,159 @@ public class adminController {
 		return mv;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/sellerApproveList_ajax")
+	public Map<String, Object> sellerApproveListAjax(
+			@RequestParam(value="page", defaultValue="1", required=false) int page,
+			@RequestParam(value="limit", defaultValue="10", required=false) int limit){
+		
+		PaginationDTO p = calculatePagination(page, limit, adminService.getSellerApproveListCount());
+		
+		List<SellerWaiting> sellerApproveList = adminService.getSellerApproveList(page, limit);	//리스트를 받아옴
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("page", page);
+		map.put("maxpage", p.getMaxPage());
+		map.put("startpage", p.getStartPage());
+		map.put("endpage", p.getEndPage());
+		map.put("listcount", p.getListCount());
+		map.put("sellerApproveList", sellerApproveList);				//해당 페이지의 글 목록 리스트
+		map.put("limit", limit);
+		return map;
+	}
+	
+	@PostMapping("/sellerApproveUpdate")
+	public String sellerApproveUpdate(
+			@RequestParam(value="userId") String userId,
+			@RequestParam(value="waitPhone") String waitPhone,
+			@RequestParam(value="waitEmail") String waitEmail,
+			@RequestParam(value="approve") String approve, Model mv,
+			HttpServletRequest request) throws Exception {
+		
+		String url = "";
+		int updateResult = 0;
+		int insertResult = 0;
+		
+		if(approve.equals("Y")) {
+			insertResult = adminService.sellerInsert(userId, waitPhone, waitEmail);
+			updateResult = adminService.sellerWaitingUpdateY(userId);
+		}else if (approve.equals("N")) {
+			updateResult = adminService.sellerWaitingUpdateN(userId);
+		}
+		
+		if (updateResult == 0 || insertResult == 0) {
+			logger.info("상태 수정 실패");
+			mv.addAttribute("url", request.getRequestURL());
+			mv.addAttribute("message", "상태 수정 실패");
+			url = "error/error";
+		}
+		if (updateResult == 1 && insertResult ==1) {
+			logger.info("상태 수정 완료");
+			mv.addAttribute("url", request.getRequestURL());
+			mv.addAttribute("message", "상태 수정 완료");
+			url = "redirect:sellerApprove";
+		}
+		return url;
+	}
 	
 	@RequestMapping(value="/problem")
-	public ModelAndView SetProblem(ModelAndView mv) {
+	public ModelAndView SetProblem(@RequestParam(value="page",
+				defaultValue="1",required=false) int page, ModelAndView mv) {
+		PaginationDTO pb = calculatePagination(page, 10, adminService.getProblemBoardCount());
+		PaginationDTO pr = calculatePagination(page, 10, adminService.getProblemReplyCount());
+		
+		PaginationDTO p = calculatePagination(page, 10, adminService.getProblemListCount());
+		List<BoardWarn> problemList = adminService.problemList(page, 10);
+		
+		mv.addObject("page", page);
+		mv.addObject("maxpage", p.getMaxPage());		
+		mv.addObject("startpage", p.getStartPage());	
+		mv.addObject("endpage", p.getEndPage());		
+		mv.addObject("listcount", p.getListCount());
+		mv.addObject("sumListCount", pb.getListCount() + pr.getListCount());
+		mv.addObject("problemList", problemList);
+		mv.addObject("limit", 10);
 		mv.setViewName("admin/problem");
 		return mv;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/problemList_ajax")
+	public Map<String, Object> problemListAjax(
+			@RequestParam(value="page", defaultValue="1", required=false) int page,
+			@RequestParam(value="limit", defaultValue="10", required=false) int limit){
+		
+		PaginationDTO pb = calculatePagination(page, limit, adminService.getProblemBoardCount());
+		PaginationDTO pr = calculatePagination(page, limit, adminService.getProblemReplyCount());
+		
+		PaginationDTO p = calculatePagination(page, limit, adminService.getProblemListCount());
+		List<BoardWarn> problemList = adminService.problemList(page, limit);	//리스트를 받아옴
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("page", page);
+		map.put("maxpage", p.getMaxPage());
+		map.put("startpage", p.getStartPage());
+		map.put("endpage", p.getEndPage());
+		map.put("listcount", p.getListCount());
+		map.put("sumListCount", pb.getListCount() + pr.getListCount());
+		map.put("problemList", problemList);				//해당 페이지의 글 목록 리스트
+		map.put("limit", limit);
+		return map;
+	}
+	
+	@PostMapping("/problemUpdate")
+	public String problemUpdate(@RequestParam(value="userId") String userId,
+								@RequestParam(value="approve") int approve, Model mv,
+								HttpServletRequest request) throws Exception {
+		
+		String url = "";
+		int updateResult = 0;
+		
+		if(approve == 2) {				//일시정지
+			updateResult = adminService.userUpdatePause(userId);
+		}else if (approve == 3) {		//정지
+			updateResult = adminService.userUpdateStop(userId);
+		}else if (approve == 1) {		//해제(정상)
+			updateResult = adminService.userUpdateClear(userId);
+		}
+		
+		if (updateResult == 0) {
+			logger.info("회원상태 수정 실패");
+			mv.addAttribute("url", request.getRequestURL());
+			mv.addAttribute("message", "회원상태 수정 실패");
+			url = "error/error";
+		}
+		if (updateResult == 1) {
+			logger.info("회원상태 수정 완료");
+			mv.addAttribute("url", request.getRequestURL());
+			mv.addAttribute("message", "회원상태 수정 완료");
+			url = "redirect:problem";
+		}
+		return url;
+	}
+	
+	@GetMapping("/problem/{sickId}")
+	public ModelAndView problemDetail(
+			@PathVariable("sickId") String sickId, ModelAndView mv, HttpServletRequest request,
+			@RequestHeader(value="referer", required=false) String beforeURL) {
+		
+		logger.info("referer : " + beforeURL);
+		
+		List<BoardWarn> boardProblemData = adminService.boardProblemDetail(sickId);
+		List<ReplyWarn> replyProblemData = adminService.replyProblemDetail(sickId);
+		if (boardProblemData == null || replyProblemData == null) {
+			logger.info("problem 상세보기 실패");
+			mv.addObject("url", request.getRequestURI());
+			mv.addObject("message", "problem 상세보기 실패");
+		}else {
+			logger.info("problem 상세보기 성공");
+			mv.setViewName("admin/problem_View");
+			mv.addObject("boardProblemData", boardProblemData);
+			mv.addObject("replyProblemData", replyProblemData);
+		}
+		return mv;
+	}
+	
+	
+	
 }
