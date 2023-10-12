@@ -9,9 +9,10 @@ import org.apache.ibatis.annotations.Mapper;
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
 import com.itda.ITDA.domain.BoardWarn;
+import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.QnaReply;
 import com.itda.ITDA.domain.ReplyWarn;
-import com.itda.ITDA.domain.SellerWaiting;
+import com.itda.ITDA.domain.Seller;
 
 @Mapper
 public interface AdminMapper {
@@ -74,19 +75,17 @@ public interface AdminMapper {
 
 	public int getSellerApproveListCount();
 
-	public List<SellerWaiting> getSellerApproveList(HashMap<String, Integer> map);
+	public List<Seller> getSellerApproveList(HashMap<String, Integer> map);
 
-	public int sellerWaitingUpdateY(String userId);
+	public int sellerUpdateY(String userId, String adminId);
 
-	public int sellerWaitingUpdateN(String userId);
+	public int sellerUpdateN(String userId, String adminId);
 
 	public int getProblemBoardCount();
 	
 	public int getProblemReplyCount();
 
 	public List<BoardWarn> problemList(HashMap<String, Integer> map);
-
-	public int sellerInsert(String userId, String waitPhone, String waitEmail);
 
 	public int problemListCount();
 
@@ -99,6 +98,12 @@ public interface AdminMapper {
 	public List<ReplyWarn> replyProblemDetail(String sickId);
 
 	public List<BoardWarn> boardProblemDetail(String sickId);
+
+	public int getCouponListCount();
+
+	public List<Coupon> couponList(HashMap<String, Integer> map);
+
+	public void couponInsert(Coupon couponData);
 
 
 
