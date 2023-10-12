@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
 import com.itda.ITDA.domain.BoardWarn;
+import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.ReplyWarn;
-import com.itda.ITDA.domain.SellerWaiting;
+import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.mybatis.mapper.AdminMapper;
 
 @Service
@@ -22,6 +23,17 @@ public class adminServiceImpl implements adminService {
 		this.dao = dao;
 	}
 	
+	//리스트 공통 사용 메소드
+	public HashMap<String, Integer> listLogic (int page, int limit) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
+		map.put("start", startrow);
+		map.put("end", endrow);
+		
+		return map;
+	}
+	
 	@Override
 	public int getFAQListCount() {
 		return dao.getFAQListCount();
@@ -29,13 +41,8 @@ public class adminServiceImpl implements adminService {
 
 	@Override
 	public List<AdminBoard> getFAQList(int page, int limit) {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.getFAQList(map);
+		HashMap<String, Integer> list = listLogic(page, limit);
+		return dao.getFAQList(list);
 	}
 
 	@Override
@@ -73,24 +80,14 @@ public class adminServiceImpl implements adminService {
 
 	@Override
 	public List<AdminBoard> getQNAList(int page, int limit) {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.getQNAList(map);
+		HashMap<String, Integer> list = listLogic(page, limit);
+		return dao.getQNAList(list);
 	}
 
 	@Override
 	public List<AdminBoard> getUserNoticeList(int page, int limit) {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.getUserNoticeList(map);
+		HashMap<String, Integer> list = listLogic(page, limit);
+		return dao.getUserNoticeList(list);
 	}
 
 	@Override
@@ -125,13 +122,8 @@ public class adminServiceImpl implements adminService {
 
 	@Override
 	public List<AdminBoard> getItdaNoticeList(int page, int limit) {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.getItdaNoticeList(map);
+		HashMap<String, Integer> list = listLogic(page, limit);
+		return dao.getItdaNoticeList(list);
 	}
 
 	@Override
@@ -162,13 +154,8 @@ public class adminServiceImpl implements adminService {
 
 	@Override
 	public List<Admin> getAdminApproveList(int page, int limit) {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.getAdminApproveList(map);
+		HashMap<String, Integer> list = listLogic(page, limit);
+		return dao.getAdminApproveList(list);
 	}
 
 	@Override
@@ -182,24 +169,19 @@ public class adminServiceImpl implements adminService {
 	}
 
 	@Override
-	public List<SellerWaiting> getSellerApproveList(int page, int limit) {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.getSellerApproveList(map);
+	public List<Seller> getSellerApproveList(int page, int limit) {
+		HashMap<String, Integer> list = listLogic(page, limit);
+		return dao.getSellerApproveList(list);
 	}
 
 	@Override
-	public int sellerWaitingUpdateY(String userId) {
-		return dao.sellerWaitingUpdateY(userId);
+	public int sellerUpdateY(String userId, String adminId) {
+		return dao.sellerUpdateY(userId, adminId);
 	}
 
 	@Override
-	public int sellerWaitingUpdateN(String userId) {
-		return dao.sellerWaitingUpdateN(userId);
+	public int sellerUpdateN(String userId, String adminId) {
+		return dao.sellerUpdateN(userId, adminId);
 	}
 
 	@Override
@@ -214,18 +196,8 @@ public class adminServiceImpl implements adminService {
 
 	@Override
 	public List<BoardWarn> problemList(int page, int limit) {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.problemList(map);
-	}
-
-	@Override
-	public int sellerInsert(String userId, String waitPhone, String waitEmail) {
-		return dao.sellerInsert(userId, waitPhone, waitEmail);
+		HashMap<String, Integer> list = listLogic(page, limit);
+		return dao.problemList(list);
 	}
 
 	@Override
@@ -256,6 +228,17 @@ public class adminServiceImpl implements adminService {
 	@Override
 	public List<BoardWarn> boardProblemDetail(String sickId) {
 		return dao.boardProblemDetail(sickId);
+	}
+
+	@Override
+	public int getCouponListCount() {
+		return dao.getCouponListCount();
+	}
+
+	@Override
+	public List<Coupon> couponList(int page, int limit) {
+		HashMap<String, Integer> list = listLogic(page, limit);
+		return dao.couponList(list);
 	}
 	
 }

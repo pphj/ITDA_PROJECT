@@ -24,12 +24,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
 import com.itda.ITDA.domain.BoardWarn;
+import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.PaginationDTO;
 import com.itda.ITDA.domain.QnaReply;
 import com.itda.ITDA.domain.ReplyWarn;
-import com.itda.ITDA.domain.SellerWaiting;
+import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.service.adminService;
 import com.itda.ITDA.service.qnaReplyService;
+import com.itda.ITDA.util.ProblemState;
+import com.itda.ITDA.util.CommonSource;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -182,7 +185,7 @@ public class adminController {
 		}
 		
 		int result = adminService.FAQModify(FAQdata);
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 			logger.info("FAQ 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "FAQ 수정 실패");
@@ -381,7 +384,7 @@ public class adminController {
 		}
 		
 		int result = adminService.userNoticeUpdate(userNoticeData);
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 			logger.info("userNotice 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "userNotice 수정 실패");
@@ -406,7 +409,7 @@ public class adminController {
 		}
 		int result = adminService.noticeDelete(num);
 		
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 			logger.info("공지 삭제 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "공지 삭제 실패");
@@ -527,7 +530,7 @@ public class adminController {
 		}
 		
 		int result = adminService.itdaNoticeUpdate(itdaNoticeData);
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 			logger.info("itdaNotice 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "itdaNotice 수정 실패");
@@ -552,7 +555,7 @@ public class adminController {
 		}
 		int result = adminService.noticeDelete(num);
 		
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 		logger.info("공지 삭제 실패");
 		mv.addAttribute("url", request.getRequestURL());
 		mv.addAttribute("message", "공지 삭제 실패");
@@ -613,7 +616,7 @@ public class adminController {
 		String url = "";
 		
 		int result = adminService.adminApproveUpdate(adminId, authName);
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 			logger.info("권한 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "권한 수정 실패");
@@ -633,7 +636,7 @@ public class adminController {
 							defaultValue="1",required=false) int page, ModelAndView mv) {
 		PaginationDTO p = calculatePagination(page, 10, adminService.getSellerApproveListCount());
 		
-		List<SellerWaiting> sellerApproveList = adminService.getSellerApproveList(page, 10);
+		List<Seller> sellerApproveList = adminService.getSellerApproveList(page, 10);
 		
 		mv.addObject("page", page);
 		mv.addObject("maxpage", p.getMaxPage());		
@@ -654,7 +657,7 @@ public class adminController {
 		
 		PaginationDTO p = calculatePagination(page, limit, adminService.getSellerApproveListCount());
 		
-		List<SellerWaiting> sellerApproveList = adminService.getSellerApproveList(page, limit);	//리스트를 받아옴
+		List<Seller> sellerApproveList = adminService.getSellerApproveList(page, limit);	//리스트를 받아옴
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("page", page);
@@ -670,29 +673,26 @@ public class adminController {
 	@PostMapping("/sellerApproveUpdate")
 	public String sellerApproveUpdate(
 			@RequestParam(value="userId") String userId,
-			@RequestParam(value="waitPhone") String waitPhone,
-			@RequestParam(value="waitEmail") String waitEmail,
+			@RequestParam(value="adminId") String adminId,
 			@RequestParam(value="approve") String approve, Model mv,
 			HttpServletRequest request) throws Exception {
 		
 		String url = "";
 		int updateResult = 0;
-		int insertResult = 0;
 		
 		if(approve.equals("Y")) {
-			insertResult = adminService.sellerInsert(userId, waitPhone, waitEmail);
-			updateResult = adminService.sellerWaitingUpdateY(userId);
+			updateResult = adminService.sellerUpdateY(userId, adminId);
 		}else if (approve.equals("N")) {
-			updateResult = adminService.sellerWaitingUpdateN(userId);
+			updateResult = adminService.sellerUpdateN(userId, adminId);
 		}
 		
-		if (updateResult == 0 || insertResult == 0) {
+		if (updateResult == CommonSource.FAIL) {
 			logger.info("상태 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "상태 수정 실패");
 			url = "error/error";
 		}
-		if (updateResult == 1 && insertResult ==1) {
+		if (updateResult == CommonSource.SUCCESS) {
 			logger.info("상태 수정 완료");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "상태 수정 완료");
@@ -754,21 +754,21 @@ public class adminController {
 		String url = "";
 		int updateResult = 0;
 		
-		if(approve == 2) {				//일시정지
+		if(approve == ProblemState.PAUSE) {				//일시정지
 			updateResult = adminService.userUpdatePause(userId);
-		}else if (approve == 3) {		//정지
+		}else if (approve == ProblemState.STOP) {		//정지
 			updateResult = adminService.userUpdateStop(userId);
-		}else if (approve == 1) {		//해제(정상)
+		}else if (approve == ProblemState.CLEAR) {		//해제(정상)
 			updateResult = adminService.userUpdateClear(userId);
 		}
 		
-		if (updateResult == 0) {
+		if (updateResult == CommonSource.FAIL) {
 			logger.info("회원상태 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "회원상태 수정 실패");
 			url = "error/error";
 		}
-		if (updateResult == 1) {
+		if (updateResult == CommonSource.SUCCESS) {
 			logger.info("회원상태 수정 완료");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "회원상태 수정 완료");
@@ -798,6 +798,27 @@ public class adminController {
 		}
 		return mv;
 	}
+	
+	
+	@RequestMapping(value="/coupon")
+	public ModelAndView SetCoupon(@RequestParam(value="page",
+				defaultValue="1",required=false) int page, ModelAndView mv) {
+		PaginationDTO p = calculatePagination(page, 10, adminService.getCouponListCount());
+		
+		List<Coupon> couponList = adminService.couponList(page, 10);
+		
+		mv.addObject("page", page);
+		mv.addObject("maxpage", p.getMaxPage());		
+		mv.addObject("startpage", p.getStartPage());	
+		mv.addObject("endpage", p.getEndPage());		
+		mv.addObject("listcount", p.getListCount());
+		mv.addObject("couponList", couponList);
+		mv.addObject("limit", 10);
+		mv.setViewName("admin/coupon");
+		return mv;
+	}
+	
+	
 	
 	
 	
