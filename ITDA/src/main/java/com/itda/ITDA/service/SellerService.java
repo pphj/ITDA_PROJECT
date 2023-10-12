@@ -6,5 +6,5 @@ public interface SellerService {
 
 	boolean isSeller(String userId);
 
-	void saveSeller(Seller seller);
+	void saveOrUpdateSeller(Seller seller);
 }

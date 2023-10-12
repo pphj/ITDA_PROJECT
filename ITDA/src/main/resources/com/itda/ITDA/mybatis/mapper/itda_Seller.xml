@@ -3,15 +3,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.itda.ITDA.mybatis.mapper.SellerMapper">
-    <select id="findById" resultType="com.itda.ITDA.domain.Seller">
-          SELECT * FROM seller WHERE userId = #{userId}
+    <!-- SELECT 문: userId로 판매회원 정보 조회 -->
+    <select id="findById" parameterType="String" resultType="com.itda.ITDA.domain.Seller">
+        SELECT * FROM seller WHERE userId = #{userId}
     </select>
     
-  <insert id="insert" parameterType="com.itda.ITDA.domain.Seller">
+    <!-- INSERT 문: 판매회원 정보 추가 -->
+    <insert id="insert" parameterType="com.itda.ITDA.domain.Seller">
         INSERT INTO seller (userId, sellerPhone, sellerEmail, sellerJoinDate, adminId, waitOkDate, waitState)
         VALUES (#{userId}, #{sellerPhone}, #{sellerEmail}, #{sellerJoinDate}, #{adminId}, #{waitOkDate}, #{waitState})
     </insert>
     
+    <!-- UPDATE 문: 판매회원 정보 수정 -->
+    <update id="update" parameterType="com.itda.ITDA.domain.Seller">
+        UPDATE seller
+        SET 
+            sellerPhone = #{sellerPhone},
+            sellerEmail = #{sellerEmail},
+            adminId = #{adminId},
+            waitOkDate = #{waitOkDate},
+            waitState = #{waitState}
+        WHERE userId = #{userId}
+    </update>
    
     
 

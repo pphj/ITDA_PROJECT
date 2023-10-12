@@ -9,6 +9,8 @@ public interface SellerMapper {
 	Seller findById(String userId);
 
 	void insert(Seller seller);
+
+	void update(Seller seller);
 		
 	
 }
