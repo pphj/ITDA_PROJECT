@@ -119,7 +119,14 @@
 	   SELECT * FROM SELLER
 	   WHERE userId = #{userid}
 	</select>
-
+	
+	<insert id="saveChannelList" parameterType="com.itda.ITDA.domain.ChannelList" >
+    INSERT INTO channellist (ownerId, chName, chProfile, chInfo)
+    VALUES (#{ownerId}, #{chName}, #{chProfile}, #{chInfo})
+	</insert>
+   
+	
+	
 	
 		
 </mapper> 

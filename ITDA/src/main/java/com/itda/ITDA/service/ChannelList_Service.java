@@ -31,4 +31,6 @@ public interface ChannelList_Service {
 
 	Seller getSellerInfo(String userid);
 
+	 void saveChannelList(ChannelList channelList);
+
 }

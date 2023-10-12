@@ -68,6 +68,18 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		dao.pwUpdate(map);
 		
 	}
+
+	@Override
+	public Itda_User findUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void resetPassword(String email, String newPassword) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

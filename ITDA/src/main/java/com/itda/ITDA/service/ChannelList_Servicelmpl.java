@@ -83,4 +83,9 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		return dao.getSellerInfo(userid);
 	}
 
+	public void saveChannelList(ChannelList channelList) {
+	    dao.saveChannelList(channelList); // 데이터베이스에 ChannelList 저장
+	}
+
+
 }
