@@ -87,5 +87,7 @@ public interface adminService {
 
 	public List<Coupon> couponList(int page, int i);
 
+	public void couponInsert(Coupon couponData);
+
 
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.Admin;
@@ -234,11 +235,17 @@ public class adminServiceImpl implements adminService {
 	public int getCouponListCount() {
 		return dao.getCouponListCount();
 	}
-
+	
+	@Cacheable("couponList")
 	@Override
 	public List<Coupon> couponList(int page, int limit) {
 		HashMap<String, Integer> list = listLogic(page, limit);
 		return dao.couponList(list);
+	}
+
+	@Override
+	public void couponInsert(Coupon couponData) {
+		dao.couponInsert(couponData);
 	}
 	
 }

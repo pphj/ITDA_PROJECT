@@ -1,8 +1,10 @@
 package com.itda.ITDA.controller;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,8 +33,8 @@ import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.service.adminService;
 import com.itda.ITDA.service.qnaReplyService;
-import com.itda.ITDA.util.ProblemState;
 import com.itda.ITDA.util.CommonSource;
+import com.itda.ITDA.util.ProblemState;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -349,7 +351,7 @@ public class adminController {
 	@PostMapping(value="/userNoticeInsert")
 	public String UserNoticeInsert(AdminBoard userNotice, HttpServletRequest request) throws Exception {
 		adminService.userNoticeInsert(userNotice);		//insert 메소드 호출
-		logger.info(userNotice.toString());		//값을 확인하기 위해 logger 사용
+		logger.info(userNotice.toString());				//값을 확인하기 위해 logger 사용
 		return "redirect:userNotice";
 	}
 	
@@ -799,9 +801,8 @@ public class adminController {
 		return mv;
 	}
 	
-	
 	@RequestMapping(value="/coupon")
-	public ModelAndView SetCoupon(@RequestParam(value="page",
+	public ModelAndView SetCouponList(@RequestParam(value="page",
 				defaultValue="1",required=false) int page, ModelAndView mv) {
 		PaginationDTO p = calculatePagination(page, 10, adminService.getCouponListCount());
 		
@@ -818,6 +819,39 @@ public class adminController {
 		return mv;
 	}
 	
+	@GetMapping(value="/coupon_Write")
+	public String coupon_Write() {
+		return "admin/coupon_Write";
+	}
+	
+	@PostMapping(value="/couponInsert")
+	public String couponInsert(Coupon couponData, HttpServletRequest request
+															) throws Exception {
+		int codeLength = 20;
+	    Random code = new Random();
+	    StringBuilder randomPattern = new StringBuilder();
+	    
+	    //첫 자리에 0이 생성될경우
+	    //int 타입으로 선언한 randomNumber는 앞의 0을 무시하고 값을 저장한다
+	    //이럴 경우 쿠폰코드가 20자리가 아닌 19자리가 되므로 첫 자리는 따로 설정
+	    int firstNum = code.nextInt(9) + 1;		//첫 자리는 1~9중 하나로 설정
+	    randomPattern.append(firstNum);
+	    
+	    for (int i = 1; i < codeLength; i++) {
+	        int randomNumber = code.nextInt(10);
+	        randomPattern.append(randomNumber);
+	    }
+	    
+	    //BigInteger는 내부적으로 문자열 형태로 값을 저장하고 처리하기 때문에
+	    //BigInteger를 문자열로 처리하는 것이 더 안전하다.
+	    String randomString = randomPattern.toString();
+	    BigInteger randomCode = new BigInteger(randomString);
+	    couponData.setCouponCode(randomCode);					//randomCode값을 쿠폰코드로 설정
+	    
+		adminService.couponInsert(couponData);		//insert 메소드 호출
+		logger.info(couponData.toString());			//값을 확인하기 위해 logger 사용
+		return "redirect:coupon";
+	}
 	
 	
 	

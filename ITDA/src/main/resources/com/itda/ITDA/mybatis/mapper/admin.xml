@@ -337,4 +337,10 @@
 	<select id="getCouponListCount" resultType="int">
 		select count(*) from Coupon
 	</select>
+	
+	<insert id="couponInsert" parameterType="Coupon">
+		insert into coupon
+		values(#{couponCode}, COUPON_SEQ.nextval, #{couponName}, #{couponDetail},
+		#{couponPrice}, SYSDATE, null, #{adminId})
+	</insert>
 </mapper>

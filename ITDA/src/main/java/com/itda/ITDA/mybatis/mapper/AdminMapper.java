@@ -103,6 +103,8 @@ public interface AdminMapper {
 
 	public List<Coupon> couponList(HashMap<String, Integer> map);
 
+	public void couponInsert(Coupon couponData);
+
 
 
 
