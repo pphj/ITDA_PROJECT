@@ -21,13 +21,16 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/channel/B.Home.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/channel/ChannelMain.js"></script>
 <jsp:include page="../include/header.jsp" />
-<script>
-$(document).ready(function(){
-  $("#settingButton").click(function(){
-    $(".layer_action_ctrl").toggle();
-  });
-});
-</script>
+<style>
+.layer_action_ctrl {
+    display: none;
+    height: 50px;
+    right: 12px;
+    top: 42px;
+    width: 200px;
+    margin-left: 450px;
+}
+</style>
 </head>
 <body>
 	<!--  채널바  -->
@@ -71,25 +74,23 @@ $(document).ready(function(){
 		</div>
 		<!-- <div class="wrap_profile_btn"> -->
 
-		<div class="moe_control">
+		<div class="more_control">
 			<!-- 메뉴더보기 클릭시 ctrl_on 클래스 추가 -->
-			<!--  security 적용 해야함 -->
+		    <!--  security 적용 해야함 -->
 			<button type="button" class="setting_button" style="background-color: white; border: none;" id="settingButton">
 				<span class="txt_default2">
 					<img class="setting_img" src="${pageContext.request.contextPath}/resources/image/channel/setting.png"
 						style="width: 30px; height: 30px; padding-left: 660px; opacity: 0.6;" alt="메뉴 더보기">
 				</span>
 			</button>
-
 			<div class="layer_action_ctrl" style="display: none;">
 				<div class="inner_action_ctrl">
-					<button type="button" class="btnBlockProfile btn_ctrl requireLogin">차단하기</button><br>
-					<button type="button" class="btnReportProfile btn_ctrl requireLogin">신고하기</button>
+					<button type="button" class="btnBlockProfile btn_ctrl requireLogin">프로필수정</button>
+					<button type="button" class="btnReportProfile btn_ctrl requireLogin">카테고리수정</button>
 				</div>
 			</div>
-
-		</div>
-		<!-- <div class="moe_control"> -->
+		</div><!-- <div class="moe_control"> -->
+		
 	</div>
 	<!-- <div class="wrap_profile"> 채널바 -->
 

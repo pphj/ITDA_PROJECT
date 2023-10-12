@@ -2,6 +2,44 @@
 --톱니바퀴
 html{overflow-y:scroll;}
 
+--드롭바
+*:not(input):not(hr), ::before, ::after {
+    border-width: 0;
+    border-style: solid;
+    border-color: #e5e7eb;
+}
+.more_control .layer_action_ctrl .inner_action_ctrl {
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.more_control .layer_action_ctrl .btn_ctrl:first-child {
+    border-top: 0;
+}
+
+.more_control .layer_action_ctrl .btn_ctrl {
+    border-top: 1px solid #eee;
+    color: #959595;
+    display: block;
+    font-size: 13px;
+    height: 42px;
+    width: 100%;
+}
+
+button {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+button, input, select, textarea {
+    vertical-align: middle;
+}
+
+
+
 .bloger_thumb {
 background-position: -250px -80px;
     height: 100px;
