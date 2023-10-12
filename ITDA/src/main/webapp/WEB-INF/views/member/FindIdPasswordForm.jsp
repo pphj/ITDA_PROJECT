@@ -4,7 +4,7 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/login_modal.css">
+	href="${pageContext.request.contextPath}/resources/css/header/login_modal.css">
 	
 <script src="https://vendor-cdn.imweb.me/js/jquery.js?1627517460"></script> 
 
@@ -357,23 +357,24 @@ $(document).ready(function() {
 				return;
 		  }
       
-		  $.ajax({
-			  url: '/api/find_id', 
-			  type: 'POST',
-			  data: { email_or_id: find_pw_email },
-			  success: function(response) {
-				  if (response.success) {
-					  that.findToken = response.token; 
-					  alert('We have sent an email with your ID.'); 
-				  } else {
-					  alert('No account found with that email or ID.'); 
-				  }
-			  },
-			  error: function(error) {
-				  console.error(error);
-				  alert('An error occurred.');
-			  }
-		  });
+      $.ajax({
+    	   url: "/member/FindIdPasswordForm",
+    	   type: "POST",
+    	   data: { userEmail : find_pw_email }, // 이메일 값을 전달
+    	   success: function(response) {
+    	       if (response.success) {
+    	           that.findToken = response.token; 
+    	           alert('ID를 포함한 이메일이 발송되었습니다.'); 
+    	       } else {
+    	           alert('해당 이메일로 등록된 계정이 없습니다.'); 
+    	       }
+    	   },
+    	   error: function(error) {
+    	       console.error(error);
+    	       alert('오류가 발생했습니다.');
+    	   }
+    	});
+
     }
     
   }

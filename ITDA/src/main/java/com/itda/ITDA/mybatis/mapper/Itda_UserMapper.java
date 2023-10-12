@@ -24,6 +24,10 @@ public interface Itda_UserMapper {
 
 	void pwUpdate(Map map);
 	
+	Itda_User findUserByEmail(String email);
+    
+    void resetPassword(Map map);
+	
 	
 }
 

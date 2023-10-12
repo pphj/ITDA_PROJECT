@@ -1,30 +1,36 @@
 package com.itda.ITDA.controller;
 
-import com.itda.ITDA.domain.Itda_User;
-import com.itda.ITDA.domain.Seller;
-import com.itda.ITDA.service.SellerService;
-
-import java.security.Principal;
 import java.sql.Timestamp;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.service.ChannelList_Service;
+import com.itda.ITDA.service.SellerService;
 
 @Controller
 @RequestMapping("/seller")
 public class Itda_SellerController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(Itda_SellerController.class);
 
     @Autowired
     private SellerService sellerService;
+    @Autowired
+    private ChannelList_Service channelList_Service;
 
     @GetMapping("/join")
     public ModelAndView showSellerJoinForm(HttpSession session) {
@@ -48,41 +54,61 @@ public class Itda_SellerController {
     }
 
 
+    
+
     @PostMapping("/sellerjoinprocess")
     public String processSellerJoin(@RequestParam("userid") String userId,
                                     @RequestParam("phone") String sellerPhone,
                                     @RequestParam("email") String sellerEmail,
                                     HttpSession session) {
-        
-        // 세션에서 사용자 ID 가져오기
+
+        // 세션에서 사용자 아이디 가져오기
         String sessionUserId = (String) session.getAttribute("userId");
-       
+
         if (sessionUserId == null || !sessionUserId.equals(userId)) {
             return "redirect:/login";
         }
 
-        // 이미 판매회원으로 등록된 경우
+        // 이미 판매회원으로 등록되어 있는 경우
         if (sellerService.isSeller(sessionUserId)) {
-            return "redirect:/";  // 이미 판매회원인 경우 리다이렉트할 페이지
+            return "redirect:/"; // 이미 판매회원인 경우 리다이렉트할 페이지
         }
-       
+
         Seller seller = new Seller();
-        
+
         seller.setUserId(sessionUserId);
         seller.setSellerPhone(sellerPhone);
         seller.setSellerEmail(sellerEmail);
-        
+
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-        seller.setSellerJoinDate(currentTimestamp);  // 현재 시간으로 가입 날짜 설정
+        seller.setSellerJoinDate(currentTimestamp); // 가입 날짜를 현재 시간으로 설정
+
+        // 대기 상태 열 값 설정 ('W'로 설정)
+        seller.setWaitState("W");
+
+        // 판매회원 정보 저장
+        sellerService.saveSeller(seller);
+
+        // 관리자 승인 시 채널 목록 테이블에 데이터 저장
+        ChannelList channelList = new ChannelList();
         
-       // waitState 컬럼 값 설정 ('W'로 설정)
-       seller.setWaitState("W");
-       
-       // 판매회원 저장
-       sellerService.saveSeller(seller);
-       
-       return "redirect:/";  // 가입 완료 후 리다이렉트할 페이지.
+        channelList.setOwnerId(sessionUserId); // 판매회원 아이디를 소유자로 설정
+        channelList.setChName(userId); // 사용자 아이디를 채널 이름으로 설정
+        // 아래의 두 필드도 설정해야 합니다.
+     
+        
+        System.out.println("ChProfile 결과 : "+channelList.getChProfile());
+        
+        //int SellerResult = channelList_Service.saveChannelList(channelList);
+        
+        
+
+        // 데이터베이스에 채널 목록 정보 저장을 위한 코드를 작성해야 합니다.
+        channelList_Service.saveChannelList(channelList);
+
+        return "redirect:/"; // 등록이 완료된 후 리다이렉트될 페이지.
     }
+
 
 
 

@@ -36,8 +36,12 @@ public interface ChannelListMapper {
 
 	Seller getSellerInfo(String userid);
 
+<<<<<<< HEAD
 	ChannelList getSellerSetting(int chnum);
 
 	ChannelList getSellerUpdate(String chprofile, String chname, int chnum);
+=======
+	void saveChannelList(ChannelList channelList);
+>>>>>>> branch 'main_sub' of https://github.com/pphj/ITDA_PROJECT.git
 
 }
