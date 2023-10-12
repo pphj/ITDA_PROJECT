@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
+import com.itda.ITDA.domain.BoardWarn;
+import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.SellerWaiting;
 
 public interface adminService {
@@ -57,5 +59,30 @@ public interface adminService {
 	public int getSellerApproveListCount();
 
 	public List<SellerWaiting> getSellerApproveList(int page, int i);
+
+	public int sellerWaitingUpdateY(String userId);
+
+	public int sellerWaitingUpdateN(String userId);
+
+	public int getProblemBoardCount();
+
+	public List<BoardWarn> problemList(int page, int i);
+
+	public int getProblemReplyCount();
+
+	public int sellerInsert(String userId, String waitPhone, String waitEmail);
+
+	public int getProblemListCount();
+
+	public int userUpdatePause(String userId);
+
+	public int userUpdateStop(String userId);
+	
+	public int userUpdateClear(String userId);
+
+	public List<ReplyWarn> replyProblemDetail(String sickId);
+
+	public List<BoardWarn> boardProblemDetail(String sickId);
+
 
 }

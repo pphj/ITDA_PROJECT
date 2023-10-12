@@ -47,7 +47,7 @@
 		C.chCate_Name
 	</select> -->
 	
-	<select id="getChnnelCategorylist" resultType="ChBoardCategory">
+	<select id="getChannelCategoryList" resultType="ChBoardCategory">
 		SELECT * FROM chboardcategory
 	    WHERE chnum = #{chNum}
 	    ORDER BY chcate_name
@@ -62,4 +62,64 @@
 	</select>
 	-->
 	
+	<select id="getAllChannelCategoryData" resultType="ChBoard" parameterType="map">
+		<![CDATA[
+			SELECT *
+			FROM (
+			    SELECT rownum rnum, j.*
+			    FROM (
+			        SELECT chboard.*, nvl(cnt, 0) cnt,
+			               (SELECT chcate_name FROM chboardcategory c WHERE c.chcate_id = chboard.chcate_id) chcate_name
+			        FROM chboard
+			        LEFT JOIN (
+			            SELECT boardnum, COUNT(*) cnt
+			            FROM boardreply
+			            GROUP BY boardnum
+			        ) f ON chboard.boardnum = f.boardnum
+			        WHERE chboard.chnum = #{chnum}
+			        ORDER BY boardDate ${order}, chboard.boardnum DESC
+			    ) j
+			    WHERE rownum <= #{endrow}
+			)
+			WHERE rnum >= #{startrow} AND rnum <= #{endrow}
+		]]>
+	</select>
+	
+	<select id="getAllChannelCategoryCount" resultType="int">
+		SELECT COUNT(*) FROM chboard WHERE chnum = #{chnum}
+	</select>
+	
+	<select id="getChannelCategoryData" resultType="ChBoard">
+	    <![CDATA[
+	        SELECT *
+	        FROM (
+	            SELECT rownum rnum, j.*
+	            FROM (
+	                SELECT *
+	                FROM chboard
+	                NATURAL JOIN chboardcategory
+	                WHERE chnum = #{chnum}
+	                AND chcate_id = #{chCate_Id}
+	            ) j
+	            WHERE rownum <= #{endrow}
+	        )
+	        WHERE rnum >= #{startrow} AND rnum <= #{endrow}
+	        ORDER BY boardDate ASC
+	     ]]>
+	</select>
+	
+	<select id="getChannelCategoryCount" resultType="int">
+	    SELECT COUNT(*)
+	    FROM chboard
+	    WHERE chnum = #{chnum}
+	    AND chCate_Id = #{chCate_Id}
+	</select>
+	
+	<select id="getSellerInfo" resultType="Seller">
+	   SELECT * FROM SELLER
+	   WHERE userId = #{userid}
+	</select>
+
+	
+		
 </mapper> 
