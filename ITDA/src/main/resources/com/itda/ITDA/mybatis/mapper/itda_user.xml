@@ -10,7 +10,6 @@
 	</select>
 
 
-
 	 <insert id="insert" parameterType="Itda_User">
         insert into itda_user
         (userId, userPw, userName, userBirth, userGender, userPhone,
@@ -51,5 +50,30 @@
 		set	userPw = #{userPw}
 		where userId = #{userId}
 	</update>
+	
+	<select id="getUserName" resultType="Itda_User">
+		select userName
+		from itda_user 
+		where userId = #{userId}
+	</select>
+	
+	<select id="getLeaveReasonCategory" resultType="UserLeaveReason">
+		select leaveReason_id, leaveReason_name
+		from leavereasoncategory
+	</select>
+	  <!-- 이메일로 사용자 조회 -->  
+   <select id ="findUserByEmail"
+       parameterType ="String"
+       resultType ="com.itda.ITDA.domain.Itda_User">   
+       SELECT * FROM itda_user
+       WHERE userEmail =#{email}   
+   </select>   
+
+   <!-- 비밀번호 재설정 -->   
+   <update id ="resetPasswordByMap">    
+       UPDATE itdA_USER SET     
+           UserPw=#{newPassword}    
+       WHERE userEmail=#{email}    
+   </update>
 	
 </mapper>

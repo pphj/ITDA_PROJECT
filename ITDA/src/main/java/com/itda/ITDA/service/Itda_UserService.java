@@ -1,8 +1,10 @@
 package com.itda.ITDA.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.UserLeaveReason;
 
 public interface Itda_UserService {
 
@@ -19,6 +21,14 @@ public interface Itda_UserService {
 	Itda_User pwCheck(String id);
 
 	void pwUpdate(Map map);
+	
+	Itda_User findUserByEmail(String email);
+    
+	void resetPassword(String email, String newPassword);  
+
+	Itda_User getUserName(String id);
+
+	List<UserLeaveReason> getLeaveReasonCategory();
 
 
 

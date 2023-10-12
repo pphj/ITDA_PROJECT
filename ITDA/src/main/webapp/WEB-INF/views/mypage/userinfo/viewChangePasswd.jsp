@@ -48,12 +48,12 @@ $(function() {
 
         $.ajax({
             type: "POST",
-            url: contextpath + "/user/passwdCheck", 
-            beforeSend : function(xhr){
-        		xhr.setRequestHeader(header, token);
-        	},
-            data: { "userPw": userPw },
+            url: contextpath + "/user/passwdCheck",
+            data: { "userPw": userPw},
             dataType: "json",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader(header, token);
+            }, 
             success: function(result) {
                 console.log(result);
 
@@ -64,6 +64,7 @@ $(function() {
                     $("#now_pw").html("비밀번호 불일치");
                     checkPw = false;
                 }
+                
             },
             error: function(error) {
                 console.log("error: " + error);
@@ -512,7 +513,8 @@ $("#fm").submit(function(e) {
 
     $("#changeSubmit").on("click", function(event) {
 		event.preventDefault();
-        if(_submitFlag = false){
+        if(_submitFlag == false || checkPw == false){
+        	alert("비밀번호가 일치하지 않습니다");
         	return false;
         }else if(!mainSubmit()){
         	 return false;

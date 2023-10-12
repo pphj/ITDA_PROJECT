@@ -54,7 +54,6 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		return dao.getAllChannelCategoryData(chnum, order, startrow, endrow);
 	}
 
-
 	@Override
 	public int getAllChannelCategoryCount(int chnum) {
 		return dao.getAllChannelCategoryCount(chnum);
@@ -81,6 +80,20 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	@Override
 	public Seller getSellerInfo(String userid) {
 		return dao.getSellerInfo(userid);
+	}
+
+	@Override
+	public ChannelList getSellerSetting(int chnum) {
+		return dao.getSellerSetting(chnum);
+	}
+
+	@Override
+	public ChannelList getSellerUpdate(String chprofile, String chname, int chnum) {
+		return dao.getSellerUpdate(chprofile, chname, chnum);
+	}
+
+	public void saveChannelList(ChannelList channelList) {
+		dao.saveChannelList(channelList); // 데이터베이스에 ChannelList 저장
 	}
 
 }

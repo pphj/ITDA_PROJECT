@@ -2,6 +2,7 @@ package com.itda.ITDA.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.util.Constants;
 
@@ -106,7 +108,7 @@ public class UserInfoController {
 	}
 	
 	// 비밀번호 찾기 페이지 이동
-	@GetMapping(value="/myInfo/viewChangePasswd")
+	@GetMapping(value="myInfo/viewChangePasswd")
 	public String viewChangePasswd() {
 		return "mypage/userinfo/viewChangePasswd";
 	}
@@ -140,7 +142,7 @@ public class UserInfoController {
 	}
 	
 	// 비밀번호 변경
-	@PostMapping("/passWdChangePro")
+	@PostMapping("myInfo/passWdChangePro")
 	public String passWdChangeProcess(Itda_User user,
 									Principal principal) {
 		
@@ -183,7 +185,18 @@ public class UserInfoController {
 	}
 	
 	@PostMapping("leave/leaveReason")
-	public String userLeaveReason() {
+	public String userLeaveReason(Itda_User user,
+								Principal principal,
+								Model model) {
+		
+		String id = principal.getName();
+		user = itdaUserService.getUserName(id);
+		
+		model.addAttribute("userName", user);
+		
+		List<UserLeaveReason> lrCategorylist = itdaUserService.getLeaveReasonCategory();
+		model.addAttribute("reason", lrCategorylist);
+		
 		return "mypage/userinfo/userLeaveReason";
 	}
 	

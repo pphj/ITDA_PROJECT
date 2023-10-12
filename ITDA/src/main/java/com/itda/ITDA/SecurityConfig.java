@@ -29,7 +29,6 @@ public class SecurityConfig {
    
    @Bean
    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-      http.csrf().disable();
       
       //접근 권한 설정
       http.authorizeRequests()
@@ -37,7 +36,8 @@ public class SecurityConfig {
       .antMatchers("/**/**").permitAll()
       .antMatchers("/joinProcess").permitAll()
       .antMatchers("/seller/sellerCheck").permitAll()
-      .antMatchers("/resources/static/image/Member/**").authenticated();
+      .antMatchers("/resources/static/image/Member/**").permitAll()
+      .antMatchers("/seller/sellerjoinprocess").permitAll();
       
     /*.antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")
       .antMatchers("/admin/**").access("hasAnyRole('SUPERADMIN','ADMIN')");*/

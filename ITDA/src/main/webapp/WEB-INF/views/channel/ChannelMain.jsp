@@ -22,12 +22,26 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/channel/ChannelMain.js"></script>
 <jsp:include page="../include/header.jsp" />
 <script>
+<!--프로필 설정으로 이동 -->
 $(document).ready(function(){
-  $("#settingButton").click(function(){
-    $(".layer_action_ctrl").toggle();
-  });
-});
+	  $(".btnBlockProfile").click(function(){
+	    window.location.href = '${pageContext.request.contextPath}/channels/${ChannelList.chNum}/sellersetting';
+	  });
+	  $(".btnReportProfile").click(function(){
+	    window.location.href = '카테고리수정페이지URL';
+	  });
+	});
 </script>
+<style>
+.layer_action_ctrl {
+    display: none;
+    height: 50px;
+    right: 12px;
+    top: 42px;
+    width: 200px;
+    margin-left: 450px;
+}
+</style>
 </head>
 <body>
 	<!--  채널바  -->
@@ -71,25 +85,23 @@ $(document).ready(function(){
 		</div>
 		<!-- <div class="wrap_profile_btn"> -->
 
-		<div class="moe_control">
+		<div class="more_control">
 			<!-- 메뉴더보기 클릭시 ctrl_on 클래스 추가 -->
-			<!--  security 적용 해야함 -->
+		    <!--  security 적용 해야함 -->
 			<button type="button" class="setting_button" style="background-color: white; border: none;" id="settingButton">
 				<span class="txt_default2">
 					<img class="setting_img" src="${pageContext.request.contextPath}/resources/image/channel/setting.png"
 						style="width: 30px; height: 30px; padding-left: 660px; opacity: 0.6;" alt="메뉴 더보기">
 				</span>
 			</button>
-
 			<div class="layer_action_ctrl" style="display: none;">
 				<div class="inner_action_ctrl">
-					<button type="button" class="btnBlockProfile btn_ctrl requireLogin">차단하기</button><br>
-					<button type="button" class="btnReportProfile btn_ctrl requireLogin">신고하기</button>
+					<button type="button" class="btnBlockProfile btn_ctrl requireLogin">채널프로필수정</button>
+					<button type="button" class="btnReportProfile btn_ctrl requireLogin">카테고리수정</button>
 				</div>
 			</div>
-
-		</div>
-		<!-- <div class="moe_control"> -->
+		</div><!-- <div class="moe_control"> -->
+		
 	</div>
 	<!-- <div class="wrap_profile"> 채널바 -->
 
@@ -151,7 +163,8 @@ $(document).ready(function(){
 								<ul class="list_article list_post1 #post_list">
 									<li data-articleuid="xTI_303" class="animation_up" data-tiara-action-name="작가 프로필 > 글탭 > 리스트 클릭"
 										data-tiara-action-kind="ClickContent" data-tiara-layer="articles" data-tiara-id="@@xTI">
-										<a href="/magazine/whatwetalkabout" class="link_category"> <em class="tit_category">${c.chCate_Name}</em>
+										<a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}" class="link_category"> 
+										<em class="tit_category">${c.chCate_Name}</em>
 										</a> <a href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}"
 											class="link_post has_image #post_listview"> <strong class="tit_subject"> <%-- 글자 수 제한 적용 --%> <c:set
 													var="limitedTitle" value="${c.boardTitle}" /> <c:choose>
