@@ -43,8 +43,8 @@
 							<p class="contxt">채널 대표 프로필과 채널명을 수정 하실 수 있습니다.</p>
 						</div>
 						<form id="profileForm" method="post" enctype="multipart/form-data">
-							<input type="hidden" id="helpToken" name="token_help" value="dRlhbO0SeMUZ9v80"> <input type="hidden" id="deleteYn"
-								name="deleteYn" value="N"> <input type="hidden" id="ieLessThan9Yn" name="ieLessThan9Yn" value="N">
+							<input type="hidden" id="helpToken" name="token_help" value="dRlhbO0SeMUZ9v80"> 
+							<input type="hidden" id="deleteYn"  name="deleteYn" value="N"> <input type="hidden" id="ieLessThan9Yn" name="ieLessThan9Yn" value="N">
 							<fieldset>
 								<legend>채널프로필 수정</legend>
 								<table border="0" class="tbl_model">
@@ -64,15 +64,17 @@
 												<div class="tdcell">
 													<div class="profile_photo">
 														    <label for="upfile">
-														        <c:choose>
-														            <c:when test="${empty SellerSetting.chProfile}">
-														                <img id="imgThumb" src="../../image/main/login.png" width="100" height="100">
-														            </c:when>
-														            <c:otherwise>
-														                <img id="imgThumb" src="../../image/channel/${SellerSetting.chNum}/${SellerSetting.chProfile}" width="100" height="100">
-														            </c:otherwise>
-														        </c:choose>
-														       <span class="mask"></span>  
+														    	<span id="filevalue" style="display: none;"> ${SellerSetting.chProfile} </span> 
+															        <c:choose>
+															            <c:when test="${empty SellerSetting.chProfile}">
+															                <img id="imgThumb" src="../../image/main/login.png" width="100" height="100">
+															            </c:when>
+															            <c:otherwise>
+															                <img id="imgThumb" src="../../image/channel/${SellerSetting.chNum}/${SellerSetting.chProfile}" width="100" height="100">
+															            </c:otherwise>
+															        </c:choose>
+															       <span class="mask"></span>
+														       
 														    </label>    
 													 </div>
 													<div class="btn_area_btm">
@@ -98,7 +100,9 @@
 											</th>
 											<td>
 											    <div class="tdcell">
-											        <input type="text" name="nickname" id="inpNickname" value="${SellerSetting.chName}" style="width: 254px">
+											        <input type="text" name="chname" id="inpNickname" value="${SellerSetting.chName}" style="width: 254px">
+											        <input type="hidden" name="chnum" id="chnum" value="${SellerSetting.chNum}" style="width: 254px">
+											        
 											           <!-- Enter 입력으로 submit이 되는걸 방지하기 위한 Input -->
 											           <input type="text" style="display: none;">
 											    </div>

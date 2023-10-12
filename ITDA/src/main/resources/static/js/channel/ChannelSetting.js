@@ -21,6 +21,23 @@ $(document).ready(function() {
 			$(".tab_content:eq(" + index + ")").show();
 		});
 });//탭 선택
+$(document).ready(function() {
+	let check = 0;
+
+	//submit 버튼 클릭할 때 이벤트 부분
+	$("form[name=modifyform]").submit(function() {
+	
+		//파일 첨부를 변경하지 않으면 $('#filevalue').text()의 파일명을
+		//파라미터 'check'라는 이름으로 from에 추가하여 전송합니다.
+		if (check == 0) {
+			const value = $('#filevalue').text();
+			const html = "<input type='hidden' value='" + value + "' name ='check'>";
+			console.log(html);
+			$(this).append(html);
+		}
+	})
+});
+
 	
 $(document).ready(function() {
 	let check = 0;

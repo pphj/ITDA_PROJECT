@@ -2,6 +2,8 @@ package com.itda.ITDA.domain;
 
 import java.security.Timestamp;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +20,6 @@ public class ChannelList {
 	private Timestamp chOpenDate;
 	private int chVisit;
 	private String userProfile;
-
+	private MultipartFile uploadfile;
+	private String chProfile_original;
 }

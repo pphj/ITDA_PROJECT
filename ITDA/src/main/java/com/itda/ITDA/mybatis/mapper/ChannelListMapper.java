@@ -38,4 +38,6 @@ public interface ChannelListMapper {
 
 	ChannelList getSellerSetting(int chnum);
 
+	ChannelList getSellerUpdate(String chprofile, String chname, int chnum);
+
 }

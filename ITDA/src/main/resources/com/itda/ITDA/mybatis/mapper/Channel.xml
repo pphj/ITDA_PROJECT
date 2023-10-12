@@ -126,6 +126,13 @@
 		CHANNELLIST
 		WHERE CHNUM = #{chnum}
 	</select>
+	
+	<update id="getSellerUpdate">
+	 	update channellist
+	 	set chprofile = #{chProfile},
+	 	chName = #{chName}
+	 	where chnum = #{chNum}
+	</update>
 
 	
 		
