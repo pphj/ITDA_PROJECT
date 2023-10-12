@@ -21,6 +21,10 @@ public interface Itda_UserService {
 	Itda_User pwCheck(String id);
 
 	void pwUpdate(Map map);
+	
+	Itda_User findUserByEmail(String email);
+    
+	void resetPassword(String email, String newPassword);  
 
 	Itda_User getUserName(String id);
 

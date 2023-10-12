@@ -11,5 +11,8 @@
         INSERT INTO seller (userId, sellerPhone, sellerEmail, sellerJoinDate, adminId, waitOkDate, waitState)
         VALUES (#{userId}, #{sellerPhone}, #{sellerEmail}, #{sellerJoinDate}, #{adminId}, #{waitOkDate}, #{waitState})
     </insert>
+    
+   
+    
 
 </mapper>

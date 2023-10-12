@@ -83,4 +83,21 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		return dao.getSellerInfo(userid);
 	}
 
+<<<<<<< HEAD
+	@Override
+	public ChannelList getSellerSetting(int chnum) {
+		return dao.getSellerSetting(chnum);
+	}
+
+	@Override
+	public ChannelList getSellerUpdate(String chprofile, String chname, int chnum) {
+		return dao.getSellerUpdate(chprofile, chname, chnum);
+	}
+=======
+	public void saveChannelList(ChannelList channelList) {
+	    dao.saveChannelList(channelList); // 데이터베이스에 ChannelList 저장
+	}
+
+>>>>>>> branch 'main_sub' of https://github.com/pphj/ITDA_PROJECT.git
+
 }

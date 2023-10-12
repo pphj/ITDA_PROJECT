@@ -29,6 +29,10 @@ public interface Itda_UserMapper {
 
 	List<UserLeaveReason> getLeaveReasonCategory();
 	
+	Itda_User findUserByEmail(String email);
+    
+    void resetPassword(Map map);
+	
 	
 }
 

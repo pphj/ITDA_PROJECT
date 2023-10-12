@@ -1,8 +1,10 @@
 package com.itda.ITDA.controller;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,12 +26,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
 import com.itda.ITDA.domain.BoardWarn;
+import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.PaginationDTO;
 import com.itda.ITDA.domain.QnaReply;
 import com.itda.ITDA.domain.ReplyWarn;
-import com.itda.ITDA.domain.SellerWaiting;
+import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.service.adminService;
 import com.itda.ITDA.service.qnaReplyService;
+import com.itda.ITDA.util.CommonSource;
+import com.itda.ITDA.util.ProblemState;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -182,7 +187,7 @@ public class adminController {
 		}
 		
 		int result = adminService.FAQModify(FAQdata);
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 			logger.info("FAQ 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "FAQ 수정 실패");
@@ -346,7 +351,7 @@ public class adminController {
 	@PostMapping(value="/userNoticeInsert")
 	public String UserNoticeInsert(AdminBoard userNotice, HttpServletRequest request) throws Exception {
 		adminService.userNoticeInsert(userNotice);		//insert 메소드 호출
-		logger.info(userNotice.toString());		//값을 확인하기 위해 logger 사용
+		logger.info(userNotice.toString());				//값을 확인하기 위해 logger 사용
 		return "redirect:userNotice";
 	}
 	
@@ -381,7 +386,7 @@ public class adminController {
 		}
 		
 		int result = adminService.userNoticeUpdate(userNoticeData);
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 			logger.info("userNotice 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "userNotice 수정 실패");
@@ -406,7 +411,7 @@ public class adminController {
 		}
 		int result = adminService.noticeDelete(num);
 		
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 			logger.info("공지 삭제 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "공지 삭제 실패");
@@ -527,7 +532,7 @@ public class adminController {
 		}
 		
 		int result = adminService.itdaNoticeUpdate(itdaNoticeData);
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 			logger.info("itdaNotice 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "itdaNotice 수정 실패");
@@ -552,7 +557,7 @@ public class adminController {
 		}
 		int result = adminService.noticeDelete(num);
 		
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 		logger.info("공지 삭제 실패");
 		mv.addAttribute("url", request.getRequestURL());
 		mv.addAttribute("message", "공지 삭제 실패");
@@ -613,7 +618,7 @@ public class adminController {
 		String url = "";
 		
 		int result = adminService.adminApproveUpdate(adminId, authName);
-		if (result == 0) {
+		if (result == CommonSource.FAIL) {
 			logger.info("권한 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "권한 수정 실패");
@@ -633,7 +638,7 @@ public class adminController {
 							defaultValue="1",required=false) int page, ModelAndView mv) {
 		PaginationDTO p = calculatePagination(page, 10, adminService.getSellerApproveListCount());
 		
-		List<SellerWaiting> sellerApproveList = adminService.getSellerApproveList(page, 10);
+		List<Seller> sellerApproveList = adminService.getSellerApproveList(page, 10);
 		
 		mv.addObject("page", page);
 		mv.addObject("maxpage", p.getMaxPage());		
@@ -654,7 +659,7 @@ public class adminController {
 		
 		PaginationDTO p = calculatePagination(page, limit, adminService.getSellerApproveListCount());
 		
-		List<SellerWaiting> sellerApproveList = adminService.getSellerApproveList(page, limit);	//리스트를 받아옴
+		List<Seller> sellerApproveList = adminService.getSellerApproveList(page, limit);	//리스트를 받아옴
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("page", page);
@@ -670,29 +675,26 @@ public class adminController {
 	@PostMapping("/sellerApproveUpdate")
 	public String sellerApproveUpdate(
 			@RequestParam(value="userId") String userId,
-			@RequestParam(value="waitPhone") String waitPhone,
-			@RequestParam(value="waitEmail") String waitEmail,
+			@RequestParam(value="adminId") String adminId,
 			@RequestParam(value="approve") String approve, Model mv,
 			HttpServletRequest request) throws Exception {
 		
 		String url = "";
 		int updateResult = 0;
-		int insertResult = 0;
 		
 		if(approve.equals("Y")) {
-			insertResult = adminService.sellerInsert(userId, waitPhone, waitEmail);
-			updateResult = adminService.sellerWaitingUpdateY(userId);
+			updateResult = adminService.sellerUpdateY(userId, adminId);
 		}else if (approve.equals("N")) {
-			updateResult = adminService.sellerWaitingUpdateN(userId);
+			updateResult = adminService.sellerUpdateN(userId, adminId);
 		}
 		
-		if (updateResult == 0 || insertResult == 0) {
+		if (updateResult == CommonSource.FAIL) {
 			logger.info("상태 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "상태 수정 실패");
 			url = "error/error";
 		}
-		if (updateResult == 1 && insertResult ==1) {
+		if (updateResult == CommonSource.SUCCESS) {
 			logger.info("상태 수정 완료");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "상태 수정 완료");
@@ -754,21 +756,21 @@ public class adminController {
 		String url = "";
 		int updateResult = 0;
 		
-		if(approve == 2) {				//일시정지
+		if(approve == ProblemState.PAUSE) {				//일시정지
 			updateResult = adminService.userUpdatePause(userId);
-		}else if (approve == 3) {		//정지
+		}else if (approve == ProblemState.STOP) {		//정지
 			updateResult = adminService.userUpdateStop(userId);
-		}else if (approve == 1) {		//해제(정상)
+		}else if (approve == ProblemState.CLEAR) {		//해제(정상)
 			updateResult = adminService.userUpdateClear(userId);
 		}
 		
-		if (updateResult == 0) {
+		if (updateResult == CommonSource.FAIL) {
 			logger.info("회원상태 수정 실패");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "회원상태 수정 실패");
 			url = "error/error";
 		}
-		if (updateResult == 1) {
+		if (updateResult == CommonSource.SUCCESS) {
 			logger.info("회원상태 수정 완료");
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "회원상태 수정 완료");
@@ -798,6 +800,59 @@ public class adminController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping(value="/coupon")
+	public ModelAndView SetCouponList(@RequestParam(value="page",
+				defaultValue="1",required=false) int page, ModelAndView mv) {
+		PaginationDTO p = calculatePagination(page, 10, adminService.getCouponListCount());
+		
+		List<Coupon> couponList = adminService.couponList(page, 10);
+		
+		mv.addObject("page", page);
+		mv.addObject("maxpage", p.getMaxPage());		
+		mv.addObject("startpage", p.getStartPage());	
+		mv.addObject("endpage", p.getEndPage());		
+		mv.addObject("listcount", p.getListCount());
+		mv.addObject("couponList", couponList);
+		mv.addObject("limit", 10);
+		mv.setViewName("admin/coupon");
+		return mv;
+	}
+	
+	@GetMapping(value="/coupon_Write")
+	public String coupon_Write() {
+		return "admin/coupon_Write";
+	}
+	
+	@PostMapping(value="/couponInsert")
+	public String couponInsert(Coupon couponData, HttpServletRequest request
+															) throws Exception {
+		int codeLength = 20;
+	    Random code = new Random();
+	    StringBuilder randomPattern = new StringBuilder();
+	    
+	    //첫 자리에 0이 생성될경우
+	    //int 타입으로 선언한 randomNumber는 앞의 0을 무시하고 값을 저장한다
+	    //이럴 경우 쿠폰코드가 20자리가 아닌 19자리가 되므로 첫 자리는 따로 설정
+	    int firstNum = code.nextInt(9) + 1;		//첫 자리는 1~9중 하나로 설정
+	    randomPattern.append(firstNum);
+	    
+	    for (int i = 1; i < codeLength; i++) {
+	        int randomNumber = code.nextInt(10);
+	        randomPattern.append(randomNumber);
+	    }
+	    
+	    //BigInteger는 내부적으로 문자열 형태로 값을 저장하고 처리하기 때문에
+	    //BigInteger를 문자열로 처리하는 것이 더 안전하다.
+	    String randomString = randomPattern.toString();
+	    BigInteger randomCode = new BigInteger(randomString);
+	    couponData.setCouponCode(randomCode);					//randomCode값을 쿠폰코드로 설정
+	    
+		adminService.couponInsert(couponData);		//insert 메소드 호출
+		logger.info(couponData.toString());			//값을 확인하기 위해 logger 사용
+		return "redirect:coupon";
+	}
+	
 	
 	
 	

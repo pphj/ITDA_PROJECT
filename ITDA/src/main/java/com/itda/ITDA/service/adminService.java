@@ -5,8 +5,9 @@ import java.util.List;
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
 import com.itda.ITDA.domain.BoardWarn;
+import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.ReplyWarn;
-import com.itda.ITDA.domain.SellerWaiting;
+import com.itda.ITDA.domain.Seller;
 
 public interface adminService {
 
@@ -58,19 +59,17 @@ public interface adminService {
 
 	public int getSellerApproveListCount();
 
-	public List<SellerWaiting> getSellerApproveList(int page, int i);
+	public List<Seller> getSellerApproveList(int page, int i);
 
-	public int sellerWaitingUpdateY(String userId);
+	public int sellerUpdateY(String userId, String adminId);
 
-	public int sellerWaitingUpdateN(String userId);
+	public int sellerUpdateN(String userId, String adminId);
 
 	public int getProblemBoardCount();
 
 	public List<BoardWarn> problemList(int page, int i);
 
 	public int getProblemReplyCount();
-
-	public int sellerInsert(String userId, String waitPhone, String waitEmail);
 
 	public int getProblemListCount();
 
@@ -83,6 +82,12 @@ public interface adminService {
 	public List<ReplyWarn> replyProblemDetail(String sickId);
 
 	public List<BoardWarn> boardProblemDetail(String sickId);
+
+	public int getCouponListCount();
+
+	public List<Coupon> couponList(int page, int i);
+
+	public void couponInsert(Coupon couponData);
 
 
 }

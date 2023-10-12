@@ -622,9 +622,10 @@ body {
 }
 
 .c_header .contxt {
-	line-height: 19px;
-	padding-top: 10px;
-	color: #666
+    font-size: 15px;
+    line-height: 19px;
+    padding-top: 10px;
+    color: #666;
 }
 
 .c_header .contxt strong {
@@ -897,7 +898,6 @@ body {
 #lnb_area .lnb {
 	max-width: 700px;
 	margin: 0 auto;
-	padding: 0 20px;
 	position: relative;
 }
 

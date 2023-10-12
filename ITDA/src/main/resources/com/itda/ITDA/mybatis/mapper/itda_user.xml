@@ -61,5 +61,19 @@
 		select leaveReason_id, leaveReason_name
 		from leavereasoncategory
 	</select>
+	  <!-- 이메일로 사용자 조회 -->  
+   <select id ="findUserByEmail"
+       parameterType ="String"
+       resultType ="com.itda.ITDA.domain.Itda_User">   
+       SELECT * FROM itda_user
+       WHERE userEmail =#{email}   
+   </select>   
+
+   <!-- 비밀번호 재설정 -->   
+   <update id ="resetPasswordByMap">    
+       UPDATE itdA_USER SET     
+           UserPw=#{newPassword}    
+       WHERE userEmail=#{email}    
+   </update>
 	
 </mapper>

@@ -72,6 +72,7 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Itda_User getUserName(String id) {
 		return dao.getUserName(id);
 	}
@@ -82,6 +83,18 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	}
 
 
+=======
+	public Itda_User findUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void resetPassword(String email, String newPassword) {
+		// TODO Auto-generated method stub
+		
+	}
+>>>>>>> branch 'main_sub' of https://github.com/pphj/ITDA_PROJECT.git
 	
 	
 

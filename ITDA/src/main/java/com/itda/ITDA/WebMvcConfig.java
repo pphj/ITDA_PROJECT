@@ -1,5 +1,6 @@
 package com.itda.ITDA;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -9,6 +10,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //뷰 컨트롤러 등록 및 정적 리소스들의 핸들러 등록을 해 탐색하는 역할을 한다
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer{
+
+	@Value("${my.savepath}")
+	private String saveFolder;
 
 	private static final String[] CLASSPATH_RESOURCE_LOCATIONS
 	= {
@@ -29,6 +33,9 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		//   /static/ 또는 /templates/ 경로의 resources에 정적 리소스들이 있다고 설정되어있다.
 		registry.addResourceHandler("/resources/**")
 		.addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+		registry.addResourceHandler("/upload/**")
+				.addResourceLocations(saveFolder);
+
 	}
 	
 }
