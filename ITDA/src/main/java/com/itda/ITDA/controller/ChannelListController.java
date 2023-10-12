@@ -40,8 +40,7 @@ public class ChannelListController {
 
 	@RequestMapping(value = "/{chnum}", method = RequestMethod.GET)
 	public ModelAndView showChannelMainPage(@PathVariable(value = "chnum") int chnum, // chnum을 파라미터로 전달 받음
-			String userid,
-			ModelAndView mv, HttpServletRequest request) {
+			String userid, ModelAndView mv, HttpServletRequest request) {
 
 		if (chnum == WRONG_CHNUM)
 		{
@@ -55,7 +54,7 @@ public class ChannelListController {
 
 		// 채널 리스트를 가져옴
 		ChannelList ChannelList = channelList_Service.getChannelDetail(chnum);
-		
+
 		// 채널주인 확인
 		Seller sellerinfo = channelList_Service.getSellerInfo(userid);
 
@@ -141,6 +140,29 @@ public class ChannelListController {
 			mv.addObject("listcount", listcount);
 			mv.addObject("contentlist", contentlist);
 			mv.addObject("chcategorylist", chcategorylist);
+		}
+		return mv;
+	}
+
+	@RequestMapping(value = "{chnum}/sellersetting", method = RequestMethod.GET)
+	public ModelAndView showChannelSetting(@PathVariable("chnum") int chnum, ModelAndView mv,
+			HttpServletRequest request) {
+		if (chnum == WRONG_CHNUM)
+		{
+			logger.info("컨텐츠 목록 페이지 표시 실패: channelnum 파라미터가 없거나 잘못된 값입니다.");
+			mv.setViewName("error/error");
+			mv.addObject("url", request.getRequestURI());
+			mv.addObject("message", "컨텐츠 목록 페이지 표시 실패: channelnum 파라미터가 없거나 잘못된 값입니다.");
+		} else
+		{
+			// 채널 설정 변경
+			ChannelList SellerSetting = channelList_Service.getSellerSetting(chnum);
+
+			//채널 프로필 변경
+			/*ChannelList ChannelProfile = channelList_Service.getChangeProfile(chnum);*/
+
+			mv.addObject("SellerSetting", SellerSetting);
+			mv.setViewName("channel/ChannelSetting");
 		}
 		return mv;
 	}

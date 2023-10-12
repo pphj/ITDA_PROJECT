@@ -119,6 +119,13 @@
 	   SELECT * FROM SELLER
 	   WHERE userId = #{userid}
 	</select>
+	
+	<select id="getSellerSetting" resultType="ChannelList">
+	 	SELECT *
+		FROM
+		CHANNELLIST
+		WHERE CHNUM = #{chnum}
+	</select>
 
 	
 		

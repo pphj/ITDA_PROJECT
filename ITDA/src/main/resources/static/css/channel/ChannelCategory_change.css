@@ -683,9 +683,10 @@ body {
 }
 
 .c_header .contxt {
-	line-height: 19px;
-	padding-top: 10px;
-	color: #666
+    font-size: 15px;
+    line-height: 19px;
+    padding-top: 10px;
+    color: #666;
 }
 
 .c_header .contxt strong {
@@ -958,7 +959,6 @@ body {
 #lnb_area .lnb {
 	max-width: 700px;
 	margin: 0 auto;
-	padding: 0 20px;
 	position: relative;
 }
 
@@ -2234,6 +2234,7 @@ a[href].ad_more:active, a[href].ad_more:focus, a[href].ad_more:hover {
 :root .table2 .input_radio {
 	top: 2px;
 	top: 0\9
+
 }
 
 .table2 th label {
@@ -3593,6 +3594,7 @@ a.button, span.button {
 
 :root .help_wrap .help .txt p strong.black {
 	top: -2px !important \9
+
 }
 
 .help_wrap .help .txt p .ex {
@@ -10105,6 +10107,7 @@ div[tabindex='-1'] {
 
 :root .ly_alert {
 	line-height: 37px\9
+
 }
 
 .update {

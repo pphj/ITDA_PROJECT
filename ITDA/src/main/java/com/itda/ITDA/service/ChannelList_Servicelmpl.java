@@ -83,4 +83,9 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		return dao.getSellerInfo(userid);
 	}
 
+	@Override
+	public ChannelList getSellerSetting(int chnum) {
+		return dao.getSellerSetting(chnum);
+	}
+
 }
