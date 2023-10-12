@@ -3,7 +3,6 @@ package com.itda.ITDA.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.mybatis.mapper.UserCategoryMapper;
 
@@ -18,22 +17,8 @@ public class UserCategoryServiceImpl implements UserCategoryService {
 	}
 
 	@Override
-	public void register(Itda_User mem, String[] selectedCategories) {
-		for (String category : selectedCategories) {
-			UserCategory userCaetgory = new UserCategory();
-			userCaetgory.setUserId(mem.getUserId());
-			userCaetgory.setCate_Id(Integer.parseInt(category));
-
-			save(userCaetgory); // 데이터베이스에 저장하기 위해 save 메서드 호출
-		}
-
+	public int insert(UserCategory userCategrou) {
+		return userCategoryMapper.insert(userCategrou);
 	}
-
-	 @Override
-	 public void save(UserCategory userCategory) {
-		    userCategoryMapper.save(userCategory);
-		}
-
-	
 
 }

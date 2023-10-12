@@ -2,7 +2,7 @@
     var emailType = '';
 
 
-    $(doument).ready(function () {
+	$(document).ready(function () {
 
         
         $('#myLetterEmailAuthGuide, #pswdEmailAuthGuide').click(function () {
@@ -93,7 +93,7 @@
             submitFlag = true;
         }
 
-        var token = ;
+        var token = "";
         var phoneNo = document.getElementById("phoneNo").value;
         var mobileYn = document.getElementById("mobileYn").value;
 

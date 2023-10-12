@@ -61,7 +61,7 @@
 						function(index, item) {
 							output += '<tr><td class="text-center">&nbsp;&nbsp;' + (num--) + '</td>'
 							
-							output += '<td class="text-center"><div>' + item.adminId + '</div></td>'
+							output += '<td class="text-center targetAdminId"><div>' + item.adminId + '</div></td>'
 									+ '<td class="text-center"><div>' + item.adminName + '</div></td>'
 									+ '<td class="text-center"><div>' + item.adminDept + '</div></td>'
 									+ '<td class="text-center"><div>' + item.adminClass + '</div></td>'
@@ -120,23 +120,23 @@
 		
 	}//ready end
 	
+	$(document).on("click", ".authUpdate", function() {
+	    $("#authSelect").modal("show");
+	    
+	    // 현재 클릭한 버튼이 속한 행에서 필요한 데이터를 가져옴
+	    let targetAdminId = $(this).closest("tr").find(".targetAdminId").text();
+	    $(".selectAdminId").val(targetAdminId);
+	});
 	
+	$(document).on("click", ".approveOK", function() {
+	    var result = confirm("정말 변경하시겠습니까?");
+	    
+	    if (result) {
+	        $("form[name='authApproveForm']").submit();
+	    }
+	});
 	
 	$(function(){
-		$(".authUpdate").click(function(){
-			$("#authSelect").modal("show");
-			
-			let targetAdminId = $(this).closest("tr").find(".targetAdminId").text();
-    		$("#selectAdminId").val(targetAdminId);
-		})// click end
-		
-		$("#approveOK").click(function () {
-		    var result = confirm("정말 변경하시겠습니까?");
-		    
-		    if (result) {
-		        $("form[name='authApproveForm']").submit();
-		    }
-		});
 		
 		$("#viewcount").change(function(){
 			go(1); 									// 보여줄 페이지를 1페이지로 설정한다

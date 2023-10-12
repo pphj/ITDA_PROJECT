@@ -1,7 +1,5 @@
 package com.itda.ITDA.domain;
 
-import java.security.Timestamp;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +15,8 @@ public class ChBoard {
 	private String chCate_Name;
 	private String boardOpen;
 	private String boardNore;
-	private Timestamp boardDate;
-	private Timestamp boardUpdate;
+	private String boardDate;
+	private String boardUpdate;
 	private int boardVisit;
 	private String thumbNail;
 	private String intro;
