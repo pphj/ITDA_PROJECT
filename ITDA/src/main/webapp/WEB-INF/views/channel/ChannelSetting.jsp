@@ -43,8 +43,9 @@
 							<p class="contxt">채널 대표 프로필과 채널명을 수정 하실 수 있습니다.</p>
 						</div>
 						<form id="profileForm" method="post" enctype="multipart/form-data">
-							<input type="hidden" id="helpToken" name="token_help" value="dRlhbO0SeMUZ9v80"> 
-							<input type="hidden" id="deleteYn"  name="deleteYn" value="N"> <input type="hidden" id="ieLessThan9Yn" name="ieLessThan9Yn" value="N">
+							<!-- <input type="hidden" id="helpToken" name="token_help" value="dRlhbO0SeMUZ9v80"> 
+							<input type="hidden" id="deleteYn"  name="deleteYn" value="N"> 
+							<input type="hidden" id="ieLessThan9Yn" name="ieLessThan9Yn" value="N"> -->
 							<fieldset>
 								<legend>채널프로필 수정</legend>
 								<table border="0" class="tbl_model">
@@ -81,7 +82,7 @@
 															<span class="btn_file" >
 																<label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2"
 																	onclick="clickcr(this,'prf.upimg','','',event);">사진변경</b></label> 
-																<input type="file" id="upfile" name="uploadfile">
+																<input type="file" id="upfile" name="uploadfile" value="${SellerSetting.chProfile}">
 															</span>
 	
 															 <a href="javascript:;" class="btn_model">
