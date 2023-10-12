@@ -12,4 +12,7 @@ public class Seller {
     private String sellerPhone;
     private String sellerEmail;
     private Timestamp sellerJoinDate;
+    private String adminId;
+    private Timestamp waitOkDate;
+    private String waitState;
 }

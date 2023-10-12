@@ -267,16 +267,16 @@ $(function() {
 	<div id="categories clearfix">
 		<label for='category' style="float: left; margin-left: 15px;"><span style="color: red">*</span>관심 카테고리</label><br>
 			<div id="section">
-			<label><input type='radio' name='userCategory' id='category1' value="경제/시사"> 경제/시사</label>
-			<label><input type='radio' name='userCategory' id='category2' value="문화예술"> 문화예술</label>
-			<label><input type='radio' name='userCategory' id='category3' value="IT트렌드"> IT트렌드</label>
-			<label><input type='radio' name='userCategory' id='category4' value="역사"> 역사</label>
-			<label><input type='radio' name='userCategory' id='category5' value="과학"> 과학</label>
-			<label><input type='radio' name='userCategory' id='category6' value="건강"> 건강</label>
-			<label><input type='radio' name='userCategory' id='category7' value="요리"> 요리</label>
-			<label><input type='radio' name='userCategory' id='category8' value="스포츠"> 스포츠</label>
-			<label><input type='radio' name='userCategory' id='category9' value="재태크"> 재태크</label>
-			<label><input type='radio' name='userCategory' id='category10' value="취미"> 취미</label>
+			<label><input type='radio' name='userCategory' id='category1' value="1"> 경제/시사</label>
+			<label><input type='radio' name='userCategory' id='category2' value="2"> 문화예술</label>
+			<label><input type='radio' name='userCategory' id='category3' value="3"> IT트렌드</label>
+			<label><input type='radio' name='userCategory' id='category4' value="4"> 역사</label>
+			<label><input type='radio' name='userCategory' id='category5' value="5"> 과학</label>
+			<label><input type='radio' name='userCategory' id='category6' value="6"> 건강</label>
+			<label><input type='radio' name='userCategory' id='category7' value="7"> 요리</label>
+			<label><input type='radio' name='userCategory' id='category8' value="8"> 스포츠</label>
+			<label><input type='radio' name='userCategory' id='category9' value="9"> 재태크</label>
+			<label><input type='radio' name='userCategory' id='category10' value="10"> 취미</label>
 			</div>
 	</div><br>
 	<div class='num12 clearfix'>
@@ -293,7 +293,8 @@ $(function() {
                 <button type='submit' value="일반회원가입" class='signup_butt'>일반회원가입</button>
                <button type='button' value="취소" class='cancel_butt' id='cancel_btn'>취소</button>
             </div>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+        <input type="hidden" name="${_csrf
+        .parameterName}" value="${_csrf.token}">
         </form>
     </div>
 </body>
