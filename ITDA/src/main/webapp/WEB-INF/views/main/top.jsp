@@ -1,47 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <head>
-<script>
-	$(document).ready(function(){
-		$("#join_seller").click(function(e){
-			var id = `<%= session.getAttribute("userId") %>`;
-			var contextPath = '<%= request.getContextPath() %>';
-			
-			if (id == 'null') {
-				e.preventDefault();
-				alert("로그인이 필요합니다.");
-				
-			}else {
-				$.ajax({
-					type : 'post',
-					url : contextPath + "/sellerCheck.me",
-					data : {userId : id},
-					success : function (rdata) {
-						if (rdata === "true") {
-							alert("이미 판매회원으로 등록된 아이디입니다.");
-						}else {
-							location.href = contextPath + "/sellerjoin.me";
-						}
-					}
-					
-				});//ajax end
-			}
-			
-		});//click end
-		
-	});//ready end
-</script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+
+
+<!-- 로그인 상태일 때 -->
+<sec:authorize access="isAuthenticated()">
+    <script>
+        $(document).ready(function(){
+            $("#join_seller").click(function(e){
+                e.preventDefault();
+
+                var contextPath = '${pageContext.request.contextPath}';
+                var id = '<sec:authentication property="principal.username"/>';
+
+                $.ajax({
+                    url: contextPath + '/seller/sellerCheck',
+                    type: 'POST',
+                    data: {"userId" : id, _csrf : '${_csrf.token}'},
+                    success: function(data) {
+                    	console.log(data);
+                        if (data == 'true') {
+                            alert("이미 판매회원으로 등록된 아이디입니다.");
+                        } else {
+                        	location.href = contextPath + "/seller/join";
+                        }
+                    },
+                    error: function(request, status, error){
+                        alert("code: " + request.status + "\n"
+                            + "message: " + request.responseText + "\n"
+                            + "error: " + error);
+                    }
+
+                });
+            });
+        });
+    </script>
+</sec:authorize>
+
+<!-- 비로그인 상태일 때 -->
+<sec:authorize access="!isAuthenticated()">
+    <script>
+        $(document).ready(function(){
+            $("#join_seller").click(function(e){
+                e.preventDefault();
+                alert("로그인이 필요합니다.");
+            });
+        });
+    </script>
+</sec:authorize>
+
 </head>
+
 <body>
-	<div class="titleback">
-		<div class="inner">
-			<div class="banner">
-				<img class="baimg"
-				src="resources/image/common/mainbanner.png"
-				style="width: 1280px; height: 400px;">
-<!-- 				<div>
-					<button type="button" id="join_seller">판매회원 가입하기</button>
-				</div> -->
-			</div>
-		</div>
-	</div>
+    <div class="titleback">
+        <div class="inner">
+            <div class="banner" style="position: relative;">
+                <img class="baimg"
+                    src="${pageContext.request.contextPath}/resources/image/common/mainbanner2.png"
+                    style="width: 1280px; height: 400px;">
+               <a href="#" id="join_seller" style="position:absolute; top: calc(50% + 1cm); left: 50%; transform: translate(-50%, -50%); 
+               padding: 10px 25px; width: 3.5cm; height: 1cm; white-space: nowrap; color:#00c6be;">판매회원 가입하기</a>
+
+            </div>
+        </div>  
+    </div>  
 </body>
+
+
+

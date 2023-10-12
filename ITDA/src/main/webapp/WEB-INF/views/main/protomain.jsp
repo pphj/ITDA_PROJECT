@@ -8,14 +8,13 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="resources/css/style.css">
-  <!--  <link rel="stylesheet" href="resources/css/bootstrap.css"> -->
-    <link rel="stylesheet" href="resources/css/common.css">
-    <link rel="stylesheet" href="resources/css/mainpage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/mainpage.css">
     <script>
         var contextPath = '<%= request.getContextPath() %>';
     </script>
     <script src="${pageContext.request.contextPath}/resources/js/mainpage.js"></script>
+    <title>잇다:세상의 모든 콘텐츠</title>
 <jsp:include page="../include/header.jsp"/>
 </head>
 <body>
@@ -31,7 +30,7 @@
                     <t:forEach var="c" items="${HotContentList}"> 	<!-- MainController에서 보낸 값 -->
                         <li class="reco_card" style="position: absolute; transform: translate(0% , 0px);">
                             <div class="card-view">
-                                <a style="text-decoration: none; color: black" href="contents/${c.chNum}/${c.boardNum}">
+                                <a style="text-decoration: none; color: black" href="${pageContext.request.contextPath}/contents/${c.chNum}/${c.boardNum}">
                                     <t:choose>
                                         <t:when test="${empty c.thumbNail}">
                                             <img class="card_img"

@@ -23,9 +23,9 @@ public class InfoController {
 	}
 
 
-	@GetMapping(value = "/customerService")
-	public ModelAndView customerService(ModelAndView mv) {
-		mv.setViewName("info/customerService");
+	@GetMapping(value = "/notice")
+	public ModelAndView notice(ModelAndView mv) {
+		mv.setViewName("info/notice");
 		return mv;
 	}
 
@@ -35,10 +35,17 @@ public class InfoController {
 		return mv;
 	}
 	
-	@GetMapping(value = "/help")
-	public ModelAndView help(ModelAndView mv) {
-		mv.setViewName("info/help");
+	@GetMapping(value = "/qna")
+	public ModelAndView qna(ModelAndView mv) {
+		mv.setViewName("info/qna");
 		return mv;
 	}
+	
+	@GetMapping(value = "/requests")
+	public ModelAndView requests(ModelAndView mv) {
+	    mv.setViewName("info/requests");
+	    return mv;
+	}
+
 
 }

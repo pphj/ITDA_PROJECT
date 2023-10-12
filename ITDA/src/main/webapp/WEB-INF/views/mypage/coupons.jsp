@@ -1,0 +1,418 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<!doctype html>
+<html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no">
+	<title>MY : 잇다</title>
+	<link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
+	<link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
+	<link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
+	<link rel="apple-touch-icon-precomposed" size="192x192" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
+	<base target="_parent">
+	<script>
+		var g_ssc = nsc = "Mpremiumcontents.all";
+		var g_default_area = "art";
+
+		var svr = "one-service-premium-r-20230914-230914-164329-5bff964899-zf5k2";
+		var nelo = {
+			sampleNumber : 100,
+			maxCount : 100,
+			maxSendMessage : "로그 전송 최대치 도달"
+		};
+
+		var isGreendot = document.cookie.indexOf("MM_NEW=1") > -1;
+
+		var domain = "https://contents.premium.naver.com";
+		var ajaxDomain = "";
+		var MEDIA_GW_DOMAIN = "https://media-gw.naver.com";
+		var PREMIUM_GW_DOMAIN = "https://premium-gw.naver.com";
+		var PREMIUM_LOG_DOMAIN = "https://l.premium.naver.com";
+		var urlPrefix = "";
+		var newsDomain = "";
+		var layoutName = "my_coupons";
+
+		var unitIds = [];
+		var divIds = [];
+		var ArticleAd = {};
+
+		var _paq = window._paq = window._paq || [];
+		_paq.push(["setDocumentTitle", layoutName + " / " + document.title]);
+		_paq.push(["trackPageView"]);
+		_paq.push(["enableLinkTracking"]);
+		_paq.push(["setTrackerUrl", PREMIUM_LOG_DOMAIN + "/matomo"]);
+		_paq.push(["setSiteId", "1"]);
+
+		var isPremiumReferer = false;
+	</script>
+	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
+	<jsp:include page="../include/header.jsp"></jsp:include>
+</head>
+<body class="as_white_background body_mp">
+<div class="u_skip"><a href="#ct">본문 바로가기</a></div>
+<div id="_CONTENT_INDICATOR_WRAP" style="display:none;">
+	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>
+	<progress id="_CONTENT_INDICATOR" class="progress" max="100" value="0"></progress>
+</div>
+
+<script>
+	var svt = "20230917182352.683";
+	var timestamp = svt.substr(0, 8);
+	var isLogin = true;
+
+	var service = {
+		premium: true
+	};
+
+	var analyticsNtmUrl = "https://ntm.pstatic.net/scripts/ntm_774a0c8e7c40.js";
+
+	var envPhase = "production";
+	var isProduction = true;
+</script>
+<div id="ct_wrap" class="container">
+	<div id="ct" class="container_inner">
+	    <div class="flat_header">
+    <div class="inline_header">
+		<a href="#" class="button_back _BACK"><img class="link_premium" style="width: 30px;" src="${pageContext.request.contextPath}/resources/image/content/errow_left.png">
+		<span class="blind">이전으로</span>
+	</a> 
+    </div>
+	<h2 class="flat_header_title">
+		<span class="flat_header_title_inner">
+			MY
+		</span>
+	</h2>
+	</div>
+		<div class="container_main">
+			<div class="container_sidebar _CONTAINER_SIDEBAR">
+				<div class="container_sidebar_inner _GRID_TEMPLATE_COLUMN_SIDEBAR _CONTAINER_SIDEBAR_INNER"></div>
+			</div>
+			<div class="container_content _GRID_TEMPLATE_COLUMN _STICKY_CONTENT">
+			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
+<jsp:include page="../mypage/sidebar.jsp"></jsp:include>
+<%-- 	<div class="my_sidebar_box">
+		<div class="my_user">
+			<a href="https://nid.naver.com/user2/help/myInfo?lang=ko_KR" class="my_user_modify_link" data-clk="my_lnb.myinfo">
+				<div class="my_user_img_wrap">
+				</div>
+				<strong class="my_user_name">
+					${userName}
+				</strong>
+			</a>
+			<div class="my_user_link_wrap">
+				<a href="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_user_link is_payment" data-clk="my_lnb.paydet">결제내역</a>
+				<a href="${pageContext.request.contextPath}/my/coupons" class="my_user_link is_coupon is_active" data-clk="my_lnb.coupon">쿠폰</a>
+				<a href="${pageContext.request.contextPath}/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
+			</div>
+		</div>
+		<div class="my_tab_wrap">
+			<ul class="my_tab">
+				<li class="my_tab_item">
+					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
+				</li>
+				<li class="my_tab_item">
+					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
+				</li>
+			</ul>
+		</div>
+	</div> --%>
+	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
+		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
+			<img class="_LAZY_LOADING" data-src="https://ssl.pstatic.net/static.news/image/news/m/2023/08/18/sidebar_banner.jpg" width="315" height="110" alt="">
+		</a>
+	</div>
+</div>
+<h2 class="my_title">쿠폰</h2>
+<div class="my_tab_wrap">
+	<ul class="my_tab">
+		<li class="my_tab_item is_active">
+			<a href="#" data-url="${pageContext.request.contextPath}/my/coupons" class="my_tab_link _LOCATION_REPLACE" data-clk="my_coupon.valid"><span class="my_tab_text">보유한 쿠폰<em>1</em></span></a>
+		</li>
+		<li class="my_tab_item">
+			<a href="#" data-url="${pageContext.request.contextPath}/my/coupons?stype&#x3D;expired" class="my_tab_link _LOCATION_REPLACE" data-clk="my_coupon.expire"><span class="my_tab_text">종료된 쿠폰</span></a>
+		</li>
+	</ul>
+</div>
+<div class="my_coupon">
+	<a href="#" class="my_coupon_register _TOGGLE" data-target="_CONTENT_LAYER_COUPON_REDEEM" data-prevent-scroll="true" data-clk="my_coupon.redeem">쿠폰 등록</a>
+	<h3 class="my_coupon_title">
+		보유한 쿠폰
+		<em>1</em>
+	</h3>
+		<ul class="my_coupon_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_COUPON_LIST" data-stype="" data-cursor-name="page" data-cursor="1" data-has-next="">
+		<li class="my_coupon_item">
+			<div class="my_coupon_card">
+				<div class="myc_content">
+					<div class="myc_top">
+						<div class="myc_name">
+							<em class="myc_name_text">Welcome 20 (최대 2만원 할인)</em>
+						</div>
+						<em class="myc_badge">D-23</em>
+					</div>
+					<strong class="myc_title">
+						<span class="myc_title_discount">
+							<span class="myc_title_num">100</span>
+							<span class="myc_title_unit as_percent">%</span>
+						</span>
+						<span class="myc_title_text">할인</span>
+					</strong>
+					<div class="myc_sub">
+						<div class="myc_type">
+								구독 유지 시 다음 정기 결제일에 자동 사용
+														</div>
+						<div class="myc_info">
+							<span class="myc_info_title">채널 :</span>
+							<div class="myc_info_content">
+								<span class="myc_info_text">방구석 어학연수</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="myc_caution">
+					<button id="_COUPON_DESCRIPTION_171811956" class="myc_caution_button _TOGGLE" type="button" data-target="_COUPON_DESCRIPTION_171811956" data-classValue="is_open" data-show-clk="my_coupon.expopen" data-hide-clk="my_coupon.expclose">쿠폰설명 (유의사항)</button>
+					<ul class="myc_caution_list">
+						<li class="myc_caution_item">기간 : 2023.09.08. 14:57 ~ 2023.10.10. 14:57</li>
+						<li class="myc_caution_item">상품 :
+							<a href="${pageContext.request.contextPath}/bangkuseok/bangkuseok1/subscriptions" class="myc_caution_link" data-clk="my_coupon.subgo">구독권(전체)</a>
+						</li>
+						<li class="myc_caution_item">구독 상품 100% 할인 (최대 할인 금액 2만원, 차액 결제 필요)</li>
+					</ul>
+			</div>
+		</li>
+	</ul>
+	<div class="loading _CONTENT_LIST_LOADING" style="display:none;">
+		<div class="loader">
+			<div class="dot dot1"></div>
+			<div class="dot dot2"></div>
+			<div class="dot dot3"></div>
+			<div class="dot dot4"></div>
+			<div class="dot dot5"></div>
+			<div class="dot dot6"></div>
+		</div>
+	</div>
+	<dl class="my_setting_none">
+		<dt>이용 안내</dt>
+		<dd>발급된 쿠폰은 유효기간 내에서만 사용하실 수 있습니다.</dd>
+		<dd>유효기간이 경과한 미사용 쿠폰은 재발급이 불가합니다.</dd>
+		<dd>최근 1년 이내 사용완료된 쿠폰, 유효기간이 경과된 쿠폰, 사용 불가 조건의 쿠폰은 [종료된 쿠폰]에서 확인하실 수 있습니다.</dd>
+		<dd>쿠폰 적용 시 실결제금액이 100원 이상인 상품에만 쿠폰 적용이 가능합니다.</dd>
+		<dd>쿠폰은 중복 사용이 불가하며 한 건의 거래에 한 개의 쿠폰만 사용하실 수 있습니다.</dd>
+		<dd>쿠폰에 표기된 금액보다 적은 금액을 결제하시더라도 차액은 반환되지 않습니다. (ex. 1만원 쿠폰 할인을 적용하여 5천원 상품을 구매하더라도 차액은 모두 소진됨)</dd>
+		<dd>구독 상품을 구독중이고 해당 구독 상품에 사용 가능한 쿠폰이 있을 경우, 쿠폰은 다음 정기 결제에 자동 사용됩니다. 사용 가능한 쿠폰이 여러 개인 경우, 할인 금액이 높은 순 &gt; 유효기간 종료일이 빠른순으로 우선 사용됩니다.</dd>
+		<dd>2개 이상의 구독 상품을 구독중이고, 구독중인 상품들에 모두 사용 가능한 쿠폰이 있을 경우, 쿠폰은 구독중인 상품 중 다음 정기 결제일이 빠른 상품에 우선 사용됩니다.</dd>
+		<dd>다음 정기 결제에 사용할 쿠폰을 직접 선택하고 싶은 경우,<br>‘MY &gt; 구독채널 &gt; 채널관리‘에서 선택할 수 있으며, 별도로 설정하지 않은 경우는 위에 명시된 정기 결제 쿠폰 사용 우선순위에 따라 자동 사용됩니다.</dd>
+		<dd>네이버가 발행한 쿠폰을 사용하여 구매한 뒤 청약철회등 된 경우, 해당 쿠폰은 재발급되어 다시 사용이 가능합니다. 단, 부분 환불된 경우 또는 유효기간이 지난 쿠폰의 경우는 재발급 불가합니다.</dd>
+		<dd>그 외에 판매자가 발행한 포인트/쿠폰의 경우 판매자가 정한 바에 따라 취급됩니다.</dd>
+	</dl>
+</div>
+<div id="_CONTENT_LAYER_COUPON_REDEEM" class="content_layer_wrap as_coupon" style="display: none;">
+	<div class="content_layer">
+		<div class="content_layer_inside">
+			<div class="content_layer_header">
+				<h2 class="content_layer_title">
+					쿠폰 번호를 입력해주세요
+				</h2>
+				<button type="button" class="content_layer_close _TOGGLE _COUPON_REDEEM_RESET_BTN" data-target="_CONTENT_LAYER_COUPON_REDEEM" data-prevent-scroll="true" data-clk="my_coupon.layerclose">
+					<span class="blind">닫기</span>
+				</button>
+			</div>
+			<div class="content_layer_container">
+				<div class="content_layer_inner">
+					<div class="my_coupon">
+						<div class="coupon_enroll_wrap">
+							<input type="text" class="coupon_enroll_input _COUPON_REDEEM_CODE_INPUT" placeholder="쿠폰 번호를 입력해주세요" maxlength="8" autocomplete="off">
+						</div>
+						<dl class="my_setting_none">
+							<dt class="blind">제한 사항</dt>
+							<dd>유효 기간이 지난 쿠폰은 등록이 불가합니다.</dd>
+							<dd>쿠폰 등록이 5회 초과 실패한 경우, 고객센터로 문의해주세요.</dd>
+						</dl>
+					</div>
+					<div class="floating_button_wrap">
+						<button class="floating_button _COUPON_REDEEM_DOWNLOAD_BUTTON" disabled>확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+			</div>
+			<div class="container_aside _CONTAINER_ASIDE">
+				<div class="container_aside_inner _GRID_TEMPLATE_COLUMN_ASIDE _CONTAINER_ASIDE_INNER"></div>
+			</div>
+		</div>
+		<div class="_GRID_TEMPLATE_COLUMN_OUTSIDE"></div>
+	</div>
+</div>
+<div id="frontDetect"></div>
+<div id="_LAYER_DIMMED" class="layer_dimmed" style="display:none;"></div>
+<div id="_MODAL_WRAP"></div>
+<script type="x-tmpl-mustache" class="_MODAL_TEMPLATE">
+<div class="popup_layer{{#isClose}} as_close_button{{/isClose}}{{#popupClass}} {{popupClass}}{{/popupClass}} _MODAL">
+	{{#description}}
+	<strong class="popup_tit">{{{title}}}</strong>
+	<p class="popup_sub_desc">{{{description}}}</p>
+	{{/description}}
+	{{^description}}
+	{{#itemList.length}}
+	<strong class="popup_tit">{{{title}}}</strong>
+	<dl class="popup_dl">
+		{{#itemList}}
+		<div class="popup_description_wrap">
+			<dt class="popup_dt">{{{key}}}</dt>
+			<dd class="popup_dd">{{{value}}}</dd>
+		</div>
+		{{/itemList}}
+	</dl>
+	{{/itemList.length}}
+	{{^itemList.length}}
+	<p class="popup_desc">{{{title}}}</p>
+	{{/itemList.length}}
+	{{/description}}
+	{{#linkButtonList.length}}
+	<div class="popup_link_wrap">
+		{{#linkButtonList}}
+		<a href="{{url}}" class="popup_link">
+			<div class="popup_link_text">{{{title}}}</div>
+			{{#description}}
+			<div class="popup_link_desc">{{{description}}}</div>
+			{{/description}}
+		</a>
+		{{/linkButtonList}}
+	</div>
+	{{/linkButtonList.length}}
+	{{#isClose}}
+	<button type="button" class="popup_close_button _MODAL_CANCEL"><i class="icon_close">닫기</i></button>
+	{{/isClose}}
+	{{^isHiddenConfirm}}
+	<div class="popup_button_wrap">
+		{{#isCancel}}
+		<button type="button" class="button_layer _MODAL_CANCEL">
+			{{cancelMessage}}
+		</button>
+		{{/isCancel}}
+		<button type="button" class="button_layer type_confirm _MODAL_CONFIRM">
+			{{confirmMessage}}
+		</button>
+	</div>
+	{{/isHiddenConfirm}}
+</div>
+</script>
+<div id="_TOAST_WRAP"></div>
+<script type="x-tmpl-mustache" class="_TOAST_TEMPLATE">
+<div class="toast_popup_layer">
+	<p class="toast_popup_desc">{{{text}}}</p>
+</div>
+</script>
+	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
+	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
+<script>
+$(window).on("load", function() {
+	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
+
+	if ($content.length > 0 && $content.hasClass("_NIL_SEND") === true) {
+		window.ntm = window.ntm || [];
+
+		var ntmOption = {};
+
+
+		var cpName = $content.data("cp-name");
+		var subId = $content.data("sub-id");
+		var contentId = $content.data("content-id");
+		var contentAuth = $content.data("content-auth");
+		var isMembership = $content.data("is-membership");
+		var isPromotion = $content.data("is-promotion");
+		var isPreview = $content.data("is-preview");
+		var partnerChannel = $content.data("partner-channel");
+		var partnerType = $content.data("partner-type");
+		var type = $content.data("type");
+		var subType = $content.data("sub-type");
+		var userType = 0;
+
+		if (contentAuth === true) {
+			userType = 1;
+		}
+
+		var source = "";
+		var sourceId = "";
+
+		ntmOption["hitType"] = "cv";
+		ntmOption["eventCategory"] = "post_view";
+
+		ntmOption["channelId"] = cpName + "_" + subId;
+		ntmOption["uri"] = "https://contents.premium.naver.com/" + cpName + "/" + subId + "/contents/" + contentId;
+		ntmOption["userType"] = userType;
+		ntmOption["dimension1"] = cpName;
+		ntmOption["dimension2"] = isMembership == true ? "original" : "preview";
+		if (isPromotion == true) {
+			ntmOption["dimension3"] = "free";
+		}
+
+		if (source) {
+			ntmOption["dimension4"] = source;
+
+			if (sourceId) {
+				ntmOption["dimension5"] = sourceId;
+			}
+		}
+
+		if (partnerChannel) {
+			ntmOption["dimension6"] = partnerChannel === "Y" ? "partner" : "premium";
+		}
+
+		if (partnerType) {
+			ntmOption["dimension7"] = partnerType.toLowerCase();
+		}
+
+		if ("VIDEO" === subType) {
+			ntmOption["dimension8"] = "video";
+		}
+
+		if (!!!isPreview) {
+			ntm.push({
+				event: "nilSend",
+				ni: ntmOption
+			});
+
+			var eventType = "onpagehide" in window ? "pagehide" : "beforeunload";
+			$(window).on(eventType, function() {
+				ntmOption["hitType"] = "event";
+				ntmOption["eventCategory"] = "action";
+				ntmOption["eventAction"] = "leave";
+
+				ntm.push({
+					event: "nilSend",
+					ni: ntmOption
+				});
+			});
+
+		}
+	}
+});
+</script>
+
+</body>
+<script>
+var eventType = "onpageshow" in window ? "pageshow" : "load";
+$(window).on(eventType, function() {
+	var additionalInfo = {};
+
+	var sti = "";
+	if (sti) {
+		additionalInfo["sti"] = sti;
+	}
+
+	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
+
+	var gdid = $content.data("gdid");
+	if (gdid) {
+		window.lcsResult = lcs_do_gdid(gdid, additionalInfo);
+	} else {
+		window.lcsResult = lcs_do(additionalInfo);
+	}
+});
+</script>
+</html>

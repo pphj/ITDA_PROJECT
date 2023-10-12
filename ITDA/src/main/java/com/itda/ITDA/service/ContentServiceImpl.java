@@ -13,7 +13,7 @@ import com.itda.ITDA.mybatis.mapper.ContentMapper;
 @Service
 public class ContentServiceImpl implements ContentService {
 	private ContentMapper dao;
-	
+
 	@Autowired
 	public ContentServiceImpl(ContentMapper dao) {
 		this.dao = dao;
@@ -28,7 +28,7 @@ public class ContentServiceImpl implements ContentService {
 	public List<ChBoard> getContentByCategory(int categoryNum, int pageCount, int startRow, int endRow) {
 		return dao.getContentByCategory(categoryNum, pageCount, startRow, endRow);
 	}
-	
+
 	@Override
 	public List<ChannelList> getChannelList() {
 		return dao.getChannelList();
@@ -49,6 +49,10 @@ public class ContentServiceImpl implements ContentService {
 		return dao.selectchCate_Id();
 	}
 
+	@Override
+	public ChBoard getContentDetail(int boardnum) {
+		return dao.getContentDetail(boardnum);
 
+	}
 
 }

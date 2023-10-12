@@ -3,17 +3,77 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.itda.ITDA.mybatis.mapper.Itda_UserMapper">
+
 	<select id="isId" resultType="Itda_User">
-		select * from itda_user where userId = #{userId}
+		select * from itda_user 
+		where userId = #{userId}
+	</select>
+
+
+	 <insert id="insert" parameterType="Itda_User">
+        insert into itda_user
+        (userId, userPw, userName, userBirth, userGender, userPhone,
+        userAddress1, userAddress2, userPost, userEmail, userCategory,
+        userJoindate, statusId, userProfile)
+        values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userGender}, #{userPhone},
+        #{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail},
+        #{userCategory},
+        SYSDATE, 1, #{userProfile})
+    </insert>
+	
+	<select id="read" resultType="Itda_User">
+		select
+		userId, userPw, userName, userBirth, userGender, userPhone,
+		userAddress1, userAddress2, userPost, userEmail, userCategory,
+		userJoindate, statusId, userProfile
+		from itda_user
+		where userId = #{userId}
 	</select>
 	
-	<insert id="insert" parameterType="Itda_User">
-		insert into itda_user
-	    (userId, userPw, userName, userBirth, userGender, userPhone,
-	    userAddress1, userAddress2, userPost, userEmail, userCategory,
-	    userJoindate, statusId, userProfile)
-	    values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userGender}, #{userPhone},
-	    #{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail}, #{userCategory},
-	    SYSDATE, 1, null)
-	</insert>
+	<update id="userAddressUpdate" parameterType="hashMap">
+		update itda_User
+		set 
+			userPost = #{userPost}, 
+			userAddress1 = #{userAddress1},
+			userAddress2 = #{userAddress2}
+		where userId = #{userId}
+	</update>
+	
+	<select id="pwCheck" resultType="Itda_User">
+		select userPw 
+		from itda_user 
+		where userId = #{userId}
+	</select>
+	
+	<update id="pwUpdate" parameterType="hashMap">
+		update itda_user
+		set	userPw = #{userPw}
+		where userId = #{userId}
+	</update>
+	
+	<select id="getUserName" resultType="Itda_User">
+		select userName
+		from itda_user 
+		where userId = #{userId}
+	</select>
+	
+	<select id="getLeaveReasonCategory" resultType="UserLeaveReason">
+		select leaveReason_id, leaveReason_name
+		from leavereasoncategory
+	</select>
+	  <!-- 이메일로 사용자 조회 -->  
+   <select id ="findUserByEmail"
+       parameterType ="String"
+       resultType ="com.itda.ITDA.domain.Itda_User">   
+       SELECT * FROM itda_user
+       WHERE userEmail =#{email}   
+   </select>   
+
+   <!-- 비밀번호 재설정 -->   
+   <update id ="resetPasswordByMap">    
+       UPDATE itdA_USER SET     
+           UserPw=#{newPassword}    
+       WHERE userEmail=#{email}    
+   </update>
+	
 </mapper>

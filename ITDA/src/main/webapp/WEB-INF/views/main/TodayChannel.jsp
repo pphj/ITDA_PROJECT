@@ -76,7 +76,7 @@
                         : "${pageContext.request.contextPath}/resources/image/common/itda_logo3.png";
 
                     appendData += '<img src="' + imageUrl + '" alt="...">'
-                    + '<a href="channels/' + item.chNum + '">'
+                    + '<a href="channels/' + item.chNum +'">'
                     + '<div class="model_caption">'
                     + '<h5 class="text-white">' + item.chName + '</h5>'
                     + '<p class="card-text2">' + item.chInfo + '</p>'
@@ -97,7 +97,7 @@
 </script>
 <div style="display: flex; justify-content: center;">
 <div class="ch_top">
-    <h3 class="today_ch">오늘의 채널<img class="tv" alt="" src="resources/image/main/tv_icon.png"></h3>
+    <h3 class="today_ch">오늘의 채널<img class="tv" alt="" src="${pageContext.request.contextPath}/resources/image/main/tv_icon.png"></h3>
     <p class="today_ch_sub">잇:다에서 추천하는 인기 채널</p>
 </div>
 </div>

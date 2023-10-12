@@ -9,11 +9,14 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sellerform.css">
 <script>
 $(function() {
+	 var channelChecked = '';
+	
 	$('#sellerform').submit(function() {
 		var channel = $('#channel').val();
 		var phone = $('#phone').val();
 		var email = $("#email").val();
 		var intro = $('#intro').val();
+		
 		
 		if (channel == '') {
 			alert("채널명을 입력하세요");
@@ -45,8 +48,7 @@ $(function() {
 		}
 
 		
-		let channelcheck = '';
-		let submit_channel_val = $.trim(channel1.val()); 	//submit channel값과 중복검사 channel값이 다른 경우
+		let submit_channel_val = $.trim(channel); 	//submit channel값과 중복검사 channel값이 다른 경우
 			
 		if (submit_channel_val != channelcheck) {
 			alert('채널명 중복검사를 하세요');
@@ -92,7 +94,7 @@ $(function() {
 	let channelcheck = '';
 	
 	
-	$('#channel_butt').click(function() { 								//채널명 유효성 검사
+	$('#channel_butt').click(function() { 				//채널명 유효성 검사
 		var channel = $('#channel').val().trim();
 
 		if (channel == '') {
@@ -168,7 +170,7 @@ $(function() {
 <body style="margin: 0;">
 <div id="sellerback">
 <form name='sellerform' id='sellerform' enctype="multipart/form-data" method='post'
- action='${pageContext.request.contextPath}/sellerjoinprocess.me'>
+ action='${pageContext.request.contextPath}/seller/sellerjoinprocess'>
 	<h1 style="margin: 30px 50px;">Join Seller</h1>
 	<div class='num0'>
 		<label for='id' style="float: left;">&nbsp;아이디</label>

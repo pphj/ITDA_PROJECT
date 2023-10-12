@@ -1,14 +1,19 @@
 package com.itda.ITDA.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
 
 @Service
 public class Itda_UserServiceImpl implements Itda_UserService {
+	
 	private Itda_UserMapper dao;
 	private PasswordEncoder passwordEncoder;
 	
@@ -16,6 +21,7 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	public Itda_UserServiceImpl(Itda_UserMapper dao, PasswordEncoder passwordEncoder) {
 		this.dao = dao;
 		this.passwordEncoder = passwordEncoder;
+		
 	}
 
 	@Override
@@ -43,5 +49,55 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		}
 		return result;
 	}
+
+	@Override
+	public Itda_User read(String id) {
+		return dao.read(id);
+	}
+
+	@Override
+	public int userAddressUpdate(Map map) {
+		return dao.userAddressUpdate(map);
+	}
+
+	@Override
+	public Itda_User pwCheck(String id) {
+		return dao.pwCheck(id);
+	}
+
+	@Override
+	public void pwUpdate(Map map) {
+		dao.pwUpdate(map);
+		
+	}
+
+	@Override
+	public Itda_User getUserName(String id) {
+		return dao.getUserName(id);
+	}
+
+	@Override
+	public List<UserLeaveReason> getLeaveReasonCategory() {
+		return dao.getLeaveReasonCategory();
+	}
+
+
+	public Itda_User findUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void resetPassword(String email, String newPassword) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+
+
+
+	
+
 
 }

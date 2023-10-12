@@ -8,14 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itda.ITDA.domain.ChBoard;
-import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.service.ContentService;
@@ -36,16 +38,15 @@ public class MainController {
 	}
 	
 	@GetMapping(value="/protomain")		//인기 게시글(카드 로테이션 부분) 로직 포함
-	public Map<String, Object> SetMain(ModelAndView mv) {
+	public ModelAndView SetMain(ModelAndView mv) {
 		
 		List<ChBoard> HotContentList = contentService.HotContentSelect();
 		List<ChCategory> chCategoryList = contentService.selectchCate_Id();
-		Map<String, Object> map = new HashMap<String, Object>();
 		
-		map.put("HotContentList", HotContentList);
-		map.put("chCategoryList", chCategoryList);
+		mv.addObject("HotContentList", HotContentList);
+		mv.addObject("chCategoryList", chCategoryList);
 		mv.setViewName("main/protomain");
-		return map;
+		return mv;
 	}
 	
 	@ResponseBody	//오늘의 컨텐츠
@@ -84,5 +85,9 @@ public class MainController {
 	public String search() {
 		return "/main/search";
 	}
+	
+
+	
+	
 	
 }
