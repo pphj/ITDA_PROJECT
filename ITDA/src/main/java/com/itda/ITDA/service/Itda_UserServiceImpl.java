@@ -81,7 +81,6 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return dao.getLeaveReasonCategory();
 	}
 
-
 	public Itda_User findUserByEmail(String email) {
 		// TODO Auto-generated method stub
 		return null;

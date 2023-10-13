@@ -42,7 +42,7 @@
 		$.ajax({
 			type : "post",
 			data : sdata,
-			url	 : "sellerApproveList_ajax",
+			url	 : "userNoticeList_ajax",
 			dataType : "json",
 			cache : false,
 			//beforeSend : function(xhr) {
@@ -50,30 +50,29 @@
 			//},
 			success : function(data) {
 				$("#viewcount").val(data.limit);
-				$("thead").find("span").text("총 신청자 수 : " + data.listcount);
+				$("thead").find("span").text("글 개수 : " + data.listcount);
 				
 				if (data.listcount > 0) {
 					$("tbody").remove();
 					let num = data.listcount - (data.page - 1) * data.limit;
+					console.log(num)
 					let output = "<tbody>";
-					$(data.sellerApproveList).each(
+					$(data.userNoticeList).each(
 						function(index, item) {
-							output += '<tr><td class="text-center">&nbsp;&nbsp;' + (num--) + '</td>'
+							output += '<tr><td class="text-center">' + (num--) + '</td>'
+
+							let adTitle = item.adTitle;
+							if (adTitle.length >= 20) {
+								adTitle = adTitle.substr(0, 20) + "...";		//0부터 20개 부분 문자열 추출
 							
-							output += '<td class="text-center targetUserId"><div>' + item.userId + '</div></td>'
-									+ '<td class="text-center"><div>' + item.sellerPhone + '</div></td>'
-									+ '<td class="text-center"><div>' + item.sellerEmail + '</div></td>'
-									+ '<td class="text-center"><div>' + item.sellerJoinDate.substr(0,10) + '</div></td>'
-									+ '<td class="td-actions text-center">'
-							        + '<button type="button" rel="tooltip"'
-							        + ' class="btn btn-info btn-icon btn-fab sellerUpdate" data-original-title="" title="">'
-							        + ' 	<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;승인'
-							        + '</button>&nbsp;'
-							        + '<button type="button" rel="tooltip"'
-							        + ' class="btn btn-danger btn-icon btn-fab sellerCancel" data-original-title="" title="">'
-							        + '		<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;거부'
-							        + '</button>'
-							        + '</td></tr>'
+							}
+							
+							output += '<td class="text-center"><div>'
+								   	+ ' <a href="userNotice/' + item.adNum + '">'
+								   	+ adTitle.replace(/</g,'&lt;').replace(/>/g,'&gt;')
+									+ '<td class="text-center"><div>' + item.adWriter + '</div></td>'
+									+ '<td class="text-center"><div>' + item.adDate.substr(0,10) + '</div></td>'
+									+ '<td class="text-center"><div>' + item.adView + '</div></td></tr>'
 					})//each end
 					output += "</tbody>"
 					$('table').append(output);			//table 완성
@@ -122,42 +121,17 @@
 		
 	}//ready end
 	
-	$(document).on("click", ".sellerUpdate", function() {
-		let targetUserId = $(this).closest("tr").find(".targetUserId").text();
-		let targetAdminId = $('#loginId').text();
-	    // 해당 데이터를 폼에 설정
-	    $(".selectUserId").val(targetUserId);
-	    $(".selectAdminId").val(targetAdminId);
-	    $("#sellerApproveForm input[name='approve']").val("Y");
 	
-	    // 승인 여부를 확인하는 다이얼로그
-	    let result = confirm("판매자 가입을 승인하시겠습니까?");
-	    
-	    if (result) {
-	        $("form[name='sellerApproveForm']").submit(); // 폼 제출
-	    }
-	});// click end
-	
-	$(document).on("click", ".sellerCancel", function() {
-	    let targetUserId = $(this).closest("tr").find(".targetUserId").text();
-	    let targetAdminId = $('#loginId').text();
-	    
-	    $(".selectUserId").val(targetUserId);
-	    $(".selectAdminId").val(targetAdminId);
-	    $("#sellerCancelForm input[name='approve']").val("N");
-	    
-	    let result = confirm("판매자 가입을 거부하시겠습니까?");
-	    
-	    if (result) {
-	        $("form[name='sellerCancelForm']").submit();
-	    }
-	});
 	
 	$(function(){
+		$("#couponCreatebtn").click(function(){
+			location.href="coupon_Write";			//버튼 클릭시 write로 이동
+		
+		})// click end
+		
 		$("#viewcount").change(function(){
-			go(1); 									// 보여줄 페이지를 1페이지로 설정한다
+			go(1); 					// 보여줄 페이지를 1페이지로 설정한다
 		
 		})//change end
+		
 	});//ready end
-
-	

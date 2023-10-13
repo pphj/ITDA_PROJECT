@@ -1,4 +1,4 @@
-package com.itda.ITDA.controller;
+/*package com.itda.ITDA.controller;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,15 +14,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
@@ -33,9 +30,9 @@ import com.itda.ITDA.service.ChannelList_Service;
 //DAO와 Service가 작성되어야 Controller가 완성된다
 @Controller
 @RequestMapping(value = "/channels")
-public class ChannelListController {
+public class ChannelListController2 {
 
-	private static final Logger logger = LoggerFactory.getLogger(ChannelListController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ChannelListController2.class);
 
 	@Value("${my.savefolder}")
 	private String saveFolder;
@@ -46,7 +43,7 @@ public class ChannelListController {
 	final int WRONG_CHNUM = 0;
 
 	@Autowired
-	public ChannelListController(ChannelList_Service channelList_Service) {
+	public ChannelListController2(ChannelList_Service channelList_Service) {
 		this.channelList_Service = channelList_Service;
 	}
 
@@ -156,65 +153,70 @@ public class ChannelListController {
 		return mv;
 	}
 
-	@PostMapping("{chnum}/sellersetting")
-	public String showChannelUpdate(@PathVariable("chnum") int chnum, ModelAndView mv, ChannelList ChannelList,
-			HttpServletRequest request, RedirectAttributes rattr, HttpSession session) throws Exception {
+	@RequestMapping(value = "{chnum}/sellersetting", method = {
+				RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView showChannelSetting(@PathVariable("chnum") int chnum, ModelAndView mv, ChannelList ChannelList,
+			String check, HttpServletRequest request, HttpSession session) throws Exception {
 
 		MultipartFile uploadfile = ChannelList.getUploadfile();
-		String url = "";
 
-		if (uploadfile != null && !uploadfile.isEmpty())
-		{
-			logger.info("파일 추가/변경되었습니다.");
-
-			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
-
-			String fileDBName = fileDBName(fileName, saveFolder);
-			logger.info("fileDBName = " + fileDBName);
-			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장합니다.
-			uploadfile.transferTo(new File(saveFolder + fileDBName));
-			logger.info("transferTo path = " + saveFolder + fileDBName);
-			// 바뀐 파일명으로 저장
-			ChannelList.setChProfile(fileDBName);
-		}
-
-		// 채널 프로필 변경
-		int result = channelList_Service.getSellerUpdate(ChannelList);
-
-		if (result == 0)
-		{
-			logger.info("업데이트 실패");
-			url = "error/error";
+		if (check != null && !check.equals(""))
+		{// 기존 파일 그대로 사용하는 경우입니다.
+			logger.info("기존파일 그대로 사용합니다.");
+			ChannelList.setChProfile_original(check);
+			// <input type="hidden" name ="BOARD_FILE" value="${boarddata.BOARD_FILE}">
+			// 위 문장 때문에 board.setBOARD_FILE()값은 자동 저장 됩니다.
 		} else
-		{// 수정 성공의 경우
-			logger.info("업데이트 완료");
-			// 수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
-			url = "redirect:sellersetting";
-		}
-
-		return url;
-	}
-
-	@GetMapping(value = "{chnum}/sellersetting")
-	public ModelAndView showChannelSetting(@PathVariable("chnum") int chnum, ModelAndView mv, ChannelList ChannelList,
-			String check, HttpServletRequest request, HttpSession session) {
-
-		if (ChannelList == null)
 		{
-			logger.info("상세보기 실패");
-			mv.setViewName("error/error");
-			mv.addObject("url", request.getRequestURL());
-			mv.addObject("message", "상세보기 실패입니다.");
-			return mv;
-		}
-		logger.info("상세보기 성공");
 
+			// 답변글의 경우 파일 첨부에 대한 기능이 없습니다.
+			// 만약 답변글을 수정할 경우
+			// <input type="file" id="upfile" name="uploadfile"> 엘리먼트가 존재하지 않아
+			// private MultipartFile uploadfile; 에서 uploadfile은 null 입니다.
+			if (uploadfile != null && !uploadfile.isEmpty())
+			{
+				logger.info("파일 추가/변경되었습니다.");
+
+				String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
+				ChannelList.setChProfile_original(fileName);
+
+				String fileDBName = fileDBName(fileName, saveFolder);
+				logger.info("fileDBName = " + fileDBName);
+				// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장합니다.
+				uploadfile.transferTo(new File(saveFolder + fileDBName));
+				logger.info("transferTo path = " + saveFolder + fileDBName);
+				// 바뀐 파일명으로 저장
+				ChannelList.setChProfile(fileDBName);
+			} else
+			{// 기존 파일이 없는데 파일 선택하지 않은 경우 또는 기존 파일이 있었는데 삭제한 경우
+				logger.info("선택 파일이 없습니다.");
+				// <input type ="hidden" name = "BOARD_FILE" value="${boarddat.BOARD_FILE}">
+				// 위 태그에 같이 있다면 "" 로 값을 변경 합니다.
+				ChannelList.setChProfile("");// ""로 초기화합니다.
+				ChannelList.setChProfile_original("");// ""로 초기화 합니다.
+			} // else end
+
+		} // else end
+
+		// 채널 설정 변경
 		ChannelList SellerSetting = channelList_Service.getSellerSetting(chnum);
+		// 채널 프로필 변경
+		int ChannelProfile = channelList_Service.getSellerUpdate(ChannelList);
 
+
+		// 세션에 새로운 설정 정보 저장
+		ChannelList SellerSetting = (ChannelList) session.getAttribute("SellerSetting");
+		SellerSetting.setChProfile(ChannelList.getChProfile());
+		SellerSetting.setChName(ChannelList.getChName());
+		session.setAttribute("SellerSetting", SellerSetting);
+
+		mv.addObject("ChannelProfile", ChannelProfile);
 		mv.addObject("SellerSetting", SellerSetting);
 		mv.setViewName("channel/ChannelSetting");
+
 		return mv;
 	}
+
 
 	private String fileDBName(String fileName, String saveFolder) {
 		// 새로운 폴더 이름 : 오늘 년 + 월 + 일
@@ -235,27 +237,28 @@ public class ChannelListController {
 		Random r = new Random();
 		int random = r.nextInt(100000000);
 
-		/**** 확장자 구하기 시작 ****/
-		int index = fileName.lastIndexOf(".");
-		// 문자열에서 특정 문자열의 위치 값(index)를 반환합니다.
-		// indexOf가 처음 발견되는 문자열에 대한 index를 반환하는 반면,
-		// lastIndexOf는 마지막으로 발견되는 문자열의 index를 반환합니다.
-		// (파일명에 점에 여러개 있을 경우 맨 마지막에 발견되는 문자열의 위치를 리턴합니다.
-		logger.info("index = " + index);
-
-		String fileExtension = fileName.substring(index + 1);
-		logger.info("fileExtension = " + fileExtension);
-
-		// 새로운 파일명
-		String refileName = "bbs" + year + month + date + random + "." + fileExtension;
-		logger.info("refileName = " + refileName);
-
-		// 오라클 디비에 저장될 파일 명
-		// String fileDBName = "/" + year + "-" + month + "-" + date + "/" + refileName;
-		String fileDBName = File.separator + year + "-" + month + "-" + date + File.separator + refileName;
-		logger.info("fileDBName = " + fileDBName);
-
-		return fileDBName;
-	}
-
-}
+		*//**** 확장자 구하기 시작 ****//*
+							int index = fileName.lastIndexOf(".");
+							// 문자열에서 특정 문자열의 위치 값(index)를 반환합니다.
+							// indexOf가 처음 발견되는 문자열에 대한 index를 반환하는 반면,
+							// lastIndexOf는 마지막으로 발견되는 문자열의 index를 반환합니다.
+							// (파일명에 점에 여러개 있을 경우 맨 마지막에 발견되는 문자열의 위치를 리턴합니다.
+							logger.info("index = " + index);
+							
+							String fileExtension = fileName.substring(index + 1);
+							logger.info("fileExtension = " + fileExtension);
+							
+							// 새로운 파일명
+							String refileName = "bbs" + year + month + date + random + "." + fileExtension;
+							logger.info("refileName = " + refileName);
+							
+							// 오라클 디비에 저장될 파일 명
+							// String fileDBName = "/" + year + "-" + month + "-" + date + "/" + refileName;
+							String fileDBName = File.separator + year + "-" + month + "-" + date + File.separator + refileName;
+							logger.info("fileDBName = " + fileDBName);
+							
+							return fileDBName;
+							}
+							
+							}
+							*/

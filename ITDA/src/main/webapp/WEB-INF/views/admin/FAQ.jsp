@@ -67,7 +67,9 @@
       <button id="QNA" class="button-inactive">Q&A</button>
      </li>
     </ul>
-    	<div class="container">
+    <div class="main-content" style="padding: 30px 25px;">
+    <div class="card">
+		<div class="card-body">
 	 		<c:if test="${listcount > 0}">
 	 		<div class="rows" style="width: 48px; float: right;">
 		 		<span>줄보기</span>
@@ -98,11 +100,11 @@
 	 			<c:set var="num" value="${listcount-(page-1)*limit}" />
 	 			<c:forEach var="F" items="${FAQList}">
 	 				<tr>
-	 					<td class="text-center">		<%-- 번호 부분 --%>
-	 						<c:out value="${num}" />					<%-- num 출력 --%>
-	 						<c:set var="num" value="${num-1}" />		<%-- num = num - 1 의미 --%>
+	 					<td class="text-center">
+	 						<c:out value="${num}" />
+	 						<c:set var="num" value="${num-1}" />
 	 					</td>
-	 					<td class="text-center">		<%-- 제목 부분 --%>
+	 					<td class="text-center">
 	 						<div>
 	 							<a href="${pageContext.request.contextPath}/admin/FAQ/${F.adNum}">
 	 								<c:if test="${F.adTitle.length() >= 20}">
@@ -157,10 +159,9 @@
 		 			</c:if>
 		 			<c:if test="${page > 1}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page-1}">이전&nbsp;</a>
+		 					<a class="page-link" href="FAQ?page=${page-1}">이전&nbsp;</a>
 		 				</li>
 		 			</c:if>
-		 			
 		 			<c:forEach var="a" begin="${startpage}" end="${endpage}">
 		 				<c:if test="${a == page}">
 		 					<li class="page-item active">
@@ -169,12 +170,10 @@
 		 				</c:if>
 		 				<c:if test="${a != page}">
 		 					<li class="page-item">
-		 						<a class="page-link" href="list?page=${a}">${a}</a>
+		 						<a class="page-link" href="FAQ?page=${a}">${a}</a>
 		 					</li>
 		 				</c:if>
 		 			</c:forEach>
-		 			
-		 			
 		 			<c:if test="${page >= maxpage}">
 		 				<li class="page-item">
 		 					<a class="page-link gray">&nbsp;다음</a>
@@ -182,20 +181,20 @@
 		 			</c:if>
 		 			<c:if test="${page < maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page+1}">&nbsp;다음</a>
+		 					<a class="page-link" href="FAQ?page=${page+1}">&nbsp;다음</a>
 		 				</li>
 		 			</c:if>
 		 		</ul>
 		 	</div>
 		 	</c:if>
-		 	
 		 	<c:if test="${listcount == 0}">
 		 		<h3 style="text-align: center">등록된 글이 없습니다.</h3>
 		 	</c:if>
-		 	
 		 	<button type="button" id="faqwbtn" class="btn btn-success float-right btn-sm btn-round">FAQ 작성</button>
 	 	</div>
     </div>
+    </div>
+	</div>
   </main>
 </body>
 </html>
