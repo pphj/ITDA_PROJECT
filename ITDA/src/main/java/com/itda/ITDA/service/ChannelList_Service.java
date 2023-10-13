@@ -5,6 +5,7 @@ import java.util.List;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
 
 public interface ChannelList_Service {
@@ -36,6 +37,6 @@ public interface ChannelList_Service {
 
 	ChannelList getSellerUpdate(String chprofile, String chname, int chnum);
 
-	 void saveChannelList(ChannelList channelList);
+	 void saveChannelList(Itda_User itda_User);
 
 }

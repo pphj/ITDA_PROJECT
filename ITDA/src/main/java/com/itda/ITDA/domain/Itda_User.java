@@ -2,13 +2,21 @@ package com.itda.ITDA.domain;
 
 import java.security.Timestamp;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Itda_User {
+public class Itda_User implements UserDetails {
+	private static final long serialVersionUID = 1L;
 	private String userId;
 	private String userPw;
 	private String userName;
@@ -19,100 +27,21 @@ public class Itda_User {
 	private String userAddress2;
 	private String userPost;
 	private String userEmail;
-	private String userCategory;
 	private Timestamp userJoindate;
 	private int statusId;
 	private Timestamp updateDate;
+	private MultipartFile profile;
 	private String userProfile;
 	private String authName;
-	
+	private String adminId;
+	private String userCategory;
+	private String chInfo;
+	private String channel;
 
-	
 	public String getAuthName() {
-	    return "ROLE_" + authName; // "ROLE_"을 접두사로 추가
-	    
+		return "ROLE_" + authName; // "ROLE_"을 접두사로 추가
+
 	}
-
-
-//	public void setAuthName(String authName) {
-//		this.authName = authName;
-//	}
-//
-//	public Timestamp getUpdateDate() {
-//		return updateDate;
-//	}
-//
-//	public void setUpdateDate(Timestamp updateDate) {
-//		this.updateDate = updateDate;
-//	}
-//
-//	public Date getUserBirth() {
-//		return userBirth;
-//	}
-//
-//	public void setUserBirth(Date userBirth) {
-//		this.userBirth = userBirth;
-//	}
-//
-//	public String getUserCategory() {
-//		return userCategory;
-//	}
-//
-//	public void setUserCategory(String userCategory) {
-//		this.userCategory = userCategory;
-//	}
-//
-//	public int getStatusId() {
-//		return statusId;
-//	}
-//
-//	public void setStatusId(int statusId) {
-//		this.statusId = statusId;
-//	}
-//
-//	public String getUserProfile() {
-//		return userProfile;
-//	}
-//
-//	public void setUserProfile(String userProfile) {
-//		this.userProfile = userProfile;
-//	}
-//
-//	public String getUserAddress2() {
-//		return userAddress2;
-//	}
-//
-//	public void setUserAddress2(String userAddress2) {
-//		this.userAddress2 = userAddress2;
-//	}
-//
-//	public String getUserId() {
-//		return userId;
-//	}
-//
-//	public void setUserId(String userId) {
-//		this.userId = userId;
-//	}
-//
-//	public String getUserPw() {
-//		return userPw;
-//	}
-//
-//	public void setUserPw(String userPw) {
-//		this.userPw = userPw;
-//	}
-//
-//	public String getUserName() {
-//		return userName;
-//	}
-//
-//	public void setUserName(String userName) {
-//		this.userName = userName;
-//	}
-//
-//	public String getUserGender() {
-//		return userGender;
-//	}
 
 	public void setUserGender(String userGender) {
 		this.userGender = userGender;
@@ -158,10 +87,49 @@ public class Itda_User {
 		this.userJoindate = userJoindate;
 	}
 
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		ArrayList<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+		list.add(new SimpleGrantedAuthority(getAuthName()));
+		return list;
+	}
 
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return userPw;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return userId;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
 	
-
-
 	
 
 }

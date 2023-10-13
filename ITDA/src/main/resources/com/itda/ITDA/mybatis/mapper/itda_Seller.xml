@@ -7,9 +7,9 @@
           SELECT * FROM seller WHERE userId = #{userId}
     </select>
     
-  <insert id="insert" parameterType="com.itda.ITDA.domain.Seller">
-        INSERT INTO seller (userId, sellerPhone, sellerEmail, sellerJoinDate, adminId, waitOkDate, waitState)
-        VALUES (#{userId}, #{sellerPhone}, #{sellerEmail}, #{sellerJoinDate}, #{adminId}, #{waitOkDate}, #{waitState})
+  <insert id="insert" parameterType="com.itda.ITDA.domain.Itda_User">
+        INSERT INTO seller (adminId, userId, sellerPhone, sellerEmail, sellerJoinDate, waitState)
+        VALUES ('admin2', #{userId}, #{userPhone}, #{userEmail}, sysdate, 'W')
     </insert>
     
    

@@ -135,10 +135,14 @@
 	</update>
 
 
-	<insert id="saveChannelList" parameterType="com.itda.ITDA.domain.ChannelList" >
-    INSERT INTO channellist (ownerId, chName, chProfile, chInfo)
-    VALUES (#{ownerId}, #{chName}, #{chProfile}, #{chInfo})
+	 <insert id="saveChannelList" parameterType="com.itda.ITDA.domain.ChannelList">
+    INSERT INTO channellist (chNum, ownerid, chName, chprofile, chinfo, cate_id, chFollow, chVisit)
+    VALUES ((select NVL(max (chNum), 0) + 1 from ChannelList), #{userId}, #{channel}, #{userProfile}, #{chInfo}, '1', '0', '0')
 	</insert>
+
+
+
+
 
 		
 </mapper> 

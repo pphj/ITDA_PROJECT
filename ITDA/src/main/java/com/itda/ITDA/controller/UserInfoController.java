@@ -64,6 +64,7 @@ public class UserInfoController {
 	    	model.addAttribute("user", vo);
 	    	session.setAttribute("userName", vo.getUserName());
 	    	
+	    	
 	    	return "mypage/userinfo/myinfopage";
 	    	
 	    } else {

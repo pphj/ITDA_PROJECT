@@ -61,11 +61,11 @@
 							<div class="dropdown">
 								<button class="dropbtn">
 									<c:choose>
-										<c:when test="${empty userProfilePath}">
+										<c:when test="${empty pinfo.userProfile}">
 											<img id="profile_img" src="${pageContext.request.contextPath}/image/main/login.png"/>
 										</c:when>
 										<c:otherwise>
-											<img id="profile_img" src="${pageContext.request.contextPath}/image/Member${userProfilePath}"
+											<img id="profile_img" src="${pageContext.request.contextPath}/image/Member${pinfo.userProfile}"
 												style="width: 40px; height: 40px; object-fit: cover;" />
 										</c:otherwise>
 							        </c:choose>

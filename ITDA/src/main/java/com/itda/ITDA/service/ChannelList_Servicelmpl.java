@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.mybatis.mapper.ChannelListMapper;
 
@@ -92,8 +93,10 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		return dao.getSellerUpdate(chprofile, chname, chnum);
 	}
 
-	public void saveChannelList(ChannelList channelList) {
-		dao.saveChannelList(channelList); // 데이터베이스에 ChannelList 저장
+	public void saveChannelList(Itda_User itda_User) {
+		dao.saveChannelList(itda_User); // 데이터베이스에 ChannelList 저장
 	}
+
+	
 
 }

@@ -47,6 +47,9 @@ public class MainController {
 		mv.addObject("chCategoryList", chCategoryList);
 		mv.setViewName("main/protomain");
 		return mv;
+		
+		
+	//userProfilePath 
 	}
 	
 	@ResponseBody	//오늘의 컨텐츠

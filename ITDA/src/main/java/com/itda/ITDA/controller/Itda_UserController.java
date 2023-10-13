@@ -163,7 +163,7 @@ public class Itda_UserController {
 
 		model.addAttribute("url", request.getRequestURI())
 		     .addAttribute("message", "회원 가입 실패");
-
+			 	
 		return "/main/protomain";
 	}
 
