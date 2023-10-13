@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/assets/img/itda_logo.png">
-  <title>판매 회원 관리</title>
+  <title>판매 회원 승인</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
@@ -45,8 +45,9 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid py-4">
-    	<div class="container">
+    <div class="main-content" style="padding: 30px 25px;">
+	<div class="card">
+		<div class="card-body">
  		<c:if test="${listcount > 0}">
  		<div class="rows" style="width: 48px; float: right;">
 	 		<span>줄보기</span>
@@ -82,11 +83,11 @@
 	 						<c:set var="num" value="${num-1}" />
 	 					</td>
 	 					<td class="text-center targetUserId"><div><c:out value="${s.userId}" /></div></td>
-	 					<td class="text-center"><div>${s.WPhone}</div></td>
-	 					<td class="text-center"><div>${s.WEmail}</div></td>
+	 					<td class="text-center"><div>${s.sellerPhone}</div></td>
+	 					<td class="text-center"><div>${s.sellerEmail}</div></td>
 	 					<c:choose>
-						    <c:when test="${not empty s.waitDate}">
-						        <c:set var="Date" value="${fn:substring(s.waitDate, 0, 10)}" />
+						    <c:when test="${not empty s.sellerJoinDate}">
+						        <c:set var="Date" value="${fn:substring(s.sellerJoinDate, 0, 10)}" />
 						        <td class="text-center"><div><c:out value="${Date}" /></div></td>
 						    </c:when>
 						</c:choose>
@@ -96,7 +97,7 @@
 			                <i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;승인
 			              </button>
 			              <button type="button" rel="tooltip"
-			               class="btn btn-danger btn-icon btn-fab sellerCancle" data-original-title="" title="">
+			               class="btn btn-danger btn-icon btn-fab sellerCancel" data-original-title="" title="">
 			                <i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;거부
 			              </button>
 			            </td>
@@ -105,7 +106,15 @@
 	 		</tbody>
 		 	</table>
 			    <form action="sellerApproveUpdate" method="post" enctype="multipart/form-data" name="sellerApproveForm">
-					<input type="hidden" name="userId" id="selectUserId" value="">
+					<input type="hidden" name="userId" class="selectUserId" value="">
+					<input type="hidden" name="adminId" class="selectAdminId" value="">
+					<input type="hidden" name="approve" value="Y">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				</form>
+				<form action="sellerApproveUpdate" method="post" enctype="multipart/form-data" name="sellerCancelForm">
+					<input type="hidden" name="userId" class="selectUserId" value="">
+					<input type="hidden" name="adminId" class="selectAdminId" value="">
+					<input type="hidden" name="approve" value="N">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
 		 	<div class="center-block">
@@ -117,7 +126,7 @@
 		 			</c:if>
 		 			<c:if test="${page > 1}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page-1}">이전&nbsp;</a>
+		 					<a class="page-link" href="sellerApprove?page=${page-1}">이전&nbsp;</a>
 		 				</li>
 		 			</c:if>
 		 			<c:forEach var="a" begin="${startpage}" end="${endpage}">
@@ -128,7 +137,7 @@
 		 				</c:if>
 		 				<c:if test="${a != page}">
 		 					<li class="page-item">
-		 						<a class="page-link" href="list?page=${a}">${a}</a>
+		 						<a class="page-link" href="sellerApprove?page=${a}">${a}</a>
 		 					</li>
 		 				</c:if>
 		 			</c:forEach>
@@ -139,7 +148,7 @@
 		 			</c:if>
 		 			<c:if test="${page < maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page+1}">&nbsp;다음</a>
+		 					<a class="page-link" href="sellerApprove?page=${page+1}">&nbsp;다음</a>
 		 				</li>
 		 			</c:if>
 		 		</ul>
@@ -149,6 +158,7 @@
 		 		<h3 style="text-align: center">대기중인 신청자가 없습니다.</h3>
 		 	</c:if>
 	 	</div>
+	 </div>
     </div>
   </main>
 </body>

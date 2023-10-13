@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,11 +24,7 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/admin/list.js"></script>
-  <script>
-
-  </script>
+  <script src="${pageContext.request.contextPath}/resources/js/admin/problem.js"></script>
 </head>
 <body class="g-sidenav-show   bg-gray-100">
   <jsp:include page="adminList.jsp" />
@@ -46,72 +44,92 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid py-4">
-    	<div class="container">
+    <div class="main-content" style="padding: 30px 25px;">
+	<div class="card">
+			<div class="card-body">
  		<c:if test="${listcount > 0}">
- 		<div class="rows">
- 		<span>줄보기</span>
- 		<select class="form-control" id="viewcount">
- 			<option value="1">1</option>
- 			<option value="3">3</option>
- 			<option value="5">5</option>
- 			<option value="7">7</option>
- 			<option value="10" selected>10</option>
- 		</select>
+ 		<div class="rows" style="width: 48px; float: right;">
+	 		<span>줄보기</span>
+	 		<select class="form-control" id="viewcount">
+	 			<option value="1">1</option>
+	 			<option value="3">3</option>
+	 			<option value="5">5</option>
+	 			<option value="7">7</option>
+	 			<option value="10" selected>10</option>
+	 		</select>
  		</div>
 	 	<table class="table table-striped">
 	 		<thead>
-	 		<tr>
-	 			<th colspan="3">게시판 - list</th>
-	 			<th colspan="2"><span>글 개수 : ${listcount}</span></th>
-	 		</tr>
-	 		<tr>
-	 			<th><div>번호</div></th>
-	 			<th><div>제목</div></th>
-	 			<th><div>작성자</div></th>
-	 			<th><div>날짜</div></th>
-	 			<th><div>조회수</div></th>
-	 		</tr>
+		 		<tr>
+		 			<th colspan="4">관리자 목록</th>
+		 			<th colspan="1" style="text-align: right;"><span>총 신고 수 : ${sumListCount}</span></th>
+		 		</tr>
+		 		<tr>
+		 			<th class="text-center"><div>번호</div></th>
+		 			<th class="text-center"><div>아이디</div></th>
+		 			<th class="text-center"><div>신고 횟수</div></th>
+		 			<th class="text-center"><div>현재 상태</div></th>
+		 			<th class="text-center"><div>신고 처리</div></th>
+		 		</tr>
 	 		</thead>
 	 		<tbody>
 	 			<c:set var="num" value="${listcount-(page-1)*limit}" />
-	 			<c:forEach var="b" items="${boardlist}">
+	 			<c:forEach var="p" items="${problemList}">
 	 				<tr>
-	 					<td>		<%-- 번호 부분 --%>
-	 						<c:out value="${num}" />					<%-- num 출력 --%>
-	 						<c:set var="num" value="${num-1}" />		<%-- num = num - 1 의미 --%>
+	 					<td class="text-center">
+		 					<c:out value="${num}" />
+		 					<c:set var="num" value="${num-1}" />
 	 					</td>
-	 					<td>		<%-- 제목 부분 --%>
-	 						<div>
-	 							<c:if test="${b.board_re_lev != 0}">	<%-- 답글인 경우 (boardlist의 데이터를 b로 선언해 불러올때는 대문자로 써줘야 한다) --%>
-	 								<c:forEach var="a" begin="0" end="${b.board_re_lev*2}" step="1">
-	 								&nbsp;		
-	 								</c:forEach>
-	 								<img src="${pageContext.request.contextPath}/resources/image/line.gif">
-	 							</c:if>
-	 							
-	 							<c:if test="${b.board_re_lev == 0}">	<%-- 원문인 경우--%>
-	 								&nbsp;			<%-- 원문글을 나타내기 위해 살짝 여백을 줌 --%>
-	 							</c:if>
-	 							
-	 							<a href="detail?num=${b.board_num}">
-	 								<c:if test="${b.board_subject.length() >= 20}">
-	 									<c:out value="${b.board_subject.substring(0,20)}..." escapeXml="true" />
-	 								</c:if>
-	 								<c:if test="${b.board_subject.length() < 20}">
-	 									<c:out value="${b.board_subject}" escapeXml="true" />
-	 								</c:if>
-	 							</a>
-	 							<span class="small">[${b.cnt}]</span>
-	 						</div>
+	 					<td class="text-center targetSickId">
+		 					<a href="${pageContext.request.contextPath}/admin/problem/${p.sickId}">
+		 						<div name=sickId><c:out value="${p.sickId}" /></div>
+		 					</a>
 	 					</td>
-	 					<td><div>${b.board_name}</div></td>
-	 					<td><div>${b.board_date}</div></td>
-	 					<td><div>${b.board_readcount}</div></td>
+	 					<td class="text-center"><div><c:out value="${p.sumCount}" /></div></td>
+	 					<c:choose>
+						    <c:when test="${p.statusid == 1}">
+						        <td class="text-center"><div>정상</div></td>
+						    </c:when>
+						    <c:when test="${p.statusid == 2}">
+						        <td class="text-center"><div>일시 정지</div></td>
+						    </c:when>
+						    <c:when test="${p.statusid == 3}">
+						        <td class="text-center"><div>정지</div></td>
+						    </c:when>
+						</c:choose>
+		 				<td class="td-actions text-center">
+				        	<button type="button" rel="tooltip"
+				             class="btn btn-danger btn-icon btn-sm Pause" data-original-title="" title="">
+				            	<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;일시정지
+				            </button>
+				            <button type="button" rel="tooltip"
+				             class="btn btn-danger btn-icon btn-sm Stop" data-original-title="" title="">
+				            	<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;정지
+				            </button>
+				            <button type="button" rel="tooltip"
+				             class="btn btn-info btn-icon btn-sm Clear" data-original-title="" title="">
+				            	<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;해제
+				            </button>
+				        </td>
 	 				</tr>
 	 			</c:forEach>
 	 		</tbody>
-		 	</table>
+		 </table>
+			<form action="problemUpdate" method="post" enctype="multipart/form-data" name="problemPauseForm">
+				<input type="hidden" name="userId" class="selectUserId" value="">
+				<input type="hidden" name="approve" value="2">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			</form>
+			<form action="problemUpdate" method="post" enctype="multipart/form-data" name="problemStopForm">
+				<input type="hidden" name="userId" class="selectUserId" value="">
+				<input type="hidden" name="approve" value="3">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			</form>
+			<form action="problemUpdate" method="post" enctype="multipart/form-data" name="problemClearForm">
+				<input type="hidden" name="userId" class="selectUserId" value="">
+				<input type="hidden" name="approve" value="1">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			</form>
 		 	<div class="center-block">
 		 		<ul class="pagination justify-content-center">
 		 			<c:if test="${page <= 1}">
@@ -121,10 +139,9 @@
 		 			</c:if>
 		 			<c:if test="${page > 1}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page-1}">이전&nbsp;</a>
+		 					<a class="page-link" href="problem?page=${page-1}">이전&nbsp;</a>
 		 				</li>
 		 			</c:if>
-		 			
 		 			<c:forEach var="a" begin="${startpage}" end="${endpage}">
 		 				<c:if test="${a == page}">
 		 					<li class="page-item active">
@@ -133,12 +150,10 @@
 		 				</c:if>
 		 				<c:if test="${a != page}">
 		 					<li class="page-item">
-		 						<a class="page-link" href="list?page=${a}">${a}</a>
+		 						<a class="page-link" href="problem?page=${a}">${a}</a>
 		 					</li>
 		 				</c:if>
 		 			</c:forEach>
-		 			
-		 			
 		 			<c:if test="${page >= maxpage}">
 		 				<li class="page-item">
 		 					<a class="page-link gray">&nbsp;다음</a>
@@ -146,20 +161,18 @@
 		 			</c:if>
 		 			<c:if test="${page < maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page+1}">&nbsp;다음</a>
+		 					<a class="page-link" href="problem?page=${page+1}">&nbsp;다음</a>
 		 				</li>
 		 			</c:if>
-		 			
 		 		</ul>
 		 	</div>
-		 	</c:if>
+		 </c:if>
 		 	
 		 	<c:if test="${listcount == 0}">
-		 		<h3 style="text-align: center">등록된 글이 없습니다.</h3>
+		 		<h3 style="text-align: center">신고 기록이 없습니다.</h3>
 		 	</c:if>
-		 	
-		 	<button type="button" class="btn btn-info float-right">글 쓰 기</button>
 	 	</div>
+	</div>
     </div>
   </main>
 </body>
