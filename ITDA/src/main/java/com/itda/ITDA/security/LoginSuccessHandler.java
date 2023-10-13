@@ -16,25 +16,16 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoginSuccessHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginSuccessHandler.class);
 
-    @Autowired
-    private HttpSession session;
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws IOException, ServletException {
 
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-            Authentication authentication) throws IOException, ServletException {
+		logger.info("로그인 성공 : LoginSuceessHandler ");
 
-        logger.info("로그인 성공 : LoginSuceessHandler ");
-
-        // 사용자 정보 가져오기
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String userId = userDetails.getUsername();
-
-        // 세션에 "userId" 속성 설정
-        session.setAttribute("userId", userId);
-
-        String url = request.getContextPath() + "/";
-        response.sendRedirect(url);
-    }
+		// 사용자 정보 가져오기
+		String url = request.getContextPath() + "/";
+		response.sendRedirect(url);
+	}
 }

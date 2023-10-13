@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
 
 @Mapper
@@ -38,7 +39,9 @@ public interface ChannelListMapper {
 
 	ChannelList getSellerSetting(int chnum);
 
-	void saveChannelList(ChannelList channelList);
+	ChannelList getSellerUpdate(String chprofile, String chname, int chnum);
+
+	void saveChannelList(Itda_User itda_User);
 
 	int getSellerUpdate(ChannelList channelList);
 
