@@ -42,7 +42,9 @@
         </div>
       </div>
     </div>
-	<div class="container">
+	<div class="main-content" style="padding: 30px 25px;">
+	<div class="card">
+		<div class="card-body">
  		<form action="itdaNoticeInsert" method="post" enctype="multipart/form-data" name="itdaNoticeform">
  			<h1>사내 공지사항 작성 페이지</h1>
  			<div class="form-group">
@@ -68,9 +70,11 @@
  			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
  			<div class="form-group">
  				<button type=submit class="btn btn-primary">등록</button>
- 				<button type=reset class="btn btn-danger">취소</button>
+ 				<button type=reset class="btn btn-danger" onClick="history.go(-1)">취소</button>
  			</div>
  		</form>
+ 		</div>
+	</div>
  	</div>
 </body>
 </html>

@@ -70,7 +70,9 @@
         </div>
       </div>
     </div>
-	<div class="container">
+	<div class="main-content" style="padding: 30px 25px;">
+	<div class="card">
+		<div class="card-body">
  		<table class="table">
  			<tr>
  				<th colspan="2">&nbsp;</th>
@@ -132,6 +134,8 @@
  				</div>
  			</div><%-- 삭제 모달 끝 --%>
  		</table>
+ 		</div>
+ 	</div>	
  	</div>
 </body>
 </html>

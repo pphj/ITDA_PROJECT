@@ -21,5 +21,6 @@ public class AdminBoard {
 	private Timestamp adDate;			//작성일
 	private Timestamp adUpdate;			//수정일
 	private String Key;					//글의 종류
+	private String adState;				//상태 
 
 }

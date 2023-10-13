@@ -19,11 +19,11 @@ public interface Itda_UserMapper {
 
 	Itda_User read(String id);
 
-	int userAddressUpdate(Map map);
+	int userAddressUpdate(Itda_User itdaUser);
 
 	Itda_User pwCheck(String id);
 
-	void pwUpdate(Map map);
+	void pwUpdate(Itda_User itdaUser);
 
 	Itda_User getUserName(String id);
 
@@ -32,6 +32,8 @@ public interface Itda_UserMapper {
 	Itda_User findUserByEmail(String email);
     
     void resetPassword(Map map);
+
+	int leaveResonInsert(UserLeaveReason leaveReason);
 	
 	
 }

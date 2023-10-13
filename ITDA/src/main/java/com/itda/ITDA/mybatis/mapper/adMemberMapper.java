@@ -14,4 +14,9 @@ public interface adMemberMapper {
 	public Admin isId(String adminId);
 
 	public int adMemberInsert(Admin admin);
+	
+	// QnA 게시글을 DB에 삽입하는 메서드 추가
+    public int insertQna(AdminBoard adminBoard);
+	
+	
 }

@@ -4,6 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -45,6 +46,7 @@
 	function setContainerHeight(height) {}
 	function clearDocs(){}
 </script>
+
 <meta name="decorator" content="NEW_USER_MYINFO">
 <script type="text/javascript">
 //<![CDATA[
@@ -126,7 +128,7 @@ function mainSubmit(){
     }
     
     clickcr(this,'otn.quitappconfirm','','',window.event);
-    
+     
     document.fm.submit();
     return;
 }
@@ -279,7 +281,7 @@ function Len_Check(str,max){
 	<div id="lnb_area">
 		<div class="lnb">
 			<ul role="menu">
-				<li id="nid" role="presentation"><a href="${pageContext.request.contextPath}/user/leave/" role="menuitem" onclick="clickcr(this,'lnb.info','','',event);">내프로필<em></em></a></li>
+				<li id="nid" role="presentation"><a href="${pageContext.request.contextPath}/user/myInfo" role="menuitem" onclick="clickcr(this,'lnb.info','','',event);">내프로필<em></em></a></li>
 			</ul>
 		</div>
 	</div>
@@ -343,20 +345,20 @@ function showMenu(subMenu) {
 			<p class="contxt">회원님께서 잇다를 탈퇴하는 이유를 알려주시면 보다 좋은 서비스 제공을 위해 노력하겠습니다.</p>
 		</div>
 
-		<form action="/user2/help/leaveId?m=actionLeaveId"  name="fm" id="fm" method="post">
-			
+		<form action="${pageContext.request.contextPath}/user/leaveAction"  name="fm" id="fm" method="post">
+			<input hidden="userId" id="userId" name="userId">
 			<div class="box3">
 				<ul>
 				<c:forEach var="reason" items="${reason}" begin="0" end="7">
 				    <li>
-				        <input name="reason" type="radio" value="${reason.leaveReason_id}" class="input_radio" id="rs_${reason.leaveReason_id}" onclick="javascript:void(setTextbox('unset'));" />
+				        <input name="leaveReason_id" type="radio" value="${reason.leaveReason_id}" class="input_radio" id="rs_${reason.leaveReason_id}" onclick="javascript:void(setTextbox('unset'));" />
 				        <label for="rs_${reason.leaveReason_id}">${reason.leaveReason_name}</label>
 				    </li>
 				</c:forEach>
 					<li class="last">
-						<c:forEach var="reason" items="${reason}" varStatus="status">
+						<c:forEach var="leaveReason_id" items="${reason}" varStatus="status">
 						    <c:if test="${status.index eq 8}">
-						        <input name="reason" type="radio" value="9" class="input_radio" id="rs9" onclick="javascript:void(setTextbox('set'));" />${reason.leaveReason_name}<label for="rs9"></label>
+						        <input name="leaveReason_id" type="radio" value="9" class="input_radio" id="rs9" onclick="javascript:void(setTextbox('set'));" />${reason.leaveReason_name}<label for="rs9"></label>
 						    </c:if>
 						</c:forEach>
 						<!-- [D] 감추기 보이기 display:block/none -->

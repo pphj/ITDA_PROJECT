@@ -174,7 +174,7 @@ $(function() {
 	<h1 style="margin: 30px 50px;">Join Seller</h1>
 	<div class='num0'>
 		<label for='id' style="float: left;">&nbsp;아이디</label>
-		<input type="text" name="userid" id="showid" value="${userId}" readOnly>
+		<input type="text" name="userId" id="showid" value="${userId}" readOnly>
 	</div>
 	<div class='num1 clearfix'>
 		<label for='channel' style="float: left;"><span style="color: red">*</span>채널명</label><br>
@@ -210,11 +210,11 @@ $(function() {
 	</div>
 	<div class='num3'>
 		<label for='phone' style="float: left;"><span style="color: red">*</span>휴대폰번호</label>
-			<input type='text' maxLength='14' name='phone' id='phone' placeholder='예:010-1234-5678' required>
+			<input type='text' maxLength='14' name='userPhone' id='phone' placeholder='예:010-1234-5678' required>
 	</div>
 	<div class='num4'>
 		<label for='email' style="float: left;"><span style="color: red">*</span>이메일</label>
-			<input type='text' name='email' id='email' placeholder='예:itda@itda.com' required>
+			<input type='text' name='userEmail' id='email' placeholder='예:itda@itda.com' required>
 	</div>
 	<div id="categories clearfix">
 		<label for='category' style="float: left; margin-left: 15px;"><span style="color: red">*</span>채널 카테고리</label><br>
@@ -233,7 +233,7 @@ $(function() {
 	</div>
 	<div class='num5'>	
 		<label for='info' style="float: left;"><span style="color: red">*</span>채널 소개글</label><br>
-			<textarea rows='10' name='info' id='info' maxLength='300'
+			<textarea rows='10' name='chInfo' id='info' maxLength='300'
 			 placeholder='채널 소개글을 작성해주세요. 최대 300자' required></textarea>
 	</div>
 	<div class='num6 clearfix'>

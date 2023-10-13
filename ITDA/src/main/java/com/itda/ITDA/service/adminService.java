@@ -8,6 +8,7 @@ import com.itda.ITDA.domain.BoardWarn;
 import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.UserTotal;
 
 public interface adminService {
 
@@ -88,6 +89,12 @@ public interface adminService {
 	public List<Coupon> couponList(int page, int i);
 
 	public void couponInsert(Coupon couponData);
+
+	public int getUserTotal();
+
+	public int userTotalInsert(int dailyUserTotal);
+
+	public List<UserTotal> getUserTotalList();
 
 
 }

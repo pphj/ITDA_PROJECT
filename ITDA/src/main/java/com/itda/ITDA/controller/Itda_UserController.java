@@ -94,7 +94,8 @@ public class Itda_UserController {
 	                     RedirectAttributes ra, 
 	                     Model model,
 	                     HttpServletRequest request,
-	                     HttpSession session) {
+	                     HttpSession session,
+	                     HttpServletResponse response) {  // HttpServletResponse 객체를 파라미터로 추가합니다.
 	    String encPassword = passwordEncoder.encode(mem.getUserPw());
 	    logger.info(encPassword);
 	    mem.setUserPw(encPassword);
@@ -126,12 +127,22 @@ public class Itda_UserController {
 	           mem.setUserProfile(urlPath);  // 업로그한 이미지 URL set
 	           session.setAttribute("userProfilePath", urlPath);  // 세션에 이미지 URL 저장
 
+	           // 쿠키 생성 및 설정
+	           Cookie profileCookie = new Cookie("userProfilePath", urlPath);
+	           profileCookie.setMaxAge(60 * 60 * 24 * 7); // 예: 7일 동안 유지되도록 설정 (초 단위)
+	           response.addCookie(profileCookie);
+
 	       } catch (IOException e) {
 	           e.printStackTrace();
 	       }
 	   } else {  
 	        mem.setUserProfile("/static/image/main/login.png");  
 	        session.setAttribute("userProfilePath", "/static/image/main/login.png");  
+
+	        // 기본 이미지 경로를 쿠키에서 제거하기 위해 만료 시간을 설정합니다.
+	        Cookie profileCookie = new Cookie("userProfilePath", "");
+	        profileCookie.setMaxAge(0); // 즉시 만료되도록 설정
+	        response.addCookie(profileCookie);
 	   }
 
 	    int result = Itda_UserService.insert(mem);
@@ -152,7 +163,7 @@ public class Itda_UserController {
 
 		model.addAttribute("url", request.getRequestURI())
 		     .addAttribute("message", "회원 가입 실패");
-
+			 	
 		return "/main/protomain";
 	}
 

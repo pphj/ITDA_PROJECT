@@ -61,9 +61,9 @@
 							output += '<tr><td class="text-center">&nbsp;&nbsp;' + (num--) + '</td>'
 							
 							output += '<td class="text-center targetUserId"><div>' + item.userId + '</div></td>'
-									+ '<td class="text-center targetWaitPhone"><div>' + item.waitPhone + '</div></td>'
-									+ '<td class="text-center targetWaitEmail"><div>' + item.waitEmail + '</div></td>'
-									+ '<td class="text-center"><div>' + item.waitDate.substr(0,10) + '</div></td>'
+									+ '<td class="text-center"><div>' + item.sellerPhone + '</div></td>'
+									+ '<td class="text-center"><div>' + item.sellerEmail + '</div></td>'
+									+ '<td class="text-center"><div>' + item.sellerJoinDate.substr(0,10) + '</div></td>'
 									+ '<td class="td-actions text-center">'
 							        + '<button type="button" rel="tooltip"'
 							        + ' class="btn btn-info btn-icon btn-fab sellerUpdate" data-original-title="" title="">'
@@ -124,13 +124,10 @@
 	
 	$(document).on("click", ".sellerUpdate", function() {
 		let targetUserId = $(this).closest("tr").find(".targetUserId").text();
-	    let targetWaitPhone = $(this).closest("tr").find(".targetWaitPhone").text();
-	    let targetWaitEmail = $(this).closest("tr").find(".targetWaitEmail").text();
-	
+		let targetAdminId = $('#loginId').text();
 	    // 해당 데이터를 폼에 설정
 	    $(".selectUserId").val(targetUserId);
-	    $(".selectWPhone").val(targetWaitPhone);
-	    $(".selectWEmail").val(targetWaitEmail);
+	    $(".selectAdminId").val(targetAdminId);
 	    $("#sellerApproveForm input[name='approve']").val("Y");
 	
 	    // 승인 여부를 확인하는 다이얼로그
@@ -143,13 +140,16 @@
 	
 	$(document).on("click", ".sellerCancel", function() {
 	    let targetUserId = $(this).closest("tr").find(".targetUserId").text();
+	    let targetAdminId = $('#loginId').text();
+	    
 	    $(".selectUserId").val(targetUserId);
-	    $("#sellerApproveForm input[name='approve']").val("N");
+	    $(".selectAdminId").val(targetAdminId);
+	    $("#sellerCancelForm input[name='approve']").val("N");
 	    
 	    let result = confirm("판매자 가입을 거부하시겠습니까?");
 	    
 	    if (result) {
-	        $("form[name='sellerApproveForm']").submit();
+	        $("form[name='sellerCancelForm']").submit();
 	    }
 	});
 	

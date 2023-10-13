@@ -26,28 +26,21 @@ import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
  */
 public class CustomUserDetailService implements UserDetailsService {
 	private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailService.class);
-	
+
 	@Autowired
 	private Itda_UserMapper dao;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("username은 로그인시 입력한 값 : " + username);
 		Itda_User users = dao.isId(username);
-		
+
 		if (users == null) {
 			logger.info("username" + username + "not found");
 			throw new UsernameNotFoundException("username" + username + "not found");
 		}
-		
-		//GrantedAuthority : 인증 개체에 부여된 권한을 나타내기 위한 인터페이스로 이를 구현한 구현체는
-		//					 권한을 생성자에 문자열로 넣어준다.
-		//SimpleGrantedAuthority : GrantedAuthority의 구현체기 때문에 GrantedAuthority대신 SimpleGrantedAuthority가 올 수 있다.
-		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
-		roles.add(new SimpleGrantedAuthority(users.getAuthName()));
-		UserDetails user = new User(username, users.getUserPw(), roles);
-		
-		return user;
+
+		return users;
 	}
 
 }

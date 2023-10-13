@@ -13,6 +13,7 @@ import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.QnaReply;
 import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.UserTotal;
 
 @Mapper
 public interface AdminMapper {
@@ -104,6 +105,12 @@ public interface AdminMapper {
 	public List<Coupon> couponList(HashMap<String, Integer> map);
 
 	public void couponInsert(Coupon couponData);
+
+	public int getUserTotal();
+
+	public int userTotalInsert(int dailyUserTotal);
+
+	public List<UserTotal> getUserTotalList();
 
 
 

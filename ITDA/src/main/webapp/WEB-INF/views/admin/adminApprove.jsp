@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid py-4">
+    <div class="main-content" style="padding: 30px 25px;">
     	<!--
     	<form action="adminList" method="post" id="adminList_Form">
 			<div class="input-group">
@@ -63,7 +63,8 @@
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		</form>
 		-->
-    	<div class="container">
+    	<div class="card">
+    	<div class="card-body">
  		<c:if test="${listcount > 0}">
  		<div class="rows" style="width: 48px; float: right;">
 	 		<span>줄보기</span>
@@ -128,7 +129,7 @@
 			      <div class="modal-body">
 			      	<form action="authApproveUpdate" method="post" enctype="multipart/form-data" name="authApproveForm">
 				      	<div>
-				      		<input type="hidden" name="adminId" id="selectAdminId" value="">
+				      		<input type="hidden" name="adminId" class="selectAdminId" value="">
 				      	</div>
 				      	<div class="custom-control custom-radio mb-3">
 				      		<input class="custom-control-input" value="ADMIN" name="authName" type="radio">
@@ -147,7 +148,7 @@
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-			        <button type="button" class="btn btn-primary" id="approveOK">확인</button>
+			        <button type="button" class="btn btn-primary approveOK">확인</button>
 			      </div>
 			    </div>
 			  </div>
@@ -162,7 +163,7 @@
 		 			</c:if>
 		 			<c:if test="${page > 1}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page-1}">이전&nbsp;</a>
+		 					<a class="page-link" href="adminApprove?page=${page-1}">이전&nbsp;</a>
 		 				</li>
 		 			</c:if>
 		 			
@@ -174,7 +175,7 @@
 		 				</c:if>
 		 				<c:if test="${a != page}">
 		 					<li class="page-item">
-		 						<a class="page-link" href="list?page=${a}">${a}</a>
+		 						<a class="page-link" href="adminApprove?page=${a}">${a}</a>
 		 					</li>
 		 				</c:if>
 		 			</c:forEach>
@@ -187,7 +188,7 @@
 		 			</c:if>
 		 			<c:if test="${page < maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page+1}">&nbsp;다음</a>
+		 					<a class="page-link" href="adminApprove?page=${page+1}">&nbsp;다음</a>
 		 				</li>
 		 			</c:if>
 		 			
@@ -199,6 +200,7 @@
 		 		<h3 style="text-align: center">등록된 관리자가 없습니다.</h3>
 		 	</c:if>
 	 	</div>
+    </div>
     </div>
   </main>
 </body>

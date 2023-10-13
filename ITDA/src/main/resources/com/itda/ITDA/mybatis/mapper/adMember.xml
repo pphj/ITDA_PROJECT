@@ -7,4 +7,14 @@
 		select * from admin where adminId = #{adminId}
 	</select>
 	
+	<!-- QnA 게시글을 DB에 삽입하는 SQL 쿼리 추가 -->
+    <insert id="insertQna" parameterType="com.itda.ITDA.domain.AdminBoard">
+        INSERT INTO admin_board (userId, adWriter, adPassword,
+                                 adTitle, adContent, adView,
+                                 QcateId)
+        VALUES (#{userId}, #{adWriter}, #{adPassword},
+                #{adTitle}, #{adContent}, 0,
+                #{QcateId})
+    </insert>
+	
 </mapper>

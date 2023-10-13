@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,12 +23,20 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/chartjs.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/Chart.extension.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   $(function(){
+	  	let userTotal = [];
+	  	let creDate = [];
 
-	  
+	  	// 원하는 개수만큼 반복
+	  	for (let i = 1; i <= 10; i++) {
+	    	userTotal.push($(".userTotal" + i).text());
+	    	creDate.push($(".creDate" + i).text());
+	  	}
+	  	
 	    var ctx1 = document.getElementById("chart-line").getContext("2d");
 
 	    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
@@ -37,9 +47,9 @@
 	    new Chart(ctx1, {
 	      type: "line",
 	      data: {
-	        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+	        labels: creDate,
 	        datasets: [{
-	          label: "Mobile apps",
+	          label: "총 유저수",
 	          tension: 0.4,
 	          borderWidth: 0,
 	          pointRadius: 0,
@@ -47,7 +57,7 @@
 	          backgroundColor: gradientStroke1,
 	          borderWidth: 3,
 	          fill: true,
-	          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+	          data: userTotal,
 	          maxBarThickness: 6
 
 	        }],
@@ -76,7 +86,7 @@
 	            ticks: {
 	              display: true,
 	              padding: 10,
-	              color: '#fbfbfb',
+	              color: '#344767',
 	              font: {
 	                size: 11,
 	                family: "Open Sans",
@@ -95,7 +105,7 @@
 	            },
 	            ticks: {
 	              display: true,
-	              color: '#ccc',
+	              color: '#344767',
 	              padding: 20,
 	              font: {
 	                size: 11,
@@ -112,7 +122,7 @@
 	  });
   </script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />
@@ -136,10 +146,10 @@
 			<div class="col-lg-7 mb-lg-0 mb-4">
 				<div class="card z-index-2 h-300">
 					<div class="card-header pb-0 pt-3 bg-transparent">
-						<h6 class="text-capitalize">유저 그래프</h6>
+						<h6 class="text-capitalize">일일 총 유저수</h6>
 						<p class="text-sm mb-0">
 							<i class="ni ni-chart-bar-32 text-success"></i>
-							<span class="font-weight-bold">넣을 예정</span> in 2023
+							<span class="font-weight-bold">10월</span> in 2023
 						</p>
 	            	</div>
 		            <div class="card-body p-3">
@@ -154,9 +164,9 @@
 	            <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
 	              <div class="carousel-inner border-radius-lg h-100">
 	                <div class="carousel-item h-100 active"
-	                 style="background-image: url('${pageContext.request.contextPath}/resources/assets/img/9th_month.jpg'); background-size: cover;">
+	                 style="background-image: url('${pageContext.request.contextPath}/resources/assets/img/october.jpg'); background-size: cover;">
 	                  <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-	                    <h5 class="text-white mb-1">9월 일정</h5>
+	                    <h5 class="text-white mb-1">10월 일정</h5>
 	                  </div>
 	                </div>
 	                <div class="carousel-item h-100"
@@ -178,6 +188,23 @@
 	          </div>
 			</div>
 			</div>
+		</div>
+		<div style="display: none;">
+			<table>
+				<tbody>
+				<c:forEach var="u" items="${userTotalData}" varStatus="loop">
+					<tr>
+						<td class="userTotal${loop.index + 1}">${u.userTotal}</td>
+						<c:choose>
+						    <c:when test="${not empty u.creDate}">
+						        <c:set var="Date" value="${fn:substring(u.creDate, 0, 10)}" />
+						        <td class="creDate${loop.index + 1}"><div><c:out value="${Date}" /></div></td>
+						    </c:when>
+						</c:choose>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
 		</div>
 	</div>
   </main>

@@ -482,6 +482,8 @@
     <input type="hidden" name="phoneAuthYn" id="phoneAuthYn" value="N"/>
     <input type="hidden" name="mobileYn" id="mobileYn" value="N" />
     <input type="hidden" name="addressYn" id="isAddressYn" value="Y"/>
+    <input type="hidden" name="userId" id="userId" value="${user.userId }"/>
+    
  
     
     <!--팝업딥드-->

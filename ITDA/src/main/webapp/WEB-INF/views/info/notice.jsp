@@ -396,14 +396,35 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 
 					<li class="on"><a href="${pageContext.request.contextPath}/info/notice" target="">공지사항</a></li>
 					<li ><a href="${pageContext.request.contextPath}/info/faq">FAQ</a></li>
-					<li ><a href="${pageContext.request.contextPath}/info/qna">1:1문의<span class="icon-membersonly2">회원전용</span></a></li>
+					<li >
+					
+						<sec:authorize access="isAuthenticated()">
+							<!-- 로그인 상태일 때 -->
+									<a href="#" id="qnaBtn">1:1문의<span
+										class="icon-membersonly2">회원전용</span></a>
+								</sec:authorize></li>
+								
+						<!-- 비로그인 상태일 때 -->
+							<sec:authorize access="!isAuthenticated()">
+								<script>
+									$(document).ready(function() {
+										$("#qnaBtn").click(function(e) {
+											e.preventDefault();
+											alert("로그인이 필요합니다.");
+										});
+									});
+								</script>
+							</sec:authorize>		
+					
+					
+					
+					
+					</li>
 				</ul>
 					
 					<div class="list-basic">
 					
 					
-					
-
 						<div class="list-item ">
 							<div class="col tit">
 								<a href="https://www.hankyung.com/help/notice/view?no=54"
