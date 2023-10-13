@@ -346,19 +346,19 @@ function showMenu(subMenu) {
 		</div>
 
 		<form action="${pageContext.request.contextPath}/user/leaveAction"  name="fm" id="fm" method="post">
-			
+			<input hidden="userId" id="userId" name="userId">
 			<div class="box3">
 				<ul>
 				<c:forEach var="reason" items="${reason}" begin="0" end="7">
 				    <li>
-				        <input name="reason" type="radio" value="${reason.leaveReason_id}" class="input_radio" id="rs_${reason.leaveReason_id}" onclick="javascript:void(setTextbox('unset'));" />
+				        <input name="leaveReason_id" type="radio" value="${reason.leaveReason_id}" class="input_radio" id="rs_${reason.leaveReason_id}" onclick="javascript:void(setTextbox('unset'));" />
 				        <label for="rs_${reason.leaveReason_id}">${reason.leaveReason_name}</label>
 				    </li>
 				</c:forEach>
 					<li class="last">
-						<c:forEach var="reason" items="${reason}" varStatus="status">
+						<c:forEach var="leaveReason_id" items="${reason}" varStatus="status">
 						    <c:if test="${status.index eq 8}">
-						        <input name="reason" type="radio" value="9" class="input_radio" id="rs9" onclick="javascript:void(setTextbox('set'));" />${reason.leaveReason_name}<label for="rs9"></label>
+						        <input name="leaveReason_id" type="radio" value="9" class="input_radio" id="rs9" onclick="javascript:void(setTextbox('set'));" />${reason.leaveReason_name}<label for="rs9"></label>
 						    </c:if>
 						</c:forEach>
 						<!-- [D] 감추기 보이기 display:block/none -->
