@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/assets/img/itda_logo.png">
-  <title>유저 공지 상세 페이지</title>
+  <title>Q&A 상세 페이지</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
@@ -24,28 +24,8 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script>
-	$(function(){
-		$("#userNoticeDelete").click(function(){
-			$("#userNoticeModal").modal("show");
-		})
-	})
-	
-	let result = "${result}";
-	if (result == 'passFail') {
-		alert("비밀번호가 일치하지 않습니다.");
-	}
-	
-	$(function() {
-		$("form[name=userNoticeDeleteForm]").submit(function() {
-			if ($("#adPassword").val() == '') {
-				alert("비밀번호를 입력하세요");
-				$("#adPassword").focus();
-				return false;
-			}
-		})
-	})
-</script>
+  <script src="${pageContext.request.contextPath}/resources/js/admin/qnaView.js"></script>
+  <script> var contextPath = "<%=request.getContextPath()%>";</script>
 <style>
 	.table {
 		width: 100%;
@@ -63,7 +43,7 @@
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                유저 공지사항
+                Q&A/FAQ
               </h5>
             </div>
           </div>
@@ -72,70 +52,91 @@
     </div>
 	<div class="main-content" style="padding: 30px 25px;">
 	<div class="card">
-		<div class="card-body">
+			<div class="card-body">
  		<table class="table">
  			<tr>
  				<th colspan="2">&nbsp;</th>
  			</tr>
  			<tr>
- 				<td><div>작성자</div></td>
- 				<td><div>${userNoticeData.adWriter}</div></td>
+ 				<td><div>질문자</div></td>
+ 				<td><div>${qnadata.userId}</div></td>
  			</tr>
  			<tr>
  				<td><div>제목</div></td>
- 				<td><c:out value="${userNoticeData.adTitle}" /></td>
+ 				<td><c:out value="${qnadata.adTitle}" /></td>
+ 			</tr>
+ 			<tr>
+ 				<td><div>카테고리</div></td>
+ 				<c:choose>
+					<c:when test="${qnadata.qcateId == 1}">
+						<td><div>홍보, 영리목적</div></td>
+					</c:when>
+					<c:when test="${qnadata.qcateId == 2}">
+						<td><div>불법 정보</div></td>
+					</c:when>
+					<c:when test="${qnadata.qcateId == 3}">
+						<td><div>음란, 청소년 유해</div></td>
+					</c:when>
+					<c:when test="${qnadata.qcateId == 4}">
+						<td><div>욕설, 비방, 차별, 혐오</div></td>
+					</c:when>
+					<c:when test="${qnadata.qcateId == 5}">
+						<td><div>도배, 스팸</div></td>
+					</c:when>
+					<c:when test="${qnadata.qcateId == 6}">
+						<td><div>개인정보 노출, 거래</div></td>
+					</c:when>
+					<c:otherwise>
+						<td><div>기타</div></td>
+					</c:otherwise>
+				</c:choose>
  			</tr>
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly>${userNoticeData.adContent}</textarea></td>
+ 				<textarea class="form-control" rows="5" readOnly>${qnadata.adContent}</textarea></td>
  			</tr>
  			<tr>
  				<td colspan="2" class="center" style="text-align: center;">
- 					<a href="${pageContext.request.contextPath}/admin/userNotice">
+ 					<button class="btn btn-primary btn-sm btn-round">
+	 					<i class="ni ni-check-bold">
+	 					</i><span id="count">${count}</span>
+ 					</button>
+ 					<a href="${pageContext.request.contextPath}/admin/FAQ">
  						<button class="btn btn-success btn-sm btn-round">
- 							<i class="ni ni-bullet-list-67"></i> 목록으로
+ 							<i class="ni ni-bullet-list-67"></i> 목록
  						</button>
  					</a>
- 					<sec:authorize access="isAuthenticated()">
- 						<sec:authentication property="principal" var="pinfo" />
- 						<c:if test="${id == adWriter}">
-		 					<a href="${pageContext.request.contextPath}/admin/userNoticeUpdate/${userNoticeData.adNum}">
-		 						<button class="btn btn-success btn-sm btn-round">
-		 							<i class="ni ni-bullet-list-67"></i> 수정
-		 						</button>
-		 					</a>
-		 					<a href="#">
-		 						<button class="btn btn-danger btn-sm btn-round" id="userNoticeDelete"
-		 						data-toggle="modal" data-target="#userNoticeModal">삭제</button>	
-		 					</a>
-	 					</c:if>
- 					</sec:authorize>
  				</td>
  			</tr>
- 			<%-- 삭제 모달 시작 --%>
- 			<div class="modal" id="userNoticeModal">
- 				<div class="modal-dialog">
- 					<div class="modal-content">
- 						<div class="modal-body">	<%-- 모달 바디 --%>
- 							<form name="userNoticeDeleteForm" action="${pageContext.request.contextPath}/admin/userNoticeDelete" method="post">
- 								<input type="hidden" name="num" value="${userNoticeData.adNum}" id="adNum">
- 								<div class="form-group">
- 									<label for="adPassword">비밀번호</label>
- 									<input type="password" class="form-control" placeholder="Enter password"
- 									name="adPassword" id="adPassword">
- 								</div>
- 								<button type="submit" class="btn btn-primary">전송</button>
- 								<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
- 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
- 							</form>
- 						</div>
- 					</div>
- 				</div>
- 			</div><%-- 삭제 모달 끝 --%>
  		</table>
- 		</div>
- 	</div>	
+ 		<%-- 댓글 --%>
+ 		<div id="qnaReply">
+	 		<button class="btn btn-info float-left btn-sm btn-round">총 1000자까지 가능합니다.</button>
+	 		<button id="qnaWrite" class="btn btn-info btn-sm btn-round" style="float: right;">답변 등록</button>
+	 		<textarea rows="3" class="form-control" id="qnaReplyContent" maxLength="1000"
+	 			style="margin-bottom: 30px;">
+	 		</textarea>
+	 		<form name="forNum">
+	 			<input type="hidden" name="num" value="${qnadata.adNum}" id="adNum">
+	 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	 		</form>
+	 		<table class="table">
+	 			<thead>
+	 				<tr>
+	 					<td colspan="1" class="text-center">번호</td>
+	 					<td colspan="1">답변자</td>
+	 					<td colspan="2">내용</td>
+	 					<td colspan="1" class="text-right">날짜</td>
+	 				</tr>
+	 			</thead>
+	 			<tbody>
+	 			</tbody>
+	 		</table>
+	 		<div id="message" style="margin-bottom: 30px;"></div>
+	 	</div>
  	</div>
+ 	</div>
+	</div>
 </body>
 </html>

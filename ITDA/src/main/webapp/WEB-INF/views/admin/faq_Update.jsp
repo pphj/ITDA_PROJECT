@@ -49,7 +49,9 @@
         </div>
       </div>
     </div>
-	<div class="container">
+	<div class="main-content" style="padding: 30px 25px;">
+	<div class="card">
+		<div class="card-body">
  		<form action="${pageContext.request.contextPath}/admin/faqUpdateAction" method="post" enctype="multipart/form-data" name="FAQmodify">
  			<input type="hidden" name="adNum" value="${FAQdata.adNum}">
  			<h1>FAQ - 수정</h1>
@@ -90,6 +92,8 @@
 	 			<button type="reset" class="btn btn-danger" onClick="history.go(-1)">취소</button>
  			</div>
  		</form>
+ 		</div>
+ 	</div>
  	</div>
 </body>
 </html>

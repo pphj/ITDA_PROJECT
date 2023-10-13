@@ -44,8 +44,9 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid py-4">
-    	<div class="container">
+    <div class="main-content" style="padding: 30px 25px;">
+    <div class="card">
+    	<div class="card-body">
 	 		<c:if test="${listcount > 0}">
 	 		<div class="rows" style="width: 48px; float: right;">
 		 		<span>줄보기</span>
@@ -58,7 +59,7 @@
 		 		</select>
 	 		</div>
 		 	<table class="table">
-	 		<thead>
+	 		<thead >
 	 		<tr>
 	 			<th colspan="6">쿠폰 관리</th>
 	 			<th colspan="1"><span>현재 쿠폰 갯수 : ${listcount}</span></th>
@@ -113,7 +114,7 @@
 		 			</c:if>
 		 			<c:if test="${page > 1}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page-1}">이전&nbsp;</a>
+		 					<a class="page-link" href="coupon?page=${page-1}">이전&nbsp;</a>
 		 				</li>
 		 			</c:if>
 		 			
@@ -125,7 +126,7 @@
 		 				</c:if>
 		 				<c:if test="${a != page}">
 		 					<li class="page-item">
-		 						<a class="page-link" href="list?page=${a}">${a}</a>
+		 						<a class="page-link" href="coupon?page=${a}">${a}</a>
 		 					</li>
 		 				</c:if>
 		 			</c:forEach>
@@ -138,7 +139,7 @@
 		 			</c:if>
 		 			<c:if test="${page < maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page+1}">&nbsp;다음</a>
+		 					<a class="page-link" href="coupon?page=${page+1}">&nbsp;다음</a>
 		 				</li>
 		 			</c:if>
 		 		</ul>
@@ -151,6 +152,7 @@
 		 	
 		 	<button type="button" id="couponCreatebtn" class="btn btn-success float-right btn-sm btn-round">쿠폰 생성하기</button>
 	 	</div>
+    </div>
     </div>
   </main>
 </body>

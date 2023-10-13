@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/assets/img/itda_logo.png">
-  <title>사내 공지 작성 페이지</title>
+  <title>FAQ 작성 페이지</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
@@ -22,7 +22,7 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/admin/itdaNoticeWrite.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/admin/faqWrite.js"></script>
 </head>
 <body class="g-sidenav-show   bg-gray-100">
   <jsp:include page="adminList.jsp" />
@@ -35,7 +35,7 @@
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                사내 공지사항
+                Q&A/FAQ
               </h5>
             </div>
           </div>
@@ -45,8 +45,8 @@
 	<div class="main-content" style="padding: 30px 25px;">
 	<div class="card">
 		<div class="card-body">
- 		<form action="itdaNoticeInsert" method="post" enctype="multipart/form-data" name="itdaNoticeform">
- 			<h1>사내 공지사항 작성 페이지</h1>
+ 		<form action="faqInsert" method="post" enctype="multipart/form-data" name="FAQform">
+ 			<h1>FAQ 작성 페이지</h1>
  			<div class="form-group">
  				<label for="adWriter">작성자</label>
  				<input name="adWriter" id="adWriter" value="${pinfo.username}" readOnly
@@ -67,6 +67,18 @@
  				<textarea name="adContent" id="adContent"
  					   rows="10" class="form-control"></textarea>
  			</div>
+ 			<div class="form-group">
+			  <label for="QcateId">FAQ 카테고리</label>
+			  <select name="QcateId" id="QcateId">
+			    <option value="1">홍보, 영리목적</option>
+			    <option value="2">불법 정보</option>
+			    <option value="3">음란, 청소년 유해</option>
+			    <option value="4">욕설, 비방, 차별, 혐오</option>
+			    <option value="5">도배, 스팸</option>
+			    <option value="6">개인정보 노출, 거래</option>
+			    <option value="7">기타</option>
+			  </select>
+			</div>
  			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
  			<div class="form-group">
  				<button type=submit class="btn btn-primary">등록</button>

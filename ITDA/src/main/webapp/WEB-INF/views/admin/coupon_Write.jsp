@@ -42,40 +42,44 @@
         </div>
       </div>
     </div>
-	<div class="container">
- 		<form action="couponInsert" method="post" enctype="multipart/form-data" name="couponform">
- 			<h1 style="margin-top: 30px; text-align: center;">쿠폰 작성</h1>
- 			<div class="form-group">
- 				<label for="adminId">작성자</label>
- 				<input name="adminId" id="adminId" value="${pinfo.username}" readOnly
- 					   type="text" class="form-control"">
- 			</div>
- 			<!-- <div class="form-group">
- 				<label for="couponCode">쿠폰 코드</label>
- 				<input name="couponCode" id="couponCode" type="text" maxlength="20"
- 					   class="form-control" placeholder="숫자로 20자까지">
- 			</div> -->
- 			<div class="form-group">
- 				<label for="couponName">쿠폰 이름</label>
- 				<input name="couponName" id="couponName" type="text" maxlength="20"
- 					   class="form-control" placeholder="Enter Coupon Name">
- 			</div>
- 			<div class="form-group">
- 				<label for="couponDetail">쿠폰 내용</label>
- 				<textarea name="couponDetail" id="couponDetail"
- 					   rows="5" class="form-control"></textarea>
- 			</div>
- 			<div class="form-group">
- 				<label for="couponPrice">쿠폰 가격</label>
- 				<input name="couponPrice" id="couponPrice" type="text" maxlength="10"
- 					   class="form-control" placeholder="Enter Coupon Price">
- 			</div>
- 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
- 			<div class="form-group">
- 				<button type=submit class="btn btn-primary">등록</button>
- 				<button type=reset class="btn btn-danger">취소</button>
- 			</div>
- 		</form>
+	<div class="main-content" style="padding: 30px 25px;">
+		<div class="card">
+		<div class="card-body">
+	 		<form action="couponInsert" method="post" enctype="multipart/form-data" name="couponform">
+	 			<h1 style="margin-top: 30px; text-align: center;">쿠폰 작성</h1>
+	 			<div class="form-group">
+	 				<label for="adminId">작성자</label>
+	 				<input name="adminId" id="adminId" value="${pinfo.username}" readOnly
+	 					   type="text" class="form-control"">
+	 			</div>
+	 			<!-- <div class="form-group">
+	 				<label for="couponCode">쿠폰 코드</label>
+	 				<input name="couponCode" id="couponCode" type="text" maxlength="20"
+	 					   class="form-control" placeholder="숫자로 20자까지">
+	 			</div> -->
+	 			<div class="form-group">
+	 				<label for="couponName">쿠폰 이름</label>
+	 				<input name="couponName" id="couponName" type="text" maxlength="20"
+	 					   class="form-control" placeholder="Enter Coupon Name">
+	 			</div>
+	 			<div class="form-group">
+	 				<label for="couponDetail">쿠폰 내용</label>
+	 				<textarea name="couponDetail" id="couponDetail"
+	 					   rows="5" class="form-control"></textarea>
+	 			</div>
+	 			<div class="form-group">
+	 				<label for="couponPrice">쿠폰 가격</label>
+	 				<input name="couponPrice" id="couponPrice" type="text" maxlength="10"
+	 					   class="form-control" placeholder="Enter Coupon Price">
+	 			</div>
+	 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	 			<div class="form-group">
+	 				<button type=submit class="btn btn-primary">등록</button>
+	 				<button type=reset class="btn btn-danger" onClick="history.go(-1)">취소</button>
+	 			</div>
+	 		</form>
+	 	</div>
+ 		</div>
  	</div>
 </body>
 </html>

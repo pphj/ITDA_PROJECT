@@ -343,4 +343,23 @@
 		values(#{couponCode}, COUPON_SEQ.nextval, #{couponName}, #{couponDetail},
 		#{couponPrice}, SYSDATE, null, #{adminId})
 	</insert>
+	
+	<select id="getUserTotal" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(*) from itda_user where statusid = 1
+	</select>
+	
+	<insert id="userTotalInsert" parameterType="int">
+		insert into usertotal
+		values(USERTOTAL_SEQ.nextval, #{dailyUserTotal}, SYSDATE, 'SYSTEM',
+		null, SYSDATE, null)
+	</insert>
+	
+	<select id="getUserTotalList" parameterType="java.util.Map" resultType="UserTotal">
+		select usertotal, credate
+		from (select usertotal, credate
+		  	  from usertotal
+		  	  order by credate asc
+			  )
+		where ROWNUM &lt;= 10
+	</select>
 </mapper>

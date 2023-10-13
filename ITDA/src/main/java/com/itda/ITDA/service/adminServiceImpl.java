@@ -13,6 +13,7 @@ import com.itda.ITDA.domain.BoardWarn;
 import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.UserTotal;
 import com.itda.ITDA.mybatis.mapper.AdminMapper;
 
 @Service
@@ -246,6 +247,22 @@ public class adminServiceImpl implements adminService {
 	@Override
 	public void couponInsert(Coupon couponData) {
 		dao.couponInsert(couponData);
+	}
+
+	@Override
+	public int getUserTotal() {
+		return dao.getUserTotal();
+	}
+
+	@Override
+	public int userTotalInsert(int dailyUserTotal) {
+		return dao.userTotalInsert(dailyUserTotal);
+	}
+	
+	@Cacheable("userTotal")
+	@Override
+	public List<UserTotal> getUserTotalList() {
+		return dao.getUserTotalList();
 	}
 	
 }

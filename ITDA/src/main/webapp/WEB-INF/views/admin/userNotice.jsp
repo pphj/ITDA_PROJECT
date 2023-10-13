@@ -48,8 +48,9 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid py-4">
-    	<div class="container">
+    <div class="main-content" style="padding: 30px 25px;">
+	<div class="card">
+		<div class="card-body">
 	 		<c:if test="${listcount > 0}">
 	 		<div class="rows" style="width: 48px; float: right;">
 		 		<span>줄보기</span>
@@ -116,7 +117,7 @@
 		 			</c:if>
 		 			<c:if test="${page > 1}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page-1}">이전&nbsp;</a>
+		 					<a class="page-link" href="userNotice?page=${page-1}">이전&nbsp;</a>
 		 				</li>
 		 			</c:if>
 		 			
@@ -128,7 +129,7 @@
 		 				</c:if>
 		 				<c:if test="${a != page}">
 		 					<li class="page-item">
-		 						<a class="page-link" href="list?page=${a}">${a}</a>
+		 						<a class="page-link" href="userNotice?page=${a}">${a}</a>
 		 					</li>
 		 				</c:if>
 		 			</c:forEach>
@@ -141,7 +142,7 @@
 		 			</c:if>
 		 			<c:if test="${page < maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="list?page=${page+1}">&nbsp;다음</a>
+		 					<a class="page-link" href="userNotice?page=${page+1}">&nbsp;다음</a>
 		 				</li>
 		 			</c:if>
 		 		</ul>
@@ -154,6 +155,7 @@
 		 	
 		 	<button type="button" id="userNoticeWbtn" class="btn btn-success float-right btn-sm btn-round">유저 공지 작성</button>
 	 	</div>
+    </div>
     </div>
   </main>
 </body>
