@@ -56,8 +56,8 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	}
 
 	@Override
-	public int userAddressUpdate(Map map) {
-		return dao.userAddressUpdate(map);
+	public int userAddressUpdate(Itda_User itdaUser) {
+		return dao.userAddressUpdate(itdaUser);
 	}
 
 	@Override
@@ -66,13 +66,12 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	}
 
 	@Override
-	public void pwUpdate(Map map) {
-		dao.pwUpdate(map);
+	public void pwUpdate(Itda_User itdaUser) {
+		dao.pwUpdate(itdaUser);
 		
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Itda_User getUserName(String id) {
 		return dao.getUserName(id);
 	}
@@ -82,8 +81,6 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return dao.getLeaveReasonCategory();
 	}
 
-
-=======
 	public Itda_User findUserByEmail(String email) {
 		// TODO Auto-generated method stub
 		return null;
@@ -94,7 +91,13 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		// TODO Auto-generated method stub
 		
 	}
->>>>>>> branch 'main_sub' of https://github.com/pphj/ITDA_PROJECT.git
+
+	@Override
+	public int leaveResonInsert(UserLeaveReason leaveReason) {
+		return dao.leaveResonInsert(leaveReason);
+	}
+
+
 	
 	
 

@@ -31,6 +31,7 @@ import com.itda.ITDA.domain.PaginationDTO;
 import com.itda.ITDA.domain.QnaReply;
 import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.UserTotal;
 import com.itda.ITDA.service.adminService;
 import com.itda.ITDA.service.qnaReplyService;
 import com.itda.ITDA.util.CommonSource;
@@ -55,8 +56,20 @@ public class adminController {
 		this.qnaReplyService=qnaReplyService;
 	}
 	
+	@RequestMapping(value="/Login")
+	public ModelAndView adminLogin(ModelAndView mv) {
+		
+		mv.setViewName("admin/adminLogin");
+		return mv;
+	}
+	
+	
 	@RequestMapping(value="/Main")
 	public ModelAndView SetAdmin(ModelAndView mv) {
+		
+		List<UserTotal> userTotalData = adminService.getUserTotalList();
+		
+		mv.addObject("userTotalData", userTotalData);
 		mv.setViewName("admin/adminMain");
 		return mv;
 	}

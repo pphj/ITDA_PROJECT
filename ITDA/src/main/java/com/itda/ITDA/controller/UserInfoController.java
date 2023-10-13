@@ -1,10 +1,9 @@
 package com.itda.ITDA.controller;
 
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -24,6 +23,7 @@ import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.util.Constants;
+import com.itda.ITDA.util.Message;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -78,25 +78,21 @@ public class UserInfoController {
 	public String userAddressUpdatePro(Itda_User user, 
 										Model model,
 										RedirectAttributes rattr,
-										Principal principal) {
+										HttpSession session) {
 		
 				
-		String id = principal.getName();
-		
-		Map<String, String> map = new HashMap<String, String>();
-		
-		map.put("userId", id);
-		map.put("userPost", user.getUserPost());
-		map.put("userAddress1", user.getUserAddress1());
-		map.put("userAddress2", user.getUserAddress2());
 		
 		
-		int result = itdaUserService.userAddressUpdate(map);
-		
-		
-		
-		if(id != null && result == Constants.UPDATE_SUCCESS) {
+		System.out.println("address2 : " + user.getUserAddress2());
 
+		user.setUserId(user.getUserId());
+		user.setUserPost(user.getUserPost());
+		user.setUserAddress1(user.getUserAddress1());
+		user.setUserAddress2(user.getUserAddress2());
+		
+		int result = itdaUserService.userAddressUpdate(user);
+
+		if( result == Constants.UPDATE_SUCCESS) {
 			
 			rattr.addFlashAttribute("result", "updateSuccess");
 			logger.info("update_success");
@@ -155,11 +151,11 @@ public class UserInfoController {
 		
 		String userPw = encoder.encode(user.getUserPw());
 
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("userId", id);
-		map.put("userPw", userPw);
-		itdaUserService.pwUpdate(map);
+		Itda_User itdaUser = new Itda_User();
+		user.setUserId(id);
+		user.setUserPw(userPw);
+
+		itdaUserService.pwUpdate(itdaUser);
 
 		logger.info("비밀번호 암호화 후 : " + userPw);
 
@@ -200,6 +196,33 @@ public class UserInfoController {
 		return "mypage/userinfo/userLeaveReason";
 	}
 	
+	@PostMapping("/leaveAction")
+	public String leaveAction(Principal principal,
+							HttpServletRequest request,
+							Model model
+							) {
+		
+		String id = principal.getName();
+		
+		
+		UserLeaveReason leaveReason = new UserLeaveReason();
+		
+		leaveReason.setUserId(id);
+		leaveReason.setLeaveReason_id(leaveReason.getLeaveReason_id());
+		leaveReason.setLeaveReason_name(leaveReason.getLeaveReason_name());
+		leaveReason.setUserLeaveReason(leaveReason.getUserLeaveReason());
+		
+		
+		int result = itdaUserService.leaveResonInsert(leaveReason);
+		if(result == Constants.INSERT_SUCCESS) {
+			
+			logger.info("탈퇴이유 insert 성공");
+			request.setAttribute("msg", Message.USER_LEAVE_SUCCESS);
+//			result = itdaUserService.leave
+//			if()
+		}
+		return "mypage/userinfo/userLeaveAction";
+	}
 	
 	
 

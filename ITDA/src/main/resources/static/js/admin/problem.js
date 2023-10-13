@@ -142,7 +142,7 @@
 	
 	$(document).on("click", ".Pause", function() {
 	    // 현재 클릭한 버튼이 속한 행에서 필요한 데이터를 가져옴
-	    let targetSickId = $(this).closest("tr").find(".targetSickId").text();
+	    let targetSickId = $(this).closest("tr").find(".targetSickId div").text();
     	$(".selectUserId").val(targetSickId);
     	$("#problemPauseForm input[name='approve']").val("2");
     		
@@ -154,7 +154,7 @@
 	});
 
 	$(document).on("click", ".Stop", function() {
-	    let targetSickId = $(this).closest("tr").find(".targetSickId").text();
+	    let targetSickId = $(this).closest("tr").find(".targetSickId div").text().trim();
     	$(".selectUserId").val(targetSickId);
     	$("#problemStopForm input[name='approve']").val("3");
     		
@@ -166,7 +166,7 @@
 	});
 
 	$(document).on("click", ".Clear", function() {
-	    let targetSickId = $(this).closest("tr").find(".targetSickId").text();
+	    let targetSickId = $(this).closest("tr").find(".targetSickId div").text().trim();
     	$(".selectUserId").val(targetSickId);
     	$("#problemClearForm input[name='approve']").val("1");
     		
