@@ -402,8 +402,6 @@ $('.gnb-section:not(.type-hover) .gnb-dropdown-toggle, .gnb-dropdown.type-click 
 					<div class="list-basic">
 					
 					
-					
-
 						<div class="list-item ">
 							<div class="col tit">
 								<a href="https://www.hankyung.com/help/notice/view?no=54"
