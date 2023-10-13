@@ -56,8 +56,8 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	}
 
 	@Override
-	public int userAddressUpdate(Map map) {
-		return dao.userAddressUpdate(map);
+	public int userAddressUpdate(Itda_User itdaUser) {
+		return dao.userAddressUpdate(itdaUser);
 	}
 
 	@Override
@@ -66,8 +66,8 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	}
 
 	@Override
-	public void pwUpdate(Map map) {
-		dao.pwUpdate(map);
+	public void pwUpdate(Itda_User itdaUser) {
+		dao.pwUpdate(itdaUser);
 		
 	}
 
@@ -92,6 +92,13 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public int leaveResonInsert(UserLeaveReason leaveReason) {
+		return dao.leaveResonInsert(leaveReason);
+	}
+
+
 	
 	
 

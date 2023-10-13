@@ -30,12 +30,12 @@
 		where userId = #{userId}
 	</select>
 	
-	<update id="userAddressUpdate" parameterType="hashMap">
+	<update id="userAddressUpdate" parameterType="Itda_User">
 		update itda_User
 		set 
 			userPost = #{userPost}, 
-			userAddress1 = #{userAddress1},
-			userAddress2 = #{userAddress2}
+			userAddress1 = #{userAddress1}, 
+			userAddress2 = nvl(#{userAddress2}, ' ')
 		where userId = #{userId}
 	</update>
 	
@@ -45,7 +45,7 @@
 		where userId = #{userId}
 	</select>
 	
-	<update id="pwUpdate" parameterType="hashMap">
+	<update id="pwUpdate" parameterType="Itda_User">
 		update itda_user
 		set	userPw = #{userPw}
 		where userId = #{userId}
@@ -76,4 +76,12 @@
        WHERE userEmail=#{email}    
    </update>
 	
+	<!-- 회원 탈퇴 시 탈퇴 이유 insert -->
+	<insert id="leaveResonInsert" parameterType="int">
+		insert into userleavereason 
+				(userId, leaveReason_id, userLeaveReason)
+		values
+				(#{userId}, #{leaveReason_id}, #{userLeaveReason})
+		
+	</insert>
 </mapper>
