@@ -87,13 +87,14 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		return dao.getSellerSetting(chnum);
 	}
 
-	@Override
-	public ChannelList getSellerUpdate(String chprofile, String chname, int chnum) {
-		return dao.getSellerUpdate(chprofile, chname, chnum);
-	}
-
 	public void saveChannelList(ChannelList channelList) {
 		dao.saveChannelList(channelList); // 데이터베이스에 ChannelList 저장
 	}
+
+	@Override
+	public int getSellerUpdate(ChannelList channelList) {
+		return dao.getSellerUpdate(channelList);
+	}
+
 
 }
