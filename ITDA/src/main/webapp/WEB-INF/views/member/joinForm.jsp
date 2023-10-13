@@ -265,8 +265,8 @@ $(function() {
 			<input type='text' name='userEmail' id='email' placeholder='예:itda@itda.com' required>
 	</div>
 	<div id="categories clearfix">
-		<label for='category' style="float: left; margin-left: 15px;"><span style="color: red">*</span>관심 카테고리</label><br>
-			<div id="section">
+    <label for='category' style="float: left; margin-left: 15px;"><span style="color: red">*</span>관심 카테고리</label><br>
+    <div id="section">
 			<label><input type='radio' name='userCategory' id='category1' value="1"> 경제/시사</label>
 			<label><input type='radio' name='userCategory' id='category2' value="2"> 문화예술</label>
 			<label><input type='radio' name='userCategory' id='category3' value="3"> IT트렌드</label>
@@ -279,6 +279,7 @@ $(function() {
 			<label><input type='radio' name='userCategory' id='category10' value="10"> 취미</label>
 			</div>
 	</div><br>
+
 	<div class='num12 clearfix'>
 		  <div id="profile_select" style="float:left; margin-right: 10px;">
 		    <label for='profile' style="float: left;">프로필사진<span style="font-size: 12px;"> (설정하지 않으면 기본프로필로 나타납니다.)</span></label>

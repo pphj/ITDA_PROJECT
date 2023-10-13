@@ -25,7 +25,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		logger.info("로그인 성공 : LoginSuceessHandler ");
 
 		// 사용자 정보 가져오기
-
 		String url = request.getContextPath() + "/";
 		response.sendRedirect(url);
 	}

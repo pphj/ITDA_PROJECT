@@ -85,12 +85,11 @@ public class Itda_SellerController {
 																								// 객체(Path) 생성
 			FolderService.createFolder(userFolder);
 
-			 String urlPath = "/" + itda_User.getUserId() + "/" +
-                     DateService.toDay() + "/" +
-                     profile.getOriginalFilename();
+			String urlPath = "/" + itda_User.getUserId() + "/" + DateService.toDay() + "/"
+					+ profile.getOriginalFilename();
 
-			 itda_User.setUserProfile(urlPath);  // 업로그한 이미지 URL set
-			
+			itda_User.setUserProfile(urlPath); // 업로그한 이미지 URL set
+
 			Files.write(path, bytes); // 해당 경로에 파일 쓰기
 		} catch (IOException e) {
 			e.printStackTrace();
