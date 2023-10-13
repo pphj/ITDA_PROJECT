@@ -68,16 +68,17 @@
 											<td>
 												<div class="tdcell">
 													<div class="profile_photo">
-														<label for="upfile"> <span id="filevalue" style="display: none;"> ${SellerSetting.chProfile} </span> <c:choose>
-																<c:when test="${empty SellerSetting.chProfile}">
-																	<img id="imgThumb" src="${pageContext.request.contextPath}/resources/image/main/login.png" width="100" height="100">
-																</c:when>
-																<c:otherwise>
-																	<img id="imgThumb" src="${pageContext.request.contextPath}/upload${SellerSetting.chProfile}" width="100"
-																		height="100">
-																</c:otherwise>
-															</c:choose> <span class="mask"></span>
-
+														<label for="upfile">
+															   <span id="filevalue" style="display: none;"> ${SellerSetting.chProfile}</span>
+																	 <c:choose>
+																			<c:when test="${empty SellerSetting.chProfile}">
+																				<img id="imgThumb" src="${pageContext.request.contextPath}/resources/image/main/login.png" width="100" height="100">
+																			</c:when>
+																			<c:otherwise>
+																				<img id="imgThumb" src="${pageContext.request.contextPath}/upload${SellerSetting.chProfile}" width="100" height="100">		
+																			</c:otherwise>
+																	 </c:choose> 
+																<span class="mask"></span>
 														</label>
 													</div>
 													<div class="btn_area_btm">

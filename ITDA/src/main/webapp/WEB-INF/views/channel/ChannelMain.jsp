@@ -47,10 +47,14 @@ $(document).ready(function(){
 	<!--  채널바  -->
 	<div class="wrap_profile">
 		<div class="bloger_thumb">
-		
-			<img class="profileUserImage img_thumb" src="${pageContext.request.contextPath}/upload${ChannelList.chProfile}" width="100"
-				height="100" alt="이미지정보"> <input class="profileUserImageUrl" type="hidden"
-				value="http://t1.daumcdn.net/brunch/service/user/xTI/image/CGONwj7UEwl7YWVC2V6i2IeoLxY.JPG">
+			 <c:choose>
+					<c:when test="${empty ChannelList.chProfile}">
+						<img class="profileUserImage img_thumb" alt="이미지정보" src="${pageContext.request.contextPath}/resources/image/main/login.png" width="100" height="100">
+					</c:when>
+					<c:otherwise>
+						<img class="profileUserImage img_thumb" src="${pageContext.request.contextPath}/upload${ChannelList.chProfile}" width="100" height="100">		
+					</c:otherwise>
+			</c:choose> 
 		</div>
 		<div class="wrap_profile_desc">
 			<strong class="profileUserName tit_bloger">${ChannelList.chName}</strong>
