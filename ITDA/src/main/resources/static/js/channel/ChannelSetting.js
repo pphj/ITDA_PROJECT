@@ -20,42 +20,21 @@ $(document).ready(function() {
 			$(".tab_content").hide();
 			$(".tab_content:eq(" + index + ")").show();
 		});
-});//탭 선택
-$(document).ready(function() {
-	let check = 0;
+
+	let deletecheck = false;
 
 	//submit 버튼 클릭할 때 이벤트 부분
-	$("form[name=modifyform]").submit(function() {
+	$("#profileForm").submit(function() {
 	
 		//파일 첨부를 변경하지 않으면 $('#filevalue').text()의 파일명을
 		//파라미터 'check'라는 이름으로 from에 추가하여 전송합니다.
-		if (check == 0) {
-			const value = $('#filevalue').text();
-			const html = "<input type='hidden' value='" + value + "' name ='check'>";
-			console.log(html);
-			$(this).append(html);
+		if (deletecheck == true) {
+		//사진  삭제하는 경우
+			$("input[name=chProfile]").val('')
+			console.log("업로드된 파일명 :",$("input[name=chProfile]").val())
 		}
 	})
-});
-
 	
-$(document).ready(function() {
-	let check = 0;
-	
-	   function show() {
-		//파일 이름이 있는 경우 remove 이미지를 보이게 하고, 파일 이름이 없는 경우 remove 이미지를 보이지 않게 함.
-		if ($('#filevalue').text() == '') {
-			$(".remove").css('display', 'none');
-		} else {
-			$(".remove").css({
-				'display': 'inline-block',
-				'position': 'relative', 
-				'top': '-5px'
-			});
-	   }
-   }
-
-		show();	
 	
 	  $('#btnChangeProfile').click(function(){
 	     $('#upfile').trigger('click');
@@ -75,17 +54,19 @@ $(document).ready(function() {
 		        reader.readAsDataURL(this.files[0]); // convert to base64 string
 		    }
 		
-		    show();
+		   
 		});
+		
 		
 		$('#btnDelete').click(function() {
 		
 	    // 파일 선택 필드와 파일 이름 표시 필드 초기화
 	    $('#filevalue').text('');
 	    $('#upfile').val('');
-	
+	    
+		deletecheck = true;
 	    // 프로필 사진을 기본 이미지로 변경
-	    $('#imgThumb').attr('src', '../image/main/login.png');
+	    $('#imgThumb').attr('src', '../../resources/image/main/login.png');
 });
 		
 
