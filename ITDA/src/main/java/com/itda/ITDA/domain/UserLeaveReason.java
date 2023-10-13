@@ -9,7 +9,7 @@ import oracle.sql.TIMESTAMP;
 // 유저 탈퇴 관련 도메인
 public class UserLeaveReason {
     // 테이블 명 : userleavereason
-	private String userid;				// 유저 아이디		
+	private String userId;				// 유저 아이디		
     private String userLeaveReason;		// 탈퇴 사유 : 기타 선택 시 입력 내용
     private TIMESTAMP creDate;			// 생성일
     

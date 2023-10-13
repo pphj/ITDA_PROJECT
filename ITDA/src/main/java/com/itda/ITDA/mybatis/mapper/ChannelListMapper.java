@@ -43,4 +43,7 @@ public interface ChannelListMapper {
 
 	void saveChannelList(Itda_User itda_User);
 
+	int getSellerUpdate(ChannelList channelList);
+
+
 }

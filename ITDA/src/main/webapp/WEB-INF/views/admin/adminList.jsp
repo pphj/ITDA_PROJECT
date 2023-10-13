@@ -34,7 +34,7 @@
       </a>
     </div>
     <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse  w-auto" id="sidenav-collapse-main">
+    <div class="collapse navbar-collapse  w-auto" id="sidenav-collapse-main" style="height: 550px;">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active" href="${pageContext.request.contextPath}/admin/Main">
@@ -73,6 +73,14 @@
         </li>
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">관리자</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="${pageContext.request.contextPath}/admin/coupon">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fa fa-ticket text-danger text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">쿠폰 관리</span>
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="${pageContext.request.contextPath}/admin/itdaNotice">

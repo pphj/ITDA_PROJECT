@@ -12,11 +12,10 @@
 
 	<title>프로필 수정</title>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mypage/help_member.css">	<link href="https://nid.naver.com/favicon_1024.png" rel="apple-touch-icon-precomposed" sizes="1024x1024" />
 	<script type="text/javascript" src="https://nid.naver.com/js/clickcr.js"></script>
-	<script type="text/javascript" src="/inc/common/js/lcs_nclicks.js?r=20220411"></script>
 	<script type="text/javascript" src="https://nid.naver.com/inc/common/js/ko/commonUtil.js?20170214"></script>
-	<script type="text/javascript" src="/inc/common/js/lua.js?r=20220411"></script>
 	<script type="text/javascript">
 		var gnb_option = {
 			gnb_service : "nid",
@@ -102,6 +101,10 @@
 				document.getElementById(otherMenu[i]).className = "";
 			}
 		}
+		
+		function cancle(){
+			window.history.back();
+		}
 	</script>
 	</div>
 
@@ -171,7 +174,7 @@
             </table>
             <div class="btn_wrap">
                 <a href="javascript:;" class="btn_model"><b id="btnConfirm" class="btn8" onclick="clickcr(this,'prf.apply','','',event);">적용</b></a>
-                <a href="javascript:;" class="btn_model"><b id="btnCancel" class="btn2" onclick="clickcr(this,'prf.cancel','','',event);">취소</b></a>
+                <a href="javascript:;" class="btn_model"><b id="btnCancel" class="btn2" onclick="cancle();">취소</b></a>
             </div>
         </fieldset>
     </form>
@@ -180,11 +183,6 @@
 <!--[D] 캐릭터만들기 딤드처리 -->
 <div class="dim_layer"></div>
 
-<script type="text/javascript" src="/inc/common/js/base64.js"></script>
-<script type="text/javascript" src="/inc/common/js/jquery.form.min.js"></script>
-<script type="text/javascript" src="/inc/common/js/commonUtil.js"></script>
-<script type="text/javascript" src="/inc/user/js/profileChange.js?20220411"></script>
-<script type="text/javascript" src="/inc/user/js/avatarUtils.js?2018_0206"></script>
 <script type="text/javascript">
     //nClicks 전역변수
     var nsc = "my.profile"+ "";
@@ -214,7 +212,7 @@
             removeTempImageUrl : "/user2/api/naverProfile?m=removeTempImageUrl",
             checkImageAndSaveTmep : "/user2/api/naverProfile?m=checkImageAndSaveTempForUser",
             changeProfile : "/user2/api/naverProfile?m=changeProfileForUser",
-            returnUrl : "L3VzZXIyL2hlbHAvbXlJbmZvP2xhbmc9a29fS1I="
+            returnUrl : ""
         };
 
         profile.init(profileInfo, message, url);
@@ -242,36 +240,7 @@
         setCookie("coach_tooltip", "ok", 30, "");
     }
 
-    // 아바타 팝업 띄움
-/*     function showAvatarWindow() {
-        var avatarUrl = "http://avatar.nid.naver.com?lang=ko_KR&key= &url=viewModifyProfile&mode=1";
-        childWindow = window.open(avatarUrl, "avatar_popup", "width=490px, height=675px, resizeable=false");
-        childWindowCheck = setInterval(function () {
-            if (childWindow.closed) {
-                clearInterval(childWindowCheck);
-                $(".dim_layer").hide();
-            }
-        }, 1000);
-        $(".dim_layer").show();
-    }
 
-    window.onbeforeunload = function(e) {
-        if(profile.isNotAllowedToShowExitPopup()) {
-            return;
-        }
-        if(profile.currentState === profile.state.notChanged) {
-            return;
-        }
-
-        var message = "",
-                e = e || window.event;
-
-        if (e) {
-            e.returnValue = message;
-        }
-
-        return message;
-    } */
 
     // IE 호환성 지원관련
     $("a").click(function(event) {

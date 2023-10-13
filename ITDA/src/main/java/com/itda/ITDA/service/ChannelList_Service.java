@@ -32,11 +32,13 @@ public interface ChannelList_Service {
 
 	Seller getSellerInfo(String userid);
 
-
 	ChannelList getSellerSetting(int chnum);
 
-	ChannelList getSellerUpdate(String chprofile, String chname, int chnum);
+	void saveChannelList(ChannelList channelList);
 
 	 void saveChannelList(Itda_User itda_User);
+	 
+	int getSellerUpdate(ChannelList channelList);
+
 
 }

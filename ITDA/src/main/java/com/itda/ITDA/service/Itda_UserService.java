@@ -16,11 +16,11 @@ public interface Itda_UserService {
 
 	Itda_User read(String id);
 
-	int userAddressUpdate(Map map);
+	int userAddressUpdate(Itda_User itdaUser);
 
 	Itda_User pwCheck(String id);
 
-	void pwUpdate(Map map);
+	void pwUpdate(Itda_User itdaUser);
 	
 	Itda_User findUserByEmail(String email);
     
@@ -29,6 +29,8 @@ public interface Itda_UserService {
 	Itda_User getUserName(String id);
 
 	List<UserLeaveReason> getLeaveReasonCategory();
+
+	int leaveResonInsert(UserLeaveReason leaveReason);
 
 
 

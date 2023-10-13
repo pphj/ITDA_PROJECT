@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+.category_wrap_contents {
+	font-size: 15px;
+    font-weight: 300;
+    color: #959595;
+}
+    
 .wrap_profile_btn .btn_type {
 	border: 1px solid #00c6be;
 	border-radius: 20px;
@@ -434,13 +440,13 @@
 }
 
 .brunch_profile.layer_on .header_head_menubar, .brunch_profile.layer_on .service_header,
-	.brunch_profile.layer_on .category_wrap_contents {
+	.brunch_profile.layer_on .wrap_contents {
 	display: none
 }
 
-/* .card_banner, .category_wrap_contents {
+.card_banner, .wrap_contents {
 	overflow: hidden
-} */
+}
 
 .wrap_article .alert-wrap, .wrap_authorinfo .alert-wrap {
 	display: block;
