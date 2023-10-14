@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/info/requests.css">
 <script src="${pageContext.request.contextPath}/ckeditor5/build/ckeditor.js"></script>
 <script type="module" src="../js/Ckeditor.js"></script>
-<script !src="">
+<script src="">
 	const chnum = <c:out value="${chnum}"/>
 </script>
 <title>게시글 작성</title>
@@ -59,8 +59,15 @@
 		</div>
 	</div>
 	<script>
-    
-</script>
+    $(document).ready(function() {
+        $(".board_write_button").click(function(e) {
+            e.preventDefault();
+            $("form").submit();
+        });
+    });
+
+
+    </script>
 	<jsp:include page="../include/footer.jsp"/>
 </body>
 </html>

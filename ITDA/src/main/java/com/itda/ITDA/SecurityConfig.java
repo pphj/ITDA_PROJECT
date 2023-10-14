@@ -39,6 +39,7 @@ public class SecurityConfig {
       .antMatchers("/resources/static/image/Member/**").permitAll()
       .antMatchers("/seller/sellerjoinprocess").permitAll()
       .antMatchers("/info/qna").authenticated()
+      .antMatchers("info/qnainsert").permitAll()
       .antMatchers("/ckeditor5/**").permitAll();
       
     /*.antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")

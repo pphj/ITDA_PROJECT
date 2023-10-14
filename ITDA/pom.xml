@@ -132,6 +132,15 @@
 			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		
+  	 <!-- ckeditor 추가 -->
+	  <dependency>
+	    <groupId>org.webjars.npm</groupId>
+	    <artifactId>ckeditor5</artifactId>
+	    <version>39.0.1</version>
+		</dependency>
+
 
 
 	</dependencies>
