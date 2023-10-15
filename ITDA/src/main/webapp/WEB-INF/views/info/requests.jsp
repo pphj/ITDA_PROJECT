@@ -30,18 +30,36 @@
 				<div class="text_form board_head_wrap">
 					<select class="category_select_from">
 						<option disabled selected>카테고리를 선택하세요</option>
-						<c:forEach var="item" items="${cbctlist}">
-							<option value="${item.chcate_id}">${item.chcate_Name}</option>
+						<c:forEach var="item" items="${categoryList}">
+							<option value="${item.QcateId}">${item.chcate_Name}</option>
 						</c:forEach>
-					</select> <input type="hidden" name="categoryId" class="categoryId" value="">
+					</select> 
+					
+					<ul class='dropdown-menu category_list' aria-labelledby='categoryDropdown'>
+				 <li data-value=1><a href='#'>홍보, 영리목적</a></li> 
+                 <li data-value=2><a href='#'>불법 정보</a></li> 
+                 <li data-value=3><a href='#'>음란, 청소년 유해</a></li> 
+                 <li data-value=4><a href='#'>욕설, 비방, 차별, 혐오</a></li>  
+                 <li data-value=5><a href='#'>도배, 스팸</a></li> 
+                 <li data-value=6><a href='#'>개인정보 노출, 거래</a></li> 
+                 <li data-value=7><a href='#'>기타</a></li>
+				</ul>
+					
+					
+					<input type="hidden" name="categoryId" class="categoryId" value="">
+					<input type="hidden" name="adDate" 
+					value="<%= java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")) %>"> <!-- 현재 시간을 올바른 형식으로 전달 -->
 				</div>
+				
+			
+				
 				<div class="board_subject_wrap">
 					<input class="text_from board_subject_from" type=text
-						name="boardTitle" placeholder="제목을 입력하세요">
+						name="adTitle" placeholder="제목을 입력하세요">
 				</div>
 				<div class="board_content_wrap">
 					<div class="editor_group">
-						<textarea name="content" id="editor"></textarea>
+						<textarea name="adContent" id="editor"></textarea>
 					</div>
 				</div>
 				 
@@ -59,15 +77,25 @@
 		</div>
 	</div>
 	<script>
-    $(document).ready(function() {
-        $(".board_write_button").click(function(e) {
-            e.preventDefault();
-            $("form").submit();
-        });
-    });
+	$(document).ready(function() {
+		   $(".board_write_button").click(function(e) {
+		      e.preventDefault();
+		      $("form").submit();
+		   });
 
+		   // 카테고리 목록 항목 클릭 시 이벤트 처리
+		   $('.category_list li').on('click', function() {
+		       var categoryId = $(this).data('value');
+		       var categoryName = $(this).text();
 
-    </script>
+		       $('.categoryId').val(categoryId);
+		       $('.category_select_from').text(categoryName);
+		   });
+		});
+
+   
+</script>
+    
 	<jsp:include page="../include/footer.jsp"/>
 </body>
 </html>

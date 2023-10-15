@@ -1,8 +1,9 @@
 package com.itda.ITDA.controller;
 
 import java.security.Principal;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
-import javax.swing.text.AbstractDocument.Content;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itda.ITDA.domain.AdminBoard;
-import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.service.InfoService;
 
 @Controller
@@ -55,18 +55,30 @@ public class InfoController {
 	    return mv;
 	}
 	
+	
+	
 	@PostMapping(value = "/qnainsert")
 	public String addQna(@ModelAttribute AdminBoard adminBoard,
 	                     Principal principal) {
+	    if (principal == null)
+	        return "redirect:/";
+	    
 	    String userId = principal.getName();  // 로그인한 유저 ID
 	    adminBoard.setUserId(userId);  // 질문자 ID 설정
 
+	    LocalDateTime currentDateTime = LocalDateTime.now();
+	    Timestamp adDate = Timestamp.valueOf(currentDateTime);  // LocalDateTime을 Timestamp로 변환
+	    adminBoard.setAdDate(adDate);  // 작성일 설정
+	    
 	    // adWriter, adPassword 등 다른 필드는 별도의 로직으로 처리...
 	    
 	    infoService.insertQna(adminBoard);  // QnA 데이터 저장
 
 	    return "redirect:/info/qna";  // 처리 후 리다이렉트할 페이지
 	}
+
+
+	
 
 
 
