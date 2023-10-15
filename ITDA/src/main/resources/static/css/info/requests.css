@@ -23,9 +23,10 @@ body {
 
 
 .board_write_wrap{
-	width : 1080px;
-	margin : 0px auto 60px;
-    padding-top : 60px;
+	max-width: 1080px;
+    width: 100%;
+    margin: 0 auto 60px;
+    padding-top: 60px;
 }
 
 

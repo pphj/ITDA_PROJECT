@@ -24,3 +24,4 @@ public class AdminBoard {
 	private String adState;				//상태 
 
 }
+
