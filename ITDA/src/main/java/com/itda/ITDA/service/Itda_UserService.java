@@ -32,6 +32,11 @@ public interface Itda_UserService {
 
 	int leaveResonInsert(UserLeaveReason leaveReason);
 
+	int deleteUserInsert(String id);
+
+	int itda_userDelete(String id);
+
+
 
 
 

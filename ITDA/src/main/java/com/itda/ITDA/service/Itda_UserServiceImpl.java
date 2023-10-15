@@ -97,6 +97,19 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return dao.leaveResonInsert(leaveReason);
 	}
 
+	@Override
+	public int deleteUserInsert(String id) {
+		return dao.deleteUserInsert(id);
+	}
+
+
+	@Override
+	public int itda_userDelete(String id) {
+		return dao.itda_userDelete(id);
+	}
+
+
+
 
 	
 	

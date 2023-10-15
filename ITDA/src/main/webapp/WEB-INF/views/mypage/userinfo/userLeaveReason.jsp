@@ -55,8 +55,8 @@ var nsc = "my.info"+ "";
 var ccsrv = "cc.naver.com";
 //]]>
 
-function checkRadioButton(objName){
-    var radioObj = document.getElementsByName(objName);
+function checkRadioButton(leaveReason_id){
+    var radioObj = document.getElementsByName(leaveReason_id);
     var isChecked = false;
     if(radioObj.length == null){
         isChecked = radioObj.checked;
@@ -71,8 +71,8 @@ function checkRadioButton(objName){
     return isChecked;
 }
 
-function getCheckedRadioValue(objName){
-    var radioObj = document.getElementsByName(objName);
+function getCheckedRadioValue(leaveReason_id){
+    var radioObj = document.getElementsByName(leaveReason_id);
     var radioCheckedValue = '';
     if(radioObj.length == null){
         radioCheckedValue = radioObj.value;
@@ -84,6 +84,7 @@ function getCheckedRadioValue(objName){
             }
         }
     }
+    console.log(radioCheckedValue);
     return radioCheckedValue;
 }
 
@@ -103,15 +104,15 @@ function setTextbox(state){
 }
 
 function setTextArea(){
-	if(document.fm.reason[document.fm.reason.length-1].checked == false){
-		document.fm.reason[document.fm.reason.length-1].checked = true;
+	if(document.fm.leaveReason_id[document.fm.leaveReason_id.length-1].checked == false){
+		document.fm.leaveReason_id[document.fm.leaveReason_id.length-1].checked = true;
 		document.fm.proposal.value="";
 	}
 }
 
 function mainSubmit(){
-	var radioCheckedValue = getCheckedRadioValue("reason");
-    var isChecked = checkRadioButton("reason");
+	var radioCheckedValue = getCheckedRadioValue("leaveReason_id");
+    var isChecked = checkRadioButton("leaveReason_id");
 
     if(!isChecked){
         alert('탈퇴사유를 선택해 주세요.');
@@ -127,7 +128,7 @@ function mainSubmit(){
         return;
     }
     
-    clickcr(this,'otn.quitappconfirm','','',window.event);
+    //clickcr(this,'otn.quitappconfirm','','',window.event);
      
     document.fm.submit();
     return;
@@ -232,7 +233,7 @@ function Len_Check(str,max){
    };
    
    function chr_type(sValue, Ev) {
-    	document.fm.reason[document.fm.reason.length-1].checked = true;
+    	document.fm.leaveReason_id[document.fm.leaveReason_id.length-1].checked = true;
 
 		var evCode = (window.netscape) ? Ev.which : event.keyCode ;
 
@@ -346,7 +347,7 @@ function showMenu(subMenu) {
 		</div>
 
 		<form action="${pageContext.request.contextPath}/user/leaveAction"  name="fm" id="fm" method="post">
-			<input hidden="userId" id="userId" name="userId">
+			<!-- <input hidden="userId" id="userId" name="userId"> -->
 			<div class="box3">
 				<ul>
 				<c:forEach var="reason" items="${reason}" begin="0" end="7">
@@ -356,7 +357,7 @@ function showMenu(subMenu) {
 				    </li>
 				</c:forEach>
 					<li class="last">
-						<c:forEach var="leaveReason_id" items="${reason}" varStatus="status">
+						<c:forEach var="reason" items="${reason}" varStatus="status">
 						    <c:if test="${status.index eq 8}">
 						        <input name="leaveReason_id" type="radio" value="9" class="input_radio" id="rs9" onclick="javascript:void(setTextbox('set'));" />${reason.leaveReason_name}<label for="rs9"></label>
 						    </c:if>
@@ -385,11 +386,16 @@ function showMenu(subMenu) {
 			  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		</form>
 
-	<div id="footer">
-	</div>
 </div>
 	</div>
-	<jsp:include page="../../include/footer.jsp"></jsp:include>
+	</div>
+ 	<div id="footer">
+
+</div>
+</div>
+</div>
+ 	<jsp:include page="../../include/footer.jsp"></jsp:include>
+
 
 
 <script type="text/javascript">

@@ -34,6 +34,11 @@ public interface Itda_UserMapper {
     void resetPassword(Map map);
 
 	int leaveResonInsert(UserLeaveReason leaveReason);
+
+	int deleteUserInsert(String id);
+
+	int itda_userDelete(String id);
+
 	
 	
 }

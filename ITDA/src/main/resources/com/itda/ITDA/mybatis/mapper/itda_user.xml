@@ -77,11 +77,41 @@
    </update>
 	
 	<!-- 회원 탈퇴 시 탈퇴 이유 insert -->
-	<insert id="leaveResonInsert" parameterType="int">
+	<insert id="leaveResonInsert" parameterType="UserLeaveReason">
 		insert into userleavereason 
 				(userId, leaveReason_id, userLeaveReason)
 		values
-				(#{userId}, #{leaveReason_id}, #{userLeaveReason})
-		
+				(#{userId}, #{leaveReason_id}, 
+			<choose>
+				<when test='userLeaveReason == "null" or userLeaveReason == " "'>
+					default value
+				</when>
+				<otherwise>
+					#{userLeaveReason}
+				</otherwise>
+			</choose>
+				)
 	</insert>
+	
+	<!-- 탈퇴 회원 정보 탈퇴 회원 테이블에 insert -->
+	<insert id="deleteUserInsert" parameterType="String">
+		INSERT INTO deleteuser 
+					(userId, deluserGender, age, deluserJoindate, deldate, deluserCate_num)
+			SELECT 
+					a.userId, a.usergender, TRUNC(MONTHS_BETWEEN(TRUNC(sysdate), TO_DATE(a.userbirth, 'yy/MM/dd'))/12) AS age, a.userjoindate, SYSTIMESTAMP AS deldate, b.cate_id			
+			FROM 
+					itda_user a
+			INNER JOIN 
+					usercategory b
+			ON a.userId = b.userId
+		WHERE a.userId = #{userId}
+	</insert>
+	
+	<!-- 탈퇴 회원 itda_user와 관련된 정보 delete 하기 -->
+	<delete id="itda_userDelete" parameterType="String">
+		DELETE FROM itda_user 
+		WHERE userId = #{userId}
+	</delete>
+	
+	
 </mapper>
