@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+/* 리스트 */
+.list-basic {border-top:2px solid #121212}
+.list-item {display:flex; border-bottom:1px solid #eee;box-sizing:border-box;flex-direction: row;justify-content: space-evenly;}
+.list-item:last-child {border-color:#ddd}
+.list-item > .col + .col {margin-top:7px}
+.list-item.fixed {background-color:#f7f7f7}
+.list-item.fixed .notice-tit {font-weight:700}
+.list-item .col.tit a {display:block; display:-webkit-box; max-height:48px; line-height:24px; font-size:17px; text-overflow:ellipsis; word-break:keep-all; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.list-item .txt-num {color:#888; font-size:13px}

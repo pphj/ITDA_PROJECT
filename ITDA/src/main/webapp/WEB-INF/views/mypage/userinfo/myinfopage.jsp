@@ -14,6 +14,8 @@
 
 <title>잇다ID</title>
 
+<link href='https://fonts.googleapis.com/css?family=Gloria+Hallelujah' rel='stylesheet' type='text/css'>
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mypage/account.min.css">
 <link href="https://nid.naver.com/favicon_1024.png" rel="apple-touch-icon-precomposed" sizes="1024x1024" />
@@ -181,6 +183,7 @@
         nclk(this, 'fot.logout', '', '', event);
         event.preventDefault();
         if (confirm("로그아웃 하시겠습니까?")) {
+			alert("로그아웃 되었습니다.")
             $("form[name=logout]").submit();
         }
     }
@@ -233,7 +236,7 @@
 </div>-->
 
 <!--내프로필-->
-<div class="account_box">
+<%-- <div class="account_box">
     <div class="title">
         <h2 class="title_text">내프로필</h2>
     </div>
@@ -287,13 +290,120 @@
                 <span id="phoneNoRegSpan"
                       class="item_text">${user.userPost}&nbsp;&nbsp;
                      ${user.userAddress1}&nbsp;${user.userAddress2}</span>
-    <button type="button" id="addressRegBtn"
+   	 <button type="button" id="addressRegBtn"
             class="btn_edit"
             onclick="showAddressChangePopUp()"><span class="text">주소변경</span></button>
             </div>
         </li>
+                <li>
+            <div id="phoneNoRegDiv" class="row_item post ">
+                <span id="phoneNoRegSpan"
+                      class="item_text">${user.cate_Name}</span>
+    			<button type="button" id="addressRegBtn"
+            class="btn_edit"
+            onclick="showAddressChangePopUp()"><span class="text">관심키워드 변경</span></button>
+            </div>
+        </li>
+    </ul>
+</div> --%>
+<div class="account_box">
+    <div class="title">
+        <h2 class="title_text">내프로필</h2>
+    </div>
+
+    <ul class="account_row">
+        <li>
+            <div class="row_item name">
+                <span class="item_text">${user.userName}</span>
+                <button type="button" class="btn_edit" onclick="changeName()">
+                    <span class="text">실명수정</span>
+                </button>
+            </div>
+        </li>
+
+        <li>
+            <div id="phoneNoRegDiv" class="row_item phone">
+                <span id="phoneNoRegSpan" class="item_text">${user.userPhone}</span>
+                <button type="button" id="phoneNoRegBtn" class="btn_edit" onclick="showPhoneNumberChangePopUp()">
+                    <span id="phoneNoRegBtnTxt" class="text">수정</span>
+                </button>
+            </div>
+        </li>
+
+        <li>
+            <div class="row_item mail">
+                <span id="myLetterEmailRegSpan" class="item_text">${user.userEmail}</span>
+                <button type="button" class="btn_edit" onclick="showMyLetterEmailChangePopUp()">
+                    <span class="text">수정</span>
+                </button>
+            </div>
+            <div id="pswdEmailRegDiv" class="row_item mail not">
+                <span id="pswdEmailRegSpan" class="item_text">본인확인 이메일 없음</span>
+                <button type="button" id="pswdEmailRegBtn" class="btn_accent" onclick="showPswdEmailChangePopUp()">
+                    <span id="pswdEmailRegBtnTxt" class="text">등록</span>
+                </button>
+            </div>
+        </li>
+        <li>
+            <div id="phoneNoRegDiv" class="row_item post">
+                <span id="phoneNoRegSpan" class="item_text">${user.userPost}&nbsp;&nbsp;${user.userAddress1}&nbsp;${user.userAddress2}</span>
+                <button type="button" id="addressRegBtn" class="btn_edit" onclick="showAddressChangePopUp()">
+                    <span class="text">주소변경</span>
+                </button>
+            </div>
+        </li>
+        <li>
+            <div id="phoneNoRegDiv" class="row_item heart">
+                <span id="phoneNoRegSpan" class="item_text">${user.cate_Name}</span>
+                <button type="button" id="addressRegBtn" class="btn_edit" onclick="showKeyWordChangePopUp()">
+                    <span class="text">관심키워드 변경</span>
+                </button>
+            </div>
+        </li>
     </ul>
 </div>
+
+<!-- seller 프로필 시작  -->
+<div class="account_box">
+    <div class="title">
+        <h2 class="title_text">SELLER 프로필</h2>
+    </div>
+
+    <ul class="account_row">
+        <li>
+            <div id="phoneNoRegDiv" class="row_item phone ">
+                <span id="phoneNoRegSpan"
+                      class="item_text">${user.sellerPhone}</span>
+                <button type="button" id="phoneNoRegBtn"
+                        class="btn_edit"
+                        onclick="showPhoneNumberChangePopUp()">
+                    <span id="phoneNoRegBtnTxt"
+                          class="text">수정</span>
+                </button>
+            </div>
+        </li>
+        <li>
+            <div class="row_item mail ">
+                <span id="myLetterEmailRegSpan"
+                      class="item_text">${user.sellerEmail }</span>
+                <button type="button" class="btn_edit"
+                        onclick="showMyLetterEmailChangePopUp()">
+                    <span class="text">수정</span>
+                </button>
+            </div>
+            <div id="pswdEmailRegDiv" class="row_item mail not">
+                <span id="pswdEmailRegSpan"
+                      class="item_text">본인확인 이메일 없음</span>
+                <button type="button" id="pswdEmailRegBtn"
+                        class="btn_accent"
+                        onclick="showPswdEmailChangePopUp()">
+                    <span id="pswdEmailRegBtnTxt"
+                          class="text">등록</span>
+                </button>
+            </div>
+        </li>
+      </ul>
+   </div>
 
 <!--보안설정-->
 <div class="account_box">
@@ -552,6 +662,68 @@
         </div>
     </div>
     
+    <!-- 키워드 변경 팝업 -->
+        <!-- 주소변경창 -->
+           <div id="keyWordChangePopUpLayer" class="layer" style="display:block;">
+        <div class="popup_layer">
+            <div class="popup_layer_inner">
+                <div class="popup_content">
+                
+                <!--주소 팝업콘텐츠영역-->
+
+
+                 <div class="contact_edit_popup" style="width:329px;">
+                        <h4 class="contact_edit_title">
+                                <strong class="bold">${user.userName}님</strong>의 회원정보 중
+                                <br>
+                                <em class="accent">관심 키워드</em>를 <span
+                                    id="p_txt_phoneNo_changeYn">수정</span>합니다.
+                        </h4>
+                        <fieldset style="margin-bottom: 20px;">
+                        <ul>
+                      <c:forEach var="categoryList" items="${categoryList}">
+                        <li>
+                       <div class="checkbox">
+			        <input type="checkbox" id="check${categoryList.cate_Id}" value="${categoryList.cate_Id}"/>
+			        <label for="check${categoryList.cate_Id}" >
+			          <div>
+			          <i class="fa fa-check"></i>
+			          </div> ${categoryList.cate_Name}
+			        </label>
+   				 	</div>
+                        </li>
+                      </c:forEach>
+                        <li>
+                      <div class="checkbox">
+			        <input type="checkbox" id="check2"/>
+			        <label for="check2" >
+			          <div>
+			          <i class="fa fa-check"></i>
+			          </div> I like Codepen!
+			        </label>
+   				 	</div>
+                        </li>
+                        </ul>
+                        </fieldset>
+                    <div class="btn_duo_popup">
+                            <a href="javascript:;" class="btn_item" role="button"
+                               onclick="hideKeyWordChangePopUp()">
+                                <span class="btn_text">취소</span>
+                            </a>
+                            <button type="submit" class="btn_item on" id="sendKeyWord">
+                                <span id="b_txt_address_reg"
+                                      class="btn_text">변경</span>
+                            </button>
+                        </div>
+                        <button type="button" class="close_popup"
+                                onclick="hideKeyWordChangePopUp()"><span
+                                    class="blind">닫기</span></button>
+                 	  </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
 
         

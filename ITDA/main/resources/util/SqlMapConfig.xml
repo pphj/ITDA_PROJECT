@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias alias="itda_user" type="com.itda.ITDA.domain.Itda_User" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="sql/itda_user.xml" />
+	</mappers>
+</configuration>
+
+
+
+
+
+
+
