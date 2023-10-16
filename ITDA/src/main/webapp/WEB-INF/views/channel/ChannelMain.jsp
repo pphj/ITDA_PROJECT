@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
@@ -28,7 +29,7 @@ $(document).ready(function(){
 	    window.location.href = '${pageContext.request.contextPath}/channels/${ChannelList.chNum}/sellersetting';
 	  });
 	  $(".btnReportProfile").click(function(){
-	    window.location.href = '카테고리수정페이지URL';
+	    window.location.href = '${pageContext.request.contextPath}/channels/${ChannelList.chNum}/sellersettingCategory';
 	  });
 	});
 </script>
@@ -47,14 +48,14 @@ $(document).ready(function(){
 	<!--  채널바  -->
 	<div class="wrap_profile">
 		<div class="bloger_thumb">
-			 <c:choose>
-					<c:when test="${empty ChannelList.chProfile}">
-						<img class="profileUserImage img_thumb" alt="이미지정보" src="${pageContext.request.contextPath}/resources/image/main/login.png" width="100" height="100">
-					</c:when>
-					<c:otherwise>
-						<img class="profileUserImage img_thumb" src="${pageContext.request.contextPath}/upload${ChannelList.chProfile}" width="100" height="100">		
-					</c:otherwise>
-			</c:choose> 
+				<c:choose>
+				    <c:when test="${empty ChannelList.chProfile}">
+				        <img class="profileUserImage img_thumb" alt="이미지정보" src="${pageContext.request.contextPath}/resources/image/main/login.png" width="100" height="100">
+				    </c:when>
+					    <c:otherwise>
+					         <img class="profileUserImage img_thumb" src="${pageContext.request.contextPath}/resources/image/channel/${ChannelList.chNum}${ChannelList.chProfile}" width="100" height="100">      
+					    </c:otherwise>
+				</c:choose> 
 		</div>
 		<div class="wrap_profile_desc">
 			<strong class="profileUserName tit_bloger">${ChannelList.chName}</strong>
@@ -65,17 +66,21 @@ $(document).ready(function(){
 				</dd>
 			</dl>
 		</div>
+		
 		<div class="wrap_profile_btn">
 			<input type="hidden" name="myWriter" value="false">
 			<span class="#my_follow follow_button_wrapper">
-				<!--  security 적용 해야함 -->
-				<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
-					<span class="txt_default">
-						<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글작성
-					</span>
-				</button>
-
-
+					<sec:authorize access="isAuthenticated()">
+	               	<sec:authentication property="principal" var="pinfo"/>
+			               	<c:if test="${sellerinfo.userId == pinfo.username}">
+								<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
+									<span class="txt_default">
+										<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글작성
+									</span>
+								</button>
+							</c:if>
+					</sec:authorize>
+					
 				<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
 					<span class="txt_default">
 						<img class="ico_plus" src="../image/channel/ico-plus.png" alt="알림 버튼 아이콘">알림
@@ -92,19 +97,23 @@ $(document).ready(function(){
 
 		<div class="more_control">
 			<!-- 메뉴더보기 클릭시 ctrl_on 클래스 추가 -->
-		    <!--  security 적용 해야함 -->
-			<button type="button" class="setting_button" style="background-color: white; border: none;" id="settingButton">
-				<span class="txt_default2">
-					<img class="setting_img" src="${pageContext.request.contextPath}/resources/image/channel/setting.png"
-						style="width: 30px; height: 30px; padding-left: 660px; opacity: 0.6;" alt="메뉴 더보기">
-				</span>
-			</button>
-			<div class="layer_action_ctrl" style="display: none;">
-				<div class="inner_action_ctrl">
-					<button type="button" class="btnBlockProfile btn_ctrl requireLogin">채널프로필수정</button>
-					<button type="button" class="btnReportProfile btn_ctrl requireLogin">카테고리수정</button>
-				</div>
-			</div>
+		    <sec:authorize access="isAuthenticated()">
+		    <sec:authentication property="principal" var="pinfo"/>
+		    	<c:if test="${sellerinfo.userId == pinfo.username}">
+					<button type="button" class="setting_button" style="background-color: white; border: none;" id="settingButton">
+						<span class="txt_default2">
+							<img class="setting_img" src="${pageContext.request.contextPath}/resources/image/channel/setting.png"
+								style="width: 30px; height: 30px; margin-left: 660px; opacity: 0.6;" alt="메뉴 더보기">
+						</span>
+					</button>
+					<div class="layer_action_ctrl" style="display: none;">
+						<div class="inner_action_ctrl">
+							<button type="button" class="btnBlockProfile btn_ctrl requireLogin">채널프로필 / 카테고리 수정</button>
+							<!-- <button type="button" class="btnReportProfile btn_ctrl requireLogin">카테고리수정</button> -->
+						</div>
+					</div>
+				</c:if>
+			</sec:authorize>
 		</div><!-- <div class="moe_control"> -->
 		
 	</div>
