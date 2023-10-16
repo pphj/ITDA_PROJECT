@@ -11,10 +11,13 @@
 <link href="${pageContext.request.contextPath}/resources/css/channel/ChannelCategory_change.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/channel/ChannelProfile_change.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/channel/ChannelSetting.js"></script>
 <jsp:include page="../include/header.jsp" />
-<title>채널프로필수정</title>
+<title>채널프로필 수정</title>
+<script>
+</script>
 </head>
 <body>
 	<!-- 수정 선택바 -->
@@ -44,9 +47,9 @@
 							<p class="contxt">채널 대표 프로필과 채널명을 수정 하실 수 있습니다.</p>
 						</div>
 						<form action="../${chnum}/sellersetting" id="profileForm" method="post" enctype="multipart/form-data">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-							<input type="hidden" name="chProfile" value="${SellerSetting.chProfile}">
-							
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> <input type="hidden" name="chProfile"
+								value="${SellerSetting.chProfile}">
+
 							<!-- <input type="hidden" id="helpToken" name="token_help" value="dRlhbO0SeMUZ9v80"> 
 								 <input type="hidden" id="deleteYn"  name="deleteYn" value="N"> 
 								 <input type="hidden" id="ieLessThan9Yn" name="ieLessThan9Yn" value="N"> -->
@@ -68,23 +71,23 @@
 											<td>
 												<div class="tdcell">
 													<div class="profile_photo">
-														<label for="upfile">
-															   <span id="filevalue" style="display: none;"> ${SellerSetting.chProfile}</span>
-																	 <c:choose>
-																			<c:when test="${empty SellerSetting.chProfile}">
-																				<img id="imgThumb" src="${pageContext.request.contextPath}/resources/image/main/login.png" width="100" height="100">
-																			</c:when>
-																			<c:otherwise>
-																				<img id="imgThumb" src="${pageContext.request.contextPath}/upload${SellerSetting.chProfile}" width="100" height="100">		
-																			</c:otherwise>
-																	 </c:choose> 
-																<span class="mask"></span>
+														<label for="upfile"> <span id="filevalue" style="display: none;">${SellerSetting.chProfile}</span> <c:choose>
+																<c:when test="${empty SellerSetting.chProfile}">
+																	<img id="imgThumb" src="${pageContext.request.contextPath}/resources/image/main/login.png" width="100"
+																		height="100">
+																</c:when>
+																<c:otherwise>
+																	<img id="imgThumb"
+																		src="${pageContext.request.contextPath}/resources/image/channel/${SellerSetting.chNum}${SellerSetting.chProfile}"
+																		width="100" height="100">
+																</c:otherwise>
+															</c:choose> <span class="mask"></span>
 														</label>
 													</div>
 													<div class="btn_area_btm">
 														<span class="btn_file">
-															<label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2">사진변경</b></label> <input type="file" id="upfile" name="uploadfile"
-																value="${SellerSetting.chProfile}">
+															<label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2">사진변경</b></label> <input type="file"
+																id="upfile" name="uploadfile" value="${SellerSetting.chProfile}">
 														</span>
 
 														<a href="javascript:;" class="btn_model"> <b id="btnDelete" class="btn2 btn_disable">삭제</b></a>
@@ -131,21 +134,19 @@
 						<h2>카테고리 수정</h2>
 						<p class="contxt">채널 카테고리를 수정 하실 수 있습니다.</p>
 					</div>
-					<form id="profileForm" method="post" enctype="multipart/form-data">
-						<input type="hidden" id="helpToken" name="token_help" value="dRlhbO0SeMUZ9v80"> <input type="hidden" id="deleteYn"
-							name="deleteYn" value="N"> <input type="hidden" id="ieLessThan9Yn" name="ieLessThan9Yn" value="N">
-						<fieldset>
-							<legend>채널프로필 수정</legend>
-							<table border="0" class="tbl_model">
-								<caption>
-									<span class="blind">채널프로필 수정</span>
-								</caption>
-								<colgroup>
-									<col style="width: 22%">
-									<col>
-								</colgroup>
+					<fieldset>
+						<legend>채널프로필 수정</legend>
+						<table border="0" class="tbl_model">
+							<caption>
+								<span class="blind">채널프로필 수정</span>
+							</caption>
+							<colgroup>
+								<col style="width: 22%">
+								<col>
+							</colgroup>
+							
+							<form id="categoryForm" method="post" enctype="multipart/form-data">
 								<tbody>
-
 									<tr>
 										<th scope="row">
 											<div class="thcell">카테고리</div>
@@ -154,58 +155,44 @@
 											<div class="tdcell">
 												<div class="category_box">
 													<li class="channel_category_item">
-														<a href="/hsacademy/hsacademy1/contents" class="channel_category_link" data-clk="chlh_category.listall"> <strong
-															class="channel_category_name">전체</strong> <!-- 
-															<div class="channel_category_num">
-																<a href="javascript:;" class="btn_model"> <b id="btnDelete" class="btn2 btn_disable"
-																	onclick="clickcr(this,'prf.delimg','','',event);">수정</b>
-																</a> <a href="javascript:;" class="btn_model"> <b id="btnDelete" class="btn2 btn_disable"
-																	onclick="clickcr(this,'prf.delimg','','',event);">삭제</b>
-																</a>
-															</div>
-															-->
-														</a>
+														<strong class="channel_category_name">전체</strong>
 													</li>
 												</div>
 
-
 												<ul class="channel_category_list">
-													<!--  	<c:forEach var="c" items="${ChannelCategory}"> -->
 													<div class="category_box">
-														<li class="channel_category_item">
-															<!-- <a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}"
-																	 class="channel_category_link" data-clk="chlh_category.listall">  -->
-															<strong class="channel_category_name">카테고리</strong>
-															<div class="channel_category_num">
-																<button class="btn_model">
-																	<b id="btnDelete" class="btn2 btn_disable" onclick="clickcr(this,'prf.delimg','','',event);">수정</b>
-																</button>
-
-																<button class="btn_model">
-																	<b id="btnDelete" class="btn2 btn_disable" onclick="clickcr(this,'prf.delimg','','',event);">삭제</b>
-																</button>
-															</div>
-															</a>
-														</li>
-													</div>
-													<!-- 	</c:forEach> -->
+														<c:forEach var="c" items="${SellerCategory}">
+															<li class="channel_category_item">
+																<input class="channel_category_name" type="text" name="categoryName" id="categoryName" value="${c.chCate_Name}"
+																	style="width: 254px; border: none;"> 
+																<input type="hidden" name="categorychnum" id="categorychnum" value="${SellerSetting.chNum}"
+																	style="width: 254px; border: none;">
+																<!--<strong class="channel_category_name">${c.chCate_Name}</strong>-->
+																<div class="channel_category_num">
+																	<button class="btn_model" data-name="${c.chCate_Name}">
+																		<b id="btnChangeCategcategoryNameory" class="btn3">수정</b>
+																	</button>
+																	<button class="btn_model">
+																		<b id="btnDeleteCategory" class="btn3">삭제</b>
+																	</button>
+																</div>
+															</li>
+														</c:forEach>
 												</ul>
 											</div>
 										</td>
 									</tr>
 								</tbody>
-							</table>
-
+							</form>
+						</table>
 							<div class="btn_wrap">
 								<a class="btn_model">
-									<button type=submit class="btn2 txt_disable">적용</button>
-								</a> <a class="btn_model">
-									<button type=reset class="btn2">취소</button>
+									<button id="btnAddCategory" type=submit class="btn2 txt_disable">카테고리 추가</button>
 								</a>
 							</div>
-						</fieldset>
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-					</form>
+
+					</fieldset>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</div>
 			</div>
 			<!-- <div class="wrap_contents"> -->

@@ -50,7 +50,7 @@
 	 			<div class="form-group">
 	 				<label for="adminId">작성자</label>
 	 				<input name="adminId" id="adminId" value="${pinfo.username}" readOnly
-	 					   type="text" class="form-control"">
+	 					   type="text" class="form-control">
 	 			</div>
 	 			<!-- <div class="form-group">
 	 				<label for="couponCode">쿠폰 코드</label>
@@ -81,5 +81,6 @@
 	 	</div>
  		</div>
  	</div>
+</main>
 </body>
 </html>

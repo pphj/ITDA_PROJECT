@@ -222,8 +222,9 @@ hr {
 }
 
 .btn_model .btn3 {
-	border: 1px solid #bfbfbf;
-	background: #fff
+    border: 1px solid #bfbfbf;
+    background: #fff;
+    margin: 2px;
 }
 
 .btn_model[href] .btn3 {
@@ -1673,7 +1674,7 @@ html>body .box1 table td .input_text {
 	padding: 0 0 0 7px;
 	vertical-align: top;
 	color: #333;
-	border: 1px solid #ccc;
+    border: 1px solid #ccc;
 	opacity: 1
 }
 

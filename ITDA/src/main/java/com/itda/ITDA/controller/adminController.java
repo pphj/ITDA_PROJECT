@@ -31,6 +31,7 @@ import com.itda.ITDA.domain.PaginationDTO;
 import com.itda.ITDA.domain.QnaReply;
 import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.SubProduct;
 import com.itda.ITDA.domain.UserTotal;
 import com.itda.ITDA.service.adminService;
 import com.itda.ITDA.service.qnaReplyService;
@@ -56,7 +57,7 @@ public class adminController {
 		this.qnaReplyService=qnaReplyService;
 	}
 	
-	@RequestMapping(value="/Login")
+	@RequestMapping(value="/adminLogin")
 	public ModelAndView adminLogin(ModelAndView mv) {
 		
 		mv.setViewName("admin/adminLogin");
@@ -67,8 +68,15 @@ public class adminController {
 	@RequestMapping(value="/Main")
 	public ModelAndView SetAdmin(ModelAndView mv) {
 		
+		int qnaDailyCount = adminService.qnaDailyCount();
+		int sellerDailyCount = adminService.sellerDailyCount();
+		int problemDailyCount = adminService.problemDailyCount();
+		
 		List<UserTotal> userTotalData = adminService.getUserTotalList();
 		
+		mv.addObject("qnaDailyCount", qnaDailyCount);
+		mv.addObject("sellerDailyCount", sellerDailyCount);
+		mv.addObject("problemDailyCount", problemDailyCount);
 		mv.addObject("userTotalData", userTotalData);
 		mv.setViewName("admin/adminMain");
 		return mv;
@@ -647,8 +655,8 @@ public class adminController {
 	
 	
 	@RequestMapping(value="/sellerApprove")
-	public ModelAndView SetSellerApprove(@RequestParam(value="page",
-							defaultValue="1",required=false) int page, ModelAndView mv) {
+	public ModelAndView SetSellerApprove(ModelAndView mv,
+		@RequestParam(value="page", defaultValue="1",required=false) int page) {
 		PaginationDTO p = calculatePagination(page, 10, adminService.getSellerApproveListCount());
 		
 		List<Seller> sellerApproveList = adminService.getSellerApproveList(page, 10);
@@ -832,6 +840,27 @@ public class adminController {
 		return mv;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/couponList_ajax")
+	public Map<String, Object> couponListAjax(
+			@RequestParam(value="page", defaultValue="1", required=false) int page,
+			@RequestParam(value="limit", defaultValue="10", required=false) int limit){
+		
+		PaginationDTO p = calculatePagination(page, limit, adminService.getCouponListCount());
+		
+		List<Coupon> couponList = adminService.couponList(page, limit);	//리스트를 받아옴
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("page", page);
+		map.put("maxpage", p.getMaxPage());
+		map.put("startpage", p.getStartPage());
+		map.put("endpage", p.getEndPage());
+		map.put("listcount", p.getListCount());
+		map.put("couponList", couponList);				//해당 페이지의 글 목록 리스트
+		map.put("limit", limit);
+		return map;
+	}
+	
 	@GetMapping(value="/coupon_Write")
 	public String coupon_Write() {
 		return "admin/coupon_Write";
@@ -866,7 +895,53 @@ public class adminController {
 		return "redirect:coupon";
 	}
 	
+	@RequestMapping(value="/product")
+	public ModelAndView SetProductList(@RequestParam(value="page",
+				defaultValue="1",required=false) int page, ModelAndView mv) {
+		PaginationDTO p = calculatePagination(page, 4, adminService.getProductCount());
+		
+		List<SubProduct> productList = adminService.productList(page, 4);
+		
+		mv.addObject("page", page);
+		mv.addObject("maxpage", p.getMaxPage());		
+		mv.addObject("startpage", p.getStartPage());	
+		mv.addObject("endpage", p.getEndPage());		
+		mv.addObject("listcount", p.getListCount());
+		mv.addObject("productList", productList);
+		mv.addObject("limit", 4);
+		mv.setViewName("admin/product");
+		return mv;
+	}
 	
+	@GetMapping(value="/product_Write")
+	public String product_Write() {
+		return "admin/product_Write";
+	}
 	
+	@PostMapping(value="/productInsert")
+	public String productInsert(SubProduct productData, HttpServletRequest request
+															) throws Exception {
+		adminService.productInsert(productData);
+		return "redirect:product";
+	}
 	
+	@GetMapping("/product/{productName}")
+	public ModelAndView productDetail(
+			@PathVariable("productName") String productName, ModelAndView mv, HttpServletRequest request,
+			@RequestHeader(value="referer", required=false) String beforeURL) {
+		
+		logger.info("referer : " + beforeURL);
+		
+		List<SubProduct> productData = adminService.productDetail(productName);
+		if (productData == null) {
+			logger.info("이용권 상세보기 실패");
+			mv.addObject("url", request.getRequestURI());
+			mv.addObject("message", "이용권 상세보기 실패");
+		}else {
+			logger.info("이용권 상세보기 성공");
+			mv.setViewName("admin/product_View");
+			mv.addObject("productData", productData);
+		}
+		return mv;
+	}
 }

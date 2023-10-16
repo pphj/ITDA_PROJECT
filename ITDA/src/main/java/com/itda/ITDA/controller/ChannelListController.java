@@ -1,6 +1,9 @@
 package com.itda.ITDA.controller;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -158,6 +161,7 @@ public class ChannelListController {
 
 	@PostMapping("{chnum}/sellersetting")
 	public String showChannelUpdate(@PathVariable("chnum") int chnum, ModelAndView mv, ChannelList ChannelList,
+			ChBoardCategory ChBoardCategory,
 			HttpServletRequest request, RedirectAttributes rattr, HttpSession session) throws Exception {
 
 		MultipartFile uploadfile = ChannelList.getUploadfile();
@@ -169,11 +173,20 @@ public class ChannelListController {
 
 			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
 
-			String fileDBName = fileDBName(fileName, saveFolder);
+			String fileDBName = fileDBName(fileName, saveFolder + "/" + chnum);
 			logger.info("fileDBName = " + fileDBName);
+
+			String userFolder = saveFolder + "/" + chnum + File.separator + fileDBName;
+
+			byte[] bytes = uploadfile.getBytes(); // 파일의 내용을 바이트 배열로 읽어옵니다.
+
+			Path path = Paths.get(userFolder); // 파일을 저장할 절대경로 객체(Path)
+
+			Files.write(path, bytes); // 해당 경로에 파일 쓰기
+
 			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장합니다.
-			uploadfile.transferTo(new File(saveFolder + fileDBName));
-			logger.info("transferTo path = " + saveFolder + fileDBName);
+			// uploadfile.transferTo(new File(saveFolder + "/" + chnum + fileDBName));
+			logger.info("transferTo path = " + saveFolder + "/" + chnum + userFolder);
 			// 바뀐 파일명으로 저장
 			ChannelList.setChProfile(fileDBName);
 		}
@@ -191,6 +204,11 @@ public class ChannelListController {
 			// 수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
 			url = "redirect:sellersetting";
 		}
+		
+
+		channelList_Service.addCategory(ChBoardCategory);
+		logger.info(ChBoardCategory.toString());
+
 
 		return url;
 	}
@@ -210,7 +228,9 @@ public class ChannelListController {
 		logger.info("상세보기 성공");
 
 		ChannelList SellerSetting = channelList_Service.getSellerSetting(chnum);
+		List<ChBoardCategory> SellerCategory = channelList_Service.getSellerCategory(chnum);
 
+		mv.addObject("SellerCategory", SellerCategory);
 		mv.addObject("SellerSetting", SellerSetting);
 		mv.setViewName("channel/ChannelSetting");
 		return mv;

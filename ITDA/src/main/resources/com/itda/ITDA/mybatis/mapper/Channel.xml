@@ -134,16 +134,26 @@
 	    WHERE chNum = #{chNum}
 	</update>
 
-	 <insert id="saveChannelList" parameterType="com.itda.ITDA.domain.ChannelList">
+	<insert id="saveChannelList" parameterType="com.itda.ITDA.domain.ChannelList">
     INSERT INTO channellist (chNum, ownerid, chName, chprofile, chinfo, cate_id, chFollow, chVisit)
     VALUES ((select NVL(max (chNum), 0) + 1 from ChannelList), #{userId}, #{channel}, #{userProfile}, #{chInfo}, '1', '0', '0')
 	
 	</insert>
 	
+	<select id="getSellerCategory" resultType="ChBoardCategory">
+		SELECT DISTINCT
+		chCate_Id, chCate_Name
+		FROM ChBoardCategory
+		WHERE ChBoardCategory.chnum
+		= #{chnum}
+		ORDER BY chCate_Name ASC
+	</select>
 
-
-
-
-
+	<!-- 카테고리 추가 -->
+    <insert id="addCategory">
+        INSERT INTO chboardcategory categoryName
+        VALUES #{categoryName}
+        where chnum = #{chnum}
+    </insert>
 		
 </mapper> 
