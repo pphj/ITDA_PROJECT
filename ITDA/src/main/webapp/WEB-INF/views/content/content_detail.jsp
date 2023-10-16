@@ -70,7 +70,7 @@
 			</div>
 			<div class="viewer_paywall_subscribe _PAYWALL_BUTTON" data-is-ticket="true" data-is-product="" data-price="19,900" data-url="/allbareun/allbareunkr/subscriptions?rContentId=230726221406327lp">
 				<div class="viewer_paywall_subscribe_inner">
-				  <a href  data-clk="chlh_cont.subspay" data-cp-name="allbareun" data-sub-id="allbareunkr">
+				  <a href="${pageContext.request.contextPath}/product/subscriptions">
 					<span class="viewer_paywall_subscribe_title">프리미엄 구독으로 다양한 콘텐츠를 만나보세요!</span>
 				</a>
 				</div>

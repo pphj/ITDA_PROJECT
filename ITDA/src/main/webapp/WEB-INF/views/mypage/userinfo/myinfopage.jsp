@@ -181,6 +181,7 @@
         nclk(this, 'fot.logout', '', '', event);
         event.preventDefault();
         if (confirm("로그아웃 하시겠습니까?")) {
+			alert("로그아웃 되었습니다.")
             $("form[name=logout]").submit();
         }
     }
