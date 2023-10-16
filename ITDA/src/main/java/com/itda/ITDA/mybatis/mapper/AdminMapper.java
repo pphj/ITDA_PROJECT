@@ -13,6 +13,7 @@ import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.QnaReply;
 import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.SubProduct;
 import com.itda.ITDA.domain.UserTotal;
 
 @Mapper
@@ -111,6 +112,20 @@ public interface AdminMapper {
 	public int userTotalInsert(int dailyUserTotal);
 
 	public List<UserTotal> getUserTotalList();
+
+	public int getProductCount();
+
+	public List<SubProduct> productList(HashMap<String, Integer> list);
+
+	public void productInsert(SubProduct productData);
+
+	public List<SubProduct> productDetail(String productName);
+
+	public int qnaDailyCount();
+
+	public int sellerDailyCount();
+
+	public int problemDailyCount();
 
 
 

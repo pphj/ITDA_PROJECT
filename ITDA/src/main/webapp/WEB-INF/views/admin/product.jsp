@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/assets/img/itda_logo.png">
-  <title>유저 공지사항</title>
+  <title>이용권 관리</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
@@ -24,13 +24,35 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/admin/userNotice.js"></script>
-  <script>
-
-  </script>
+  <script src="${pageContext.request.contextPath}/resources/js/admin/product.js"></script>
+<style>
+.floatData1 {position: absolute;
+    left: 40%;
+    top: 10%;
+    margin-left: -80px;
+}
+.floatData2 {position: absolute;
+    left: 40%;
+    top: 35%;
+    margin-left: -80px;
+}
+.floatData3 {position: absolute;
+    left: 90%;
+    top: 55%;
+    margin-left: -80px;
+}
+.floatData4 {position: absolute;
+    left: 90%;
+    top: 70%;
+    margin-left: -80px;
+}
+.subProductData {
+	display: -webkit-inline-box;
+	margin-left: 10px;
+}
+</style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -41,7 +63,7 @@
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                유저 공지사항
+              	이용권 관리
               </h5>
             </div>
           </div>
@@ -49,66 +71,28 @@
       </div>
     </div>
     <div class="main-content" style="padding: 30px 25px;">
-	<div class="card">
-		<div class="card-body">
+    <div class="card">
+    	<div class="card-body">
 	 		<c:if test="${listcount > 0}">
-	 		<div class="rows" style="width: 48px; float: right;">
-		 		<span>줄보기</span>
-		 		<select class="form-control" id="viewcount">
-		 			<option value="1">1</option>
-		 			<option value="3">3</option>
-		 			<option value="5">5</option>
-		 			<option value="7">7</option>
-		 			<option value="10" selected>10</option>
-		 		</select>
+	 		<div class="subProductData">
+	 		<c:forEach var="c" items="${productList}">
+		 	<div class="card text-center" style="width: 270px; border-radius: 30px; margin-left: 15px;">
+			    <div class="card-item metal ar mx-auto">
+			        <div class="product_img_container">
+			        	<img alt="" src="${pageContext.request.contextPath}/resources/assets/img/product.png">
+			        	<a href="${pageContext.request.contextPath}/admin/product/${c.productName}"
+			        	class="floatData1">
+		 					<div name="productName"><c:out value="${c.productName}" /></div>
+		 				</a>
+			        	<span class="floatData2">${c.productDetail}</span>
+			        	<span class="floatData3">기간 : ${c.productTerm}일</span>
+			        	<span class="floatData4">${c.productPrice}원</span>
+			        </div>
+			    </div>
+			</div>
+			</c:forEach>
 	 		</div>
-		 	<table class="table">
-	 		<thead>
-	 		<tr>
-	 			<th colspan="4">유저 공지사항</th>
-	 			<th colspan="1"><span>글 개수 : ${listcount}</span></th>
-	 		</tr>
-	 		<tr>
-	 			<th class="text-center"><div>번호</div></th>
-	 			<th class="text-center"><div>제목</div></th>
-	 			<th class="text-center"><div>작성자</div></th>
-	 			<th class="text-center"><div>날짜</div></th>
-	 			<th class="text-center"><div>조회수</div></th>
-	 		</tr>
-	 		</thead>
-	 		<tbody>
-	 			<c:set var="num" value="${listcount-(page-1)*limit}" />
-	 			<c:forEach var="F" items="${userNoticeList}">
-	 				<tr>
-	 					<td class="text-center">		<%-- 번호 부분 --%>
-	 						<c:out value="${num}" />					<%-- num 출력 --%>
-	 						<c:set var="num" value="${num-1}" />		<%-- num = num - 1 의미 --%>
-	 					</td>
-	 					<td class="text-center">		<%-- 제목 부분 --%>
-	 						<div>
-	 							<a href="${pageContext.request.contextPath}/admin/userNotice/${F.adNum}">
-	 								<c:if test="${F.adTitle.length() >= 20}">
-	 									<c:out value="${F.adTitle.substring(0,20)}..." escapeXml="true" />
-	 								</c:if>
-	 								<c:if test="${F.adTitle.length() < 20}">
-	 									<c:out value="${F.adTitle}" escapeXml="true" />
-	 								</c:if>
-	 							</a>
-	 						</div>
-	 					</td>
-	 					<td class="text-center"><div>${F.adWriter}</div></td>
-	 					<c:choose>
-						    <c:when test="${not empty F.adDate}">
-						        <c:set var="Date" value="${fn:substring(F.adDate, 0, 10)}" />
-						        <td class="text-center"><div><c:out value="${Date}" /></div></td>
-						    </c:when>
-						</c:choose>
-						<td class="text-center"><div>${F.adView}</div></td>
-	 				</tr>
-	 			</c:forEach>
-	 		</tbody>
-		 	</table>
-		 	<div class="center-block">
+		 	<div class="center-block mt-5">
 		 		<ul class="pagination justify-content-center">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
@@ -117,7 +101,7 @@
 		 			</c:if>
 		 			<c:if test="${page > 1}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="userNotice?page=${page-1}"><i class="fa fa-chevron-left" aria-hidden="true"></i>;</a>
+		 					<a class="page-link" href="product?page=${page-1}"><i class="fa fa-chevron-left" aria-hidden="true"></i>;</a>
 		 				</li>
 		 			</c:if>
 		 			
@@ -129,7 +113,7 @@
 		 				</c:if>
 		 				<c:if test="${a != page}">
 		 					<li class="page-item">
-		 						<a class="page-link" href="userNotice?page=${a}">${a}</a>
+		 						<a class="page-link" href="product?page=${a}">${a}</a>
 		 					</li>
 		 				</c:if>
 		 			</c:forEach>
@@ -142,7 +126,7 @@
 		 			</c:if>
 		 			<c:if test="${page < maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="userNotice?page=${page+1}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+		 					<a class="page-link" href="product?page=${page+1}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 		</ul>
@@ -150,10 +134,10 @@
 		 	</c:if>
 		 	
 		 	<c:if test="${listcount == 0}">
-		 		<h3 style="text-align: center">등록된 글이 없습니다.</h3>
+		 		<h3 style="text-align: center">등록된 이용권이 없습니다.</h3>
 		 	</c:if>
 		 	
-		 	<button type="button" id="userNoticeWbtn" class="btn btn-success float-right btn-sm btn-round">유저 공지 작성</button>
+		 	<button type="button" id="productCreatebtn" class="btn btn-success float-right btn-sm btn-round">이용권 생성하기</button>
 	 	</div>
     </div>
     </div>

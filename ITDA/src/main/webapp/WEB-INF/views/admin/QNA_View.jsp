@@ -99,8 +99,8 @@
  			<tr>
  				<td colspan="2" class="center" style="text-align: center;">
  					<button class="btn btn-primary btn-sm btn-round">
-	 					<i class="ni ni-check-bold">
-	 					</i><span id="count">${count}</span>
+	 					<i class="fa fa-question-circle">
+	 					</i><span id="count">&nbsp;&nbsp;${count}</span>
  					</button>
  					<a href="${pageContext.request.contextPath}/admin/FAQ">
  						<button class="btn btn-success btn-sm btn-round">

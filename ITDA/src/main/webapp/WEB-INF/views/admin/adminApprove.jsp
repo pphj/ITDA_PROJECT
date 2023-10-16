@@ -108,7 +108,7 @@
 	 					<td class="td-actions text-center">
 			              <button type="button" rel="tooltip"
 			               class="btn btn-info btn-icon btn-sm authUpdate" data-original-title="" title="">
-			                <i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;변경
+			                <i class="fa fa-pencil-square-o pt-1"></i>&nbsp;&nbsp;&nbsp;변경
 			              </button>
 			            </td>
 	 				</tr>
@@ -158,12 +158,12 @@
 		 		<ul class="pagination justify-content-center">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
-		 					<a class="page-link gray">이전&nbsp;</a>
+		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 			<c:if test="${page > 1}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="adminApprove?page=${page-1}">이전&nbsp;</a>
+		 					<a class="page-link" href="adminApprove?page=${page-1}"><i class="fa fa-chevron-left" aria-hidden="true"></i>;</a>
 		 				</li>
 		 			</c:if>
 		 			
@@ -183,12 +183,12 @@
 		 			
 		 			<c:if test="${page >= maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link gray">&nbsp;다음</a>
+		 					<a class="page-link gray"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 			<c:if test="${page < maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="adminApprove?page=${page+1}">&nbsp;다음</a>
+		 					<a class="page-link" href="adminApprove?page=${page+1}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 			

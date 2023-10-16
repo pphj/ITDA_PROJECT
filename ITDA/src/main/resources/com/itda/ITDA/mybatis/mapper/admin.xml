@@ -356,10 +356,70 @@
 	
 	<select id="getUserTotalList" parameterType="java.util.Map" resultType="UserTotal">
 		select usertotal, credate
-		from (select usertotal, credate
-		  	  from usertotal
-		  	  order by credate asc
-			  )
-		where ROWNUM &lt;= 10
+		from (
+		    select usertotal, credate
+		    from usertotal
+		    order by credate desc
+		)
+		where rownum &lt;= 10
+	</select>
+	
+	<select id="getProductCount" resultType="int">
+		select count(productid) from subproduct
+	</select>
+	
+	<select id="productList" parameterType="java.util.Map" resultType="SubProduct">
+		select * 
+		from (select rownum rnum, c.*
+			  from (select productName, productDetail, productPrice, productTerm
+			  		from subproduct
+					order by productPrice asc
+			  ) c
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<insert id="productInsert" parameterType="SubProduct">
+		insert into subproduct
+	    (productId, productName, productWriter, productDetail, productPrice,
+	    productTerm, productCreDate, productDelete)
+	    values (SUBPRODUCT_SEQ.nextval, #{productName}, #{productWriter}, #{productDetail},
+	     #{productPrice}, #{productTerm}, SYSDATE, 'N')
+	</insert>
+	
+	<select id="productDetail" parameterType="java.util.Map" resultType="SubProduct">
+		select * from subproduct
+		where productName = #{productName}
+	</select>
+	
+	<select id="qnaDailyCount" resultType="int">
+		select count(userid)
+		from adminboard
+		where to_date(to_char(trunc(to_date(SYSDATE , 'yyyy-mm-dd') - 1), 'yyyy-mm-dd'), 'yyyy-mm-dd')
+		 = to_date(to_char(trunc(addate), 'yyyy-mm-dd'), 'yyyy-mm-dd')
+		and key = 'QNA'
+		and adState = 'Y'
+	</select>
+	
+	<select id="sellerDailyCount" resultType="int">
+		select count(userid)
+		from seller
+		where to_date(to_char(SYSDATE - 1, 'yyyy-mm-dd'), 'yyyy-mm-dd')
+		 = to_date(to_char(sellerjoindate, 'yyyy-mm-dd'), 'yyyy-mm-dd')
+		and waitstate = 'W'
+	</select>
+	
+	<select id="problemDailyCount" resultType="int">
+		select count(sickid)
+		from (
+		    select sickid, warndate from boardwarn
+		    where warnOk = 'N'
+		    union all
+		    select sickid, warndate from replywarn
+		    where warnOk = 'N'
+		) problem
+		where warndate &gt;= trunc(SYSDATE)
+		 and warndate &lt; trunc(SYSDATE  + 1)
 	</select>
 </mapper>

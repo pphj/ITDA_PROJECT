@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/assets/img/itda_logo.png">
-  <title>쿠폰 작성</title>
+  <title>이용권 생성</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
@@ -22,9 +22,9 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/admin/couponWrite.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/admin/productWrite.js"></script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -35,7 +35,7 @@
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                쿠폰 관리
+                이용권 관리
               </h5>
             </div>
           </div>
@@ -45,31 +45,31 @@
 	<div class="main-content" style="padding: 30px 25px;">
 		<div class="card">
 		<div class="card-body">
-	 		<form action="couponInsert" method="post" enctype="multipart/form-data" name="couponform">
-	 			<h1 style="margin-top: 30px; text-align: center;">쿠폰 작성</h1>
+	 		<form action="productInsert" method="post" enctype="multipart/form-data" name="productform">
+	 			<h1 style="margin-top: 30px; text-align: center;">이용권 내용 작성</h1>
 	 			<div class="form-group">
-	 				<label for="adminId">작성자</label>
-	 				<input name="adminId" id="adminId" value="${pinfo.username}" readOnly
+	 				<label for="productWriter">작성자</label>
+	 				<input name="productWriter" id="productWriter" value="${pinfo.username}" readOnly
 	 					   type="text" class="form-control">
 	 			</div>
-	 			<!-- <div class="form-group">
-	 				<label for="couponCode">쿠폰 코드</label>
-	 				<input name="couponCode" id="couponCode" type="text" maxlength="20"
-	 					   class="form-control" placeholder="숫자로 20자까지">
-	 			</div> -->
 	 			<div class="form-group">
-	 				<label for="couponName">쿠폰 이름</label>
-	 				<input name="couponName" id="couponName" type="text" maxlength="20"
+	 				<label for="productName">이용권 이름</label>
+	 				<input name="productName" id="productName" type="text" maxlength="20"
 	 					   class="form-control" placeholder="Enter Coupon Name">
 	 			</div>
 	 			<div class="form-group">
-	 				<label for="couponDetail">쿠폰 내용</label>
-	 				<textarea name="couponDetail" id="couponDetail"
+	 				<label for="productDetail">이용권 내용</label>
+	 				<textarea name="productDetail" id="productDetail"
 	 					   rows="5" class="form-control"></textarea>
 	 			</div>
 	 			<div class="form-group">
-	 				<label for="couponPrice">쿠폰 가격</label>
-	 				<input name="couponPrice" id="couponPrice" type="text" maxlength="10"
+	 				<label for="productPrice">이용권 가격</label>
+	 				<input name="productPrice" id="productPrice" type="text" maxlength="10"
+	 					   class="form-control" placeholder="Enter Coupon Price">
+	 			</div>
+	 			<div class="form-group">
+	 				<label for="productTerm">이용권 기간</label>
+	 				<input name="productTerm" id="productTerm" type="text" maxlength="10"
 	 					   class="form-control" placeholder="Enter Coupon Price">
 	 			</div>
 	 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">

@@ -81,15 +81,15 @@
 									+ '<td class="td-actions text-center">'
 							        + '<button type="button" rel="tooltip"'
 									+ ' class="btn btn-danger btn-icon btn-sm Pause" data-original-title="" title="">'
-							        + ' 	<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;일시정지'
+							        + ' 	<i class="fa fa-pause pt-1"></i>&nbsp;&nbsp;&nbsp;일시정지'
 							        + '</button>&nbsp;'
 							        + '<button type="button" rel="tooltip"'
 									+ ' class="btn btn-danger btn-icon btn-sm Stop" data-original-title="" title="">'
-							        + ' 	<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;정지'
+							        + ' 	<i class="fa fa-ban pt-1"></i>&nbsp;&nbsp;&nbsp;정지'
 							        + '</button>&nbsp;'
 							        + '<button type="button" rel="tooltip"'
 									+ ' class="btn btn-info btn-icon btn-sm Clear" data-original-title="" title="">'
-							        + ' 	<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;해제'
+							        + ' 	<i class="fa fa-heart pt-1"></i>&nbsp;&nbsp;&nbsp;해제'
 							        + '</button>'
 							        + '</td></tr>'
 					})//each end
@@ -99,7 +99,7 @@
 					$(".pagination").empty();			//페이징 처리 영역 내용 제거
 					output = "";
 					
-					let digit = '이전&nbsp;'
+					let digit = '<i class="fa fa-chevron-left" aria-hidden="true"></i>'
 					let href = "";
 					
 					if (data.page > 1) {											//이전 버튼의 링크 설정
@@ -118,7 +118,7 @@
 						
 					}//for end
 					
-					digit = '&nbsp;다음&nbsp;';
+					digit = '<i class="fa fa-chevron-right" aria-hidden="true"></i>';
 					href = "";
 					
 					if (data.page < data.maxpage) {									//다음 버튼의 링크 설정
