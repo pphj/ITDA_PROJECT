@@ -35,19 +35,25 @@
 			<div class="list-basic">
 				
 				<!-- adminBoardList 데이터 반복 출력 -->
-        <c:forEach var="adminBoard" items="${adminBoardList}">
-    <div class="list-item">
-        <em class="col category">${adminBoard.qcateId}</em> <!-- QcateId 필드 출력 -->
-        <div class="col tit"><a href="${pageContext.request.contextPath}/info/qna/view?no=${adminBoard.adNum}">${adminBoard.adTitle}</a></div> <!-- adTitle 필드 출력 -->
-        <p class="col date txt-num">${adminBoard.adDate}</p> <!-- adDate 필드 출력 -->
-        <!-- 상태 필드 등 추가적인 내용을 표시할 수 있습니다. -->
-    </div>
-		</c:forEach>
+						<c:forEach var="qna" items="${userQnaList}">
+							<div class="list-item">
+								<em class="col category">${qna.qcateId}</em>
+								<div class="col tit">
+									<a
+										href="${pageContext.request.contextPath}/info/qna/view?no=${qna.adNum}">${qna.adTitle}</a>
+								</div>
+								<p class="col date txt-num">${qna.adDate}</p>
+								<div class="col state">
+									<!-- 여기에 상태 필드 추가 -->
+								</div>
+							</div>
 
-				
-				
-				
-				<%-- <c:forEach var="qna" items="${qnaList}">
+						</c:forEach>
+
+
+
+
+						<%-- <c:forEach var="qna" items="${qnaList}">
 			    <div class="list-item">
 			        <em class="col category">${qna.category}</em>
 			        <div class="col tit">

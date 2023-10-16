@@ -10,7 +10,7 @@ public interface InfoService {
 	
 	List<AdminBoard> getAdminBoardList();
 
-	List<AdminBoard> getQnaAdminBoardList();
+	List<AdminBoard> getQnaByUser(String userId);
 
 	int getAdminBoardCount();
 
@@ -20,4 +20,5 @@ public interface InfoService {
 
 	AdminBoard getAdminBoardByAdNum(int adNum);
 
+	
 }

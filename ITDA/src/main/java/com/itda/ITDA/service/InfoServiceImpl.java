@@ -46,16 +46,7 @@ public class InfoServiceImpl implements InfoService {
         return adminBoardList;
     }
 
-	@Override
-	public List<AdminBoard> getQnaAdminBoardList() {
-		 // ADMINBOARD 테이블의 데이터를 조회하는 로직을 구현합니다.
-        List<AdminBoard> qnaAdminBoardList = new ArrayList<>();
-        
-        // 여기에 실제 데이터베이스에서 ADMINBOARD 테이블의 데이터를 조회하는 로직을 작성합니다.
-        qnaAdminBoardList = adMemberMapper.getQnaAdminBoardList();  
-        
-        return qnaAdminBoardList;
-	}
+	
 
 	@Override
 	public AdminBoard getAdminBoardByUserId(int userId) {
@@ -78,6 +69,13 @@ public class InfoServiceImpl implements InfoService {
 	public List<AdminBoard> getAdminBoardListByPage(int page, int limit) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<AdminBoard> getQnaByUser(String userId) {
+		 List<AdminBoard> qnaByUser = new ArrayList<>();
+		 qnaByUser = adMemberMapper.getQnaByUser(userId);
+		return qnaByUser;
 	}
 
 
