@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.UserLeaveReason;
+import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.util.Constants;
 import com.itda.ITDA.util.Message;
@@ -38,10 +40,12 @@ public class UserInfoController {
 	private final int PASSWD_CONFIRM_OK = 1;
 	
 	private Itda_UserService itdaUserService;
+	private ChannelList_Service channelList_Service;
 	
 	@Autowired
-	public UserInfoController(Itda_UserService itdaUserService) {
+	public UserInfoController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service) {
 		this.itdaUserService = itdaUserService;
+		this.channelList_Service = channelList_Service;
 	}
 
 	
@@ -55,8 +59,9 @@ public class UserInfoController {
 		
 		
 		int result = itdaUserService.isId(id);
-	    
 		logger.info("결과 : " + result);
+		
+		
 		
 	    if(result == Constants.CONNECT_SUCCESS) {
 	    	
@@ -64,6 +69,11 @@ public class UserInfoController {
 	    	model.addAttribute("user", vo);
 	    	session.setAttribute("userName", vo.getUserName());
 	    	
+	    	ChCategory chcategory = new ChCategory();
+	    	
+	    	List<ChCategory> chcategoryList = channelList_Service.getChcategory();
+	    	
+	    	model.addAttribute("categoryList", chcategoryList);
 	    	
 	    	return "mypage/userinfo/myinfopage";
 	    	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
+import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
@@ -39,6 +40,8 @@ public interface ChannelList_Service {
 	 void saveChannelList(Itda_User itda_User);
 	 
 	int getSellerUpdate(ChannelList channelList);
+
+	List<ChCategory> getChcategory();
 
 
 }

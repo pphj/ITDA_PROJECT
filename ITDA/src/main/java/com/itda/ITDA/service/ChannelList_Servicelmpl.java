@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
+import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
@@ -103,6 +104,12 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<ChCategory> getChcategory() {
+		return dao.getChcategory();
+	}
+
 
 
 }

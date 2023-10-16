@@ -53,7 +53,7 @@ input2.addEventListener("keydown", function(event) {
         var twoStepVerifBaseUrl = "/user2/help/2StepVerif?";
 
 
-        twoStepVerifBaseUrl += "m=viewGuide&token_help=pEaPb81n2UFfp9f2&lang=ko_KR";
+        twoStepVerifBaseUrl += "m=viewGuide&token_help=&lang=ko_KR";
 
         document.location.href = twoStepVerifBaseUrl;
     }

@@ -129,6 +129,30 @@ hr {
     display: none!important
 }
 
+/* 체크박스 */
+input{ display:none; }
+
+label div{
+  width:20px;
+  height:20px;
+  display:inline-block;
+  border:1px solid #333;
+  text-align:center;
+  line-height:20px;
+  margin-right:6px; 
+  border-radius:3px;
+  cursor:pointer; 
+}
+
+label i{ font-size:15px;  opacity:0; }
+label:hover div{ background:#dfdfdf; }
+input:checked+label i{ opacity:0.6; }
+input:checked+label div{ background:#fff; }
+
+.checkbox{
+	margin-bottom: 4px;
+}
+
 /*header 로고 이미지*/
 .header_logo_img {
     width: 117px;
@@ -172,6 +196,13 @@ hr {
     background-image: url("../../../resources/image/mypage/location_icon.png");
     background-size: 18px 18px;
     background-repeat: no-repeat
+}
+
+
+.row_item.heart::before{
+    background-image: url("../../../resources/image/mypage/heart_like_icon.png");
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
 }
 
 /* 주소입력창 텍스트 */
@@ -1781,7 +1812,7 @@ h1,h2,h3,h4,h5,h6 {
     }
 }
 
-.row_item.abroad::before,.row_item.birth::before,.row_item.connect::before,.row_item.delivery::before,.row_item.history::before,.row_item.list::before,.row_item.lock::before,.row_item.loginalarm::before,.row_item.mail::before,.row_item.name::before,.row_item.only::before,.row_item.other::before,.row_item.person::before,.row_item.phone::before,.row_item.privacy::before,.row_item.step::before,.row_item.post::before {
+.row_item.abroad::before,.row_item.birth::before,.row_item.connect::before,.row_item.delivery::before,.row_item.history::before,.row_item.list::before,.row_item.lock::before,.row_item.loginalarm::before,.row_item.mail::before,.row_item.name::before,.row_item.only::before,.row_item.other::before,.row_item.person::before,.row_item.phone::before,.row_item.privacy::before,.row_item.step::before,.row_item.post::before,.row_item.heart::before {
     content: '';
     position: absolute;
     top: 10px;
@@ -1794,6 +1825,13 @@ h1,h2,h3,h4,h5,h6 {
 
 .row_item.post::before {
     background-position: 3px 0px;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px
+}
+
+.row_item.heart::before {
+    background-position: 4px 5px;
     background-repeat: no-repeat;
     width: 24px;
     height: 24px

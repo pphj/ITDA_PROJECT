@@ -140,6 +140,11 @@
 	
 	</insert>
 	
+	<select id="getChcategory" resultType="ChCategory">
+	 	SELECT cate_Id, cate_Name
+		FROM
+		ChCategory
+	</select>
 
 
 
