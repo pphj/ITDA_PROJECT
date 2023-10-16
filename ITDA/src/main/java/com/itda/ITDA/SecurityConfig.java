@@ -37,7 +37,10 @@ public class SecurityConfig {
       .antMatchers("/joinProcess").permitAll()
       .antMatchers("/seller/sellerCheck").permitAll()
       .antMatchers("/resources/static/image/Member/**").permitAll()
-      .antMatchers("/seller/sellerjoinprocess").permitAll();
+      .antMatchers("/seller/sellerjoinprocess").permitAll()
+      .antMatchers("/info/qna").authenticated()
+      .antMatchers("/info/qnainsert").permitAll()
+      .antMatchers("/ckeditor5/**").permitAll();
       
     /*.antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")
       .antMatchers("/admin/**").access("hasAnyRole('SUPERADMIN','ADMIN')");*/
@@ -60,6 +63,11 @@ public class SecurityConfig {
                .userDetailsService(customUserService())
                .tokenValiditySeconds(2419200)
                .tokenRepository(tokenRepository());
+      
+      http.csrf() 
+     	.ignoringAntMatchers ("/info/qnainsert") 
+     	.and();
+
             
       return http.build();
    }
