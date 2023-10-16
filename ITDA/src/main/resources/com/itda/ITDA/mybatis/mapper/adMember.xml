@@ -7,4 +7,44 @@
 		select * from admin where adminId = #{adminId}
 	</select>
 	
+
+<insert id="insertQna" parameterType="com.itda.ITDA.domain.AdminBoard">
+    <selectKey keyProperty="adNum" resultType="java.lang.Integer" order="BEFORE">
+        SELECT ADMINBOARD_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO ADMINBOARD (adNum, userId, adWriter, adPassword,
+                            adTitle, adContent, adView,
+                            QcateId, adDate, KEY)
+    VALUES (#{adNum}, #{userId}, 'admin2', '1234',
+            #{adTitle}, #{adContent}, 0,
+            #{QcateId}, SYSDATE, 'QNA')
+</insert>
+
+    <!-- 공지사항 페이지 글 노출 -->
+     <select id="getAdminBoardList" resultType="com.itda.ITDA.domain.AdminBoard">
+        SELECT * FROM ADMINBOARD WHERE key != 'QNA'
+    </select>
+
+ 	<!-- qna페이지 1대1문의 글 노출 -->
+     <select id="getQnaAdminBoardList" resultType="com.itda.ITDA.domain.AdminBoard">
+        SELECT * FROM ADMINBOARD WHERE key = 'QNA'
+    </select>
+    
+    <!-- 뷰 페이지에서 보여줄 값을 가져오는 쿼리문 -->
+	<select id="getAdminBoardByAdNum" parameterType="int" resultType="com.itda.ITDA.domain.AdminBoard">
+        SELECT * FROM ADMINBOARD WHERE adNum = #{adNum}
+    </select>
+    
+    
+    
+    
+    
+
+
+
+
+
+
+	
 </mapper>
+

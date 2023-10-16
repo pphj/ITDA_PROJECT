@@ -5,7 +5,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<meta name="format-detection" content="telephone=no">
-	<meta name="description" content="상위1% 투자자를 위한 국내 최고 수준의 미국주식 콘텐츠">
 	<title>결제하기 : 잇다</title>
 	<base target="_parent">
 <!-- 	<script>
@@ -43,8 +42,18 @@
 
 		var isPremiumReferer = false;
 	</script> -->
-	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <jsp:include page="../include/header.jsp"></jsp:include>
+<script type="text/javascript">
+/* function openKaKaoPayment() {
+	  var url = "next_redirect_pc_url"; // URL을 정의합니다.
+	  window.open(url); // 새 창에서 URL을 엽니다.
+	}
+
+	// 함수를 호출하여 결제를 시작할 수 있습니다.
+	openKaKaoPayment(); */
+
+</script>
 </head>
 <body class="as_white_background body_mp">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
@@ -232,8 +241,16 @@
 	</div>
 </div>
 <div class="floating_button_wrap">
-<a href="#" class="floating_button _ORDER" data-action="subscribe" data-cp-name="usa" data-sub-id="nasdaq" data-ticket-id="sps-tck-1000000295" data-r-content-id="" data-user-realnm="Y" data-clk="prod_chek.pay" data-inventory-no="" data-order-restrictions="false" data-user-activity-restricted="false">결제하기</a>
-</div>
+<%-- <form method="post" action="${pageContext.request.contextPath}/pay/kakaoPay.do">
+<button type="button" class="floating_button _ORDER" id="kakaoPay" onclick="openKaKaoPayment()">결제하기</button>
+</form>
+ --%>
+ 		<span class="floating_button _ORDER">
+ 		<button id="btn-kakaopay">
+			결제하기
+ 		</button>
+		</span>
+ </div>
 <div id="_CONTENT_LAYER_REFUNDGUIDE" class="content_layer_wrap" style="display: none;">
 	<div class="content_layer">
 		<div class="content_layer_inside">
@@ -491,7 +508,9 @@ $(window).on("load", function() {
 	}
 });
 </script>
+<script src="${pageContext.request.contextPath}/resources/js/payment/payment.js">
 
+</script>
 </body>
 <script>
 var eventType = "onpageshow" in window ? "pageshow" : "load";

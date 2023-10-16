@@ -11,6 +11,7 @@
     font-size: 14px;
     line-height: 20px;
     color: #929294;
+    margin-top: 5px;
     /* margin-left: 310px; */
 }
 
@@ -25,6 +26,7 @@
     margin: 10px;
     width: 350px;
     max-width: 350px;
+    padding-left: 6px;
 }
 
 .channel_category_link {
@@ -1734,7 +1736,6 @@ html>body .box1 table td .input_text {
 	padding: 0 0 0 7px;
 	vertical-align: top;
 	color: #333;
-	border: 1px solid #ccc;
 	opacity: 1
 }
 

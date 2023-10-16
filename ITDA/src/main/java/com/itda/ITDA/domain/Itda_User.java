@@ -37,6 +37,12 @@ public class Itda_User implements UserDetails {
 	private String userCategory;
 	private String chInfo;
 	private String channel;
+	
+    private String sellerPhone;
+    private String sellerEmail;
+    
+    private int cate_Id;
+    private String cate_Name;
 
 	public String getAuthName() {
 		return "ROLE_" + authName; // "ROLE_"을 접두사로 추가

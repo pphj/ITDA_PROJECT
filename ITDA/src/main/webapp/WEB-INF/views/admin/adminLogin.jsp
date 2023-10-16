@@ -21,18 +21,13 @@
     <!--   Core JS Files   -->
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/popper.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/bootstrap.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/chartjs.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/Chart.extension.js"></script>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body class="g-sidenav-show bg-darkgray-100">
 	<div class="container-fluid mt-5 py-4">
 		<div class="row">
-			<div class="row mt-4 d-flex justify-content-center" >
+			<div class="row mt-5 d-flex justify-content-center mx-auto" style="width: 1000px;">
 			<div class="col-lg-7 mb-lg-0 mb-4">
-				<div class="card z-index-2 h-300"  style="background: #00c6be5e">
+				<div class="card z-index-2 h-300" style="background: #00c6be5e">
 					<div class="card-header pb-0 pt-3 bg-transparent">
 						<h2 class="text-capitalize text-center">로그인 페이지</h2>
 	            	</div>

@@ -13,6 +13,7 @@ import com.itda.ITDA.domain.BoardWarn;
 import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.SubProduct;
 import com.itda.ITDA.domain.UserTotal;
 import com.itda.ITDA.mybatis.mapper.AdminMapper;
 
@@ -263,6 +264,42 @@ public class adminServiceImpl implements adminService {
 	@Override
 	public List<UserTotal> getUserTotalList() {
 		return dao.getUserTotalList();
+	}
+
+	@Override
+	public int getProductCount() {
+		return dao.getProductCount();
+	}
+
+	@Override
+	public List<SubProduct> productList(int page, int limit) {
+		HashMap<String, Integer> list = listLogic(page, limit);
+		return dao.productList(list);
+	}
+
+	@Override
+	public void productInsert(SubProduct productData) {
+		dao.productInsert(productData);
+	}
+
+	@Override
+	public List<SubProduct> productDetail(String productName) {
+		return dao.productDetail(productName);
+	}
+
+	@Override
+	public int qnaDailyCount() {
+		return dao.qnaDailyCount();
+	}
+
+	@Override
+	public int sellerDailyCount() {
+		return dao.sellerDailyCount();
+	}
+
+	@Override
+	public int problemDailyCount() {
+		return dao.problemDailyCount();
 	}
 	
 }

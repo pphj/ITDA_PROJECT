@@ -23,7 +23,7 @@
 
   </script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header" style="background: black;">
@@ -34,12 +34,12 @@
       </a>
     </div>
     <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse  w-auto" id="sidenav-collapse-main" style="height: 550px;">
+    <div class="collapse navbar-collapse  w-auto" id="sidenav-collapse-main" style="height: 600px;">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active" href="${pageContext.request.contextPath}/admin/Main">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-settings text-primary text-sm opacity-10"></i>
+              <i class="fa fa-home text-primary text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">메인 페이지</span>
           </a>
@@ -80,6 +80,14 @@
               <i class="fa fa-ticket text-danger text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">쿠폰 관리</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="${pageContext.request.contextPath}/admin/product">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fa fa-file-text text-danger text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">이용권 관리</span>
           </a>
         </li>
         <li class="nav-item">

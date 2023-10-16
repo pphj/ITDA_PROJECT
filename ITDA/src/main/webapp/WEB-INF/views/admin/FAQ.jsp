@@ -154,12 +154,12 @@
 		 		<ul class="pagination justify-content-center">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
-		 					<a class="page-link gray">이전&nbsp;</a>
+		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 			<c:if test="${page > 1}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="FAQ?page=${page-1}">이전&nbsp;</a>
+		 					<a class="page-link" href="FAQ?page=${page-1}"><i class="fa fa-chevron-left" aria-hidden="true"></i>;</a>
 		 				</li>
 		 			</c:if>
 		 			<c:forEach var="a" begin="${startpage}" end="${endpage}">
@@ -176,12 +176,12 @@
 		 			</c:forEach>
 		 			<c:if test="${page >= maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link gray">&nbsp;다음</a>
+		 					<a class="page-link gray"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 			<c:if test="${page < maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="FAQ?page=${page+1}">&nbsp;다음</a>
+		 					<a class="page-link" href="FAQ?page=${page+1}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 		</ul>

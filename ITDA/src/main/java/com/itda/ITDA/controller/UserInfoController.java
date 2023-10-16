@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.UserLeaveReason;
+import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.util.Constants;
 import com.itda.ITDA.util.Message;
@@ -38,10 +40,12 @@ public class UserInfoController {
 	private final int PASSWD_CONFIRM_OK = 1;
 	
 	private Itda_UserService itdaUserService;
+	private ChannelList_Service channelList_Service;
 	
 	@Autowired
-	public UserInfoController(Itda_UserService itdaUserService) {
+	public UserInfoController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service) {
 		this.itdaUserService = itdaUserService;
+		this.channelList_Service = channelList_Service;
 	}
 
 	
@@ -55,8 +59,9 @@ public class UserInfoController {
 		
 		
 		int result = itdaUserService.isId(id);
-	    
 		logger.info("결과 : " + result);
+		
+		
 		
 	    if(result == Constants.CONNECT_SUCCESS) {
 	    	
@@ -64,6 +69,11 @@ public class UserInfoController {
 	    	model.addAttribute("user", vo);
 	    	session.setAttribute("userName", vo.getUserName());
 	    	
+	    	ChCategory chcategory = new ChCategory();
+	    	
+	    	List<ChCategory> chcategoryList = channelList_Service.getChcategory();
+	    	
+	    	model.addAttribute("categoryList", chcategoryList);
 	    	
 	    	return "mypage/userinfo/myinfopage";
 	    	
@@ -198,33 +208,44 @@ public class UserInfoController {
 	}
 	
 	@PostMapping("/leaveAction")
-	public String leaveAction(Principal principal,
-							HttpServletRequest request,
-							Model model
-							) {
-		
+	public String leaveAction(Principal principal, UserLeaveReason leaveReason, HttpServletRequest request,
+			Model model) {
+
 		String id = principal.getName();
-		
-		
-		UserLeaveReason leaveReason = new UserLeaveReason();
-		
+
 		leaveReason.setUserId(id);
-		leaveReason.setLeaveReason_id(leaveReason.getLeaveReason_id());
-		leaveReason.setLeaveReason_name(leaveReason.getLeaveReason_name());
+		leaveReason.setLeaveReason_id((leaveReason.getLeaveReason_id()));
 		leaveReason.setUserLeaveReason(leaveReason.getUserLeaveReason());
-		
-		
+
 		int result = itdaUserService.leaveResonInsert(leaveReason);
-		if(result == Constants.INSERT_SUCCESS) {
-			
+		if (result == Constants.INSERT_SUCCESS) {
+
 			logger.info("탈퇴이유 insert 성공");
+
+			if (result == Constants.INSERT_SUCCESS) {
+				System.out.println("id = " + id);
+				result = itdaUserService.deleteUserInsert(id);
+				System.out.println("탈퇴유저 insert 성공 :" + result);
+
+				
+				result = itdaUserService.itda_userDelete(id);
+
+				if (result == Constants.DELETE_SUCCESS) {
+					System.out.println("탈퇴유저 delete 성공 :" + result);
+
+					logger.info("탈퇴 유저 정보 insert 성공, 유저 delete 성공");
+				}
+			}
+
+			logger.info("탈퇴 성공");
 			request.setAttribute("msg", Message.USER_LEAVE_SUCCESS);
-//			result = itdaUserService.leave
-//			if()
+
+		} else {
+			logger.info("회원 탈퇴 실패");
+			request.setAttribute("msg", Message.USER_LEAVE_FALL);
 		}
 		return "mypage/userinfo/userLeaveAction";
 	}
-	
 	
 
 }
