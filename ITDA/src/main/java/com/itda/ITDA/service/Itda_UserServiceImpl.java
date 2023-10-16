@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
 
@@ -106,6 +107,12 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	@Override
 	public int itda_userDelete(String id) {
 		return dao.itda_userDelete(id);
+	}
+
+
+	@Override
+	public int userCategoryUpdate(String id, UserCategory userCategory) {
+		return dao.userCategoryUpdate(id, userCategory);
 	}
 
 

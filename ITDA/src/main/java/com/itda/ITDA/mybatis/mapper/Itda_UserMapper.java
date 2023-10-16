@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 
 @Mapper
@@ -38,6 +39,8 @@ public interface Itda_UserMapper {
 	int deleteUserInsert(String id);
 
 	int itda_userDelete(String id);
+
+	int userCategoryUpdate(String id, UserCategory userCategory);
 
 	
 	

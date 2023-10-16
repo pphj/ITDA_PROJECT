@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 
 public interface Itda_UserService {
@@ -35,6 +36,8 @@ public interface Itda_UserService {
 	int deleteUserInsert(String id);
 
 	int itda_userDelete(String id);
+
+	int userCategoryUpdate(String id, UserCategory userCategory);
 
 
 
