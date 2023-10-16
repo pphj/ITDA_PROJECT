@@ -45,5 +45,6 @@ public interface ChannelListMapper {
 
 	int getSellerUpdate(ChannelList channelList);
 
+	List<ChBoardCategory> getSellerCategory(int chnum);
 
 }

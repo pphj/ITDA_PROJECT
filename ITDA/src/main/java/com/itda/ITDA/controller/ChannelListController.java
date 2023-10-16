@@ -210,7 +210,9 @@ public class ChannelListController {
 		logger.info("상세보기 성공");
 
 		ChannelList SellerSetting = channelList_Service.getSellerSetting(chnum);
+		List<ChBoardCategory> SellerCategory = channelList_Service.getSellerCategory(chnum);
 
+		mv.addObject("SellerCategory", SellerCategory);
 		mv.addObject("SellerSetting", SellerSetting);
 		mv.setViewName("channel/ChannelSetting");
 		return mv;
