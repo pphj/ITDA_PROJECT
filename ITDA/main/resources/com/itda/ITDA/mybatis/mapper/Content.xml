@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itda.ITDA.mybatis.mapper.ContentMapper">
+	<select id="getContentAll" resultType="ChBoard">
+		select * from (select rownum r, chboard.*
+					   from chBoard join ChannelList
+					   on chBoard.chNum = ChannelList.chNum
+					   order by boardNum desc)
+		where r between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getContentByCategory" resultType="ChBoard">
+		select * from (select rownum r, chboard.*
+					   from chBoard join ChannelList
+					   on chBoard.chNum = ChannelList.chNum
+					   where cate_ID = #{categoryNum}
+					   order by boardNum desc)
+		where r between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getChannelList" resultType="ChannelList">
+		select * from (select * from ChannelList
+					   order by chVisit desc)
+		where rownum &lt;= 9
+	</select>
+	
+	<select id="getChannelListByNum" resultType="ChannelList">
+		select * from (select * from ChannelList
+					   where cate_ID = #{categoryNum}
+					   order by chVisit desc)
+		where rownum &lt;= 9
+	</select>
+	
+	<select id="HotContentSelect" resultType="ChBoard">
+		select * from (select * from chBoard
+					   order by (boardHeart + boardVisit) desc) 
+		where rownum &lt;= 7
+	</select>
+	
+	<select id="selectchCate_Id" resultType="chCategory">
+		select * from chCategory
+	</select>
+	
+	<select id="getContentDetail" resultType="ChBoard">
+		select chboard.*, chboardcategory.chcate_name  
+		from chboard   join chboardcategory 
+				 on   chboard.chnum  =  chboardcategory.chnum 
+				 where boardnum = #{boardNum}
+				 and chboard.chcate_id = chboardcategory.chcate_id
+	</select>
+	
+</mapper>
