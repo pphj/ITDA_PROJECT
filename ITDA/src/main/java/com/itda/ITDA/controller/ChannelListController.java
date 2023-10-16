@@ -1,6 +1,9 @@
 package com.itda.ITDA.controller;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -169,11 +172,20 @@ public class ChannelListController {
 
 			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
 
-			String fileDBName = fileDBName(fileName, saveFolder);
+			String fileDBName = fileDBName(fileName, saveFolder + "/" + chnum);
 			logger.info("fileDBName = " + fileDBName);
+
+			String userFolder = saveFolder + "/" + chnum + File.separator + fileDBName;
+
+			byte[] bytes = uploadfile.getBytes(); // 파일의 내용을 바이트 배열로 읽어옵니다.
+
+			Path path = Paths.get(userFolder); // 파일을 저장할 절대경로 객체(Path)
+
+			Files.write(path, bytes); // 해당 경로에 파일 쓰기
+
 			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장합니다.
-			uploadfile.transferTo(new File(saveFolder + fileDBName));
-			logger.info("transferTo path = " + saveFolder + fileDBName);
+			// uploadfile.transferTo(new File(saveFolder + "/" + chnum + fileDBName));
+			logger.info("transferTo path = " + saveFolder + "/" + chnum + userFolder);
 			// 바뀐 파일명으로 저장
 			ChannelList.setChProfile(fileDBName);
 		}

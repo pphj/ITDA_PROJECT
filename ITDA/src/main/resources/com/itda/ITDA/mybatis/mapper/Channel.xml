@@ -149,9 +149,5 @@
 		ORDER BY chCate_Name ASC
 	</select>
 
-
-
-
-
 		
 </mapper> 
