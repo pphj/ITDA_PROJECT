@@ -37,6 +37,9 @@
 	    	creDate.push($(".creDate" + i).text());
 	  	}
 	  	
+	  	userTotal = userTotal.reverse();
+	  	creDate = creDate.reverse();
+	  	
 	    var ctx1 = document.getElementById("chart-line").getContext("2d");
 
 	    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
@@ -121,6 +124,16 @@
 	    
 	  });
   </script>
+  <style>
+  	.card-item {
+  		height: 200px;
+		font-size: 40px;
+		border-radius: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+  	}
+  </style>
 </head>
 <body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
@@ -160,31 +173,17 @@
 				</div>
 	        </div>
 	        <div class="col-lg-5">
-	          <div class="card card-carousel overflow-hidden h-100 p-0">
-	            <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
-	              <div class="carousel-inner border-radius-lg h-100">
-	                <div class="carousel-item h-100 active"
-	                 style="background-image: url('${pageContext.request.contextPath}/resources/assets/img/october.jpg'); background-size: cover;">
-	                  <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-	                    <h5 class="text-white mb-1">10월 일정</h5>
-	                  </div>
-	                </div>
-	                <div class="carousel-item h-100"
-	                 style="background-image: url('${pageContext.request.contextPath}/resources/assets/img/notice_ex.jpg'); background-size: cover;">
-	                  <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5" >
-	                    <h5 class="text-white mb-1">공지사항</h5>
-	                  </div>
-	                </div>
-	              </div>
-	              <button class="carousel-control-prev w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-	                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	                <span class="visually-hidden">Previous</span>
-	              </button>
-	              <button class="carousel-control-next w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-	                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	                <span class="visually-hidden">Next</span>
-	              </button>
-	            </div>
+	          <div class="card overflow-hidden h-100 p-0 d-flex flex-column">
+				<div class="card-item text-center" style="background: #F9F871;
+				 margin-bottom: 10px; margin-top: 40px;">
+					<i class="fa fa-question" aria-hidden="true"></i>&nbsp;&nbsp;신규 QNA 등록 : ${qnaDailyCount}
+				</div>
+				<div class="card-item text-center" style="background: #C8F37D; margin-bottom: 10px;">
+					<i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;&nbsp;신규 판매회원 신청 : ${sellerDailyCount}
+				</div>
+				<div class="card-item text-center" style="background: #99EB8F;">
+					<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;신규 신고 수 : ${problemDailyCount}
+				</div>
 	          </div>
 			</div>
 			</div>
