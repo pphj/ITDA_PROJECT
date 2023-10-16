@@ -108,8 +108,8 @@ $(document).ready(function(){
 					</button>
 					<div class="layer_action_ctrl" style="display: none;">
 						<div class="inner_action_ctrl">
-							<button type="button" class="btnBlockProfile btn_ctrl requireLogin">채널프로필수정</button>
-							<button type="button" class="btnReportProfile btn_ctrl requireLogin">카테고리수정</button>
+							<button type="button" class="btnBlockProfile btn_ctrl requireLogin">채널프로필 / 카테고리 수정</button>
+							<!-- <button type="button" class="btnReportProfile btn_ctrl requireLogin">카테고리수정</button> -->
 						</div>
 					</div>
 				</c:if>

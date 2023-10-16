@@ -149,5 +149,11 @@
 		ORDER BY chCate_Name ASC
 	</select>
 
+	<!-- 카테고리 추가 -->
+    <insert id="addCategory">
+        INSERT INTO chboardcategory categoryName
+        VALUES #{categoryName}
+        where chnum = #{chnum}
+    </insert>
 		
 </mapper> 

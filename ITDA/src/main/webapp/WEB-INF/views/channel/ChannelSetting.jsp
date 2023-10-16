@@ -15,7 +15,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/channel/ChannelSetting.js"></script>
 <jsp:include page="../include/header.jsp" />
-<title>채널프로필수정</title>
+<title>채널프로필 수정</title>
+<script>
+</script>
 </head>
 <body>
 	<!-- 수정 선택바 -->
@@ -142,57 +144,55 @@
 								<col style="width: 22%">
 								<col>
 							</colgroup>
-							<form action="../${chnum}/sellersetting" id="categoryForm" method="post" enctype="multipart/form-data">
-							<tbody>
-								<tr>
-									<th scope="row">
-										<div class="thcell">카테고리</div>
-									</th>
-									<td>
-										<div class="tdcell">
-											<div class="category_box">
-												<li class="channel_category_item">
-													<strong class="channel_category_name">전체</strong>
-												</li>
-											</div>
-
-											<ul class="channel_category_list">
+							
+							<form id="categoryForm" method="post" enctype="multipart/form-data">
+								<tbody>
+									<tr>
+										<th scope="row">
+											<div class="thcell">카테고리</div>
+										</th>
+										<td>
+											<div class="tdcell">
 												<div class="category_box">
-													<c:forEach var="c" items="${SellerCategory}">
-														<li class="channel_category_item">
-															<input class="channel_category_name" type="text" name="" id="" value="${c.chCate_Name}"
-																style="width: 254px; border: none;"> <input type="hidden" name="" id="" value="${SellerSetting.chNum}"
-																style="width: 254px; border: none;">
-															<!--<strong class="channel_category_name">${c.chCate_Name}</strong>-->
-															<div class="channel_category_num">
-																<button class="btn_model" data-name="${c.chCate_Name}">
-																	<b id="btnChangeCategory" class="btn3">수정</b>
-																</button>
-																<button class="btn_model">
-																	<b id="btnDeleteCategory" class="btn3">삭제</b>
-																</button>
-															</div>
-														</li>
-													</c:forEach>
-											</ul>
-										</div>
-									</td>
-								</tr>
-							</tbody>
+													<li class="channel_category_item">
+														<strong class="channel_category_name">전체</strong>
+													</li>
+												</div>
+
+												<ul class="channel_category_list">
+													<div class="category_box">
+														<c:forEach var="c" items="${SellerCategory}">
+															<li class="channel_category_item">
+																<input class="channel_category_name" type="text" name="categoryName" id="categoryName" value="${c.chCate_Name}"
+																	style="width: 254px; border: none;"> 
+																<input type="hidden" name="categorychnum" id="categorychnum" value="${SellerSetting.chNum}"
+																	style="width: 254px; border: none;">
+																<!--<strong class="channel_category_name">${c.chCate_Name}</strong>-->
+																<div class="channel_category_num">
+																	<button class="btn_model" data-name="${c.chCate_Name}">
+																		<b id="btnChangeCategcategoryNameory" class="btn3">수정</b>
+																	</button>
+																	<button class="btn_model">
+																		<b id="btnDeleteCategory" class="btn3">삭제</b>
+																	</button>
+																</div>
+															</li>
+														</c:forEach>
+												</ul>
+											</div>
+										</td>
+									</tr>
+								</tbody>
 							</form>
 						</table>
+							<div class="btn_wrap">
+								<a class="btn_model">
+									<button id="btnAddCategory" type=submit class="btn2 txt_disable">카테고리 추가</button>
+								</a>
+							</div>
 
-						<div class="btn_wrap">
-							<a class="btn_model">
-								<button type=submit class="btn2 txt_disable">카테고리 추가</button>
-							</a>
-							<!-- <a class="btn_model">
-									<button type=reset class="btn2">취소</button>
-								</a> -->
-						</div>
 					</fieldset>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-
 				</div>
 			</div>
 			<!-- <div class="wrap_contents"> -->

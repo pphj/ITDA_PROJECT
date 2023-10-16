@@ -161,6 +161,7 @@ public class ChannelListController {
 
 	@PostMapping("{chnum}/sellersetting")
 	public String showChannelUpdate(@PathVariable("chnum") int chnum, ModelAndView mv, ChannelList ChannelList,
+			ChBoardCategory ChBoardCategory,
 			HttpServletRequest request, RedirectAttributes rattr, HttpSession session) throws Exception {
 
 		MultipartFile uploadfile = ChannelList.getUploadfile();
@@ -203,6 +204,11 @@ public class ChannelListController {
 			// 수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
 			url = "redirect:sellersetting";
 		}
+		
+
+		channelList_Service.addCategory(ChBoardCategory);
+		logger.info(ChBoardCategory.toString());
+
 
 		return url;
 	}

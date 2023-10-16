@@ -222,8 +222,9 @@ hr {
 }
 
 .btn_model .btn3 {
-	border: 1px solid #bfbfbf;
-	background: #fff
+    border: 1px solid #bfbfbf;
+    background: #fff;
+    margin: 2px;
 }
 
 .btn_model[href] .btn3 {

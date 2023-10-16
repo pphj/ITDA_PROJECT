@@ -109,4 +109,9 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		return dao.getSellerCategory(chnum);
 	}
 
+	@Override
+	public void addCategory(ChBoardCategory chBoardCategory) {
+		dao.addCategory(chBoardCategory);
+	}
+
 }
