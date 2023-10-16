@@ -42,7 +42,7 @@
 		$.ajax({
 			type : "post",
 			data : sdata,
-			url	 : "userNoticeList_ajax",
+			url	 : "couponList_ajax",
 			dataType : "json",
 			cache : false,
 			//beforeSend : function(xhr) {
@@ -50,29 +50,26 @@
 			//},
 			success : function(data) {
 				$("#viewcount").val(data.limit);
-				$("thead").find("span").text("글 개수 : " + data.listcount);
+				$("thead").find("span").text("현재 쿠폰 갯수 : " + data.listcount);
 				
 				if (data.listcount > 0) {
 					$("tbody").remove();
 					let num = data.listcount - (data.page - 1) * data.limit;
 					console.log(num)
 					let output = "<tbody>";
-					$(data.userNoticeList).each(
+					$(data.couponList).each(
 						function(index, item) {
-							output += '<tr><td class="text-center">' + (num--) + '</td>'
-
-							let adTitle = item.adTitle;
-							if (adTitle.length >= 20) {
-								adTitle = adTitle.substr(0, 20) + "...";		//0부터 20개 부분 문자열 추출
-							
+							if (item.couponExdate == null) {
+								item.couponExdate = '만료일 미정';
 							}
-							
-							output += '<td class="text-center"><div>'
-								   	+ ' <a href="userNotice/' + item.adNum + '">'
-								   	+ adTitle.replace(/</g,'&lt;').replace(/>/g,'&gt;')
-									+ '<td class="text-center"><div>' + item.adWriter + '</div></td>'
-									+ '<td class="text-center"><div>' + item.adDate.substr(0,10) + '</div></td>'
-									+ '<td class="text-center"><div>' + item.adView + '</div></td></tr>'
+
+							output += '<tr><td class="text-center">' + (num--) + '</td>'
+									+ '<td class="text-center"><div>' + item.couponCode + '</div></td>'
+								   	+ '<td class="text-center"><div>' + item.couponName + '</div></td>'
+								   	+ '<td class="text-center"><div>' + item.couponDetail + '</div></td>'
+									+ '<td class="text-center"><div>' + item.couponPrice + '</div></td>'
+									+ '<td class="text-center"><div>' + item.couponCreate.substr(0,10) + '</div></td>'
+									+ '<td class="text-center"><div>' + item.couponExdate.substr(0,10) + '</div></td>'
 					})//each end
 					output += "</tbody>"
 					$('table').append(output);			//table 완성
@@ -80,7 +77,7 @@
 					$(".pagination").empty();			//페이징 처리 영역 내용 제거
 					output = "";
 					
-					let digit = '이전&nbsp;'
+					let digit = '<i class="fa fa-chevron-left" aria-hidden="true"></i>'
 					let href = "";
 					
 					if (data.page > 1) {											//이전 버튼의 링크 설정
@@ -99,7 +96,7 @@
 						
 					}//for end
 					
-					digit = '&nbsp;다음&nbsp;';
+					digit = '<i class="fa fa-chevron-right" aria-hidden="true"></i>';
 					href = "";
 					
 					if (data.page < data.maxpage) {									//다음 버튼의 링크 설정

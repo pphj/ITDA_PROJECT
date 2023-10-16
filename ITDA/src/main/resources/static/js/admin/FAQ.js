@@ -122,7 +122,7 @@
 					$(".pagination").empty();			//페이징 처리 영역 내용 제거
 					output = "";
 					
-					let digit = '이전&nbsp;'
+					let digit = '<i class="fa fa-chevron-left" aria-hidden="true"></i>'
 					let href = "";
 					
 					if (data.page > 1) {				//이전 버튼의 링크 설정
@@ -141,7 +141,7 @@
 						
 					}//for end
 					
-					digit = '&nbsp;다음&nbsp;';
+					digit = '<i class="fa fa-chevron-right" aria-hidden="true"></i>';
 					href = "";
 					
 					if (data.page < data.maxpage) {		//다음 버튼의 링크 설정

@@ -9,7 +9,7 @@
     
   <insert id="insert" parameterType="com.itda.ITDA.domain.Itda_User">
         INSERT INTO seller (adminId, userId, sellerPhone, sellerEmail, sellerJoinDate, waitState)
-        VALUES ('null', #{userId}, #{userPhone}, #{userEmail}, sysdate, 'W')
+        VALUES (null, #{userId}, #{userPhone}, #{userEmail}, sysdate, 'W')
     </insert>
     
    

@@ -43,5 +43,8 @@ public interface ChannelList_Service {
 
 	List<ChCategory> getChcategory();
 
+	List<ChBoardCategory> getSellerCategory(int chnum);
+
+	void addCategory(ChBoardCategory chBoardCategory);
 
 }

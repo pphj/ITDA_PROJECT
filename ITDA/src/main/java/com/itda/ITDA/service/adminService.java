@@ -8,6 +8,7 @@ import com.itda.ITDA.domain.BoardWarn;
 import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.ReplyWarn;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.SubProduct;
 import com.itda.ITDA.domain.UserTotal;
 
 public interface adminService {
@@ -95,6 +96,20 @@ public interface adminService {
 	public int userTotalInsert(int dailyUserTotal);
 
 	public List<UserTotal> getUserTotalList();
+
+	public int getProductCount();
+
+	public List<SubProduct> productList(int page, int i);
+
+	public void productInsert(SubProduct productData);
+
+	public List<SubProduct> productDetail(String productName);
+
+	public int qnaDailyCount();
+
+	public int sellerDailyCount();
+
+	public int problemDailyCount();
 
 
 }

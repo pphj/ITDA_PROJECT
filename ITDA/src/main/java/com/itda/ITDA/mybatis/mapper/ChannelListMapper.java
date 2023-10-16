@@ -48,5 +48,8 @@ public interface ChannelListMapper {
 
 	List<ChCategory> getChcategory();
 
+	List<ChBoardCategory> getSellerCategory(int chnum);
+
+	void addCategory(ChBoardCategory chBoardCategory);
 
 }

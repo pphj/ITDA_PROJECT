@@ -100,15 +100,15 @@
 		 				<td class="td-actions text-center">
 				        	<button type="button" rel="tooltip"
 				             class="btn btn-danger btn-icon btn-sm Pause" data-original-title="" title="">
-				            	<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;일시정지
+				            	<i class="fa fa-pause pt-1"></i>&nbsp;&nbsp;&nbsp;일시정지
 				            </button>
 				            <button type="button" rel="tooltip"
 				             class="btn btn-danger btn-icon btn-sm Stop" data-original-title="" title="">
-				            	<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;정지
+				            	<i class="fa fa-ban pt-1"></i>&nbsp;&nbsp;&nbsp;정지
 				            </button>
 				            <button type="button" rel="tooltip"
 				             class="btn btn-info btn-icon btn-sm Clear" data-original-title="" title="">
-				            	<i class="ni ni-circle-08 pt-1"></i>&nbsp;&nbsp;&nbsp;해제
+				            	<i class="fa fa-heart pt-1"></i>&nbsp;&nbsp;&nbsp;해제
 				            </button>
 				        </td>
 	 				</tr>
@@ -134,12 +134,12 @@
 		 		<ul class="pagination justify-content-center">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
-		 					<a class="page-link gray">이전&nbsp;</a>
+		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 			<c:if test="${page > 1}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="problem?page=${page-1}">이전&nbsp;</a>
+		 					<a class="page-link" href="problem?page=${page-1}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 			<c:forEach var="a" begin="${startpage}" end="${endpage}">
@@ -156,12 +156,12 @@
 		 			</c:forEach>
 		 			<c:if test="${page >= maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link gray">&nbsp;다음</a>
+		 					<a class="page-link gray"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 			<c:if test="${page < maxpage}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="problem?page=${page+1}">&nbsp;다음</a>
+		 					<a class="page-link" href="problem?page=${page+1}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 		</ul>
