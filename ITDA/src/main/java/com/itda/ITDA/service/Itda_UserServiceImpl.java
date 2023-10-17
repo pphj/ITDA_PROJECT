@@ -111,8 +111,8 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 
 
 	@Override
-	public int userCategoryUpdate(String id, UserCategory userCategory) {
-		return dao.userCategoryUpdate(id, userCategory);
+	public int userCategoryUpdate(UserCategory userCategory) {
+		return dao.userCategoryUpdate(userCategory);
 	}
 
 

@@ -191,11 +191,11 @@ public class UserInfoController {
 		System.out.println(userCategory.getCate_Id());
 		System.out.println(userCategory.getUserId());
 		
-		int result = itdaUserService.userCategoryUpdate(id, userCategory);
+		int result = itdaUserService.userCategoryUpdate(userCategory);
 		
 		if(result == Constants.UPDATE_SUCCESS) {
 			
-			logger.info(Message.USER_LEAVE_FALL);
+			logger.info(Message.USER_UPDATE_FALL);
 			
 			return "redirect:/user/myInfo";
 		}else {

@@ -37,7 +37,7 @@ public interface Itda_UserService {
 
 	int itda_userDelete(String id);
 
-	int userCategoryUpdate(String id, UserCategory userCategory);
+	int userCategoryUpdate(UserCategory userCategory);
 
 
 

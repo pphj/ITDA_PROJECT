@@ -40,7 +40,7 @@ public interface Itda_UserMapper {
 
 	int itda_userDelete(String id);
 
-	int userCategoryUpdate(String id, UserCategory userCategory);
+	int userCategoryUpdate(UserCategory userCategory);
 
 	
 	
