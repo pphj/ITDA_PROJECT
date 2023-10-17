@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 
 
-<!-- 로그인 상태일 때 -->
+ <!-- 로그인 상태일 때 -->
 <sec:authorize access="isAuthenticated()">
     <script>
+        var token = '${_csrf.token}'; // CSRF 토큰 변수 선언
+
         $(document).ready(function(){
             $("#join_seller").click(function(e){
                 e.preventDefault();
@@ -19,19 +22,20 @@
                 $.ajax({
                     url: contextPath + '/seller/sellerCheck',
                     type: 'POST',
-                    data: {"userId" : id, _csrf : '${_csrf.token}'},
+                    data: {"userId": id, "_csrf": token}, // 변수 'token'을 사용
                     success: function(data) {
-                    	console.log(data);
-                        if (data == 'true') {
+                        console.log(data);
+                        if (data === 'true') {
                             alert("이미 판매회원으로 등록된 아이디입니다.");
                         } else {
-                        	location.href = contextPath + "/seller/join";
+                            location.href = contextPath + "/seller/join";
                         }
                     },
                     error: function(request, status, error){
-                        alert("code: " + request.status + "\n"
-                            + "message: " + request.responseText + "\n"
-                            + "error: " + error);
+                        alert("code: " + request.status +
+                                "\n message: " + request.responseText +
+                                "\n error: " + error);
+
                     }
 
                 });
@@ -51,6 +55,7 @@
         });
     </script>
 </sec:authorize>
+
 
 </head>
 

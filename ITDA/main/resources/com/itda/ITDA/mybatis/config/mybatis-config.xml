@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- mybatis는 null이 오면 오류가 발생하기 때문에 null값에 대한 정의로 NULL을 해준다. -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+</configuration>
+
+

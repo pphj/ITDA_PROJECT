@@ -11,8 +11,6 @@
 <title>공지사항</title>
 
 <link rel="shortcut icon" href="https://www.hankyung.com/favicon.ico">
-<!--  <link rel="apple-touch-icon" sizes="192x192" href="https://static.hankyung.com/resource/common/img/favicon/apple-touch-icon.png"> -->
-<!-- 페이지 네이션 -->
 <link rel="stylesheet"
 	href="https://static.hankyung.com/css/www/w/common.ui.all.css?v=202309211654">
 <!-- 공지사항 페이지 전체 css -->
@@ -30,22 +28,23 @@
 
 <body>
 
-	<div class="list-basic">
-
-			<div class="list-item">
-			  <div class="col tit">${adminBoard.adTitle}</div>
-			  <!-- adTitle 필드 출력 -->
-			  <p class="col date txt-num">${adminBoard.adDate}</p>
-			  <!-- adDate 필드 출력 -->
-			  <p class="col content">${adminBoard.adContent}</p>
-			  <!-- adContent 필드 출력 -->
-			</div>
-
-
+	<link href="/help/css/quill_editor.css?v=202310161701" rel="stylesheet">
+	<div id="contents" class="contents view-wrap">
+		<div class="layout-inner">
+			<section class="notice-wrap">
+				<div class="view-top">
+					<h1 class="tit">${adminBoard.adTitle}</h1>
+					<div class="view-info">
+						<span class="txt-num">${adminBoard.adDate}</span>
+					</div>
+				</div>
+				<div class="view-cont ql-editor">${adminBoard.adContent}</div>
+				<div class="btn-area">
+					<a href="${pageContext.request.contextPath}/info/notice" class="btn-default">목록</a>
+				</div>
+			</section>
+		</div>
 	</div>
-
-
 	<jsp:include page="../include/footer.jsp" />
-
 </body>
 </html>
