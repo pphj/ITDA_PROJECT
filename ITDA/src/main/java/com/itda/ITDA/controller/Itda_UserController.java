@@ -191,51 +191,14 @@ public class Itda_UserController {
 		}
 	}
 
-	
 	@RequestMapping(value = "FindIdPasswordForm", method = RequestMethod.GET)
 	public String findIdPasswordForm() {
 		return "member/FindIdPasswordForm";
 	}
+	
+	
 
 
-
-	/*
-	 * @RequestMapping(value = "/FindIdPasswordForm", method = RequestMethod.POST)
-	 * public String FindIdPasswordForm(@ModelAttribute FindIdStep01 findIdStep01,
-	 * Model model) { if (findIdStep01.getFindIdStep01().equals("find_id_email")) {
-	 * // 이메일을 기반으로 사용자 ID를 찾는 로직을 처리합니다. String email = findIdStep01.getEmail(); //
-	 * 양식에서 이메일을 가져옵니다.
-	 * 
-	 * // 이메일을 기반으로 사용자 ID를 찾는 로직을 구현합니다. Itda_User foundUser =
-	 * Itda_UserService.findUserByEmail(email);
-	 * 
-	 * if (foundUser != null) { // 일치하는 사용자가 찾아지면 응답에 표시합니다.
-	 * model.addAttribute("foundUser", foundUser); } else { // 일치하는 사용자가 없는 경우 적절한
-	 * 메시지를 표시합니다. model.addAttribute("userNotFound", true); } } else if
-	 * (findIdStep01.getFindIdStep01().equals("find_id_name_and_phone")) { // 이름과
-	 * 전화번호를 기반으로 사용자 ID를 찾는 로직을 처리합니다. String name = findIdStep01.getName(); //
-	 * 양식에서 이름을 가져옵니다. String phoneNumber = findIdStep01.getPhoneNumber(); // 양식에서
-	 * 전화번호를 가져옵니다.
-	 * 
-	 * // 이름과 전화번호를 기반으로 사용자 ID를 찾는 로직을 구현합니다. String foundUserId =
-	 * userService.findUserIdByNameAndPhone(name, phoneNumber);
-	 * 
-	 * if (foundUserId != null) { // 일치하는 ID가 찾아지면 응답에 표시합니다.
-	 * model.addAttribute("foundUserId", foundUserId); } else { // 일치하는 ID가 없는 경우
-	 * 적절한 메시지를 표시합니다. model.addAttribute("idNotFound", true); } } else if
-	 * (findIdStep01.getFindIdStep01().equals("find_id_id_email")) { // 사용자 ID를 기반으로
-	 * 이메일을 찾는 로직을 처리합니다. String userId = findIdStep01.getUserId(); // 양식에서 사용자 ID를
-	 * 가져옵니다.
-	 * 
-	 * // 사용자 ID를 기반으로 이메일을 찾는 로직을 구현합니다. String foundEmail =
-	 * userService.findEmailByUserId(userId);
-	 * 
-	 * if (foundEmail != null) { // 일치하는 이메일이 찾아지면 응답에 표시합니다.
-	 * model.addAttribute("foundEmail", foundEmail); } else { // 일치하는 이메일이 없는 경우 적절한
-	 * 메시지를 표시합니다. model.addAttribute("emailNotFound", true); } }
-	 * 
-	 * return "findIdPasswordResult"; // 결과를 표시하는 JSP 파일의 이름을 반환합니다. }
-	 */
 
 
 

@@ -88,6 +88,18 @@ public class MainController {
 	public String search() {
 		return "/main/search";
 	}
+
+	@GetMapping(value = "/search/result")
+    public String searchResult(@RequestParam("searchQuery") String keyword, Model model) {
+        List<ChannelList> channelResults = mainService.searchChannelsByKeyword(keyword);
+        model.addAttribute("channelResults", channelResults);
+
+        List<ChBoard> contentResults = mainService.searchContentsByKeyword(keyword);
+        model.addAttribute("contentResults", contentResults);
+
+        return "/main/search_View";
+    }
+
 	
 
 	

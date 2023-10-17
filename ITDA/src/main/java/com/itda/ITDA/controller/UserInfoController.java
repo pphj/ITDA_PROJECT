@@ -21,8 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.service.ChannelList_Service;
+import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.util.Constants;
 import com.itda.ITDA.util.Message;
@@ -41,11 +43,13 @@ public class UserInfoController {
 	
 	private Itda_UserService itdaUserService;
 	private ChannelList_Service channelList_Service;
+	private ContentService contentService;
 	
 	@Autowired
-	public UserInfoController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service) {
+	public UserInfoController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service, ContentService contentService) {
 		this.itdaUserService = itdaUserService;
 		this.channelList_Service = channelList_Service;
+		this.contentService = contentService;
 	}
 
 	
@@ -69,11 +73,10 @@ public class UserInfoController {
 	    	model.addAttribute("user", vo);
 	    	session.setAttribute("userName", vo.getUserName());
 	    	
-	    	ChCategory chcategory = new ChCategory();
 	    	
-	    	List<ChCategory> chcategoryList = channelList_Service.getChcategory();
+	    	List<ChCategory> chCategoryList = contentService.selectchCate_Id();
 	    	
-	    	model.addAttribute("categoryList", chcategoryList);
+	    	model.addAttribute("chCategoryList", chCategoryList);
 	    	
 	    	return "mypage/userinfo/myinfopage";
 	    	
@@ -175,6 +178,34 @@ public class UserInfoController {
 		return "redirect:/user/myInfo";
 		
 	}
+	
+	@PostMapping("myInfo/keyWdChangePro")
+	public String keyWdChangeProcess(Principal principal,
+									UserCategory userCategory) {
+		
+		String id = principal.getName();
+		
+		userCategory.setCate_Id(userCategory.getCate_Id());
+		userCategory.setUserId(id);
+		
+		System.out.println(userCategory.getCate_Id());
+		System.out.println(userCategory.getUserId());
+		
+		int result = itdaUserService.userCategoryUpdate(userCategory);
+		
+		if(result == Constants.UPDATE_SUCCESS) {
+			
+			logger.info(Message.USER_UPDATE_FALL);
+			
+			return "redirect:/user/myInfo";
+		}else {
+			logger.info(Message.USER_UPDATE_FALL);
+			
+			return "redirect:/user/myInfo";
+		}
+		
+	}
+	
 			
 	@RequestMapping("/myProfile")
 	public String changeMyProfile() {

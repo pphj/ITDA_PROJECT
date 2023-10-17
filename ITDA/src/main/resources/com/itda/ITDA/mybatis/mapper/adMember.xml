@@ -40,7 +40,9 @@
     
     <!-- qna 뷰 페이지에서 보여줄 값을 가져오는 쿼리문 -->
 	<select id="getAdminBoardByAdNum" parameterType="int" resultType="com.itda.ITDA.domain.AdminBoard">
-        SELECT * FROM ADMINBOARD WHERE adNum = #{adNum}
+       SELECT adDate, adState, QcateId, adTitle, adContent 
+    FROM ADMINBOARD 
+    WHERE adNum = #{adNum}
     </select>
     
     

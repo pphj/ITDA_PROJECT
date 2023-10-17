@@ -121,5 +121,11 @@
 		WHERE userId = #{userId}
 	</delete>
 	
+	<update id="userCategoryUpdate" parameterType="usercategory">
+	    update usercategory
+	    set cate_Id = #{cate_Id}
+	    where userId = #{userId}
+	</update>
+
 	
 </mapper>

@@ -43,6 +43,7 @@
 		var isPremiumReferer = false;
 	</script> -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/payment/payment.js"></script>
 <jsp:include page="../include/header.jsp"></jsp:include>
 <script type="text/javascript">
 /* function openKaKaoPayment() {
@@ -245,12 +246,10 @@
 <button type="button" class="floating_button _ORDER" id="kakaoPay" onclick="openKaKaoPayment()">결제하기</button>
 </form>
  --%>
- 		<span class="floating_button _ORDER">
- 		<button id="btn-kakaopay">
-			결제하기
- 		</button>
-		</span>
- </div>
+ 	<span class="floating_button _ORDER">
+ 		<button id="btn-kakaopay" style="color: white;">결제하기</button>
+	</span>
+</div>
 <div id="_CONTENT_LAYER_REFUNDGUIDE" class="content_layer_wrap" style="display: none;">
 	<div class="content_layer">
 		<div class="content_layer_inside">
@@ -422,8 +421,6 @@
 	<p class="toast_popup_desc">{{{text}}}</p>
 </div>
 </script>
-	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
-	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
 <script>
 $(window).on("load", function() {
 	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
@@ -507,9 +504,6 @@ $(window).on("load", function() {
 		}
 	}
 });
-</script>
-<script src="${pageContext.request.contextPath}/resources/js/payment/payment.js">
-
 </script>
 </body>
 <script>

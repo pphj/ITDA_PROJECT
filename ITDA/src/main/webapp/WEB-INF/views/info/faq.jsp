@@ -81,6 +81,7 @@
 								</ul>
 							</div>
 						</div>
+						</div>
 
 
 						<div class="faq-list ">
@@ -608,11 +609,6 @@ $(function() {
            <jsp:include page="../include/footer.jsp"/>
 	<!-- /footer -->
 	
-            <div class="btn-top-wrap">
-                <div class="btn-position">
-                    <a href="#wrap" class="btn-top"><span class="blind">상단 바로가기</span></a>
-                </div>
-            </div>
         </div>
     </body>
 </html>
