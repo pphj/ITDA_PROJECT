@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +21,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -35,6 +38,7 @@ import com.itda.ITDA.service.ChannelList_Service;
 
 //DAO와 Service가 작성되어야 Controller가 완성된다
 @Controller
+@RestController
 @RequestMapping(value = "/channels")
 public class ChannelListController {
 
@@ -161,8 +165,8 @@ public class ChannelListController {
 
 	@PostMapping("{chnum}/sellersetting")
 	public String showChannelUpdate(@PathVariable("chnum") int chnum, ModelAndView mv, ChannelList ChannelList,
-			ChBoardCategory ChBoardCategory,
-			HttpServletRequest request, RedirectAttributes rattr, HttpSession session) throws Exception {
+			ChBoardCategory ChBoardCategory, HttpServletRequest request, RedirectAttributes rattr,
+			HttpSession session) throws Exception {
 
 		MultipartFile uploadfile = ChannelList.getUploadfile();
 		String url = "";
@@ -204,11 +208,6 @@ public class ChannelListController {
 			// 수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
 			url = "redirect:sellersetting";
 		}
-		
-
-		channelList_Service.addCategory(ChBoardCategory);
-		logger.info(ChBoardCategory.toString());
-
 
 		return url;
 	}
@@ -278,4 +277,21 @@ public class ChannelListController {
 		return fileDBName;
 	}
 
+	@RequestMapping(value = "{chnum}/categorychange", method = RequestMethod.POST)
+	public int ChangeCategory(@PathVariable("chnum") int chnum, @RequestBody Map<String, Object> payload) {
+		String chcatename = (String) payload.get("chcatename");
+		logger.info(chcatename);
+
+		int result = channelList_Service.addCategory(chnum, chcatename);
+
+		if (result > 0)
+		{
+			logger.info("카테고리 변경 성공. 결과: " + result);
+		} else
+		{
+			logger.error("카테고리 변경 실패.");
+		}
+
+		return result;
+	}
 }

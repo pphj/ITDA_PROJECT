@@ -54,5 +54,7 @@ public interface ChannelListMapper {
 	
 	//채널 서치 키워드
 	List<ChannelList> searchChannelsByKeyword(String keyword);
+  
+	int addCategory(int chnum, String chCate_Name);
 
 }

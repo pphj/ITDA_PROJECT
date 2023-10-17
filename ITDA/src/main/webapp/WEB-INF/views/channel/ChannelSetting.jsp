@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <!-- header 연결 -->
 <link href="${pageContext.request.contextPath}/resources/css/channel/ChanelMain.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/channel/ChannelCategory_change.css" rel="stylesheet" type="text/css">
@@ -17,6 +19,7 @@
 <jsp:include page="../include/header.jsp" />
 <title>채널프로필 수정</title>
 <script>
+	
 </script>
 </head>
 <body>
@@ -144,8 +147,11 @@
 								<col style="width: 22%">
 								<col>
 							</colgroup>
-							
-							<form id="categoryForm" method="post" enctype="multipart/form-data">
+
+							<form action="../${chnum}/categorychange" id="categoryForm" method="post" enctype="multipart/form-data">
+								<input type="hidden" name="categorychnum" id="categorychnum" value="${SellerSetting.chNum}"
+									style="width: 254px; border: none;"> <input class="channel_category_name" type="text" name="categoryName"
+									id="categoryName" value="${c.chCate_Name}" style="width: 254px; border: none;">
 								<tbody>
 									<tr>
 										<th scope="row">
@@ -163,12 +169,12 @@
 													<div class="category_box">
 														<c:forEach var="c" items="${SellerCategory}">
 															<li class="channel_category_item">
-																<input class="channel_category_name" type="text" name="categoryName" id="categoryName" value="${c.chCate_Name}"
-																	style="width: 254px; border: none;"> 
 																<input type="hidden" name="categorychnum" id="categorychnum" value="${SellerSetting.chNum}"
 																	style="width: 254px; border: none;">
-																<!--<strong class="channel_category_name">${c.chCate_Name}</strong>-->
+																<strong class="channel_category_name">${c.chCate_Name}</strong>
 																<div class="channel_category_num">
+																	<input type="hidden" class="channel_category_name" type="text" name="categoryName" id="categoryName" value="${c.chCate_Name}"
+																		style="width: 254px; border: none;">
 																	<button class="btn_model" data-name="${c.chCate_Name}">
 																		<b id="btnChangeCategcategoryNameory" class="btn3">수정</b>
 																	</button>
@@ -185,11 +191,11 @@
 								</tbody>
 							</form>
 						</table>
-							<div class="btn_wrap">
-								<a class="btn_model">
-									<button id="btnAddCategory" type=submit class="btn2 txt_disable">카테고리 추가</button>
-								</a>
-							</div>
+						<div class="btn_wrap">
+							<a class="btn_model">
+								<button id="btnAddCategory" type=submit class="btn2 txt_disable">카테고리 추가</button>
+							</a>
+						</div>
 
 					</fieldset>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
