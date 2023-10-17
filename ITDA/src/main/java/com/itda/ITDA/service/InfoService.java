@@ -10,12 +10,15 @@ public interface InfoService {
 	
 	List<AdminBoard> getAdminBoardList();
 
-	List<AdminBoard> getQnaAdminBoardList();
-
-	AdminBoard getAdminBoardByAdNum(int noticeId);
+	List<AdminBoard> getQnaByUser(String userId);
 
 	int getAdminBoardCount();
 
 	List<AdminBoard> getAdminBoardListByPage(int page, int limit);
 
+	AdminBoard getAdminBoardByUserId(int userId);
+
+	AdminBoard getAdminBoardByAdNum(int adNum);
+
+	
 }

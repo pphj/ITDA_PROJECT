@@ -47,7 +47,7 @@ public class InfoController {
 	@GetMapping("/notice/view")
 	public ModelAndView showNoticeView(@RequestParam("no") int userId, ModelAndView mv) {
 	    // 공지사항 정보 조회 로직
-	    AdminBoard adminBoard = infoService.getAdminBoardByAdNum(userId);
+	    AdminBoard adminBoard = infoService.getAdminBoardByUserId(userId);
 
 	    mv.addObject("adminBoard", adminBoard); // 조회된 공지사항 정보 모델 객체에 추가
 
@@ -57,25 +57,41 @@ public class InfoController {
 	}
 
 
+	@GetMapping("/qna")
+	public ModelAndView qna(ModelAndView mv, Principal principal) {
 
+	    // 로그인한 사용자의 ID를 가져오기
+	    String userId = principal.getName();
 
+	    // 사용자 ID를 이용하여 ADMINBOARD 테이블의 데이터 조회 
+	    List<AdminBoard> userQnaList = infoService.getQnaByUser(userId);
 
+	    mv.addObject("userQnaList", userQnaList);  // 사용자의 QnA 데이터 추가
+	    mv.setViewName("info/qna");
+
+	    return mv;
+	}
+
+	
+	@GetMapping(value = "/qna/view")
+	public ModelAndView showQnaView(@RequestParam("no") int adNum, ModelAndView mv) {
+	    // 질문 정보 조회 로직
+	    AdminBoard adminBoard = infoService.getAdminBoardByAdNum(adNum);
+
+	    mv.addObject("adminBoard", adminBoard); // 조회된 질문 정보 모델 객체에 추가
+
+	    mv.setViewName("info/qna_View"); // view 페이지의 이름 설정
+
+	    return mv;
+	}
+
+	
+	
+	
 	@GetMapping(value = "/faq")
 	public ModelAndView faq(ModelAndView mv) {
 		mv.setViewName("info/faq");
 		return mv;
-	}
-	
-	@GetMapping("/qna")
-	public ModelAndView qna(ModelAndView mv) {
-
-	    // ADMINBOARD 테이블의 데이터 조회 
-	    List<AdminBoard> QnaAdminBoardList = infoService.getQnaAdminBoardList();
-
-	    mv.addObject("adminBoardList", QnaAdminBoardList);  // ADMINBOARD 테이블 데이터 추가
-	    mv.setViewName("info/qna");
-
-	    return mv;
 	}
 
 	

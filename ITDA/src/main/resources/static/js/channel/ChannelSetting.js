@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	let token = $("meta[name='_csrf']").attr("content");
+   	let header = $("meta[name='_csrf_header']").attr("content");
+   	
     // 탭 관련 코드
     $(".tab_content").hide(); // 모든 탭 콘텐츠를 숨김
     $(".tab_content:first").show(); // 첫 번째 탭 콘텐츠만 보이도록 설정
@@ -64,7 +67,7 @@ $(document).ready(function() {
     $("#btnAddCategory").click(function(e){
         e.preventDefault(); // submit 동작 방지
         var newInput = '<li class="channel_category_item">' +
-                        '<input class="channel_category_name" type="text" name="" id="" style="width: 254px; border: 1px solid #ccc;">' +
+                        '<input class="channel_category_name" type="text" name="categoryName" id="categoryName" style="width: 254px; border: 1px solid #ccc;">' +
                         '<div class="channel_category_num"><button class="btn_model btnApply"><b id="btnSaveCategory" class="btn3">적용</b></button>' +
                         '<button class="btn_model btnDelete"><b id="btnDeleteCategory" class="btn3">삭제</b></button></div>' +
                         '</li>';
@@ -76,28 +79,32 @@ $(document).ready(function() {
         $(this).closest('.channel_category_item').remove();
     });
 
-    // "적용" 버튼 클릭 시
-	$(document).on('click', '.btnApply', function(e) {
+	   $(document).on('click', '.btnApply', function(e) {
 	    e.preventDefault();
 	
-	    var categoryItem = $(this).closest('.channel_category_item');
-	    var categoryName = categoryItem.find('.channel_category_name').val();
-	
-	    $.ajax({
-	        url: '/path/to/your/server/api', // 서버 API 경로
-	        type: 'POST',
-	        data: {
-	            categoryName: categoryName
-	            // 필요한 추가 데이터들...
-	        },
-	        success: function(response) {
-	            // 요청이 성공적으로 완료되었을 때 실행할 코드...
-	            console.log('Category saved successfully!');
-	        },
-	        error: function(jqXHR, textStatus, errorThrown) {
-	            // 요청이 실패했을 때 실행할 코드...
-	            console.error('Error saving category:', textStatus);
-	        }
-	    });
+	    var chnum = $('#categorychnum').val();
+	    var chcatename = $(this).closest('.channel_category_item').find('.channel_category_name').val();
+	    alert(chcatename);
+	    var url = '/itda/channels/' + chnum + '/categorychange';
+	    if(chcatename.trim() !== "") { 
+	        $.ajax({
+	            url: url,
+	            type: 'POST',
+	            data: JSON.stringify({ chcatename: chcatename }),
+	            contentType: "application/json;charset=UTF-8",
+	            beforeSend: function(xhr)
+			      {   // 데이터를 전송하기 전에 헤더에 csrf 값을 설정합니다.
+			         xhr.setRequestHeader(header, token);
+			      },
+	            success: function(response) {
+	                console.log('카테고리 추가 완료');
+	               
+	            },
+	            error: function(jqXHR, textStatus, errorThrown) {
+	                console.error('카테고리 추가 에러:', textStatus);
+	            }
+	        });
+	    }
 	});
+
 });

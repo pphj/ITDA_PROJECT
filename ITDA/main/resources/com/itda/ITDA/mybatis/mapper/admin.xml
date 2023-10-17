@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itda.ITDA.mybatis.mapper.AdminMapper">
+	<select id="getFAQList" parameterType="java.util.Map" resultType="AdminBoard">
+		select * 
+		from (select rownum rnum, b.*
+			  from (select *
+			  		from adminboard
+			  		where key = 'FAQ'
+			  		and adState = 'Y'
+					order by adNum desc
+			  ) b
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<select id="getFAQListCount" resultType="int">
+		select count(*) from adminboard where key = 'FAQ' and adState = 'Y'
+	</select>
+	
+	<select id="getFAQDetail" parameterType="int" resultType="AdminBoard">
+		select * from adminboard
+		where adNum = #{adNum}
+	</select>
+	
+	<insert id="insertFAQ" parameterType="AdminBoard">
+		INSERT INTO adminboard
+	    (adNum, userId, adWriter, adPassword, adTitle,
+	     adContent, adView, QcateId, adDate, adUpdate, key, adState)
+	    VALUES (ADMINBOARD_SEQ.nextval, 'system', #{adWriter}, #{adPassword}, #{adTitle},
+	     #{adContent}, 0, #{QcateId}, SYSDATE, null, 'FAQ', 'Y')
+	</insert>
+	
+	<update id="FAQModify" parameterType="AdminBoard">
+		update adminboard
+		set adTitle = #{adTitle}, adContent = #{adContent}, QcateId = #{QcateId}
+		where adNum = #{adNum}
+	</update>
+	
+	<select id="isadWriter" parameterType="Map" resultType="AdminBoard">
+		select adNum, adPassword from adminboard
+		where adNum = #{num}					<!-- BoardServiceImpl에서 put으로 설정해놓은 이름 -->
+		and adPassword = #{pass}
+	</select>
+	
+	<select id="getQNAList" parameterType="java.util.Map" resultType="AdminBoard">
+		select * 
+		from (select rownum rnum, b.*
+			  from (select *
+			  		from adminboard
+			  		where key = 'QNA'
+			  		and adState = 'Y'
+					order by adNum desc
+			  ) b
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<select id="getQNAListCount" resultType="int">
+		select count(*) from adminboard where key = 'QNA' and adState = 'Y'
+	</select>
+	
+	<select id="getQnaReplyList" parameterType="map" resultType="QnaReply">
+		select * from(select rownum rnum, q.*
+					  from( select qnaReplyNum, adNum, adminId,
+					  	    qnaReplyContent, qnaReplyDate, qnaReplyUpdate
+							from QNAREPLY
+							where adNum = #{adNum}
+							and qnaReplyState = 'Y'
+							order by qnaReplyNum desc
+						  ) q
+					  where rownum &lt;= #{end}
+					  )
+		where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="getQnaReplyListCount" resultType="int" parameterType="int">
+		select count(*) from QNAREPLY
+		where adNum = #{adNum}
+		and qnaReplyState = 'Y' 
+	</select>
+	
+	<insert id="QnaReplyInsert" parameterType="QnaReply">
+		insert into QNAREPLY
+		values(QNAREPLY_SEQ.nextval, #{adNum}, #{adminId}, #{qnaReplyContent},
+		SYSDATE, null, 'Y')
+	</insert>
+	
+	<update id="QnaReplyUpdate" parameterType="QnaReply">
+		update QNAREPLY
+		set qnaReplyContent = #{qnaReplyContent}
+		where qnaReplyNum = #{qnaReplyNum}
+	</update>
+	
+	<update id="QnaReplyDelete" parameterType="QnaReply">
+		update QNAREPLY
+		set qnaReplyState = 'N'
+		where qnaReplyNum = #{qnaReplyNum}
+	</update>
+	
+	<select id="getUserNoticeList" parameterType="java.util.Map" resultType="AdminBoard">
+		select * 
+		from (select rownum rnum, b.*
+			  from (select *
+			  		from adminboard
+			  		where key = 'uNOTI'
+			  		and adState = 'Y'
+					order by adNum desc
+			  ) b
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<select id="getUserNoticeListCount" resultType="int">
+		select count(*) from adminboard where key = 'uNOTI' and adState = 'Y'
+	</select>
+	
+	<select id="getUserNoticeDetail" parameterType="int" resultType="AdminBoard">
+		select * from adminboard
+		where adNum = #{adNum}
+	</select>
+	
+	<update id="setAdViewUpdate" parameterType="int">
+		update adminboard
+		set adView = adView + 1
+		where adNum = #{adNum}
+	</update>
+	
+	<insert id="userNoticeInsert" parameterType="AdminBoard">
+		INSERT INTO adminboard
+	    (adNum, userId, adWriter, adPassword, adTitle,
+	     adContent, adView, QcateId, adDate, adUpdate, key, adState)
+	    VALUES (ADMINBOARD_SEQ.nextval, 'system', #{adWriter}, #{adPassword}, #{adTitle},
+	     #{adContent}, 0, 8, SYSDATE, null, 'uNOTI', 'Y')
+	</insert>
+	
+	<update id="userNoticeUpdate" parameterType="AdminBoard">
+		update adminboard
+		set adTitle = #{adTitle}, adContent = #{adContent}
+		where adNum = #{adNum}
+	</update>
+	
+	<select id="getItdaNoticeList" parameterType="java.util.Map" resultType="AdminBoard">
+		select * 
+		from (select rownum rnum, b.*
+			  from (select *
+			  		from adminboard
+			  		where key = 'itNOTI'
+			  		and adState = 'Y'
+					order by adNum desc
+			  ) b
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<select id="getItdaNoticeListCount" resultType="int">
+		select count(*) from adminboard where key = 'itNOTI' and adState = 'Y'
+	</select>
+	
+	<select id="getItdaNoticeDetail" parameterType="int" resultType="AdminBoard">
+		select * from adminboard
+		where adNum = #{adNum}
+	</select>
+	
+	<insert id="itdaNoticeInsert" parameterType="AdminBoard">
+		INSERT INTO adminboard
+	    (adNum, userId, adWriter, adPassword, adTitle,
+	     adContent, adView, QcateId, adDate, adUpdate, key, adState)
+	    VALUES (ADMINBOARD_SEQ.nextval, 'system', #{adWriter}, #{adPassword}, #{adTitle},
+	     #{adContent}, 0, 8, SYSDATE, null, 'itNOTI', 'Y')
+	</insert>
+	
+	<update id="itdaNoticeUpdate" parameterType="AdminBoard">
+		update adminboard
+		set adTitle = #{adTitle}, adContent = #{adContent}
+		where adNum = #{adNum}
+	</update>
+	
+	<update id="noticeDelete" parameterType="AdminBoard">
+		update adminboard
+		set adState = 'N'
+		where adNum = #{adNum}
+	</update>
+	
+	<!--
+	<sql id="search_">
+		<if test="search_field != null">
+			where
+			<choose>
+				<when test="search_field == 'adminId'">adminId</when>
+				<when test="search_field == 'adminName'">adminName</when>
+				<when test="search_field == 'adminDept'">adminDept</when>
+				<when test="search_field == 'adminClass'">adminClass</when>
+				<when test="search_field == 'authName'">authName</when>
+			</choose>
+			like #{search_word}
+		</if>
+	</sql>
+	-->
+	
+	<select id="getAdminApproveList" parameterType="java.util.Map" resultType="Admin">
+		select * 
+		from (select rownum rnum, a.*
+			  from (select adminId, adminName, adminDept, adminClass, authName
+			  		from admin
+			  		order by authName
+			  ) a
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<select id="getAdminApproveListCount" resultType="int">
+		select count(*) from admin
+	</select>
+	
+	<update id="adminApproveUpdate" parameterType="String">
+		update admin
+		set authName = #{authName}
+		where adminId = #{adminId}
+	</update>
+	
+	<select id="getSellerApproveList" parameterType="java.util.Map" resultType="Seller">
+		select * 
+		from (select rownum rnum, s.*
+			  from (select userId, sellerPhone, sellerEmail, sellerJoinDate
+			  		from Seller
+			  		where waitState = 'W'
+			  		order by sellerJoinDate desc
+			  ) s
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<select id="getSellerApproveListCount" resultType="int">
+		select count(*) from Seller where waitState = 'W'
+	</select>
+	
+	<update id="sellerUpdateY" parameterType="String">
+		update seller
+		set waitState = 'Y', adminId = #{adminId}, waitOkDate = sysdate
+		where userId = #{userId}
+	</update>
+	
+	<update id="sellerUpdateN" parameterType="String">
+		update seller
+		set waitState = 'N', adminId = #{adminId}, waitOkDate = sysdate
+		where userId = #{userId}
+	</update>
+	
+	<select id="problemList" parameterType="java.util.Map" resultType="BoardWarn">
+		select * 
+		from (SELECT rownum rnum, b.*, statusid
+			  FROM (select sickid, count(*) as sumcount
+				  	from (select distinct sickid, warnnum
+						  from boardwarn
+						  union all
+						  select distinct sickid, warnnum
+						  from replywarn
+					      )
+				    group by sickid
+			       ) b
+			 INNER JOIN itda_user iu ON b.sickId = iu.userId
+			 where rownum &lt;= #{end}
+			 )
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<select id="problemListCount" resultType="int">
+	select count(*) 
+	from (select sickid, count(*) as sumcount
+		  from (select distinct sickid, warnnum
+		  	    from boardwarn
+		  	    union all
+		  	    select distinct sickid, warnnum
+		  	    from replywarn
+			   )
+		  group by sickid
+		 )
+	</select>
+	
+	<select id="getProblemBoardCount" resultType="int">
+		select count(*) from boardwarn
+	</select>
+	
+	<select id="getProblemReplyCount" resultType="int">
+		select count(*) from replywarn
+	</select>
+	
+	<update id="userUpdatePause" parameterType="String">
+		update itda_user
+		set statusid = 2
+		where userId = #{userId}
+	</update>
+	
+	<update id="userUpdateStop" parameterType="String">
+		update itda_user
+		set statusid = 3
+		where userId = #{userId}
+	</update>
+	
+	<update id="userUpdateClear" parameterType="String">
+		update itda_user
+		set statusid = 1
+		where userId = #{userId}
+	</update>
+	
+	<select id="boardProblemDetail" parameterType="java.util.Map" resultType="BoardWarn">
+		select warnNum, punchId, sickId, boardNum, warnCateId, warnDate, warnReason from boardwarn
+		where sickid = #{sickId}
+	</select>
+	
+	<select id="replyProblemDetail" parameterType="java.util.Map" resultType="ReplyWarn">
+		select warnNum, punchId, sickId, replyNum, warnCateId, warnDate, warnReason from replywarn
+		where sickid = #{sickId}
+	</select>
+	
+	<select id="couponList" parameterType="java.util.Map" resultType="Coupon">
+		select * 
+		from (select rownum rnum, c.*
+			  from (select *
+			  		from Coupon
+					order by couponCreate desc
+			  ) c
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<select id="getCouponListCount" resultType="int">
+		select count(*) from Coupon
+	</select>
+	
+	<insert id="couponInsert" parameterType="Coupon">
+		insert into coupon
+		values(#{couponCode}, COUPON_SEQ.nextval, #{couponName}, #{couponDetail},
+		#{couponPrice}, SYSDATE, null, #{adminId})
+	</insert>
+	
+	<select id="getUserTotal" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(*) from itda_user where statusid = 1
+	</select>
+	
+	<insert id="userTotalInsert" parameterType="int">
+		insert into usertotal
+		values(USERTOTAL_SEQ.nextval, #{dailyUserTotal}, SYSDATE, 'SYSTEM',
+		null, SYSDATE, null)
+	</insert>
+	
+	<select id="getUserTotalList" parameterType="java.util.Map" resultType="UserTotal">
+		select usertotal, credate
+		from (
+		    select usertotal, credate
+		    from usertotal
+		    order by credate desc
+		)
+		where rownum &lt;= 10
+	</select>
+	
+	<select id="getProductCount" resultType="int">
+		select count(productid) from subproduct
+	</select>
+	
+	<select id="productList" parameterType="java.util.Map" resultType="SubProduct">
+		select * 
+		from (select rownum rnum, c.*
+			  from (select productName, productDetail, productPrice, productTerm
+			  		from subproduct
+					order by productPrice asc
+			  ) c
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<insert id="productInsert" parameterType="SubProduct">
+		insert into subproduct
+	    (productId, productName, productWriter, productDetail, productPrice,
+	    productTerm, productCreDate, productDelete)
+	    values (SUBPRODUCT_SEQ.nextval, #{productName}, #{productWriter}, #{productDetail},
+	     #{productPrice}, #{productTerm}, SYSDATE, 'N')
+	</insert>
+	
+	<select id="productDetail" parameterType="java.util.Map" resultType="SubProduct">
+		select * from subproduct
+		where productName = #{productName}
+	</select>
+	
+	<select id="qnaDailyCount" resultType="int">
+		select count(userid)
+		from adminboard
+		where to_date(to_char(trunc(to_date(SYSDATE , 'yyyy-mm-dd') - 1), 'yyyy-mm-dd'), 'yyyy-mm-dd')
+		 = to_date(to_char(trunc(addate), 'yyyy-mm-dd'), 'yyyy-mm-dd')
+		and key = 'QNA'
+		and adState = 'Y'
+	</select>
+	
+	<select id="sellerDailyCount" resultType="int">
+		select count(userid)
+		from seller
+		where to_date(to_char(SYSDATE - 1, 'yyyy-mm-dd'), 'yyyy-mm-dd')
+		 = to_date(to_char(sellerjoindate, 'yyyy-mm-dd'), 'yyyy-mm-dd')
+		and waitstate = 'W'
+	</select>
+	
+	<select id="problemDailyCount" resultType="int">
+		select count(sickid)
+		from (
+		    select sickid, warndate from boardwarn
+		    where warnOk = 'N'
+		    union all
+		    select sickid, warndate from replywarn
+		    where warnOk = 'N'
+		) problem
+		where warndate &gt;= trunc(SYSDATE)
+		 and warndate &lt; trunc(SYSDATE  + 1)
+	</select>
+</mapper>

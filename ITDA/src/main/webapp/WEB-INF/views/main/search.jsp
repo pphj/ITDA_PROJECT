@@ -1,30 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"><head>
-	<!-- <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-	<meta name="format-detection" content="telephone=no">
-	<meta name="description" content="네이버 프리미엄 콘텐츠의 채널 및 콘텐츠 검색 결과를 확인할 수 있습니다.">
-	<meta property="og:title" content="채널 및 콘텐츠 검색 : 네이버 프리미엄 콘텐츠">
-	<meta property="og:image" content="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2022/12/08/og.jpg">
-	<meta property="og:description" content="네이버 프리미엄 콘텐츠의 채널 및 콘텐츠 검색 결과를 확인할 수 있습니다.">
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="채널 및 콘텐츠 검색 : 네이버 프리미엄 콘텐츠">
-	<meta name="twitter:site" content="프리미엄콘텐츠">
-	<meta name="twitter:image" content="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2022/12/08/og.jpg">
-	<meta name="twitter:description" content="네이버 프리미엄 콘텐츠의 채널 및 콘텐츠 검색 결과를 확인할 수 있습니다."> -->
 	<title>채널 및 콘텐츠 검색</title>
 	<link rel="stylesheet" href="https://static-nnews.pstatic.net/css/min/20230914a/premium_service.css">
 	<link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
-	<!-- 상단 타이틀 옆 이미지 -->	
-	<!-- <link rel="shortcut icon" type="image/x-icon" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/favicon_M.ico"> -->
-	<!-- <link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png"> -->
-	<!-- <link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png"> -->
-	<!-- <link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png"> -->
-	<!-- <link rel="apple-touch-icon-precomposed" size="192x192" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png"> -->
-	<!-- <base target="_parent"> -->
-	<script src="../resources/js/search/nlog.js"></script>
-	<script src="../resources/js/search/ntm_774a0c8e7c40.js"></script> 
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/search.css">
+	<!-- <script src="../resources/js/search/nlog.js"></script>
+	<script src="../resources/js/search/ntm_774a0c8e7c40.js"></script>  -->
 	<script>
 		var g_ssc = nsc = "Mpremiumcontents.all";
 		var g_default_area = "art";
@@ -61,20 +44,8 @@
 		var isPremiumReferer = false;
 		isPremiumReferer = true;
 	</script>
-	<!-- <script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script> -->
 	<script src="${pageContext.request.contextPath}/resources/js/search/itda_common.js"></script>
-<style>.osSwitch{position:relative;display:inline-block;width:34px;height:15.3px}.osSwitch input{opacity:0;width:0;height:0}.osSlider{position:absolute;top:0;left:0;right:0;bottom:0;border-radius:34px;background-color:#93a0b5;transition:0.4s}.osSlider:before{position:absolute;content:'';height:13px;width:13px;left:2px;bottom:1px;border-radius:50%;background-color:white;transition:0.4s}input:checked+.sliderGreen{background-color:#04d289}input:checked+.sliderRed{background-color:#ff3b30}input:not(:checked)+.defaultGreen{background-color:#04d289}input:checked+.osSlider:before{transform:translateX(17px)}
-</style><style>
-    @font-face {
-      font-family: 'SegoeUI_online_security'; 
-      src: url(chrome-extension://llbcnfanfmjhpedaedhbcnpgeepdnnok/segoe-ui.woff);
-    }
-
-    @font-face {
-      font-family: 'SegoeUI_bold_online_security'; 
-      src: url(chrome-extension://llbcnfanfmjhpedaedhbcnpgeepdnnok/segoe-ui-bold.woff);
-    }
-</style></head>
+</head>
 <body class="">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
 <div id="_CONTENT_INDICATOR_WRAP" style="display:none;">
@@ -156,29 +127,7 @@
 			</div>
 		</div>
 		
-	<!--	인기 검색어 	
-		<div class="_TOP_SEARCH_KEYWORD">
-			<div class="premiumhome_keyword _TEMPLATE" data-template-id="SCS_PREMIUM_HOME_TOP_SEARCH_KEYWORD">
-				<h2 class="pk_h">인기검색어</h2>
-				<ul class="pk_list">
-					<li class="pk_item">
-						<a href="/ch/search?searchQuery=%EC%9E%90%EC%9C%A8%EC%A3%BC%ED%96%89" class="pk_link" data-clk="pch_search.hot">1</a>
-					</li>
-					<li class="pk_item">
-						<a href="/ch/search?searchQuery=%EC%88%98%ED%95%99" class="pk_link" data-clk="pch_search.hot">2</a>
-					</li>
-					<li class="pk_item">
-						<a href="/ch/search?searchQuery=%ED%8C%A1%ED%81%B4%EB%9E%98%EC%8A%A4" class="pk_link" data-clk="pch_search.hot">3</a>
-					</li>
-					<li class="pk_item">
-						<a href="/ch/search?searchQuery=%EC%98%81%EC%96%B4" class="pk_link" data-clk="pch_search.hot">4</a>
-					</li>
-					<li class="pk_item">
-						<a href="/ch/search?searchQuery=%EC%B2%AD%EC%86%A1%EC%B4%8C%EB%86%88" class="pk_link" data-clk="pch_search.hot">5</a>
-					</li>
-				</ul>
-			</div>
-		</div> -->
+	
 		
 	</div>
 </div>

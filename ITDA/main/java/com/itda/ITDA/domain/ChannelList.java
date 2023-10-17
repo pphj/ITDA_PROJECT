@@ -1,0 +1,25 @@
+package com.itda.ITDA.domain;
+
+import java.security.Timestamp;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class ChannelList {
+	private int chNum;
+	private String ownerId;
+	private String chName;
+	private String chProfile;
+	private String chInfo;
+	private int cate_Id;
+	private int chFollow;
+	private Timestamp chOpenDate;
+	private int chVisit;
+	private String userProfile;
+	private MultipartFile uploadfile;
+	private String chProfile_original;
+}

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itda.ITDA.mybatis.mapper.ChannelListMapper">
+
+	<select id="getChannelDetail" resultType="ChannelList">
+		SELECT *
+		FROM
+		CHANNELLIST
+		WHERE CHNUM = #{chnum}
+	</select>
+
+
+
+	<select id="getBoardListByBoardNum" resultType="ChBoard">
+	    <![CDATA[
+	    SELECT chCate_Name, boardNum, boardTitle, thumbNail, intro, boardDate
+	    FROM (
+	        SELECT *
+	        FROM chboard
+	        JOIN chboardcategory ON chboard.chnum = chboardcategory.chnum
+	        WHERE chboard.chnum = #{chnum}
+	        ORDER BY boardHeart DESC
+	    )
+	    WHERE ROWNUM <= 20
+	    ]]>
+	</select>
+
+	<select id="getChannelCategory" resultType="ChBoardCategory">
+		SELECT DISTINCT
+		chCate_Id, chCate_Name
+		FROM ChBoardCategory
+		WHERE ChBoardCategory.chnum
+		= #{chnum}
+		ORDER BY chCate_Name ASC
+	</select>
+
+	<!-- <select id="getChannelCategoryCount" resultType="int">
+		SELECT
+		COUNT(B.boardNum)
+		FROM ChBoardCategory C
+		INNER JOIN ChBoard B ON
+		C.chCate_Id = B.chCate_Id
+		WHERE B.chnum = #{chnum}
+		GROUP BY
+		C.chCate_Name
+	</select> -->
+	
+	<select id="getChannelCategoryList" resultType="ChBoardCategory">
+		SELECT * FROM chboardcategory
+	    WHERE chnum = #{chNum}
+	    ORDER BY chcate_name
+	</select>
+	
+	<!-- seller 
+	<select id="getChannelSellerDetail" resultType="ChannelList">
+		SELECT *
+		FROM
+		CHANNELLIST
+		WHERE CHNUM = #{chnum}
+	</select>
+	-->
+	
+	<select id="getAllChannelCategoryData" resultType="ChBoard" parameterType="map">
+		<![CDATA[
+			SELECT *
+			FROM (
+			    SELECT rownum rnum, j.*
+			    FROM (
+			        SELECT chboard.*, nvl(cnt, 0) cnt,
+			               (SELECT chcate_name FROM chboardcategory c WHERE c.chcate_id = chboard.chcate_id) chcate_name
+			        FROM chboard
+			        LEFT JOIN (
+			            SELECT boardnum, COUNT(*) cnt
+			            FROM boardreply
+			            GROUP BY boardnum
+			        ) f ON chboard.boardnum = f.boardnum
+			        WHERE chboard.chnum = #{chnum}
+			        ORDER BY boardDate ${order}, chboard.boardnum DESC
+			    ) j
+			    WHERE rownum <= #{endrow}
+			)
+			WHERE rnum >= #{startrow} AND rnum <= #{endrow}
+		]]>
+	</select>
+	
+	<select id="getAllChannelCategoryCount" resultType="int">
+		SELECT COUNT(*) FROM chboard WHERE chnum = #{chnum}
+	</select>
+	
+	<select id="getChannelCategoryData" resultType="ChBoard">
+	    <![CDATA[
+	        SELECT *
+	        FROM (
+	            SELECT rownum rnum, j.*
+	            FROM (
+	                SELECT *
+	                FROM chboard
+	                NATURAL JOIN chboardcategory
+	                WHERE chnum = #{chnum}
+	                AND chcate_id = #{chCate_Id}
+	            ) j
+	            WHERE rownum <= #{endrow}
+	        )
+	        WHERE rnum >= #{startrow} AND rnum <= #{endrow}
+	        ORDER BY boardDate ASC
+	     ]]>
+	</select>
+	
+	<select id="getChannelCategoryCount" resultType="int">
+	    SELECT COUNT(*)
+	    FROM chboard
+	    WHERE chnum = #{chnum}
+	    AND chCate_Id = #{chCate_Id}
+	</select>
+	
+	<select id="getSellerInfo" resultType="Seller">
+	   SELECT * FROM SELLER
+	   WHERE userId = #{userid}
+	</select>
+	
+	<select id="getSellerSetting" resultType="ChannelList">
+	 	SELECT *
+		FROM
+		CHANNELLIST
+		WHERE CHNUM = #{chnum}
+	</select>
+	
+	<update id="getSellerUpdate">
+	    UPDATE channellist
+	    SET chProfile = #{chProfile},
+	        chName = #{chName}
+	    WHERE chNum = #{chNum}
+	</update>
+
+	<insert id="saveChannelList" parameterType="com.itda.ITDA.domain.ChannelList">
+    INSERT INTO channellist (chNum, ownerid, chName, chprofile, chinfo, cate_id, chFollow, chVisit)
+    VALUES ((select NVL(max (chNum), 0) + 1 from ChannelList), #{userId}, #{channel}, #{userProfile}, #{chInfo}, '1', '0', '0')
+	
+	</insert>
+	
+	<select id="getChcategory" resultType="ChCategory">
+	 	SELECT cate_Id, cate_Name
+		FROM
+		ChCategory
+	</select>
+	
+	<select id="getSellerCategory" resultType="ChBoardCategory">
+		SELECT DISTINCT
+		chCate_Id, chCate_Name
+		FROM ChBoardCategory
+		WHERE ChBoardCategory.chnum
+		= #{chnum}
+		ORDER BY chCate_Name ASC
+	</select>
+
+	<!-- 카테고리 추가 -->
+    <insert id="addCategory">
+        INSERT INTO chboardcategory categoryName
+        VALUES #{categoryName}
+        where chnum = #{chnum}
+    </insert>
+		
+</mapper> 
