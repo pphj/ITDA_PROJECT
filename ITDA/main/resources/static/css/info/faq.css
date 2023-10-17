@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.editor-area{
+	color:black;
+	
+}
+
+.tab-type1 > li.on > a {
+  position: relative;
+  border-color: #121212;
+  font-weight: bold;
+  color: black; 
+}

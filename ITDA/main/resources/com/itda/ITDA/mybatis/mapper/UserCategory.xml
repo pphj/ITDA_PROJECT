@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.itda.ITDA.mybatis.mapper.UserCategoryMapper">
+
+	<!-- ResultMap은 UserCategory 클래스와 데이터베이스 테이블 간의 매핑을 정의합니다. -->
+	<resultMap id="UserCategoryResultMap"
+		type="com.itda.ITDA.domain.UserCategory">
+		<id property="usercateNum" column="usercate_num" />
+		<result property="userId" column="user_id" />
+		<result property="cate_Id" column="cate_id" />
+		<result property="boardNum" column="board_num" />
+	</resultMap>
+
+	<!-- UserCategory 저장(SQL Insert) -->
+	<insert id="insert"
+		parameterType="com.itda.ITDA.domain.UserCategory"> INSERT INTO usercategory VALUES
+		(usercate_num_seq.nextval, #{userId}, #{cate_Id}, #{boardNum})
+	</insert>
+</mapper>
+
+
+

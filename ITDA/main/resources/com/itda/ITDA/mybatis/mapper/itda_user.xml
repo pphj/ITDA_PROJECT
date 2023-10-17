@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itda.ITDA.mybatis.mapper.Itda_UserMapper">
+
+	<select id="isId" resultType="Itda_User">
+		select * from itda_user 
+		where userId = #{userId}
+	</select>
+
+
+	 <insert id="insert" parameterType="Itda_User">
+        insert into itda_user
+        (userId, userPw, userName, userBirth, userGender, userPhone,
+        userAddress1, userAddress2, userPost, userEmail, userCategory,
+        userJoindate, statusId, userProfile)
+        values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userGender}, #{userPhone},
+        #{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail},
+        #{userCategory},
+        SYSDATE, 1, #{userProfile})
+    </insert>
+	
+	<select id="read" resultType="Itda_user">
+		SELECT
+		    a.userid, a.useraddress1, a.useraddress2, a.useremail, a.username, a.userphone, a.userpost, a.userprofile, a.usercategory,
+		    b.selleremail, b.sellerphone,
+		    d.cate_name
+		FROM
+		    itda_user a
+		LEFT JOIN
+		    seller b ON a.userid = b.userid
+		LEFT JOIN
+		    usercategory c ON a.userid = c.userid
+		LEFT JOIN
+		    chcategory d ON c.cate_id = d.cate_id
+		WHERE
+		    a.userid = #{userId}
+	</select>
+	
+	<update id="userAddressUpdate" parameterType="Itda_User">
+		update itda_User
+		set 
+			userPost = #{userPost}, 
+			userAddress1 = #{userAddress1}, 
+			userAddress2 = nvl(#{userAddress2}, ' ')
+		where userId = #{userId}
+	</update>
+	
+	<select id="pwCheck" resultType="Itda_User">
+		select userPw 
+		from itda_user 
+		where userId = #{userId}
+	</select>
+	
+	<update id="pwUpdate" parameterType="Itda_User">
+		update itda_user
+		set	userPw = #{userPw}
+		where userId = #{userId}
+	</update>
+	
+	<select id="getUserName" resultType="Itda_User">
+		select userName
+		from itda_user 
+		where userId = #{userId}
+	</select>
+	
+	<select id="getLeaveReasonCategory" resultType="UserLeaveReason">
+		select leaveReason_id, leaveReason_name
+		from leavereasoncategory
+	</select>
+	  <!-- 이메일로 사용자 조회 -->  
+   <select id ="findUserByEmail"
+       parameterType ="String"
+       resultType ="com.itda.ITDA.domain.Itda_User">   
+       SELECT * FROM itda_user
+       WHERE userEmail =#{email}   
+   </select>   
+
+   <!-- 비밀번호 재설정 -->   
+   <update id ="resetPasswordByMap">    
+       UPDATE itdA_USER SET     
+           UserPw=#{newPassword}    
+       WHERE userEmail=#{email}    
+   </update>
+	
+	<!-- 회원 탈퇴 시 탈퇴 이유 insert -->
+	<insert id="leaveResonInsert" parameterType="UserLeaveReason">
+		insert into userleavereason 
+				(userId, leaveReason_id, userLeaveReason)
+		values
+				(#{userId}, #{leaveReason_id}, 
+			<choose>
+				<when test='userLeaveReason == "null" or userLeaveReason == " "'>
+					default value
+				</when>
+				<otherwise>
+					#{userLeaveReason}
+				</otherwise>
+			</choose>
+				)
+	</insert>
+	
+	<!-- 탈퇴 회원 정보 탈퇴 회원 테이블에 insert -->
+	<insert id="deleteUserInsert" parameterType="String">
+		INSERT INTO deleteuser 
+					(userId, deluserGender, age, deluserJoindate, deldate, deluserCate_num)
+			SELECT 
+					a.userId, a.usergender, TRUNC(MONTHS_BETWEEN(TRUNC(sysdate), TO_DATE(a.userbirth, 'yy/MM/dd'))/12) AS age, a.userjoindate, SYSTIMESTAMP AS deldate, b.cate_id			
+			FROM 
+					itda_user a
+			INNER JOIN 
+					usercategory b
+			ON a.userId = b.userId
+		WHERE a.userId = #{userId}
+	</insert>
+	
+	<!-- 탈퇴 회원 itda_user와 관련된 정보 delete 하기 -->
+	<delete id="itda_userDelete" parameterType="String">
+		DELETE FROM itda_user 
+		WHERE userId = #{userId}
+	</delete>
+	
+	
+</mapper>

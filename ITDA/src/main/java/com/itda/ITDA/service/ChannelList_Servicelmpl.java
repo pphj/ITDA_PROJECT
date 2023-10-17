@@ -88,7 +88,6 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	public ChannelList getSellerSetting(int chnum) {
 		return dao.getSellerSetting(chnum);
 	}
-	
 
 	public void saveChannelList(Itda_User itda_User) {
 		dao.saveChannelList(itda_User); // 데이터베이스에 ChannelList 저장
@@ -102,7 +101,7 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	@Override
 	public void saveChannelList(ChannelList channelList) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -110,14 +109,14 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		return dao.getChcategory();
 	}
 
-
+	@Override
 	public List<ChBoardCategory> getSellerCategory(int chnum) {
 		return dao.getSellerCategory(chnum);
 	}
 
 	@Override
-	public void addCategory(ChBoardCategory chBoardCategory) {
-		dao.addCategory(chBoardCategory);
+	public int addCategory(int chnum, String chCate_Name) {
+		return dao.addCategory(chnum, chCate_Name);
 	}
 
 }

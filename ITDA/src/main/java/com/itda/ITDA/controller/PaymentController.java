@@ -23,10 +23,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class PaymentController {
 	private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 	
+	@GetMapping("/approval_url")
+	public String kakao() {
+		return "redirect:/my/subscriptions";
+	}
+	
+
 	@GetMapping("/kakaoPay.do")
 	@ResponseBody
 	public String kakaopay() {
 		try {
+
 			String kakaoUrl = "https://kapi.kakao.com/v1/payment/ready";
 			String approvalUrl = "https://localhost9400/pay/result";
 			String failUrl = "https://localhost9400/pay/fail";
@@ -38,7 +45,7 @@ public class PaymentController {
 			server.setRequestProperty("Authorization", "KakaoAK${ab9709a083b3a085972288a24ef76a19}");
 			server.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 			server.setDoOutput(true);
-			
+
 			String payParam = "cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id"
 					+ "&item_name=무제한 구독권&quantity=1&total_amount=1&tax_free_amount=0"
 					+ "&approval_url=" + approvalUrl

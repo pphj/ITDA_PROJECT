@@ -1,5 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -11,7 +12,6 @@
         <link rel="stylesheet" href="https://static.hankyung.com/css/www/w/common.ui.all.css?v=202309221514">
         <link rel="stylesheet" href="https://static.hankyung.com/resource/www/help/css/help.css?v=202309221514">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/info/faq.css" rel="stylesheet" />
-        
 
         <script src="https://static.hankyung.com/plugin/jquery-1.12.4.min.js"></script>
 		<script src="https://static.hankyung.com/plugin/jquery.cookie.js"></script>
@@ -20,11 +20,23 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/info/info.css" rel="stylesheet" />
 		
 		
-		
-		
-		
     </head>
     <body>
+    
+<script>
+	function handleQnABtnClick() {
+	    // Spring Security의 인증 상태를 확인
+	    var isAuthenticated = <c:out value="${pageContext.request.userPrincipal != null}" />;
+	    if (isAuthenticated) {
+	        // 로그인 상태인 경우 1:1문의 페이지로 이동
+	        window.location.href = "${pageContext.request.contextPath}/info/qna";
+	    } else {
+	        // 로그아웃 상태인 경우
+	        alert("로그인이 필요합니다.");
+	    }
+	}
+</script>
+    
         <div id="wrap" class="wrap sub">
             <!-- skip navi -->
             <div class="skip_navi">
@@ -43,12 +55,9 @@
 							<li><a
 								href="${pageContext.request.contextPath}/info/notice" target="">공지사항</a></li>
 							<li>
-								<a
-								href="${pageContext.request.contextPath}/info/qna" target="">1:1문의<span
-										class="icon-membersonly2">회원전용</span></a></li>
-							
-
-
+								<a href="javascript:void(0);" id="qnaBtn" onclick="handleQnABtnClick()">
+					            1:1문의<span class="icon-membersonly2">회원전용</span>
+					        </a></li>
 						</ul>
 
 						<button type="button" class="btn-menu-more">
@@ -71,6 +80,7 @@
 									<li><a role="tab" aria-selected="false">계정관리</a></li>
 								</ul>
 							</div>
+						</div>
 						</div>
 
 
@@ -599,11 +609,6 @@ $(function() {
            <jsp:include page="../include/footer.jsp"/>
 	<!-- /footer -->
 	
-            <div class="btn-top-wrap">
-                <div class="btn-position">
-                    <a href="#wrap" class="btn-top"><span class="blind">상단 바로가기</span></a>
-                </div>
-            </div>
         </div>
     </body>
 </html>

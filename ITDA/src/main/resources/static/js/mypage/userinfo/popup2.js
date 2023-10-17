@@ -53,11 +53,5 @@ function hideKeyWordChangePopUp() {
     var popupLayer = document.getElementById("keyWordChangePopUpLayer");
     popupLayer.style.display = "none";
     document.getElementById("dimmed").style.display = "none";
-    	  document.getElementById("e_addressNo").className = "";
-      document.getElementById("e_addressNo").innerHTML = "";
-      document.getElementById("sample6_postcode").value = "";
-      document.getElementById("sample6_address").value = "";
-      document.getElementById("sample6_detailAddress").value = "";
-      document.getElementById("sample6_extraAddress").value = "";
 }
 
