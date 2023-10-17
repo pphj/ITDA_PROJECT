@@ -130,7 +130,7 @@ hr {
 }
 
 /* 체크박스 */
-input{ display:none; }
+.ch-input{ display:none; }
 
 label div{
   width:20px;
@@ -147,10 +147,10 @@ label div{
 label i{ font-size:15px;  opacity:0; }
 label:hover div{ background:#dfdfdf; }
 input:checked+label i{ opacity:0.6; }
-input:checked+label div{ background:#fff; }
+input:checked+label div{ background:#fff; } */
 
-.checkbox{
-	margin-bottom: 4px;
+li .box-line{
+	margin-bottom: 10px;
 }
 
 /*header 로고 이미지*/

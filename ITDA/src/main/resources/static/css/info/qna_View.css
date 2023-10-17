@@ -1,0 +1,85 @@
+/* @charset "UTF-8";
+
+.qna-wrap .cont-top-area, .privacy-wrap .cont-top-area {
+	padding-bottom: 15px;
+	border-bottom: 2px solid #121212;
+	box-sizing: border-box
+}
+
+.sub .cont-tit {
+	display: block;
+	margin-bottom: 20px;
+	font-size: 24px;
+}
+
+.qna-wrap .cont-top-area, .privacy-wrap .cont-top-area {
+	padding-bottom: 24px;
+}
+
+.sub .contents>.layout-inner {
+	max-width: 1040px;
+	padding: 0 15px 30px;
+	box-sizing: border-box
+}
+
+.sub .cont-tit {
+	display: block;
+	margin-bottom: 20px;
+	font-size: 24px;
+}
+
+common
+.wrap {
+	padding-top: 50px;
+}
+
+.qna-wrap .cont-top-area .cont-txt.notice-txt {
+	float: right;
+	margin-top: 20px;
+	font-size: 13px;
+}
+
+1:1문의 뷰
+.qna-wrap.view-wrap .cont-top-area {
+	border-bottom: none;
+}
+
+.qna-wrap.view-wrap .content-box+.content-box {
+	margin-top: 30px
+}
+
+.qna-wrap.view-wrap .form-list {
+	border-top: 2px solid #121212
+}
+
+.qna-wrap.view-wrap .file-wrap dt {
+	min-height: auto
+}
+
+body, div, span, em, strong, select, section, article, nav, footer,
+	header, address, caption, figure, figcaption, dl, dt, dd, ul, ol, li,
+	h1, h2, h3, h4, h5, h6, form, fieldset, p, textarea, input, button, tr,
+	th, td, table {
+	margin: 0;
+	padding: 0;
+}
+
+서브페이지 공통
+.sub .contents>.layout-inner {
+	padding-left: 0;
+	padding-right: 0;
+	padding-bottom: 50px;
+}
+
+.sub .cont-tit {
+	margin-bottom: 30px;
+	font-size: 34px
+}
+
+.sub .cont-tit.txt-en {
+	font-family: "Malgun Gothic", "맑은 고딕", sans-serif
+}
+
+.pagination {
+	margin-top: 30px
+} */

@@ -64,17 +64,16 @@
       </div>
    </div>
    <script>
-    $(document).ready(function() {
-        $(".board_write_button").click(function(e) {
-            e.preventDefault();
-            $("form").submit();
-        });
-    });
-    
-    
+   const userId = '<%= request.getRemoteUser() %>'; // Spring Security에서 사용자 ID 가져오기
+   document.getElementById('userIdInput').value = userId; // 폼 데이터에 userId 추가
 
-
-    </script>
+   $(document).ready(function() {
+       $(".board_write_button").click(function(e) {
+           e.preventDefault();
+           $("form").submit();
+       });
+   });
+</script>
    <jsp:include page="../include/footer.jsp"/>
 </body>
 </html>

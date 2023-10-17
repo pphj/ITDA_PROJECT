@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="t" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -664,7 +666,7 @@
     
     <!-- 키워드 변경 팝업 -->
         <!-- 주소변경창 -->
-           <div id="keyWordChangePopUpLayer" class="layer" style="display:block;">
+           <div id="keyWordChangePopUpLayer" class="layer" style="display:none;">
         <div class="popup_layer">
             <div class="popup_layer_inner">
                 <div class="popup_content">
@@ -681,28 +683,28 @@
                         </h4>
                         <fieldset style="margin-bottom: 20px;">
                         <ul>
-                      <c:forEach var="categoryList" items="${categoryList}">
-                        <li>
-                       <div class="checkbox">
-			        <input type="checkbox" id="check${categoryList.cate_Id}" value="${categoryList.cate_Id}"/>
-			        <label for="check${categoryList.cate_Id}" >
+                                      <li> 
+                      <div class="box-line" style="margin-bottom:4px;">
+			        <input type="checkbox" id="check0" class="ch-input"/>
+			        <label for="check0" >
 			          <div>
 			          <i class="fa fa-check"></i>
-			          </div> ${categoryList.cate_Name}
+			          </div><span>전체</span>
 			        </label>
    				 	</div>
                         </li>
-                      </c:forEach>
+                     	 <t:forEach var="chCategoryList" items="${chCategoryList}" begin="0" varStatus="status" end="${fn:length(chCategoryList)}">
                         <li>
-                      <div class="checkbox">
-			        <input type="checkbox" id="check2"/>
-			        <label for="check2" >
-			          <div>
-			          <i class="fa fa-check"></i>
-			          </div> I like Codepen!
-			        </label>
-   				 	</div>
+                       <div class="box-line" style="margin-bottom:4px;">
+				        <input type="checkbox" id="check${chCategoryList.cate_Id}" value="${chCategoryList.cate_Id}" name="cate_Id" class="ch-input"/>
+				        <label for="check${chCategoryList.cate_Id}" >
+				          <div>
+				          <i class="fa fa-check"></i>
+				          </div><span>${chCategoryList.cate_Name}</span> 
+				        </label>
+   				 	  </div>
                         </li>
+                      </t:forEach>
                         </ul>
                         </fieldset>
                     <div class="btn_duo_popup">
@@ -723,7 +725,6 @@
                 </div>
             </div>
         </div>
-    </div>
     
 
         
