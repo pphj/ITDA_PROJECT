@@ -22,7 +22,8 @@
 
     <!-- 공지사항 페이지 글 노출 -->
      <select id="getAdminBoardList" resultType="com.itda.ITDA.domain.AdminBoard">
-        SELECT * FROM ADMINBOARD WHERE key != 'QNA'
+        SELECT * FROM ADMINBOARD WHERE key != 'QNA' AND (key = 'uNOTI' OR key = 'itNOTI')
+
     </select>
 
     <!-- 공지사항 뷰 페이지 쿼리문 -->
@@ -31,13 +32,17 @@
     </select>
     
  	<!-- qna 페이지 1대1문의 글 노출 -->
-     <select id="getQnaAdminBoardList" resultType="com.itda.ITDA.domain.AdminBoard">
-        SELECT * FROM ADMINBOARD WHERE key = 'QNA'
+     <select id="getQnaByUser" resultType="com.itda.ITDA.domain.AdminBoard">
+       SELECT * FROM ADMINBOARD
+   		 WHERE key = 'QNA' AND userId = #{userId}
+
     </select>
     
     <!-- qna 뷰 페이지에서 보여줄 값을 가져오는 쿼리문 -->
 	<select id="getAdminBoardByAdNum" parameterType="int" resultType="com.itda.ITDA.domain.AdminBoard">
-        SELECT * FROM ADMINBOARD WHERE adNum = #{adNum}
+       SELECT adDate, adState, QcateId, adTitle, adContent 
+    FROM ADMINBOARD 
+    WHERE adNum = #{adNum}
     </select>
     
     
