@@ -84,7 +84,6 @@ $(document).ready(function() {
 	
 	    var chnum = $('#categorychnum').val();
 	    var chcatename = $(this).closest('.channel_category_item').find('.channel_category_name').val();
-	    alert(chcatename);
 	    var url = '/itda/channels/' + chnum + '/categorychange';
 	    if(chcatename.trim() !== "") { 
 	        $.ajax({
@@ -96,10 +95,11 @@ $(document).ready(function() {
 			      {   // 데이터를 전송하기 전에 헤더에 csrf 값을 설정합니다.
 			         xhr.setRequestHeader(header, token);
 			      },
-	            success: function(response) {
-	                console.log('카테고리 추가 완료');
-	               
-	            },
+	           success: function(response) {
+			        console.log('카테고리 추가 완료');
+			        alert('카테고리 추가 성공'); // 카테고리 추가 성공 알림창
+			        location.reload(); // 페이지 새로고침
+			    },
 	            error: function(jqXHR, textStatus, errorThrown) {
 	                console.error('카테고리 추가 에러:', textStatus);
 	            }
