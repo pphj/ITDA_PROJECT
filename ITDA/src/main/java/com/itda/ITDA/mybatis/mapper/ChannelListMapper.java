@@ -50,6 +50,6 @@ public interface ChannelListMapper {
 
 	List<ChBoardCategory> getSellerCategory(int chnum);
 
-	void addCategory(ChBoardCategory chBoardCategory);
+	int addCategory(int chnum, String chCate_Name);
 
 }
