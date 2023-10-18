@@ -119,7 +119,7 @@
 	<p class="my_setting_desc">소식받기로 설정하신 채널 목록입니다. 톡톡으로 이벤트, 혜택 소식을 받고 싶지 않은 채널은 소식받기를 취소해주세요.</p>
  -->    <ul class="my_setting_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_NOTIFICATION_MARKETING_LIST" data-cursor-name="next" data-cursor="" data-has-next="">
     	<li class="my_setting_item _MARKETING_BUTTON_WRAP">
-    		<a href="${pageContext.request.contextPath}/channels/${channel.chNum}" class="my_setting_link" data-clk="my_setmrk.chlgo">
+    		<a href="${pageContext.request.contextPath}/channels/${channel.chNum}?userid=${channel.ownerId}" class="my_setting_link" data-clk="my_setmrk.chlgo">
     			<div class="my_setting_thumb">
     				<img src="" width="48" height="48" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
     			</div>
