@@ -26,6 +26,7 @@ import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.Itda_UserService;
+import com.itda.ITDA.service.UserCategoryService;
 import com.itda.ITDA.util.Constants;
 import com.itda.ITDA.util.Message;
 
@@ -44,12 +45,15 @@ public class UserInfoController {
 	private Itda_UserService itdaUserService;
 	private ChannelList_Service channelList_Service;
 	private ContentService contentService;
+	private UserCategoryService userCategoryService;
 	
 	@Autowired
-	public UserInfoController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service, ContentService contentService) {
+	public UserInfoController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service, 
+								ContentService contentService, UserCategoryService userCategoryService) {
 		this.itdaUserService = itdaUserService;
 		this.channelList_Service = channelList_Service;
 		this.contentService = contentService;
+		this.userCategoryService = userCategoryService;
 	}
 
 	
@@ -181,28 +185,47 @@ public class UserInfoController {
 	
 	@PostMapping("myInfo/keyWdChangePro")
 	public String keyWdChangeProcess(Principal principal,
-									UserCategory userCategory) {
+									UserCategory userCategory,
+									@RequestParam("cateNameYn") String getCateName) {
 		
 		String id = principal.getName();
+		
 		
 		userCategory.setCate_Id(userCategory.getCate_Id());
 		userCategory.setUserId(id);
 		
 		System.out.println(userCategory.getCate_Id());
 		System.out.println(userCategory.getUserId());
+
+		System.out.println("getCateName : " + getCateName);
 		
-		int result = itdaUserService.userCategoryUpdate(userCategory);
+		int result = 0;
 		
-		if(result == Constants.UPDATE_SUCCESS) {
+		// 사용자가 회원가입 시 관심카테고리를 설정하지 않았을 경우 insert
+		if(getCateName.equals(null)||getCateName.equals("")) {
 			
-			logger.info(Message.USER_UPDATE_FALL);
+			result = userCategoryService.insert(userCategory);
 			
-			return "redirect:/user/myInfo";
+			if(result == Constants.INSERT_SUCCESS) {
+				
+				logger.info(Message.INSERT_SUCCESS);
+			}
+			
 		}else {
-			logger.info(Message.USER_UPDATE_FALL);
+		
+			result = itdaUserService.userCategoryUpdate(userCategory);
+		
+			if(result == Constants.UPDATE_SUCCESS) {
 			
-			return "redirect:/user/myInfo";
+				logger.info(Message.USER_UPDATE_SUCCESS);
+			
+				return "redirect:/user/myInfo";
+			}else {
+				logger.info(Message.USER_UPDATE_FALL);
+			
+			}
 		}
+			return "redirect:/user/myInfo";
 		
 	}
 	
@@ -239,8 +262,10 @@ public class UserInfoController {
 	}
 	
 	@PostMapping("/leaveAction")
-	public String leaveAction(Principal principal, UserLeaveReason leaveReason, HttpServletRequest request,
-			Model model) {
+	public String leaveAction(Principal principal, 
+								UserLeaveReason leaveReason, 
+								HttpServletRequest request,
+								Model model) {
 
 		String id = principal.getName();
 
