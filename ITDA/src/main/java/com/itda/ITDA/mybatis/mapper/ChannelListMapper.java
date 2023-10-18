@@ -57,4 +57,6 @@ public interface ChannelListMapper {
   
 	int addCategory(int chnum, String chCate_Name);
 
+	ChannelList myChannelList(String id);
+
 }

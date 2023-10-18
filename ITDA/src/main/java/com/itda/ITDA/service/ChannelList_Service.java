@@ -47,4 +47,6 @@ public interface ChannelList_Service {
 
 	int addCategory(int chnum, String chCate_Name);
 
+	ChannelList myChannelList(String id);
+
 }

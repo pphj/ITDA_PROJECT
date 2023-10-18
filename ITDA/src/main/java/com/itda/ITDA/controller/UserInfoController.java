@@ -15,12 +15,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.MailVO;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.service.ChannelList_Service;
@@ -305,6 +307,19 @@ public class UserInfoController {
 			request.setAttribute("msg", Message.USER_LEAVE_FALL);
 		}
 		return "mypage/userinfo/userLeaveAction";
+	}
+	
+	@RequestMapping(value = "myInfo/emailChangePro", method = RequestMethod.POST)
+	public String emailChangeProcess(Itda_User user,
+									Model model,
+									MailVO mailvo) {
+		
+		
+		
+		
+		
+		return "redirect:/my/myInfo";
+		
 	}
 	
 

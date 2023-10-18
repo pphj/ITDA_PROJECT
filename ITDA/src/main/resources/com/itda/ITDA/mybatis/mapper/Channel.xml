@@ -157,5 +157,14 @@
 		VALUES (chancate_seq.NEXTVAL, #{chnum}, #{chCate_Name})
 	</insert>
 
+	<!-- mypage에서 channellist 불러오기 -->
+	<select id="myChannelList" resultType="ChannelList">
+		SELECT
+		    ownerid,chnum,chname,chprofile,chinfo,chfollow,chopendate,chvisit
+		FROM
+		    channellist
+		WHERE
+		    ownerid = #{ownerId}
+	</select>
 
 </mapper> 
