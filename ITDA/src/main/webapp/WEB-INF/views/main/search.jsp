@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"><head>
 	<title>채널 및 콘텐츠 검색</title>
@@ -204,7 +205,7 @@
 </script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<!-- <script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script> -->
-	    <script src="${pageContext.request.contextPath}/resources/js/search/itda_read.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/search/itda_read.js"></script>
 <script>
 $(window).on("load", function() {
 	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
@@ -310,6 +311,10 @@ $(window).on(eventType, function() {
 		window.lcsResult = lcs_do(additionalInfo);
 	}
 });
+
+
+
+
 </script>
 
 

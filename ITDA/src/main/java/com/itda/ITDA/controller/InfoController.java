@@ -123,25 +123,5 @@ public class InfoController {
 	    return "redirect:/info/qna";  // 처리 후 리다이렉트할 페이지
 	}
 	
-	public PaginationDTO calculatePagination (int page, int limit, int listCount) {
-		PaginationDTO p = new PaginationDTO();
-		
-		p.setLimit(limit);
-		p.setListCount(listCount);							//총 글의 수
-		p.setMaxPage((listCount + limit -1) / limit);		//최대 페이지 수
-		p.setStartPage(((page - 1) / 10) * 10 + 1);			//현재 페이지에 표시할 첫 페이지 수
-		p.setEndPage(p.getStartPage() + 10 - 1);			//현재 페이지에 표시할 끝 페이지 수
-		
-		if (p.getEndPage() > p.getMaxPage()) {
-			p.setEndPage(p.getMaxPage());
-		}
-		
-		return p;
-	}
-
-
-	
-
-
 
 }
