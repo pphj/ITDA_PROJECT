@@ -1,4 +1,4 @@
-@charset "EUC-KR";
+@charset "UTF-8";
 
 a{
 	color : black;
@@ -238,15 +238,15 @@ article.modal_article .btn-primary {
 	border-radius: 2px;
 }
 
-.btn-primary, .btn.btn-primary, .design_setting_view .btn-primary:hover
-	{
-	background-color: ##007bff;
-	border-color: ##007bff;
+.btn-primary .btn.btn-primary .design_setting_view .btn-primary:hover {
+	background-color: #007bff;
+	border-color: #007bff;
 	color: #fff;
 	padding-left: 50px;
 	padding-right: 50px;
 	border-width: 1px;
 }
+
 
 .no-padding button {
 	padding: 0 8px;
@@ -310,11 +310,8 @@ article.modal_article .btn-primary {
 	margin-bottom: 8px !important;
 }
 
-/* .modal-dialog {
-	display: inline-block;
-	text-align: left;
-	vertical-align: middle;
-	margin: 80px auto;
-} */
-
-/* ��占썼�占썼린占쏙옙占� 筌≪��由� end */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; 
+}

@@ -126,6 +126,20 @@
 	    set cate_Id = #{cate_Id}
 	    where userId = #{userId}
 	</update>
+	
+	<!-- 접속자가 판매자인지 일반 유저인지 체크 -->
+	<select id="isUserIdORSellerId" resultType="Itda_User">
+	    SELECT
+	        itda_user.userid as userId,
+	        seller.userid as sellerId
+	    FROM
+	        itda_user
+	    LEFT JOIN seller ON itda_user.userid = seller.userid
+	    WHERE itda_user.userid = #{userId}
+	        OR seller.userid = #{userId, jdbcType=VARCHAR}
+	</select>
+
+
 
 	
 </mapper>

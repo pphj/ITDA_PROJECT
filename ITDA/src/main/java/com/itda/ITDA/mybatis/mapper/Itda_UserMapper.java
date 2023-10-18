@@ -42,6 +42,8 @@ public interface Itda_UserMapper {
 
 	int userCategoryUpdate(UserCategory userCategory);
 
+	Itda_User isUserIdORSellerId(String id);
+
 	
 	
 }

@@ -231,83 +231,7 @@
                         </script>
                     </div>
                 </div>
-<!--                <div class="banner_area top">
-    <a href="javascript:;" class="banner" style="background-color: #22afff;" onclick="nclk(this,'nid.banner2Step','','',event);go2StepVerification();">
-        <img src="https://ssl.pstatic.net/static/nid/account/banner/naverid_banner_01.png" width="100%" height="100%" alt="새벽 4시에 로그인? 2단계 인증, 늦기 전에 미리 설정!" class="img_banner">
-    </a>
-</div>-->
 
-<!--내프로필-->
-<%-- <div class="account_box">
-    <div class="title">
-        <h2 class="title_text">내프로필</h2>
-    </div>
-
-    <ul class="account_row">
-        <li>
-            <div class="row_item name ">
-                <span class="item_text">${user.userName }</span>
-                <button type="button" class="btn_edit"
-                        onclick="changeName()">
-                    <span class="text">실명수정</span>
-                </button>
-            </div>
-        </li>
-
-        <li>
-            <div id="phoneNoRegDiv" class="row_item phone ">
-                <span id="phoneNoRegSpan"
-                      class="item_text">${user.userPhone}</span>
-                <button type="button" id="phoneNoRegBtn"
-                        class="btn_edit"
-                        onclick="showPhoneNumberChangePopUp()">
-                    <span id="phoneNoRegBtnTxt"
-                          class="text">수정</span>
-                </button>
-            </div>
-        </li>
-
-        <li>
-            <div class="row_item mail ">
-                <span id="myLetterEmailRegSpan"
-                      class="item_text">${user.userEmail }</span>
-                <button type="button" class="btn_edit"
-                        onclick="showMyLetterEmailChangePopUp()">
-                    <span class="text">수정</span>
-                </button>
-            </div>
-            <div id="pswdEmailRegDiv" class="row_item mail not">
-                <span id="pswdEmailRegSpan"
-                      class="item_text">본인확인 이메일 없음</span>
-                <button type="button" id="pswdEmailRegBtn"
-                        class="btn_accent"
-                        onclick="showPswdEmailChangePopUp()">
-                    <span id="pswdEmailRegBtnTxt"
-                          class="text">등록</span>
-                </button>
-            </div>
-        </li>
-        <li>
-            <div id="phoneNoRegDiv" class="row_item post ">
-                <span id="phoneNoRegSpan"
-                      class="item_text">${user.userPost}&nbsp;&nbsp;
-                     ${user.userAddress1}&nbsp;${user.userAddress2}</span>
-   	 <button type="button" id="addressRegBtn"
-            class="btn_edit"
-            onclick="showAddressChangePopUp()"><span class="text">주소변경</span></button>
-            </div>
-        </li>
-                <li>
-            <div id="phoneNoRegDiv" class="row_item post ">
-                <span id="phoneNoRegSpan"
-                      class="item_text">${user.cate_Name}</span>
-    			<button type="button" id="addressRegBtn"
-            class="btn_edit"
-            onclick="showAddressChangePopUp()"><span class="text">관심키워드 변경</span></button>
-            </div>
-        </li>
-    </ul>
-</div> --%>
 <div class="account_box">
     <div class="title">
         <h2 class="title_text">내프로필</h2>
@@ -365,7 +289,10 @@
     </ul>
 </div>
 
+<t:if test="${message ne 'NOT_SELLER' }">
+
 <!-- seller 프로필 시작  -->
+
 <div class="account_box">
     <div class="title">
         <h2 class="title_text">SELLER 프로필</h2>
@@ -406,6 +333,7 @@
         </li>
       </ul>
    </div>
+</t:if>
 
 <!--보안설정-->
 <div class="account_box">
@@ -595,6 +523,8 @@
     <input type="hidden" name="mobileYn" id="mobileYn" value="N" />
     <input type="hidden" name="addressYn" id="isAddressYn" value="Y"/>
     <input type="hidden" name="userId" id="userId" value="${user.userId }"/>
+    <input type="hidden" name="cateNameYn" id="cateNameYn" value="${user.cate_Name}"/>
+    
     
  
     

@@ -139,7 +139,6 @@ $(function() {
 
 	<div id="container">
 		<!-- CONTENTS -->
-		<!-- CONTENTS -->
 	<div id="content">
 		<div class="c_header">
 			<h2>탈퇴 안내</h2>

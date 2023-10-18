@@ -20,6 +20,9 @@ public class ContentController {
 
 	private ContentService contentService;
 
+	// chnum 파라미터가 없거나 null인 경우에 대한 처리를 수행합니다.
+	final int WRONG_CHNUM = 0;
+
 	@Autowired
 	public ContentController(ContentService contentService) {
 		this.contentService = contentService;
@@ -84,5 +87,7 @@ public class ContentController {
 		// 뷰 페이지로 이동
 		return "content/content_list";
 	}*/
+
+
 
 }
