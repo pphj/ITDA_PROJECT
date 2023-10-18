@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content/content_write.css">
 <script src="${pageContext.request.contextPath}/resources/js/content/content_write.js"></script>
 <script src="resources/ckeditor5/build/ckeditor.js"></script>
-<script type="module" src="${pageContext.request.contextPath}/resources/js/Ckeditor.js"></script>
+<script src="${pageContext.request.contextPath}/resources/ckeditor5/build/ckeditor.js"></script>
 <script !src="">
 	const chnum = <c:out value="${chNum}"/>
 </script>
@@ -53,7 +53,7 @@
 					<div class="thumbNailArea">
 						<%--                    <span class="thumbNailName">썸네일</span>--%>
 						<div style="height: 50px; margin: 15px 20px 0px 0px">
-							<label class="thumbNailUploadArea" for="file"> <img src="../image/content/thumbnailupload.png"
+							<label class="thumbNailUploadArea" for="file"> <img src="${pageContext.request.contextPath}/resources/image/content/thumbnailupload.png"
 								style="width: 100px; height: 100px;"><br> <span style="color: #c9c9c9">썸네일 업로드</span> <input
 								class="thumbNailUpload" type="file" name="thumbNail" id="file" accept="image/*">
 							</label>
