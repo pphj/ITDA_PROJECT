@@ -52,10 +52,12 @@
     </div>
 	<div class="main-content" style="padding: 30px 25px;">
 	<div class="card">
-			<div class="card-body">
+		<div class="card-body">
  		<table class="table">
  			<tr>
- 				<th colspan="2">&nbsp;</th>
+ 				<th colspan="2">
+					<h3 style="text-align: center;">Q&A 내용</h3>
+				</th>
  			</tr>
  			<tr>
  				<td><div>질문자</div></td>
@@ -94,7 +96,8 @@
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly>${qnadata.adContent}</textarea></td>
+ 				<textarea class="form-control" rows="5"
+ 				 readOnly style="resize: none;">${qnadata.adContent}</textarea></td>
  			</tr>
  			<tr>
  				<td colspan="2" class="center" style="text-align: center;">
@@ -112,16 +115,7 @@
  		</table>
  		<%-- 댓글 --%>
  		<div id="qnaReply">
-	 		<button class="btn btn-info float-left btn-sm btn-round">총 1000자까지 가능합니다.</button>
-	 		<button id="qnaWrite" class="btn btn-info btn-sm btn-round" style="float: right;">답변 등록</button>
-	 		<textarea rows="3" class="form-control" id="qnaReplyContent" maxLength="1000"
-	 			style="margin-bottom: 30px;">
-	 		</textarea>
-	 		<form name="forNum">
-	 			<input type="hidden" name="num" value="${qnadata.adNum}" id="adNum">
-	 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-	 		</form>
-	 		<table class="table">
+ 			<table class="table">
 	 			<thead>
 	 				<tr>
 	 					<td colspan="1" class="text-center">번호</td>
@@ -134,6 +128,15 @@
 	 			</tbody>
 	 		</table>
 	 		<div id="message" style="margin-bottom: 30px;"></div>
+	 		<button class="btn btn-info float-left btn-sm btn-round">총 1000자까지 가능합니다.</button>
+	 		<button id="qnaWrite" class="btn btn-info btn-sm btn-round" style="float: right;">답변 등록</button>
+	 		<textarea rows="3" class="form-control" id="qnaReplyContent" maxLength="1000"
+	 			style="margin-bottom: 30px; resize: none;">
+	 		</textarea>
+	 		<form name="forNum">
+	 			<input type="hidden" name="num" value="${qnadata.adNum}" id="adNum">
+	 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	 		</form>
 	 	</div>
  	</div>
  	</div>

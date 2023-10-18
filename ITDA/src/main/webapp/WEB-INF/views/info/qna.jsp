@@ -55,7 +55,7 @@
 				        </div>
 				        <span class="col date txt-num">${qna.adDate}</span>
 				        <div class="col state">
-				            <span class="badge-answer">  </span>
+				            <span class="badge-answer">${qna.adNum}</span>
 				            <!-- 여기에 상태 필드 추가 -->
 				        </div>
 				    </div>

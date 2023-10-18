@@ -19,9 +19,19 @@ function onDropdownButtonClick() {
 }
 
 $(document).ready(function() {
-	// 초기에는 'articles' 탭을 보이도록 설정
-	onTabClick('articles');
+    // 초기에는 'articles' 탭을 보이도록 설정
+    onTabClick('articles');
 
-	// 드롯다운 버튼에 이벤트 핸들러 연결
-	$("#settingButton").click(onDropdownButtonClick);
+    // 드롯다운 버튼에 이벤트 핸들러 연결
+    $("#settingButton").click(onDropdownButtonClick);
+
+    // 글 작성 버튼 클릭 이벤트 처리
+	$(".btnWrite").click(function(){
+	    var chnum = $("input[name='btnwrite']").val();
+	    alert(chnum)
+	    window.location.href = 'contentwrite.co/' + chnum;
+	});
+	
+	
+
 });

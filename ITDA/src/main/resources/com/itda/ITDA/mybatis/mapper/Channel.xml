@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper
-	namespace="com.itda.ITDA.mybatis.mapper.ChannelListMapper">
+<mapper namespace="com.itda.ITDA.mybatis.mapper.ChannelListMapper">
 
 	<select id="getChannelDetail" resultType="ChannelList">
 		SELECT *
@@ -82,20 +81,20 @@
 
 	<select id="getChannelCategoryData" resultType="ChBoard">
 	    <![CDATA[
-	        SELECT *
-	        FROM (
-	            SELECT rownum rnum, j.*
-	            FROM (
-	                SELECT *
-	                FROM chboard
-	                NATURAL JOIN chboardcategory
-	                WHERE chnum = #{chnum}
-	                AND chcate_id = #{chCate_Id}
-	            ) j
-	            WHERE rownum <= #{endrow}
-	        )
-	        WHERE rnum >= #{startrow} AND rnum <= #{endrow}
-	        ORDER BY boardDate ASC
+	     SELECT *
+			FROM (
+			    SELECT ROWNUM rnum, j.*
+			    FROM (
+			        SELECT *
+			        FROM chboard
+			        NATURAL JOIN chboardcategory
+			        WHERE chnum = #{chnum}
+			          AND chcate_id = #{chCate_Id}
+			          ORDER BY boardDate ${order}, boardNum DESC 
+			     ) j 
+			     WHERE ROWNUM <= #{endrow}  
+			)
+			WHERE rnum >= #{startrow} 
 	     ]]>
 	</select>
 
@@ -156,6 +155,13 @@
 		INSERT INTO chboardcategory(CHCATE_ID, chNum, chCate_Name)
 		VALUES (chancate_seq.NEXTVAL, #{chnum}, #{chCate_Name})
 	</insert>
+	
+	
+	<select id="searchChannelsByKeyword" parameterType="java.lang.String" resultType="com.itda.ITDA.domain.ChannelList">
+        SELECT *
+        FROM channellist
+        WHERE chName LIKE CONCAT('%', #{keyword}, '%')
+    </select>
 
 	<!-- mypage에서 channellist 불러오기 -->
 	<select id="myChannelList" resultType="ChannelList">
@@ -167,4 +173,25 @@
 		    ownerid = #{ownerId}
 	</select>
 
+	<update id="updateCategory">
+		UPDATE chboardcategory
+		SET chCate_Name = #{chCate_Name}
+		WHERE chCate_Id = #{chCate_Id}
+	</update>
+	
+	<delete id="deleteCategory">
+		delete from chboardcategory
+		where chCate_Id =  #{chCate_Id}
+	</delete>
+	
+	<select id="getContentListDetail" resultType="ChannelList">
+		SELECT *
+		FROM
+		CHANNELLIST
+		WHERE CHNUM = #{chnum}
+	</select>
+	
+	<select id="getCategoryNameList" resultType="ChBoardCategory">
+	select * from chboardcategory where chnum = #{chnum}
+	</select>
 </mapper> 

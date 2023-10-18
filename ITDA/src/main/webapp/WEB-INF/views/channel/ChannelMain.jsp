@@ -27,11 +27,8 @@
 $(document).ready(function(){
 	  $(".btnBlockProfile").click(function(){
 	    window.location.href = '${pageContext.request.contextPath}/channels/${ChannelList.chNum}/sellersetting';
-	  });
-	  $(".btnReportProfile").click(function(){
-	    window.location.href = '${pageContext.request.contextPath}/channels/${ChannelList.chNum}/sellersettingCategory';
-	  });
-	});
+	  });	  
+});
 </script>
 <style>
 .layer_action_ctrl {
@@ -69,15 +66,19 @@ $(document).ready(function(){
 		
 		<div class="wrap_profile_btn">
 			<input type="hidden" name="myWriter" value="false">
+			<input type="hidden" name="btnwrite" value="${ChannelList.chNum}">
 			<span class="#my_follow follow_button_wrapper">
 					<sec:authorize access="isAuthenticated()">
 	               	<sec:authentication property="principal" var="pinfo"/>
 			               	<c:if test="${sellerinfo.userId == pinfo.username}">
-								<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
+			               		<a href="${pageContext.request.contextPath}/channels/contentwrite.co/${ChannelList.chNum}">
+								<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow btnWrite">
 									<span class="txt_default">
+										
 										<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글작성
 									</span>
 								</button>
+								</a>
 							</c:if>
 					</sec:authorize>
 					

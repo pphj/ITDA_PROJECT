@@ -46,7 +46,7 @@
     </div>
     <div class="main-content" style="padding: 30px 25px;">
 	<div class="card">
-			<div class="card-body">
+		<div class="card-body">
  		<c:if test="${listcount > 0}">
  		<div class="rows" style="width: 48px; float: right;">
 	 		<span>줄보기</span>
@@ -99,7 +99,7 @@
 						</c:choose>
 		 				<td class="td-actions text-center">
 				        	<button type="button" rel="tooltip"
-				             class="btn btn-danger btn-icon btn-sm Pause" data-original-title="" title="">
+				             class="btn btn-secondary btn-icon btn-sm Pause" data-original-title="" title="">
 				            	<i class="fa fa-pause pt-1"></i>&nbsp;&nbsp;&nbsp;일시정지
 				            </button>
 				            <button type="button" rel="tooltip"
@@ -107,7 +107,7 @@
 				            	<i class="fa fa-ban pt-1"></i>&nbsp;&nbsp;&nbsp;정지
 				            </button>
 				            <button type="button" rel="tooltip"
-				             class="btn btn-info btn-icon btn-sm Clear" data-original-title="" title="">
+				             class="btn btn-success btn-icon btn-sm Clear" data-original-title="" title="">
 				            	<i class="fa fa-heart pt-1"></i>&nbsp;&nbsp;&nbsp;해제
 				            </button>
 				        </td>

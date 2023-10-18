@@ -25,6 +25,8 @@ public interface adminService {
 
 	public int FAQModify(AdminBoard FAQdata);
 
+	public int faqDelete(int num);
+
 	public int getQNAListCount();
 
 	public List<AdminBoard> getQNAList(int page, int limit);
@@ -110,6 +112,7 @@ public interface adminService {
 	public int sellerDailyCount();
 
 	public int problemDailyCount();
+
 
 
 }
