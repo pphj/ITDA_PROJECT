@@ -55,6 +55,7 @@ public class MyContentsPageController {
 	    	
 	    	if (sellerId == null || sellerId.equals("")) {
 	    		model.addAttribute("message", "NOT_SELLER");
+	    		session.setAttribute("message", "NOT_SELLER");
 	    	}
 	    	
 	    	return "mypage/subscriptions";
