@@ -50,5 +50,14 @@
 				 where boardnum = #{boardNum}
 				 and chboard.chcate_id = chboardcategory.chcate_id
 	</select>
+
+	
+	
+	  <select id="searchContentsByKeyword" parameterType="java.lang.String" resultType="com.itda.ITDA.domain.ChBoard">
+        SELECT *
+        FROM chboard
+        WHERE boardTitle LIKE CONCAT('%', #{keyword}, '%')
+            OR boardContent LIKE CONCAT('%', #{keyword}, '%')
+    </select>
 	
 </mapper>

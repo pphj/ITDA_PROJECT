@@ -171,19 +171,24 @@
 															<li class="channel_category_item">
 																<input type="hidden" name="categorychnum" id="categorychnum" value="${SellerSetting.chNum}"
 																	style="width: 254px; border: none;">
-																<strong class="channel_category_name">${c.chCate_Name}</strong>
+																<input type="hidden" class="channel_category_id" type="text"
+																		name="categoryId" id="categoryId" value="${c.chCate_Id}" style="width: 254px; border: none;">
+																<%--<strong class="channel_category_name">${c.chCate_Name}</strong>--%>
 																<div class="channel_category_num">
-																	<input type="hidden" class="channel_category_name" type="text" name="categoryName" id="categoryName" value="${c.chCate_Name}"
-																		style="width: 254px; border: none;">
-																	<button class="btn_model" data-name="${c.chCate_Name}">
-																		<b id="btnChangeCategcategoryNameory" class="btn3">수정</b>
-																	</button>
-																	<button class="btn_model">
-																		<b id="btnDeleteCategory" class="btn3">삭제</b>
-																	</button>
+																	<input class="channel_category_name" type="text" name="categoryName" id="categoryName" value="${c.chCate_Name}"
+																		style="width: 254px; border: none;"> 
+																	<div class="channel_category_button">
+																		<button class="btn_model" data-name="${c.chCate_Name}">
+																			<b id="btnChangeCategcategoryNameory" class="btn3" updatenum="${c.chCate_Id}">수정</b>
+																		</button>
+																		<button class="btn_model">
+																			<b id="btnDeleteCategory" class="btn3" updatenum="${c.chCate_Id}">삭제</b>
+																		</button>
+																	</div>
 																</div>
 															</li>
 														</c:forEach>
+													</div>
 												</ul>
 											</div>
 										</td>

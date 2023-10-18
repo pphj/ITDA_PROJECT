@@ -85,27 +85,23 @@ public class MainController {
 	}
 	
 	@GetMapping(value = "/search")
-	public String search(@RequestParam("keyword") String keyword, Model model) {
-	    // 키워드 검색 로직 수행
-	    List<ChannelList> channels = mainService.searchChannelsByKeyword(keyword);
-	    List<ChBoard> contents = mainService.searchContentsByKeyword(keyword);
-
-	    // 검색 결과 데이터를 모델에 추가
-	    model.addAttribute("keyword", keyword);
-	    model.addAttribute("channels", channels);
-	    model.addAttribute("contents", contents);
-
-	    return "redirect:/search/"; // 검색 결과를 보여줄 경로로 리다이렉트
+	public String search() {
+	    return "main/search";
 	}
 
-	@GetMapping(value = "/search/result")
-	public String searchResult() {
-	    return "/main/search_view"; // 검색 결과를 보여줄 뷰 페이지의 경로
+	@GetMapping("/search/result")
+	public ModelAndView searchResult(@RequestParam("searchQuery") String keyword) {
+		List<ChannelList> channelResults = mainService.searchChannelsByKeyword(keyword);
+		List<ChBoard> contentResults = mainService.searchContentsByKeyword(keyword);
+
+		ModelAndView modelAndView = new ModelAndView("main/search_View");
+		modelAndView.addObject("channelResults", channelResults);
+		modelAndView.addObject("contentResults", contentResults);
+
+		// 수정된 부분: 검색어를 모델에 추가하여 뷰로 전달
+		modelAndView.addObject("searchQuery", keyword);
+
+		return modelAndView;
 	}
 
-	
-
-	
-	
-	
 }

@@ -58,7 +58,7 @@ public class OrderController {
 		try {
 			String Authorization = "ab9709a083b3a085972288a24ef76a19";
 			String kakaoUrl = "https://kapi.kakao.com/v1/payment/ready";
-			String approvalUrl = "http://localhost:9400/itda/product/kakaoPayApproval";
+			String approvalUrl = "http://localhost:9400/itda/product/approval";
 			String failUrl = "http://localhost:9400/itda/product/fail";
 			String cancelUrl = "http://localhost:9400/itda/product/cancel";
 			

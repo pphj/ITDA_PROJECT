@@ -26566,6 +26566,15 @@ div.my_subscriptions_channel_link::after {
 	height: 24px;
 }
 
+/* 나의 채널 목록 출력 버튼 */
+.my_user_link.is_channel::before {
+	background-image:url("../../../resources/image/mypage/channel_tv_icon.png");
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	width: 24px;
+	height: 24px;
+}
+
 @media (min-width: 1080px) {
 	.my_user_link.is_active {
 		font-weight: bold;
