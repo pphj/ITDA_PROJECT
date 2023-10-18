@@ -114,7 +114,7 @@ public class MyContentsPageController {
 		channel = channelList_Service.myChannelList(id);
 		
 		model.addAttribute("channel", channel);
-		
+		logger.info("CHOPENDATE : " + channel.getChOpenDate());
 		
 		return "mypage/mychannellist";
 	}

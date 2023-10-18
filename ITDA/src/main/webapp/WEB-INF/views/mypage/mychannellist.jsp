@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
@@ -127,9 +130,15 @@
     			<div class="my_subscribe_info">
     				<p>${channel.chInfo }</p>
     			</div>
+
     			<div class="my_subscribe_date">
-    				<p class="my_channel_date_text">${channel.chOpenDate }</p>
+    				<em class="my_channel_date_title">채널 개설일</em><div class="my_channel_date_text"><fmt:formatDate value="${channel.chOpenDate}" pattern="yyyy.MM.dd HH:mm" /></div>
     			</div>
+    			<div class="my_subscribe_date">
+    				<em class="my_channel_date_title">채널 구독자 </em><span class="my_channel_date_text">${channel.chFollow}&nbsp;&nbsp;</span> 
+    				<em class="my_channel_date_title">채널 방문자 </em><span class="my_channel_date_text">${channel.chVisit}</span>
+    			</div>
+
     			</div>
     		</a>
 <!--     		<button type="button" aria-pressed="true" class="news_button _MARKETING_BUTTON" data-enabled="true" data-cp-name="slowpianist" data-sub-id="pandapiano" data-channel-name="노애리의 피아노 이야기" data-on-clk="my_setmrk.on" data-off-clk="my_setmrk.off">

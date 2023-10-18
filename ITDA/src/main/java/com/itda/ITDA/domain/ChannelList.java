@@ -1,6 +1,7 @@
 package com.itda.ITDA.domain;
 
-import java.security.Timestamp;
+
+import java.sql.Timestamp;
 
 import org.springframework.web.multipart.MultipartFile;
 
