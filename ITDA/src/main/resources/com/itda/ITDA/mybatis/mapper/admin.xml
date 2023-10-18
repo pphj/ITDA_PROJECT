@@ -40,6 +40,12 @@
 		where adNum = #{adNum}
 	</update>
 	
+	<update id="faqDelete" parameterType="AdminBoard">
+		update adminboard
+		set adState = 'N'
+		where adNum = #{adNum}
+	</update>
+	
 	<select id="isadWriter" parameterType="Map" resultType="AdminBoard">
 		select adNum, adPassword from adminboard
 		where adNum = #{num}					<!-- BoardServiceImpl에서 put으로 설정해놓은 이름 -->

@@ -99,7 +99,8 @@
 				</c:choose>
  				<td class="text-center"><c:out value="${b.warnDate}" /></td>
  				<td class="text-center" style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly>${b.warnReason}</textarea></td>
+ 				<textarea class="form-control" rows="5" style="resize: none;"
+ 				 readOnly>${b.warnReason}</textarea></td>
  			</tr>
  		</c:forEach>
  		</table>
@@ -149,7 +150,8 @@
 				</c:choose>
  				<td class="text-center"><c:out value="${r.warnDate}" /></td>
  				<td class="text-center" style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly>${r.warnReason}</textarea></td>
+ 				<textarea class="form-control" rows="5" style="resize: none;"
+ 				 readOnly>${r.warnReason}</textarea></td>
  			</tr>
  		</c:forEach>
  		</table>
@@ -158,7 +160,7 @@
  	</div>
  	<div class="text-center">
 	 	<a href="${pageContext.request.contextPath}/admin/problem">
-	 		<button class="btn btn-info btn-sm btn-round">
+	 		<button class="btn btn-success btn-sm btn-round">
 	 			<i class="ni ni-bullet-list-67"></i> 목록
 	 		</button>
 	 	</a>
