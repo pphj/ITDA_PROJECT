@@ -65,15 +65,15 @@ public class UserInfoController {
 		String id = principal.getName();
 		logger.info("id : " + principal.getName());
 		
+		Itda_User idCheck = itdaUserService.isUserIdORSellerId(id);
+		logger.info("getUserId 결과 : " + idCheck.getUserId());
+		logger.info("getSellerId 결과 : " + idCheck.getSellerId());
 		
-		int result = itdaUserService.isId(id);
-		logger.info("결과 : " + result);
-		
-		
-		
-	    if(result == Constants.CONNECT_SUCCESS) {
-	    	
-	    	Itda_User vo = itdaUserService.read(id);
+		String sellerId = idCheck.getSellerId();
+    	
+		if(idCheck.getUserId() != null) {
+			
+			Itda_User vo = itdaUserService.read(id);
 	    	model.addAttribute("user", vo);
 	    	session.setAttribute("userName", vo.getUserName());
 	    	
@@ -81,10 +81,14 @@ public class UserInfoController {
 	    	List<ChCategory> chCategoryList = contentService.selectchCate_Id();
 	    	
 	    	model.addAttribute("chCategoryList", chCategoryList);
+			
+	    	if (sellerId == null || sellerId.equals("")) {
+	    	    model.addAttribute("message", "NOT_SELLER");
+	    	}
 	    	
-	    	return "mypage/userinfo/myinfopage";
-	    	
-	    } else {
+		    	return "mypage/userinfo/myinfopage";
+		    	
+		} else {
 	    	logger.info("페이지 연결 에러");
 	    	return "redirect:/";
 	    }

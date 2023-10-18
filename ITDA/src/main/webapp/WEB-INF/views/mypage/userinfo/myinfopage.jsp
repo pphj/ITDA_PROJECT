@@ -289,7 +289,10 @@
     </ul>
 </div>
 
+<t:if test="${message ne 'NOT_SELLER' }">
+
 <!-- seller 프로필 시작  -->
+
 <div class="account_box">
     <div class="title">
         <h2 class="title_text">SELLER 프로필</h2>
@@ -330,6 +333,7 @@
         </li>
       </ul>
    </div>
+</t:if>
 
 <!--보안설정-->
 <div class="account_box">
