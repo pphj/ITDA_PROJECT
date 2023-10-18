@@ -127,12 +127,12 @@
     			<div class="my_channel_name">
     			<strong class="my_channel_name_text">${channel.chName}</strong>
     			</div>
-    			<div class="my_subscribe_info">
+    			<div class="my_channel_intro">
     				<p>${channel.chInfo }</p>
     			</div>
 
     			<div class="my_subscribe_date">
-    				<em class="my_channel_date_title">채널 개설일</em><div class="my_channel_date_text"><fmt:formatDate value="${channel.chOpenDate}" pattern="yyyy.MM.dd HH:mm" /></div>
+    				<em class="my_channel_date_title">채널 개설일</em><div class="my_channel_date_text"><fmt:formatDate value="${channel.chOpenDate}" pattern="yyyy.MM.dd" /></div>
     			</div>
     			<div class="my_subscribe_date">
     				<em class="my_channel_date_title">채널 구독자 </em><span class="my_channel_date_text">${channel.chFollow}&nbsp;&nbsp;</span> 
