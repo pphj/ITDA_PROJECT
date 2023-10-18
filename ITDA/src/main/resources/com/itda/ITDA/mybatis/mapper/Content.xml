@@ -50,5 +50,6 @@
 				 where boardnum = #{boardNum}
 				 and chboard.chcate_id = chboardcategory.chcate_id
 	</select>
+
 	
 </mapper>

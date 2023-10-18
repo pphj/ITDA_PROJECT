@@ -108,103 +108,101 @@ $(document).ready(function() {
   });
  
 
-			$(document).on('click', '.btn_model', function(e) {
-			    e.preventDefault();
-			
-			    // updatenum 가져오기
-			    var updatenum = $(this).find('b').attr('updatenum');
-			    console.log(updatenum);
-			
-			    // 해당 카테고리 이름 텍스트(실제로는 값)를 가져옵니다.
-			    var categoryName = $(this).closest('.channel_category_num').find('.channel_category_name').val();
-			    console.log(categoryName); 
-			
-			     // 텍스트(값)를 변경할 수 있는 input 필드로 변경합니다.
-			     var newElement = $('<input type="text" class="editCategory" style="width: 254px; border: 1px solid #ccc; margin-left: 10px; margin-top: 6px;" value="' + categoryName + '"/>');
-			     newElement.attr('data-updatenum', updatenum);   // HTML 속성으로 데이터 저장
-			     $(this).closest('.channel_category_num').find('.channel_category_name')
-			       .replaceWith(newElement);
-			});
-			
-			$(document).on('blur', '.editCategory', function() {
-			        var newCategoryName = $(this).val();
-			
-			         // 새 카테고리 이름으로 <strong> 태그를 생성하고 기존 <input> 요소와 교체합니다.
-			        $(this).replaceWith('<strong class="channel_category_name">' + newCategoryName + '</strong>');
-			        
-			        // 여기서 AJAX 호출을 만들어서 서버에 새 카테고리 이름을 업데이트합니다.
-			        var chnum = $('#categorychnum').val();
-			        
-			        // updatenum 가져오기
-			        var categoryId = $(this).attr('data-updatenum');   // attr() 사용하여 속성 값 가져오기
-			
-			        alert(categoryId);   // 확인용 alert
-			        
-			        var url = '/itda/channels/' + chnum + '/categoryupdate';
-			    
-			        $.ajax({
-			          url: url,
-			          type: 'PUT',
-			          data: JSON.stringify({ 
-			           chCate_Name: newCategoryName,
-			           chCate_Id: categoryId   // 여기에서 categoryId 추가
-			          }),
-			          contentType: "application/json;charset=UTF-8",
-			          beforeSend: function(xhr) {
-			            xhr.setRequestHeader(header, token);
-			          },
-			          success: function(response) {
-			            console.log('카테고리 수정 완료');
-			            alert('카테고리 수정 성공');
-			            location.reload();
-			           },
-			           error: function(jqXHR, textStatus, errorThrown) {
-			             console.error('카테고리 수정 에러:', textStatus);
-			           }
-			         });
-			});
-
-			 
-			 $(document).on('click', '#btnDeleteCategory', function(e) {
-			 
-			    e.preventDefault();
-			    alert('카테고리를 삭제합니다');
-			    
-			    // updatenum 가져오기
-			    var categoryId = $(this).attr('updatenum');
-			    alert(categoryId);
-			
-			    var chnum = $('#categorychnum').val();
-			    
-			    	
-			    var url = '/itda/channels/' + chnum + '/categorydelete';
-			    
-			    // 현재의 'this' 값 (삭제 버튼)을 캐시하여 AJAX 콜백 내부에서 사용
-	   			var $this = $(this);
-			
-			    $.ajax({
-			      url: url,
-			      type: 'DELETE',
-			      data: JSON.stringify({ 
-			       chCate_Id: categoryId   // 여기에서 categoryId 추가
-			      }),
-			      contentType: "application/json;charset=UTF-8",
-			      beforeSend: function(xhr) {
-			        xhr.setRequestHeader(header, token);
-			      },
-			      success: function(response) {
-			        console.log('카테고리 삭제 완료');
-			        alert('카테고리 삭제되었습니다');
-			        
-			        $this.closest('.channel_category_item').remove();  // HTML에서 해당 카테고리 아이템 제거
+	$(document).on('click', '.btn_model', function(e) {
+	    e.preventDefault();
 	
-			        location.reload();
-			       },
-			       error: function(jqXHR, textStatus, errorThrown) {
-			         console.error('카테고리 삭제 에러:', textStatus);
-			       }
-			     });
-			
-			     $(this).closest('.channel_category_item').remove();  // HTML에서 해당 카테고리 아이템 제거
-			});
+	    // 해당 카테고리 이름 텍스트(실제로는 값)를 가져옵니다.
+	    var categoryName = $(this).closest('.channel_category_num').find('.channel_category_name').val();
+	    console.log(categoryName); 
+	
+	     // 텍스트(값)를 변경할 수 있는 input 필드로 변경합니다.
+	    $(this).closest('.channel_category_num').find('.channel_category_name')
+	      .replaceWith('<input type="text" class="editCategory" style="width: 254px; border: 1px solid #ccc; margin-left: 10px; margin-top: 6px;" value="' + categoryName + '"/>');
+	});
+
+	$(document).on('blur', '.editCategory', function() {
+	    var newCategoryName = $(this).val();
+	
+	     // 새 카테고리 이름으로 <strong> 태그를 생성하고 기존 <input> 요소와 교체합니다.
+	    $(this).replaceWith('<strong class="channel_category_name">' + newCategoryName + '</strong>');
+	    //alert(newCategoryName)
+		
+	    // 여기서 AJAX 호출을 만들어서 서버에 새 카테고리 이름을 업데이트합니다.
+	    var chnum = $('#categorychnum').val();
+	    
+	  
+	    // categoryId 가져오기
+	   	var categoryId = $('.channel_category_id').val();
+	    //var categoryId = $(this).closest('.channel_category_item').find('.channel_category_id').val(); 
+		alert(categoryId)
+	    //var categoryId = $('.channel_category_id').val();
+    	//var categoryId = $('#categoryId').val();
+    	
+	    var url = '/itda/channels/' + chnum + '/categoryupdate';
+	
+	    $.ajax({
+	      url: url,
+	      type: 'PUT', 
+	      data: JSON.stringify({ 
+	       chCate_Name: newCategoryName, 
+	       chCate_Id: categoryId   // 여기에서 categoryId 추가
+	      }),
+	      contentType: "application/json;charset=UTF-8",
+	      beforeSend: function(xhr) {
+	        xhr.setRequestHeader(header, token);
+	      },
+	      success: function(response) {
+	        console.log('카테고리 수정 완료');
+	        alert('카테고리 수정 성공');
+	        location.reload();
+	       },
+	       error: function(jqXHR, textStatus, errorThrown) {
+	         console.error('카테고리 수정 에러:', textStatus);
+	       }
+	     });
+	 });
+	 
+		 $(document).on('click', '#btnDeleteCategory', function(e) {
+		    e.preventDefault();
+		    alert('카테고리를 삭제합니다');
+		    
+		    // categoryId 가져오기
+		    //var categoryId = $(this).data('category-id');
+		    var categoryId = $('#categoryId').val();
+		    alert(categoryId);
+		
+		    var chnum = $('#categorychnum').val();
+		    
+		    	
+		    var url = '/itda/channels/' + chnum + '/categorydelete';
+		    
+		    // 현재의 'this' 값 (삭제 버튼)을 캐시하여 AJAX 콜백 내부에서 사용
+   			var $this = $(this);
+		
+		    $.ajax({
+		      url: url,
+		      type: 'DELETE',
+		      data: JSON.stringify({ 
+		       chCate_Id: categoryId   // 여기에서 categoryId 추가
+		      }),
+		      contentType: "application/json;charset=UTF-8",
+		      beforeSend: function(xhr) {
+		        xhr.setRequestHeader(header, token);
+		      },
+		      success: function(response) {
+		        console.log('카테고리 삭제 완료');
+		        alert('카테고리 삭제되었습니다');
+		        
+		        $this.closest('.channel_category_item').remove();  // HTML에서 해당 카테고리 아이템 제거
+
+		        location.reload();
+		       },
+		       error: function(jqXHR, textStatus, errorThrown) {
+		         console.error('카테고리 삭제 에러:', textStatus);
+		       }
+		     });
+		
+		     $(this).closest('.channel_category_item').remove();  // HTML에서 해당 카테고리 아이템 제거
+		});
+	 
  });

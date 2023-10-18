@@ -135,7 +135,7 @@ public class ChannelListController {
 
 			} else
 			{ // 카테고리
-				contentlist = channelList_Service.getChannelCategoryData(chnum, chCate_Id, page, limit);
+				contentlist = channelList_Service.getChannelCategoryData(chnum, order, chCate_Id, page, limit);
 				System.out.println(contentlist.get(0).getBoardDate());
 				listcount = channelList_Service.getChannelCategoryCount(chnum, chCate_Id);
 
@@ -294,4 +294,65 @@ public class ChannelListController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "{chnum}/categoryupdate", method = RequestMethod.PUT)
+	public int updateCategory(@PathVariable("chnum") int chnum, @RequestBody Map<String, Object> payload) {
+		String chCate_Name = (String) payload.get("chCate_Name");
+		int chCate_Id = Integer.parseInt((String) payload.get("chCate_Id"));
+
+		logger.info(chCate_Name);
+
+		int result = channelList_Service.updateCategory(chCate_Id, chCate_Name);
+
+		if (result > 0)
+		{
+			logger.info("카테고리 업데이트 성공. 결과: " + result);
+		} else
+		{
+			logger.error("카테고리 업데이트 실패.");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "{chnum}/categorydelete", method = RequestMethod.DELETE)
+	public int deleteCategory(@PathVariable("chnum") int chnum, @RequestBody Map<String, Object> payload) {
+		int chCate_Id = Integer.parseInt((String) payload.get("chCate_Id"));
+	
+		int result = channelList_Service.deleteCategory(chCate_Id);
+	
+		if (result > 0)
+		{
+			logger.info("카테고리 삭제 성공. 결과: " + result);
+		} else
+		{
+			logger.error("카테고리 삭제 실패.");
+		}
+	
+		return result;
+	}
+
+	@RequestMapping(value = "/contentwrite.co/{chnum}", method = RequestMethod.GET)
+	public ModelAndView addBoard(@PathVariable("chnum") int chnum, ModelAndView mv,
+			HttpServletRequest request) {
+
+		if (chnum == WRONG_CHNUM)
+		{
+			logger.info("글작성 페이지: chnum 파라미터가 없거나 잘못된 값입니다.");
+			mv.addObject("url", request.getRequestURI());
+			mv.addObject("message", "채널 메인 페이지 표시 실패: chnum 파라미터가 없거나 잘못된 값입니다.");
+			return mv;
+		}
+
+		logger.info("글 작성 페이지: chnum=" + chnum);
+
+		List<ChBoardCategory> cbctlist = channelList_Service.getCategoryNameList(chnum);
+
+		mv.addObject("cbctlist", cbctlist);
+		mv.setViewName("content/content_write");
+
+		return mv;
+
+	}
+
 }
