@@ -294,4 +294,42 @@ public class ChannelListController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "{chnum}/categoryupdate", method = RequestMethod.PUT)
+	public int updateCategory(@PathVariable("chnum") int chnum, @RequestBody Map<String, Object> payload) {
+		String chCate_Name = (String) payload.get("chCate_Name");
+		int chCate_Id = Integer.parseInt((String) payload.get("chCate_Id"));
+
+		logger.info(chCate_Name);
+
+		int result = channelList_Service.updateCategory(chCate_Id, chCate_Name);
+
+		if (result > 0)
+		{
+			logger.info("카테고리 업데이트 성공. 결과: " + result);
+		} else
+		{
+			logger.error("카테고리 업데이트 실패.");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "{chnum}/categorydelete", method = RequestMethod.DELETE)
+	public int deleteCategory(@PathVariable("chnum") int chnum, @RequestBody Map<String, Object> payload) {
+		int chCate_Id = Integer.parseInt((String) payload.get("chCate_Id"));
+	
+		int result = channelList_Service.deleteCategory(chCate_Id);
+	
+		if (result > 0)
+		{
+			logger.info("카테고리 삭제 성공. 결과: " + result);
+		} else
+		{
+			logger.error("카테고리 삭제 실패.");
+		}
+	
+		return result;
+	}
+
 }

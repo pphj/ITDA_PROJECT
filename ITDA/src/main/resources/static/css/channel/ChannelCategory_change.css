@@ -3,7 +3,17 @@
 .category_box {
     max-width: 350px;
 }
-
+.channel_category_button{
+	-ms-flex-negative: 0;
+    flex-shrink: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: #929294;
+    display: flex;
+    flex-direction: row;
+    padding-left: 9px;
+    padding-bottom: 2px;
+}
 .channel_category_num {
     -ms-flex-negative: 0;
     flex-shrink: 0;
@@ -12,9 +22,13 @@
     line-height: 20px;
     color: #929294;
     margin-top: 5px;
-    /* margin-left: 310px; */
 }
 
+.channel_category_item {
+    display: flex;
+    border-bottom: 1px solid rgba(34, 34, 34, 0.1);
+    margin-bottom: 10px;
+}
 .channel_category_name {
     overflow: hidden;
     display: block;

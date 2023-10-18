@@ -157,5 +157,14 @@
 		VALUES (chancate_seq.NEXTVAL, #{chnum}, #{chCate_Name})
 	</insert>
 
-
+	<update id="updateCategory">
+		UPDATE chboardcategory
+		SET chCate_Name = #{chCate_Name}
+		WHERE chCate_Id = #{chCate_Id}
+	</update>
+	
+	<delete id="deleteCategory">
+		delete from chboardcategory
+		where chCate_Id =  #{chCate_Id}
+	</delete>
 </mapper> 
