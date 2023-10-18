@@ -135,7 +135,7 @@ public class ChannelListController {
 
 			} else
 			{ // 카테고리
-				contentlist = channelList_Service.getChannelCategoryData(chnum, chCate_Id, page, limit);
+				contentlist = channelList_Service.getChannelCategoryData(chnum, order, chCate_Id, page, limit);
 				System.out.println(contentlist.get(0).getBoardDate());
 				listcount = channelList_Service.getChannelCategoryCount(chnum, chCate_Id);
 
@@ -330,6 +330,29 @@ public class ChannelListController {
 		}
 	
 		return result;
+	}
+
+	@RequestMapping(value = "/contentwrite.co/{chnum}", method = RequestMethod.GET)
+	public ModelAndView addBoard(@PathVariable("chnum") int chnum, ModelAndView mv,
+			HttpServletRequest request) {
+
+		if (chnum == WRONG_CHNUM)
+		{
+			logger.info("글작성 페이지: chnum 파라미터가 없거나 잘못된 값입니다.");
+			mv.addObject("url", request.getRequestURI());
+			mv.addObject("message", "채널 메인 페이지 표시 실패: chnum 파라미터가 없거나 잘못된 값입니다.");
+			return mv;
+		}
+
+		logger.info("글 작성 페이지: chnum=" + chnum);
+
+		List<ChBoardCategory> cbctlist = channelList_Service.getCategoryNameList(chnum);
+
+		mv.addObject("cbctlist", cbctlist);
+		mv.setViewName("content/content_write");
+
+		return mv;
+
 	}
 
 }

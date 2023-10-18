@@ -32,7 +32,7 @@ public interface ChannelListMapper {
 
 	int getAllChannelCategoryCount(int channelnum);
 
-	List<ChBoard> getChannelCategoryData(HashMap<String, Integer> map);
+	List<ChBoard> getChannelCategoryData(HashMap<String, Object> map);
 
 	int getChannelCategoryCount(int chnum, int chCate_Id);
 
@@ -60,5 +60,7 @@ public interface ChannelListMapper {
 	int updateCategory(int chCate_Id, String chCate_Name);
 
 	int deleteCategory(int chCate_Id);
+
+	List<ChBoardCategory> getCategoryNameList(int chnum);
 
 }

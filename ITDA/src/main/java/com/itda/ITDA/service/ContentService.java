@@ -23,5 +23,4 @@ public interface ContentService {
 	ChBoard getContentDetail(int boardnum);
 
 
-
 }
