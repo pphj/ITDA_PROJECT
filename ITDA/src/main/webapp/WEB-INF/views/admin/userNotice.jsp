@@ -24,11 +24,7 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/userNotice.js"></script>
-  <script>
-
-  </script>
 </head>
 <body class="g-sidenav-show   bg-gray-100">
   <jsp:include page="adminList.jsp" />
@@ -78,7 +74,7 @@
 	 		</thead>
 	 		<tbody>
 	 			<c:set var="num" value="${listcount-(page-1)*limit}" />
-	 			<c:forEach var="F" items="${userNoticeList}">
+	 			<c:forEach var="u" items="${userNoticeList}">
 	 				<tr>
 	 					<td class="text-center">		<%-- 번호 부분 --%>
 	 						<c:out value="${num}" />					<%-- num 출력 --%>
@@ -86,24 +82,24 @@
 	 					</td>
 	 					<td class="text-center">		<%-- 제목 부분 --%>
 	 						<div>
-	 							<a href="${pageContext.request.contextPath}/admin/userNotice/${F.adNum}">
-	 								<c:if test="${F.adTitle.length() >= 20}">
-	 									<c:out value="${F.adTitle.substring(0,20)}..." escapeXml="true" />
+	 							<a href="${pageContext.request.contextPath}/admin/userNotice/${u.adNum}">
+	 								<c:if test="${u.adTitle.length() >= 20}">
+	 									<c:out value="${u.adTitle.substring(0,20)}..." escapeXml="true" />
 	 								</c:if>
-	 								<c:if test="${F.adTitle.length() < 20}">
-	 									<c:out value="${F.adTitle}" escapeXml="true" />
+	 								<c:if test="${u.adTitle.length() < 20}">
+	 									<c:out value="${u.adTitle}" escapeXml="true" />
 	 								</c:if>
 	 							</a>
 	 						</div>
 	 					</td>
-	 					<td class="text-center"><div>${F.adWriter}</div></td>
+	 					<td class="text-center"><div>${u.adWriter}</div></td>
 	 					<c:choose>
-						    <c:when test="${not empty F.adDate}">
-						        <c:set var="Date" value="${fn:substring(F.adDate, 0, 10)}" />
+						    <c:when test="${not empty u.adDate}">
+						        <c:set var="Date" value="${fn:substring(u.adDate, 0, 10)}" />
 						        <td class="text-center"><div><c:out value="${Date}" /></div></td>
 						    </c:when>
 						</c:choose>
-						<td class="text-center"><div>${F.adView}</div></td>
+						<td class="text-center"><div>${u.adView}</div></td>
 	 				</tr>
 	 			</c:forEach>
 	 		</tbody>

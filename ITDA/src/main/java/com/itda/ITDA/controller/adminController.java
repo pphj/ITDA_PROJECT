@@ -115,7 +115,7 @@ public class adminController {
 		mv.addObject("listcount", p.getListCount());	
 		mv.addObject("FAQList", FAQList);				//해당 페이지의 글 목록 리스트
 		mv.addObject("limit", 10);
-		mv.setViewName("admin/FAQ");
+		mv.setViewName("admin/faq");
 		return mv;
 	}
 	
@@ -148,17 +148,18 @@ public class adminController {
 		
 		logger.info("referer : " + beforeURL);					//header에서 "referer"를 통해 알 수있다
 		if (beforeURL != null && beforeURL.endsWith("FAQ")) {	//예) localhost:8088/itda/FAQ/5
+			adminService.setAdViewUpdate(num);
 		}
 		
-		AdminBoard faq = adminService.getFAQDetail(num);
-		if (faq == null) {
+		AdminBoard faqdata = adminService.getFAQDetail(num);
+		if (faqdata == null) {
 			logger.info("FAQ 상세보기 실패");
 			mv.addObject("url", request.getRequestURI());
 			mv.addObject("message", "상세보기 실패");
 		}else {
 			logger.info("FAQ 상세보기 성공");
 			mv.setViewName("admin/faq_View");
-			mv.addObject("faqdata", faq);
+			mv.addObject("faqdata", faqdata);
 		}
 		return mv;
 	}
@@ -220,6 +221,30 @@ public class adminController {
 		}
 		return url;
 	}
+	
+	@PostMapping("/faqDelete")
+	public String faqDeleteAction(AdminBoard faqData, int num,
+							Model mv, RedirectAttributes ra, HttpServletRequest request) {
+		boolean admincheck = adminService.isadWriter(num, faqData.getAdPassword());
+		
+		if (admincheck == false) {
+			ra.addFlashAttribute("result", "passFail");
+			ra.addAttribute("num", num);
+			return "redirect:/FAQ/{num}";
+		}
+		int result = adminService.faqDelete(num);
+		
+		if (result == CommonSource.FAIL) {
+		logger.info("FAQ 삭제 실패");
+		mv.addAttribute("url", request.getRequestURL());
+		mv.addAttribute("message", "FAQ 삭제 실패");
+		return "error/error";
+		}
+		logger.info("FAQ 삭제 성공");
+		ra.addFlashAttribute("result", "deleteSuccess");
+		return "redirect:FAQ";
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/QNAList_ajax")
@@ -572,9 +597,9 @@ public class adminController {
 		boolean admincheck = adminService.isadWriter(num, itdaNoticeData.getAdPassword());
 		
 		if (admincheck == false) {
-		ra.addFlashAttribute("result", "passFail");
-		ra.addAttribute("num", num);
-		return "redirect:itdaNotice/{num}";
+			ra.addFlashAttribute("result", "passFail");
+			ra.addAttribute("num", num);
+			return "redirect:itdaNotice/{num}";
 		}
 		int result = adminService.noticeDelete(num);
 		

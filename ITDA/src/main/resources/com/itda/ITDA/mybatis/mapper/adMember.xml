@@ -45,18 +45,18 @@
     WHERE adNum = #{adNum}
     </select>
     
-    
-    
-    
-    
-    
-    
 
-
-
-
-
-
+	<select id="adminInfo" parameterType="String" resultType="Admin">
+		select adminId, adminPw, adminName, adminDept, adminClass, adminEmail
+		from admin
+		where adminId = #{adminId}
+	</select>
 	
+	<update id="adminUpdate" parameterType="Admin">
+		update admin
+		set adminId = #{adminId}, adminPw = #{adminPw},
+		 adminName = #{adminName}, adminDept = #{adminDept},
+		 adminClass = #{adminClass}, adminEmail = #{adminEmail}
+		where adminId = #{adminId}
+	</update>
 </mapper>
-

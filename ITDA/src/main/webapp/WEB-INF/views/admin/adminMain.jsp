@@ -44,19 +44,19 @@
 
 	    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
 
-	    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-	    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-	    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+	    gradientStroke1.addColorStop(1, 'rgba(255, 199, 97, 0.6)');
+	    gradientStroke1.addColorStop(0.5, 'rgba(255, 199, 97, 0.4)');
+	    gradientStroke1.addColorStop(0.2, 'rgba(255, 199, 97, 0.2)');
 	    new Chart(ctx1, {
 	      type: "line",
 	      data: {
 	        labels: creDate,
 	        datasets: [{
 	          label: "총 유저수",
-	          tension: 0.4,
+	          tension: 0.2,
 	          borderWidth: 0,
-	          pointRadius: 0,
-	          borderColor: "#5e72e4",
+	          pointRadius: 1,
+	          borderColor: "#6BFBCE",
 	          backgroundColor: gradientStroke1,
 	          borderWidth: 3,
 	          fill: true,
@@ -80,35 +80,35 @@
 	        scales: {
 	          y: {
 	            grid: {
-	              drawBorder: false,
+	              drawBorder: true,
 	              display: true,
 	              drawOnChartArea: true,
-	              drawTicks: false,
+	              drawTicks: true,
 	              borderDash: [5, 5]
 	            },
 	            ticks: {
 	              display: true,
-	              padding: 10,
-	              color: '#344767',
+	              padding: 5,
+	              color: '#464555',
 	              font: {
-	                size: 11,
+	                size: 14,
 	                family: "Open Sans",
 	                style: 'normal',
-	                lineHeight: 2
+	                lineHeight: 1
 	              },
 	            }
 	          },
 	          x: {
 	            grid: {
-	              drawBorder: false,
-	              display: false,
-	              drawOnChartArea: false,
-	              drawTicks: false,
+	              drawBorder: true,
+	              display: true,
+	              drawOnChartArea: true,
+	              drawTicks: true,
 	              borderDash: [5, 5]
 	            },
 	            ticks: {
 	              display: true,
-	              color: '#344767',
+	              color: '#464555',
 	              padding: 20,
 	              font: {
 	                size: 11,
@@ -173,16 +173,19 @@
 				</div>
 	        </div>
 	        <div class="col-lg-5">
-	          <div class="card overflow-hidden h-100 p-0 d-flex flex-column">
-				<div class="card-item text-center" style="background: #F9F871;
-				 margin-bottom: 10px; margin-top: 40px;">
-					<i class="fa fa-question" aria-hidden="true"></i>&nbsp;&nbsp;신규 QNA 등록 : ${qnaDailyCount}
+	          <div class="card overflow-hidden h-100 p-0 d-flex flex-column" style="background: #f0f0f0;">
+				<div class="card-item text-center" style="background: #49D7B9;
+				 margin-bottom: 50px; margin-top: -7px;">
+					<i class="fa fa-question" aria-hidden="true"></i>&nbsp;&nbsp;신규 QNA 등록 : 
+					<a href="${pageContext.request.contextPath}/admin/FAQ">&nbsp;${qnaDailyCount}</a>
 				</div>
-				<div class="card-item text-center" style="background: #C8F37D; margin-bottom: 10px;">
-					<i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;&nbsp;신규 판매회원 신청 : ${sellerDailyCount}
+				<div class="card-item text-center" style="background: #76E7B1; margin-bottom: 50px;">
+					<i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;&nbsp;신규 판매회원 신청 : 
+					<a href="${pageContext.request.contextPath}/admin/sellerApprove">&nbsp;${sellerDailyCount}</a>
 				</div>
-				<div class="card-item text-center" style="background: #99EB8F;">
-					<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;신규 신고 수 : ${problemDailyCount}
+				<div class="card-item text-center" style="background: #A2F6A8;">
+					<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;신규 신고 수 : 
+					<a href="${pageContext.request.contextPath}/admin/problem">&nbsp;${problemDailyCount}</a>
 				</div>
 	          </div>
 			</div>

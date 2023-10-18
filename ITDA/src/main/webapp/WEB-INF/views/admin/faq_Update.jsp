@@ -54,7 +54,7 @@
 		<div class="card-body">
  		<form action="${pageContext.request.contextPath}/admin/faqUpdateAction" method="post" enctype="multipart/form-data" name="FAQmodify">
  			<input type="hidden" name="adNum" value="${FAQdata.adNum}">
- 			<h1>FAQ - 수정</h1>
+ 			<h3 style="text-align: center;">FAQ 수정</h3>
  			<div class="form-group">
  				<label for="adWriter">작성자</label>
  				<input type="text" name="adWriter" class="form-control" value="${FAQdata.adWriter}" readOnly>
@@ -62,12 +62,12 @@
  			<div class="form-group">
  				<label for="adTitle">제목</label>
  				<textarea name="adTitle" id="adTitle" rows="1" maxlength="100"
- 						class="form-control">${FAQdata.adTitle}</textarea>
+ 				 class="form-control" style="resize: none;">${FAQdata.adTitle}</textarea>
  			</div>
  			<div class="form-group">
  				<label for="adContent">내용</label>
- 				<textarea name="adContent" id="adContent"
- 					   rows="10" class="form-control">${FAQdata.adContent}</textarea>
+ 				<textarea name="adContent" id="adContent" rows="10"
+ 				 class="form-control" style="resize: none;">${FAQdata.adContent}</textarea>
  			</div>
  			<div class="form-group">
 			  <label for="QcateId">FAQ 카테고리</label>
@@ -87,9 +87,9 @@
  					   class="form-control" placeholder="Enter adPassword">
  			</div>
  			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
- 			<div class="form-group">
-	 			<button type="submit" class="btn btn-primary">수정</button>
-	 			<button type="reset" class="btn btn-danger" onClick="history.go(-1)">취소</button>
+ 			<div class="form-group" style="text-align: center;">
+	 			<button type="submit" class="btn btn-warning btn-sm btn-round">수정</button>
+	 			<button type="reset" class="btn btn-danger btn-sm btn-round" onClick="history.go(-1)">취소</button>
  			</div>
  		</form>
  		</div>

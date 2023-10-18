@@ -64,7 +64,8 @@
 		 			<c:if test="${not empty productData}">
 		 			<c:forEach var="p" items="${productData}">
 			 		<tr>
-			 			<th class="text-center" colspan="2">이용권 상세 정보</th>
+			 			<th class="text-center" colspan="2">
+			 			<h3>이용권 상세 정보</h3></th>
 			 			<td></td>
 			 		</tr>
 			 		<tr>
@@ -78,7 +79,8 @@
 			 		<tr>
 			 			<th class="text-center"><div>이용권 설명</div></th>
 			 			<td class="text-center" style="padding-right: 0px">
-		 				<textarea class="form-control" rows="3" readOnly>${p.productDetail}</textarea></td>
+		 				<textarea class="form-control" rows="3"
+		 				 style="resize: none;" readOnly>${p.productDetail}</textarea></td>
 			 		</tr>
 			 		<tr>
 			 			<th class="text-center"><div>이용권 가격</div></th>
@@ -129,7 +131,7 @@
 	 	</div>
 	 	<div class="text-center" style="margin-top: 20px;">
 		 	<a href="${pageContext.request.contextPath}/admin/product">
-		 		<button class="btn btn-info btn-sm btn-round">
+		 		<button class="btn btn-success btn-sm btn-round">
 		 			<i class="ni ni-bullet-list-67"></i> 목록
 		 		</button>
 		 	</a>

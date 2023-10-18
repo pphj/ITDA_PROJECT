@@ -62,14 +62,15 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	}
 
 	@Override
-	public List<ChBoard> getChannelCategoryData(int chnum, int chCate_Id, int page, int limit) {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
+	public List<ChBoard> getChannelCategoryData(int chnum, String order, int chCate_Id, int page, int limit) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		int startrow = (page - 1) * limit + 1;
 		int endrow = startrow + limit - 1;
 		map.put("startrow", startrow);
 		map.put("endrow", endrow);
 		map.put("chnum", chnum);
 		map.put("chCate_Id", chCate_Id);
+		map.put("order", order); // 추가
 
 		return dao.getChannelCategoryData(map);
 	}
@@ -117,6 +118,21 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	@Override
 	public int addCategory(int chnum, String chCate_Name) {
 		return dao.addCategory(chnum, chCate_Name);
+	}
+
+	@Override
+	public int updateCategory(int chCate_Id, String chCate_Name) {
+		return dao.updateCategory(chCate_Id, chCate_Name);
+	}
+
+	@Override
+	public int deleteCategory(int chCate_Id) {
+		return dao.deleteCategory(chCate_Id);
+	}
+
+	@Override
+	public List<ChBoardCategory> getCategoryNameList(int chnum) {
+		return dao.getCategoryNameList(chnum);
 	}
 
 }

@@ -27,7 +27,7 @@ public interface ChannelList_Service {
 
 	int getAllChannelCategoryCount(int channelnum);
 
-	List<ChBoard> getChannelCategoryData(int channelnum, int categoryId, int page, int limit);
+	List<ChBoard> getChannelCategoryData(int channelnum, String order, int categoryId, int page, int limit);
 
 	int getChannelCategoryCount(int chnum, int chCate_Id);
 
@@ -46,5 +46,12 @@ public interface ChannelList_Service {
 	List<ChBoardCategory> getSellerCategory(int chnum);
 
 	int addCategory(int chnum, String chCate_Name);
+
+	int updateCategory(int chCate_Id, String chCate_Name);
+
+	int deleteCategory(int chCate_Id);
+
+	List<ChBoardCategory> getCategoryNameList(int chnum);
+
 
 }

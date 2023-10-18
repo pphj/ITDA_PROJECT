@@ -46,7 +46,7 @@
 	<div class="card">
 		<div class="card-body">
  		<form action="faqInsert" method="post" enctype="multipart/form-data" name="FAQform">
- 			<h1>FAQ 작성 페이지</h1>
+ 			<h3 style="text-align: center;">FAQ 작성 페이지</h3>
  			<div class="form-group">
  				<label for="adWriter">작성자</label>
  				<input name="adWriter" id="adWriter" value="${pinfo.username}" readOnly
@@ -80,9 +80,9 @@
 			  </select>
 			</div>
  			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
- 			<div class="form-group">
- 				<button type=submit class="btn btn-primary">등록</button>
- 				<button type=reset class="btn btn-danger" onClick="history.go(-1)">취소</button>
+ 			<div class="form-group" style="text-align: center;">
+ 				<button type=submit class="btn btn-primary btn-sm btn-round">등록</button>
+ 				<button type=reset class="btn btn-danger btn-sm btn-round" onClick="history.go(-1)">취소</button>
  			</div>
  		</form>
  		</div>

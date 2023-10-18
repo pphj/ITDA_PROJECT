@@ -38,8 +38,8 @@
 		
 	
 	function ajax(sdata, goURL) {
-		console.log(sdata)
-
+		console.log(sdata);
+		console.log(goURL);
 		//let token = $("meta[name='_csrf']").attr("content");	
 		//let header = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({
@@ -91,7 +91,7 @@
 									qacategory = "개인정보 노출, 거래";
 									break;
 								case 7:
-									qacategory = "기타";4
+									qacategory = "기타";
 									break;
 								default:
 									qacategory = "출력 오류";
@@ -126,8 +126,8 @@
 					let href = "";
 					
 					if (data.page > 1) {				//이전 버튼의 링크 설정
-						href = 'href=javascript:go(' + (data.page - 1) + ')';		//go function 실행
-					}			//현재 페이지가 3인 상태에서 이전 버튼을 누르면 href=javascript:go(2)가 되는 것
+						href = 'href="javascript:void(0);" onclick="go(' + (data.page - 1) + ', \'' + goURL + '\')"';		//go function 실행
+					}
 					output += setPaging(href, digit);
 					
 					for (let i = data.startpage; i <= data.endpage; i++) {
@@ -135,7 +135,7 @@
 						href = "";
 						
 						if (i != data.page) {			//현재 페이지가 아닌 페이지 번호들
-							href = 'href=javascript:go(' + i + ')';					//go function 실행
+							href = 'href="javascript:void(0);" onclick="go(' + i + ', \'' + goURL + '\')"';		//go function 실행
 						}
 						output += setPaging(href, digit);
 						
@@ -145,7 +145,7 @@
 					href = "";
 					
 					if (data.page < data.maxpage) {		//다음 버튼의 링크 설정
-						href = 'href=javascript:go(' + (data.page + 1) + ')';		//go function 실행
+						href = 'href="javascript:void(0);" onclick="go(' + (data.page + 1) + ', \'' + goURL + '\')"';		//go function 실행
 					}
 					output += setPaging(href, digit);
 					
@@ -177,8 +177,8 @@
 		$("#FAQ").on("click", function() {		// FAQ 버튼 클릭 시
 			goURL = "FAQList_ajax";
 			
-			$("#FAQ").addClass("button-active");
-			$("#QNA").removeClass("button-active");
+			$("#FAQ").addClass("button-active").removeClass("button-inactive");
+			$("#QNA").addClass("button-inactive").removeClass("button-active");
 			$("#tabHead").text("FAQ");
 			$("#tabUser").hide();
 			$("#tabWriter").show();
@@ -189,8 +189,8 @@
 		$("#QNA").on("click", function() {		// Q&A 버튼 클릭 시
 			goURL = "QNAList_ajax";
 			
-			$("#QNA").addClass("button-active");
-			$("#FAQ").removeClass("button-active");
+			$("#FAQ").addClass("button-inactive").removeClass("button-active");
+			$("#QNA").addClass("button-active").removeClass("button-inactive");
 			$("#tabHead").text("QNA");
 			$("#tabUser").show();
 			$("#tabWriter").hide();
@@ -204,7 +204,7 @@
 		})// click end
 		
 		$("#viewcount").change(function(){
-			go(1, "FAQList_ajax"); 					// 보여줄 페이지를 1페이지로 설정한다
+			go(1, "FAQList_ajax"); 				// 보여줄 페이지를 1페이지로 설정한다
 		
 		})//change end
 		
