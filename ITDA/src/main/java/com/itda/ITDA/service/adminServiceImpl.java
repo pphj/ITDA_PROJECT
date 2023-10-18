@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
@@ -41,18 +42,21 @@ public class adminServiceImpl implements adminService {
 	public int getFAQListCount() {
 		return dao.getFAQListCount();
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getFAQList(int page, int limit) {
 		HashMap<String, Integer> list = listLogic(page, limit);
 		return dao.getFAQList(list);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public AdminBoard getFAQDetail(int num) {
 		return dao.getFAQDetail(num);
 	}
-
+	
+	@Transactional
 	@Override
 	public void insertFAQ(AdminBoard faq) {
 		dao.insertFAQ(faq);
@@ -70,29 +74,32 @@ public class adminServiceImpl implements adminService {
 		else
 			return true;
 	}
-
+	
+	@Transactional
 	@Override
 	public int FAQModify(AdminBoard FAQdata) {
 		return dao.FAQModify(FAQdata);
 	}
 	
-
+	@Transactional
 	@Override
 	public int faqDelete(int num) {
 		return dao.faqDelete(num);
 	}
-
+	
 	@Override
 	public int getQNAListCount() {
 		return dao.getQNAListCount();
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getQNAList(int page, int limit) {
 		HashMap<String, Integer> list = listLogic(page, limit);
 		return dao.getQNAList(list);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getUserNoticeList(int page, int limit) {
 		HashMap<String, Integer> list = listLogic(page, limit);
@@ -103,22 +110,26 @@ public class adminServiceImpl implements adminService {
 	public int getUserNoticeListCount() {
 		return dao.getUserNoticeListCount();
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public AdminBoard getUserNoticeDetail(int num) {
 		return dao.getUserNoticeDetail(num);
 	}
-
+	
+	@Transactional
 	@Override
 	public void userNoticeInsert(AdminBoard userNotice) {
 		dao.userNoticeInsert(userNotice);
 	}
-
+	
+	@Transactional
 	@Override
 	public int userNoticeUpdate(AdminBoard userNoticeData) {
 		return dao.userNoticeUpdate(userNoticeData);
 	}
-
+	
+	@Transactional
 	@Override
 	public void setAdViewUpdate(int num) {
 		dao.setAdViewUpdate(num);		
@@ -128,29 +139,34 @@ public class adminServiceImpl implements adminService {
 	public int getItdaNoticeListCount() {
 		return dao.getItdaNoticeListCount();
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getItdaNoticeList(int page, int limit) {
 		HashMap<String, Integer> list = listLogic(page, limit);
 		return dao.getItdaNoticeList(list);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public AdminBoard getItdaNoticeDetail(int num) {
 		return dao.getItdaNoticeDetail(num);
 	}
-
+	
+	@Transactional
 	@Override
 	public void itdaNoticeInsert(AdminBoard itdaNotice) {
 		dao.itdaNoticeInsert(itdaNotice);
 		
 	}
-
+	
+	@Transactional
 	@Override
 	public int itdaNoticeUpdate(AdminBoard itdaNoticeData) {
 		return dao.itdaNoticeUpdate(itdaNoticeData);
 	}
-
+	
+	@Transactional
 	@Override
 	public int noticeDelete(int num) {
 		return dao.noticeDelete(num);
@@ -160,13 +176,15 @@ public class adminServiceImpl implements adminService {
 	public int getAdminApproveListCount() {
 		return dao.getAdminApproveListCount();
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<Admin> getAdminApproveList(int page, int limit) {
 		HashMap<String, Integer> list = listLogic(page, limit);
 		return dao.getAdminApproveList(list);
 	}
-
+	
+	@Transactional
 	@Override
 	public int adminApproveUpdate(String adminId, String authName) {
 		return dao.adminApproveUpdate(adminId, authName);
@@ -176,23 +194,26 @@ public class adminServiceImpl implements adminService {
 	public int getSellerApproveListCount() {
 		return dao.getSellerApproveListCount();
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<Seller> getSellerApproveList(int page, int limit) {
 		HashMap<String, Integer> list = listLogic(page, limit);
 		return dao.getSellerApproveList(list);
 	}
-
+	
+	@Transactional
 	@Override
 	public int sellerUpdateY(String userId, String adminId) {
 		return dao.sellerUpdateY(userId, adminId);
 	}
-
+	
+	@Transactional
 	@Override
 	public int sellerUpdateN(String userId, String adminId) {
 		return dao.sellerUpdateN(userId, adminId);
 	}
-
+	
 	@Override
 	public int getProblemBoardCount() {
 		return dao.getProblemBoardCount();
@@ -202,7 +223,8 @@ public class adminServiceImpl implements adminService {
 	public int getProblemReplyCount() {
 		return dao.getProblemReplyCount();
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<BoardWarn> problemList(int page, int limit) {
 		HashMap<String, Integer> list = listLogic(page, limit);
@@ -213,27 +235,32 @@ public class adminServiceImpl implements adminService {
 	public int getProblemListCount() {
 		return dao.problemListCount();
 	}
-
+	
+	@Transactional
 	@Override
 	public int userUpdatePause(String userId) {
 		return dao.userUpdatePause(userId);
 	}
-
+	
+	@Transactional
 	@Override
 	public int userUpdateStop(String userId) {
 		return dao.userUpdateStop(userId);
 	}
-
+	
+	@Transactional
 	@Override
 	public int userUpdateClear(String userId) {
 		return dao.userUpdateClear(userId);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<ReplyWarn> replyProblemDetail(String sickId) {
 		return dao.replyProblemDetail(sickId);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<BoardWarn> boardProblemDetail(String sickId) {
 		return dao.boardProblemDetail(sickId);
@@ -250,7 +277,8 @@ public class adminServiceImpl implements adminService {
 		HashMap<String, Integer> list = listLogic(page, limit);
 		return dao.couponList(list);
 	}
-
+	
+	@Transactional
 	@Override
 	public void couponInsert(Coupon couponData) {
 		dao.couponInsert(couponData);
@@ -260,13 +288,15 @@ public class adminServiceImpl implements adminService {
 	public int getUserTotal() {
 		return dao.getUserTotal();
 	}
-
+	
+	@Transactional
 	@Override
 	public int userTotalInsert(int dailyUserTotal) {
 		return dao.userTotalInsert(dailyUserTotal);
 	}
 	
 	@Cacheable("userTotal")
+	@Transactional(readOnly = true)
 	@Override
 	public List<UserTotal> getUserTotalList() {
 		return dao.getUserTotalList();
@@ -276,18 +306,21 @@ public class adminServiceImpl implements adminService {
 	public int getProductCount() {
 		return dao.getProductCount();
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<SubProduct> productList(int page, int limit) {
 		HashMap<String, Integer> list = listLogic(page, limit);
 		return dao.productList(list);
 	}
-
+	
+	@Transactional
 	@Override
 	public void productInsert(SubProduct productData) {
 		dao.productInsert(productData);
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<SubProduct> productDetail(String productName) {
 		return dao.productDetail(productName);
