@@ -18,7 +18,6 @@ public class adMemberServiceImpl implements adMemberService {
 		this.passwordEncoder = passwordEncoder;
 	}
 	
-	
 	@Override
 	public int isId(String adminId, String adminPw) {
 		Admin ad = dao.isId(adminId);
@@ -38,6 +37,16 @@ public class adMemberServiceImpl implements adMemberService {
 	public int isId(String id) {
 		Admin ad = dao.isId(id);
 		return (ad == null) ? -1 : 1;
+	}
+	
+	@Override
+	public Admin adminInfo(String adminId) {
+		return dao.adminInfo(adminId);
+	}
+
+	@Override
+	public int adminUpdate(Admin admin) {
+		return dao.adminUpdate(admin);
 	}
 
 }

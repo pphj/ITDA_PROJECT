@@ -30,6 +30,8 @@ public interface AdminMapper {
 	public AdminBoard isadWriter(HashMap<String, Object> map);
 
 	public int FAQModify(AdminBoard fAQdata);
+	
+	public int faqDelete(int num);
 
 	public int getQNAListCount();
 
@@ -126,6 +128,7 @@ public interface AdminMapper {
 	public int sellerDailyCount();
 
 	public int problemDailyCount();
+
 
 
 

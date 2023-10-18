@@ -75,7 +75,8 @@
 		<div class="card-body">
  		<table class="table">
  			<tr>
- 				<th colspan="2">&nbsp;</th>
+ 				<th colspan="2">
+				<h3 style="text-align: center;">유저 공지 상세내용</h3></th>
  			</tr>
  			<tr>
  				<td><div>작성자</div></td>
@@ -88,26 +89,29 @@
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly>${userNoticeData.adContent}</textarea></td>
+ 				<textarea class="form-control" rows="5"
+ 				 style="resize: none;" readOnly>${userNoticeData.adContent}</textarea></td>
  			</tr>
  			<tr>
  				<td colspan="2" class="center" style="text-align: center;">
  					<a href="${pageContext.request.contextPath}/admin/userNotice">
  						<button class="btn btn-success btn-sm btn-round">
- 							<i class="ni ni-bullet-list-67"></i> 목록으로
+ 							<i class="ni ni-bullet-list-67"></i>&nbsp;목록으로
  						</button>
  					</a>
  					<sec:authorize access="isAuthenticated()">
  						<sec:authentication property="principal" var="pinfo" />
  						<c:if test="${id == adWriter}">
 		 					<a href="${pageContext.request.contextPath}/admin/userNoticeUpdate/${userNoticeData.adNum}">
-		 						<button class="btn btn-success btn-sm btn-round">
-		 							<i class="ni ni-bullet-list-67"></i> 수정
+		 						<button class="btn btn-warning btn-sm btn-round">
+		 							<i class="fa fa-pencil-square-o"></i>&nbsp;수정
 		 						</button>
 		 					</a>
 		 					<a href="#">
 		 						<button class="btn btn-danger btn-sm btn-round" id="userNoticeDelete"
-		 						data-toggle="modal" data-target="#userNoticeModal">삭제</button>	
+		 						data-toggle="modal" data-target="#userNoticeModal">
+		 							<i class="fa fa-trash-o"></i>&nbsp;삭제
+		 						</button>	
 		 					</a>
 	 					</c:if>
  					</sec:authorize>

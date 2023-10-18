@@ -11,7 +11,6 @@
   <title>Q&A/FAQ</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-  <!-- Nucleo Icons -->
   <link href="${pageContext.request.contextPath}/resources/assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="${pageContext.request.contextPath}/resources/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
@@ -19,13 +18,11 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="${pageContext.request.contextPath}/resources/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
     <!--   Core JS Files   -->
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/popper.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/admin/FAQ.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/admin/faq.js"></script>
   <style>
   	.container{
   		width: 100%;
@@ -37,6 +34,10 @@
 	
 	.button-inactive {
 	  border: none;
+	}
+	#FAQ, #QNA {
+		width: 100px;
+    	height: 40px;
 	}
   </style>
 </head>
@@ -67,7 +68,7 @@
       <button id="QNA" class="button-inactive">Q&A</button>
      </li>
     </ul>
-    <div class="main-content" style="padding: 30px 25px;">
+    <div class="main-content" style="padding: 0px 25px 30px 25px;">
     <div class="card">
 		<div class="card-body">
 	 		<c:if test="${listcount > 0}">

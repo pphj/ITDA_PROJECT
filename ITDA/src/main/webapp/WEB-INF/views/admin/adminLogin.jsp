@@ -21,6 +21,8 @@
     <!--   Core JS Files   -->
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/popper.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/core/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/argon-dashboard.js"></script>
 </head>
 <body class="g-sidenav-show bg-darkgray-100">
 	<div class="container-fluid mt-5 py-4">
