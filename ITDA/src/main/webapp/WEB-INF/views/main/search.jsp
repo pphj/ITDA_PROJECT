@@ -205,7 +205,7 @@
 </script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<!-- <script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script> -->
-	 <script src="${pageContext.request.contextPath}/resources/js/search/itda_read.js"></script> 
+	<script src="${pageContext.request.contextPath}/resources/js/search/itda_read.js"></script>
 <script>
 $(window).on("load", function() {
 	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
@@ -311,25 +311,6 @@ $(window).on(eventType, function() {
 		window.lcsResult = lcs_do(additionalInfo);
 	}
 });
-
-
-$(document).on("click", ".psp_search_button._SEARCH_SUBMIT_BTN", function() {
-	  var searchValue = $(this).data("search-value"); // 검색값 가져오기
-
-	  $.ajax({
-	    url: "${pageContext.request.contextPath}/search/result",
-	    method: "GET",
-	    data: { searchQuery: searchValue }, // query 파라미터와 값 전달
-	    success: function(response) {
-	      console.log(response); // 성공적으로 응답 받았을 때 수행할 동작
-	      // 추가적인 로직 작성 가능
-	    },
-	    error: function(xhr, status, error) {
-	      console.error(error); // 에러 발생 시 수행할 동작
-	      // 추가적인 에러 처리 로직 작성 가능
-	    }
-	  });
-	});
 
 
 

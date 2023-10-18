@@ -38,6 +38,7 @@ public class Itda_User implements UserDetails {
 	private String chInfo;
 	private String channel;
 	
+	private String sellerId;
     private String sellerPhone;
     private String sellerEmail;
     

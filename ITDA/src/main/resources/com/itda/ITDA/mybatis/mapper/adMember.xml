@@ -14,10 +14,10 @@
     </selectKey>
     INSERT INTO ADMINBOARD (adNum, userId, adWriter, adPassword,
                             adTitle, adContent, adView,
-                            QcateId, adDate, KEY)
+                            QcateId, adDate, KEY, adState)
     VALUES (#{adNum}, #{userId}, 'admin2', '1234',
             #{adTitle}, #{adContent}, 0,
-            #{QcateId}, SYSDATE, 'QNA')
+            #{QcateId}, SYSDATE, 'QNA', 'Y')
 </insert>
 
     <!-- 공지사항 페이지 글 노출 -->
@@ -45,18 +45,18 @@
     WHERE adNum = #{adNum}
     </select>
     
-    
-    
-    
-    
-    
-    
 
-
-
-
-
-
+	<select id="adminInfo" parameterType="String" resultType="Admin">
+		select adminId, adminPw, adminName, adminDept, adminClass, adminEmail
+		from admin
+		where adminId = #{adminId}
+	</select>
 	
+	<update id="adminUpdate" parameterType="Admin">
+		update admin
+		set adminId = #{adminId}, adminPw = #{adminPw},
+		 adminName = #{adminName}, adminDept = #{adminDept},
+		 adminClass = #{adminClass}, adminEmail = #{adminEmail}
+		where adminId = #{adminId}
+	</update>
 </mapper>
-

@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.util.Constants;
 
@@ -23,10 +25,12 @@ public class MyContentsPageController {
 	private static final Logger logger = LoggerFactory.getLogger(MyContentsPageController.class);
 	
 	private Itda_UserService itdaUserService;
+	private ChannelList_Service channelList_Service;
 	
 	@Autowired
-	public MyContentsPageController(Itda_UserService itdaUserService) {
+	public MyContentsPageController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service) {
 		this.itdaUserService = itdaUserService;
+		this.channelList_Service = channelList_Service;
 	}
 	
 	
@@ -37,23 +41,28 @@ public class MyContentsPageController {
 		String id = principal.getName();
 		logger.info("id : " + principal.getName());
 		
+		Itda_User idCheck = itdaUserService.isUserIdORSellerId(id);
+		logger.info("getUserId 결과 : " + idCheck.getUserId());
+		logger.info("getSellerId 결과 : " + idCheck.getSellerId());
 		
-		int result = itdaUserService.isId(id);
-	    
-		logger.info("결과 : " + result);
+		String sellerId = idCheck.getSellerId();
 		
-	    if(result == Constants.CONNECT_SUCCESS) {
-	    	
+		if(idCheck.getUserId() != null) {
+			
 	    	Itda_User vo = itdaUserService.read(id);
 	    	model.addAttribute("user", vo);
 	    	session.setAttribute("userName", vo.getUserName());
 	    	
+	    	if (sellerId == null || sellerId.equals("")) {
+	    		model.addAttribute("message", "NOT_SELLER");
+	    	}
+	    	
 	    	return "mypage/subscriptions";
+			
 	    } else {
 	    	logger.info("페이지 연결 에러");
 	    	return "redirect:/";
 	    }
-	    
 	    
 	}
 
@@ -92,6 +101,22 @@ public class MyContentsPageController {
 	@GetMapping(value="/contents")
 	public String contents() {
 		return "mypage/contents";
+	}
+	
+	// 관심 콘텐츠(좋아요 콘텐츠)
+	@GetMapping(value="/channellist")
+	public String myChannellist(ChannelList channel,
+								Principal principal,
+								Model model) {
+		
+		String id = principal.getName();
+		
+		channel = channelList_Service.myChannelList(id);
+		
+		model.addAttribute("channel", channel);
+		
+		
+		return "mypage/mychannellist";
 	}
 	
 

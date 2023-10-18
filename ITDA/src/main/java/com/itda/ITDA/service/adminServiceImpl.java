@@ -75,6 +75,12 @@ public class adminServiceImpl implements adminService {
 	public int FAQModify(AdminBoard FAQdata) {
 		return dao.FAQModify(FAQdata);
 	}
+	
+
+	@Override
+	public int faqDelete(int num) {
+		return dao.faqDelete(num);
+	}
 
 	@Override
 	public int getQNAListCount() {
@@ -301,5 +307,6 @@ public class adminServiceImpl implements adminService {
 	public int problemDailyCount() {
 		return dao.problemDailyCount();
 	}
+
 	
 }

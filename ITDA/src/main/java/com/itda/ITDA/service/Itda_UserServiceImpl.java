@@ -115,6 +115,11 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return dao.userCategoryUpdate(userCategory);
 	}
 
+	@Override
+	public Itda_User isUserIdORSellerId(String id) {
+		return dao.isUserIdORSellerId(id);
+	}
+
 
 
 

@@ -45,32 +45,18 @@
 </head>
 
 <body onclick="clearDocs();gnbClose();" id="mainBody">
+<div class="contentbodywrap">
 <div id="wrap">
 	<!-- 스킵네비게이션 : 웹접근성대응-->
 	<div id="u_skip">
 <!-- [D] 주메뉴가 존재하는 페이지에 적용 -->
-<!-- <a href="#lnb" onclick="document.getElementById('lnb_area').tabIndex=-1;document.getElementById('lnb_area').focus();return false;"><span style="visibility: hidden;"></span></a>
-<a href="#content" onclick="document.getElementById('content').tabIndex=-1;document.getElementById('content').focus();return false;"><span style="visibility: hidden;"></span></a>
- -->	</div>
+ 	</div>
 	<!-- //스킵네비게이션 -->
 	<div id="header">
-<!-- 		<div class="top">
-			<h1>
-				<a href="http://www.naver.com" target="_top" onclick="clickcr(this,'gnb.naver','','',event);" class="link_logo"><span class="sptxt">NAVER</span><em></em></a>
-				<a href="/user2/help/myInfo?lang=ko_KR" onclick="clickcr(this,'gnb.title','','',event);" class="link_subtit "><span class="sptxt">네이버ID</span><em></em></a>
-			</h1>
-			<div class="gnb_area">
-				<div id="gnb" class="gnb_one">
-					<script type='text/javascript' charset='utf-8' src='https://static.nid.naver.com/template/gnb_utf8.nhn?2023. 10. 10'></script>
-				</div>
-			</div>
-	</div> -->
 	<div id="lnb_area">
 		<div class="lnb">
 			<ul role="menu">
-				<li id="nid" role="presentation"><a href="/user2/help/myInfoV2?m=viewProfile&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.info','','',event);">내프로필<em></em></a></li>
-				<!-- <li id="security" role="presentation"><a href="/user2/help/myInfoV2?m=viewSecurity&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.protect','','',event);">보안설정<em></em></a></li>
-				<li id="manageHistory" role="presentation"><a href="/user2/help/myInfoV2?m=viewManageHistory&lang=ko_KR" role="menuitem" onclick="clickcr(this,'lnb.history','','',event);">이력관리<em></em></a></li> -->
+				<li id="nid" role="presentation"><a href="${pageContext.request.contextPath}/user/myInfo" role="menuitem" onclick="clickcr(this,'lnb.info','','',event);">내프로필<em></em></a></li>
 			</ul>
 		</div>
 	</div>
@@ -142,14 +128,6 @@
                                     <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진변경</b></label>
                                     <input type="file" id="inputImage" name="profileImage"  accept="image/*" />
                                 </span>
- <!--                                <a href="javascript:;" class="btn_model"><b id="btnAvatar" class="btn2 coach_mark" onclick="clickcr(this,'prf.upavt','','',event);">캐릭터 만들기</b></a>
-                                <div id="coach_tooltip" class="coach_tooltip">
-                                    <span class="tooltip_img" aria-hidden="true"></span>
-                                    <a href="#" class="txt_tooltip" onclick="clickcr(this,'prf.avtind','','',event);"><span class="txt">
-								<em>캐릭터</em>를 만들어 <em>프로필</em> 이미지로 등록해 보세요.
-							</span></a>
-                                     <button type="button" class="btn_tooltip_close_area" aria-label="닫기" onclick="closeToolTip();clickcr(this,'prf.avtindx','','',event);"><span class="btn_tooltip_close"></span></button>
--->
                                 <a href="javascript:;" class="btn_model"><b id="btnDelete" class="btn2" onclick="clickcr(this,'prf.delimg','','',event);">삭제</b></a>
                                 </div>
                             </div>
@@ -185,130 +163,81 @@
 
 <script type="text/javascript">
     //nClicks 전역변수
-    var nsc = "my.profile"+ "";
+/*     var nsc = "my.profile"+ "";
     var ccsrv = "cc.naver.com";
 
     $(document).ready(function() {
         var profileInfo = {
-            isNicknameChanged : false,
-            nickname : "",
-            defaultImageUrl : "https://static.nid.naver.com/images/web/user/default.png",
-            imageUrl : "",
-            token : "",
-            id : "",
-            deleteYn : "N",
-            originImageUrl : "",
-            originNickname : ""
+            isNicknameChanged: false,
+            nickname: "",
+            defaultImageUrl: "https://static.nid.naver.com/images/web/user/default.png",
+            imageUrl: "",
+            token: "",
+            id: "",
+            deleteYn: "N",
+            originImageUrl: "",
+            originNickname: ""
         };
 
         var message = {
-            maxUploadSizeErrMessage : "최대 파일 업로드 사이즈는 10MB입니다.",
-            overTimeReturnErrMessage : "유효 시간이 초과 되었습니다. 다시 시도해 주세요.",
-            temporaryAccessErrMessage : "일시적인 오류입니다. 잠시 후 다시 시도해 주세요.",
-            confirm : "프로필 변경 사항을 적용하시겠습니까?"
+            maxUploadSizeErrMessage: "최대 파일 업로드 사이즈는 10MB입니다.",
+            overTimeReturnErrMessage: "유효 시간이 초과 되었습니다. 다시 시도해 주세요.",
+            temporaryAccessErrMessage: "일시적인 오류입니다. 잠시 후 다시 시도해 주세요.",
+            confirm: "프로필 변경 사항을 적용하시겠습니까?"
         };
 
         var url = {
-            removeTempImageUrl : "/user2/api/naverProfile?m=removeTempImageUrl",
-            checkImageAndSaveTmep : "/user2/api/naverProfile?m=checkImageAndSaveTempForUser",
-            changeProfile : "/user2/api/naverProfile?m=changeProfileForUser",
-            returnUrl : ""
+            removeTempImageUrl: "/user2/api/naverProfile?m=removeTempImageUrl",
+            checkImageAndSaveTmep: "/user2/api/naverProfile?m=checkImageAndSaveTempForUser",
+            changeProfile: "/user2/api/naverProfile?m=changeProfileForUser",
+            returnUrl: ""
         };
 
         profile.init(profileInfo, message, url);
         profile.run();
-    });
-
-
-    if(!isSupportedBrowser()) {
-        $("#coach_tooltip").hide();
-        $("#btnAvatar").hide();
-    }
-    if(isOverDueDate()) {
-        $("#coach_tooltip").hide();
-        $("#btnAvatar").removeClass("coach_mark");
-    }
-
-    $(".txt_tooltip").on("click" ,function() {
-        $("#coach_tooltip").hide();
-    });
-
-    if(getCookie("coach_tooltip") === "ok") {
-        $("#coach_tooltip").hide();
-        $("#btnAvatar").removeClass("coach_mark");
-    } else {
-        setCookie("coach_tooltip", "ok", 30, "");
-    }
-
-
-
-    // IE 호환성 지원관련
-    $("a").click(function(event) {
-        // 상단 버튼과 구별
-        var isProfileBtnClicked = $(event.currentTarget).hasClass("btn_model")
-                                || $(event.currentTarget).hasClass("txt_tooltip");
-        if(isProfileBtnClicked) {
-            event.preventDefault();
+        
+        if (!isSupportedBrowser()) {
+            $("#coach_tooltip").hide();
+            $("#btnAvatar").hide();
         }
-    });
+        
+        if (isOverDueDate()) {
+            $("#coach_tooltip").hide();
+            $("#btnAvatar").removeClass("coach_mark");
+        }
+
+        $(".txt_tooltip").on("click", function() {
+            $("#coach_tooltip").hide();
+        });
+
+        if (getCookie("coach_tooltip") === "ok") {
+            $("#coach_tooltip").hide();
+            $("#btnAvatar").removeClass("coach_mark");
+        } else {
+            setCookie("coach_tooltip", "ok", 30, "");
+        }
+        
+        // IE 호환성 지원 관련
+        $("a").click(function(event) {
+            // 상단 버튼과 구별
+            var isProfileBtnClicked = $(event.currentTarget).hasClass("btn_model") ||
+                                      $(event.currentTarget).hasClass("txt_tooltip");
+            if (isProfileBtnClicked) {
+                event.preventDefault();
+            }
+        }); */
+
 </script>
 	</div>
 
-	<div id="footer">
-	<jsp:include page="../../include/footer.jsp"></jsp:include>
+ 	<div id="footer">
 
-<script type="text/javascript" src="/inc/common/js/jquery.resize.js"></script>
-<script type="text/javascript">
-var ua = window.navigator.userAgent.toLowerCase();
-var cur_container_height = Number(document.getElementById("content").clientHeight);
-var min_container_height = 647;
-var header_height = 140;
-var footer_height = 85;
-
-window.onload = changeContentSize; // Window 창 로드시
-window.onresize = changeContentSize; // Window 창 크기를 조정할때마다
-$("#content").resize(changeContentSize);
-
-function changeContentSize() {
-	cur_container_height = Number(document.getElementById("content").clientHeight);
-
-	var container_height = min_container_height;
-	var window_height = Number(document.documentElement.clientHeight) - header_height - footer_height;
-	if (window_height > cur_container_height) {
-		if (window_height > min_container_height) {
-			container_height = window_height;
-		}
-	} else {
-		if (cur_container_height > min_container_height) {
-			container_height = cur_container_height;
-		}
-	}
-	
-    if (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) { // ie11 추가
-        document.getElementById("container").style.height = container_height + "px";
-    }else if (window.navigator.userAgent.indexOf("MSIE") == -1 || (document.all && window.XMLHttpRequest)) { // ie6 제외
-        document.getElementById("container").style.height = container_height + "px";
-    } else {
-        document.getElementById("container").style.height ="100%";
-    }
-}
-
-function setContainerHeight(height) {
-	if (height >= 0) {
-		cur_container_height = height;
-	} else {
-		cur_container_height = Number(document.getElementById("container").clientHeight);
-	}
-	
-	if(height == -9 || height == 0 || height == "undefined"){ //공지사항 예외처리 //ie7대응
-		document.getElementById("container").style.height ="100%";
-	}else{
-		changeContentSize();
-	}
-}
-</script>	
 </div>
 </div>
+</div>
+ 	<jsp:include page="../../include/footer.jsp"></jsp:include>
+
+
 
 <script type="text/javascript">
 	getGNB();

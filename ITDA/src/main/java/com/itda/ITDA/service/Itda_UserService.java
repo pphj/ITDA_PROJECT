@@ -39,6 +39,8 @@ public interface Itda_UserService {
 
 	int userCategoryUpdate(UserCategory userCategory);
 
+	Itda_User isUserIdORSellerId(String id);
+
 
 
 

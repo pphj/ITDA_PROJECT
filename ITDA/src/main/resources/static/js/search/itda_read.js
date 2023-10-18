@@ -7577,7 +7577,16 @@
         }
     }
 }
-, function(e, t, n) {
+,
+
+
+
+
+
+
+
+  /* 키워드 처리 로직 */
+ function(e, t, n) {
     var i = n(8)
       , o = n(9)
       , r = n(0)
@@ -7602,6 +7611,8 @@
         data: [],
         autoSave: !0
     };
+    
+    
     function I(e) {
         m.show(),
         E.show(),
@@ -7648,9 +7659,11 @@
         a.focus(),
         c.addClass("non_searching")
     }
+    
+    
     function P(e, t) {
         if (e.trim()) {
-            t += (-1 === t.indexOf("?") ? "?" : "&") + "searchQuery=" + encodeURIComponent(e.trim());
+            t = "/itda/search/result?searchQuery=" + encodeURIComponent(e.trim());
             try {
                 !function(e) {
                     if (!1 === y.autoSave)
@@ -7728,6 +7741,10 @@
         !1 === e && r.sendErrorToNelo("[service/search] 검색 기록 valid 실패 : keyword, timestamp, layoutName"),
         e
     }
+    
+    
+    
+    /* 컨트롤러로 넘기는 로직 */
     e.exports = {
         init: function() {
             a.on("keyup", S),
@@ -7761,6 +7778,16 @@
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
 , function(e, t, n) {
     var i = n(4)
       , o = n(0)
