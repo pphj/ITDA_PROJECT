@@ -78,6 +78,15 @@ public class SendMail {
       logger.info("메일 전송했습니다.");
    } // sendMail(MailVO vo) 
    
-   public void emailAuthentication()
+   public void emailAuthentication() {
+	   MimeMessagePreparator mp = new MimeMessagePreparator() {
+		   @Override
+		   public void prepare(MimeMessage mimeMessage) throws Exception {
+			   MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+			   
+			   
+		   }
+	   }
+   }
    
 } // class SendMail
