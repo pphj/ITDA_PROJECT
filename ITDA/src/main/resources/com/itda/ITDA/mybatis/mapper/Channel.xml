@@ -160,7 +160,8 @@
 	<select id="searchChannelsByKeyword" parameterType="java.lang.String" resultType="com.itda.ITDA.domain.ChannelList">
         SELECT *
         FROM channellist
-        WHERE chName LIKE CONCAT('%', #{keyword}, '%')
+        WHERE chName LIKE #{search} 
+         or  chinfo LIKE #{search}
     </select>
 
 	<!-- mypage에서 channellist 불러오기 -->

@@ -51,7 +51,7 @@
 		</div>
 	</div>
 </footer>
-<script>
+<!-- <script>
 $(document).ready(function() {
 	// 초기 로딩시 숨김
     $(".footer_naver_info_list").hide();
@@ -62,6 +62,6 @@ $(document).ready(function() {
     });
 });
 
-</script>
+</script> -->
 </body>
 </html>

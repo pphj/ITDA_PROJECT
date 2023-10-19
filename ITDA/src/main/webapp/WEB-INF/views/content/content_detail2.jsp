@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script> var contextPath = "<%= request.getContextPath() %>"; </script>
     <script src="${pageContext.request.contextPath}/js/Reply.js"></script>
     <script src="${pageContext.request.contextPath}/js/Heart.js"></script>
