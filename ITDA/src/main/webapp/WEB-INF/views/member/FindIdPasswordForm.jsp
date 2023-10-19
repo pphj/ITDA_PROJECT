@@ -80,9 +80,7 @@
 								>비밀번호 찾기</button>
 						</div>
 						
-						
 					</div>
-					
 					
 				</div>
 			</article>
@@ -131,7 +129,6 @@
 								onclick="SITE_MEMBER.openLogin('/', 'null', null, 'N');">로그인</button>
 						</p>
 					</div>
-
 				</div>
 			</article>
 
