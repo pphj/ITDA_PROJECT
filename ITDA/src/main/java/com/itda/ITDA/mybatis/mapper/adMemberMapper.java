@@ -27,4 +27,5 @@ public interface adMemberMapper {
 	public AdminBoard getAdminBoardByAdNum(int adNum);
 
 	public List<AdminBoard> getQnaByUser(String userId);
+
 }
