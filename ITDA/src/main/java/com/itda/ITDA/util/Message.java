@@ -10,4 +10,7 @@ public class Message {
 	public static String INSERT_FALL = "INSERT 실패하셨습니다.";
 	public static String ERROR = "에러가 발생하였습니다.";
 	
+	public static String EMAIL_AUTHENTICATION_MESSAGE_TITLE = "이메일 변경 인증 메일입니다.";
+	public static String EMAIL_AUTHENTICATION_MESSAGE_CONTENT = "이메일 변경 인증 코드입니다..";
+	
 }

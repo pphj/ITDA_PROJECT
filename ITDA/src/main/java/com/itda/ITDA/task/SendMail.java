@@ -1,10 +1,13 @@
 package com.itda.ITDA.task;
 
 import com.itda.ITDA.domain.MailVO;
+import com.itda.ITDA.util.Message;
 
 import java.io.File;
+import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +18,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Component
@@ -78,15 +82,34 @@ public class SendMail {
       logger.info("메일 전송했습니다.");
    } // sendMail(MailVO vo) 
    
-   public void emailAuthentication() {
+   
+
+
+
+   
+   public void emailAuthentication(String email, String authCode, MailVO vo) {
 	   MimeMessagePreparator mp = new MimeMessagePreparator() {
+		   
 		   @Override
 		   public void prepare(MimeMessage mimeMessage) throws Exception {
 			   MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 			   
-			   
-		   }
-	   }
+	            helper.setFrom(vo.getFrom());
+	            helper.setTo(email);
+	            helper.setSubject(Message.EMAIL_AUTHENTICATION_MESSAGE_TITLE);
+	            
+	            // 1. 문자로만 전송하는 경우
+	            // 두 번째 인자는 html을 사용하겠다는 뜻입니다.
+	            // helper.setText(vo.getContent(), true);
+	            
+	            // 2. 이미지를 내장해서 보내는 경우
+	            // cid(content id)
+	            String content = Message.EMAIL_AUTHENTICATION_MESSAGE_CONTENT + authCode;
+	            helper.setText(content, true);
+		   };
+		   
+	   };
+	   mailSender.send(mp); //메일 전송합니다.
    }
    
 } // class SendMail
