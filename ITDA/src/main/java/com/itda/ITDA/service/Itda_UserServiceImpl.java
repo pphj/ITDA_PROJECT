@@ -120,6 +120,11 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return dao.isUserIdORSellerId(id);
 	}
 
+	@Override
+	public Itda_User emailCheck(String id) {
+		return dao.emailCheck(id);
+	}
+
 
 
 

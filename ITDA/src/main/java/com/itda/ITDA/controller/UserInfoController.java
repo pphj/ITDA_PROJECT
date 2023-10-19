@@ -43,6 +43,7 @@ public class UserInfoController {
 	private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 	
 	private final int PASSWD_CONFIRM_OK = 1;
+	private final int EMAIL_CONFIRM_OK = 1;
 	
 	private Itda_UserService itdaUserService;
 	private ChannelList_Service channelList_Service;
@@ -97,6 +98,46 @@ public class UserInfoController {
 		
 	}
 	
+	// 마이페이지 나의 정보 자세히 보기
+	@ResponseBody
+	@PostMapping(value = "myInfo/emailCheck")
+	public int getEmailCheck(Model model, 
+							HttpSession session, 
+							Principal principal,
+							@RequestParam("userEmail") String userEmail) {
+
+		String id = principal.getName();
+
+		logger.info("id : " + principal.getName());
+
+		Itda_User user = itdaUserService.emailCheck(id);
+
+		String getUserEmail = user.getUserEmail();
+
+		int result = 0;
+		if (userEmail.equals(getUserEmail)) {
+			logger.info(userEmail);
+			result = EMAIL_CONFIRM_OK;
+
+			return result;
+		} else {
+			logger.info(Message.ERROR);
+			return result;
+		}
+
+	}
+	
+	// 이메일 인증
+	@ResponseBody
+	@PostMapping(value="myInfo/emailCheck/authentication")
+	public int emailAuthentication(@RequestParam("email") String email) {
+		int result = 0;
+		
+		return result;
+	}
+	
+		
+	
 	// 회원 정보의 주소 수정
 	@RequestMapping(value="/addressUpdatePro")
 	public String userAddressUpdatePro(Itda_User user, 
@@ -146,7 +187,6 @@ public class UserInfoController {
 		
 		String id = principal.getName();
 		
-		logger.info(id);
 		Itda_User user = itdaUserService.pwCheck(id);
 		
 		if(encoder.matches(userPw, user.getUserPw())) {
@@ -285,7 +325,6 @@ public class UserInfoController {
 			logger.info("탈퇴이유 insert 성공");
 
 			if (result == Constants.INSERT_SUCCESS) {
-				System.out.println("id = " + id);
 				result = itdaUserService.deleteUserInsert(id);
 				System.out.println("탈퇴유저 insert 성공 :" + result);
 
@@ -293,7 +332,6 @@ public class UserInfoController {
 				result = itdaUserService.itda_userDelete(id);
 
 				if (result == Constants.DELETE_SUCCESS) {
-					System.out.println("탈퇴유저 delete 성공 :" + result);
 
 					logger.info("탈퇴 유저 정보 insert 성공, 유저 delete 성공");
 				}
