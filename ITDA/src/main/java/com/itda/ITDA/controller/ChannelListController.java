@@ -1,12 +1,9 @@
 package com.itda.ITDA.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -28,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -41,6 +38,7 @@ import com.itda.ITDA.service.ChannelList_Service;
 
 //DAO와 Service가 작성되어야 Controller가 완성된다
 @Controller
+@RestController
 @RequestMapping(value = "/channels")
 public class ChannelListController {
 
@@ -203,14 +201,15 @@ public class ChannelListController {
 		if (result == 0)
 		{
 			logger.info("업데이트 실패");
-			return "redirect:error/error";
+			url = "error/error";
 		} else
 		{// 수정 성공의 경우
 			logger.info("업데이트 완료");
 			// 수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
-			return "redirect:sellersetting";
+			url = "redirect:sellersetting";
 		}
 
+		return url;
 	}
 
 	@GetMapping(value = "{chnum}/sellersetting")
@@ -278,24 +277,6 @@ public class ChannelListController {
 		return fileDBName;
 	}
 
-	@ResponseBody
-	@PostMapping(value = "{chnum}/checkChannelName")
-	public int checkChannelName(@PathVariable("chnum") int chnum, @RequestBody Map<String, String> payload) {
-		String chName = payload.get("chName");
-		int result = channelList_Service.checkChannelName(chnum, chName);
-
-		if (result > 0)
-		{
-			logger.info("동일한 채널명이 있습니다. 결과: " + result);
-		} else
-		{
-			logger.info("동일한 채널명이 없습니다.");
-		}
-
-		return result;
-	}
-
-	@ResponseBody
 	@RequestMapping(value = "{chnum}/categorychange", method = RequestMethod.POST)
 	public int ChangeCategory(@PathVariable("chnum") int chnum, @RequestBody Map<String, Object> payload) {
 		String chcatename = (String) payload.get("chcatename");
@@ -314,7 +295,6 @@ public class ChannelListController {
 		return result;
 	}
 
-	@ResponseBody
 	@RequestMapping(value = "{chnum}/categoryupdate", method = RequestMethod.PUT)
 	public int updateCategory(@PathVariable("chnum") int chnum, @RequestBody Map<String, Object> payload) {
 		String chCate_Name = (String) payload.get("chCate_Name");
@@ -335,13 +315,12 @@ public class ChannelListController {
 		return result;
 	}
 
-	@ResponseBody
 	@RequestMapping(value = "{chnum}/categorydelete", method = RequestMethod.DELETE)
 	public int deleteCategory(@PathVariable("chnum") int chnum, @RequestBody Map<String, Object> payload) {
 		int chCate_Id = Integer.parseInt((String) payload.get("chCate_Id"));
-
+	
 		int result = channelList_Service.deleteCategory(chCate_Id);
-
+	
 		if (result > 0)
 		{
 			logger.info("카테고리 삭제 성공. 결과: " + result);
@@ -349,12 +328,13 @@ public class ChannelListController {
 		{
 			logger.error("카테고리 삭제 실패.");
 		}
-
+	
 		return result;
 	}
 
 	@RequestMapping(value = "/contentwrite.co/{chnum}", method = RequestMethod.GET)
-	public ModelAndView addBoard(@PathVariable("chnum") int chnum, ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView addBoard(@PathVariable("chnum") int chnum, ModelAndView mv,
+			HttpServletRequest request) {
 
 		if (chnum == WRONG_CHNUM)
 		{
@@ -375,77 +355,4 @@ public class ChannelListController {
 
 	}
 
-	@RequestMapping(value = "/contentadd", method = RequestMethod.POST)
-	public String insertContent(@RequestParam("boardTitle") String boardTitle, @RequestParam("content") String content,
-			@RequestParam("categoryId") int categoryId, @RequestParam("thumbNail") MultipartFile thumbNail,
-			HttpSession session, RedirectAttributes rattr) {
-
-		// 세션에서 데이터 가져오기
-		String writer = (String) session.getAttribute("userId");
-		int channelNum = (int) session.getAttribute("chnum");
-
-		// 파일 저장 경로 설정
-		String saveFolder = "/image/content/";
-
-		// 실제 파일 저장 경로에 채널 번호와 오늘 날짜 추가
-		String realFolder = saveFolder + channelNum + "/" + toDay() + "/";
-
-		// 폴더 생성 메서드 호출
-		createFolder(realFolder);
-
-		// 썸네일 이미지 파일 저장 처리
-		try
-		{
-			if (!thumbNail.isEmpty())
-			{
-				thumbNail.transferTo(new File(realFolder, thumbNail.getOriginalFilename()));
-			}
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		String thumbFileName = thumbNail.getOriginalFilename();
-
-		try
-		{
-			ChBoard contentAdd = new ChBoard();
-			contentAdd.setChNum(channelNum);
-			contentAdd.setWriter(writer);
-			contentAdd.setBoardTitle(boardTitle);
-			contentAdd.setBoardContent(content);
-			contentAdd.setChCate_Id(categoryId);
-			contentAdd.setThumbNail(thumbFileName);
-
-			int result = channelList_Service.contentInsert(contentAdd);
-
-			if (result > 0)
-			{
-				return "redirect:/channels/" + channelNum;
-			} else
-			{
-				throw new Exception("게시물 작성 오류");
-			}
-
-		} catch (Exception ex)
-		{
-			ex.printStackTrace();
-			return "error/error";
-		}
-	}
-
-	private void createFolder(String path) {
-		File dirPath = new File(path);
-		if (!dirPath.exists())
-		{
-			dirPath.mkdir();
-		}
-	}
-
-	private String toDay() {
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		Date time = new Date(WRONG_CHNUM);
-		String time1 = format1.format(time);
-		return time1;
-	}
 }

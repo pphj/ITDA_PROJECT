@@ -29,7 +29,7 @@
 <jsp:include page="../include/header.jsp"/>
 <div class="board_write_wrap">
     <div class="board_group">
-        <form action="contentadd" method="post" enctype="multipart/form-data">
+        <form action="contentadd.co" method="post" enctype="multipart/form-data">
             <div class="text_form board_head_wrap">
                 <select class="category_select_from">
                     <option disabled selected>카테고리를 선택하세요</option>
