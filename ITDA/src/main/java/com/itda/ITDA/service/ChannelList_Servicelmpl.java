@@ -140,4 +140,15 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		return dao.getCategoryNameList(chnum);
 	}
 
+	@Override
+	public int contentInsert(ChBoard contentAdd) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int checkChannelName(int chnum, String chName) {
+		return dao.checkChannelName(chnum, chName);
+	}
+
 }

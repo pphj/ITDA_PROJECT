@@ -9,20 +9,20 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content/content_write.css">
-<script src="${pageContext.request.contextPath}/resources/js/content/content_write.js"></script>
-<script src="resources/ckeditor5/build/ckeditor.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/content/content_write.css">
+<script src="${pageContext.request.contextPath}/js/content_write.js"></script>
+<script src="${pageContext.request.contextPath}/ckeditor5/build/ckeditor.js"></script>
 <script type="module" src="${pageContext.request.contextPath}/resources/js/Ckeditor.js"></script>
-<script !src="">
+<script>
 	const chnum = <c:out value="${chNum}"/>
 </script>
-<title>게시글 작성</title>
+<title>채널게시글 작성</title>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
 	<div class="board_write_wrap">
 		<div class="board_group">
-			<form action="contentadd.co" method="post" enctype="multipart/form-data">
+			<form action="contentadd" method="post" enctype="multipart/form-data">
 				<div class="text_form board_head_wrap">
 					<select class="category_select_from">
 						<option disabled selected>카테고리를 선택하세요</option>
@@ -34,9 +34,23 @@
 				<div class="board_subject_wrap">
 					<input class="text_from board_subject_from" type=text name="boardTitle" placeholder="제목을 입력하세요">
 				</div>
+				<!--  글작성 부분 -->
 				<div class="board_content_wrap">
 					<div class="editor_group">
-						<textarea name="content" id="editor"></textarea>
+						<textarea name="adContent" id="editor"></textarea>
+						<script type="text/javascript">
+							// 글쓰기 editor 및 사진 업로드 기능
+							CKEDITOR.replace('editor', {
+								filebrowserUploadUrl : '/contentadd'
+							});
+						</script>
+					</div>
+				</div>
+
+				<div class="board_file_wrap">
+					<div class="thumbNailArea">
+
+						<img class="thumbNailImage" src="${src}" alt="profile">
 					</div>
 				</div>
 				<div class="board_tag_wrap">
@@ -53,9 +67,10 @@
 					<div class="thumbNailArea">
 						<%--                    <span class="thumbNailName">썸네일</span>--%>
 						<div style="height: 50px; margin: 15px 20px 0px 0px">
-							<label class="thumbNailUploadArea" for="file"> <img src="../image/content/thumbnailupload.png"
-								style="width: 100px; height: 100px;"><br> <span style="color: #c9c9c9">썸네일 업로드</span> <input
-								class="thumbNailUpload" type="file" name="thumbNail" id="file" accept="image/*">
+							<label class="thumbNailUploadArea" for="file"> <img
+								src="${pageContext.request.contextPath}/resources/image/content/thumbnailupload.png" style="width: 100px; height: 100px;"><br>
+								<span style="color: #c9c9c9">썸네일 업로드</span> <input class="thumbNailUpload" type="file" name="thumbNail" id="file"
+								accept="image/*">
 							</label>
 						</div>
 						<img class="thumbNailImage" src="${src}" alt="profile">

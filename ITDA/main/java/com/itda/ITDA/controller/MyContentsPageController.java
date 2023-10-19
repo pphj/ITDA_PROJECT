@@ -11,9 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.service.Itda_UserService;
+import com.itda.ITDA.task.SendMail;
 import com.itda.ITDA.util.Constants;
 
 @Controller
@@ -56,6 +59,8 @@ public class MyContentsPageController {
 	    
 	    
 	}
+	
+	
 
 	
 	// 마이페이지 구독채널의 최신 콘텐츠

@@ -25,6 +25,8 @@ public interface ContentMapper {
 
 	ChBoard getContentDetail(int boardnum);
 
+	List<ChBoard> searchContentsByKeyword(String string);
+
 	
 
 	

@@ -7,29 +7,29 @@ import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChannelList;
-import com.itda.ITDA.mybatis.mapper.ChBoardMapper;
 import com.itda.ITDA.mybatis.mapper.ChannelListMapper;
+import com.itda.ITDA.mybatis.mapper.ContentMapper;
 
 @Service
 public class MainServiceImpl implements MainService {
 
 	private final ChannelListMapper channelListMapper;
-	private final ChBoardMapper chBoardMapper;
+	private final ContentMapper contentMapper;
 
 	@Autowired
-	public MainServiceImpl(ChannelListMapper channelListMapper, ChBoardMapper chBoardMapper) {
+	public MainServiceImpl(ChannelListMapper channelListMapper, ContentMapper contentMapper) {
 		this.channelListMapper = channelListMapper;
-		this.chBoardMapper = chBoardMapper;
+		this.contentMapper = contentMapper;
 	}
 
 	@Override
 	public List<ChannelList> searchChannelsByKeyword(String keyword) {
-		return channelListMapper.searchChannelsByKeyword(keyword);
+		return channelListMapper.searchChannelsByKeyword("%" + keyword + "%");
 	}
 
 	@Override
 	public List<ChBoard> searchContentsByKeyword(String keyword) {
-		return chBoardMapper.searchContentsByKeyword(keyword);
+		return contentMapper.searchContentsByKeyword("%" + keyword + "%");
 	}
 
 }
