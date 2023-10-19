@@ -610,7 +610,7 @@ a {
 .wrap_article {
 	margin: 0 auto;
 	overflow: hidden;
-	padding: 0px;
+	padding: 0 120px;
 	width: 700px;
 }
 

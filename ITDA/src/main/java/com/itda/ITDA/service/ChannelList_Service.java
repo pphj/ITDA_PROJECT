@@ -55,8 +55,4 @@ public interface ChannelList_Service {
 
 	List<ChBoardCategory> getCategoryNameList(int chnum);
 
-	int contentInsert(ChBoard contentAdd);
-
-	int checkChannelName(int chnum, String chName);
-
 }

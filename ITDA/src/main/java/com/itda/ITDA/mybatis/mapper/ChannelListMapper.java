@@ -65,6 +65,4 @@ public interface ChannelListMapper {
 
 	List<ChBoardCategory> getCategoryNameList(int chnum);
 
-	int checkChannelName(int chnum, String chName);
-
 }
