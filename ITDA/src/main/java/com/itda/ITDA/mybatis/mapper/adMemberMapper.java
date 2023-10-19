@@ -1,6 +1,5 @@
 package com.itda.ITDA.mybatis.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -19,6 +18,8 @@ public interface adMemberMapper {
 
 	public int adminUpdate(Admin admin);
 
+	public int insertQna(AdminBoard adminBoard);
+
 	public List<AdminBoard> getAdminBoardList();
 
 	public AdminBoard getAdminBoardByUserId(int userId);
@@ -27,6 +28,4 @@ public interface adMemberMapper {
 
 	public List<AdminBoard> getQnaByUser(String userId);
 
-	public int insertQna(AdminBoard adminBoard);
-	
 }
