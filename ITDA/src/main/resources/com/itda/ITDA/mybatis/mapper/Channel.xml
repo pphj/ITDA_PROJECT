@@ -194,4 +194,11 @@
 	<select id="getCategoryNameList" resultType="ChBoardCategory">
 	select * from chboardcategory where chnum = #{chnum}
 	</select>
+	
+	<select id="checkChannelName" resultType="int">
+		  SELECT COUNT(*)
+	      FROM channellist
+	      WHERE CHNUM = #{chnum} AND CHNAME = #{chName}
+	</select>
+	
 </mapper> 

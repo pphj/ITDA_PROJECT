@@ -172,7 +172,7 @@ $(document).ready(function(){
 						</div>
 					</div>
 
-					<div id="wrapArticle" class="wrap_article #my_post">
+					<div id="wrapArticle" class="wrap_article #my_post" style="padding: 0px;">
 						<div class="wrap_article_list">
 							<c:forEach var="c" items="${ChannelBoardList}">
 								<ul class="list_article list_post1 #post_list">
