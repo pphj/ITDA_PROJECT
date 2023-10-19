@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+input.channel_category_name:focus {
+  outline: none;
+}
+
 .linksite_pop_infor::before, .linksite_pop_top_inner .close::after,
 	.private_cert .naver_logo, .private_cert .private_check .ico_check::before,
 	.private_cert .private_check input:checked+.ico_check::before,
@@ -177,6 +181,14 @@ hr {
 	text-decoration: none !important
 }
 
+.btn_model2 {
+	font-size: 12px;
+	line-height: 14px;
+	display: inline-block;
+	vertical-align: top;
+	text-decoration: none !important
+}
+
 .btn_model b, .btn_model>em, .btn_model>span {
 	display: inline-block;
 	overflow: hidden;
@@ -326,19 +338,40 @@ hr {
 	text-align: center
 }
 
+.btn_wrap2 {
+	overflow: hidden;
+	text-align: center
+}
+
+
 .tbl_model+.btn_wrap {
 	margin-top: 30px
 }
+
 
 .btn_wrap .btn_model {
 	margin: 0 2px
 }
 
+.btn_wrap2 .btn_model2 {
+	margin: 0 2px
+}
+
+
+
 .btn_area_btm .btn_model .btn_disable {
 	color: #8e8e8e
 }
 
+.btn_area_btm .btn_model2 .btn_disable {
+	color: #8e8e8e
+}
+
 .btn_wrap .btn_model .btn_disable {
+	color: #b8eac1
+}
+
+.btn_wrap .btn_model2 .btn_disable {
 	color: #b8eac1
 }
 
@@ -414,6 +447,10 @@ hr {
 }
 
 .btn_model[href] .ico_plus {
+	background-position: 0 -45px
+}
+
+.btn_model2[href] .ico_plus {
 	background-position: 0 -45px
 }
 
@@ -1773,6 +1810,11 @@ html>body .box1 table td .input_text {
 
 .tbl_model .contxt_webctrl .btn_model, .tbl_model .contxt_webctrl .country_drop,
 	.tbl_model .contxt_webctrl input, .tbl_model .contxt_webctrl_box .btn_model
+	{
+	margin-left: 8px
+}
+
+.btn_model2
 	{
 	margin-left: 8px
 }

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -41,7 +41,6 @@ import com.itda.ITDA.service.ChannelList_Service;
 
 //DAO와 Service가 작성되어야 Controller가 완성된다
 @Controller
-@RestController
 @RequestMapping(value = "/channels")
 public class ChannelListController {
 
@@ -279,6 +278,7 @@ public class ChannelListController {
 		return fileDBName;
 	}
 
+	@ResponseBody
 	@PostMapping(value = "{chnum}/checkChannelName")
 	public int checkChannelName(@PathVariable("chnum") int chnum, @RequestBody Map<String, String> payload) {
 		String chName = payload.get("chName");
@@ -295,6 +295,7 @@ public class ChannelListController {
 		return result;
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "{chnum}/categorychange", method = RequestMethod.POST)
 	public int ChangeCategory(@PathVariable("chnum") int chnum, @RequestBody Map<String, Object> payload) {
 		String chcatename = (String) payload.get("chcatename");
@@ -313,6 +314,7 @@ public class ChannelListController {
 		return result;
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "{chnum}/categoryupdate", method = RequestMethod.PUT)
 	public int updateCategory(@PathVariable("chnum") int chnum, @RequestBody Map<String, Object> payload) {
 		String chCate_Name = (String) payload.get("chCate_Name");
@@ -333,6 +335,7 @@ public class ChannelListController {
 		return result;
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "{chnum}/categorydelete", method = RequestMethod.DELETE)
 	public int deleteCategory(@PathVariable("chnum") int chnum, @RequestBody Map<String, Object> payload) {
 		int chCate_Id = Integer.parseInt((String) payload.get("chCate_Id"));
