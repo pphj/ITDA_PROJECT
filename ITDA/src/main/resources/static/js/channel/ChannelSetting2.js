@@ -62,48 +62,6 @@ $(document).ready(function() {
     // 프로필 사진을 기본 이미지로 변경
     $('#imgThumb').attr('src', '../../resources/image/main/login.png');
   });
-	
-	  $('#inpNickname').on('blur', function() {
-	    var chName = $(this).val(); // 현재 입력된 채널명 가져오기
-	    
-	    var chnum = $('#categorychnum').val();
-	    
-    	var url = '/itda/channels/' + chnum + '/checkChannelName';
-	 	
-	 
-	    $.ajax({
-	      url: url, 
-	      type: 'POST',
-	      data: JSON.stringify({ 
-	      		chnum: chnum,
-	      		chName: chName 
-	      }),
-	      contentType: "application/json;charset=UTF-8",
-	      beforeSend: function(xhr) {
-	          // 데이터를 전송하기 전에 헤더에 csrf 값을 설정합니다.
-	          xhr.setRequestHeader(header, token);
-	      },
-	     success: function(data) {
-			  // 기존에 추가된 경고 메시지가 있다면 제거
-			  $('#duplicateWarning').remove();
-			
-			  var warningMsg;
-			  
-			  if(data > 0) { 
-			    // 채널명이 중복되는 경우, input 필드 아래에 경고 메시지 추가
-			    warningMsg = $('<div id="duplicateWarning" style="color: #00c6be; margin-top: 6px; display: flex; width: 200px; height: 14px; padding-left: 6px;">동일한 채널명이 있습니다.</div>');
-			  } else {
-			    // 채널명이 중복되지 않는 경우, input 필드 아래에 가능한 채널명임을 알리는 메시지 추가
-			    warningMsg = $('<div id="duplicateWarning" style="color: #00c6be; margin-top: 6px; display: flex; width: 150px; height: 14px; padding-left: 6px;">가능한 채널명입니다.</div>');
-			  }
-			  
-			  $('#inpNickname').after(warningMsg);
-			},
-		    error: function(jqXHR, textStatus, errorThrown) {
-		      console.error('Error:', textStatus); // 에러 발생 시 로그 출력
-		    }
-	    });
-	  });
 
   // 카테고리 추가 관련 코드
   $("#btnAddCategory").click(function(e) {
