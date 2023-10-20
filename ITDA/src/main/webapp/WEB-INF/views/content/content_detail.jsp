@@ -33,12 +33,12 @@
 					<span class="board_detail_title">${board.boardTitle}</span>
 				</div>
 						<a href="${pageContext.request.contextPath}/channels/contentwrite.co/${ChannelList.chNum}">
-							<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow btnWrite">
+							<button type="button" class="btn_type">
 								<span class="txt_default">
 									<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글수정
 								</span>
 							</button>
-							<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow btnWrite">
+							<button type="button" class="btn_type">
 								<span class="txt_default">
 									<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글삭제
 								</span>
