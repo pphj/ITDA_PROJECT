@@ -145,6 +145,11 @@
 		from itda_user
 		where userId = #{userId}
 	</select>
+	
+	<!-- 비밀번호 재설정 -->
+	 <update id="updateUserPassword">
+      UPDATE users SET userPw = #{newPassword}
+ 	 </update>
 
 
 

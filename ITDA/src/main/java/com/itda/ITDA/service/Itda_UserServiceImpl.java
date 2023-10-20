@@ -124,15 +124,17 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return dao.emailCheck(id);
 	}
 
-
-
-
-	
-	
-
-
-
-	
-
+	@Override
+	public boolean changePassword(String newPassword, String confirmPassword) {
+		 if (newPassword.equals(confirmPassword)) {
+	            try {
+	            	dao.updateUserPassword(newPassword);
+	                return true;
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        return false;
+	    }
 
 }

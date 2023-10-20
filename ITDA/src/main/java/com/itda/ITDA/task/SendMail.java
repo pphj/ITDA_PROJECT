@@ -27,7 +27,7 @@ public class SendMail {
 
 // 프로젝트 우클릭 -> Properties -> Project Facets -> 자바버전 11로 맞추세요
 
-	public void sendMail(MailVO vo) {
+	public void sendMail(String email, String id) {
 		
 		MimeMessagePreparator mp = new MimeMessagePreparator() {
 			
@@ -46,9 +46,9 @@ public class SendMail {
 				 */
 				// 두 번째 인자 true는 멀티 파트 메시지를 사용하겠다는 의미입니다.
 				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-				helper.setFrom(vo.getFrom());
-				helper.setTo(vo.getTo());
-				helper.setSubject(vo.getSubject());
+				helper.setFrom("k_minchoi@naver.com");
+				helper.setTo(email);
+				helper.setSubject("아이디 찾기");
 				
 				// 1. 문자로만 전송하는 경우
 				// 두 번째 인자는 html을 사용하겠다는 뜻입니다.
@@ -56,7 +56,7 @@ public class SendMail {
 				
 				// 2. 이미지를 내장해서 보내는 경우
 				// cid(content id)
-				String content = "<img src ='cid:Home'>" + vo.getContent();
+				String content = "요청하신 아이디는 " + id;
 				helper.setText(content, true);
 				
 //				FileSystemResource file = new FileSystemResource(new File(sendfile));
