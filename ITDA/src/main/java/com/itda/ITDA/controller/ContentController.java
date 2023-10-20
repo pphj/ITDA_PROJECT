@@ -31,7 +31,7 @@ public class ContentController {
 	// 게시글 자세히 보기
 	@RequestMapping(value = "/{chnum}/{boardNum}", method = RequestMethod.GET)
 	public String getContentDetailMove(@PathVariable(value = "boardNum") int boardnum, Model model,
-			@PathVariable(value = "chnum") int chnum) {
+			@PathVariable(value = "chnum") int chnum, String userid) {
 
 		ChBoard board = contentService.getContentDetail(boardnum);
 		logger.info("boardNum = " + board.getBoardNum());
