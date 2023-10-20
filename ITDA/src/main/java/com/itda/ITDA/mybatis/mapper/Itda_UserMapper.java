@@ -44,6 +44,8 @@ public interface Itda_UserMapper {
 
 	Itda_User isUserIdORSellerId(String id);
 
+	Itda_User emailCheck(String id);
+
 	
 	
 }

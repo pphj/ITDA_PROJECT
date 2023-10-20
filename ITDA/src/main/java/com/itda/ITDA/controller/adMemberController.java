@@ -22,7 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.Admin;
+import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.adMemberService;
+import com.itda.ITDA.task.SendMail;
 import com.itda.ITDA.util.CommonSource;
 
 @Controller
@@ -56,6 +59,8 @@ public class adMemberController {
 		
 		return mv;
 	}
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/idcheck", method=RequestMethod.GET)

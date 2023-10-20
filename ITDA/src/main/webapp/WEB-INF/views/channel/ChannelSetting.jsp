@@ -151,7 +151,7 @@
 							<form action="../${chnum}/categorychange" id="categoryForm" method="post" enctype="multipart/form-data">
 								<input type="hidden" name="categorychnum" id="categorychnum" value="${SellerSetting.chNum}"
 									style="width: 254px; border: none;"> <input class="channel_category_name" type="text" name="categoryName"
-									id="categoryName" value="${c.chCate_Name}" style="width: 254px; border: none;" readonly>
+									id="categoryName" value="${c.chCate_Name}" style="width: 254px; border: none;">
 								<tbody>
 									<tr>
 										<th scope="row">
@@ -176,12 +176,12 @@
 																<%--<strong class="channel_category_name">${c.chCate_Name}</strong>--%>
 																<div class="channel_category_num">
 																	<input class="channel_category_name" type="text" name="categoryName" id="categoryName" value="${c.chCate_Name}"
-																		style="width: 254px; border: none;" readonly> 
+																		style="width: 254px; border: none;"> 
 																	<div class="channel_category_button">
-																		<button type="button" class="btn_model">
-																			<b id="btnChangeCategcategoryNameory" class="btn3 input" updatenum="${c.chCate_Id}">수정</b>
+																		<button class="btn_model" data-name="${c.chCate_Name}">
+																			<b id="btnChangeCategcategoryNameory" class="btn3" updatenum="${c.chCate_Id}">수정</b>
 																		</button>
-																		<button type="button" class="btn_model">
+																		<button class="btn_model">
 																			<b id="btnDeleteCategory" class="btn3" updatenum="${c.chCate_Id}">삭제</b>
 																		</button>
 																	</div>

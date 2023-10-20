@@ -55,6 +55,7 @@ public class MyContentsPageController {
 	    	
 	    	if (sellerId == null || sellerId.equals("")) {
 	    		model.addAttribute("message", "NOT_SELLER");
+	    		session.setAttribute("message", "NOT_SELLER");
 	    	}
 	    	
 	    	return "mypage/subscriptions";
@@ -114,7 +115,7 @@ public class MyContentsPageController {
 		channel = channelList_Service.myChannelList(id);
 		
 		model.addAttribute("channel", channel);
-		
+		logger.info("CHOPENDATE : " + channel.getChOpenDate());
 		
 		return "mypage/mychannellist";
 	}

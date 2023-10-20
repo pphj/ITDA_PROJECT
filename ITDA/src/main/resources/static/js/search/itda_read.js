@@ -7663,7 +7663,7 @@
     
     function P(e, t) {
         if (e.trim()) {
-            t = "/itda/search/result?searchQuery=" + encodeURIComponent(e.trim());
+            t = "search/result?searchQuery=" + encodeURIComponent(e.trim());
             try {
                 !function(e) {
                     if (!1 === y.autoSave)
