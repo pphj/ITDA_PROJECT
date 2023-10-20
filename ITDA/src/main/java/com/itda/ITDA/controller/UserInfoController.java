@@ -1,6 +1,11 @@
 package com.itda.ITDA.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -10,30 +15,32 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.ChCategory;
+import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.MailVO;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.ContentService;
+import com.itda.ITDA.service.DateService;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.UserCategoryService;
 import com.itda.ITDA.task.SendMail;
 import com.itda.ITDA.util.Constants;
 import com.itda.ITDA.util.Message;
-import com.itda.ITDA.util.Util;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -44,6 +51,9 @@ import lombok.Setter;
 @RequestMapping(value="/user")
 public class UserInfoController {
 	private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
+	
+	@Value("${my.savefolder}")
+	private String saveFolder;
 	
 	private final int PASSWD_CONFIRM_OK = 1;
 	private final int EMAIL_CONFIRM_OK = 1;
@@ -370,8 +380,112 @@ public class UserInfoController {
 	
 			
 	@RequestMapping("/myProfile")
-	public String changeMyProfile() {
+	public String myProfile(Principal principal, HttpServletRequest request) {
+		
+		String id = principal.getName();
+		
+		if(id == null) {
+			request.setAttribute("msg", "로그인이 필요합니다.");
+			request.setAttribute("url", "/");
+			
+			return "alert";
+		}
+		
+		
+		
+		
 		return "mypage/userinfo/myProfile";
+	}
+	
+	private String fileDBName(String fileName, String saveFolder) {
+		// 새로운 폴더 이름 : 오늘 년 + 월 + 일
+		Calendar c = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);// 오늘 년도 구합니다.
+		int month = c.get(Calendar.MONTH) + 1;// 오늘 월 구합니다.
+		int date = c.get(Calendar.DATE);// 오늘 일 구합니다.
+
+		String homedir = saveFolder + "/" + year + "-" + month + "-" + date;
+		logger.info(homedir);
+		File path1 = new File(homedir);
+		if (!(path1.exists()))
+		{
+			path1.mkdir();// 새로운 폴더를 생성
+		}
+
+		// 난수를 구합니다.
+		Random r = new Random();
+		int random = r.nextInt(100000000);
+
+		/**** 확장자 구하기 시작 ****/
+		int index = fileName.lastIndexOf(".");
+		// 문자열에서 특정 문자열의 위치 값(index)를 반환합니다.
+		// indexOf가 처음 발견되는 문자열에 대한 index를 반환하는 반면,
+		// lastIndexOf는 마지막으로 발견되는 문자열의 index를 반환합니다.
+		// (파일명에 점에 여러개 있을 경우 맨 마지막에 발견되는 문자열의 위치를 리턴합니다.
+		logger.info("index = " + index);
+
+		String fileExtension = fileName.substring(index + 1);
+		logger.info("fileExtension = " + fileExtension);
+
+		// 새로운 파일명
+		String refileName = "bbs" + year + month + date + random + "." + fileExtension;
+		logger.info("refileName = " + refileName);
+
+		// 오라클 디비에 저장될 파일 명
+		// String fileDBName = "/" + year + "-" + month + "-" + date + "/" + refileName;
+		String fileDBName = File.separator + year + "-" + month + "-" + date + File.separator + refileName;
+		logger.info("fileDBName = " + fileDBName);
+
+		return fileDBName;
+	}
+	
+	@PostMapping("myInfo/changeProfilePro")
+	public String changeProfileProcess(Principal principal,
+										Itda_User user) {
+		
+		String id = principal.getName();
+		
+		user.setUserProfile(user.getUserProfile());
+		
+		MultipartFile uploadfile = user.getProfile();
+		if (uploadfile != null && !uploadfile.isEmpty())
+		{
+			logger.info("파일 추가/변경되었습니다.");
+
+			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
+
+			String fileDBName = fileDBName(fileName, saveFolder + "/" + user.getUpdateDate());
+			logger.info("fileDBName = " + fileDBName);
+
+			String urlPath = "/" + user.getUserId() + "/" + user.getUpdateDate() + "/" + fileName;
+			
+			byte[] bytes = uploadfile.getBytes(); // 파일의 내용을 바이트 배열로 읽어옵니다.
+
+			Path path = Paths.get(fileName + File.separator + fileName); // 파일을 저장할 절대경로 객체(Path)
+
+			Files.write(path, bytes); // 해당 경로에 파일 쓰기
+
+			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장합니다.
+			// uploadfile.transferTo(new File(saveFolder + "/" + chnum + fileDBName));
+			//logger.info("transferTo path = " + saveFolder + "/" + chnum + userFolder);
+			// 바뀐 파일명으로 저장
+			user.setUserProfile(fileName);
+		}
+
+		// 채널 프로필 변경
+		int result = itdaUserService.userUpdateProfile(id);
+
+		if (result == 0)
+		{
+			logger.info("업데이트 실패");
+			return "redirect:error/error";
+		} else
+		{// 수정 성공의 경우
+			logger.info("업데이트 완료");
+			// 수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
+			return "redirect:/";
+		}
+
 	}
 	
 	@RequestMapping("/leave")

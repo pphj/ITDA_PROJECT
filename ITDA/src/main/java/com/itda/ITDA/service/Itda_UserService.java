@@ -45,6 +45,8 @@ public interface Itda_UserService {
 
 	Itda_User userEmailUpdate(String id);
 
+	int userUpdateProfile(String id);
+
 
 
 

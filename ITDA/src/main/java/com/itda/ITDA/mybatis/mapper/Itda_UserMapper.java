@@ -48,6 +48,8 @@ public interface Itda_UserMapper {
 
 	Itda_User userEmailUpdate(String id);
 
+	Itda_User userUpdateProfile(String id);
+
 	
 	
 }
