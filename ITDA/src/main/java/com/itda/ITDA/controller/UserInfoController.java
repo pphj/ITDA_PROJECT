@@ -47,6 +47,7 @@ public class UserInfoController {
 	
 	private final int PASSWD_CONFIRM_OK = 1;
 	private final int EMAIL_CONFIRM_OK = 1;
+	private final int THREE_MINUTE_TIMER = 60*3;
 	
 	private Itda_UserService itdaUserService;
 	private ChannelList_Service channelList_Service;
@@ -146,19 +147,21 @@ public class UserInfoController {
 		return Integer.toString(result);
 	}
 	
-	// 이메일 인증
+	// 이메일 인증 메일 발송
 	@ResponseBody
 	@PostMapping(value="myInfo/emailCheck/authentication")
 	public int emailAuthentication(@RequestParam("email") String email,
 									MailVO vo,
 									Model model,
-									HttpSession session) {
-
-		
+									HttpSession session,
+									HttpServletRequest request) {
+			
+		session.removeAttribute("authCode");
+		request.getSession().getAttribute("authCode");
 		String authCode = generateAuthCode();
 		
 		session.setAttribute("authCode", authCode);
-		
+		session.setMaxInactiveInterval(THREE_MINUTE_TIMER);
 		int result = 0;
 		
 		sendMail.emailAuthentication(email, authCode, vo);
@@ -173,7 +176,60 @@ public class UserInfoController {
 		return result;
 	}
 	
+	// 인증코드 비교
+	@ResponseBody
+	@PostMapping(value="myInfo/emailCheck/authCodeCheck")
+	public int checkAuthCode(HttpSession session,
+							HttpServletRequest request,
+							@RequestParam("authNo") String authNo) {
 		
+		String authCode = (String) request.getSession().getAttribute("authCode");
+		
+		logger.info("authCode : " + authCode +  "/ authNo : " + authNo);
+		int result = 0;
+		
+		if(authCode.equals(authCode)) {
+			
+			result = Constants.CONNECT_SUCCESS;
+			logger.info(Message.SUCCESS);
+			
+			return result;
+		}else {
+			
+			logger.info(Message.ERROR);
+			return result;
+		}
+		
+	}
+	
+	// 회원 이메일 변경 프로세스
+	@PostMapping(value="/emailChangePro")
+	public String userEmailUodateProcess(Itda_User user,
+										Model model,
+										Principal principal) {
+		
+		String id = principal.getName();
+		
+		user.setUserId(id);
+		user.setUserEmail(user.getUserEmail());
+		logger.info("user.setUserEmail : " + user.getUserEmail());
+		
+		Itda_User userNewEmail = itdaUserService.userEmailUpdate(id);		
+		
+		String newMail = user.getUserEmail();
+		
+		
+		int result = 0;
+		if(newMail != null && result == Constants.UPDATE_SUCCESS) {
+			
+			logger.info(Message.USER_UPDATE_SUCCESS);
+			return "redirect:/user/myInfo";
+		}else {
+			
+			logger.info(Message.USER_UPDATE_FALL);
+			return "redirect:/user/myInfo";
+		}
+	}
 	
 	// 회원 정보의 주소 수정
 	@RequestMapping(value="/addressUpdatePro")
@@ -382,19 +438,6 @@ public class UserInfoController {
 			request.setAttribute("msg", Message.USER_LEAVE_FALL);
 		}
 		return "mypage/userinfo/userLeaveAction";
-	}
-	
-	@RequestMapping(value = "myInfo/emailChangePro", method = RequestMethod.POST)
-	public String emailChangeProcess(Itda_User user,
-									Model model,
-									MailVO mailvo) {
-		
-		
-		
-		
-		
-		return "redirect:/my/myInfo";
-		
 	}
 	
 

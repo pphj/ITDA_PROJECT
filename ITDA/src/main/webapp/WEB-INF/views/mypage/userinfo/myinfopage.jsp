@@ -527,6 +527,7 @@
     <input type="hidden" name="addressYn" id="isAddressYn" value="Y"/>
     <input type="hidden" name="userId" id="userId" value="${user.userId }"/>
     <input type="hidden" name="cateNameYn" id="cateNameYn" value="${user.cate_Name}"/>
+    <input type="hidden" name="userEmail" id="userEmail" />
     
     
  
@@ -976,7 +977,7 @@
                         <div class="contact_form">
                             <div class="popup_row rightgap">
                                 <input type="email" placeholder="변경할 이메일 입력" id="myLetterEmail"
-                                       class="popup_input" disabled>
+                                       name="userEmail" class="popup_input" disabled>
                                 <button type="button" class="btn_contact"
                                         onclick="sendAuthNoForEmailAuth('myLetterEmail')">
                                     인증

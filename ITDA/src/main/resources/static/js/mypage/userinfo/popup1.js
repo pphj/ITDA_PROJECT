@@ -516,7 +516,7 @@ function isValidEmailFormat(email) {
     }, 1000);
 }
 */
-	
+	var authCode = $('#authcodecheck').val();
 
     $.ajax({
         type: "POST",
@@ -527,7 +527,6 @@ function isValidEmailFormat(email) {
         data: {"email": email},
         dataType: "json",
         success: function (result) {
-        	var authCode = '${authCode}';
             console.log(result);
             console.log(authCode);
             if (result === 1) {
@@ -620,26 +619,31 @@ function setMyLetterEmail(submitFlag){
             submitFlag = true;
         }
         
-	var myLetterEmail = element_myLetterEmail.value;
-        var authNo = element_myLetterEmailAuthNo.value;
+		var myLetterEmail = $("#myLetterEmail").val();
+        var authNo = $("#myLetterEmailAuthNo").val();
+        
+       	var token = $("meta[name='_csrf']").attr("content");
+    	var header = $("meta[name='_csrf_header']").attr("content");
+ 		
+ 		var addform = document.getElementById("fm");
+ 		
+ 		//var authCode = $('#authcodecheck').val();
 
 	$.ajax({
             type: "POST",
-            url: urls,
-            data: {"myLetterEmail": myLetterEmail, "authNo": authNo},
-            success: function (data) {
-                handleSessionExpiredErr(data);
-
-                var result = JSON.parse(data);
-                if (result.resultCode == 0) {
-                    document.getElementById("p_txt_myLetterEmail").innerHTML = result.resultMsg;
-                    document.getElementById("myLetterEmailRegSpan").innerHTML = result.resultMsg;
+            url: "myInfo/emailCheck/authCodeCheck",
+            beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+       		},
+            data: {"authNo": authNo},
+            success: function (result) {
+				console.log(result);
+				
+                if (result == 1) {
                     isValid = "N";
                     hideMyLetterEmailChangePopUp();
-                } else if (result.resultCode == -2) {
-                    element_e_myLetterEmail.innerHTML = result.resultMsg;
                 } else {
-                    element_e_myLetterEmail.innerHTML = result.resultMsg;
+	                alert("인증 오류입니다. 다시 시도해 주세요");
                 }
             },
             error: function (xhr, status, error) {
@@ -648,6 +652,10 @@ function setMyLetterEmail(submitFlag){
             },
             complete: function () {
                 submitFlag = false;
+            	addform.action= "/itda/user/emailChangePro";
+            	addform.method = "Post";
+            	addform.submit();
+            	alert("이메일 변경이 완료되었습니다.");
             }
         });
     }
