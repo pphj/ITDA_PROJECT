@@ -51,18 +51,22 @@ public interface ChannelListMapper {
 	List<ChBoardCategory> getSellerCategory(int chnum);
 
 	void addCategory(ChBoardCategory chBoardCategory);
-	
-	//채널 서치 키워드
+
+	// 채널 서치 키워드
 	List<ChannelList> searchChannelsByKeyword(String keyword);
-  
+
 	int addCategory(int chnum, String chCate_Name);
 
 	ChannelList myChannelList(String id);
-	
+
 	int updateCategory(int chCate_Id, String chCate_Name);
 
 	int deleteCategory(int chCate_Id);
 
 	List<ChBoardCategory> getCategoryNameList(int chnum);
+
+	int checkChannelName(int chnum, String chName);
+
+	int contentInsert(ChBoard contentAdd);
 
 }

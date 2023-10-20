@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.itda.ITDA.mybatis.mapper.ChannelListMapper">
+<mapper
+	namespace="com.itda.ITDA.mybatis.mapper.ChannelListMapper">
 
 	<select id="getChannelDetail" resultType="ChannelList">
 		SELECT *
@@ -125,7 +126,8 @@
 		WHERE chNum = #{chNum}
 	</update>
 
-	<insert id="saveChannelList" parameterType="com.itda.ITDA.domain.ChannelList">
+	<insert id="saveChannelList"
+		parameterType="com.itda.ITDA.domain.ChannelList">
 		INSERT INTO channellist (chNum, ownerid, chName,
 		chprofile, chinfo, cate_id,
 		chFollow, chVisit)
@@ -152,47 +154,76 @@
 	</select>
 
 	<insert id="addCategory">
-		INSERT INTO chboardcategory(CHCATE_ID, chNum, chCate_Name)
+		INSERT INTO chboardcategory(CHCATE_ID, chNum,
+		chCate_Name)
 		VALUES (chancate_seq.NEXTVAL, #{chnum}, #{chCate_Name})
 	</insert>
-	
-	
-	<select id="searchChannelsByKeyword" parameterType="java.lang.String" resultType="com.itda.ITDA.domain.ChannelList">
-        SELECT *
-        FROM channellist
-        WHERE chName LIKE #{search} 
-         or  chinfo LIKE #{search}
-    </select>
+
+
+	<select id="searchChannelsByKeyword"
+		parameterType="java.lang.String"
+		resultType="com.itda.ITDA.domain.ChannelList">
+		SELECT *
+		FROM channellist
+		WHERE chName LIKE #{search}
+		or chinfo LIKE #{search}
+	</select>
 
 	<!-- mypage에서 channellist 불러오기 -->
 	<select id="myChannelList" resultType="ChannelList">
 		SELECT
-		    ownerid,chnum,chname,chprofile,chinfo,chfollow,chopendate,chvisit
+		ownerid,chnum,chname,chprofile,chinfo,chfollow,chopendate,chvisit
 		FROM
-		    channellist
+		channellist
 		WHERE
-		    ownerid = #{ownerId}
+		ownerid = #{ownerId}
 	</select>
 
 	<update id="updateCategory">
 		UPDATE chboardcategory
-		SET chCate_Name = #{chCate_Name}
+		SET chCate_Name =
+		#{chCate_Name}
 		WHERE chCate_Id = #{chCate_Id}
 	</update>
-	
+
 	<delete id="deleteCategory">
 		delete from chboardcategory
-		where chCate_Id =  #{chCate_Id}
+		where chCate_Id =
+		#{chCate_Id}
 	</delete>
-	
+
 	<select id="getContentListDetail" resultType="ChannelList">
 		SELECT *
 		FROM
 		CHANNELLIST
 		WHERE CHNUM = #{chnum}
 	</select>
-	
+
 	<select id="getCategoryNameList" resultType="ChBoardCategory">
-	select * from chboardcategory where chnum = #{chnum}
+		select * from chboardcategory where chnum = #{chnum}
 	</select>
+	
+	<select id="checkChannelName" resultType="int">
+		SELECT COUNT(*)
+		FROM channellist
+		WHERE CHNUM = #{chnum} AND CHNAME = #{chName}
+	</select>
+
+	<insert id="contentInsert">
+		INSERT INTO chboard (
+		BOARDNUM, CHNUM, WRITER, BOARDTITLE,
+		BOARDHEART, CHCATE_ID, BOARDOPEN,
+		BOARDNORE, BOARDDATE, THUMBNAIL,
+		INTRO, BOARDCONTENT
+		)
+		VALUES (
+		bo_seq.nextval, #{chNum}, #{Writer}, #{boardTitle},
+		0, #{chCate_Id},'Y',
+		'Y', SYSTIMESTAMP, #{thumbNail},
+		#{intro,jdbcType=CLOB},
+		#{boardContent,jdbcType=CLOB}
+		)
+	</insert>
+
+
 </mapper> 
