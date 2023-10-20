@@ -38,7 +38,7 @@
 				</div>
 				<div class="board_content_wrap">
 					<div class="editor_group">
-<<<<<<< HEAD
+
 						<textarea name="boardContent" id="editor"></textarea>
 						<script type="text/javascript">
 							// 글쓰기 editor 및 사진 업로드 기능
@@ -53,9 +53,13 @@
 					<div class="thumbNailArea">
 
 						<img class="thumbNailImage" src="${src}" alt="profile">
-=======
+
+
 						<textarea name="content" id="editor"></textarea>
->>>>>>> branch 'main_sub' of https://github.com/pphj/ITDA_PROJECT.git
+
+
+
+
 					</div>
 				</div>
 				<div class="board_tag_wrap">
