@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,6 +88,8 @@ public class Itda_UserController {
 	public int idcheck(@RequestParam("userId") String userId) {
 		return Itda_UserService.isId(userId);
 	}
+	
+	
 
 	@ResponseBody
 	@RequestMapping(value = "/sendIdEmail", method = RequestMethod.GET)
@@ -112,7 +116,25 @@ public class Itda_UserController {
 
 		return "error";
 	}
+	
+	@ResponseBody
+	 @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    public ResponseEntity<String> changePassword(@RequestParam("newPassword") String newPassword,
+                                                 @RequestParam("confirmPassword") String confirmPassword) {
+        boolean passwordChanged = Itda_UserService.changePassword(newPassword, confirmPassword);
 
+        if (passwordChanged) {
+            return new ResponseEntity<>("success", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+	
+	
+
+	
+	
 	@RequestMapping(value = "/joinForm", method = RequestMethod.GET)
 	public String joinForm() {
 		return "member/joinForm";

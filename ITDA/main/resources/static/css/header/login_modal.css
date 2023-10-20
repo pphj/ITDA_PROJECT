@@ -4,7 +4,7 @@ a{
 	color : black;
 }
 
-/* 濡�洹몄�� 紐⑤�� */
+/* 嚥∽옙域밸�占쏙옙 筌��ㅿ옙占� */
 .modal-header2 h2 {
 	font-size: 24px;
 	font-weight: bold;
@@ -90,7 +90,7 @@ checkbox checkbox-styled {
 	display: block !important;
 }
 
-	/* 濡�洹몄�� 紐⑤�� ���ㅽ�� ��蹂댁�� 臾몄�� */
+	/* 嚥∽옙域밸�占쏙옙 筌��ㅿ옙占� 占쏙옙占썬�쏙옙占� 占쏙옙癰���占쏙옙 �얜�占쏙옙 */
 .header_menu2 {
     position: absolute;
     top: 0;
@@ -103,10 +103,10 @@ p {
 	padding: 0;
 }
 
-/* 濡�洹몄�� 紐⑤�� end */
+/* 嚥∽옙域밸�占쏙옙 筌��ㅿ옙占� end */
 
 /* 
-	����占썲��������占� �β�쎌����諛몌옙������ 嶺�占쏙옙�우����占� 
+	占쏙옙占쏙옙���뀐옙占쏙옙占쏙옙占쏙옙占썲��占� 占싸뀐옙��占쏙옙占쏙옙獄�紐���占쏙옙占쏙옙占쏙옙 癲ワ옙������占쎌�곤옙占쏙옙占썲��占� 
 	
 	.modal-content {
 	position: relative;
@@ -128,7 +128,7 @@ p {
 }
  */
 
-/* ���대�� 李얘린 */
+/* 占쏙옙占쎈��占쏙옙 筌≪��由� */
 article.modal_article {
 	color: #212121;
 	height: 100%;
@@ -161,7 +161,7 @@ article.modal_article h2 {
 }
 
 article.modal_article h2.find_tit {
-	font-size: 15px;
+	/* font-size: 15px; */
 	line-height: 50px;
 	margin-bottom: 0 !important;
 	height: 50px;
@@ -293,9 +293,9 @@ article.modal_article .btn-primary {
 	border-radius: 2px;
 }
 
-/* 占쏙옙占쎈��占쏙옙 筌≪��由� end */
+/* ����������占쏙옙������ 嶺��わ옙占썹�깍옙 end */
 
-/* ��占썼�占썼린占쏙옙占� 筌≪��由� */
+/* 占쏙옙���쇽옙���쇰┛��������占� 嶺��わ옙占썹�깍옙 */
 *:not(input):not(hr), ::before, ::after {
 	border-width: 0;
 	border-style: solid;
@@ -317,4 +317,4 @@ article.modal_article .btn-primary {
 	margin: 80px auto;
 } */
 
-/* ��占썼�占썼린占쏙옙占� 筌≪��由� end */
+/* 占쏙옙���쇽옙���쇰┛��������占� 嶺��わ옙占썹�깍옙 end */

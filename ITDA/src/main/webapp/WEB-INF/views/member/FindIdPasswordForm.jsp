@@ -54,7 +54,7 @@
 								찾기</button>
 						</p>
 					</div>
-					<!-- 비밀번호 찾기 tab -->
+				<!-- 비밀번호 찾기 tab -->
 					<div id="findPassword" class="_step hidden">
 					
 						<div class="select_wrap_pw padding-bottom-xl no-border">
@@ -69,9 +69,9 @@
 							 <!-- 비밀번호 재설정 -->
 					        <div id = "resetPasswordForm" style = "display: none;" class="mt8 mb8">
 					            <div class="input-group">
-					                <input class="form-control _find_pw_input_email"
+					                <input class="form-control _find_pw_input_confirm_password"
 					                    title="" type="text" name=""
-					                    placeholder="">
+					                    placeholder="새로운 비밀번호 확인">
 					            </div>
 					        </div>
 					        
@@ -85,7 +85,7 @@
 				</div>
 			</article>
 
-			<article
+			<article	
 				class="modal_article pop p_lr_space pb16 no-padding bg-white"
 				id="find_step_2" style="display: none">
 				<div class="tit_wrap">
@@ -318,7 +318,7 @@ $(document).ready(function() {
 		})//click
 		
 
-	//비밀번호 찾기 ajax
+	//비밀번호 재설성  ajax
 		$(".findPw").click(function() {
 
 			find_Id_email = $("._find_pw_input_email").val();
@@ -332,20 +332,91 @@ $(document).ready(function() {
 				type : "GET",
 				data : {
 					userEmail : find_Id_email
+						
 				}, // 이메일 값을 전달 성공시 비밀번호 재설정  
 				success : function(response) {
 					if (response == "success") {
 						 // 이메일에 해당하는 계정이 있으면 폼을 보여줍니다.
 		                $("#resetPasswordForm").show();
-		                var inputValue = $("._find_pw_input_email").val();
+						 
+		             // 첫 번째 입력 필드의 placeholder 값을 변경합니다.
+		                $("._find_tit").text("비밀번호 재설정");
+						 
+		             	// 첫 번째 입력 필드의 placeholder 값을 변경합니다.
+		                $("._find_pw_input_email").eq(0).attr("placeholder", "새로운 비밀번호"); 
+						 
+		                $(".btn.btn-primary._update_status.findPw").text("변경하기");
+		                
+		             	// 첫 번째 입력 필드의 클래스를 변경합니다.
+		                $("._find_pw_input_email")
+		                .removeClass("_find_pw_input_email")
+		                .addClass("_find_pw_input_password");
+
+		             // 버튼 텍스트 및 클래스를 변경합니다.
+		        		$(".btn.btn-primary._update_status.findPw")
+		        		  .removeClass("btn-primary _update_status findPw")
+		        		  .addClass("btn btn-primary _update_status resetPw") // resetPw 클래스 추가
+		        		  .text("변경하기");
+		                
+		                var inputValue = $("._find_pw_input_password").val();
 						if (inputValue !== '') {
 							inputValue = '';
-							$("._find_pw_input_email").val(inputValue);
+							$("._find_pw_input_password").val(inputValue);
 						}
+						
+						// 아이디 찾기와 비밀번호 찾기 버튼 히든 처리
+						$(".btn.btn_find.col-xs-6, .btn.btn_find.col-xs-6.active").css("display", "none");
+						
+						// 가려진 영역에 메시지 표시
+						var hiddenEmail = find_Id_email.substr(0, 3) + "****" + find_Id_email.substr(6);
+						var messageHtml = '<p>입력하신 정보와 일치하는 계정을 찾았습니다. <strong>' + hiddenEmail + '</strong></p>';
+						var tabWrap = $(".tab_wrap.clearfix");
+						tabWrap.after('<div id="hiddenMessageArea">' + messageHtml + '</div>');
+						
+						// 중앙 정렬 스타일 추가
+						$("#hiddenMessageArea").css({
+						  "text-align": "center",
+						  "margin-top": "20px"
+						});
 					} else {
-						alert('해당 이메일로 등록된 계정이 없습니다.');
-						 $("#resetPasswordForm").hide();
+						alert('오이');
+						/*  $("#resetPasswordForm").hide(); */
 					}
+					
+					 
+					 
+					 
+				      // 컨트롤러와 연결되는 다른 버튼 클릭 이벤트 처리
+					 $(".resetPw").one("click", function() {
+					    var newPassword = $("input._find_pw_input_password").val();
+					    var confirmPassword = $("input._find_pw_input_confirm_password").val();
+
+					    if (newPassword === confirmPassword) {
+					    	 $.ajax({
+					             url: "changePassword",
+					             type: "POST",
+					             data: {
+					                 newPassword: newPassword,
+					                 confirmPassword: confirmPassword
+					             },
+					             success: function(response) {
+					                 if (response === "success") {
+					                     alert("비밀번호가 성공적으로 변경되었습니다.");
+					                     // 비밀번호 변경 성공 시 필요한 동작 수행
+					                 } else {
+					                     alert("비밀번호 변경에 실패했습니다.");
+					                     // 비밀번호 변경 실패 시 필요한 동작 수행
+					                 }
+					             },
+					             error: function(error) {
+					                 console.error(error);
+					                 alert('오류가 발생했습니다.');
+					             }
+					         });
+					     } else {
+					         alert("비밀번호와 비밀번호 확인 값이 일치하지 않습니다.");
+					     }
+					 });
 				},
 				error : function(error) {
 					console.error(error);
@@ -354,6 +425,7 @@ $(document).ready(function() {
 			});//ajax end
 
 		})//click
+		
 
 	})
 	

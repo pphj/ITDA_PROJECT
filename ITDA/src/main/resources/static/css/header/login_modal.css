@@ -161,7 +161,7 @@ article.modal_article h2 {
 }
 
 article.modal_article h2.find_tit {
-	font-size: 15px;
+	/* font-size: 15px; */
 	line-height: 50px;
 	margin-bottom: 0 !important;
 	height: 50px;
@@ -184,6 +184,7 @@ article.modal_article .tab_wrap .btn_find {
 	color: #757575;
 	font-size: 14px;
 	line-height: 39px;
+	
 	text-align: center;
 	background-color: #F3F3F3;
 	border-right: 1px solid #ddd;
