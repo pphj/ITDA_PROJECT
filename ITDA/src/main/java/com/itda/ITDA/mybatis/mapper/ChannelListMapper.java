@@ -67,4 +67,6 @@ public interface ChannelListMapper {
 
 	int checkChannelName(int chnum, String chName);
 
+	int contentInsert(ChBoard contentAdd);
+
 }

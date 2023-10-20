@@ -142,8 +142,7 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 
 	@Override
 	public int contentInsert(ChBoard contentAdd) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.contentInsert(contentAdd);
 	}
 
 	@Override

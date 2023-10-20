@@ -201,4 +201,21 @@
 	      WHERE CHNUM = #{chnum} AND CHNAME = #{chName}
 	</select>
 	
+	<insert id="contentInsert">
+	    INSERT INTO chboard (
+	 		BOARDNUM, CHNUM, WRITER, BOARDTITLE,
+	        BOARDHEART, CHCATE_ID, BOARDOPEN,
+	        BOARDNORE, BOARDDATE, THUMBNAIL,
+	        INTRO, BOARDCONTENT
+	    )
+	    VALUES (
+	        bo_seq.nextval, #{chNum}, #{Writer}, #{boardTitle},
+	        0, #{chCate_Id},'Y', 
+	        'Y', SYSTIMESTAMP, #{thumbNail}, 
+	        #{intro,jdbcType=CLOB}, 
+	        #{boardContent,jdbcType=CLOB}
+	    )
+	</insert>
+
+
 </mapper> 

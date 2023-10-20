@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -354,7 +355,10 @@ public class ChannelListController {
 	}
 
 	@RequestMapping(value = "/contentwrite.co/{chnum}", method = RequestMethod.GET)
-	public ModelAndView addBoard(@PathVariable("chnum") int chnum, ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView addBoard(@PathVariable("chnum") int chnum, ModelAndView mv, HttpServletRequest request,
+			HttpSession session) {
+
+		session.setAttribute("chnum", chnum);
 
 		if (chnum == WRONG_CHNUM)
 		{
@@ -375,23 +379,26 @@ public class ChannelListController {
 
 	}
 
-	@RequestMapping(value = "/contentadd", method = RequestMethod.POST)
-	public String insertContent(@RequestParam("boardTitle") String boardTitle, @RequestParam("content") String content,
-			@RequestParam("categoryId") int categoryId, @RequestParam("thumbNail") MultipartFile thumbNail,
-			HttpSession session, RedirectAttributes rattr) {
+	@PostMapping("/contentadd")
+	public String insertContent(@RequestParam("boardTitle") String boardTitle,
+			@RequestParam("boardContent") String boardContent, @RequestParam("chCate_Id") int chCate_Id,
+			@RequestParam("thumbNail") MultipartFile thumbNail, Principal principal, HttpSession session,
+			RedirectAttributes rattr) {
 
 		// 세션에서 데이터 가져오기
-		String writer = (String) session.getAttribute("userId");
-		int channelNum = (int) session.getAttribute("chnum");
+		String writer = principal.getName();
+		int chnum = (int) session.getAttribute("chnum");
 
 		// 파일 저장 경로 설정
 		String saveFolder = "/image/content/";
 
 		// 실제 파일 저장 경로에 채널 번호와 오늘 날짜 추가
-		String realFolder = saveFolder + channelNum + "/" + toDay() + "/";
+		String realFolder = saveFolder + chnum + "/" + toDay() + "/";
 
 		// 폴더 생성 메서드 호출
 		createFolder(realFolder);
+
+		System.out.println(chnum + "/" + boardTitle + "/" + boardContent + "/" + chCate_Id + "/" + thumbNail);
 
 		// 썸네일 이미지 파일 저장 처리
 		try
@@ -410,18 +417,18 @@ public class ChannelListController {
 		try
 		{
 			ChBoard contentAdd = new ChBoard();
-			contentAdd.setChNum(channelNum);
+			contentAdd.setChNum(chnum);
 			contentAdd.setWriter(writer);
 			contentAdd.setBoardTitle(boardTitle);
-			contentAdd.setBoardContent(content);
-			contentAdd.setChCate_Id(categoryId);
+			contentAdd.setBoardContent(boardContent);
+			contentAdd.setChCate_Id(chCate_Id);
 			contentAdd.setThumbNail(thumbFileName);
 
 			int result = channelList_Service.contentInsert(contentAdd);
 
 			if (result > 0)
 			{
-				return "redirect:/channels/" + channelNum;
+				return "redirect:/channels/" + chnum;
 			} else
 			{
 				throw new Exception("게시물 작성 오류");

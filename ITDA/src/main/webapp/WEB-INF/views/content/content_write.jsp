@@ -16,20 +16,21 @@
 <script>
 	const chnum = <c:out value="${chNum}"/>
 </script>
-<title>채널게시글 작성</title>
+<title>채널게시글 작성 </title>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
 	<div class="board_write_wrap">
 		<div class="board_group">
-			<form action="contentadd" method="post" enctype="multipart/form-data">
+			<form action="${pageContext.request.contextPath}/channels/contentadd" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="chNum" id="chNum" value="${chnum}">
 				<div class="text_form board_head_wrap">
 					<select class="category_select_from">
 						<option disabled selected>카테고리를 선택하세요</option>
 						<c:forEach var="item" items="${cbctlist}">
 							<option value="${item.chCate_Id}">${item.chCate_Name}</option>
 						</c:forEach>
-					</select> <input type="hidden" name="categoryId" class="categoryId" value="">
+					</select> <input type="hidden" name="chCate_Id" class="categoryId" value="">
 				</div>
 				<div class="board_subject_wrap">
 					<input class="text_from board_subject_from" type=text name="boardTitle" placeholder="제목을 입력하세요">
@@ -37,7 +38,7 @@
 				<!--  글작성 부분 -->
 				<div class="board_content_wrap">
 					<div class="editor_group">
-						<textarea name="adContent" id="editor"></textarea>
+						<textarea name="boardContent" id="editor"></textarea>
 						<script type="text/javascript">
 							// 글쓰기 editor 및 사진 업로드 기능
 							CKEDITOR.replace('editor', {
@@ -80,6 +81,7 @@
 					<button type="button" class="board_write_button write_cancel">작성취소</button>
 					<button type="submit" class="board_write_button">작성완료</button>
 				</div>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			</form>
 		</div>
 	</div>
