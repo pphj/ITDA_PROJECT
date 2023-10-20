@@ -3,18 +3,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <html>
 <head>
+    <jsp:include page="../include/header.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script> var contextPath = "<%= request.getContextPath() %>"; </script>
     <script src="${pageContext.request.contextPath}/js/Reply.js"></script>
     <script src="${pageContext.request.contextPath}/js/Heart.js"></script>
 	<link href='${pageContext.request.contextPath}/resources/css/Reply.css' type='text/css' rel='stylesheet'>
 	<link href="${pageContext.request.contextPath}/resources/css/content/content_detail.css" type="text/css" rel="stylesheet">
-    <jsp:include page="../include/header.jsp"/>
 
 <title>${board.boardTitle }</title>
 </head>

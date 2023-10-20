@@ -16,37 +16,6 @@ function cnt_tag() {
 }
 
 $(function () {
-
-	$('form').on('submit', function(e) {
-	        e.preventDefault(); // form의 기본 submit 동작 중지
-	
-	         var data = {
-			        boardTitle: $("#boardTitle").val(),
-			        content: $("#content").val(),
-			        categoryId: $("#categoryId").val(),
-			        // 추가적인 필드들...
-			    };
-			 alert("data = " + data)
-	
-	        $.ajax({
-				        url: 'contentadd', // 요청을 보낼 URL
-				        type: 'POST', // HTTP 메서드 지정
-				        data: JSON.stringify(data),
-				        contentType: "application/json;charset=UTF-8",
-					beforeSend: function(xhr) {
-				            xhr.setRequestHeader(header, token);
-					},
-					success: function(response) {
-				            console.log('게시글 작성 완료');
-				            alert('게시글 작성 성공');
-				            location.reload();
-					},
-					error: function(jqXHR, textStatus, errorThrown) {
-				            console.error('게시글 작성 에러:', textStatus);
-					}
-				     });
-				});
-					    
     $(document).on('click', '.viewer_tag_link', function () {
         $(this).parent().remove();
         if ($('li.viewer_tag_item').length < 5) {

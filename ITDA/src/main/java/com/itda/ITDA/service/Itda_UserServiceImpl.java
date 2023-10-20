@@ -83,8 +83,7 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	}
 
 	public Itda_User findUserByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findUserByEmail(email);
 	}
 
 	@Override
