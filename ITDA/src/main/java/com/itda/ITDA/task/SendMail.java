@@ -1,38 +1,32 @@
 package com.itda.ITDA.task;
 
-import com.itda.ITDA.domain.MailVO;
-
-import java.io.File;
-
 import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 
+import com.itda.ITDA.domain.MailVO;
+import com.itda.ITDA.util.Message;
 
 @Component
 public class SendMail {
+
 	private static final Logger logger = LoggerFactory.getLogger(SendMail.class);
-	
-//	@Value("${my.sendfile}")
-//	private String sendfile;
-	
+
 	private JavaMailSenderImpl mailSender;
-	
+
 	@Autowired
 	public SendMail(JavaMailSenderImpl mailSender) {
 		this.mailSender = mailSender;
 	}
-	
-	// 프로젝트 우클릭 -> Properties -> Project Facets -> 자바버전 11로 맞추세요
-	
+
+// 프로젝트 우클릭 -> Properties -> Project Facets -> 자바버전 11로 맞추세요
+
 	public void sendMail(MailVO vo) {
 		
 		MimeMessagePreparator mp = new MimeMessagePreparator() {
@@ -79,4 +73,30 @@ public class SendMail {
 		mailSender.send(mp); //메일 전송합니다.
 		logger.info("메일 전송했습니다.");
 	} // sendMail(MailVO vo)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+
+	public void emailAuthentication(String email, String authCode, MailVO vo) {
+		MimeMessagePreparator mp = new MimeMessagePreparator() {
+
+			@Override
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+				helper.setFrom(vo.getFrom());
+				helper.setTo(email);
+				helper.setSubject(Message.EMAIL_AUTHENTICATION_MESSAGE_TITLE);
+
+				// 1. 문자로만 전송하는 경우
+				// 두 번째 인자는 html을 사용하겠다는 뜻입니다.
+				// helper.setText(vo.getContent(), true);
+
+				// 2. 이미지를 내장해서 보내는 경우
+				// cid(content id)
+				String content = Message.EMAIL_AUTHENTICATION_MESSAGE_CONTENT + authCode;
+				helper.setText(content, true);
+			};
+
+		};
+		mailSender.send(mp); // 메일 전송합니다.
+	}
+
 } // class SendMail

@@ -18,4 +18,15 @@ public interface adMemberMapper {
 	public Admin adminInfo(String adminId);
 
 	public int adminUpdate(Admin admin);
+
+	public List<AdminBoard> getAdminBoardList();
+
+	public AdminBoard getAdminBoardByUserId(int userId);
+
+	public AdminBoard getAdminBoardByAdNum(int adNum);
+
+	public List<AdminBoard> getQnaByUser(String userId);
+
+	public int insertQna(AdminBoard adminBoard);
+	
 }

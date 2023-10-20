@@ -9,10 +9,7 @@
 <meta charset="UTF-8">
 <title>공지사항</title>
 
-
-
 <link rel="shortcut icon" href="https://www.hankyung.com/favicon.ico">
-
 <!--  <link rel="apple-touch-icon" sizes="192x192" href="https://static.hankyung.com/resource/common/img/favicon/apple-touch-icon.png"> -->
 <!-- 페이지 네이션 -->
 <link rel="stylesheet"
@@ -27,8 +24,8 @@
 <script type="text/javascript"
 	src="https://static.hankyung.com/js/ga/googleTagManager.js?v=202309211654"
 	async="true"></script>
-<jsp:include page="../include/header.jsp"/>
 
+<jsp:include page="../include/header.jsp"/>
 </head>
 
 <body>

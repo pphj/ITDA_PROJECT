@@ -2,6 +2,7 @@ package com.itda.ITDA.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,8 +30,10 @@ import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.UserCategoryService;
+import com.itda.ITDA.task.SendMail;
 import com.itda.ITDA.util.Constants;
 import com.itda.ITDA.util.Message;
+import com.itda.ITDA.util.Util;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,19 +46,23 @@ public class UserInfoController {
 	private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 	
 	private final int PASSWD_CONFIRM_OK = 1;
+	private final int EMAIL_CONFIRM_OK = 1;
 	
 	private Itda_UserService itdaUserService;
 	private ChannelList_Service channelList_Service;
 	private ContentService contentService;
 	private UserCategoryService userCategoryService;
+	private SendMail sendMail;
 	
 	@Autowired
 	public UserInfoController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service, 
-								ContentService contentService, UserCategoryService userCategoryService) {
+								ContentService contentService, UserCategoryService userCategoryService
+								, SendMail SendMail) {
 		this.itdaUserService = itdaUserService;
 		this.channelList_Service = channelList_Service;
 		this.contentService = contentService;
 		this.userCategoryService = userCategoryService;
+		this.sendMail = SendMail;
 	}
 
 	
@@ -96,6 +103,68 @@ public class UserInfoController {
 	    }
 		
 	}
+	
+	// 마이페이지 나의 정보 자세히 보기
+	@ResponseBody
+	@PostMapping(value = "myInfo/emailCheck")
+	public int getEmailCheck(Model model, 
+							HttpSession session, 
+							Principal principal,
+							@RequestParam("userEmail") String userEmail) {
+
+		String id = principal.getName();
+
+		logger.info("id : " + principal.getName());
+
+		Itda_User user = itdaUserService.emailCheck(id);
+
+		String getUserEmail = user.getUserEmail();
+
+		int result = 0;
+		if (userEmail.equals(getUserEmail)) {
+			logger.info(userEmail);
+			result = EMAIL_CONFIRM_OK;
+
+			return result;
+		} else {
+			logger.info(Message.ERROR);
+			return result;
+		}
+
+	}
+	
+	private String generateAuthCode() {
+		Random random = new Random();
+		int range = (int) Math.pow(10, 6); // 10의 6승
+		int trim = (int) Math.pow(10, 5); // 10의 5승
+		int result = random.nextInt(range) + trim;
+
+		if (result > range) {
+			result -= trim;
+		}
+		logger.info(Integer.toString(result));
+		return Integer.toString(result);
+	}
+	
+	// 이메일 인증
+	@ResponseBody
+	@PostMapping(value="myInfo/emailCheck/authentication")
+	public int emailAuthentication(@RequestParam("email") String email,
+									MailVO vo,
+									Model model) {
+
+		
+		String authCode = generateAuthCode();
+		
+		sendMail.emailAuthentication(email, authCode, vo);
+		
+		
+		int result = 0;
+		
+		return result;
+	}
+	
+		
 	
 	// 회원 정보의 주소 수정
 	@RequestMapping(value="/addressUpdatePro")
@@ -146,7 +215,6 @@ public class UserInfoController {
 		
 		String id = principal.getName();
 		
-		logger.info(id);
 		Itda_User user = itdaUserService.pwCheck(id);
 		
 		if(encoder.matches(userPw, user.getUserPw())) {
@@ -285,7 +353,6 @@ public class UserInfoController {
 			logger.info("탈퇴이유 insert 성공");
 
 			if (result == Constants.INSERT_SUCCESS) {
-				System.out.println("id = " + id);
 				result = itdaUserService.deleteUserInsert(id);
 				System.out.println("탈퇴유저 insert 성공 :" + result);
 
@@ -293,7 +360,6 @@ public class UserInfoController {
 				result = itdaUserService.itda_userDelete(id);
 
 				if (result == Constants.DELETE_SUCCESS) {
-					System.out.println("탈퇴유저 delete 성공 :" + result);
 
 					logger.info("탈퇴 유저 정보 insert 성공, 유저 delete 성공");
 				}

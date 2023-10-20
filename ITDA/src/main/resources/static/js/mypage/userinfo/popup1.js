@@ -291,64 +291,75 @@
         document.getElementById("myLetterEmailAuthGuideTxt").style.display = "none"
     }
 
-    var element_e_myLetterEmail = document.getElementById("e_myLetterEmail");
-    var element_confirmMyLetterEmail = document.getElementById("confirmMyLetterEmail");
-    var element_myLetterEmail = document.getElementById("myLetterEmail");
-    var element_myLetterEmailAuthNo = document.getElementById("myLetterEmailAuthNo");
+    var element_e_myLetterEmail = $("#e_myLetterEmail");;
+    var element_confirmMyLetterEmail = $("#confirmMyLetterEmail");
+   	var element_myLetterEmail = $("#myLetterEmail");
+    var element_myLetterEmailAuthNo = $("#myLetterEmailAuthNo");
 
-    var element_confirmPswdEmail = document.getElementById("confirmPswdEmail");
-    var element_pswdEmail = document.getElementById("pswdEmail");
-    var element_pswdEmailAuthNo = document.getElementById("pswdEmailAuthNo");
-    var element_e_pswdEmail = document.getElementById("e_pswdEmail");
-    var element_isEmailYn = document.getElementById("isEmailYn");
+    var element_confirmPswdEmail = $("#confirmPswdEmail");
+    var element_pswdEmail = $("#pswdEmail");
+    var element_pswdEmailAuthNo = $("#pswdEmailAuthNo");
+    var element_e_pswdEmail = $("#e_pswdEmail");
+    var element_isEmailYn = $("#isEmailYn");
 
-    var doConfirmMyLetterEmailFlag = false;
 
-    function doConfirmMyLetterEmail() {
-        if (doConfirmMyLetterEmailFlag === true) {
-            return;
-        }
-
-        nclk(this, 'inf.primaryconfirm', '', '', window.event);
-
-        if (element_confirmMyLetterEmail.value == "" || element_confirmMyLetterEmail.value.replace(/^\s+/, "") == "") {
-            element_e_myLetterEmail.innerHTML = "이메일 주소를 입력해 주세요.";
-            element_confirmMyLetterEmail.focus();
-            element_confirmMyLetterEmail.value = "";
-            return;
-        }
-
-        if (!isValid_email_myinfo(element_confirmMyLetterEmail.value.replace(/^\s+/, ""), "e_myLetterEmail")) {
-            element_e_myLetterEmail.innerHTML = "이메일 형식이 올바르지 않습니다.";
-            element_confirmMyLetterEmail.focus();
-            element_confirmMyLetterEmail.value = "";
-            return;
-        }
-
-        confirmMyLetterEmail(doConfirmMyLetterEmailFlag);
+    
+  // 변수와 함수 정의
+  var doConfirmMyLetterEmailFlag = false;
+  
+  function doConfirmMyLetterEmail() {
+    var element_confirmMyLetterEmail = $("#confirmMyLetterEmail");
+    var element_e_myLetterEmail = $("#e_myLetterEmail");
+    
+    if (doConfirmMyLetterEmailFlag === true) {
+      return;
     }
+    
+    nclk(this, 'inf.primaryconfirm', '', '', window.event);
+    
+    if (element_confirmMyLetterEmail.val() == "" || element_confirmMyLetterEmail.val().replace(/^\s+/, "") == "") {
+      element_e_myLetterEmail.html("이메일 주소를 입력해 주세요.");
+      element_confirmMyLetterEmail.focus();
+      element_confirmMyLetterEmail.val("");
+      return;
+    }
+    
+    if (!isValid_email_myinfo(element_confirmMyLetterEmail.val().replace(/^\s+/, ""), "e_myLetterEmail")) {
+      element_e_myLetterEmail.html("이메일 형식이 올바르지 않습니다.");
+      element_confirmMyLetterEmail.focus();
+      element_confirmMyLetterEmail.val("");
+      return;
+    }
+    
+    // confirmMyLetterEmail 함수 호출
+    confirmMyLetterEmail(doConfirmMyLetterEmailFlag);
+}
 
+/*
     function confirmMyLetterEmail(submitFlag) {
         if (submitFlag === true) {
             return;
         } else {
             submitFlag = true;
         }
+        var header = '${_csrf.headerName}';
+  		var token = '${_csrf.token}';
 
-        var token = '';
+
         var myLetterEmail = element_confirmMyLetterEmail.value;
 
-        var urls = CHANGE_USER_INFO_URL + "?m=checkMyLetterEmail&token_help=" + token;
+        var urls = '${pageContext.request.contextPath}/user/myInfo/emailCheck';
 
         $.ajax({
             type: "POST",
             url: urls,
-            data: {"myLetterEmail": myLetterEmail},
-            success: function (data) {
-                handleSessionExpiredErr(data);
+            beforeSend: function (xhr) {
+          	  xhr.setRequestHeader(header, token);
+        	},
+            data: {"userEmail": myLetterEmail},
+            success: function (result) {
 
-                var result = JSON.parse(data);
-                if (result.resultCode == 0) {
+                if (result == 1) {
                     element_e_myLetterEmail.className = "popup_error green";
                     element_e_myLetterEmail.innerHTML = "현재 정보가 확인되었습니다. 변경할 이메일을 입력해주세요.";
                     element_myLetterEmail.disabled = false;
@@ -368,6 +379,58 @@
         });
     }
 
+*/
+
+function confirmMyLetterEmail(submitFlag) {
+    if (submitFlag === true) {
+        return;
+    } else {
+        submitFlag = true;
+    }
+
+	var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+    
+    var myLetterEmail = $("#confirmMyLetterEmail").val(); // jQuery로 요소 참조
+
+	
+    $.ajax({
+        type: "POST",
+        url: "myInfo/emailCheck",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        data: {"userEmail": myLetterEmail},
+        dataType: "json",
+        success: function (result) {
+        	console.log(result);
+
+        
+            var element_e_myLetterEmail = $("#e_myLetterEmail");
+            var element_myLetterEmail = $("#myLetterEmail"); 
+
+            if (result == 1) {
+                element_e_myLetterEmail.addClass("popup_error green");
+                element_e_myLetterEmail.html("현재 정보가 확인되었습니다. <br>변경할 이메일을 입력해주세요.");
+                element_myLetterEmail.prop("disabled", false);
+                element_myLetterEmail.focus();
+            } else {
+                element_e_myLetterEmail.removeClass("popup_error green");
+                element_e_myLetterEmail.addClass("popup_error");
+                element_e_myLetterEmail.html(result.resultMsg);
+            }
+        },
+        error: function (xhr, status, error) {
+       		console.log("error: " + error);
+            alert("일시적인 오류입니다. 잠시 후 다시 시도해 주세요.");
+            window.location.href = rawRurl; // 페이지 이동
+        },
+        complete: function () {
+            submitFlag = false;
+        }
+    });
+}
+
     function handleSessionExpiredErr(data) {
         if (data && data.indexOf("-9|") === 0) {
             alertReturnMessage(data.split("|")[1]);
@@ -381,60 +444,99 @@
         }
     }
 
-    var sendAuthNoForEmailAuthFlag = false;
+ var sendAuthNoForEmailAuthFlag = false;
+ 
+ function sendAuthNoForEmailAuth(obj) {
+    if (sendAuthNoForEmailAuthFlag === true) {
+        return;
+    }
+    
+    var element_e_myLetterEmail = $("#e_myLetterEmail");
+    var element_myLetterEmail = $("#myLetterEmail"); 
 
-    function sendAuthNoForEmailAuth(obj) {
-        if (sendAuthNoForEmailAuthFlag === true) {
-            return;
-        }
-
-        if (document.getElementById(obj).disabled == true) {
-            document.getElementById("e_" + obj).innerHTML = "현재 이메일 주소가 정확한지 확인해 주세요.";
-            element_confirmMyLetterEmail.focus();
-            return;
-        }
-
-        if (obj == 'myLetterEmail') {
-            nclk(this, 'inf.primarychangeverify', '', '', window.event);
-
-            element_e_myLetterEmail.innerHTML = "";
-            element_e_myLetterEmail.className = "popup_error";
-            element_myLetterEmailAuthNo.value = "";
-            element_myLetterEmailAuthNo.className = "popup_input";
-
-            if (element_myLetterEmail.value == "" || element_myLetterEmail.value.replace(/^\s+/, "") == "") {
-                element_e_myLetterEmail.innerHTML = "이메일 주소를 입력해 주세요.";
-                element_myLetterEmail.focus();
-                element_myLetterEmail.value = "";
-                return;
-            }
-        } else {
-            nclk(this, 'inf.recoverychangeverify', '', '', window.event);
-
-            element_e_pswdEmail.innerHTML = "";
-            element_e_pswdEmail.className = "popup_error";
-            element_pswdEmailAuthNo.value = "";
-            element_pswdEmailAuthNo.className = "popup_input";
-
-            if (element_pswdEmail.value == "" || element_pswdEmail.value.replace(/^\s+/, "") == "") {
-                element_e_pswdEmail.innerHTML = "이메일 주소를 입력해 주세요.";
-                element_pswdEmail.focus();
-                element_pswdEmail.value = "";
-                return;
-            }
-        }
-
-        if (!isValid_email_myinfo(document.getElementById(obj).value.replace(/^\s+/, ""), "e_" + obj)) {
-            document.getElementById("e_" + obj).innerHTML = "이메일 형식이 올바르지 않습니다.";
-            document.getElementById(obj).focus();
-            document.getElementById(obj).value = "";
-            return;
-        }
-
-        getAjaxSendAuthNoForEmailAuth(obj, sendAuthNoForEmailAuthFlag);
+    // 인증 번호 전송 전에 이메일 주소 형식 검사
+    var email = $("#" + obj).val();
+    var errorElement = $("#e_" + obj);
+    
+    if (email === "" || email.replace(/^\s+/, "") === "") {
+    	element_e_myLetterEmail.removeClass("popup_error green");
+        element_e_myLetterEmail.addClass("popup_error");
+        errorElement.html("이메일 주소를 입력해 주세요.");
+        $("#" + obj).focus();
+        return;
     }
 
-    function getAjaxSendAuthNoForEmailAuth(obj, submitFlag) {
+    if (!isValidEmailFormat(email)) {
+        element_e_myLetterEmail.removeClass("popup_error green");
+        element_e_myLetterEmail.addClass("popup_error");
+        errorElement.html("이메일 형식이 올바르지 않습니다.");
+        $("#" + obj).val("");
+        $("#" + obj).focus();
+        return;
+    }
+
+    // 이메일 주소 형식이 올바른 경우에만 인증번호를 요청
+    getAjaxSendAuthNoForEmailAuth(obj, sendAuthNoForEmailAuthFlag);
+}
+
+// 이메일 주소 형식 검사 함수
+function isValidEmailFormat(email) {
+    // 이메일 정규표현식
+    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+}
+
+	function getAjaxSendAuthNoForEmailAuth(obj, sendAuthNoForEmailAuthFlag) {
+    if (sendAuthNoForEmailAuthFlag === true) {
+        return;
+    } else {
+        sendAuthNoForEmailAuthFlag = true;
+    }
+
+    var email = $("#" + obj).val();
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    $.ajax({
+        type: "POST",
+        url: "myInfo/emailCheck/authentication", 
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        data: {"email": email},
+        dataType: "json",
+        success: function (result) {
+            console.log(result);
+            if (result === 1) {
+                // 인증번호가 성공적으로 발생한 경우
+                $("#" + obj + 'AuthNo').prop("disabled", false);
+                $("#" + obj + 'AuthNo').focus();
+                $("#e_" + obj).removeClass("popup_error");
+            } else {
+                // 인증번호 발생 실패
+                $("#e_" + obj).addClass("popup_error");
+            }
+            $("#e_" + obj).html(data.resultMsg);
+        },
+        error: function (xhr, status, error) {
+            console.log("error: " + error);
+            console.log(result);
+        },
+        complete: function () {
+            sendAuthNoForEmailAuthFlag = false;
+        }
+    });
+}
+
+
+
+ 
+ 
+
+
+/*
+  function getAjaxSendAuthNoForEmailAuth(obj, submitFlag) {
         if (submitFlag === true) {
             return;
         } else {
@@ -564,6 +666,7 @@
             }
         });
     }
+*/
 
     function showPswdEmailChangePopUp() {
         var clickCode = "imn";
