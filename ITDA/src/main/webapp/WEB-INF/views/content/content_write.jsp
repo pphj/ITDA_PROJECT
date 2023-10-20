@@ -38,6 +38,7 @@
 				</div>
 				<div class="board_content_wrap">
 					<div class="editor_group">
+
 						<textarea name="boardContent" id="editor"></textarea>
 						<script type="text/javascript">
 							// 글쓰기 editor 및 사진 업로드 기능
@@ -53,7 +54,11 @@
 
 						<img class="thumbNailImage" src="${src}" alt="profile">
 
+
 						<textarea name="content" id="editor"></textarea>
+
+
+
 
 					</div>
 				</div>

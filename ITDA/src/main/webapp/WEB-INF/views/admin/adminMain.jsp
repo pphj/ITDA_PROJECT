@@ -28,14 +28,19 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script>
   $(function(){
-	  	let userTotal = [];
-	  	let creDate = [];
-
-	  	// 원하는 개수만큼 반복
-	  	for (let i = 1; i <= 10; i++) {
-	    	userTotal.push($(".userTotal" + i).text());
-	    	creDate.push($(".creDate" + i).text());
-	  	}
+	  let userTotalData = ${userTotalData};
+	    console.log(userTotalData);
+	    console.log(userTotalData[0].creDate);
+	    let userTotal = [];
+	    let creDate = [];
+		
+	    for (let i = 0; i < 10; i++) {
+	    	  userTotal.push(userTotalData[i].userTotal);
+	    	  let timestamp = userTotalData[i].creDate;
+	    	  let date = new Date(timestamp);
+	    	  let formattedDate = date.toISOString().split('T')[0]; // "yyyy-MM-dd" 형식으로 변환
+	    	  creDate.push(formattedDate);
+	    	}
 	  	
 	  	userTotal = userTotal.reverse();
 	  	creDate = creDate.reverse();
@@ -79,6 +84,7 @@
 	        },
 	        scales: {
 	          y: {
+	        	max: 300,
 	            grid: {
 	              drawBorder: true,
 	              display: true,
@@ -190,23 +196,6 @@
 	          </div>
 			</div>
 			</div>
-		</div>
-		<div style="display: none;">
-			<table>
-				<tbody>
-				<c:forEach var="u" items="${userTotalData}" varStatus="loop">
-					<tr>
-						<td class="userTotal${loop.index + 1}">${u.userTotal}</td>
-						<c:choose>
-						    <c:when test="${not empty u.creDate}">
-						        <c:set var="Date" value="${fn:substring(u.creDate, 0, 10)}" />
-						        <td class="creDate${loop.index + 1}"><div><c:out value="${Date}" /></div></td>
-						    </c:when>
-						</c:choose>
-					</tr>
-				</c:forEach>
-				</tbody>
-			</table>
 		</div>
 	</div>
   </main>
