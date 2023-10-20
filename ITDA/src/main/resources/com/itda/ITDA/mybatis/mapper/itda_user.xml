@@ -138,6 +138,13 @@
 	    WHERE itda_user.userid = #{userId}
 	        OR seller.userid = #{userId, jdbcType=VARCHAR}
 	</select>
+	
+	<!-- 이메일 체크 -->
+	<select id="emailCheck" resultType="Itda_User">
+		select userEmail
+		from itda_user
+		where userId = #{userId}
+	</select>
 
 
 

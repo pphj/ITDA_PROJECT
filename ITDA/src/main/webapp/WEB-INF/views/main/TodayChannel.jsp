@@ -16,44 +16,6 @@
             }
         });
     });
-/*     function loadChannelList(categoryNum) {
-
-        $.ajax({			//오늘의 채널
-            type: "get",
-            url: "main/ChannelListAction",
-            data: {categoryNum: categoryNum},
-            dataType: "json",
-            success: function (data) {
-                var channelTable = $(".row.area");
-                channelTable.empty();
-
-                $.each(data, function (index, item) {
-                    var appendData = '<div class="col-md-4">'
-                        + '<a href="channels/' + item.chNum + '">'
-                        + '<div class="card d-flex justify-content-center">';
-
-                    // 이미지 URL을 동적으로 설정합니다.
-                    var imageUrl = item.chprofile
-                        ? "resources/image/MemberUpload/" + item.ownerId + "/" + item.chprofile
-                        : "${pageContext.request.contextPath}/resources/image/common/itda_logo3.png";
-
-                    appendData += '<img src="' + imageUrl + '" class="card-img-top rounded-circle mx-auto d-block" alt="...">'
-                        + '<div class="card-body">'
-                        + '<h5 class="card-title">' + item.chName + '</h5>'
-                        + '<p class="card-text">' + item.chInfo + '</p>'
-                        + '</div>'
-                        + '</div>'
-                        + '</a>'
-                        + '</div>';
-
-                    channelTable.append(appendData);
-                });
-            },
-            error: function () {
-                alert("채널 목록을 불러오는 데 실패했습니다.");
-            }
-        });
-    } */	
 
       function loadChannelList(categoryNum) {
 
