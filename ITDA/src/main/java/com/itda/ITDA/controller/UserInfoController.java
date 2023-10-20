@@ -151,15 +151,24 @@ public class UserInfoController {
 	@PostMapping(value="myInfo/emailCheck/authentication")
 	public int emailAuthentication(@RequestParam("email") String email,
 									MailVO vo,
-									Model model) {
+									Model model,
+									HttpSession session) {
 
 		
 		String authCode = generateAuthCode();
 		
-		sendMail.emailAuthentication(email, authCode, vo);
-		
+		session.setAttribute("authCode", authCode);
 		
 		int result = 0;
+		
+		sendMail.emailAuthentication(email, authCode, vo);
+		if (sendMail.emailAuthentication(email, authCode, vo) == true) {
+			
+			result = Constants.CONNECT_SUCCESS;
+			logger.info("메일 전송에 성공하였습니다.");
+		}else {
+			logger.info("메일 전송에 실패하였습니다.");
+		}
 		
 		return result;
 	}
