@@ -138,6 +138,19 @@
 	    WHERE itda_user.userid = #{userId}
 	        OR seller.userid = #{userId, jdbcType=VARCHAR}
 	</select>
+	
+	<!-- 이메일 체크 -->
+	<select id="emailCheck" resultType="Itda_User">
+		select userEmail
+		from itda_user
+		where userId = #{userId}
+	</select>
+	
+	<!-- 비밀번호 재설정 -->
+	<update id="updateUserPassword">
+  	UPDATE itda_user SET userPw = #{encryptedPassword} WHERE userEmail = #{userEmail}
+	</update>
+
 
 
 

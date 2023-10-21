@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="t" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
 <script>
 $(document).ready(function(){
@@ -53,7 +54,9 @@ $(document).ready(function(){
 				<a href="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_user_link is_payment" data-clk="my_lnb.paydet">결제내역</a>
 				<a href="${pageContext.request.contextPath}/my/coupons" class="my_user_link is_coupon" data-clk="my_lnb.coupon">쿠폰</a>
 				<a href="${pageContext.request.contextPath}/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
+			<t:if test="${message ne 'NOT_SELLER' }">	
 				<a href="${pageContext.request.contextPath}/my/channellist" class="my_user_link is_channel" data-clk="my_lnb.set">나의채널</a>
+			</t:if>	
 			</div>
 		</div>
 		<div class="my_tab_wrap">

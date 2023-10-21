@@ -41,7 +41,9 @@ public interface Itda_UserService {
 
 	Itda_User isUserIdORSellerId(String id);
 
+	Itda_User emailCheck(String id);
 
+	boolean changePassword(String userEmail, String newPassword);
 
 
 

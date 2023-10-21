@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
 import com.itda.ITDA.domain.BoardWarn;
@@ -66,18 +68,20 @@ public class adminController {
 	
 	
 	@RequestMapping(value="/Main")
-	public ModelAndView SetAdmin(ModelAndView mv) {
+	public ModelAndView SetAdmin(ModelAndView mv) throws JsonProcessingException {
 		
 		int qnaDailyCount = adminService.qnaDailyCount();
 		int sellerDailyCount = adminService.sellerDailyCount();
 		int problemDailyCount = adminService.problemDailyCount();
 		
 		List<UserTotal> userTotalData = adminService.getUserTotalList();
+		ObjectMapper objectMapper = new ObjectMapper();
+		String userTotalDataJson = objectMapper.writeValueAsString(userTotalData);
 		
 		mv.addObject("qnaDailyCount", qnaDailyCount);
 		mv.addObject("sellerDailyCount", sellerDailyCount);
 		mv.addObject("problemDailyCount", problemDailyCount);
-		mv.addObject("userTotalData", userTotalData);
+		mv.addObject("userTotalData", userTotalDataJson);
 		mv.setViewName("admin/adminMain");
 		return mv;
 	}

@@ -28,7 +28,7 @@ $(document).ready(function() {
     // 글 작성 버튼 클릭 이벤트 처리
 	$(".btnWrite").click(function(){
 	    var chnum = $("input[name='btnwrite']").val();
-	    alert(chnum)
+	    //alert(chnum)
 	    window.location.href = 'contentwrite.co/' + chnum;
 	});
 	

@@ -83,8 +83,7 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	}
 
 	public Itda_User findUserByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findUserByEmail(email);
 	}
 
 	@Override
@@ -120,15 +119,26 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return dao.isUserIdORSellerId(id);
 	}
 
+	@Override
+	public Itda_User emailCheck(String id) {
+		return dao.emailCheck(id);
+	}
 
+	@Override
+	public boolean changePassword(String userEmail, String newPassword) {
+	    try {
+	        String encryptedPassword = passwordEncoder.encode(newPassword); 
+	        // 비밀번호를 암호화하여 encryptedPassword 변수에 저장
 
+	        dao.updateUserPassword(userEmail, encryptedPassword);
+	        // dao 메서드 호출 시 이메일과 암호화된 비밀번호 전달 
+	        return true;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
 
-	
-	
-
-
-
-	
 
 
 }
