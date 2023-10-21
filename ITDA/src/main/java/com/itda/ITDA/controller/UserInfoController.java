@@ -224,13 +224,11 @@ public class UserInfoController {
 		user.setUserEmail(user.getUserEmail());
 		logger.info("user.setUserEmail : " + user.getUserEmail());
 		
-		Itda_User userNewEmail = itdaUserService.userEmailUpdate(id);		
+		int result = itdaUserService.userEmailUpdate(user);		
 		
 		String newMail = user.getUserEmail();
 		
-		
-		int result = 0;
-		if(newMail != null && result == Constants.UPDATE_SUCCESS) {
+		if(newMail != null && newMail != "" &&  result == Constants.UPDATE_SUCCESS) {
 			
 			logger.info(Message.USER_UPDATE_SUCCESS);
 			return "redirect:/user/myInfo";

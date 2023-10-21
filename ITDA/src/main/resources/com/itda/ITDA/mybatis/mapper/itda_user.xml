@@ -147,11 +147,11 @@
 	</select>
 	
 	<!-- 이메일 변경 -->
-	<select id="userEmailUpdate" resultType="Itda_User">
+	<update id="userEmailUpdate" parameterType="Itda_User">
 		update itda_user
 	    set userEmail = #{userEmail}
 	    where userId = #{userId}
-	</select>
+	</update>
 
 
 

@@ -46,9 +46,9 @@ public interface Itda_UserMapper {
 
 	Itda_User emailCheck(String id);
 
-	Itda_User userEmailUpdate(String id);
+	int userUpdateProfile(String id);
 
-	Itda_User userUpdateProfile(String id);
+	int userEmailUpdate(Itda_User user);
 
 	
 	

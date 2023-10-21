@@ -43,7 +43,7 @@ public interface Itda_UserService {
 
 	Itda_User emailCheck(String id);
 
-	Itda_User userEmailUpdate(String id);
+	int userEmailUpdate(Itda_User user);
 
 	int userUpdateProfile(String id);
 

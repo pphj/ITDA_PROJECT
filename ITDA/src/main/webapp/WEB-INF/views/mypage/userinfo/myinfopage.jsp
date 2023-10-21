@@ -519,7 +519,6 @@
     </div>
 </div>
 <form id="fm" name="fm">
-    <input type="hidden" name="token_help" id="token_help" value=" "/>
     <input type="hidden" name="isEmailYn" id="isEmailYn" value="N" />
     <input type="hidden" name="isPhoneYn" id="isPhoneYn" value="Y"  />
     <input type="hidden" name="phoneAuthYn" id="phoneAuthYn" value="N"/>
@@ -527,7 +526,7 @@
     <input type="hidden" name="addressYn" id="isAddressYn" value="Y"/>
     <input type="hidden" name="userId" id="userId" value="${user.userId }"/>
     <input type="hidden" name="cateNameYn" id="cateNameYn" value="${user.cate_Name}"/>
-    <input type="hidden" name="userEmail" id="userEmail" />
+    <input type="hidden" name="userEmail" id="sestUserEmail" value=""/>
     
     
  
@@ -977,7 +976,7 @@
                         <div class="contact_form">
                             <div class="popup_row rightgap">
                                 <input type="email" placeholder="변경할 이메일 입력" id="myLetterEmail"
-                                       name="userEmail" class="popup_input" disabled>
+                                       class="popup_input" disabled>
                                 <button type="button" class="btn_contact"
                                         onclick="sendAuthNoForEmailAuth('myLetterEmail')">
                                     인증
