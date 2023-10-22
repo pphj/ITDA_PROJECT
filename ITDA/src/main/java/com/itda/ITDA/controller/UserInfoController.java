@@ -118,9 +118,7 @@ public class UserInfoController {
 	// 마이페이지 나의 정보 자세히 보기
 	@ResponseBody
 	@PostMapping(value = "myInfo/emailCheck")
-	public int getEmailCheck(Model model, 
-							HttpSession session, 
-							Principal principal,
+	public int getEmailCheck(Principal principal,
 							@RequestParam("userEmail") String userEmail) {
 
 		String id = principal.getName();
@@ -162,7 +160,6 @@ public class UserInfoController {
 	@PostMapping(value="myInfo/emailCheck/authentication")
 	public int emailAuthentication(@RequestParam("email") String email,
 									MailVO vo,
-									Model model,
 									HttpSession session,
 									HttpServletRequest request) {
 			
@@ -215,7 +212,6 @@ public class UserInfoController {
 	// 회원 이메일 변경 프로세스
 	@PostMapping(value="/emailChangePro")
 	public String userEmailUodateProcess(Itda_User user,
-										Model model,
 										Principal principal) {
 		
 		String id = principal.getName();
@@ -242,7 +238,6 @@ public class UserInfoController {
 	// 회원 정보의 주소 수정
 	@RequestMapping(value="/addressUpdatePro")
 	public String userAddressUpdatePro(Itda_User user, 
-										Model model,
 										RedirectAttributes rattr,
 										HttpSession session) {
 		

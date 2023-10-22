@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itda.ITDA.mybatis.mapper.OrderMapper">
+	<!-- 상품 리스트 출력 -->
+	<select id="subProductList" resultType="SubProduct">
+		SELECT
+		    productid,
+		    productname,
+		    productdetail,
+		    productprice
+		FROM
+		    subproduct
+		ORDER BY productprice
+	</select>
+	
+	<!-- 선택한 상품 상세 출력 -->
+	<select id="productInfo" resultType="SubProduct">
+		SELECT
+		    productid,
+		    productname,
+		    productdetail,
+		    productprice
+		FROM
+		    subproduct
+		WHERE
+			productid = #{productId}
+	</select>
+
+</mapper>

@@ -7,54 +7,114 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Principal;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.itda.ITDA.domain.KakaoPayApproval;
+import com.itda.ITDA.domain.SubProduct;
+import com.itda.ITDA.service.OrderService;
+import com.itda.ITDA.util.Message;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Controller
 @RequestMapping(value= "/product")
 public class OrderController {
+	
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 	
+	private OrderService orderService;
+
+	@Autowired
+	public OrderController(OrderService orderService) {
+		this.orderService = orderService;
+	}
+	
 	@GetMapping(value="/subscriptions")
-	public String product_subscription(){
-		return "product/product_subscriptions";
+	public String product_subscription(Model model){
+		
+		List<SubProduct> subProductList = orderService.subProductList();
+		
+		model.addAttribute("subProductList", subProductList);
+		
+		if(subProductList != null) {
+			
+			logger.info(Message.SUCCESS);
+			
+			return "product/product_subscriptions";
+		}else {
+			
+			logger.info(Message.ERROR);
+			return "redirect:/";
+		}
 		
 	}
 	
-	@GetMapping(value="/subscriptions/info")
-	public String product_info(){
-		return "product/product_subscriptions_info";
-		
+	@GetMapping(value = "/subscriptions/info")
+	public String product_info(SubProduct product, Model model) {
+
+		product.setProductId(product.getProductId());
+
+		logger.info("product.getProductId() : " + product.getProductId());
+
+		String productId = String.valueOf(product.getProductId());
+
+		if (productId != null && productId != "0") {
+
+			product = orderService.productInfo(product);
+			model.addAttribute("productInfo", product);
+			logger.info(Message.SUCCESS);
+			
+			return "product/product_subscriptions_info";
+		} else {
+			logger.info(Message.ERROR);
+
+			return "product/product_subscriptions";
+		}
+
 	}
 		
-	
-	@GetMapping(value="/subscriptions/info/order")
-	public String product_order(){
+	@GetMapping(value = "/subscriptions/info/order")
+	public String product_order(Principal principal, 
+								SubProduct product,
+								Model model) {
+		
+		String id = principal.getName();
+		
+		if(id == null) {
+			
+			logger.info("로그인이 필요한 접속자");
+			
+			return "redirect:/";
+		}
+		product.setProductId(product.getProductId());
+		product = orderService.productInfo(product);
+		model.addAttribute("productInfo", product);
+		
+		
+
 		return "product/product_subscriptions_info_order";
-		
-	}
-	
+
+	}	
 		
 	@GetMapping("/subscriptions/info/order/kakaoPay.do")
 	@ResponseBody
-	public String kakaopay() {		//결제 준비 컨트롤러
+	public String kakaopay(Principal principal, SubProduct product) {		//결제 준비 컨트롤러
 		try {
 			String Authorization = "ab9709a083b3a085972288a24ef76a19";
 			String kakaoUrl = "https://kapi.kakao.com/v1/payment/ready";
@@ -69,8 +129,11 @@ public class OrderController {
 			server.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 			server.setDoOutput(true);		//서버에 전달을 위해 true
 			
+			MultiValueMap<String, String> payParams = new LinkedMultiValueMap<String, String>();
+			
+			payParams.add(cancelUrl, approvalUrl)
 			String payParam = "cid=TC0ONETIME"
-					+ "&partner_order_id=ITDA"
+					+ "&partner_order_id="
 					+ "&partner_user_id=USER"
 					+ "&item_name=무제한 구독권"
 					+ "&quantity=1"
