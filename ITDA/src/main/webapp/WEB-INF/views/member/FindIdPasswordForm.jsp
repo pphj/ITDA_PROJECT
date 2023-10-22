@@ -247,44 +247,46 @@
 		//아이디 찾기, 비밀번호 찾기 탭 기능 
 
 $(document).ready(function() {
-  var current_find_tab = 'findId';
-  var contextPath = "${pageContext.request.contextPath}";
+    var current_find_tab = 'findId';
+    var contextPath = "${pageContext.request.contextPath}";
 
-  function step() {
-    $('.btn_find').off('click').on('click', function() {
-      var tab_id = $(this).attr('data-tab');
-      current_find_tab = tab_id;
-      $('.btn_find').removeClass('active');
-      $('._find_tit').addClass('hidden');
-      $('._step').addClass('hidden');
+    function step() {
+      $('.btn_find').off('click').on('click', function() {
+        var tab_id = $(this).attr('data-tab');
+        current_find_tab = tab_id;
+        $('.btn_find').removeClass('active');
+        $('._find_tit').addClass('hidden');
+        $('._step').addClass('hidden');
 
-      $(this).addClass('active');
-      $('.' + tab_id).removeClass('hidden');
-      $('#' + tab_id).removeClass('hidden');
+        $(this).addClass('active btn-hover'); // 호버 효과를 위한 클래스 추가
+        $('.' + tab_id).removeClass('hidden');
+        $('#' + tab_id).removeClass('hidden');
 
-      if (tab_id == 'findId') {
-        $('._find_id').removeClass('hidden');
-        $('._find_password').addClass('hidden');
-      } else if (tab_id == 'findPassword') {
-        $('._find_password').removeClass('hidden');
-        $('._find_id').addClass('hidden');
-      }
-    });
-  }
+        if (tab_id == 'findId') {
+          $('._find_id').removeClass('hidden');
+          $('._find_password').addClass('hidden');
+        } else if (tab_id == 'findPassword') {
+          $('._find_password').removeClass('hidden');
+          $('._find_id').addClass('hidden');
+        }
+      });
+    }
 
-  function updateFindIdStatus() {
-    $('._update_status').off('click').on('click', function() {
-      var tab_name = $(this).attr("data-tab");
+    function updateFindIdStatus() {
+      $('._update_status')
+      .off("click")
+      .on("click", function () {
+          var tab_name = $(this).attr("data-tab");
 
-      if (tab_name == "find_id") {
-        $("._find_id").removeClass("hidden");
-        $("._find_password").addClass("hidden");
-      } else if (tab_name == "find_password") {
-        $("._find_password").removeClass("hidden");
-        $("._find_id").addClass("hidden");
-      }
-    });
-  }
+          if (tab_name == "find_id") {
+              $("._find_id").removeClass("hidden");
+              $("._find_password").addClass("hidden");
+          } else if (tab_name == "find_password") {
+              $("._find_password").removeClass("hidden");
+              $("._find_id").addClass("hidden");
+          }
+      });
+    }
 
   step();
   updateFindIdStatus();
@@ -357,7 +359,7 @@ $(document).ready(function() {
 		                $("._find_tit.findPassword + p").remove();
 
 		                // 새로운 '안녕' 텍스트 추가
-		                $("._find_tit.findPassword").after('<p style="text-align:center;margin-top:0;margin-bottom:0;">안녕</p>');
+		                $("._find_tit.findPassword").after('<p style="text-align:center;margin-top:0;margin-bottom:0;">입력하신 정보와 일치하는 계정을 발견했습니다.</p>');
 
 
 		                // 버튼 텍스트 및 클래스를 변경합니다.
