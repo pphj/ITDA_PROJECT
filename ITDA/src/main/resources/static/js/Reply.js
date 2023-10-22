@@ -1,14 +1,26 @@
 let option=1;
 
 function getList(state){
+
+ 	let token = $("meta[name='_csrf']").attr("content");
+  	let header = $("meta[name='_csrf_header']").attr("content");
+  	
+	var chnum = $('#chnum').val();
+	var boardNum = $('#boardnum').val();
+	
+	
 	console.log(state)
 	option = state;
 	$.ajax({
 		type : "post",
-		url : contextPath + "/ReplyList.co",
+		url : '/itda/contents/'  + chnum + "/" + boardNum + "/replyView", 
 		data : {"boardNum" : $("#Reply_board_num").val(), state:state},
+		beforeSend: function(xhr) {
+		      // 데이터를 전송하기 전에 헤더에 csrf 값을 설정합니다.
+		      xhr.setRequestHeader(header, token);
+		},
 		datetype : "json",
-		success : function(rdata){		//ReplyList에서 가져옴
+		success : function(rdata){		//getReplies에서 가져옴
 			$(".reply_count").text(rdata.listcount).css('font-family', 'Lucida Console')
 			let red1 = 'red';
 			let red2 = 'red';
@@ -20,7 +32,7 @@ function getList(state){
 			}
 			
 			let output = "";
-					//ReplyList에서 가져옴
+			//getReplies에서 가져옴
 			if (rdata.replylist.length > 0) {
 				output += '<li class="reply_order_item" >'
 				   		+ '		<a href="javascript:getList(1)" class="reply_order_button ' + red1 + '">등록순 </a>'
@@ -38,44 +50,55 @@ function getList(state){
 					if (lev >= 1 && lev <= 10) {
 				        reply_reply = ' reply_list_item__reply lev' + lev;
 				    }
+				    
+				    var date = new Date(this.replyDate);
+				    var formattedDate = date.getFullYear() + '-' +
+				        ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+				        ('0' + date.getDate()).slice(-2) + ' ' +
+				        ('0' + date.getHours()).slice(-2) + ':' +
+				        ('0' + date.getMinutes()).slice(-2) + ':' +
+				        ('0' + date.getSeconds()).slice(-2);
 					
 					output += '<li id="' + this.replyNum + '" class="reply_list_item' + reply_reply + '">'
 							+ '	<div class="reply_nick_area">'
 							+ '  <div class="reply_box">'
 							+ '		<div class="reply_nick_box">'
 							+ '			<div class="reply_nick_info">'
-							+ '				<div class="reply_nickname">' + this.replywriter  + '</div>'
+							+ '				<div class="reply_nickname">' + this.replyWriter  + '</div>'
 							+ '			</div>'
 							+ '		</div>'
 							+ '  </div>'
 							+ '	 <div class="reply_text_box">'
 							+ '		<p class="reply_text_view">'
-							+ '			<span class="text_reply">' + this.replycontent + '</span>'
+							+ '			<span class="text_reply">' + this.replyContent + '</span>'
 							+ '		</p>'
 							+ '	 </div>'
 							+ '  <div class="reply_info_box">'
-							+ '		<span class="reply_info_date">' + this.replydate + '</span>';
+							+ '		<span class="reply_info_date">' + formattedDate  + '</span>';
 					
-					if (lev < 10) {
+					//if (lev < 10) {
 						output += ' <a href="javascript:replyform(' + this.replyNum + ','
-						  	   + lev + ',' + this.replyseq + ','
-						  	   + this.replyref + ')" class="reply_info_button">답글쓰기</a>'
-					}
+						  	   + lev + ',' + this.replySeq + ','
+						  	   + this.replyRef + ')" class="reply_info_button">답글쓰기</a>'
+					//}
 														
 					output += '  </div>'
 					
-					if ($("#LoginId").val() == this.replywriter){		//글 작성자와 로그인한 사람이 일치하는지
+					if ($("#LoginId").val() == this.replyWriter){		//글 작성자와 로그인한 사람이 일치하는지
 						output += '<div class="reply_tool">'
 							    + '		<div title="더보기" class="reply_tool_button">'
 							    + '     	<div>&#46;&#46;&#46;</div>' 
 							    + ' 	</div>'
-							    + ' 	<div id="reply_list_item_layer' +  this.replyNum + '"  class="LayerMore">' //스타일에서 display:none; 설정함
-							    + '     	<ul class="layer_list">'							   
-							    + '     	<li class="layer_item">'
+							    + ' 	<div id="reply_list_item_layer' +  this.replyNum + '"  class="LayerMore"  style="display: flex; width: 150px;">' //스타일에서 display:none; 설정함
+							    + '     	<ul class="layer_list"  style="display: flex;">'							   
+							    + '     	<li class="layer_item"  style="display: flex;">'
 							    + '      		<a href="javascript:updateForm(' + this.replyNum + ')"'
 							    + '         	class="layer_button">수정</a>&nbsp;&nbsp;'
 							    + '      		<a href="javascript:del(' + this.replyNum + ')"'
-							    + '         	class="layer_button">삭제</a></li></ul>'
+							    + '         	class="layer_button">삭제</a>&nbsp;&nbsp;'
+							    + '				<a href="javascript:del(' + this.replyNum + ')"'
+							    + '         	class="layer_button">신고하기</a>'
+							    + '      		</li></ul>'
 							    + '   	</div>'//LayerMore
 							    + '</div>'//reply_tool
 					}
@@ -127,17 +150,24 @@ function del(num){
 		$('#reply_list_item_layer' + num).hide();
 		return;
 	}
-
+	
+	let token = $("meta[name='_csrf']").attr("content");
+	let header = $("meta[name='_csrf_header']").attr("content");
+	
 	$.ajax({
-		url : contextPath + '/ReplyDelete.co',
+		url : '/itda/contents' + '/replydelete',
 		data : {num : num},
-		dataType : 'json',
+		type: 'POST',
+		beforeSend: function(xhr) {
+		      // 데이터를 전송하기 전에 헤더에 csrf 값을 설정합니다.
+		      xhr.setRequestHeader(header, token);
+			},	
 		success : function(rdata) {
-			if (rdata[0] === true) {
-				getList(option);
-			}else {
-				alert("댓글 삭제중 오류");
-			}
+		    if (rdata === 1) {
+		        getList(option);
+		    } else {
+		        alert("댓글 삭제중 오류");
+		    }
 		}
 	})
 
@@ -169,13 +199,16 @@ function replyform(replyNum, lev, seq, ref) {
 
 
 $(function() {getList(option);
+	
 	$('.reply_area').on('keyup','.reply_write_area_text', function(){
 		const length = $(this).val().length;
 		$(this).prev().text(length + '/200');
 		
 	})
 	
-	
+	 let token = $("meta[name='_csrf']").attr("content");
+  	 let header = $("meta[name='_csrf_header']").attr("content");
+  	 
 	$('ul+.reply_write .btn-register').click(function() {
 		const replycontent=$('.reply_write_area_text').val();
 		if(!replycontent){				//내용없이 등록 클릭한 경우
@@ -183,20 +216,37 @@ $(function() {getList(option);
 			return;
 		}
 		
+		var LoginId = $('#LoginId').val();
+		var chnum = $('#chnum').val();
+		var boardNum = $('#boardnum').val();
+		alert(LoginId)
+		alert(chnum)
+		alert(boardNum)
+		
 		$.ajax({
-			url : contextPath + '/ReplyAdd.co',  //댓글 등록
-			data : {replywriter : $('#LoginId').val(),
-					replycontent : replycontent,
-					Reply_board_num : $('#Reply_board_num').val()	
-			},
-			type : 'post',
-			success : function(rdata) {
-				if (rdata == 1) {
-					getList(option);
-				}
-			}
-			
-		})//ajax end
+	        url: contextPath + '/contents/' + chnum + '/' + boardNum + '/replies/add',
+	        type: 'post',
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        data : JSON.stringify({
+	            replyWriter  : $('#LoginId').val(),
+		        replyContent : replycontent,
+		        boardNum : $('#Reply_board_num').val()  
+	        }),
+	        beforeSend: function(xhr) {
+		      // 데이터를 전송하기 전에 헤더에 csrf 값을 설정합니다.
+		      xhr.setRequestHeader(header, token);
+		    },
+	        success : function(response) {
+	            if (response.status == "success") {
+	                getList(option);
+	            } else {
+	            	console.log("댓글 등록 실패");
+	       		}
+	        }
+	
+	    })//ajax end
+
 		
 		$('.reply_write_area_text').val('');			//textarea 초기화
 		
@@ -214,6 +264,9 @@ $(function() {getList(option);
 	
 	
 	$('.reply_area').on('click','.update',function(){
+		let token = $("meta[name='_csrf']").attr("content");
+		let header = $("meta[name='_csrf_header']").attr("content");
+		
 		const replycontent = $(this).parent().parent().find('textarea').val();
 		if(!replycontent){						//내용없이 등록 클릭한 경우
 			alert("수정할 글을 입력하세요");
@@ -222,10 +275,16 @@ $(function() {getList(option);
 		
 		const replyNum = $(this).attr('data-id');
 		console.log(replyNum);
+		
 		$.ajax({
-			url : contextPath + '/ReplyUpdate.co',
+			url :  '/itda/contents' + '/replyupdate',
+			type: 'POST',
 			data : {replyNum : replyNum,
-					replycontent : replycontent},
+					replyContent : replycontent},
+			beforeSend: function(xhr) {
+		      // 데이터를 전송하기 전에 헤더에 csrf 값을 설정합니다.
+		      xhr.setRequestHeader(header, token);
+			},		
 			success : function(rdata){
 				if(rdata == 1){
 				   getList(option);
@@ -259,24 +318,38 @@ $(function() {getList(option);
 			alert("답글을 입력하세요");
 			return;
 		}	
+		
+			
+		 let token = $("meta[name='_csrf']").attr("content");
+	  	 let header = $("meta[name='_csrf_header']").attr("content");
 			
 		const replyref = $(this).attr('data-ref');
 		const replylev = $(this).attr('data-lev');
 		const replyseq = $(this).attr('data-seq');
 		
+		var LoginId = $('#LoginId').val();
+		var chnum = $('#chnum').val();
+		var boardNum = $('#boardnum').val();
+		alert(LoginId)
+		alert(chnum)
+		alert(boardNum)
+		
 		$.ajax({
-			url : contextPath + '/ReplyReply.co',  
-			data : {replywriter : $("#LoginId").val(),
-					replycontent : replycontent,
-					Reply_board_num : $('#Reply_board_num').val(),
-					replylev : replylev,
-					replyref : replyref,
-					replyseq : replyseq
-			},
-			type : 'post',
-			success : function(rdata) {
-				if (rdata == 1) {
-					getList(option);
+			    url :  '/itda/contents' + '/ReplyReply',  
+			    data : {
+			        replyContent : replycontent,
+			        boardNum : $('#Reply_board_num').val(),
+			        replyLev : replylev,
+			        replyRef : replyref,
+			        replySeq : replyseq
+			    },
+			    beforeSend: function(xhr) {
+			      xhr.setRequestHeader(header, token);
+			    },
+			    type : 'post',
+			    success : function(rdata) {
+			        if (rdata == 1) {
+			            getList(option);
 				}
 			}//success end
 			

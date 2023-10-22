@@ -43,6 +43,7 @@ public class SecurityConfig {
       .antMatchers("/info/qnainsert").permitAll()
       .antMatchers("/member/findid").permitAll()
       
+
       .antMatchers("/ckeditor5/**").permitAll();
       
     /*.antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")
