@@ -15,16 +15,14 @@
 
 
 	<select id="getBoardListByBoardNum" resultType="ChBoard">
-	    <![CDATA[
-	    SELECT chCate_Name, boardNum, boardTitle, thumbNail, intro, boardDate
-	    FROM (
-	        SELECT *
-	        FROM chboard
-	        JOIN chboardcategory ON chboard.chnum = chboardcategory.chnum
-	        WHERE chboard.chnum = #{chnum}
+	   <![CDATA[
+	    SELECT * FROM (
+	        SELECT cbc.chCate_Name, cb.boardNum, cb.boardTitle, cb.thumbNail, cb.intro, cb.boardDate
+	        FROM chboard cb
+	        JOIN chboardcategory cbc ON cb.chCate_Id = cbc.chCate_Id 
+	        WHERE cb.chnum = #{chnum}
 	        ORDER BY boardHeart DESC
-	    )
-	    WHERE ROWNUM <= 20
+	    ) WHERE ROWNUM <= 20
 	    ]]>
 	</select>
 

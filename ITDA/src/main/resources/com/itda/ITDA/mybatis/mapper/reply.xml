@@ -4,20 +4,38 @@
 
 <mapper namespace="com.itda.ITDA.mybatis.mapper.ReplyMapper">
 
-
+	<!--  
 	<select id="getReplies" resultType="BoardReply">
 		SELECT
-			replynum, boardnum,
-			replywriter,
-			replycontent, replyref, replylev,
+			replynum, boardnum, replywriter, replycontent, replyref, replylev,
 			replyseq, replydate
 		FROM
 			boardreply
 		WHERE boardnum = #{boardNum}
-		ORDER BY replyDate ${sort},
-		replySeq ASC
+		order by replyRef ${sort},
+	      replySeq asc
+	</select>
+	-->
+	
+	<select id="getRepliesAsc" resultType="BoardReply">
+	    SELECT
+	        replyNum, boardNum, replyWriter, replyContent, replyRef, replyLev,
+	        replySeq, replyDate
+	    FROM
+	        boardreply
+	    WHERE boardNum = #{boardNum}
+	    ORDER BY replyRef ASC, replySeq ASC
 	</select>
 
+	<select id="getRepliesDesc" resultType="BoardReply">
+	    SELECT
+	       	replyNum, boardNum, replyWriter, replyContent, replyRef, replyLev,
+	        replySeq, replyDate
+	    FROM
+	        boardreply
+	    WHERE boardnum = #{boardNum}
+	    ORDER BY replyRef DESC, replySeq ASC
+	</select>
 
 	<insert id="addReply">
 		INSERT INTO BoardReply
@@ -43,20 +61,26 @@
 		VALUES
 		(re_seq.nextval, #{boardNum}, #{replyWriter},
 		#{replyContent},
-		#{replyRef}, #{replyLev}, #{replySeq} , SYSDATE ,
+		re_seq.nextval, #{replyLev}, #{replySeq} , SYSDATE ,
 		NULL)
 	</insert>
 
+	<update id="commentsSequenceUpdate">
+		update BoardReply
+		set REPLYSEQ = replySeq + 1
+		WHERE REPLYREF = #{replyRef}
+	    and REPLYSEQ <![CDATA[>]]>
+	    #{replySeq}
+	</update>
+	
 	<update id="commentsUpdate">
 		update BoardReply
-		set replyContent = #{replyContent}
-		where
-		REPLYNUM = #{replyNum}
+		set REPLYCONTENT = #{replyContent}
+		where REPLYNUM = #{replyNum}
 	</update>
 
 	<delete id="commentsDelete">
-		delete BoardReply
-		where REPLYNUM = ${replyNum}
+		DELETE FROM BoardReply WHERE replyRef = #{replyRef}
 	</delete>
 	
 	<select id="getListCount" resultType="int">
@@ -64,6 +88,14 @@
 	  FROM boardreply
 	  WHERE boardNum = #{boardNum}
 	</select>
+	
+	<select id="getTotalReplies" resultType="int">
+	  SELECT COUNT(*)
+	  FROM boardreply
+	  WHERE boardNum = #{boardNum}
+	</select>
+	
+	
 
 
 </mapper>

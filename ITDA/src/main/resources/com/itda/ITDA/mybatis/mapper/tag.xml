@@ -10,7 +10,7 @@
 		VALUES(tag_seq.nextval, #{boardNum}, #{tagName})
 	</insert>
 
-	<insert id="tagUpdate" parameterType="map">
+	<update id="tagUpdate" parameterType="map">
 		UPDATE tag
 		SET
 		boardNum =
@@ -18,7 +18,7 @@
 		tagName = #{tagName}
 		WHERE
 		tagId = #{tagId,jdbcType=NUMERIC}
-	</insert>
+	</update>
 
 	<select id="findTagIdByTagName" parameterType="string"
 		resultType="int">
@@ -29,6 +29,10 @@
 
 	<delete id="deleteByBoardNum" parameterType="int">
 		DELETE FROM tag WHERE BOARDNUM = #{boardNum}
+	</delete>
+	
+	<delete id="tagDelete">
+		DELETE FROM tag WHERE tagId = #{tagId}
 	</delete>
 
 </mapper>

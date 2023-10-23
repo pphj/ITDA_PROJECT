@@ -21,4 +21,12 @@ public interface ReplyMapper {
 
 	int getListCount(int boardnum);
 
+	int getTotalReplies(int boardNum);
+
+	void commentsSequenceUpdate(BoardReply reply);
+
+	List<BoardReply> getRepliesDesc(int boardNum);
+
+	List<BoardReply> getRepliesAsc(int boardNum);
+
 }

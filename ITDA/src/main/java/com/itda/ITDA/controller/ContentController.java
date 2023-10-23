@@ -41,6 +41,7 @@ import com.itda.ITDA.domain.Tag;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.ReplyService;
 import com.itda.ITDA.service.TagService;
+import com.itda.ITDA.service.heartService;
 
 @Controller
 @RequestMapping(value = "/contents")
@@ -54,15 +55,18 @@ public class ContentController {
 	private ContentService contentService;
 	private TagService TagService;
 	private ReplyService replyService;
+	private heartService heartService;
 
 	// chnum 파라미터가 없거나 null인 경우에 대한 처리를 수행합니다.
 	final int WRONG_CHNUM = 0;
 
 	@Autowired
-	public ContentController(ContentService contentService, TagService TagService, ReplyService replyService) {
+	public ContentController(ContentService contentService, TagService TagService, ReplyService replyService,
+			heartService heartService) {
 		this.contentService = contentService;
 		this.TagService = TagService;
 		this.replyService = replyService;
+		this.heartService = heartService;
 	}
 
 	// 게시글 자세히 보기
@@ -108,6 +112,7 @@ public class ContentController {
 
 	}
 
+	// 게시글 수정 view
 	@GetMapping("/{chnum}/modifyView")
 	public String contentModify(@PathVariable("chnum") int chnum, @RequestParam("boardnum") int boardnum, Model model,
 			Principal principal, HttpServletRequest request, RedirectAttributes rattr) {
@@ -136,9 +141,11 @@ public class ContentController {
 		return "content/content_modify"; // 실제 수정 페이지 뷰 이름으로 변경해야 합니다.
 	}
 
+	// 게시글 수정
 	@PostMapping("/{chnum}/contentmodify")
 	public String updateContent(ChBoard chboard, Tag tag, @PathVariable("chnum") int chnum,
 			@RequestParam(value = "tagname", required = false) List<String> taglist,
+			@RequestParam(value = "tagId", required = false) List<String> tagIdlist,
 			@RequestParam(value = "upload", required = false) MultipartFile uploadfile, Principal principal,
 			RedirectAttributes rattr, String check, Model mv, HttpServletRequest request) throws IOException {
 
@@ -200,9 +207,14 @@ public class ContentController {
 			{
 				tagLength = request.getParameterValues("tagname").length;
 			}
+			if (tagIdlist != null && !tagIdlist.isEmpty())
+			{
+				TagService.tagDelete(tagIdlist);
+			}
 
 			if (taglist != null && !taglist.isEmpty())
 			{
+
 				for (String tags : taglist)
 				{
 					logger.info("tags =" + tags);
@@ -213,7 +225,7 @@ public class ContentController {
 					parameters.put("tagId", tag.getTagId());
 					System.out.println(tag.getTagId());
 
-					int resultTagUpdate = TagService.tagUpdate(parameters);
+					int resultTagUpdate = TagService.tagInsert(parameters);
 					System.out.println("resultTagUpdate =" + resultTagUpdate);
 				}
 			}
@@ -269,6 +281,7 @@ public class ContentController {
 		return fileDBName;
 	}
 
+	// 게시글 삭제
 	@PostMapping("/{chnum}/delete")
 	public String BoardDeleteAction(@PathVariable("chnum") int chnum, @RequestParam("boardnum") int boardnum, Model mv,
 			RedirectAttributes rattr, HttpServletRequest request) {
@@ -295,10 +308,12 @@ public class ContentController {
 		}
 	}
 
+	// 댓글 리스트
 	@PostMapping("/{chnum}/{boardNum}/replyView")
 	@ResponseBody
 	public Map<String, Object> getReplies(@PathVariable int chnum, @RequestParam int boardNum,
 			@RequestParam(required = false) Integer state, HttpServletRequest request, Model mv) {
+
 		List<BoardReply> replies = replyService.getReplies(boardNum, state);
 		Map<String, Object> response = new HashMap<>();
 
@@ -309,7 +324,6 @@ public class ContentController {
 		} else
 		{
 			logger.info(replies.size() + " replies found for board Num: " + boardNum);
-
 			// 각각의 reply 객체에 대한 정보도 로그로 남깁니다.
 			for (BoardReply reply : replies)
 			{
@@ -323,17 +337,21 @@ public class ContentController {
 		return response;
 	}
 
+	// 댓글 추가하기
 	@PostMapping("/{chnum}/{boardNum}/replies/add")
 	@ResponseBody
-	public Map<String, String> addReply(@RequestBody BoardReply reply, Principal principal) {
+	public Map<String, Object> addReply(@RequestBody BoardReply reply, Principal principal) {
 		logger.info(" id: " + reply.getBoardNum());
-		int result = replyService.addReply(reply);
-		Map<String, String> response = new HashMap<>();
+		int result = replyService.commentsInsert(reply);
+		Map<String, Object> response = new HashMap<>();
 
 		if (result == 1)
 		{
 			logger.info("Successfully: " + reply.getBoardNum());
 			response.put("status", "success");
+
+			int totalReplies = replyService.getTotalReplies(reply.getBoardNum());
+			response.put("commentCount", totalReplies);
 		} else
 		{
 			logger.error("Failed: " + reply.getBoardNum());
@@ -350,19 +368,53 @@ public class ContentController {
 		System.out.println("Logged in user: " + username); // Add this line for debugging
 
 		reply.setReplyWriter(username);
-		return replyService.commentsInsert(reply);
+		return replyService.addReply(reply);
 	}
 
+	// 댓글 수정
 	@ResponseBody
 	@PostMapping(value = "/replyupdate")
 	public int CommentUpdate(BoardReply reply) {
 		return replyService.commentsUpdate(reply);
 	}
 
+	// 댓글 삭제
 	@ResponseBody
 	@PostMapping(value = "/replydelete")
 	public int CommentDelete(int num) {
 		return replyService.commentsDelete(num);
+	}
+
+	// 하트 좋아요
+	@PostMapping("/heartUpdate")
+	@ResponseBody
+	public Map<String, Object> updateHeartCount(@RequestParam("boardNum") int boardNum,
+			@RequestParam("heartstate") int heartState, @RequestParam("userId") String userId) {
+		Map<String, Object> response = new HashMap<>();
+
+		try
+		{
+			if (heartState == 1)
+			{
+				// 좋아요 추가 로직
+				heartService.addHeart(boardNum, userId);
+			} else if (heartState == 0)
+			{
+				// 좋아요 취소 로직
+				heartService.removeHeart(boardNum, userId);
+			}
+
+			// int updatedValue = contentService.getHeartCount(boardNum);
+
+			// response.put("success", true);
+			// 그ㅓresponse.put("updatedValue", updatedValue);
+		} catch (Exception e)
+		{
+			// 오류 처리
+			response.put("success", false);
+		}
+
+		return response;
 	}
 
 	/*@RequestMapping(value = "/contentlist.co")

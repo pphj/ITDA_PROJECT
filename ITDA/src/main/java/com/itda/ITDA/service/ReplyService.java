@@ -18,4 +18,6 @@ public interface ReplyService {
 
 	int getListCount(int boardnum);
 
+	int getTotalReplies(int boardNum);
+
 }

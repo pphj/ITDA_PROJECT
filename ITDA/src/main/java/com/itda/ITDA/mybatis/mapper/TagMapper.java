@@ -21,5 +21,7 @@ public interface TagMapper {
 	List<Integer> findTagIdByTagName(String tags);
 
 	void deleteByBoardNum(int boardNum);
+
+	void tagDelete(String tagid);
 	
 }

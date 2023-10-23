@@ -38,4 +38,13 @@ public class TagServicelmpl implements TagService {
 		dao.deleteByBoardNum(boardNum);
 	}
 
+	@Override
+	public void tagDelete(List<String> tagIdlist) {
+		for (String tagid : tagIdlist)
+		{
+			dao.tagDelete(tagid);
+		}
+
+	}
+
 }

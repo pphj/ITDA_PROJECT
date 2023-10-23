@@ -13,8 +13,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script> var contextPath = "<%=request.getContextPath()%>" </script>
-<script src="${pageContext.request.contextPath}/js/Reply.js"></script>
-<script src="${pageContext.request.contextPath}/js/Heart.js"></script>
+<script src="${pageContext.request.contextPath}/js/content/Reply.js"></script>
+<script src="${pageContext.request.contextPath}/js/content/Heart.js"></script>
 <link href='${pageContext.request.contextPath}/resources/css/Reply.css' type='text/css' rel='stylesheet'>
 <link href="${pageContext.request.contextPath}/resources/css/content/content_detail.css" type="text/css" rel="stylesheet">
 <script>
@@ -32,7 +32,7 @@ $(document).ready(function() {
 		<div class="board_detail_all_group">
 			<div class="board_detail_title_group">
 				<div class="board_detail_category">
-					<a href="${pageContext.request.contextPath}/channels/${board.chNum}" class="viewer_category_link">${chCate_Name}</a>
+					<a href="${pageContext.request.contextPath}/channels/${board.chNum}" class="viewer_category_link">${param.chcate_name}</a>
 				</div>
 			
 				<div class="board_detail_title_inline">
@@ -48,7 +48,7 @@ $(document).ready(function() {
 								</span>
 							</button>
 						</a>
-						<form name="deleteForm" action="${pageContext.request.contextPath}/contents/${board.chNum}/delete" method="post">
+						<form name="deleteForm" action="${pageContext.request.contextPath}/contents/${board.chNum}/delete" method="post" style="all: unset;">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> <input type='hidden' name='boardnum'
 								value='${board.boardNum}' />
 							<button type="submit" class="btn_type">
@@ -105,6 +105,7 @@ $(document).ready(function() {
 					<div class="viewer_tag">
 						<ul class="viewer_tag_list">
 							<c:forEach var="tag" items="${taginfo}" varStatus="status">
+								<input type="hidden" name="tagId" value="${tag.tagId}">
 								<li class="viewer_tag_item">
 									<a href class="viewer_tag_link" data-clk="chlh_cont.tag">${tag.tagName}</a>
 								</li>

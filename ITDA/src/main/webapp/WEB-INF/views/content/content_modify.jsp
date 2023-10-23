@@ -53,8 +53,8 @@
 					<div class="thumbNailArea">
 
 						<!-- <img class="thumbNailImage" src="${src}" alt="profile">  -->
-						<img class="thumbNailImage"
-							src="${pageContext.request.contextPath}/resources/image/contents/${chboard.chNum}${chboard.thumbNail}" alt="profile">
+						<img class="thumbNailImage" style="display: block;" 
+							src="${pageContext.request.contextPath}/image/contents/${chboard.chNum}${chboard.thumbNail}" alt="profile">
 
 						<textarea name="content" id="editor"></textarea>
 
@@ -68,6 +68,8 @@
 							<ul class="viewer_tag_list" id="ul_tag_list">
 									<ul class="viewer_tag_list">
 										<c:forEach var="tag" items="${taginfo}" varStatus="status">
+											<input type="hidden" name="tagId" value="${tag.tagId}">
+											
 											<li class="viewer_tag_item">
 												<a class="viewer_tag_link" data-clk="chlh_cont.tag">${tag.tagName}</a>
 											</li>
@@ -83,11 +85,12 @@
 						<div style="height: 50px; margin: 15px 20px 0px 0px">
 							<label class="thumbNailUploadArea" for="file"> <img
 								src="${pageContext.request.contextPath}/image/content/thumbnailupload.png" style="width: 100px; height: 100px;"><br>
-								<span style="color: #c9c9c9">썸네일 업로드</span> <input class="thumbNailUpload" type="file" name="upload" id="file"
+								<span style="color: #c9c9c9">썸네일 업로드</span> 
+								<input class="thumbNailUpload" type="file" name="upload" id="file"
 								accept="image/*">
 							</label>
 						</div>
-						<img class="thumbNailImage" src="${src}" alt="profile">
+						<img class="thumbNailImage"  style="display: block;"  src="${pageContext.request.contextPath}/image/contents/${chboard.chNum}${chboard.thumbNail}" alt="profile">
 					</div>
 				</div>
 				<div class="board_button_wrap">
