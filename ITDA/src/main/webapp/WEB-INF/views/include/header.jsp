@@ -179,22 +179,13 @@
 												<div class="sns_login_form">
 													<p class="txt_c mb10">
 													<div>
-														<a class="btn btn-naver !tw-block"
-															href="https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;svctype=0&amp;redirect_uri=https%3A%2F%2Fthepicq.com%2Foauth&amp;client_id=54P4N7kqyLdRMnKcnht5&amp;state=Lw%253D%253D%7Cnaver%7CY%7C%7C">네이버로
-															시작하기</a>
-													</div>
+    <a class="btn btn-naver !tw-block" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=rcyeX4m7t_YVfke5Wd6Y&amp;state=1234&amp;redirect_uri=http://localhost:9400/itda/callback">네이버로 시작하기</a>
+</div>
+
+
 													</p>
-													<p class="txt_c mb10">
-														<a class="btn btn-kakao !tw-block" id="custom-login-btn"
-															href="https://kauth.kakao.com/oauth/authorize?response_type=code&amp;redirect_uri=https%3A%2F%2Fthepicq.com%2Foauth&amp;client_id=414c871f5c6b89877050158f15e84de1&amp;state=Lw%253D%253D%7Ckakao_sync%7CY%7C%7C">카카오로
-															시작하기</a>
-													</p>
-													<p class="txt_c mb10">
-														<a class="btn btn-google !tw-block holder"
-															href="https://accounts.google.com/o/oauth2/auth?approval_prompt=auto&amp;response_type=code&amp;scope=email+profile&amp;redirect_uri=https%3A%2F%2Fthepicq.com%2Foauth&amp;client_id=89407851314-7i2mdvacndsltvd9279uqqlo0pgr4rsm.apps.googleusercontent.com&amp;state=Lw%253D%253D%7Cgoogle%7CY%7C%7C"><i
-															aria-hidden="true" class="social-icon fa fa-google-plus"></i>
-															Google로 시작하기</a>
-													</p>
+												
+												
 												</div>
 
 

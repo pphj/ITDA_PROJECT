@@ -9,6 +9,11 @@
 <script src="https://vendor-cdn.imweb.me/js/jquery.js?1627517460"></script> 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	
+<meta name="_csrf" content="${_csrf.token}" th:remove="tag">
+<meta name="_csrf_header" content="X-CSRF-TOKEN" th:remove="tag">
+
+	
 </head>
 <body>
 	
@@ -69,9 +74,9 @@
 							 <!-- 비밀번호 재설정 -->
 					        <div id = "resetPasswordForm" style = "display: none;" class="mt8 mb8">
 					            <div class="input-group">
-					                <input class="form-control _find_pw_input_confirm_password"
-					                    title="" type="text" name=""
-					                    placeholder="새로운 비밀번호 확인">
+					               <input class="form-control _find_pw_input_password" title="" type="text" name="" placeholder="새로운 비밀번호">
+
+					                <input class="form-control _find_pw_input_confirm_password" title="" type="text" name="" placeholder="새로운 비밀번호 확인" style="margin-top: 9px; margin-bottom: 9px;">
 					            </div>
 					        </div>
 					        
@@ -242,43 +247,46 @@
 		//아이디 찾기, 비밀번호 찾기 탭 기능 
 
 $(document).ready(function() {
-  var current_find_tab = 'findId';
+    var current_find_tab = 'findId';
+    var contextPath = "${pageContext.request.contextPath}";
 
-  function step() {
-    $('.btn_find').off('click').on('click', function() {
-      var tab_id = $(this).attr('data-tab');
-      current_find_tab = tab_id;
-      $('.btn_find').removeClass('active');
-      $('._find_tit').addClass('hidden');
-      $('._step').addClass('hidden');
+    function step() {
+      $('.btn_find').off('click').on('click', function() {
+        var tab_id = $(this).attr('data-tab');
+        current_find_tab = tab_id;
+        $('.btn_find').removeClass('active');
+        $('._find_tit').addClass('hidden');
+        $('._step').addClass('hidden');
 
-      $(this).addClass('active');
-      $('.' + tab_id).removeClass('hidden');
-      $('#' + tab_id).removeClass('hidden');
+        $(this).addClass('active btn-hover'); // 호버 효과를 위한 클래스 추가
+        $('.' + tab_id).removeClass('hidden');
+        $('#' + tab_id).removeClass('hidden');
 
-      if (tab_id == 'findId') {
-        $('._find_id').removeClass('hidden');
-        $('._find_password').addClass('hidden');
-      } else if (tab_id == 'findPassword') {
-        $('._find_password').removeClass('hidden');
-        $('._find_id').addClass('hidden');
-      }
-    });
-  }
+        if (tab_id == 'findId') {
+          $('._find_id').removeClass('hidden');
+          $('._find_password').addClass('hidden');
+        } else if (tab_id == 'findPassword') {
+          $('._find_password').removeClass('hidden');
+          $('._find_id').addClass('hidden');
+        }
+      });
+    }
 
-  function updateFindIdStatus() {
-    $('._update_status').off('click').on('click', function() {
-      var tab_name = $(this).attr("data-tab");
+    function updateFindIdStatus() {
+      $('._update_status')
+      .off("click")
+      .on("click", function () {
+          var tab_name = $(this).attr("data-tab");
 
-      if (tab_name == "find_id") {
-        $("._find_id").removeClass("hidden");
-        $("._find_password").addClass("hidden");
-      } else if (tab_name == "find_password") {
-        $("._find_password").removeClass("hidden");
-        $("._find_id").addClass("hidden");
-      }
-    });
-  }
+          if (tab_name == "find_id") {
+              $("._find_id").removeClass("hidden");
+              $("._find_password").addClass("hidden");
+          } else if (tab_name == "find_password") {
+              $("._find_password").removeClass("hidden");
+              $("._find_id").addClass("hidden");
+          }
+      });
+    }
 
   step();
   updateFindIdStatus();
@@ -287,7 +295,7 @@ $(document).ready(function() {
 	//아이디 찾기, 비밀번호 찾기 탭 기능 end
 	
 	
-	//아이디 찾기 ajax
+	//이메일 찾기 ajax
 		$(".findId").click(function() {
 
 			find_Id_email = $("._find_id_only_input_email").val();
@@ -305,6 +313,16 @@ $(document).ready(function() {
 				success : function(response) {
 					if (response == "success") {
 						alert('ID를 포함한 이메일이 발송되었습니다.');
+						
+						 // 아이디 찾기 성공 후, 버튼의 텍스트 변경 및 클릭 이벤트 수정
+		                $('.findId').text("로그인 하러가기");
+		                $('.findId').off('click');  // 기존 click event handler 제거
+		                $('.findId').on('click', function() {  // 새로운 click event handler 등록
+		                	 window.location.href = contextPath;
+		                });
+
+						
+						
 					} else {
 						alert('해당 이메일로 등록된 계정이 없습니다.');
 					}
@@ -317,114 +335,99 @@ $(document).ready(function() {
 
 		})//click
 		
-
-	//비밀번호 재설성  ajax
 		$(".findPw").click(function() {
+		    find_Id_email = $("._find_pw_input_email").val();
+		    if (find_Id_email == '') {
+		        alert('이메일을 입력하세요.');
+		        return;
+		    }
 
-			find_Id_email = $("._find_pw_input_email").val();
-			if (find_Id_email == '') {
-				alert('이메일을 입력하세요.');
-				return;
-			}
-
-			$.ajax({
-				url : "checkingResettingEmails",
-				type : "GET",
-				data : {
-					userEmail : find_Id_email
-						
-				}, // 이메일 값을 전달 성공시 비밀번호 재설정  
-				success : function(response) {
-					if (response == "success") {
-						 // 이메일에 해당하는 계정이 있으면 폼을 보여줍니다.
+		    $.ajax({
+		        url: "checkingResettingEmails",
+		        type: "GET",
+		        data: {
+		            userEmail: find_Id_email
+		        },
+		        success: function(response) {
+		            if (response == "success") {
+		                // 이메일에 해당하는 계정이 있으면 폼을 보여줍니다.
 		                $("#resetPasswordForm").show();
-						 
-		             // 첫 번째 입력 필드의 placeholder 값을 변경합니다.
+
+		                // 첫 번째 입력 필드의 placeholder 값을 변경합니다.
 		                $("._find_tit").text("비밀번호 재설정");
-						 
-		             	// 첫 번째 입력 필드의 placeholder 값을 변경합니다.
-		                $("._find_pw_input_email").eq(0).attr("placeholder", "새로운 비밀번호"); 
-						 
-		                $(".btn.btn-primary._update_status.findPw").text("변경하기");
-		                
-		             	// 첫 번째 입력 필드의 클래스를 변경합니다.
-		                $("._find_pw_input_email")
-		                .removeClass("_find_pw_input_email")
-		                .addClass("_find_pw_input_password");
+		             	// 기존에 추가된 '안녕' 텍스트 제거
+		                $("._find_tit.findPassword + p").remove();
 
-		             // 버튼 텍스트 및 클래스를 변경합니다.
-		        		$(".btn.btn-primary._update_status.findPw")
-		        		  .removeClass("btn-primary _update_status findPw")
-		        		  .addClass("btn btn-primary _update_status resetPw") // resetPw 클래스 추가
-		        		  .text("변경하기");
-		                
-		                var inputValue = $("._find_pw_input_password").val();
-						if (inputValue !== '') {
-							inputValue = '';
-							$("._find_pw_input_password").val(inputValue);
-						}
-						
-						// 아이디 찾기와 비밀번호 찾기 버튼 히든 처리
-						$(".btn.btn_find.col-xs-6, .btn.btn_find.col-xs-6.active").css("display", "none");
-						
-						// 가려진 영역에 메시지 표시
-						var hiddenEmail = find_Id_email.substr(0, 3) + "****" + find_Id_email.substr(6);
-						var messageHtml = '<p>입력하신 정보와 일치하는 계정을 찾았습니다. <strong>' + hiddenEmail + '</strong></p>';
-						var tabWrap = $(".tab_wrap.clearfix");
-						tabWrap.after('<div id="hiddenMessageArea">' + messageHtml + '</div>');
-						
-						// 중앙 정렬 스타일 추가
-						$("#hiddenMessageArea").css({
-						  "text-align": "center",
-						  "margin-top": "20px"
-						});
-					} else {
-						alert('오이');
-						/*  $("#resetPasswordForm").hide(); */
-					}
-					
-					 
-					 
-					 
-				      // 컨트롤러와 연결되는 다른 버튼 클릭 이벤트 처리
-					 $(".resetPw").one("click", function() {
-					    var newPassword = $("input._find_pw_input_password").val();
-					    var confirmPassword = $("input._find_pw_input_confirm_password").val();
+		                // 새로운 '안녕' 텍스트 추가
+		                $("._find_tit.findPassword").after('<p style="text-align:center;margin-top:0;margin-bottom:0;">입력하신 정보와 일치하는 계정을 발견했습니다.</p>');
 
-					    if (newPassword === confirmPassword) {
-					    	 $.ajax({
-					             url: "changePassword",
-					             type: "POST",
-					             data: {
-					                 newPassword: newPassword,
-					                 confirmPassword: confirmPassword
-					             },
-					             success: function(response) {
-					                 if (response === "success") {
-					                     alert("비밀번호가 성공적으로 변경되었습니다.");
-					                     // 비밀번호 변경 성공 시 필요한 동작 수행
-					                 } else {
-					                     alert("비밀번호 변경에 실패했습니다.");
-					                     // 비밀번호 변경 실패 시 필요한 동작 수행
-					                 }
-					             },
-					             error: function(error) {
-					                 console.error(error);
-					                 alert('오류가 발생했습니다.');
-					             }
-					         });
-					     } else {
-					         alert("비밀번호와 비밀번호 확인 값이 일치하지 않습니다.");
-					     }
-					 });
-				},
-				error : function(error) {
-					console.error(error);
-					alert('오류가 발생했습니다.');
-				}
-			});//ajax end
 
-		})//click
+		                // 버튼 텍스트 및 클래스를 변경합니다.
+		                $(".btn.btn-primary._update_status.findPw")
+		                    .text("변경하기")
+		                    .removeClass("_update_status findPw")
+		                    .addClass("_update_status resetPw");
+
+		                // 아이디 찾기와 비밀번호 찾기 버튼 히든 처리
+		                $(".btn.btn_find.col-xs-6, .btn.btn_find.col-xs-6.active").css("display", "none");
+
+		                // 컨트롤러와 연결되는 다른 버튼 클릭 이벤트 처리
+		              $(document).off('click', '.resetPw').on("click", ".resetPw", function() {
+		                    var newPassword = $("input._find_pw_input_password").val();
+		                    var confirmPassword = $("input._find_pw_input_confirm_password").val();
+		                    
+		                    if (!newPassword || !confirmPassword) {
+		                        alert("비밀번호와 비밀번호 확인 값을 모두 입력해주세요.");
+		                        return;
+		                    }
+		                    
+		                    var userEmail = find_Id_email; // 변수 사용
+
+		                    if (newPassword === confirmPassword) {
+		                        var csrfToken = $("meta[name='_csrf']").attr("content");
+		                        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+		                        $.ajax({
+		                            url: "changePassword",
+		                            type: "POST",
+		                            data: {
+		                                userEmail: userEmail,
+		                                confirmPassword: confirmPassword
+		                            },
+		                            beforeSend: function(xhr) {
+		                                xhr.setRequestHeader(csrfHeader, csrfToken); // CSRF 토큰 추가
+		                            },
+		                            success: function(response) {
+		                                if (response === "success") {
+		                                    alert("비밀번호가 성공적으로 변경되었습니다.");
+		                                    window.location.href = contextPath;  
+		                                    // 비밀번호 변경 성공 시 필요한 동작 수행
+		                                } else {
+		                                    alert("비밀번호 변경에 실패했습니다.");
+		                                    // 비밀번호 변경 실패 시 필요한 동작 수행
+		                                }
+		                            },
+		                            error: function(error) {
+		                                console.error(error);
+		                                alert('오류가 발생했습니다.');
+		                            }
+		                        });
+		                    } else {
+		                        alert("비밀번호와 비밀번호 확인 값이 일치하지 않습니다.");
+		                    }
+		                });
+		            } else {
+		                alert('오이');
+		            }
+		        },
+		        error: function(error) {
+		            console.error(error);
+		            alert('오류가 발생했습니다.');
+		        }
+		    });	//ajax end
+		});	//click
+
+
 		
 
 	})

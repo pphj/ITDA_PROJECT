@@ -107,28 +107,33 @@ public class Itda_UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "/checkingResettingEmails", method = RequestMethod.GET)
-	public String checkingResettingEmails(String userEmail) {
-		Itda_User user = Itda_UserService.findUserByEmail(userEmail);
+	public String checkingResettingEmails(String userEmail, HttpServletRequest request) {  // HttpServletRequest 추가
+	    Itda_User user = Itda_UserService.findUserByEmail(userEmail);
 
-		if (user != null) {
-			return "success";
-		}
+	    if (user != null) {
+	        // 이메일 값이 유효하면 세션에 저장
+	        HttpSession session = request.getSession();
+	        session.setAttribute("userEmail", userEmail);
+	        
+	        return "success";
+	    }
 
-		return "error";
+	    return "error";
 	}
-	
-	@ResponseBody
-	 @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-    public ResponseEntity<String> changePassword(@RequestParam("newPassword") String newPassword,
-                                                 @RequestParam("confirmPassword") String confirmPassword) {
-        boolean passwordChanged = Itda_UserService.changePassword(newPassword, confirmPassword);
 
-        if (passwordChanged) {
-            return new ResponseEntity<>("success", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
-        }
-    }
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	public ResponseEntity<String> changePassword(@RequestParam("userEmail") String userEmail,
+	                                             @RequestParam("confirmPassword") String newPassword) {
+
+	    boolean passwordChanged = Itda_UserService.changePassword(userEmail, newPassword);
+
+	    if (passwordChanged) {
+	        return new ResponseEntity<>("success", HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
+	    }
+	}
 
 	
 	
