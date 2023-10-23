@@ -52,6 +52,8 @@ public class MyContentsPageController {
 	    	Itda_User vo = itdaUserService.read(id);
 	    	model.addAttribute("user", vo);
 	    	session.setAttribute("userName", vo.getUserName());
+	    	session.setAttribute("userId", vo.getUserId());
+	    	session.setAttribute("userProfile", vo.getUserProfile());
 	    	
 	    	if (sellerId == null || sellerId.equals("")) {
 	    		model.addAttribute("message", "NOT_SELLER");
