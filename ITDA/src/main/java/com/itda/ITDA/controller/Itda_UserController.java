@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,6 +88,8 @@ public class Itda_UserController {
 	public int idcheck(@RequestParam("userId") String userId) {
 		return Itda_UserService.isId(userId);
 	}
+	
+	
 
 	@ResponseBody
 	@RequestMapping(value = "/sendIdEmail", method = RequestMethod.GET)
@@ -103,16 +107,39 @@ public class Itda_UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "/checkingResettingEmails", method = RequestMethod.GET)
-	public String checkingResettingEmails(String userEmail) {
-		Itda_User user = Itda_UserService.findUserByEmail(userEmail);
+	public String checkingResettingEmails(String userEmail, HttpServletRequest request) {  // HttpServletRequest 추가
+	    Itda_User user = Itda_UserService.findUserByEmail(userEmail);
 
-		if (user != null) {
-			return "success";
-		}
+	    if (user != null) {
+	        // 이메일 값이 유효하면 세션에 저장
+	        HttpSession session = request.getSession();
+	        session.setAttribute("userEmail", userEmail);
+	        
+	        return "success";
+	    }
 
-		return "error";
+	    return "error";
 	}
 
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	public ResponseEntity<String> changePassword(@RequestParam("userEmail") String userEmail,
+	                                             @RequestParam("confirmPassword") String newPassword) {
+
+	    boolean passwordChanged = Itda_UserService.changePassword(userEmail, newPassword);
+
+	    if (passwordChanged) {
+	        return new ResponseEntity<>("success", HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
+	    }
+	}
+
+	
+	
+
+	
+	
 	@RequestMapping(value = "/joinForm", method = RequestMethod.GET)
 	public String joinForm() {
 		return "member/joinForm";

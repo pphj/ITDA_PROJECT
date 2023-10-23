@@ -113,15 +113,17 @@
 						<c:forEach var="b" items="${contentlist}">
 							<li class="content_item">
 								<div class="content_item_line">
-									<a href="${pageContext.request.contextPath}/contents/${param.chnum}/${b.boardNum}"><img
-										src="${pageContext.request.contextPath}/image/content/${param.chnum}/${b.boardNum }/${b.thumbNail}"
+									<a href="${pageContext.request.contextPath}/contents/${param.chnum}/${b.boardNum}?userid=${sellerinfo.userId}"><img
+										src="${pageContext.request.contextPath}/image/content/${param.chnum}/${b.boardNum }/${b.thumbNail}?userid=${sellerinfo.userId}"
 										class="content_thumb"> </a>
 									<div class="content_text">
-										<a class="content_text_link" href="${pageContext.request.contextPath}/contents/${param.chnum}/${b.boardNum}"> 
+										<a class="content_text_link" href="${pageContext.request.contextPath}/contents/${param.chnum}/${b.boardNum}?userid=${sellerinfo.userId}"> 
 										<strong class="content_title" style="color: #666666">${b.chCate_Name}</strong> 
 										 
 										
 											<span class="content_title" style="color: #959595; font-size: 15px;">
+											
+											
 												<c:if test="${b.boardTitle.length()>=20}">
 													<c:out value="${b.boardTitle.substring(0,20)}..." />
 												</c:if>

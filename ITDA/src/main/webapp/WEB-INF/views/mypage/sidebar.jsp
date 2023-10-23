@@ -44,7 +44,15 @@ $(document).ready(function(){
 <div class="my_sidebar_box">
 		<div class="my_user">
 			<a href="${pageContext.request.contextPath}/user/myInfo" class="my_user_modify_link">
-				<div class="my_user_img_wrap">
+				<div class="my_user_img_wrap2">
+				   <t:choose>
+                     <t:when test="${empty userProfile}">
+			                <img src="https://static.nid.naver.com/images/web/user/default.png" width="56" height="56" alt="프로필 이미지">
+                        </t:when>
+                    <t:when test="${!empty userProfile}">
+                                <img id="imgThumb" src="${pageContext.request.contextPath}/image/Member/${userId}${userProfile}" width="56" height="56">
+                        </t:when>
+                 </t:choose>
 				</div>
 				<strong class="my_user_name">
 					${userName} 

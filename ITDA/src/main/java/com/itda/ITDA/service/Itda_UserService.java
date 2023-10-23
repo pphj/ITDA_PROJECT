@@ -43,7 +43,13 @@ public interface Itda_UserService {
 
 	Itda_User emailCheck(String id);
 
+	int userEmailUpdate(Itda_User user);
 
+	int userUpdateProfile(Itda_User user);
+
+	Itda_User getUser(String id);
+
+	boolean changePassword(String userEmail, String newPassword);
 
 
 

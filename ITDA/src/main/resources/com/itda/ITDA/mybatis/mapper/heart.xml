@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itda.ITDA.mybatis.mapper.heartMapper">
+	<!-- 좋아요 추가 -->
+    <insert id="addHeart">
+        INSERT INTO heart (user_id, board_num)
+        VALUES (#{userId}, #{boardNum})
+    </insert>
+
+    <!-- 좋아요 취소 -->
+    <delete id="removeHeart">
+        DELETE FROM heart
+        WHERE user_id = #{userId} AND board_num = #{boardNum}
+    </delete>
+
+	<!-- 좋아요 개수 조회 
+	<select id="getHeartCount" resultType="int">
+		SELECT COUNT(*)
+		FROM heart
+		WHERE board_num = #{boardNum}
+	</select>
+	-->
+</mapper>
