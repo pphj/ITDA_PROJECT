@@ -35,7 +35,7 @@ public class MainController {
 	
 	private MainService mainService;
 	private ContentService contentService;
-	private final NaverService naverService;
+	private NaverService naverService;
 	
 	@Autowired
 	public MainController(MainService mainService, ContentService contentService, NaverService naverService) {
