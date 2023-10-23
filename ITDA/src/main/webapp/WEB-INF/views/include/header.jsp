@@ -66,7 +66,7 @@
 											<img id="profile_img" src="${pageContext.request.contextPath}/image/main/login.png"/>
 										</c:when>
 										<c:otherwise>
-											<img id="profile_img" src="${pageContext.request.contextPath}/image/Member${pinfo.userProfile}"
+											<img id="profile_img" src="${pageContext.request.contextPath}/image/Member/${pinfo.username}${pinfo.userProfile}"
 												style="width: 40px; height: 40px; object-fit: cover;" />
 										</c:otherwise>
 							        </c:choose>

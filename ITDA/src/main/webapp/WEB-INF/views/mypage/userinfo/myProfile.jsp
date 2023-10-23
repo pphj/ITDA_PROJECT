@@ -108,14 +108,21 @@
                     <td>
                         <div class="tdcell">
                             <div class="profile_photo">
+                           <c:choose>
+                        <c:when test="${empty vo.userProfile}">
                                 <img id="imgThumb" src="https://static.nid.naver.com/images/web/user/default.png" width="100" height="100">
+                        </c:when>
+                        <c:when test="${!empty vo.userProfile}">
+                                <img id="imgThumb" src="${pageContext.request.contextPath}/image/Member/${vo.userId}${vo.userProfile}" width="100" height="100">
+                        </c:when>
+                        </c:choose>
                                 <span class="mask"></span>
                             </div>
                             <div class="btn_area_btm">
                                 <span class="btn_file">
                                     <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="changeImage(this)">사진변경</b></label>
 
-                                    <input type="file" id="inputImage" name="userProfile"  accept="image/*" />
+                                    <input type="file" id="inputImage" name="profile"  accept="image/*" />
                                 </span>
                                 <a href="javascript:;" class="btn_model"><b id="btnDelete" class="btn2" >삭제</b></a>
                                 </div>

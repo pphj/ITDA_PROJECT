@@ -28,5 +28,14 @@
 		WHERE
 			productid = #{productId}
 	</select>
+	
+	<!-- 결제 요청에 정보 임시 저장 -->
+	<insert id="insertPayCall" parameterType="Paycall">
+		INSERT INTO PAYCALL 
+				(callNum, userId, couponCode, productId, 
+				callAmount, callPrice, callDate)
+		VALUES (callnum_seq.nextval, #{userId}, 0, #{productId}, 
+				1, #{callPrice}, SYSTIMESTAMP)
+	</insert>
 
 </mapper>

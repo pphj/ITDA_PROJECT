@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,14 +29,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.ChCategory;
-import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.MailVO;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.ContentService;
-import com.itda.ITDA.service.DateService;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.UserCategoryService;
 import com.itda.ITDA.task.SendMail;
@@ -371,9 +370,11 @@ public class UserInfoController {
 		
 	}
 	
-			
+		
 	@RequestMapping("/myProfile")
-	public String myProfile(Principal principal, HttpServletRequest request) {
+	public String myProfile(Principal principal, 
+							HttpServletRequest request,
+							Model model) {
 		
 		String id = principal.getName();
 		
@@ -382,9 +383,10 @@ public class UserInfoController {
 			request.setAttribute("url", "/");
 			
 			return "alert";
+		}else {
+			Itda_User vo = itdaUserService.getUser(id);
+			model.addAttribute("vo", vo);
 		}
-		
-		
 		
 		
 		return "mypage/userinfo/myProfile";
@@ -397,6 +399,13 @@ public class UserInfoController {
 		int month = c.get(Calendar.MONTH) + 1;// 오늘 월 구합니다.
 		int date = c.get(Calendar.DATE);// 오늘 일 구합니다.
 
+		
+		File idPath1 = new File(saveFolder);
+		if (!(idPath1.exists()))
+		{
+			idPath1.mkdir();// 새로운 폴더를 생성
+		}
+		
 		String homedir = saveFolder + "/" + year + "-" + month + "-" + date;
 		logger.info(homedir);
 		File path1 = new File(homedir);
@@ -433,12 +442,15 @@ public class UserInfoController {
 	}
 	
 	@PostMapping("myInfo/changeProfilePro")
-	public String changeProfileProcess(Principal principal,
-										Itda_User user) {
+	public String changeProfileProcess( Itda_User user,
+										@AuthenticationPrincipal Itda_User customUser) throws Exception {
 		
-		String id = principal.getName();
+		String id = customUser.getUserId();
 		
+		user.setUserId(id);
 		user.setUserProfile(user.getUserProfile());
+		
+		String fileDBName = "";
 		
 		MultipartFile uploadfile = user.getProfile();
 		if (uploadfile != null && !uploadfile.isEmpty())
@@ -447,14 +459,15 @@ public class UserInfoController {
 
 			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
 
-			String fileDBName = fileDBName(fileName, saveFolder + "/" + user.getUpdateDate());
-			logger.info("fileDBName = " + fileDBName);
 
-			String urlPath = "/" + user.getUserId() + "/" + user.getUpdateDate() + "/" + fileName;
+			fileDBName = fileDBName(fileName, saveFolder + "/Member/" + id);
+			logger.info("fileDBName = " + fileDBName);
 			
+			String userFolder = saveFolder + "/Member/" + id + File.separator + fileDBName;
+
 			byte[] bytes = uploadfile.getBytes(); // 파일의 내용을 바이트 배열로 읽어옵니다.
 
-			Path path = Paths.get(fileName + File.separator + fileName); // 파일을 저장할 절대경로 객체(Path)
+			Path path = Paths.get(userFolder); // 파일을 저장할 절대경로 객체(Path)
 
 			Files.write(path, bytes); // 해당 경로에 파일 쓰기
 
@@ -462,11 +475,11 @@ public class UserInfoController {
 			// uploadfile.transferTo(new File(saveFolder + "/" + chnum + fileDBName));
 			//logger.info("transferTo path = " + saveFolder + "/" + chnum + userFolder);
 			// 바뀐 파일명으로 저장
-			user.setUserProfile(fileName);
+			user.setUserProfile(fileDBName);
 		}
 
-		// 채널 프로필 변경
-		int result = itdaUserService.userUpdateProfile(id);
+		int result = itdaUserService.userUpdateProfile(user);
+		customUser.setUserProfile(fileDBName);
 
 		if (result == 0)
 		{

@@ -169,7 +169,7 @@ public class ChannelListController {
 	@PostMapping("{chnum}/sellersetting")
 	public String showChannelUpdate(@PathVariable("chnum") int chnum, ModelAndView mv, ChannelList ChannelList,
 			ChBoardCategory ChBoardCategory, HttpServletRequest request, RedirectAttributes rattr,
-			HttpSession session) throws Exception {
+			HttpSession session, Principal principal) throws Exception {
 
 		MultipartFile uploadfile = ChannelList.getUploadfile();
 		String url = "";
@@ -180,10 +180,10 @@ public class ChannelListController {
 
 			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
 
-			String fileDBName = fileDBName(fileName, saveFolder + "/" + chnum);
+			String fileDBName = fileDBName(fileName, saveFolder + "/MemberUpload/" + principal.getName());
 			logger.info("fileDBName = " + fileDBName);
 
-			String userFolder = saveFolder + "/" + chnum + File.separator + fileDBName;
+			String userFolder = saveFolder + "/MemberUpload/" + principal.getName() + File.separator + fileDBName;
 
 			byte[] bytes = uploadfile.getBytes(); // 파일의 내용을 바이트 배열로 읽어옵니다.
 
@@ -193,7 +193,7 @@ public class ChannelListController {
 
 			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장합니다.
 			// uploadfile.transferTo(new File(saveFolder + "/" + chnum + fileDBName));
-			logger.info("transferTo path = " + saveFolder + "/" + chnum + userFolder);
+			logger.info("transferTo path = " + saveFolder + "/MemberUpload/" + principal.getName() + userFolder);
 			// 바뀐 파일명으로 저장
 			ChannelList.setChProfile(fileDBName);
 		}
@@ -244,6 +244,13 @@ public class ChannelListController {
 		int month = c.get(Calendar.MONTH) + 1;// 오늘 월 구합니다.
 		int date = c.get(Calendar.DATE);// 오늘 일 구합니다.
 
+		File idPath1 = new File(saveFolder);
+		if (!(idPath1.exists()))
+		{
+			idPath1.mkdir();// 새로운 폴더를 생성
+		}
+
+		
 		String homedir = saveFolder + "/" + year + "-" + month + "-" + date;
 		logger.info(homedir);
 		File path1 = new File(homedir);

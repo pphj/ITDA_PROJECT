@@ -125,14 +125,20 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	}
 
 	@Override
-	public int userUpdateProfile(String id) {
-		return dao.userUpdateProfile(id);
+	public int userUpdateProfile(Itda_User user) {
+		return dao.userUpdateProfile(user);
 	}
 
 	@Override
 	public int userEmailUpdate(Itda_User user) {
 		return dao.userEmailUpdate(user);
 	}
+
+	@Override
+	public Itda_User getUser(String id) {
+		return dao.isId(id);
+	}
+
 
 
 
