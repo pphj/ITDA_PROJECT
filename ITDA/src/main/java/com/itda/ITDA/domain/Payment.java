@@ -18,6 +18,7 @@ public class Payment {
     private Timestamp payedOkDate;		//결제완료시간
     private String payedStatus;			//결제상태
     private String payedCode;			//tid 저장
+    private int payedVat;				//부가세
     
 
 }
