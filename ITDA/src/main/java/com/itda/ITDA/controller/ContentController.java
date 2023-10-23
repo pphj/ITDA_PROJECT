@@ -87,7 +87,6 @@ public class ContentController {
 
 		// 채널과 연관된 카테고리 목록을 가져옴
 		List<ChBoardCategory> ContentCategory = contentService.getChannelCategory(boardnum);
-		System.out.println("가지고오나" + ContentCategory);
 
 		// 로그인한 사용자의 ID를 가져오기
 		if (principal != null)
@@ -143,7 +142,8 @@ public class ContentController {
 
 	// 게시글 수정
 	@PostMapping("/{chnum}/contentmodify")
-	public String updateContent(ChBoard chboard, Tag tag, @PathVariable("chnum") int chnum,
+	public String updateContent(ChBoard chboard, ChBoardCategory chBoardCategory, Tag tag,
+			@PathVariable("chnum") int chnum,
 			@RequestParam(value = "tagname", required = false) List<String> taglist,
 			@RequestParam(value = "tagId", required = false) List<String> tagIdlist,
 			@RequestParam(value = "upload", required = false) MultipartFile uploadfile, Principal principal,
@@ -241,8 +241,9 @@ public class ContentController {
 			{// 수정 성공의 경우
 				logger.info("게시판 수정 완료");
 				// 수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
-				url = "redirect:/content/content_detail/" + chboard.getBoardNum();
-				rattr.addAttribute("num", chboard.getBoardNum());
+				url = "redirect:/contents/" + chnum + "/" + chboard.getBoardNum() + "?userid=" + principal.getName()
+						+ "&chcate_name=" + chBoardCategory.getChCate_Name();
+
 			}
 		}
 		return url;

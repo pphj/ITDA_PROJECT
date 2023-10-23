@@ -168,7 +168,7 @@ public class OrderController {
 		// 5. payment 저장
 		//	orderNo, payMathod, 주문명.
 		// - 카카오 페이로 넘겨받은 결재정보값을 저장.
-		payment.setOrderNum(Integer.parseInt(approveResponse.getItem_code()));
+		//payment.setOrderNum(Integer.parseInt(approveResponse.getItem_code()));
 		payment.setPayedMethod(approveResponse.getPayment_method_type());
 		payment.setPayedCode(tid);
 		
@@ -178,7 +178,7 @@ public class OrderController {
 		logger.info("payment.setOrderNum" + payment.getOrderNum());
 		
 		
-		return "redirect:/subscriptions/info/order";
+		return "redirect:/product/subscriptions/info/order";
 	}
 	
 /*		

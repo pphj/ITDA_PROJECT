@@ -44,16 +44,17 @@
 
 					<ul id="right_btns">
 
-						<%-- 프로필 사진 출력 보안 --%>
+						<%-- 헤더의 로그인 버튼 --%>
 						<sec:authorize access="isAnonymous()">
 							<div class="header_user">
 								<div class="user_sign_in">
 									<button type="button" class="user_sign_in" data-toggle="modal"
 										data-target="#myModal">로그인</button>
 								</div>
+							</div>
 						</sec:authorize>
 
-						<!-- 현재 사용자가 인증되지 않은(로그인하지 않은) 상태인지 확인 -->
+						<!-- 현재 사용자가 로그인 상태인지 확인 -->
 						<sec:authorize access="isAuthenticated()">
 							<sec:authentication property="principal" var="pinfo" />
 
@@ -62,7 +63,7 @@
 							<div class="dropdown">
 								<button class="dropbtn">
 									<c:choose>
-										<c:when test="${empty pinfo.userProfile}">
+										<c:when test="${empty pinfo || pinfo.userProfile}">
 											<img id="profile_img" src="${pageContext.request.contextPath}/image/main/login.png"/>
 										</c:when>
 										<c:otherwise>
@@ -85,11 +86,6 @@
 							    </div>
 							</div>
 						</sec:authorize>
-
-
-
-
-						<!-- 헤더의 로그인 버튼 -->
 
 						<!-- Modal -->
 						<form id="modalForm"
