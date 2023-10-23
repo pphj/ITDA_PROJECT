@@ -258,7 +258,6 @@ public class ChannelListController {
 		int month = c.get(Calendar.MONTH) + 1;// 오늘 월 구합니다.
 		int date = c.get(Calendar.DATE);// 오늘 일 구합니다.
 
-<<<<<<< HEAD
 		File idPath1 = new File(saveFolder);
 		if (!(idPath1.exists()))
 		{
@@ -266,14 +265,13 @@ public class ChannelListController {
 		}
 
 		
-=======
 		// 채널번호 폴더 생성하는 거
 		File path2 = new File(saveFolder);
 		if (!(path2.exists()))
 		{
 			path2.mkdir();// 새로운 폴더를 생성
 		}
->>>>>>> branch 'main_sub' of https://github.com/pphj/ITDA_PROJECT.git
+		
 		String homedir = saveFolder + "/" + year + "-" + month + "-" + date;
 		logger.info(homedir);
 		File path1 = new File(homedir);
