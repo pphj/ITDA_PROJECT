@@ -1,10 +1,11 @@
 package com.itda.ITDA.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
-@Getter
-@Setter
+import lombok.Data;
+
+
+@Data
 public class ChBoard {
 	private int boardNum;
 	private int chNum;
@@ -18,6 +19,7 @@ public class ChBoard {
 	private String boardDate;
 	private String boardUpdate;
 	private int boardVisit;
+	private MultipartFile upload;
 	private String thumbNail;
 	private String intro;
 	private String boardContent;

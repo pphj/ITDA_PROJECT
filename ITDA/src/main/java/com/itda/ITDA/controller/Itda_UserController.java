@@ -32,7 +32,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.itda.ITDA.domain.FindIdStep01;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.service.DateService;
@@ -56,6 +55,7 @@ public class Itda_UserController {
 	private UserCategoryService userCategoryService;
 	private HttpSession session; // HttpSession 객체 선언
 	private SendMail sendMail;
+	
 
 	@Autowired
 	public Itda_UserController(Itda_UserService Itda_UserService, UserCategoryService userCategoryService,
@@ -245,5 +245,8 @@ public class Itda_UserController {
 	public String findIdPasswordForm() {
 		return "member/FindIdPasswordForm";
 	}
+	
+	
+	 
 
 }

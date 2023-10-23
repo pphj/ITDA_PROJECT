@@ -6,10 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -38,7 +37,9 @@ import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.Tag;
 import com.itda.ITDA.service.ChannelList_Service;
+import com.itda.ITDA.service.TagService;
 
 //DAO와 Service가 작성되어야 Controller가 완성된다
 @Controller
@@ -51,18 +52,20 @@ public class ChannelListController {
 	private String saveFolder;
 
 	private ChannelList_Service channelList_Service;
+	private TagService TagService;
 
 	// chnum 파라미터가 없거나 null인 경우에 대한 처리를 수행합니다.
 	final int WRONG_CHNUM = 0;
 
 	@Autowired
-	public ChannelListController(ChannelList_Service channelList_Service) {
+	public ChannelListController(ChannelList_Service channelList_Service, TagService TagService) {
 		this.channelList_Service = channelList_Service;
+		this.TagService = TagService;
 	}
 
 	@RequestMapping(value = "/{chnum}", method = RequestMethod.GET)
 	public ModelAndView showChannelMainPage(@PathVariable(value = "chnum") int chnum, // chnum을 파라미터로 전달 받음
-			String userid, ModelAndView mv, HttpServletRequest request) {
+			String userid, ModelAndView mv, HttpServletRequest request, Principal principal) {
 
 		if (chnum == WRONG_CHNUM)
 		{
@@ -114,7 +117,7 @@ public class ChannelListController {
 			@RequestParam(name = "limit", defaultValue = "10") int limit,
 			@RequestParam(name = "order", defaultValue = "desc") String order,
 			@RequestParam(name = "chcate_id", defaultValue = "0") int chCate_Id,
-			@RequestParam(name = "state", required = false) String state) {
+			@RequestParam(name = "state", required = false) String state, Principal principal) {
 
 		if (chnum == WRONG_CHNUM)
 		{
@@ -129,6 +132,11 @@ public class ChannelListController {
 			mv.setViewName("content/content_list");
 
 			List<ChBoard> contentlist = new ArrayList<ChBoard>();
+
+			// 채널주인 확인
+			Seller sellerinfo = channelList_Service.getContentSellerInfo(principal.getName());
+			System.out.println(sellerinfo);
+
 			int listcount = 0;
 
 			if (chCate_Id == 0)
@@ -150,6 +158,7 @@ public class ChannelListController {
 			if (endpage > maxpage)
 				endpage = maxpage;
 
+			mv.addObject("sellerinfo", sellerinfo);
 			mv.addObject("page", page);
 			mv.addObject("limit", limit);
 			mv.addObject("channelnum", chnum);
@@ -162,6 +171,7 @@ public class ChannelListController {
 			mv.addObject("listcount", listcount);
 			mv.addObject("contentlist", contentlist);
 			mv.addObject("chcategorylist", chcategorylist);
+
 		}
 		return mv;
 	}
@@ -169,7 +179,7 @@ public class ChannelListController {
 	@PostMapping("{chnum}/sellersetting")
 	public String showChannelUpdate(@PathVariable("chnum") int chnum, ModelAndView mv, ChannelList ChannelList,
 			ChBoardCategory ChBoardCategory, HttpServletRequest request, RedirectAttributes rattr,
-			HttpSession session) throws Exception {
+			HttpSession session, Principal principal) throws Exception {
 
 		MultipartFile uploadfile = ChannelList.getUploadfile();
 		String url = "";
@@ -180,10 +190,10 @@ public class ChannelListController {
 
 			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
 
-			String fileDBName = fileDBName(fileName, saveFolder + "/" + chnum);
+			String fileDBName = fileDBName(fileName, saveFolder + "/MemberUpload/" + principal.getName());
 			logger.info("fileDBName = " + fileDBName);
 
-			String userFolder = saveFolder + "/" + chnum + File.separator + fileDBName;
+			String userFolder = saveFolder + "/MemberUpload/" + principal.getName() + File.separator + fileDBName;
 
 			byte[] bytes = uploadfile.getBytes(); // 파일의 내용을 바이트 배열로 읽어옵니다.
 
@@ -193,7 +203,7 @@ public class ChannelListController {
 
 			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장합니다.
 			// uploadfile.transferTo(new File(saveFolder + "/" + chnum + fileDBName));
-			logger.info("transferTo path = " + saveFolder + "/" + chnum + userFolder);
+			logger.info("transferTo path = " + saveFolder + "/MemberUpload/" + principal.getName() + userFolder);
 			// 바뀐 파일명으로 저장
 			ChannelList.setChProfile(fileDBName);
 		}
@@ -244,6 +254,21 @@ public class ChannelListController {
 		int month = c.get(Calendar.MONTH) + 1;// 오늘 월 구합니다.
 		int date = c.get(Calendar.DATE);// 오늘 일 구합니다.
 
+		File idPath1 = new File(saveFolder);
+		if (!(idPath1.exists()))
+		{
+			idPath1.mkdir();// 새로운 폴더를 생성
+		}
+
+		
+
+		// 채널번호 폴더 생성하는 거
+		File path2 = new File(saveFolder);
+		if (!(path2.exists()))
+		{
+			path2.mkdir();// 새로운 폴더를 생성
+		}
+		
 		String homedir = saveFolder + "/" + year + "-" + month + "-" + date;
 		logger.info(homedir);
 		File path1 = new File(homedir);
@@ -356,7 +381,7 @@ public class ChannelListController {
 
 	@RequestMapping(value = "/contentwrite.co/{chnum}", method = RequestMethod.GET)
 	public ModelAndView addBoard(@PathVariable("chnum") int chnum, ModelAndView mv, HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session, Principal principal) {
 
 		session.setAttribute("chnum", chnum);
 
@@ -380,51 +405,97 @@ public class ChannelListController {
 	}
 
 	@PostMapping("/contentadd")
-	public String insertContent(@RequestParam("boardTitle") String boardTitle,
-			@RequestParam("boardContent") String boardContent, @RequestParam("chCate_Id") int chCate_Id,
-			@RequestParam("thumbNail") MultipartFile thumbNail, Principal principal, HttpSession session,
-			RedirectAttributes rattr) {
+	public String insertContent(ChBoard chboard, Tag tag, @RequestParam("content") String contentText,
+			@RequestParam(value = "tagname", required = false) List<String> taglist, Principal principal,
+			HttpSession session, HttpServletRequest request) throws IOException {
 
-		// 세션에서 데이터 가져오기
-		String writer = principal.getName();
-		int chnum = (int) session.getAttribute("chnum");
+		MultipartFile uploadfile = chboard.getUpload();
 
-		// 파일 저장 경로 설정
-		String saveFolder = "/image/content/";
-
-		// 실제 파일 저장 경로에 채널 번호와 오늘 날짜 추가
-		String realFolder = saveFolder + chnum + "/" + toDay() + "/";
-
-		// 폴더 생성 메서드 호출
-		createFolder(realFolder);
-
-		System.out.println(chnum + "/" + boardTitle + "/" + boardContent + "/" + chCate_Id + "/" + thumbNail);
-
-		// 썸네일 이미지 파일 저장 처리
-		try
+		if (uploadfile != null && !uploadfile.isEmpty())
 		{
-			if (!thumbNail.isEmpty())
-			{
-				thumbNail.transferTo(new File(realFolder, thumbNail.getOriginalFilename()));
-			}
-		} catch (IOException e)
-		{
-			e.printStackTrace();
+			logger.info("파일 추가/변경되었습니다.");
+
+			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
+
+			String fileDBName = fileDBName(fileName, saveFolder + "/contents/" + chboard.getChNum());
+			logger.info("fileDBName = " + fileDBName);
+
+			String userFolder = saveFolder + "/contents/" + chboard.getChNum() + File.separator + fileDBName;
+
+			byte[] bytes = uploadfile.getBytes(); // 파일의 내용을 바이트 배열로 읽어옵니다.
+
+			Path path = Paths.get(userFolder); // 파일을 저장할 절대경로 객체(Path)
+
+			Files.write(path, bytes); // 해당 경로에 파일 쓰기
+
+			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장합니다.
+			// uploadfile.transferTo(new File(saveFolder + "/" + chnum + fileDBName));
+			logger.info("transferTo path = " + saveFolder + "/contents/" + chboard.getChNum() + userFolder);
+			// 바뀐 파일명으로 저장
+			chboard.setThumbNail(fileDBName);
 		}
 
-		String thumbFileName = thumbNail.getOriginalFilename();
+		// 세션에서 데이터 가져오기
+		int chnum = (int) session.getAttribute("chnum");
+
+		// HTML 파싱 및 Intro 문자열 생성
+		/*
+		Document doc = Jsoup.parse(contentText);
+		Elements paragraphs = doc.select("p");
+		String Intro = "";
+		for (org.jsoup.nodes.Element paragraph : paragraphs)
+		{
+			System.out.println(paragraph.text());
+			boolean textNotEmpty = paragraph.text().matches("^(?=.*\\S).*$");
+			if (textNotEmpty)
+			{
+				Intro += paragraph.text();
+				if (Intro.length() > 80)
+				{
+					break;
+				}
+			}
+		}
+		*/
 
 		try
 		{
-			ChBoard contentAdd = new ChBoard();
-			contentAdd.setChNum(chnum);
-			contentAdd.setWriter(writer);
-			contentAdd.setBoardTitle(boardTitle);
-			contentAdd.setBoardContent(boardContent);
-			contentAdd.setChCate_Id(chCate_Id);
-			contentAdd.setThumbNail(thumbFileName);
+			chboard.setChNum(chnum);
+			chboard.setWriter(principal.getName());
 
-			int result = channelList_Service.contentInsert(contentAdd);
+			// chboard.setIntro(Intro);
+
+			int result = channelList_Service.contentInsert(chboard);
+			List<ChBoard> newcontent = channelList_Service.newContentSelect(chnum);
+
+			int contentNum = 0;
+			if (!newcontent.isEmpty())
+			{
+				contentNum = newcontent.get(0).getBoardNum();
+				System.out.println(contentNum);
+
+			}
+
+			int tagLength = 0;
+			if (request.getParameterValues("tagname") != null)
+			{
+				tagLength = request.getParameterValues("tagname").length;
+			}
+
+			if (taglist != null && !taglist.isEmpty())
+			{
+				// 태그 입력 처리
+				for (String tags : taglist)
+				{
+					logger.info("tags =" + tags);
+
+					Map<String, Object> parameters = new HashMap<>();
+					parameters.put("tagName", tags); // Here use 'tags' instead of 'tag.getTagName()'
+					parameters.put("boardNum", contentNum);
+
+					int resultTagInsert = TagService.tagInsert(parameters);
+				}
+			}
 
 			if (result > 0)
 			{
@@ -441,18 +512,4 @@ public class ChannelListController {
 		}
 	}
 
-	private void createFolder(String path) {
-		File dirPath = new File(path);
-		if (!dirPath.exists())
-		{
-			dirPath.mkdir();
-		}
-	}
-
-	private String toDay() {
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-		Date time = new Date(WRONG_CHNUM);
-		String time1 = format1.format(time);
-		return time1;
-	}
 }

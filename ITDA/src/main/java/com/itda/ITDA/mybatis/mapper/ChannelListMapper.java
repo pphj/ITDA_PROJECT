@@ -69,4 +69,12 @@ public interface ChannelListMapper {
 
 	int contentInsert(ChBoard contentAdd);
 
+	// int contentInsert(ChBoard contentAdd);
+
+	Seller getContentSellerInfo(String userid);
+
+	List<ChBoard> newContentSelect(int chnum);
+
+	Itda_User getUserInfo(String userid);
+
 }

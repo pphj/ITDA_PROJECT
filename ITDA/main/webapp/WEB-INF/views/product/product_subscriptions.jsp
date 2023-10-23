@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
@@ -126,6 +127,8 @@
 	</div>
 		<div class="product_ticket_wrap">
 			<ul class="product_ticket_list">
+			<!-- 티켓 시작 -->
+			<c:forEach var="subProductList" items="${subProductList}">
 				<li class="product_ticket_item _TICKET_LIST" data-ticket-id="sps-tck-1000000295" data-clk="prod_order.subscheck">
 					<div class="product_ticket_inside">
 						<input type="radio" id="product_0" name="product" class="product_ticket_check_input _TICKET_INPUT" data-ticket-id="sps-tck-1000000295">
@@ -136,10 +139,10 @@
 									<span class="product_ticket_type_text">단기</span>
 									<span class="product_ticket_type_text">월간이용권</span>
 								</div>
-								<strong class="product_ticket_name">1개월 구독권</strong>
+								<strong class="product_ticket_name">${subProductList.productName }1개월 구독권</strong>
 								<div class="product_ticket_price_wrap">
 									<div class="product_ticket_price">
-										<strong>3,900</strong>
+										<strong>${subProductList.productPrice}3,900</strong>
 										<span class="product_ticket_price_text">
 											원/월
 										</span>
@@ -154,7 +157,7 @@
 										</div>
 										<div class="card_price_wrap">
 											<div class="card_price">
-												<strong>3,900</strong><span class="card_price_text">원/월</span>
+												<strong>${subProductList.productPrice}</strong><span class="card_price_text">원/월</span>
 											</div>
 										</div>
 									</div>
@@ -164,11 +167,13 @@
 						<div class="product_ticket_benefit">
 							<strong class="product_ticket_benefit_title">혜택</strong>
 							<ul class="product_ticket_benefit_list">
-								<li class="product_ticket_benefit_item">1개월 동안 콘텐츠 무제한 열람</li>
+								<li class="product_ticket_benefit_item">${subProductList.productDetail}</li>
 							</ul>
 						</div>
 					</div>
 				</li>
+				</c:forEach>
+				
 				<li class="product_ticket_item _TICKET_LIST" data-ticket-id="sps-tck-1000000825" data-clk="prod_order.subscheck">
 					<div class="product_ticket_inside">
 						<input type="radio" id="product_1" name="product" class="product_ticket_check_input _TICKET_INPUT" data-ticket-id="sps-tck-1000000825">

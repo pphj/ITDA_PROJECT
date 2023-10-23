@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,37 +13,25 @@
 	<meta http-equiv="Pragma" content="No-Cache">
 
 	<title>프로필 수정</title>
+<jsp:include page="../../include/header.jsp"></jsp:include>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mypage/help_member.css">	<link href="https://nid.naver.com/favicon_1024.png" rel="apple-touch-icon-precomposed" sizes="1024x1024" />
-	<script type="text/javascript" src="https://nid.naver.com/js/clickcr.js"></script>
-	<script type="text/javascript" src="https://nid.naver.com/inc/common/js/ko/commonUtil.js?20170214"></script>
 	<script type="text/javascript">
-		var gnb_option = {
-			gnb_service : "nid",
-			gnb_template : "gnb_utf8",
-			gnb_logout : encodeURIComponent("https://nid.naver.com/user2/help/myInfo?menu=home"),
-			gnb_brightness : 1,
-			gnb_one_naver : 1,
-			gnb_item_hide_option : 0
-		}
-
-		lcs_do();
-
-		function gnbClose(){
-			$('#wrap').click(function(e){
-				if( !$('#gnb').has(e.target).length ){
-					gnbAllLayerClose();
-				}
-			});
-		}
+	
 		//120919 win8 이슈 대응 : capslock 자동설정해제
 		document.msCapsLockWarningOff = true;
 		function setContainerHeight(height) {}
 		function clearDocs(){}
 	</script>
+	<script type="text/javascript">
+		var msg = "<c:out value='${msg}'/>";
+		var url = "<c:out value='${url}'/>";
+		alert(meg);
+		location.href = url;
+	</script>
 	<meta name="decorator" content="USER_PROFILE">
-<jsp:include page="../../include/header.jsp"></jsp:include>
+
+
 </head>
 
 <body onclick="clearDocs();gnbClose();" id="mainBody">
@@ -61,6 +51,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+	
 		document.getElementById("nid").className = "selected";
 
 		var tagList = "nid security ";
@@ -101,10 +92,7 @@
         <h2>프로필 수정</h2>
         <p class="contxt">대표 프로필 사진을 수정 하실 수 있습니다.</p>
     </div>
-    <form id="profileForm" method="post" enctype="multipart/form-data">
-        <input type="hidden" id="helpToken" name="token_help" value="" />
-        <input type="hidden" id="deleteYn" name="deleteYn" value="N" />
-        <input type="hidden" id="ieLessThan9Yn" name="ieLessThan9Yn" value="N" />
+    <form id="profileForm" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/user/myInfo/changeProfilePro">
         <fieldset>
             <legend>프로필 수정</legend>
             <table border="0" class="tbl_model">
@@ -120,114 +108,39 @@
                     <td>
                         <div class="tdcell">
                             <div class="profile_photo">
+                           <c:choose>
+                        <c:when test="${empty vo.userProfile}">
                                 <img id="imgThumb" src="https://static.nid.naver.com/images/web/user/default.png" width="100" height="100">
+                        </c:when>
+                        <c:when test="${!empty vo.userProfile}">
+                                <img id="imgThumb" src="${pageContext.request.contextPath}/image/Member/${vo.userId}${vo.userProfile}" width="100" height="100">
+                        </c:when>
+                        </c:choose>
                                 <span class="mask"></span>
                             </div>
                             <div class="btn_area_btm">
                                 <span class="btn_file">
-                                    <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진변경</b></label>
-                                    <input type="file" id="inputImage" name="profileImage"  accept="image/*" />
+                                    <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="changeImage(this)">사진변경</b></label>
+
+                                    <input type="file" id="inputImage" name="profile"  accept="image/*" />
                                 </span>
-                                <a href="javascript:;" class="btn_model"><b id="btnDelete" class="btn2" onclick="clickcr(this,'prf.delimg','','',event);">삭제</b></a>
+                                <a href="javascript:;" class="btn_model"><b id="btnDelete" class="btn2" >삭제</b></a>
                                 </div>
                             </div>
-                        </div>
                     </td>
                 </tr>
-<!--                 <tr>
-                    <th scope="row">
-                        <div class="thcell"><label for="inpNickname">별명</label></div>
-                    </th>
-                    <td>
-                        <div class="tdcell">
-                            <p class="contxt_webctrl nickname">
-                                <input type="text" name="nickname" id="inpNickname" value="" style="width:254px" onclick="clickcr(this,'prf.nick','','',event);">
-                                Enter 입력으로 submit이 되는걸 방지하기 위한 Input
-                                <input type="text" style="display: none;" >
-                            </p>
-                        </div>
-                    </td>
-                </tr>
- -->                </tbody>
+                </tbody>
             </table>
             <div class="btn_wrap">
-                <a href="javascript:;" class="btn_model"><b id="btnConfirm" class="btn8" onclick="clickcr(this,'prf.apply','','',event);">적용</b></a>
-                <a href="javascript:;" class="btn_model"><b id="btnCancel" class="btn2" onclick="cancle();">취소</b></a>
+                <a href="javascript:;" class="btn_model"><b id="btnConfirm" class="btn8" onclick="btnChangeProfile">적용</b></a>
+                <a href="javascript:;" class="btn_model"><b id="btnCancel" class="btn2" onclick="cancel();">취소</b></a>
             </div>
         </fieldset>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
 </div>
 
-<!--[D] 캐릭터만들기 딤드처리 -->
-<div class="dim_layer"></div>
 
-<script type="text/javascript">
-    //nClicks 전역변수
-/*     var nsc = "my.profile"+ "";
-    var ccsrv = "cc.naver.com";
-
-    $(document).ready(function() {
-        var profileInfo = {
-            isNicknameChanged: false,
-            nickname: "",
-            defaultImageUrl: "https://static.nid.naver.com/images/web/user/default.png",
-            imageUrl: "",
-            token: "",
-            id: "",
-            deleteYn: "N",
-            originImageUrl: "",
-            originNickname: ""
-        };
-
-        var message = {
-            maxUploadSizeErrMessage: "최대 파일 업로드 사이즈는 10MB입니다.",
-            overTimeReturnErrMessage: "유효 시간이 초과 되었습니다. 다시 시도해 주세요.",
-            temporaryAccessErrMessage: "일시적인 오류입니다. 잠시 후 다시 시도해 주세요.",
-            confirm: "프로필 변경 사항을 적용하시겠습니까?"
-        };
-
-        var url = {
-            removeTempImageUrl: "/user2/api/naverProfile?m=removeTempImageUrl",
-            checkImageAndSaveTmep: "/user2/api/naverProfile?m=checkImageAndSaveTempForUser",
-            changeProfile: "/user2/api/naverProfile?m=changeProfileForUser",
-            returnUrl: ""
-        };
-
-        profile.init(profileInfo, message, url);
-        profile.run();
-        
-        if (!isSupportedBrowser()) {
-            $("#coach_tooltip").hide();
-            $("#btnAvatar").hide();
-        }
-        
-        if (isOverDueDate()) {
-            $("#coach_tooltip").hide();
-            $("#btnAvatar").removeClass("coach_mark");
-        }
-
-        $(".txt_tooltip").on("click", function() {
-            $("#coach_tooltip").hide();
-        });
-
-        if (getCookie("coach_tooltip") === "ok") {
-            $("#coach_tooltip").hide();
-            $("#btnAvatar").removeClass("coach_mark");
-        } else {
-            setCookie("coach_tooltip", "ok", 30, "");
-        }
-        
-        // IE 호환성 지원 관련
-        $("a").click(function(event) {
-            // 상단 버튼과 구별
-            var isProfileBtnClicked = $(event.currentTarget).hasClass("btn_model") ||
-                                      $(event.currentTarget).hasClass("txt_tooltip");
-            if (isProfileBtnClicked) {
-                event.preventDefault();
-            }
-        }); */
-
-</script>
 	</div>
 
  	<div id="footer">
@@ -238,7 +151,7 @@
  	<jsp:include page="../../include/footer.jsp"></jsp:include>
 
 
-
+<script src="${pageContext.request.contextPath}/resources/js/mypage/userinfo/profile.js"></script>
 <script type="text/javascript">
 	getGNB();
 

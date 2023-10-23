@@ -3,8 +3,12 @@ package com.itda.ITDA.service;
 import java.util.List;
 
 import com.itda.ITDA.domain.ChBoard;
+import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.Tag;
 
 public interface ContentService {
 
@@ -22,5 +26,24 @@ public interface ContentService {
 	
 	ChBoard getContentDetail(int boardnum);
 
+	Seller getSellerInfo(String userid);
+
+	List<Tag> getTagInfo(int chnum, int boardnum);
+
+	boolean isContentWriter(int boardNum);
+
+	int contentModify(ChBoard chboard);
+
+	List<ChBoardCategory> getCategoryNameList(int chnum);
+
+	List<ChBoard> newContentSelect(int chnum);
+
+	int boardDelete(int boardnum);
+
+	void deleteBoard(int boardnum);
+
+	Itda_User getUserInfo(String userId);
+
+	List<ChBoardCategory> getChannelCategory(int boardnum);
 
 }

@@ -23,7 +23,9 @@
 	
 	<select id="read" resultType="Itda_user">
 		SELECT
-		    a.userid, a.useraddress1, a.useraddress2, a.useremail, a.username, a.userphone, a.userpost, a.userprofile, a.usercategory,
+		    a.userid, a.useraddress1, a.useraddress2, 
+		    a.useremail, a.username, a.userphone, 
+		    a.userpost, a.userprofile, a.usercategory,
 		    b.selleremail, b.sellerphone,
 		    d.cate_name
 		FROM
@@ -139,19 +141,30 @@
 	        OR seller.userid = #{userId, jdbcType=VARCHAR}
 	</select>
 	
-	<!-- 이메일 체크 -->
+	<!-- 현재 이메일 체크 -->
 	<select id="emailCheck" resultType="Itda_User">
 		select userEmail
 		from itda_user
 		where userId = #{userId}
 	</select>
 	
+	<!-- 이메일 변경 -->
+	<update id="userEmailUpdate" parameterType="Itda_User">
+		update itda_user
+	    set userEmail = #{userEmail}
+	    where userId = #{userId}
+	</update>
 	<!-- 비밀번호 재설정 -->
 	<update id="updateUserPassword">
   	UPDATE itda_user SET userPw = #{encryptedPassword} WHERE userEmail = #{userEmail}
 	</update>
 
 
+	<update id="userUpdateProfile" parameterType="Itda_User">
+		update itda_user
+	    set userProfile = #{userProfile}
+	    where userId = #{userId}
+	</update>
 
 
 	

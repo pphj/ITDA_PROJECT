@@ -179,8 +179,8 @@ $(document).ready(function(){
 										data-tiara-action-kind="ClickContent" data-tiara-layer="articles" data-tiara-id="@@xTI">
 										<a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}" class="link_category"> 
 										<em class="tit_category">${c.chCate_Name}</em>
-										</a> <a href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}"
-											class="link_post has_image #post_listview"> 
+										</a> 
+										<a href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}?userid=${sellerinfo.userId}&chcate_name=${c.chCate_Name}" class="link_post has_image #post_listview"> 
 													<strong class="tit_subject"> <%-- 글자 수 제한 적용 --%> 
 													<c:set var="limitedTitle" value="${c.boardTitle}" /> <c:choose>
 													<c:when test="${fn:length(c.boardTitle) > 35}">
@@ -190,7 +190,7 @@ $(document).ready(function(){
 										</strong>
 
 											<div class="post_thumb">
-												<img class="img_thumb" src="../image/contents/${ChannelList.chNum}/a/${c.thumbNail}"
+												<img class="img_thumb" src="${pageContext.request.contextPath}/image/contents/${ChannelList.chNum}${c.thumbNail}"
 													style="width: 120px; height: 120px;" alt="이미지정보">
 												<!-- src="../image/channel/channel1.jpeg" -->
 											</div>
