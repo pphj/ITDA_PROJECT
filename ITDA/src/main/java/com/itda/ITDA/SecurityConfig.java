@@ -44,6 +44,7 @@ public class SecurityConfig {
       .antMatchers("/member/findid").permitAll()
       .antMatchers("/itda/member/changePassword").permitAll() 
       
+
       .antMatchers("/ckeditor5/**").permitAll();
       
     /*.antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")
