@@ -86,31 +86,10 @@ textarea.reply_write_area_text {
 	margin-left: 46px;
 }
 .reply_list_item__reply.lev2 {
-	margin-left: 46px;
+    margin-left: 92px;
 }
 .reply_list_item__reply.lev3 {
-	margin-left: 46px;
-}
-.reply_list_item__reply.lev4 {
-	margin-left: 46px;
-}
-.reply_list_item__reply.lev5 {
-	margin-left: 46px;
-}
-.reply_list_item__reply.lev6 {
-	margin-left: 46px;
-}
-.reply_list_item__reply.lev7 {
-	margin-left: 46px;
-}
-.reply_list_item__reply.lev8 {
-	margin-left: 46px;
-}
-.reply_list_item__reply.lev9 {
-	margin-left: 46px;
-}
-.reply_list_item__reply.lev10 {
-	margin-left: 46px;
+	margin-left: 136px;
 }
 .reply_area .reply_list .reply_list_item {
 	position: relative;
@@ -162,6 +141,7 @@ textarea.reply_write_area_text {
 	box-sizing: border-box;
 	background: #ffffff;
 	width: 70%;
+	margin-top: 25px;
 }
 
 .reply_write .reply_write_area {
@@ -187,7 +167,7 @@ textarea.reply_write_area_text {
 }
 
 button, textarea {
-	font-family: Apple SD Gothic Neo, ���� ���, Malgun Gothic, ����, dotum,
+	font-family: Apple SD Gothic Neo, 占쏙옙占쏙옙 占쏙옙占�, Malgun Gothic, 占쏙옙占쏙옙, dotum,
 		sans-serif;
 }
 
@@ -210,9 +190,9 @@ textarea {
 }
 
 .reply_area .reply_list .reply_tool .LayerMore {
-	left: auto;
-	right: 0;
-	margin-top: 7px;
+    left: auto;
+    right: 13;
+    margin-top: 7px;
 }
 
 .LayerMore {
@@ -301,7 +281,7 @@ a:hover {
 
 .reply_area{
 	width: 70%;
-	margin-left: 250px;
+	margin-left: 360px;
 }
 .reply_head, .reply_write{
 	margin-left: 200px;

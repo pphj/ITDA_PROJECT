@@ -42,7 +42,12 @@ public class SecurityConfig {
       .antMatchers("/itda/search/result").authenticated()
       .antMatchers("/info/qnainsert").permitAll()
       .antMatchers("/member/findid").permitAll()
+      .antMatchers("/main/callback").permitAll()
+      .antMatchers("/main/login").permitAll()
       
+      
+      
+
       .antMatchers("/ckeditor5/**").permitAll();
       
     /*.antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")

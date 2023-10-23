@@ -4,43 +4,61 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
-    <jsp:include page="../include/header.jsp"/>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-    <script> var contextPath = "<%= request.getContextPath() %>"; </script>
-    <script src="${pageContext.request.contextPath}/js/Reply.js"></script>
-    <script src="${pageContext.request.contextPath}/js/Heart.js"></script>
-	<link href='${pageContext.request.contextPath}/resources/css/Reply.css' type='text/css' rel='stylesheet'>
-	<link href="${pageContext.request.contextPath}/resources/css/content/content_detail.css" type="text/css" rel="stylesheet">
-	
-<title>${board.boardTitle }</title>
+<meta name="_csrf_header" content="${_csrf.headerName}">
+<meta name="_csrf" content="${_csrf.token}">
+<jsp:include page="../include/header.jsp" />
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script> var contextPath = "<%=request.getContextPath()%>" </script>
+<script src="${pageContext.request.contextPath}/js/content/Reply.js"></script>
+<script src="${pageContext.request.contextPath}/js/content/Heart.js"></script>
+<link href='${pageContext.request.contextPath}/resources/css/Reply.css' type='text/css' rel='stylesheet'>
+<link href="${pageContext.request.contextPath}/resources/css/content/content_detail.css" type="text/css" rel="stylesheet">
+<script>
+$(document).ready(function() {
+    getList(1); // 페이지 로드 시 처음으로 댓글 목록 가져오기
+});
+</script>
+<title>${board.boardTitle}</title>
 </head>
 <body>
-	<input type="hidden" id="LoginId" value="${userId}" name="LoginId">
+	<input type="hidden" name="LoginId" id="LoginId" value="${userinfo.userId }" />
+	<input type="hidden" id="chnum" value="${board.chNum}" name="chnum">
+	<input type="hidden" id="boardnum" value="${board.boardNum}" name="boardnum">
 	<div class="board_detail_wrap">
 		<div class="board_detail_all_group">
 			<div class="board_detail_title_group">
 				<div class="board_detail_category">
-					<a href="${pageContext.request.contextPath}/channels/${board.chNum}" class="viewer_category_link">${board.chCate_Name}</a>
+					<a href="${pageContext.request.contextPath}/channels/${board.chNum}" class="viewer_category_link">${param.chcate_name}</a>
 				</div>
+			
 				<div class="board_detail_title_inline">
 					<span class="board_detail_title">${board.boardTitle}</span>
 				</div>
-						<a href="${pageContext.request.contextPath}/channels/contentwrite.co/${ChannelList.chNum}">
+				<sec:authorize access="isAuthenticated()">
+					<sec:authentication property="principal" var="pinfo" />
+					<c:if test="${sellerinfo.userId == pinfo.username}">
+						<a href="${pageContext.request.contextPath}/contents/${board.chNum}/modifyView?boardnum=${board.boardNum}">
 							<button type="button" class="btn_type">
 								<span class="txt_default">
-									<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글수정
-								</span>
-							</button>
-							<button type="button" class="btn_type">
-								<span class="txt_default">
-									<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글삭제
+									<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png"><b>글수정</b>
 								</span>
 							</button>
 						</a>
+						<form name="deleteForm" action="${pageContext.request.contextPath}/contents/${board.chNum}/delete" method="post" style="all: unset;">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> <input type='hidden' name='boardnum'
+								value='${board.boardNum}' />
+							<button type="submit" class="btn_type">
+								<span class="txt_default">
+									<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png"><b>글삭제</b>
+								</span>
+							</button>
+						</form>
+					</c:if>
+				</sec:authorize>
 				<div class="viewer_title_content">
 					<div class="viewer_date">${board.boardDate}</div>
 					<div class="viewer_count">
@@ -60,7 +78,7 @@
 				</div>
 			</div>
 			<div class="viewer_main_text_group">
-				<div class="ck-content content_main_text">${board.boardContent }
+				<div class="ck-content content_main_text">${board.boardContent}
 					<input type="hidden" name="num" value="${board.boardNum}" id="Reply_board_num">
 				</div>
 			</div>
@@ -86,10 +104,10 @@
 				<div class="viewer_bottom_info">
 					<div class="viewer_tag">
 						<ul class="viewer_tag_list">
-							<c:forEach var="t" items="${tname}" varStatus="status">
+							<c:forEach var="tag" items="${taginfo}" varStatus="status">
+								<input type="hidden" name="tagId" value="${tag.tagId}">
 								<li class="viewer_tag_item">
-									<a href class="viewer_tag_link" data-clk="chlh_cont.tag">${t[status.index]}</a> <a href class="viewer_tag_link"
-										data-clk="chlh_cont.tag">${t}</a>
+									<a href class="viewer_tag_link" data-clk="chlh_cont.tag">${tag.tagName}</a>
 								</li>
 							</c:forEach>
 						</ul>
@@ -124,7 +142,7 @@
 			</ul>
 			<div class="reply_write">
 				<div class="reply_write_area">
-					<b class="reply_write_area_name">${userId}</b>
+					<b class="reply_write_area_name">${userinfo.userId}</b>
 					<span class="reply_write_area_count">0/200</span>
 					<textarea placeholder="댓글을 남겨보세요" rows="1" class="reply_write_area_text" maxLength="200"></textarea>
 				</div>
@@ -137,6 +155,7 @@
 			<%-- reply_write end --%>
 		</div>
 	</div>
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	<jsp:include page="../include/footer.jsp" />
 </body>
 </html>

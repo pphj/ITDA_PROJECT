@@ -49,7 +49,7 @@ public interface Itda_UserService {
 
 	Itda_User getUser(String id);
 
-
+	boolean changePassword(String userEmail, String newPassword);
 
 
 

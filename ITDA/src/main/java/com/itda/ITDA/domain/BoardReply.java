@@ -1,7 +1,13 @@
 package com.itda.ITDA.domain;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class BoardReply {
 	private int replyNum;
 	private int boardNum;
@@ -13,70 +19,15 @@ public class BoardReply {
 	private Timestamp replyDate;
 	private Timestamp replyUpdate;
 	private int cnt;
-	
-	
-	
-	public int getCnt() {
-		return cnt;
+
+	@Override
+	public String toString() {
+		return "BoardReply{" + "replyNum=" + replyNum + ", boardNum=" + boardNum + ", replyWriter='" + replyWriter
+				+ '\'' + ", replyContent='" + replyContent + '\'' + ", replyRef=" + replyRef + ", replyLev="
+				+ replyLev + ", replySeq=" + replySeq +
+				// 날짜 필드가 null인 경우를 대비하여 null 체크를 추가합니다.
+				", replyDate="
+				+ (replyDate != null ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(replyDate) : null) + '}';
 	}
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
-	}
-	public int getReplyNum() {
-		return replyNum;
-	}
-	public void setReplyNum(int replyNum) {
-		this.replyNum = replyNum;
-	}
-	public int getBoardNum() {
-		return boardNum;
-	}
-	public void setBoardNum(int boardNum) {
-		this.boardNum = boardNum;
-	}
-	public String getReplyWriter() {
-		return replyWriter;
-	}
-	public void setReplyWriter(String replyWriter) {
-		this.replyWriter = replyWriter;
-	}
-	public String getReplyContent() {
-		return replyContent;
-	}
-	public void setReplyContent(String replyContent) {
-		this.replyContent = replyContent;
-	}
-	public int getReplyRef() {
-		return replyRef;
-	}
-	public void setReplyRef(int replyRef) {
-		this.replyRef = replyRef;
-	}
-	public int getReplyLev() {
-		return replyLev;
-	}
-	public void setReplyLev(int replyLev) {
-		this.replyLev = replyLev;
-	}
-	public int getReplySeq() {
-		return replySeq;
-	}
-	public void setReplySeq(int replySeq) {
-		this.replySeq = replySeq;
-	}
-	public Timestamp getReplyDate() {
-		return replyDate;
-	}
-	public void setReplyDate(Timestamp replyDate) {
-		this.replyDate = replyDate;
-	}
-	public Timestamp getReplyUpdate() {
-		return replyUpdate;
-	}
-	public void setReplyUpdate(Timestamp replyUpdate) {
-		this.replyUpdate = replyUpdate;
-	}
-	
-	
-	
+
 }

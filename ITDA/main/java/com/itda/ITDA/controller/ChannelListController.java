@@ -123,7 +123,7 @@ public class ChannelListController {
 
 			List<ChBoard> contentlist = new ArrayList<ChBoard>();
 			int listcount = 0;
-
+			
 			if (chCate_Id == 0)
 			{ // 전체
 				contentlist = channelList_Service.getAllChannelCategoryData(chnum, order, page, limit);
@@ -136,13 +136,17 @@ public class ChannelListController {
 				listcount = channelList_Service.getChannelCategoryCount(chnum, chCate_Id);
 
 			}
-
+			// 채널주인 확인
+			Seller sellerinfo = channelList_Service.getContentSellerInfo(userid);
+			
+			
 			int maxpage = (listcount + limit - 1) / limit;
 			int startpage = ((page - 1) / 10) * 10 + 1;
 			int endpage = startpage + 10 - 1;
 			if (endpage > maxpage)
 				endpage = maxpage;
-
+			
+			mv.addObject("sellerinfo", sellerinfo);
 			mv.addObject("page", page);
 			mv.addObject("limit", limit);
 			mv.addObject("channelnum", chnum);

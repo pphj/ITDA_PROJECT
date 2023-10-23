@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itda.ITDA.mybatis.mapper.TagMapper">
+
+	<insert id="tagInsert" parameterType="map">
+		INSERT INTO tag (tagId,
+		boardNum, tagName)
+		VALUES(tag_seq.nextval, #{boardNum}, #{tagName})
+	</insert>
+
+	<update id="tagUpdate" parameterType="map">
+		UPDATE tag
+		SET
+		boardNum =
+		#{boardNum},
+		tagName = #{tagName}
+		WHERE
+		tagId = #{tagId,jdbcType=NUMERIC}
+	</update>
+
+	<select id="findTagIdByTagName" parameterType="string"
+		resultType="int">
+		SELECT tagId
+		FROM tag
+		WHERE tagName = #{tagName}
+	</select>
+
+	<delete id="deleteByBoardNum" parameterType="int">
+		DELETE FROM tag WHERE BOARDNUM = #{boardNum}
+	</delete>
+	
+	<delete id="tagDelete">
+		DELETE FROM tag WHERE tagId = #{tagId}
+	</delete>
+
+</mapper>

@@ -4,60 +4,144 @@
 
 <mapper namespace="com.itda.ITDA.mybatis.mapper.ContentMapper">
 	<select id="getContentAll" resultType="ChBoard">
-		select * from (select rownum r, chboard.*
-					   from chBoard join ChannelList
-					   on chBoard.chNum = ChannelList.chNum
-					   order by boardNum desc)
-		where r between #{startRow} and #{endRow}
+		select * from (select
+		rownum r, chboard.*
+		from chBoard join ChannelList
+		on chBoard.chNum =
+		ChannelList.chNum
+		order by boardNum desc)
+		where r between #{startRow}
+		and #{endRow}
 	</select>
-	
+
 	<select id="getContentByCategory" resultType="ChBoard">
-		select * from (select rownum r, chboard.*
-					   from chBoard join ChannelList
-					   on chBoard.chNum = ChannelList.chNum
-					   where cate_ID = #{categoryNum}
-					   order by boardNum desc)
+		select * from
+		(select rownum r, chboard.*
+		from chBoard join ChannelList
+		on
+		chBoard.chNum = ChannelList.chNum
+		where cate_ID = #{categoryNum}
+		order
+		by boardNum desc)
 		where r between #{startRow} and #{endRow}
 	</select>
-	
+
 	<select id="getChannelList" resultType="ChannelList">
-		select * from (select * from ChannelList
-					   order by chVisit desc)
+		select * from (select *
+		from ChannelList
+		order by chVisit desc)
 		where rownum &lt;= 9
 	</select>
-	
+
 	<select id="getChannelListByNum" resultType="ChannelList">
-		select * from (select * from ChannelList
-					   where cate_ID = #{categoryNum}
-					   order by chVisit desc)
+		select * from
+		(select * from ChannelList
+		where cate_ID = #{categoryNum}
+		order by
+		chVisit desc)
 		where rownum &lt;= 9
 	</select>
-	
+
 	<select id="HotContentSelect" resultType="ChBoard">
-		select * from (select * from chBoard
-					   order by (boardHeart + boardVisit) desc) 
-		where rownum &lt;= 7
+		select * from (select *
+		from chBoard
+		order by (boardHeart + boardVisit) desc)
+		where rownum &lt;=
+		7
 	</select>
-	
+
 	<select id="selectchCate_Id" resultType="chCategory">
 		select * from chCategory
 	</select>
-	
+
 	<select id="getContentDetail" resultType="ChBoard">
-		select chboard.*, chboardcategory.chcate_name  
-		from chboard   join chboardcategory 
-				 on   chboard.chnum  =  chboardcategory.chnum 
-				 where boardnum = #{boardNum}
-				 and chboard.chcate_id = chboardcategory.chcate_id
+		SELECT *
+		FROM chboard
+		WHERE boardnum = #{boardnum}
 	</select>
 
+
+
+	<select id="searchContentsByKeyword"
+		parameterType="java.lang.String"
+		resultType="com.itda.ITDA.domain.ChBoard">
+		SELECT *
+		FROM chboard
+		WHERE boardTitle LIKE #{keyword}
+		OR
+		boardContent LIKE #{keyword}
+	</select>
+
+	<select id="getSellerInfo" resultType="Seller">
+		SELECT * FROM SELLER
+		WHERE
+		userId = #{userid}
+	</select>
+
+	<select id="getTagInfo" resultType="Tag">
+		SELECT tag.*
+		FROM chboard JOIN
+		tag ON chboard.boardnum = tag.boardnum
+		WHERE chboard.chnum = #{chnum}
+		AND chboard.boardnum = #{boardNum}
+	</select>
+
+	<select id="isContentWriter" parameterType="map"
+		resultType="ChBoard">
+		select * from chboard
+		where boardNum =#{boardNum}
+	</select>
+
+	<update id="contentModify" parameterType="chboard">
+		UPDATE chboard
+		SET
+		BOARDTITLE = #{boardTitle},
+		BOARDNORE = 'Y',
+		BOARDDATE = SYSTIMESTAMP,
+		THUMBNAIL = #{thumbNail},
+		INTRO = #{intro,jdbcType=CLOB},
+		BOARDCONTENT =
+		#{boardContent,jdbcType=CLOB}
+		WHERE
+		BOARDNUM = #{boardNum}
+	</update>
+
+	<select id="getCategoryNameList" resultType="ChBoardCategory">
+		select * from
+		chboardcategory where chnum = #{chnum}
+	</select>
+
+	<select id="newContentSelect" resultType="ChBoard">
+		SELECT *
+		FROM (
+		SELECT *
+		FROM chboard
+		WHERE chnum = #{chnum}
+		ORDER BY boardupdate DESC
+		)
+		WHERE
+		rownum = 1
+	</select>
+
+	<delete id="boardDelete" parameterType="int">
+	    <![CDATA[
+	      DELETE FROM chboard 
+	      WHERE BOARDNUM = #{boardNum}
+	    ]]>
+	</delete>
+
+	<select id="getUserInfo" resultType="Itda_User">
+		select * from itda_user
+		where
+		userId = #{userId}
+	</select>
 	
-	
-	  <select id="searchContentsByKeyword" parameterType="java.lang.String" resultType="com.itda.ITDA.domain.ChBoard">
-        SELECT *
-        FROM chboard
-        WHERE boardTitle LIKE #{keyword}
-            OR boardContent LIKE #{keyword}
-    </select>
-	
+	<select id="getChannelCategory" resultType="ChBoardCategory">
+		   SELECT cbc.chCate_Id, cbc.chNum, cbc.chCate_Name 
+		    FROM ChBoard cb
+		    JOIN ChBoardCategory cbc ON cb.chCate_Id = cbc.chCate_Id 
+		    WHERE cb.boardnum = #{boardNum}
+	</select>
+
+
 </mapper>
