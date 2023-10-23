@@ -47,6 +47,7 @@ public class SecurityConfig {
       
       
       
+
       .antMatchers("/ckeditor5/**").permitAll();
       
     /*.antMatchers("/admin/adminApprove").access("hasRole('SUPERADMIN')")

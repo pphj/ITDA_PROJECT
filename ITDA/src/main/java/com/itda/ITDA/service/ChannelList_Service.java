@@ -59,4 +59,10 @@ public interface ChannelList_Service {
 
 	int checkChannelName(int chnum, String chName);
 
+	Seller getContentSellerInfo(String userid);
+
+	List<ChBoard> newContentSelect(int chnum);
+
+	Itda_User getUserInfo(String userid);
+
 }

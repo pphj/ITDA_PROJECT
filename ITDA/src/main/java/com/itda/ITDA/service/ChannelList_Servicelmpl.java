@@ -150,4 +150,19 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		return dao.checkChannelName(chnum, chName);
 	}
 
+	@Override
+	public Seller getContentSellerInfo(String userid) {
+		return dao.getContentSellerInfo(userid);
+	}
+
+	@Override
+	public List<ChBoard> newContentSelect(int chnum) {
+		return dao.newContentSelect(chnum);
+	}
+
+	@Override
+	public Itda_User getUserInfo(String userid) {
+		return dao.getUserInfo(userid);
+	}
+
 }
