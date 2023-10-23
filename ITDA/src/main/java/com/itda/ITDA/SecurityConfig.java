@@ -79,7 +79,9 @@ public class SecurityConfig {
       http.csrf() 
      	.ignoringAntMatchers ("/info/qnainsert") 
      	.and();
-
+      
+	return http.build();
+   }
    public SecurityFilterChain mainSecurityFilterChain(HttpSecurity http) throws Exception {
        http.antMatcher("/main/**")
        		.authorizeRequests(authorizeRequests -> authorizeRequests
@@ -144,5 +146,4 @@ public class SecurityConfig {
    public BCryptPasswordEncoder encodePassword() {
       return new BCryptPasswordEncoder();
    }
-   
 }

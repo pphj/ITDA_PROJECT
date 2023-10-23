@@ -104,9 +104,5 @@ public class SendMail {
 		}
 	}
 
-	public void sendMail(String userEmail, String userId) {
-		// TODO Auto-generated method stub
-		
-	}
 
 } // class SendMail

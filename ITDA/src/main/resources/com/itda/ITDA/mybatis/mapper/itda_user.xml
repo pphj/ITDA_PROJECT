@@ -154,6 +154,7 @@
 	    set userEmail = #{userEmail}
 	    where userId = #{userId}
 	</update>
+	
 	<!-- 비밀번호 재설정 -->
 	<update id="updateUserPassword">
   	UPDATE itda_user SET userPw = #{encryptedPassword} WHERE userEmail = #{userEmail}
