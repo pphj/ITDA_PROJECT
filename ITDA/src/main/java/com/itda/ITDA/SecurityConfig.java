@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,9 +17,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
-import com.itda.ITDA.security.AdminLoginFailHandler;
-import com.itda.ITDA.security.AdminLoginSuccessHandler;
-import com.itda.ITDA.security.AdminUserDetailService;
 import com.itda.ITDA.security.CustomUserDetailService;
 import com.itda.ITDA.security.LoginFailHandler;
 import com.itda.ITDA.security.LoginSuccessHandler;
@@ -79,30 +75,14 @@ public class SecurityConfig {
       http.csrf() 
      	.ignoringAntMatchers ("/info/qnainsert") 
      	.and();
-      
-	return http.build();
-   }
-   public SecurityFilterChain mainSecurityFilterChain(HttpSecurity http) throws Exception {
-       http.antMatcher("/main/**")
-       		.authorizeRequests(authorizeRequests -> authorizeRequests
-                   .antMatchers("/resources/**").permitAll()
-       		);
 
-       return http.build();
+            
+      return http.build();
    }
-
+   
    AuthenticationManager authenticationManager(
          AuthenticationConfiguration authenticationConfiguration) throws Exception {
             return authenticationConfiguration.getAuthenticationManager();
-   }
-   
-   @Bean
-   public DaoAuthenticationProvider userAuthencationProvider() {
-      DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-      provider.setUserDetailsService(customUserService());
-      provider.setUserDetailsService(adminUserService());
-      provider.setPasswordEncoder(encodePassword());
-      return provider;
    }
    
    @Bean
@@ -118,32 +98,18 @@ public class SecurityConfig {
    }
    
    @Bean
-   public UserDetailsService adminUserService() {
-      return new AdminUserDetailService();
-   }
-   
-   @Bean
    public AuthenticationFailureHandler loginFailHandler() {
       return new LoginFailHandler();
-   }
-   
-   @Bean
-   public AuthenticationFailureHandler adminLoginFailHandler() {
-      return new AdminLoginFailHandler();
    }
    
    @Bean
    public AuthenticationSuccessHandler loginSuccessHandler() {
       return new LoginSuccessHandler();
    }
-   
-   @Bean
-   public AuthenticationSuccessHandler adminloginSuccessHandler() {
-      return new AdminLoginSuccessHandler();
-   }
-   
+
    @Bean
    public BCryptPasswordEncoder encodePassword() {
       return new BCryptPasswordEncoder();
    }
+
 }

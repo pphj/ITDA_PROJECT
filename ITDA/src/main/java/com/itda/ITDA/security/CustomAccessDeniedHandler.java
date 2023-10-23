@@ -19,8 +19,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		
-		logger.error("Access Denied : 접근 권한이 없습니다.");
-		String url = "/WEB-INF/views/main/protomain.jsp";
+		logger.error("Access Denied Handler");
+		String url = "/WEB-INF/views/error/403.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		request.setAttribute("key", "접근 권한 없음");
 		dispatcher.forward(request, response);
