@@ -7,6 +7,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.itda.ITDA.domain.ApiResponse;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.NaverDTO;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.MainService;
+import com.itda.ITDA.service.NaverService;
 
 @Controller
 @RequestMapping(value="/main")
@@ -30,11 +35,13 @@ public class MainController {
 	
 	private MainService mainService;
 	private ContentService contentService;
+	private final NaverService naverService;
 	
 	@Autowired
-	public MainController(MainService mainService, ContentService contentService) {
+	public MainController(MainService mainService, ContentService contentService, NaverService naverService) {
 		this.mainService=mainService;
 		this.contentService=contentService;
+		this.naverService=naverService;
 	}
 	
 	@GetMapping(value="/protomain")		//인기 게시글(카드 로테이션 부분) 로직 포함

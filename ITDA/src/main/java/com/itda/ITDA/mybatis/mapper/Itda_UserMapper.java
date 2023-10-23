@@ -46,7 +46,8 @@ public interface Itda_UserMapper {
 
 	Itda_User emailCheck(String id);
 
-	void updateUserPassword(String newPassword);
+	void updateUserPassword(String userEmail, String encryptedPassword);
+
 
 	
 	

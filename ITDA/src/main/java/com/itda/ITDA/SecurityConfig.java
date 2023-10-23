@@ -42,7 +42,10 @@ public class SecurityConfig {
       .antMatchers("/itda/search/result").authenticated()
       .antMatchers("/info/qnainsert").permitAll()
       .antMatchers("/member/findid").permitAll()
-      .antMatchers("/itda/member/changePassword").permitAll() 
+      .antMatchers("/main/callback").permitAll()
+      .antMatchers("/main/login").permitAll()
+      
+      
       
 
       .antMatchers("/ckeditor5/**").permitAll();
