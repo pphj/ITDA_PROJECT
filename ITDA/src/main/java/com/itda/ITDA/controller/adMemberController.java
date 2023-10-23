@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -17,15 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.Admin;
-import com.itda.ITDA.domain.Itda_User;
-import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.adMemberService;
-import com.itda.ITDA.task.SendMail;
 import com.itda.ITDA.util.CommonSource;
 
 @Controller
@@ -34,12 +29,10 @@ public class adMemberController {
 	private static final Logger logger = LoggerFactory.getLogger(adMemberController.class);
 	
 	private adMemberService admemberService;
-	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public adMemberController(adMemberService admemberService, PasswordEncoder passwordEncoder) {
+	public adMemberController(adMemberService admemberService) {
 		this.admemberService=admemberService;
-		this.passwordEncoder=passwordEncoder;
 	}
 	
 	@RequestMapping(value="/Login", method=RequestMethod.GET)
@@ -54,24 +47,33 @@ public class adMemberController {
 		}else {
 			mv.addObject("loginfail", session.getAttribute("loginfail"));
 			session.removeAttribute("loginfail");
-			mv.setViewName("redirect:/admin/Main");
+			mv.setViewName("redirect:/admin/adminLogin");
 		}
 		
 		return mv;
 	}
 	
-	
-	
-	@ResponseBody
-	@RequestMapping(value="/idcheck", method=RequestMethod.GET)
-	public int idcheck(@RequestParam("id") String id) {
-		return admemberService.isId(id);
-	}
+//	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
+//	public String loginProcess(@RequestParam("adminId") String adminId,
+//			@RequestParam("adminPw") String adminPw,
+//			HttpSession session, RedirectAttributes rattr) {
+//
+//		int result = admemberService.isId(adminId, adminPw);
+//
+//		if (result == 1) {
+//			logger.info("loginProcess : " +  result);
+//			session.setAttribute("adminId", adminId);
+//			return "redirect:/admin/Main";
+//		} else {
+//			rattr.addFlashAttribute("result", result);
+//			return "/admin/adminLogin";
+//		}
+//	}
 	
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/admin/adminLogin";
 	}
 	
 	@RequestMapping(value="/update")

@@ -12,28 +12,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.itda.ITDA.domain.Itda_User;
-import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
+import com.itda.ITDA.domain.Admin;
+import com.itda.ITDA.mybatis.mapper.adMemberMapper;
 
-public class LoginSuccessHandler implements AuthenticationSuccessHandler {
-	private static final Logger logger = LoggerFactory.getLogger(LoginSuccessHandler.class);
+public class AdminLoginSuccessHandler implements AuthenticationSuccessHandler {
+	private static final Logger logger = LoggerFactory.getLogger(AdminLoginSuccessHandler.class);
 	
 	@Autowired
-	private Itda_UserMapper dao;
+	private adMemberMapper adminDao;
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		logger.info("LoginSuceessHandler 성공, 아이디 : " + authentication.getName());
+		logger.info("AdminLoginSuceessHandler 성공, 아이디 : " + authentication.getName()
+		+ "   계정 권한 : "+ authentication.getAuthorities());
 		
-		Itda_User users = dao.isId(authentication.getName());
+		Admin admin = adminDao.idadminId(authentication.getName());
 		
-		logger.info("users : " + users);
+		logger.info("admin : " + admin);
 		
-		if (users != null) {
-			String url = request.getContextPath() + "/";
+		if (admin != null) {
+	    	String url = request.getContextPath() + "/admin/Main";
 			response.sendRedirect(url);
-	        
 	    }
 	}
 }
