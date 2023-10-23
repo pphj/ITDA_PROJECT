@@ -160,7 +160,7 @@ function del(num) {
             xhr.setRequestHeader(header, token);
         },
        success: function (rdata) {
-		    if (rdata == 1) {
+		    if (rdata >= 1) {
 		        getList(option);
 		    } else {
 		        alert("댓글 삭제중 오류");

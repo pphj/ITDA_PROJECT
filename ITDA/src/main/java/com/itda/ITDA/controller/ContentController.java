@@ -382,7 +382,9 @@ public class ContentController {
 	@ResponseBody
 	@PostMapping(value = "/replydelete")
 	public int CommentDelete(int num) {
-		return replyService.commentsDelete(num);
+		int result = replyService.commentsDelete(num);
+		logger.info("result=========" + result);
+		return result;
 	}
 
 	// 하트 좋아요
