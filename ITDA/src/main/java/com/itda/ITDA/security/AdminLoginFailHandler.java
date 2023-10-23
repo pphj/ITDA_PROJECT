@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
-public class LoginFailHandler implements AuthenticationFailureHandler {
-	private static final Logger logger = LoggerFactory.getLogger(LoginFailHandler.class);
+public class AdminLoginFailHandler implements AuthenticationFailureHandler {
+	private static final Logger logger = LoggerFactory.getLogger(AdminLoginFailHandler.class);
 
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
@@ -27,7 +27,7 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 		//해결하기 위해 controller의 login에서 세션값을 지워준다
 		session.setAttribute("loginfail", "loginFailMsg");
 		
-		String url = request.getContextPath() + "/";
+		String url = request.getContextPath() + "/admin/adminLogin";
 		response.sendRedirect(url);
 		
 	}
