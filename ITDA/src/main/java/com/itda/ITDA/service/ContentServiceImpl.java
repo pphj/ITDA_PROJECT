@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +27,8 @@ public class ContentServiceImpl implements ContentService {
 		this.dao = dao;
 		this.tagService = tagService;
 	}
-
+	
+	@Cacheable("ContentAll")
 	@Override
 	public List<ChBoard> getContentAll(int pageCount, int startRow, int endRow) {
 		return dao.getContentAll(pageCount, startRow, endRow);
@@ -36,7 +38,8 @@ public class ContentServiceImpl implements ContentService {
 	public List<ChBoard> getContentByCategory(int categoryNum, int pageCount, int startRow, int endRow) {
 		return dao.getContentByCategory(categoryNum, pageCount, startRow, endRow);
 	}
-
+	
+	@Cacheable("ChannelList")
 	@Override
 	public List<ChannelList> getChannelList() {
 		return dao.getChannelList();
@@ -46,12 +49,14 @@ public class ContentServiceImpl implements ContentService {
 	public List<ChannelList> getChannelListByNum(int categoryNum) {
 		return dao.getChannelListByNum(categoryNum);
 	}
-
+	
+	@Cacheable("HotContent")
 	@Override
 	public List<ChBoard> HotContentSelect() {
 		return dao.HotContentSelect();
 	}
-
+	
+	@Cacheable("selectchCate_Id")
 	@Override
 	public List<ChCategory> selectchCate_Id() {
 		return dao.selectchCate_Id();

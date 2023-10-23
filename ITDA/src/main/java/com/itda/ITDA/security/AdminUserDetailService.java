@@ -9,27 +9,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.itda.ITDA.domain.Itda_User;
-import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
+import com.itda.ITDA.domain.Admin;
+import com.itda.ITDA.mybatis.mapper.adMemberMapper;
 
-public class CustomUserDetailService implements UserDetailsService {
-	private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailService.class);
+public class AdminUserDetailService implements UserDetailsService {
+	private static final Logger logger = LoggerFactory.getLogger(AdminUserDetailService.class);
 
 	@Autowired
-	private Itda_UserMapper dao;
+	private adMemberMapper adminDao;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		logger.info("유저 로그인시 입력한 값: " + username);
-		Itda_User user = dao.isId(username);
-		
-		if (user != null) {
+	    logger.info("관리자 로그인시 입력한 값: " + username);
+	    Admin admin = adminDao.idadminId(username);
+
+	    if (admin != null) {
 	        logger.info("로그인 아이디: " + username + " 관리자가 로그인 시도했습니다.");
 	        // 사용자 정보를 User 클래스로 만들어 반환
 	        return User.builder()
-	            .username(user.getUserId())
-	            .password(user.getUserPw())
-	            .authorities(new SimpleGrantedAuthority(user.getAuthName()))
+	            .username(admin.getAdminId())
+	            .password(admin.getAdminPw())
+	            .authorities(new SimpleGrantedAuthority(admin.getAuthName()))
 	            .accountExpired(false)
 	            .accountLocked(false)
 	            .credentialsExpired(false)
