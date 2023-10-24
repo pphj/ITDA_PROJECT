@@ -24,4 +24,14 @@ public class heartServicelmpl implements heartService {
 		dao.removeHeart(boardNum, userId);
 	}
 
+	@Override
+	public boolean existsByBoardNumAndUserId(int boardNum, String userId) {
+		return dao.existsByBoardNumAndUserId(boardNum, userId);
+	}
+
+	@Override
+	public int getHeartCount(int boardNum) {
+		return dao.getHeartCount(boardNum);
+	}
+
 }

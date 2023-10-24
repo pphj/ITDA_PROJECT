@@ -124,4 +124,9 @@ public class ContentServiceImpl implements ContentService {
 		return dao.getChannelCategory(boardnum);
 	}
 
+	@Override
+	public String findNameById(int chCateId) {
+		return dao.findNameById(chCateId);
+	}
+
 }
