@@ -6,4 +6,8 @@ public interface heartService {
 
 	void removeHeart(int boardNum, String userId);
 
+	boolean existsByBoardNumAndUserId(int boardNum, String userId);
+
+	int getHeartCount(int boardNum);
+
 }

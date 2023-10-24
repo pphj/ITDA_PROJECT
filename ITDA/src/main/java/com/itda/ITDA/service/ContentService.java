@@ -17,13 +17,13 @@ public interface ContentService {
 	List<ChBoard> getContentByCategory(int categoryNum, int pageCount, int startRow, int endRow);
 
 	List<ChannelList> getChannelList();
-	
+
 	List<ChannelList> getChannelListByNum(int categoryNum);
 
 	List<ChBoard> HotContentSelect();
 
 	List<ChCategory> selectchCate_Id();
-	
+
 	ChBoard getContentDetail(int boardnum);
 
 	Seller getSellerInfo(String userid);
@@ -46,4 +46,5 @@ public interface ContentService {
 
 	List<ChBoardCategory> getChannelCategory(int boardnum);
 
+	String findNameById(int chCateId);
 }
