@@ -24,7 +24,6 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/admin/qnaView.js"></script>
   <script> var contextPath = "<%=request.getContextPath()%>";</script>
 <style>
 	.table {
@@ -32,7 +31,7 @@
 	}
 </style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -53,9 +52,9 @@
 	<div class="main-content" style="padding: 30px 25px;">
 	<div class="card">
 		<div class="card-body">
+		<c:if test="${not empty boardProblemData}">
  		<table class="table boardProblemTable">
  		<thead>
- 			<c:if test="${not empty boardProblemData}">
 	 		<tr>
 	 			<th colspan="6" id="tabHead">신고된 게시글</th>
 	 		</tr>
@@ -67,13 +66,17 @@
 	 			<th class="text-center"><div>신고일</div></th>
 	 			<th class="text-center"><div>내용</div></th>
 	 		</tr>
-	 		</c:if>
 	 	</thead>
  		<c:forEach var="b" items="${boardProblemData}">
  			<tr>
  				<td class="text-center"><c:out value="${b.punchId}" /></td>
  				<td class="text-center"><c:out value="${b.sickId}" /></td>
- 				<td class="text-center"><c:out value="${b.boardNum}" /></td>
+ 				<td class="text-center">
+ 					<a style="color: orange;"
+ 					 href="${pageContext.request.contextPath}/contents/${b.chNum}/${b.boardNum}" >
+ 					<c:out value="${b.boardNum}" />
+ 					</a>
+ 				</td>
  				<c:choose>
 					<c:when test="${b.warnCateId == 1}">
 						<td class="text-center"><div>홍보, 영리목적</div></td>
@@ -104,9 +107,10 @@
  			</tr>
  		</c:forEach>
  		</table>
+ 		</c:if>
+ 		<c:if test="${not empty replyProblemData}">
  		<table class="table replyProblemTable">
  		<thead>
- 			<c:if test="${not empty replyProblemData}">
 	 		<tr>
 	 			<th colspan="6" id="tabHead">신고된 댓글</th>
 	 		</tr>
@@ -118,13 +122,17 @@
 	 			<th class="text-center"><div>신고일</div></th>
 	 			<th class="text-center"><div>내용</div></th>
 	 		</tr>
-	 		</c:if>
 	 	</thead>
  		<c:forEach var="r" items="${replyProblemData}">
  			<tr>
  				<td class="text-center"><c:out value="${r.punchId}" /></td>
  				<td class="text-center"><c:out value="${r.sickId}" /></td>
- 				<td class="text-center"><c:out value="${r.replyNum}" /></td>
+ 				<td class="text-center">
+ 					<a style="color: orange;"
+ 					 href="${pageContext.request.contextPath}/contents/${r.chNum}/${r.boardNum}" >
+ 					<c:out value="${r.replyNum}" />
+ 					</a>
+ 				</td>
  				<c:choose>
 					<c:when test="${r.warnCateId == 1}">
 						<td class="text-center"><div>홍보, 영리목적</div></td>
@@ -155,6 +163,7 @@
  			</tr>
  		</c:forEach>
  		</table>
+ 		</c:if>
  	  </div>	
  	</div>
  	</div>
