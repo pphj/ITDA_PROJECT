@@ -34,7 +34,7 @@ public class SecurityConfig {
       http.authorizeRequests()
       .antMatchers("/resources/**/**").permitAll()
       .antMatchers("/**/**").permitAll()
-      .antMatchers("/joinProcess").permitAll()
+      .antMatchers("/member/joinProcess").permitAll()
       .antMatchers("/seller/sellerCheck").permitAll()
       .antMatchers("/resources/static/image/Member/**").permitAll()
       .antMatchers("/seller/sellerjoinprocess").permitAll()

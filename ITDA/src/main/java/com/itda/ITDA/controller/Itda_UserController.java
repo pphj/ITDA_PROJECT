@@ -33,7 +33,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.itda.ITDA.domain.FindIdStep01;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.NaverDTO;
 import com.itda.ITDA.domain.UserCategory;
@@ -140,6 +139,32 @@ public class Itda_UserController {
 	        return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
 	    }
 	}
+	
+	
+	
+	
+
+
+	@GetMapping("/callback")
+	public String naverCallback(@RequestParam("code") String code, @RequestParam(name="state", required=false) String state) {
+	    try {
+	        if (code != null) {
+	            // 네이버 인증 코드를 받아와서 처리하는 로직을 구현합니다.
+	            NaverDTO naverInfo = naverService.getNaverInfo(code);
+
+	            // 네이버 로그인 성공 후 리다이렉트할 경로 지정
+	            return "redirect:/main/protomain";
+	        } else {
+	            // code가 없을 경우 예외 처리
+	            throw new IllegalArgumentException("Invalid authorization code");
+	        }
+	    } catch (Exception e) {
+	        // 예외 처리 로직 작성
+
+	        // 예외 발생 시 리다이렉트할 경로 지정
+	        return "redirect:/error-page";
+	    }
+	}
 
 	
 	
@@ -222,7 +247,6 @@ public class Itda_UserController {
 		}
 
 		model.addAttribute("url", request.getRequestURI()).addAttribute("message", "회원 가입 실패");
-
 		return "/main/protomain";
 	}
 
@@ -253,33 +277,6 @@ public class Itda_UserController {
 	}
 	
 	
-	  @GetMapping("/naverlogin")
-		public String naverLogin() {
-		    // 네이버 로그인 페이지로 리다이렉트합니다.
-		    String redirectUrl = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=rcyeX4m7t_YVfke5Wd6Y&redirect_uri=http://localhost:9400/itda/main/callback&state=1111";
-		    return "redirect:" + redirectUrl;
-		}
-
-
-		@GetMapping("/callback")
-		public String naverCallback(@RequestParam("code") String code, @RequestParam(name="state", required=false) String state) {
-		    try {
-		        if (code != null) {
-		            // 네이버 인증 코드를 받아와서 처리하는 로직을 구현합니다.
-		            NaverDTO naverInfo = naverService.getNaverInfo(code);
-
-		            // 네이버 로그인 성공 후 리다이렉트할 경로 지정
-		            return "redirect:/main/protomain";
-		        } else {
-		            // code가 없을 경우 예외 처리
-		            throw new IllegalArgumentException("Invalid authorization code");
-		        }
-		    } catch (Exception e) {
-		        // 예외 처리 로직 작성
-
-		        // 예외 발생 시 리다이렉트할 경로 지정
-		        return "redirect:/error-page";
-		    }
-		}
+	 
 
 }

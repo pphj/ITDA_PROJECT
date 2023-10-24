@@ -1,3 +1,24 @@
+<body class="">
+<div class="u_skip"><a href="#ct">본문 바로가기</a></div>
+<div id="_CONTENT_INDICATOR_WRAP" style="display:none;">
+	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>
+	<progress id="_CONTENT_INDICATOR" class="progress" max="100" value="0"></progress>
+</div>
+<hr>
+<script>
+	var svt = "20231024092422.361";
+	var timestamp = svt.substr(0, 8);
+	var isLogin = false;
+
+	var service = {
+		premium: true
+	};
+
+	var analyticsNtmUrl = "https://ntm.pstatic.net/scripts/ntm_774a0c8e7c40.js";
+
+	var envPhase = "production";
+	var isProduction = true;
+</script>
 <div id="ct_wrap" class="container">
 	<div id="ct" class="container_inner">
 		<div class="container_main">
@@ -23,12 +44,7 @@
 			<strong class="psp_recent_title">최근 검색어</strong>
 			<div class="psp_recent_list_area">
 				<div id="_SEARCH_HISTORY_LIST_WRAP" data-nclk-prefix="pch_search">
-				<ul class="psp_recent_list">
-					<li class="psp_recent_item">
-						<a href="#" class="psp_recent_link _SEARCH_KEYWORD_LINK" data-keyword="dfdsf" data-clk="pch_search.historylink">dfdsf</a>
-						<button type="button" class="psp_recent_delete _DELETE_SEARCH_HISTORY_BTN" data-keyword="dfdsf" data-clk="pch_search.historyremove"><span class="blind">삭제</span></button>
-					</li>
-				</ul>
+				<div class="psp_recent_text">검색어 저장 기능이 꺼져 있습니다.</div>
 				</div>
 				<script type="x-tmpl-mustache" class="_SEARCH_HISTORY_LIST">
 				{{#autoSave}}
@@ -53,9 +69,9 @@
 			</div>
 			<div class="psp_recent_option">
 				<div class="psp_recent_option_button_wrap">
-					<button type="button" class="psp_recent_option_button _CLEAR_SEARCH_HISTORY_BTN" data-clk="pch_search.historyclear">전체 삭제</button>
-					<button type="button" class="psp_recent_option_button _AUTO_SAVE_BUTTON" data-enable="false" data-clk="pch_search.historyoff">자동저장 끄기</button>
-					<button type="button" style="display: none;" class="psp_recent_option_button _AUTO_SAVE_BUTTON" data-enable="true" data-clk="pch_search.historyon">자동저장 켜기</button>
+					<button type="button" class="psp_recent_option_button _CLEAR_SEARCH_HISTORY_BTN" data-clk="pch_search.historyclear" style="display: none;">전체 삭제</button>
+					<button type="button" class="psp_recent_option_button _AUTO_SAVE_BUTTON" data-enable="false" data-clk="pch_search.historyoff" style="display: none;">자동저장 끄기</button>
+					<button type="button" style="" class="psp_recent_option_button _AUTO_SAVE_BUTTON" data-enable="true" data-clk="pch_search.historyon">자동저장 켜기</button>
 				</div>
 				<div class="psp_recent_option_close_wrap">
 					<button type="button" class="psp_recent_option_button _CLOSE_SEARCH_HISTORY_BTN" data-clk="pch_search.historyclose">닫기</button>
@@ -67,19 +83,19 @@
 				<h2 class="pk_h">인기검색어</h2>
 				<ul class="pk_list">
 					<li class="pk_item">
-						<a href="/ch/search?searchQuery=%EC%96%B4%EB%8F%84%EB%B9%84" class="pk_link" data-clk="pch_search.hot">어도비</a>
+						<a href="/ch/search?searchQuery=%EC%B1%84%EA%B6%8C" class="pk_link" data-clk="pch_search.hot">채권</a>
 					</li>
 					<li class="pk_item">
-						<a href="/ch/search?searchQuery=%EB%8F%84%EC%95%88" class="pk_link" data-clk="pch_search.hot">도안</a>
+						<a href="/ch/search?searchQuery=%EC%82%AC%EC%9A%B0%EB%94%94" class="pk_link" data-clk="pch_search.hot">사우디</a>
 					</li>
 					<li class="pk_item">
-						<a href="/ch/search?searchQuery=%EB%B0%98%EB%8F%84%EC%B2%B4" class="pk_link" data-clk="pch_search.hot">반도체</a>
+						<a href="/ch/search?searchQuery=%EB%B6%80%EB%8F%99%EC%82%B0" class="pk_link" data-clk="pch_search.hot">부동산</a>
 					</li>
 					<li class="pk_item">
-						<a href="/ch/search?searchQuery=%EB%B9%84%ED%8A%B8%EC%BD%94%EC%9D%B8" class="pk_link" data-clk="pch_search.hot">비트코인</a>
+						<a href="/ch/search?searchQuery=%EC%8B%A0%EC%B0%BD%ED%99%98" class="pk_link" data-clk="pch_search.hot">신창환</a>
 					</li>
 					<li class="pk_item">
-						<a href="/ch/search?searchQuery=%EB%84%A4%EC%98%B4%EC%8B%9C%ED%8B%B0" class="pk_link" data-clk="pch_search.hot">네옴시티</a>
+						<a href="/ch/search?searchQuery=%EC%98%81%EC%96%B4" class="pk_link" data-clk="pch_search.hot">영어</a>
 					</li>
 				</ul>
 			</div>
@@ -125,9 +141,9 @@
 			</div>
 			<div class="psp_result_area">
 				<div class="psp_sort_area">
-					<strong class="psp_category">콘텐츠 <em>15,529</em></strong>
+					<strong class="psp_category">콘텐츠 <em>15,600</em></strong>
 				</div>
-				<ul class="psp_content_list _CONTENT_LIST _SEARCH_RESULT_LIST" data-template="SCS_PREMIUM_CHANNEL_SEARCH_CONTENT" data-type="content" data-stype="" data-search-query="바이오" data-cursor-name="page" data-cursor="2" data-has-next="true" data-cp-name="" data-sub-id="" data-total-count="15529">
+				<ul class="psp_content_list _CONTENT_LIST _SEARCH_RESULT_LIST" data-template="SCS_PREMIUM_CHANNEL_SEARCH_CONTENT" data-type="content" data-stype="" data-search-query="바이오" data-cursor-name="page" data-cursor="2" data-has-next="true" data-cp-name="" data-sub-id="" data-total-count="15600">
 					<li class="psp_content_item">
 						<div class="psp_content_name">
 							<a href="https://contents.premium.naver.com/byteplus/byte" class="psp_channel_link" data-clk="pch_search.resultcontch" target="_blank">
@@ -266,34 +282,59 @@
 					</li>
 					<li class="psp_content_item">
 						<div class="psp_content_name">
-							<a href="https://contents.premium.naver.com/nomadand/nomad" class="psp_channel_link" data-clk="pch_search.resultcontch" target="_blank">
+							<a href="https://contents.premium.naver.com/banya/banyacompany" class="psp_channel_link" data-clk="pch_search.resultcontch" target="_blank">
 								<span class="psp_channel_thumb_small">
-									<img src="https://static-scs.pstatic.net/premium-service/v1/channel/Premium/nomadand/nomad/logo" class="psp_channel_img" width="18" height="18" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+									<img src="https://static-scs.pstatic.net/premium-service/v1/channel/Premium/banya/banyacompany/logo" class="psp_channel_img" width="18" height="18" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 								</span>
-								<span class="psp_channel_name">유목민의 시그널리포트</span>
+								<span class="psp_channel_name">데일리 데이터허브</span>
 							</a>
-							<a href="/nomadand/nomad/contents?categoryId=1889302a51e000aif" class="psp_category_name" data-clk="pch_search.resultcontcate" target="_blank">[테마] 누가아라</a>
 						</div>
 						<div class="psp_content_inner">
 						<div class="psp_text">
-							<a href="/nomadand/nomad/contents/231012113352068yx" class="psp_content_link" data-clk="pch_search.resultcont" target="_blank">
-								<strong class="psp_name">23년 '<em>바이오</em>가 온다'...시리즈[9] 지아이이노베이션,파로스아이<em>바이오</em>,큐라티스,에스<em>바이오</em>메딕스,큐리옥스<em>바이오</em>시스템즈</strong>
+							<a href="/banya/banyacompany/contents/230612102517751db" class="psp_content_link" data-clk="pch_search.resultcont" target="_blank">
+								<strong class="psp_name">루닛 Lunit: <em>바이오</em>마커와 AI를 활용한 암 진단 및 치료의 새로운 패러다임 &amp; 의료 인공지능 스타트업 (신테카<em>바이오</em> / 피플<em>바이오</em> / Renalytix)</strong>
 							</a>
-							<a href="/nomadand/nomad/contents/231012113352068yx" class="psp_content_link" data-clk="pch_search.resultcont" target="_blank">
-								<p class="psp_info">최근 <em>바이오</em>헬스케어 분야가 투자자들 사이에서 주목을 받으며 <em>바이오</em>헬스케어 ETF 가 출시되는 등 <em>바이오</em> 섹터에 자금이 유입되는 모습을 볼 수 있습니다. 매일 저녁 발행되는 시그널이브닝 또는 직접 상한가, 천만주 종목들을 정리하다 보면 어느 섹터에서 강한 상승을 보여주고 있는지 알수 있는데 <em>바이오</em> 섹터의 종목들이 눈에 띄는 점도 확인하실... </p>
-							</a>
-							<a href="/nomadand/nomad/contents/231012113352068yx" class="psp_content_link" data-clk="pch_search.resultcont" target="_blank">
-								<div class="psp_content_author">
-									<em class="psp_content_author_by">by</em>
-									<div class="psp_content_author_text">누가아라</div>
-								</div>
+							<a href="/banya/banyacompany/contents/230612102517751db" class="psp_content_link" data-clk="pch_search.resultcont" target="_blank">
+								<p class="psp_info">루닛은 <em>바이오</em>마커를 활용하여 암을 조기에 발견하고, 면역항암제의 치료 효과를 예측하는 등의 기술을 개발하고 있습니다. <em>바이오</em>마커는 생물학적 과정, 질병 상태, 또는 응답을 측정하거나 표시하는 물질이나 현상을 의미하는데요. 특정 단백질, 유전자 변이, 대사물질뿐만 아니라, MRI나 CT 스캔 등의 의료 영상에서 얻은 패턴이나 특징도 <em>바이오</em>마커로... </p>
 							</a>
 							<div class="psp_content_info">
-								<span class="psp_content_info_text">2023.10.12.</span>
+								<span class="psp_content_info_text">2023.06.12.</span>
 							</div>
+							<ul class="psp_viewer_tag_list">
+								<li class="psp_viewer_tag_item">
+									<a href="/banya/banyacompany/contents?tag=%EB%A3%A8%EB%8B%9B" class="psp_viewer_tag_link" data-clk="pch_search.resultconttag" target="_blank">루닛</a>
+								</li>
+								<li class="psp_viewer_tag_item">
+									<a href="/banya/banyacompany/contents?tag=%EC%8B%A0%ED%85%8C%EC%B9%B4%EB%B0%94%EC%9D%B4%EC%98%A4" class="psp_viewer_tag_link" data-clk="pch_search.resultconttag" target="_blank">신테카바이오</a>
+								</li>
+								<li class="psp_viewer_tag_item">
+									<a href="/banya/banyacompany/contents?tag=%ED%94%BC%ED%94%8C%EB%B0%94%EC%9D%B4%EC%98%A4" class="psp_viewer_tag_link" data-clk="pch_search.resultconttag" target="_blank">피플바이오</a>
+								</li>
+								<li class="psp_viewer_tag_item">
+									<a href="/banya/banyacompany/contents?tag=Renalytix" class="psp_viewer_tag_link" data-clk="pch_search.resultconttag" target="_blank">Renalytix</a>
+								</li>
+								<li class="psp_viewer_tag_item">
+									<a href="/banya/banyacompany/contents?tag=%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5" class="psp_viewer_tag_link" data-clk="pch_search.resultconttag" target="_blank">인공지능</a>
+								</li>
+								<li class="psp_viewer_tag_item">
+									<a href="/banya/banyacompany/contents?tag=AI" class="psp_viewer_tag_link" data-clk="pch_search.resultconttag" target="_blank">AI</a>
+								</li>
+								<li class="psp_viewer_tag_item">
+									<a href="/banya/banyacompany/contents?tag=%EC%9D%98%EB%A3%8CAI" class="psp_viewer_tag_link" data-clk="pch_search.resultconttag" target="_blank">의료AI</a>
+								</li>
+								<li class="psp_viewer_tag_item">
+									<a href="/banya/banyacompany/contents?tag=%EB%B0%94%EC%9D%B4%EC%98%A4%EB%A7%88%EC%BB%A4" class="psp_viewer_tag_link" data-clk="pch_search.resultconttag" target="_blank">바이오마커</a>
+								</li>
+								<li class="psp_viewer_tag_item">
+									<a href="/banya/banyacompany/contents?tag=%EC%8B%A0%EC%95%BD%EA%B0%9C%EB%B0%9C" class="psp_viewer_tag_link" data-clk="pch_search.resultconttag" target="_blank">신약개발</a>
+								</li>
+								<li class="psp_viewer_tag_item">
+									<a href="/banya/banyacompany/contents?tag=%EC%95%94%EC%A7%84%EB%8B%A8" class="psp_viewer_tag_link" data-clk="pch_search.resultconttag" target="_blank">암진단</a>
+								</li>
+							</ul>
 						</div>
-						<a href="/nomadand/nomad/contents/231012113352068yx" class="psp_content_thumb" data-clk="pch_search.resultcont" target="_blank">
-							<img src="https://scs-phinf.pstatic.net/MjAyMzEwMTBfMjk1/MDAxNjk2OTQ4MTY0Nzk3.km2x82clYEMHswj3Dq5J3qfgSjohTCUh3159LnEX-j0g.o94NeGZxdiB_8hAacui4NCRQh1_Q9prhxcEvCzrYFLUg.PNG/image.png?type=nfs220_220" class="psp_content_img" width="50" height="50" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+						<a href="/banya/banyacompany/contents/230612102517751db" class="psp_content_thumb" data-clk="pch_search.resultcont" target="_blank">
+							<img src="https://scs-phinf.pstatic.net/MjAyMzA2MTJfMTIx/MDAxNjg2NTMyNzU2NzM1.L8VYIULzAOH0LpF9BmbDNDbVXEBylV9y4TQS9N035pog.ny-riJyFAsGd-6Uro4osE78f1BSEn__XRidMAlo3hn4g.JPEG/2.jpg?type=nfs220_220" class="psp_content_img" width="50" height="50" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 						</a>
 						</div>
 					</li>
@@ -338,3 +379,174 @@ window.__htLikeOption = {
 		<div class="_GRID_TEMPLATE_COLUMN_OUTSIDE"></div>
 	</div>
 </div>
+<div id="frontDetect"></div>
+<div id="_LAYER_DIMMED" class="layer_dimmed" style="display:none;"></div>
+<div id="_MODAL_WRAP"></div>
+<script type="x-tmpl-mustache" class="_MODAL_TEMPLATE">
+<div class="popup_layer{{#isClose}} as_close_button{{/isClose}}{{#popupClass}} {{popupClass}}{{/popupClass}} _MODAL">
+	{{#description}}
+	<strong class="popup_tit">{{{title}}}</strong>
+	<p class="popup_sub_desc">{{{description}}}</p>
+	{{/description}}
+	{{^description}}
+	{{#itemList.length}}
+	<strong class="popup_tit">{{{title}}}</strong>
+	<dl class="popup_dl">
+		{{#itemList}}
+		<div class="popup_description_wrap">
+			<dt class="popup_dt">{{{key}}}</dt>
+			<dd class="popup_dd">{{{value}}}</dd>
+		</div>
+		{{/itemList}}
+	</dl>
+	{{/itemList.length}}
+	{{^itemList.length}}
+	<p class="popup_desc">{{{title}}}</p>
+	{{/itemList.length}}
+	{{/description}}
+	{{#linkButtonList.length}}
+	<div class="popup_link_wrap">
+		{{#linkButtonList}}
+		<a href="{{url}}" class="popup_link">
+			<div class="popup_link_text">{{{title}}}</div>
+			{{#description}}
+			<div class="popup_link_desc">{{{description}}}</div>
+			{{/description}}
+		</a>
+		{{/linkButtonList}}
+	</div>
+	{{/linkButtonList.length}}
+	{{#isClose}}
+	<button type="button" class="popup_close_button _MODAL_CANCEL"><i class="icon_close">닫기</i></button>
+	{{/isClose}}
+	{{^isHiddenConfirm}}
+	<div class="popup_button_wrap">
+		{{#isCancel}}
+		<button type="button" class="button_layer _MODAL_CANCEL">
+			{{cancelMessage}}
+		</button>
+		{{/isCancel}}
+		<button type="button" class="button_layer type_confirm _MODAL_CONFIRM">
+			{{confirmMessage}}
+		</button>
+	</div>
+	{{/isHiddenConfirm}}
+</div>
+</script>
+<div id="_TOAST_WRAP"></div>
+<script type="x-tmpl-mustache" class="_TOAST_TEMPLATE">
+<div class="toast_popup_layer">
+	<p class="toast_popup_desc">{{{text}}}</p>
+</div>
+</script>
+	<script src="https://static-nnews.pstatic.net/js/min/20231019a/premium_library.min.js"></script>
+	<script src="https://static-nnews.pstatic.net/js/min/20231019a/premium_read.min.js"></script>
+<script>
+var isPublicAccess = true;
+$(window).on("load", function() {
+	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
+
+	if ($content.length > 0 && $content.hasClass("_NIL_SEND") === true) {
+		window.ntm = window.ntm || [];
+
+		var ntmOption = {};
+
+
+		var cpName = $content.data("cp-name");
+		var subId = $content.data("sub-id");
+		var contentId = $content.data("content-id");
+		var contentAuth = $content.data("content-auth");
+		var isMembership = $content.data("is-membership");
+		var isPromotion = $content.data("is-promotion");
+		var isPreview = $content.data("is-preview");
+		var partnerChannel = $content.data("partner-channel");
+		var partnerType = $content.data("partner-type");
+		var type = $content.data("type");
+		var subType = $content.data("sub-type");
+		var userType = 0;
+
+		if (contentAuth === true) {
+			userType = 1;
+		}
+
+		var source = "";
+		var sourceId = "";
+
+		ntmOption["hitType"] = "cv";
+		ntmOption["eventCategory"] = "post_view";
+
+		ntmOption["channelId"] = cpName + "_" + subId;
+		ntmOption["uri"] = "https://contents.premium.naver.com/" + cpName + "/" + subId + "/contents/" + contentId;
+		ntmOption["userType"] = userType;
+		ntmOption["dimension1"] = cpName;
+		ntmOption["dimension2"] = isMembership == true ? "original" : "preview";
+		if (isPromotion == true) {
+			ntmOption["dimension3"] = "free";
+		}
+
+		if (source) {
+			ntmOption["dimension4"] = source;
+
+			if (sourceId) {
+				ntmOption["dimension5"] = sourceId;
+			}
+		}
+
+		if (partnerChannel) {
+			ntmOption["dimension6"] = partnerChannel === "Y" ? "partner" : "premium";
+		}
+
+		if (partnerType) {
+			ntmOption["dimension7"] = partnerType.toLowerCase();
+		}
+
+		if ("VIDEO" === subType) {
+			ntmOption["dimension8"] = "video";
+		}
+
+		if (isPublicAccess === true && !!!isPreview) {
+			ntm.push({
+				event: "nilSend",
+				ni: ntmOption
+			});
+
+			var eventType = "onpagehide" in window ? "pagehide" : "beforeunload";
+			$(window).on(eventType, function() {
+				ntmOption["hitType"] = "event";
+				ntmOption["eventCategory"] = "action";
+				ntmOption["eventAction"] = "leave";
+
+				ntm.push({
+					event: "nilSend",
+					ni: ntmOption
+				});
+			});
+
+		}
+	}
+});
+</script>
+
+
+<script>
+var eventType = "onpageshow" in window ? "pageshow" : "load";
+$(window).on(eventType, function() {
+	var additionalInfo = {};
+
+	var sti = "";
+	if (sti) {
+		additionalInfo["sti"] = sti;
+	}
+
+	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
+
+	var gdid = $content.data("gdid");
+	if (gdid) {
+		window.lcsResult = lcs_do_gdid(gdid, additionalInfo);
+	} else {
+		window.lcsResult = lcs_do(additionalInfo);
+	}
+});
+</script>
+
+</body>
