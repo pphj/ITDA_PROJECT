@@ -57,6 +57,10 @@ public interface Itda_UserMapper {
 
 	GoodUser isGoodUser(String id);
 
+	int insertFirstPaymentUser(GoodUser goodUser);
+
+	int updatePaymentUser(GoodUser goodUser);
+
 
 	
 	

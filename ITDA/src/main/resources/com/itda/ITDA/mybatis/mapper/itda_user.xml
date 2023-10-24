@@ -167,17 +167,34 @@
 	    where userId = #{userId}
 	</update>
 	
+	<!-- 유료회원인지 확인하는 문장 -->
 	<select id="isGoodUser" resultType="GoodUser">
 	<![CDATA[
-		select userId, firstDate
+		select userId, firstDate, endDate
 		from gooduser
 		where userId = #{userId} and rownum <= 1
 		ORDER BY startdate DESC
 	]]>
 	</select>
+	
+	<!-- 유료 회원에 inset -->
+	<insert id="insertFirstPaymentUser" parameterType="GoodUser">
+	    <![CDATA[
+	    INSERT INTO gooduser 
+	    (userid, payednum, startdate, enddate, firstdate)
+	    VALUES 
+	    (#{userId}, #{payedNum}, #{startDate}, TO_DATE(TO_CHAR(#{startDate} + #{productTerm}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS'), #{firstDate})
+	    ]]>
+	</insert>
+
+	<!-- 유료회원일 시 end 값 update -->
+	<update id="updatePaymentUser" parameterType="GoodUser">
+		update GoodUser
+		set startDate = #{startDate},
+			endDate = TO_DATE(TO_CHAR(#{startDate} + #{productTerm}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+		where userid = #{userId}
 		
-
-
+	</update>
 
 	
 </mapper>

@@ -56,6 +56,10 @@ public interface Itda_UserService {
 
 	GoodUser isGoodUser(String id);
 
+	int insertFirstPaymentUser(GoodUser goodUser);
+
+	int updatePaymentUser(GoodUser goodUser);
+
 
 
 	

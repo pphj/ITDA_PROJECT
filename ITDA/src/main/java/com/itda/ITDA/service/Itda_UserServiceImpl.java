@@ -165,6 +165,16 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return dao.isGoodUser(id);
 	}
 
+	@Override
+	public int insertFirstPaymentUser(GoodUser goodUser) {
+		return dao.insertFirstPaymentUser(goodUser);
+	}
+
+	@Override
+	public int updatePaymentUser(GoodUser goodUser) {
+		return dao.updatePaymentUser(goodUser);
+	}
+
 
 
 }

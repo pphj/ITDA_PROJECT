@@ -185,6 +185,7 @@ public class OrderController {
 			// orderNo, payMathod, 주문명.
 			// - 카카오 페이로 넘겨받은 결재정보값을 저장.
 			// payment.setOrderNum(Integer.parseInt(approveResponse.getItem_code()));
+			String id = principal.getName();
 
 			Amount amount = approveResponse.getAmount();
 
@@ -194,6 +195,7 @@ public class OrderController {
 			payment.setPayedPrice(amount.getTotal()); // 총 금액
 			payment.setPayedVat(amount.getVat()); // 부가세
 			payment.setPayedCode(tid); // 결제 코드
+			payment.setUserId(id);
 			payment.setPayedOkDate(approveResponse.getApproved_at()); // 결제 완료 시간
 
 			int insert = orderService.insertPayment(payment);
@@ -201,55 +203,66 @@ public class OrderController {
 			if (insert == Constants.INSERT_SUCCESS) {
 				logger.info(Message.INSERT_SUCCESS);
 
-				String id = principal.getName();
 				logger.info("principal.getName() : " + id);
 				if (id != null) {
-						
 
 					Payment completUser = orderService.paymentCompletUser(id);
 
-					//GoodUser goodUser = new GoodUser();
-					GoodUser isGoodUser = itdaUserService.isGoodUser(id);  
-					
+					// GoodUser goodUser = new GoodUser();
+					GoodUser isGoodUser = itdaUserService.isGoodUser(id);
+
 					Timestamp realTime = new Timestamp(System.currentTimeMillis());
-					logger.info("completUser.getUserId() : "  + completUser.getUserId());
+					Timestamp getEndDate;
+
+					logger.info("completUser.getUserId() : " + completUser.getUserId());
 					try {
-					if (completUser.getUserId() != null && isGoodUser == null) {
+						if (completUser.getUserId() != null && isGoodUser == null) {
 
-						goodUser.setPayedNum(completUser.getPayedNum());
-						goodUser.setFirstDate(completUser.getPayedOkDate());
-						goodUser.setStartDate(completUser.getPayedOkDate());
-						goodUser.setUserId(completUser.getUserId());
-						Timestamp timestamp = completUser.getPayedOkDate();
-						Timestamp getProductTerm = Timestamp.valueOf(String.valueOf(completUser.getProductTerm()));
-						goodUser.setEndDate(timestamp.getTime() + getProductTerm.getTime());
+							goodUser.setPayedNum(completUser.getPayedNum());
+							goodUser.setFirstDate(completUser.getPayedOkDate());
+							goodUser.setStartDate(completUser.getPayedOkDate());
+							goodUser.setUserId(completUser.getUserId());
+							goodUser.setProductTerm(completUser.getProductTerm());
+							goodUser.setEndDate(completUser.getPayedOkDate());
+							
+							//getEndDate.setTime(isGoodUser.getEndDate());
+							// Timestamp timestamp = completUser.getPayedOkDate();
+							// Timestamp getProductTerm =
+							// Timestamp.valueOf(String.valueOf(completUser.getProductTerm()));
+							// goodUser.setEndDate(timestamp.getTime() + getProductTerm.getTime());
+							logger.info("goodUser.setPayedNum : " + goodUser.getPayedNum());
 
-						logger.info("goodUser.getEndDate() = " + goodUser.getEndDate());
+							logger.info("goodUser.getEndDate() = " + goodUser.getEndDate());
+							logger.info("completUser.getPayedOkDate()) = " + completUser.getPayedOkDate());
+							logger.info("goodUser.getFirstDate() = " + goodUser.getFirstDate());
 
-						// int result = itdaUserService.insertFirstPaymentUser(goodUser);
-					
-						
-						
-					}else if(goodUser.getEndDate() > realTime.getTime()){
-						
-						goodUser.setPayedNum(completUser.getPayedNum());
-						goodUser.setFirstDate(completUser.getFirstDate());
-						goodUser.setStartDate(completUser.getPayedOkDate());
-						goodUser.setUserId(completUser.getUserId());
+							int result = itdaUserService.insertFirstPaymentUser(goodUser);
+							if(result == Constants.INSERT_SUCCESS) {
+								logger.info(Message.INSERT_SUCCESS);
+							}
 
-						long endDate = goodUser.getEndDate();
-						Timestamp getProductTerm = Timestamp.valueOf(String.valueOf(completUser.getProductTerm()));
+						} else if (isGoodUser.getEndDate().getTime() > realTime.getTime()) {
 
-						goodUser.setEndDate(endDate + getProductTerm.getTime());
-						
-						logger.info("goodUser.getEndDate() = " + goodUser.getEndDate());
-						
-						//int result = itdaUserService.updatePaymentUser(goodUser);
-						
-						
-					}
-					}
-					catch(Exception e){
+							goodUser.setPayedNum(completUser.getPayedNum());
+							goodUser.setFirstDate(completUser.getFirstDate());
+							goodUser.setStartDate(completUser.getPayedOkDate());
+							goodUser.setUserId(completUser.getUserId());
+							goodUser.setProductTerm(completUser.getProductTerm());
+							goodUser.setEndDate(goodUser.getStartDate());
+
+							// Timestamp endDate = goodUser.getEndDate();
+							// Timestamp getProductTerm =
+							// Timestamp.valueOf(String.valueOf(completUser.getProductTerm()));
+
+							logger.info("goodUser.getEndDate() = " + goodUser.getEndDate());
+
+							 int result = itdaUserService.updatePaymentUser(goodUser);
+							 if(result == Constants.UPDATE_SUCCESS) {
+								 logger.info(Message.SUCCESS);
+							 }
+
+						}
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
@@ -266,8 +279,7 @@ public class OrderController {
 		logger.info(Message.INSERT_SUCCESS);
 
 		return "redirect:/my/subscriptions";
-	}
-	
+	}	
 
 	@RequestMapping(value="/fail")
 	public String payFail(HttpServletRequest request) {
