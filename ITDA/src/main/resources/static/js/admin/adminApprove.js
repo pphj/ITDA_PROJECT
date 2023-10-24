@@ -37,17 +37,17 @@
 	
 	function ajax(sdata) {
 		console.log(sdata)
-		//let token = $("meta[name='_csrf']").attr("content");	
-		//let header = $("meta[name='_csrf_header']").attr("content");
+		let token = $("meta[name='_csrf']").attr("content");	
+		let header = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({
 			type : "post",
 			data : sdata,
 			url	 : "adminApproveList_ajax",
 			dataType : "json",
 			cache : false,
-			//beforeSend : function(xhr) {
-			//	xhr.setRequestHeader(header, token);
-			//},
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
 			success : function(data) {
 				$("#viewcount").val(data.limit);
 				$("thead").find("span").text("총 관리자 수 : " + data.listcount);
@@ -137,57 +137,41 @@
 	});
 	
 	$(function(){
-		
 		$("#viewcount").change(function(){
 			go(1); 									// 보여줄 페이지를 1페이지로 설정한다
-		
-		})//change end
-		
-		
-		// $(function() {
-		// 	let selectedValue = '${search_field}';					//선택한 필드값
-			
-		// 	if (selectedValue != '-1')								//선택이 되어있는 경우(0~3)
-		// 		$("#viewcount2").val(selectedValue);				//viewcount2를 선택된 값으로 변경
-				
-		// 	else 
-		// 		selectedValue = 0;									//선택 안된경우 기본값은 0으로 아이디 선택하게 함
-		
-		// 	const $input = $("input[name=search_word]");			//$input을 모든 이벤트에서 사용
-		// 	const message = ["아이디", "이름", "부서", "직급", "권한 등급"]
-			
-		// 	$input.attr("placeholder", message[selectedValue] + "을(를) 입력하세요");
-			
-			
-		// 	$('#viewcount2').change(function() {						//검색창에 placeholder를 나타나게 하는 이벤트
-		// 		selectedValue = $(this).val();
-		// 		$input.val('').attr("placeholder", message[selectedValue] + "을(를) 입력하세요");
-			
-		// 	})//change end
-			
-			
-		// 	$("#search_but").click(function() {						//검색버튼 클릭시 이벤트
-		// 		if ($input.val() == "") {							//검색창에 아무것도 없는 경우
-		// 			alert("검색어를 입력하세요.");
-		// 			$input.focus();
-		// 			return false;
-					   
-		// 		}
-				
-		// 		const auth = $input.val();							//권한 검색
-		// 		if (selectedValue === '4') {
-		// 			const pattern = /^(ADMIN|SUPER_ADMIN)$/i;		//i는 대소문자를 구분하지 않도록 설정
-		// 			if (!pattern.test(auth)) {
-		// 				alert("권한은 형식에 맞게 입력하세요(ADMIN or SUPER_ADMIN)");
-		// 				$input.val('').focus();
-		// 				return false;
-					
-		// 			}
-					
-		// 		}
-				
-		// 	})//click end
-		// });
-	});//ready end
+		})
+	});
 
+	
+	$(document).ready(function() {
+		let selectedValue = $('input[name=search_field]').val();
+		
+		if (selectedValue == undefined) {
+			selectedValue = 0;
+		}else if (selectedValue != '-1') {
+			$("#viewcount2").val(selectedValue);
+		}
+   		
+		const $input = $("input[name=search_word]");			//$input을 모든 이벤트에서 사용
+		const message = ["아이디", "이름", "부서", "직급", "권한 등급"]
+	   	
+		$input.attr("placeholder", message[selectedValue] + "을(를) 입력하세요");
+	   	
+		
+		$('#viewcount2').change(function() {						//검색창에 placeholder를 나타나게 하는 이벤트
+			selectedValue = $(this).val();
+			$input.val('').attr("placeholder", message[selectedValue] + "을(를) 입력하세요");
+	   	
+		})//change end
+	   	
+	   	
+		$("#search_but").on("click", function() {	//검색버튼 클릭시 이벤트
+			if ($input.val() == "") {				//검색창에 아무것도 없는 경우
+				alert("검색어를 입력하세요.");
+				$input.focus();
+				return false;
+			}
+		})//click end
+		
+	});
 	

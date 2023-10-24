@@ -37,17 +37,17 @@
 	
 	function ajax(sdata) {
 		console.log(sdata)
-		//let token = $("meta[name='_csrf']").attr("content");	
-		//let header = $("meta[name='_csrf_header']").attr("content");
+		let token = $("meta[name='_csrf']").attr("content");	
+		let header = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({
 			type : "post",
 			data : sdata,
 			url	 : "problemList_ajax",
 			dataType : "json",
 			cache : false,
-			//beforeSend : function(xhr) {
-			//	xhr.setRequestHeader(header, token);
-			//},
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
 			success : function(data) {
 				$("#viewcount").val(data.limit);
 				$("thead").find("span").text("총 신고 수 : " + data.sumListCount);
@@ -75,9 +75,9 @@
 									status = "출력 오류";
 							}
 							
-							output += '<td class="text-center targetSickId"><div>' + item.sickId + '</div></td>'
-									+ '<td class="text-center"><div>' + item.sumCount + '</div></td>'
-									+ '<td class="text-center"><div>' + status + '</div></td>'
+							output += '<td class="text-center targetSickId" style="color: #1294FA; font-weight: bold;"><div>' + item.sickId + '</div></td>'
+									+ '<td class="text-center" style="color: red; font-weight: bold;"><div>' + item.sumCount + '</div></td>'
+									+ '<td class="text-center" style="color: #38CFD5; font-weight: bold;"><div>' + status + '</div></td>'
 									+ '<td class="td-actions text-center">'
 							        + '<button type="button" rel="tooltip"'
 									+ ' class="btn btn-secondary btn-icon btn-sm Pause" data-original-title="" title="">'

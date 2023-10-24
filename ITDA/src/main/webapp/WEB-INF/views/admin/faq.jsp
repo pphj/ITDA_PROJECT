@@ -23,7 +23,7 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/faq.js"></script>
-  <style>
+<style>
   	.container{
   		width: 100%;
   	}
@@ -39,9 +39,32 @@
 		width: 100px;
     	height: 40px;
 	}
-  </style>
+	#faqList_Form {
+		width: 100%;
+	}
+	#faqList_Form > div {
+		display: flex;
+	    width: 30%;
+	    height: 40px;
+	    margin: auto;
+	}
+	#viewcount2 {
+		height: 25px;
+	}
+	#faqList_Form > div > input {
+		width: 240px;
+	    height: 25px;
+	    border-radius: 0;
+	    border: 1px solid black;
+	}
+	#search_but {
+		height: 25px;
+	    font-size: 8px;
+	    border-radius: 0;
+	}
+</style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -152,7 +175,9 @@
 	 		</tbody>
 		 	</table>
 		 	<div class="center-block">
-		 		<ul class="pagination justify-content-center">
+		 		<button type="button" id="faqwbtn" class="btn btn-success
+		 		 float-right btn-sm btn-round">FAQ 작성</button>
+		 		<ul class="pagination justify-content-end">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
 		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
@@ -191,7 +216,24 @@
 		 	<c:if test="${listcount == 0}">
 		 		<h3 style="text-align: center">등록된 글이 없습니다.</h3>
 		 	</c:if>
-		 	<button type="button" id="faqwbtn" class="btn btn-success float-right btn-sm btn-round">FAQ 작성</button>
+		 	<div class="searchBoxArea" style="margin-top: 30px;">
+				<form action="FAQ" method="post" id="faqList_Form">
+					<div class="form-group">
+						<select id="viewcount2" name="search_field">
+							<option value="0" selected>제목</option>
+							<option value="1">카테고리</option>
+							<option value="2">질문자</option>
+							<option value="3">작성자</option>
+							<option value="4">날짜</option>
+						</select>
+						<input name="search_word" type="text" class="form-control"
+						 placeholder="검색어를 입력하세요" value="${search_word}">
+						<button class="btn btn-primary btn-sm" type="submit"
+						 id="search_but"><i class="fa fa-search" aria-hidden="true"></i></button>
+					</div>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				</form>
+			</div>
 	 	</div>
     </div>
     </div>
