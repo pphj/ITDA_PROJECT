@@ -10,10 +10,10 @@ public interface qnaReplyService {
 
 	public int getQnaReplyListCount(int adNum);
 
-	public int QnaReplyInsert(QnaReply qnaReply);
+	public int qnaReplyInsert(QnaReply qnaReply);
 	
-	public int QnaReplyUpdate(QnaReply qnaReply);
+	public int qnaReplyUpdate(QnaReply qnaReply);
 
-	public int QnaReplyDelete(QnaReply qnaReply);
+	public int qnaReplyDelete(QnaReply qnaReply);
 
 }
