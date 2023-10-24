@@ -9,8 +9,8 @@
 	  
 	    event.preventDefault(); // 제출을 막습니다.
 	  	var productName = $("input[name='productName']").val();
-	  
-	  	sessionStorage.setItem('item_name', productName);
+	  	var productId = $("input[name='productId']").val();
+	  	//sessionStorage.setItem('item_name', productName);
 	    //var discountPrice = $("#discountPrice").val(); 
 	    var productPrice = $("input[name='productPrice']").val();
 	    var totalProductPrice = productPrice;
@@ -31,6 +31,7 @@
 //	        xhr.setRequestHeader(header, token);
 //	      },
 	      data: {
+	      	productId : productId,
 	      	item_name : productName,
 	        total_amount: totalPayPrice,
 	        sumPrice: totalProductPrice,

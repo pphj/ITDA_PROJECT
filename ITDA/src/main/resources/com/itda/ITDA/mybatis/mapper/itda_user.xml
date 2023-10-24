@@ -14,11 +14,11 @@
         insert into itda_user
         (userId, userPw, userName, userBirth, userGender, userPhone,
         userAddress1, userAddress2, userPost, userEmail, userCategory,
-        userJoindate, statusId, userProfile)
+        userJoindate, statusId, userProfile, endData, authName)
         values(#{userId}, #{userPw}, #{userName}, #{userBirth}, #{userGender}, #{userPhone},
         #{userAddress1}, #{userAddress2}, #{userPost}, #{userEmail},
         #{userCategory},
-        SYSDATE, 1, #{userProfile})
+        SYSDATE, 1, #{userProfile}, SYSDATE, 'ROLE_USER')
     </insert>
 	
 	<select id="read" resultType="Itda_user">
@@ -159,10 +159,13 @@
   	UPDATE itda_user SET userPw = #{encryptedPassword} WHERE userEmail = #{userEmail}
 	</update>
 
+
 	<update id="userUpdateProfile" parameterType="Itda_User">
 		update itda_user
 	    set userProfile = #{userProfile}
 	    where userId = #{userId}
 	</update>
+
+
 	
 </mapper>

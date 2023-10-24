@@ -1,0 +1,26 @@
+{"properties": [
+  {
+    "name": "naver.client.id",
+    "type": "java.lang.String",
+    "description": "A description for 'naver.client.id'"
+  },
+  {
+    "name": "naver.redirect.url",
+    "type": "java.lang.String",
+    "description": "A description for 'naver.redirect.url'"
+  }
+]} "description": "A description for 'naver.client.id'"
+  },
+  {
+    "name": "naver.client.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'naver.client.secret'"
+  }
+]} "description": "A description for 'naver.client.id'"
+  },
+  {
+    "name": "naver.client.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'naver.client.secret'"
+  }
+]}

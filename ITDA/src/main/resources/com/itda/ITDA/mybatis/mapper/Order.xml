@@ -37,5 +37,28 @@
 		VALUES (callnum_seq.nextval, #{userId}, 0, #{productId}, 
 				1, #{callPrice}, SYSTIMESTAMP)
 	</insert>
+	
+	<select id="getOrderNo" resultType="String">
+		<![CDATA[
+		 SELECT callnum 
+		 FROM(
+		 		select callnum
+		 		from   paycall
+				WHERE userid = #{userId}
+				ORDER BY callDate DESC
+			)
+		where rownum <= 1
+		]]>
+	</select>
+	
+	<insert id="insertPayment" parameterType="Payment">
+		INSERT INTO payment 
+			(payednum, payedmethod, ordernum, payeddate, 
+			payedprice, payeduser, payerbank, payedokdate, 
+			payedstatus, payedcode, payedvat)
+		VALUES (paynum_seq.nextval, #{payedMethod}, #{orderNum}, #{payedDate}, 
+				#{payedPrice}, 'N', 'N', #{payedOkDate}, 
+				'Y', #{payedCode}, #{payedVat})
+	</insert>
 
 </mapper>

@@ -1,4 +1,33 @@
 @charset "UTF-8";
+.wrap_author {
+    background-color: #fbfbfb;
+    padding-top: 22px;
+    position: relative;
+    z-index: 10;
+}
+
+.wrap_author .inner_author {
+    margin: 0 auto;
+    padding: 31px 0 80px;
+    position: relative;
+    width: 700px;
+}
+
+.wrap_author .inner_author .author_profile {
+    font-family: "Noto Sans Light","Malgun Gothic",sans-serif;
+}
+
+.wrap_author .author_desc {
+    color: #666;
+    font-size: 13px;
+    margin-top: 21px;
+}
+
+.wrap_author .wrap_subscription {
+    margin-top: 34px;
+}
+
+
 /*버튼*/
 .txt_default .ico_plus {
     height: 17px;

@@ -10,6 +10,8 @@ public class ChBoard {
 	private int boardNum;
 	private int chNum;
 	private String Writer;
+	private String writer;
+	// writer둘다지우지마시오
 	private String boardTitle;
 	private int boardHeart;
 	private int chCate_Id;

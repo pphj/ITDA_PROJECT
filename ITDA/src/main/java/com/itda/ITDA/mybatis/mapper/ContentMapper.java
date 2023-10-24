@@ -20,7 +20,7 @@ public interface ContentMapper {
 	List<ChBoard> getContentAll(int pageCount, int startRow, int endRow);
 
 	List<ChBoard> getContentByCategory(int categoryNum, int pageCount, int startRow, int endRow);
-	
+
 	List<ChannelList> getChannelList();
 
 	List<ChannelList> getChannelListByNum(int categoryNum);
@@ -50,7 +50,7 @@ public interface ContentMapper {
 	Itda_User getUserInfo(String userId);
 
 	List<ChBoardCategory> getChannelCategory(int boardnum);
-	
 
-	
+	String findNameById(int chCateId);
+
 }

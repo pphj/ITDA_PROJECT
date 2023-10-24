@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import com.itda.ITDA.controller.OrderController;
 import com.itda.ITDA.domain.KakaoPayApproval;
 import com.itda.ITDA.domain.Paycall;
+import com.itda.ITDA.domain.Payment;
 import com.itda.ITDA.domain.ReadyResponse;
 import com.itda.ITDA.domain.SubProduct;
 import com.itda.ITDA.mybatis.mapper.OrderMapper;
@@ -43,19 +44,25 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public ReadyResponse payReady(int totalAmount, String productName) {
+	public String getOrderNo(String id) {
+		return dao.getOrderNo(id);
+	}
+	
+	@Override
+	public ReadyResponse payReady(int totalAmount, String productName, String getOrderNo) {
+		
+
 		
 		String approvalUrl = "http://localhost:9400/itda/product/approval";
 		String failUrl = "http://localhost:9400/itda/product/fail";
 		String cancelUrl = "http://localhost:9400/itda/product/cancel";
 		
-		Paycall payCall = new Paycall();
-		String order_id = String.valueOf(payCall.getCallNum());
 		MultiValueMap<String, String> payParams = new LinkedMultiValueMap<String, String>();
 		payParams.add("cid", "TC0ONETIME");
-		payParams.add("partner_order_id", "0");
+		payParams.add("partner_order_id", "1004");
 		payParams.add("partner_user_id", "ITDA");
 		payParams.add("item_name", productName);
+		payParams.add("item_code", getOrderNo);
 		payParams.add("quantity", "1");
 		payParams.add("total_amount", String.valueOf(totalAmount));
 		payParams.add("tax_free_amount", "0");
@@ -64,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
 		payParams.add("cancel_url", cancelUrl);
 		
 		logger.info("item_name : " + productName);
-		logger.info("partner_order_id : " + order_id);
+		
 		
 		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(payParams, this.getHeaders());
 		RestTemplate template = new RestTemplate();
@@ -77,14 +84,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
     // 결제 승인요청 메서드
-	public KakaoPayApproval payApprove(String tid, String pgToken) {
+	public KakaoPayApproval payApprove(String tid, String pgToken, String getOrderNo) {
 		
 
 		// request값 담기.
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.add("cid", "TC0ONETIME");
 		parameters.add("tid", tid);
-		parameters.add("partner_order_id", "0"); // 주문명
+		parameters.add("partner_order_id", "1004"); // 주문명
 		parameters.add("partner_user_id", "ITDA");
 		parameters.add("pg_token", pgToken);
 		
@@ -114,5 +121,20 @@ public class OrderServiceImpl implements OrderService {
 	public int insertPayCall(Paycall payCall) {
 		return dao.insertPayCall(payCall);
 	}
+
+	@Override
+	public int insertPayment(Payment payment) {
+		return dao.insertPayment(payment);
+	}
+
+	@Override
+	public Payment paymentCompletUser(String id) {
+		return dao.paymentCompletUser(id);
+	}
+
+
+
+
+
 
 }

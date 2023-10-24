@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,12 +33,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.itda.ITDA.domain.FindIdStep01;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.NaverDTO;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.service.DateService;
 import com.itda.ITDA.service.FolderService;
 import com.itda.ITDA.service.Itda_UserService;
+import com.itda.ITDA.service.NaverService;
 import com.itda.ITDA.service.UserCategoryService;
 import com.itda.ITDA.task.SendMail;
 
@@ -56,15 +58,18 @@ public class Itda_UserController {
 	private UserCategoryService userCategoryService;
 	private HttpSession session; // HttpSession 객체 선언
 	private SendMail sendMail;
+	private NaverService naverService;
+	
 
 	@Autowired
 	public Itda_UserController(Itda_UserService Itda_UserService, UserCategoryService userCategoryService,
-			PasswordEncoder passwordEncoder, HttpSession session, SendMail sendMail) {
+			PasswordEncoder passwordEncoder, HttpSession session, SendMail sendMail, NaverService naverService) {
 		this.Itda_UserService = Itda_UserService;
 		this.passwordEncoder = passwordEncoder;
 		this.userCategoryService = userCategoryService;
 		this.session = session; // HttpSession 객체 주입
 		this.sendMail = sendMail;
+		this.naverService = naverService;
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -134,6 +139,32 @@ public class Itda_UserController {
 	        return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
 	    }
 	}
+	
+	
+	
+	
+
+
+	@GetMapping("/callback")
+	public String naverCallback(@RequestParam("code") String code, @RequestParam(name="state", required=false) String state) {
+	    try {
+	        if (code != null) {
+	            // 네이버 인증 코드를 받아와서 처리하는 로직을 구현합니다.
+	            NaverDTO naverInfo = naverService.getNaverInfo(code);
+
+	            // 네이버 로그인 성공 후 리다이렉트할 경로 지정
+	            return "redirect:/main/protomain";
+	        } else {
+	            // code가 없을 경우 예외 처리
+	            throw new IllegalArgumentException("Invalid authorization code");
+	        }
+	    } catch (Exception e) {
+	        // 예외 처리 로직 작성
+
+	        // 예외 발생 시 리다이렉트할 경로 지정
+	        return "redirect:/error-page";
+	    }
+	}
 
 	
 	
@@ -176,7 +207,7 @@ public class Itda_UserController {
 
 				Files.write(path, bytes); // 해당 경로에 파일 쓰기
 
-				String urlPath = "/" + mem.getUserId() + "/" + DateService.toDay() + "/" + file.getOriginalFilename();
+				String urlPath = "/" + DateService.toDay() + "/" + file.getOriginalFilename();
 
 				mem.setUserProfile(urlPath); // 업로그한 이미지 URL set
 				session.setAttribute("userProfilePath", urlPath); // 세션에 이미지 URL 저장
@@ -216,7 +247,6 @@ public class Itda_UserController {
 		}
 
 		model.addAttribute("url", request.getRequestURI()).addAttribute("message", "회원 가입 실패");
-
 		return "/main/protomain";
 	}
 
@@ -245,5 +275,8 @@ public class Itda_UserController {
 	public String findIdPasswordForm() {
 		return "member/FindIdPasswordForm";
 	}
+	
+	
+	 
 
 }
