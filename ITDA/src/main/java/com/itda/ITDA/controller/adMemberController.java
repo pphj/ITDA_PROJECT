@@ -53,23 +53,6 @@ public class adMemberController {
 		return mv;
 	}
 	
-//	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-//	public String loginProcess(@RequestParam("adminId") String adminId,
-//			@RequestParam("adminPw") String adminPw,
-//			HttpSession session, RedirectAttributes rattr) {
-//
-//		int result = admemberService.isId(adminId, adminPw);
-//
-//		if (result == 1) {
-//			logger.info("loginProcess : " +  result);
-//			session.setAttribute("adminId", adminId);
-//			return "redirect:/admin/Main";
-//		} else {
-//			rattr.addFlashAttribute("result", result);
-//			return "/admin/adminLogin";
-//		}
-//	}
-	
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

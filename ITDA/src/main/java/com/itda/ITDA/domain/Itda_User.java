@@ -46,7 +46,7 @@ public class Itda_User implements UserDetails {
     private String cate_Name;
 
 	public String getAuthName() {
-		return "ROLE_" + authName; // "ROLE_"을 접두사로 추가
+		return authName;
 
 	}
 
@@ -103,13 +103,11 @@ public class Itda_User implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return userPw;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return userId;
 	}
 
@@ -136,7 +134,5 @@ public class Itda_User implements UserDetails {
 	public String getUserName() {
 		return userName;
 	}
-	
-	
 
 }

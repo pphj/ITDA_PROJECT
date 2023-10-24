@@ -8,8 +8,10 @@
     </select>
     
   <insert id="insert" parameterType="com.itda.ITDA.domain.Itda_User">
-        INSERT INTO seller (adminId, userId, sellerPhone, sellerEmail, sellerJoinDate, waitState)
-        VALUES (null, #{userId}, #{userPhone}, #{userEmail}, sysdate, 'W')
+        INSERT INTO seller (userId, sellerPhone, sellerEmail, sellerJoinDate, 
+        authName, adminId, waitState)
+        VALUES (#{userId}, #{userPhone}, #{userEmail}, sysdate, 
+        'ROLE_SELLER', null, 'W')
     </insert>
     
    

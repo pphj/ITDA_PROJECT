@@ -1,6 +1,5 @@
 package com.itda.ITDA.mybatis.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -10,7 +9,7 @@ import com.itda.ITDA.domain.AdminBoard;
 
 @Mapper
 public interface adMemberMapper {
-
+	//관리자 영역
 	public Admin isId(String adminId);
 
 	public int adMemberInsert(Admin admin);
@@ -18,7 +17,9 @@ public interface adMemberMapper {
 	public Admin adminInfo(String adminId);
 
 	public int adminUpdate(Admin admin);
-
+	
+	
+	//유저, 공지 영역
 	public List<AdminBoard> getAdminBoardList();
 
 	public AdminBoard getAdminBoardByUserId(int userId);

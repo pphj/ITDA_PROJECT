@@ -8,27 +8,29 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.itda.ITDA.domain.Admin;
-import com.itda.ITDA.mybatis.mapper.adMemberMapper;
+import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
 
-public class AdminUserDetailService implements UserDetailsService {
-	private static final Logger logger = LoggerFactory.getLogger(AdminUserDetailService.class);
+public class UserDetailService implements UserDetailsService {
+	private static final Logger logger = LoggerFactory.getLogger(UserDetailService.class);
 
 	@Autowired
-	private adMemberMapper adminDao;
+	private Itda_UserMapper dao;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	    logger.info("관리자 로그인시 입력한 값: " + username);
-	    Admin admin = adminDao.idadminId(username);
-
-	    if (admin == null) {
-	    	throw new UsernameNotFoundException(
-	    			"로그인 아이디: " + username + " 관리자 정보를 찾을 수 없습니다.");
-	    }
-
-	    return admin;
+		logger.info("유저 로그인시 입력한 값: " + username);
+		Itda_User user = dao.isId(username);
+		
+		if (user == null) {
+			throw new UsernameNotFoundException(
+					"로그인 아이디: " + username + " 사용자 정보를 찾을 수 없습니다.");
+			
+		}
+		
+		return user;
 	}
 
 }

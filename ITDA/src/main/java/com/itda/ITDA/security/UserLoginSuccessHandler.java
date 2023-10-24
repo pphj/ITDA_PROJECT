@@ -15,8 +15,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
 
-public class LoginSuccessHandler implements AuthenticationSuccessHandler {
-	private static final Logger logger = LoggerFactory.getLogger(LoginSuccessHandler.class);
+public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
+	private static final Logger logger = LoggerFactory.getLogger(UserLoginSuccessHandler.class);
 	
 	@Autowired
 	private Itda_UserMapper dao;
@@ -24,7 +24,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		logger.info("LoginSuceessHandler 성공, 아이디 : " + authentication.getName());
+		logger.info("UserLoginSuceessHandler 아이디 : " + authentication.getName());
 		
 		Itda_User users = dao.isId(authentication.getName());
 		

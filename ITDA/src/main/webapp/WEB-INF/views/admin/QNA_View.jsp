@@ -32,7 +32,7 @@
 	}
 </style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -141,5 +141,6 @@
  	</div>
  	</div>
 	</div>
+</main>
 </body>
 </html>

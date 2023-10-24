@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
-public class LoginFailHandler implements AuthenticationFailureHandler {
-	private static final Logger logger = LoggerFactory.getLogger(LoginFailHandler.class);
+public class UserLoginFailHandler implements AuthenticationFailureHandler {
+	private static final Logger logger = LoggerFactory.getLogger(UserLoginFailHandler.class);
 
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,

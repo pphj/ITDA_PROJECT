@@ -18,12 +18,14 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import com.itda.ITDA.security.AdminAccessDeniedHandler;
 import com.itda.ITDA.security.AdminLoginFailHandler;
 import com.itda.ITDA.security.AdminLoginSuccessHandler;
 import com.itda.ITDA.security.AdminUserDetailService;
-import com.itda.ITDA.security.CustomUserDetailService;
-import com.itda.ITDA.security.LoginFailHandler;
-import com.itda.ITDA.security.LoginSuccessHandler;
+import com.itda.ITDA.security.UserAccessDeniedHandler;
+import com.itda.ITDA.security.UserDetailService;
+import com.itda.ITDA.security.UserLoginFailHandler;
+import com.itda.ITDA.security.UserLoginSuccessHandler;
 
 @EnableWebSecurity // 스프링과 시큐리티 결합
 @Configuration
@@ -43,6 +45,7 @@ public class SecurityConfig {
 
    @Bean
    public SecurityFilterChain adMemberSecurityFilterChain(HttpSecurity http) throws Exception {
+	   http.authenticationProvider(adminAuthencationProvider());
 	   http.antMatcher("/adMember/**")
 	   		.authorizeRequests(authorizeRequests -> authorizeRequests
                    .antMatchers("/resources/**").permitAll()
@@ -52,7 +55,7 @@ public class SecurityConfig {
                    .loginProcessingUrl("/adMember/loginProcess")
                    .usernameParameter("adminId")
                    .passwordParameter("adminPw")
-                   .successHandler(adminloginSuccessHandler())
+                   .successHandler(adminLoginSuccessHandler())
                    .failureHandler(adminLoginFailHandler())
            )
            .logout(logout -> logout
@@ -64,13 +67,15 @@ public class SecurityConfig {
            .rememberMe(rememberMe -> {
         	   try {rememberMe
 						.rememberMeParameter("remember-me")
-						.userDetailsService(adminUserService())
+						.userDetailsService(adminDetailService())
 						.tokenValiditySeconds(2419200)
 						.tokenRepository(tokenRepository());
 					} catch (Exception e) {
 					e.printStackTrace();
 					}
            });
+	   
+	   http.exceptionHandling().accessDeniedHandler(adminAccessDeniedHandler());
 
        return http.build();
    }
@@ -78,12 +83,14 @@ public class SecurityConfig {
    @Bean
    public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http) throws Exception {
 	   http.antMatcher("/admin/**")
-	   		.authorizeRequests(authorizeRequests -> authorizeRequests 
-	            //.antMatchers("/admin/adminLogin").permitAll()
-//	            .antMatchers("/admin/**").access("hasAnyRole('SUPER_ADMIN','ADMIN')")
-	            .antMatchers("/admin/sellerApprove").access("hasRole('SUPER_ADMIN')")
-	            .antMatchers("/admin/adminApprove").access("hasRole('SUPER_ADMIN')")
+	   		.authorizeRequests(authorizeRequests -> authorizeRequests
+	   			.antMatchers("/admin/adminLogin").permitAll()
+	            .antMatchers("/admin/sellerApprove").access("hasRole('ROLE_SUPER')")
+	            .antMatchers("/admin/adminApprove").access("hasRole('ROLE_SUPER')")
+	            .antMatchers("/admin/**").access("hasAnyRole('ROLE_SUPER','ROLE_ADMIN')")
 	   			.antMatchers("/resources/**").permitAll());
+	   
+	   http.exceptionHandling().accessDeniedHandler(adminAccessDeniedHandler());
 	   
 	   return http.build();
    }
@@ -126,6 +133,7 @@ public class SecurityConfig {
    
    @Bean
    public SecurityFilterChain memberSecurityFilterChain(HttpSecurity http) throws Exception {
+	   http.authenticationProvider(userAuthencationProvider());
 	   http.antMatcher("/member/**")
 	 		.authorizeRequests(authorizeRequests -> authorizeRequests
 	 				.antMatchers("/resources/**").permitAll()
@@ -135,8 +143,8 @@ public class SecurityConfig {
 		               .loginProcessingUrl("/member/loginProcess")
 		               .usernameParameter("userId")
 		               .passwordParameter("userPw")
-		               .successHandler(loginSuccessHandler())
-		               .failureHandler(loginFailHandler())
+		               .successHandler(userLoginSuccessHandler())
+		               .failureHandler(userLoginFailHandler())
 		        )
 		        .logout(logout -> logout
 		               .logoutSuccessUrl("/")
@@ -147,14 +155,16 @@ public class SecurityConfig {
 		        .rememberMe(rememberMe -> {
 		        	try {rememberMe
 							.rememberMeParameter("remember-me")
-							.userDetailsService(customUserService())
+							.userDetailsService(userDetailService())
 							.tokenValiditySeconds(2419200)
 							.tokenRepository(tokenRepository());
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 				});
- 
+	   
+	   http.exceptionHandling().accessDeniedHandler(userAccessDeniedHandler());
+	   
 	   return http.build();
    }
    
@@ -162,7 +172,10 @@ public class SecurityConfig {
    public SecurityFilterChain mySecurityFilterChain(HttpSecurity http) throws Exception {
 	   http.antMatcher("/my/**")
 	 		.authorizeRequests(authorizeRequests -> authorizeRequests
+	 				.antMatchers("/my/subscriptions").access("hasRole('ROLE_USER')")
 	 				.antMatchers("/resources/**").permitAll());
+	   
+	   http.exceptionHandling().accessDeniedHandler(userAccessDeniedHandler());
  
 	   return http.build();
    }
@@ -209,15 +222,23 @@ public class SecurityConfig {
             return authenticationConfiguration.getAuthenticationManager();
    }
    
-   @Bean	//사용자 정보, 비밀번호를 데이터베이스에서 가져와
-   			//사용자가 입력한 비밀번호와 저장된 비밀번호를 비교하여 사용자를 인증
+   //사용자 정보, 비밀번호를 데이터베이스에서 가져와
+   //사용자가 입력한 비밀번호와 저장된 비밀번호를 비교하여 사용자를 인증
+   @Bean	//유저
    public DaoAuthenticationProvider userAuthencationProvider() {
       DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-      provider.setUserDetailsService(customUserService());
-      provider.setUserDetailsService(adminUserService());
+      provider.setUserDetailsService(userDetailService());
       provider.setPasswordEncoder(encodePassword());
       return provider;
    }
+   
+   @Bean	//관리자
+   public DaoAuthenticationProvider adminAuthencationProvider() {
+	      DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+	      provider.setUserDetailsService(adminDetailService());
+	      provider.setPasswordEncoder(encodePassword());
+	      return provider;
+	   }
    
    @Bean
    public PersistentTokenRepository tokenRepository() {			//로그인 정보 기억시
@@ -227,18 +248,18 @@ public class SecurityConfig {
    }
    
    @Bean
-   public UserDetailsService customUserService() {				//유저 데이터
-      return new CustomUserDetailService();
+   public UserDetailsService userDetailService() {				//유저 데이터
+      return new UserDetailService();
    }
    
    @Bean
-   public UserDetailsService adminUserService() {				//관리자 데이터
+   public UserDetailsService adminDetailService() {				//관리자 데이터
       return new AdminUserDetailService();
    }
    
    @Bean
-   public AuthenticationFailureHandler loginFailHandler() {			//유저 로그인 실패
-      return new LoginFailHandler();
+   public AuthenticationFailureHandler userLoginFailHandler() {			//유저 로그인 실패
+      return new UserLoginFailHandler();
    }
    
    @Bean
@@ -247,13 +268,23 @@ public class SecurityConfig {
    }
    
    @Bean
-   public AuthenticationSuccessHandler loginSuccessHandler() {		//유저 로그인 성공
-      return new LoginSuccessHandler();
+   public AuthenticationSuccessHandler userLoginSuccessHandler() {		//유저 로그인 성공
+      return new UserLoginSuccessHandler();
    }
    
    @Bean
-   public AuthenticationSuccessHandler adminloginSuccessHandler() {	//관리자 로그인 성공
+   public AuthenticationSuccessHandler adminLoginSuccessHandler() {	//관리자 로그인 성공
       return new AdminLoginSuccessHandler();
+   }
+   
+   @Bean
+   public UserAccessDeniedHandler userAccessDeniedHandler() {		//유저 접속 제한
+	   return new UserAccessDeniedHandler();
+   }
+   
+   @Bean
+   public AdminAccessDeniedHandler adminAccessDeniedHandler() {		//관리자 접속 제한
+	   return new AdminAccessDeniedHandler();
    }
    
    @Bean

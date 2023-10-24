@@ -50,6 +50,24 @@
 	display: -webkit-inline-box;
 	margin-left: 10px;
 }
+.hideText {
+	width: 150%;
+	padding: 15px 20px;
+    background-color: black;
+    border-radius: 15px;
+    color: white;
+    position: absolute;
+    display: none;
+}
+.floatData2:hover > .hideText {
+	display: block;
+}
+.floatData2:hover + .floatData3 {
+    display: none !important;
+}
+.floatData2:hover + .floatData3 + .floatData4 {
+    display: none !important;
+}
 </style>
 </head>
 <body class="g-sidenav-show bg-gray-100">
@@ -84,7 +102,17 @@
 			        	class="floatData1">
 		 					<div name="productName"><c:out value="${c.productName}" /></div>
 		 				</a>
-			        	<span class="floatData2">${c.productDetail}</span>
+			        	<span class="floatData2">
+				            <c:choose>
+				                <c:when test="${fn:length(c.productDetail) > 9}">
+				                    <c:out value="${fn:substring(c.productDetail, 0, 9)}" />...
+				                    <span class="hideText">${c.productDetail}</span>
+				                </c:when>
+				                <c:otherwise>
+				                    <c:out value="${c.productDetail}" />
+				                </c:otherwise>
+				            </c:choose>
+				        </span>
 			        	<span class="floatData3">기간 : ${c.productTerm}일</span>
 			        	<span class="floatData4">${c.productPrice}원</span>
 			        </div>
@@ -93,7 +121,9 @@
 			</c:forEach>
 	 		</div>
 		 	<div class="center-block mt-5">
-		 		<ul class="pagination justify-content-center">
+		 		<button type="button" id="productCreatebtn" class="btn btn-success
+		 		 float-right btn-sm btn-round">이용권 생성하기</button>
+		 		<ul class="pagination justify-content-end">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
 		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
@@ -136,8 +166,6 @@
 		 	<c:if test="${listcount == 0}">
 		 		<h3 style="text-align: center">등록된 이용권이 없습니다.</h3>
 		 	</c:if>
-		 	
-		 	<button type="button" id="productCreatebtn" class="btn btn-success float-right btn-sm btn-round">이용권 생성하기</button>
 	 	</div>
     </div>
     </div>

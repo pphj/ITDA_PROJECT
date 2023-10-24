@@ -37,17 +37,17 @@
 	
 	function ajax(sdata) {
 		console.log(sdata)
-		//let token = $("meta[name='_csrf']").attr("content");	
-		//let header = $("meta[name='_csrf_header']").attr("content");
+		let token = $("meta[name='_csrf']").attr("content");	
+		let header = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({
 			type : "post",
 			data : sdata,
 			url	 : "couponList_ajax",
 			dataType : "json",
 			cache : false,
-			//beforeSend : function(xhr) {
-			//	xhr.setRequestHeader(header, token);
-			//},
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
 			success : function(data) {
 				$("#viewcount").val(data.limit);
 				$("thead").find("span").text("현재 쿠폰 갯수 : " + data.listcount);
@@ -62,14 +62,23 @@
 							if (item.couponExdate == null) {
 								item.couponExdate = '만료일 미정';
 							}
-
-							output += '<tr><td class="text-center">' + (num--) + '</td>'
-									+ '<td class="text-center"><div>' + item.couponCode + '</div></td>'
-								   	+ '<td class="text-center"><div>' + item.couponName + '</div></td>'
-								   	+ '<td class="text-center"><div>' + item.couponDetail + '</div></td>'
-									+ '<td class="text-center"><div>' + item.couponPrice + '</div></td>'
-									+ '<td class="text-center"><div>' + item.couponCreate.substr(0,10) + '</div></td>'
-									+ '<td class="text-center"><div>' + item.couponExdate.substr(0,10) + '</div></td>'
+							
+							let deleteButton = '';
+						    if (item.adminId === data.adminId) {
+						        deleteButton = '<button type="button" class="couponDeletebtn btn btn-danger float-right btn-sm btn-round">삭제</button>';
+						    } else {
+						        deleteButton = '<div>작성자가 아님</div>';
+						    }
+						
+						    output += '<tr><td class="text-center"><div>' + item.couponNum + '</div></td>'
+						        + '<td class="text-center"><div>' + item.couponCode + '</div></td>'
+						        + '<td class="text-center"><div>' + item.couponName + '</div></td>'
+						        + '<td class="text-center"><div>' + item.couponDetail + '</div></td>'
+						        + '<td class="text-center"><div>' + item.couponPrice + '</div></td>'
+						        + '<td class="text-center"><div>' + item.couponCreate.substr(0, 10) + '</div></td>'
+						        + '<td class="text-center"><div>' + item.couponExdate.substr(0, 10) + '</div></td>'
+						        + '<td class="text-center">' + deleteButton + '</td>';
+									
 					})//each end
 					output += "</tbody>"
 					$('table').append(output);			//table 완성
@@ -119,7 +128,6 @@
 	}//ready end
 	
 	
-	
 	$(function(){
 		$("#couponCreatebtn").click(function(){
 			location.href="coupon_Write";			//버튼 클릭시 write로 이동
@@ -132,3 +140,44 @@
 		})//change end
 		
 	});//ready end
+	
+	
+	$(function(){
+	    $(document).on('click', '.couponDeletebtn', function(){
+	        $("#couponDeleteModal").modal("show");
+	    });
+	});
+	
+	$(function(){
+		let result = "${result}";
+		if (result == 'passFail') {
+			alert("쿠폰이 DB에 없습니다. 다시 확인해주세요.");
+		}
+	
+	})
+
+	$(function() {
+		$("#couponCode").on("input", function() {
+	        let input_couponCode = $(this).val();
+	        let pattern = /^[0-9]{20}$/;
+	
+	        if (!pattern.test(input_couponCode)) {
+	            $(".message").css('color', 'red').html("쿠폰코드는 총 20자리 입니다. 다시 확인해 주세요.");
+	        } else {
+	            $(".message").css('color', 'green').html("20자리 확인되었습니다.");
+	        }
+	    })
+	
+		$("form[name=couponDeleteForm]").submit(function() {
+			if ($("#couponNum").val() == '') {
+				alert("쿠폰번호를 입력하세요");
+				$("#couponNum").focus();
+				return false;
+			}
+			if ($("#couponCode").val() == '') {
+				alert("쿠폰코드를 입력하세요");
+				$("#couponCode").focus();
+				return false;
+			}
+		})
+	})

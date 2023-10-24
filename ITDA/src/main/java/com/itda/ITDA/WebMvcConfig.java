@@ -26,7 +26,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
 			"/main/protomain"로 이동
 		*/
 		registry.addViewController("/").setViewName("forward:/main/protomain");
-		registry.addViewController("/admin/adminLogin").setViewName("forward:/admin/adminLogin");
+		registry.addViewController("/admin/").setViewName("forward:/admin/adminLogin");
 	}
 	
 	//정적 리소스 핸들러 등록을 하고, 그 리소스들의 위치를 담은 상수 값을 매개변수로 가지는
