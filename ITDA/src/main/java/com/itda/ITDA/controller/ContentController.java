@@ -15,6 +15,9 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -148,7 +152,8 @@ public class ContentController {
 			@RequestParam(value = "tagId", required = false) List<String> tagIdlist,
 			@RequestParam(value = "chCate_Id", defaultValue = "0") int chCateId,
 			@RequestParam(value = "upload", required = false) MultipartFile uploadfile, Principal principal,
-			RedirectAttributes rattr, String check, Model mv, HttpServletRequest request) throws IOException {
+			RedirectAttributes rattr, BindingResult result, String check, Model mv, HttpServletRequest request)
+			throws IOException {
 
 		boolean usercheck = contentService.isContentWriter(chboard.getBoardNum());
 
@@ -191,8 +196,31 @@ public class ContentController {
 				chboard.setBoardUpdate("");
 				chboard.setThumbNail("");
 			}
+			String contentText = chboard.getBoardContent(); // 여기를 수정했습니다.
 
-			int result = contentService.contentModify(chboard);
+			Document doc = Jsoup.parse(contentText);
+
+			Elements paragraphs = doc.select("p");
+			String Intro = "";
+			for (int i = 0; i < paragraphs.size(); i++)
+			{
+				System.out.println(paragraphs.get(i).text());
+				boolean text = paragraphs.get(i).text().matches("^(?=.*\\S).*$");
+				if (text)
+				{
+					Intro += paragraphs.get(i).text();
+					if (Intro.length() > 80)
+					{
+						break;
+					}
+				}
+			}
+
+			chboard.setChNum(chnum);
+			chboard.setWriter(principal.getName());
+			chboard.setIntro(Intro);
+
+			int results = contentService.contentModify(chboard);
 			List<ChBoard> newcontent = contentService.newContentSelect(chnum);
 
 			int contentNum = 0;
@@ -232,7 +260,7 @@ public class ContentController {
 			}
 
 			// 수정에 실패한 경우
-			if (result == 0)
+			if (results == 0)
 			{
 				logger.info("게시판 수정 실패");
 				mv.addAttribute("url", request.getRequestURL());

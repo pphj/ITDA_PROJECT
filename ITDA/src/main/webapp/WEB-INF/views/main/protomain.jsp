@@ -39,8 +39,10 @@
                                              src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png">
                                         </t:when>
                                         <t:otherwise>
-                                            <img class="card_img"
-                                             src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png">
+                                            <!--<img class="card_img"
+                                             src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png">-->
+                                             <img class="card_img" src="${pageContext.request.contextPath}/image/contents/${c.chNum}${c.thumbNail}">
+													
                                         </t:otherwise>
                                     </t:choose>
                                     <div class="card-body card-body-font">

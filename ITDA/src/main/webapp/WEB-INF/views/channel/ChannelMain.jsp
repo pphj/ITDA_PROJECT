@@ -50,7 +50,7 @@ $(document).ready(function(){
 				        <img class="profileUserImage img_thumb" alt="이미지정보" src="${pageContext.request.contextPath}/resources/image/main/login.png" width="100" height="100">
 				    </c:when>
 					    <c:otherwise>
-					         <img class="profileUserImage img_thumb" src="${pageContext.request.contextPath}/resources/image/channel/${ChannelList.chNum}${ChannelList.chProfile}" width="100" height="100">      
+					         <img class="profileUserImage img_thumb" src="${pageContext.request.contextPath}/resources/image/MemberUpload/${sellerinfo.userId}${ChannelList.chProfile}" width="100" height="100">      
 					    </c:otherwise>
 				</c:choose> 
 		</div>
@@ -177,7 +177,7 @@ $(document).ready(function(){
 								<ul class="list_article list_post1 #post_list">
 									<li data-articleuid="xTI_303" class="animation_up" data-tiara-action-name="작가 프로필 > 글탭 > 리스트 클릭"
 										data-tiara-action-kind="ClickContent" data-tiara-layer="articles" data-tiara-id="@@xTI">
-										<a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}" class="link_category"> 
+										<a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}?userid=${pinfo.username}" class="link_category"> 
 										<em class="tit_category">${c.chCate_Name}</em>
 										</a> 
 										<a href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}?userid=${pinfo.username}" class="link_post has_image #post_listview"> 

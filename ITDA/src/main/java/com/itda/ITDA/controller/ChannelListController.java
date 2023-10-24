@@ -1,7 +1,6 @@
 package com.itda.ITDA.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -405,9 +405,9 @@ public class ChannelListController {
 	}
 
 	@PostMapping("/contentadd")
-	public String insertContent(ChBoard chboard, Tag tag, @RequestParam("content") String contentText,
+	public String insertContent(ChBoard chboard, Tag tag,
 			@RequestParam(value = "tagname", required = false) List<String> taglist, Principal principal,
-			HttpSession session, HttpServletRequest request) throws IOException {
+			HttpSession session, HttpServletRequest request, BindingResult result) throws Exception {
 
 		MultipartFile uploadfile = chboard.getUpload();
 
@@ -438,17 +438,19 @@ public class ChannelListController {
 		// 세션에서 데이터 가져오기
 		int chnum = (int) session.getAttribute("chnum");
 
-		// HTML 파싱 및 Intro 문자열 생성
+		String contentText = chboard.getBoardContent(); // 여기를 수정했습니다.
+
 		Document doc = Jsoup.parse(contentText);
+
 		Elements paragraphs = doc.select("p");
 		String Intro = "";
-		for (org.jsoup.nodes.Element paragraph : paragraphs)
+		for (int i = 0; i < paragraphs.size(); i++)
 		{
-			System.out.println(paragraph.text());
-			boolean textNotEmpty = paragraph.text().matches("^(?=.*\\S).*$");
-			if (textNotEmpty)
+			System.out.println(paragraphs.get(i).text());
+			boolean text = paragraphs.get(i).text().matches("^(?=.*\\S).*$");
+			if (text)
 			{
-				Intro += paragraph.text();
+				Intro += paragraphs.get(i).text();
 				if (Intro.length() > 80)
 				{
 					break;
@@ -456,58 +458,49 @@ public class ChannelListController {
 			}
 		}
 
+		chboard.setChNum(chnum);
+		chboard.setWriter(principal.getName());
+		chboard.setIntro(Intro);
 
-		try
+		int results = channelList_Service.contentInsert(chboard);
+		List<ChBoard> newcontent = channelList_Service.newContentSelect(chnum);
+
+		int contentNum = 0;
+		if (!newcontent.isEmpty())
 		{
-			chboard.setChNum(chnum);
-			chboard.setWriter(principal.getName());
+			contentNum = newcontent.get(0).getBoardNum();
+			System.out.println(contentNum);
 
-			chboard.setIntro(Intro);
+		}
 
-			int result = channelList_Service.contentInsert(chboard);
-			List<ChBoard> newcontent = channelList_Service.newContentSelect(chnum);
-
-			int contentNum = 0;
-			if (!newcontent.isEmpty())
-			{
-				contentNum = newcontent.get(0).getBoardNum();
-				System.out.println(contentNum);
-
-			}
-
-			int tagLength = 0;
-			if (request.getParameterValues("tagname") != null)
-			{
-				tagLength = request.getParameterValues("tagname").length;
-			}
-
-			if (taglist != null && !taglist.isEmpty())
-			{
-				// 태그 입력 처리
-				for (String tags : taglist)
-				{
-					logger.info("tags =" + tags);
-
-					Map<String, Object> parameters = new HashMap<>();
-					parameters.put("tagName", tags); // Here use 'tags' instead of 'tag.getTagName()'
-					parameters.put("boardNum", contentNum);
-
-					int resultTagInsert = TagService.tagInsert(parameters);
-				}
-			}
-
-			if (result > 0)
-			{
-				return "redirect:/channels/" + chnum;
-			} else
-			{
-				throw new Exception("게시물 작성 오류");
-			}
-
-		} catch (Exception ex)
+		int tagLength = 0;
+		if (request.getParameterValues("tagname") != null)
 		{
-			ex.printStackTrace();
-			return "error/error";
+			tagLength = request.getParameterValues("tagname").length;
+		}
+
+		if (taglist != null && !taglist.isEmpty())
+		{
+			// 태그 입력 처리
+			for (String tags : taglist)
+			{
+				logger.info("tags =" + tags);
+
+				Map<String, Object> parameters = new HashMap<>();
+				parameters.put("tagName", tags); // Here use 'tags' instead of 'tag.getTagName()'
+				parameters.put("boardNum", contentNum);
+
+				int resultTagInsert = TagService.tagInsert(parameters);
+			}
+		}
+
+		if (results > 0)
+		{
+			return "redirect:/channels/" + chnum;
+		} else
+		{
+			throw new Exception("게시물 작성 오류");
+
 		}
 	}
 
