@@ -25,8 +25,33 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/adminApprove.js"></script>
+<style>
+	#adminList_Form {
+		width: 100%;
+	}
+	#adminList_Form > div {
+		display: flex;
+	    width: 30%;
+	    height: 40px;
+	    margin: auto;
+	}
+	#viewcount2 {
+		height: 25px;
+	}
+	#adminList_Form > div > input {
+		width: 240px;
+	    height: 25px;
+	    border-radius: 0;
+	    border: 1px solid black;
+	}
+	#search_but {
+		height: 25px;
+	    font-size: 8px;
+	    border-radius: 0;
+	}
+</style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />
@@ -45,24 +70,6 @@
       </div>
     </div>
     <div class="main-content" style="padding: 30px 25px;">
-    	<!--
-    	<form action="adminList" method="post" id="adminList_Form">
-			<div class="input-group">
-				<select id="viewcount2" name="search_field">
-					<option value="0" selected>아이디</option>
-					<option value="1">이름</option>
-					<option value="2">부서</option>
-					<option value="3">직급</option>
-					<option value="4">권한 등급</option>
-				</select> 
-				<input name="search_word" type="text" class="form-control"
-				placeholder="검색어를 입력하세요" value="${search_word}" 
-				style="width: 100px;">
-				<button class="btn btn-primary" type="submit" id="search_but">검색</button>
-			</div>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		</form>
-		-->
     	<div class="card">
     	<div class="card-body">
  		<c:if test="${listcount > 0}">
@@ -155,7 +162,7 @@
 			</div>
 			<!-- 모달 끝 -->
 		 	<div class="center-block">
-		 		<ul class="pagination justify-content-center">
+		 		<ul class="pagination justify-content-end">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
 		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
@@ -163,7 +170,7 @@
 		 			</c:if>
 		 			<c:if test="${page > 1}">
 		 				<li class="page-item">
-		 					<a class="page-link" href="adminApprove?page=${page-1}"><i class="fa fa-chevron-left" aria-hidden="true"></i>;</a>
+		 					<a class="page-link" href="adminApprove?page=${page-1}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
 		 				</li>
 		 			</c:if>
 		 			
@@ -199,6 +206,25 @@
 		 	<c:if test="${listcount == 0}">
 		 		<h3 style="text-align: center">등록된 관리자가 없습니다.</h3>
 		 	</c:if>
+		 	
+		 	<div class="searchBoxArea" style="margin-top: 30px;">
+				<form action="adminApprove" method="post" id="adminList_Form">
+					<div class="form-group">
+						<select id="viewcount2" name="search_field">
+							<option value="0" selected>아이디</option>
+							<option value="1">이름</option>
+							<option value="2">부서</option>
+							<option value="3">직급</option>
+							<option value="4">권한 등급</option>
+						</select>
+						<input name="search_word" type="text" class="form-control"
+						 placeholder="검색어를 입력하세요" value="${search_word}">
+						<button class="btn btn-primary btn-sm" type="submit"
+						 id="search_but"><i class="fa fa-search" aria-hidden="true"></i></button>
+					</div>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				</form>
+			</div>
 	 	</div>
     </div>
     </div>

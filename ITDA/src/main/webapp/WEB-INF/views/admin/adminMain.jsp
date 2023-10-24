@@ -26,7 +26,7 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/chartjs.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/Chart.extension.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script>
+<script>
   $(function(){
 	  let userTotalData = ${userTotalData};
 	    console.log(userTotalData);
@@ -129,17 +129,17 @@
 	    });
 	    
 	  });
-  </script>
-  <style>
-  	.card-item {
+</script>
+<style>
+	.card-item {
   		height: 200px;
 		font-size: 40px;
 		border-radius: 30px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-  	}
-  </style>
+	}
+</style>
 </head>
 <body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />

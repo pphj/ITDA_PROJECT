@@ -24,7 +24,7 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/faqWrite.js"></script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -88,5 +88,6 @@
  		</div>
 	</div>
  	</div>
+</main>
 </body>
 </html>
