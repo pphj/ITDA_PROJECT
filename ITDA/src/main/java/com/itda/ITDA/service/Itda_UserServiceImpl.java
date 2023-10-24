@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
@@ -157,6 +158,11 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	@Override
 	public int insertPaymentUser(String id) {
 		return dao.insertPaymentUser(id);
+	}
+
+	@Override
+	public GoodUser isGoodUser(String id) {
+		return dao.isGoodUser(id);
 	}
 
 

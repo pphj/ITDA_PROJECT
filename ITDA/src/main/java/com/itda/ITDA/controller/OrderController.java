@@ -170,7 +170,8 @@ public class OrderController {
 								@ModelAttribute("getOrderNo") String getOrderNo,
 								Payment payment,
 								Model model,
-								Principal principal) {
+								Principal principal,
+								GoodUser goodUser) throws Exception {
 		
 		logger.info("결제승인 요청을 인증하는 토큰: " + pgToken);
 		logger.info("결제고유 번호: " + tid);
@@ -203,29 +204,54 @@ public class OrderController {
 				String id = principal.getName();
 				logger.info("principal.getName() : " + id);
 				if (id != null) {
+						
 
 					Payment completUser = orderService.paymentCompletUser(id);
 
-					GoodUser goodUser = new GoodUser();
-					//goodUser isUser = itdaUserService.  
+					//GoodUser goodUser = new GoodUser();
+					GoodUser isGoodUser = itdaUserService.isGoodUser(id);  
 					
-					if (completUser.getUserId() == null) {
-
+					Timestamp realTime = new Timestamp(System.currentTimeMillis());
+					logger.info("completUser.getUserId() : "  + completUser.getUserId());
+					try {
+					if (completUser.getUserId() != null && isGoodUser == null) {
 
 						goodUser.setPayedNum(completUser.getPayedNum());
+						goodUser.setFirstDate(completUser.getPayedOkDate());
 						goodUser.setStartDate(completUser.getPayedOkDate());
 						goodUser.setUserId(completUser.getUserId());
-
 						Timestamp timestamp = completUser.getPayedOkDate();
 						Timestamp getProductTerm = Timestamp.valueOf(String.valueOf(completUser.getProductTerm()));
-
 						goodUser.setEndDate(timestamp.getTime() + getProductTerm.getTime());
 
 						logger.info("goodUser.getEndDate() = " + goodUser.getEndDate());
 
-						// int result = itdaUserService.insertPaymentUser(id);
-					}
+						// int result = itdaUserService.insertFirstPaymentUser(goodUser);
+					
+						
+						
+					}else if(goodUser.getEndDate() > realTime.getTime()){
+						
+						goodUser.setPayedNum(completUser.getPayedNum());
+						goodUser.setFirstDate(completUser.getFirstDate());
+						goodUser.setStartDate(completUser.getPayedOkDate());
+						goodUser.setUserId(completUser.getUserId());
 
+						long endDate = goodUser.getEndDate();
+						Timestamp getProductTerm = Timestamp.valueOf(String.valueOf(completUser.getProductTerm()));
+
+						goodUser.setEndDate(endDate + getProductTerm.getTime());
+						
+						logger.info("goodUser.getEndDate() = " + goodUser.getEndDate());
+						
+						//int result = itdaUserService.updatePaymentUser(goodUser);
+						
+						
+					}
+					}
+					catch(Exception e){
+						e.printStackTrace();
+					}
 				}
 			}
 

@@ -154,17 +154,29 @@
 	    set userEmail = #{userEmail}
 	    where userId = #{userId}
 	</update>
+	
 	<!-- 비밀번호 재설정 -->
 	<update id="updateUserPassword">
   	UPDATE itda_user SET userPw = #{encryptedPassword} WHERE userEmail = #{userEmail}
 	</update>
 
-
+	<!-- 유저 프로필 업데이트 -->
 	<update id="userUpdateProfile" parameterType="Itda_User">
 		update itda_user
 	    set userProfile = #{userProfile}
 	    where userId = #{userId}
 	</update>
+	
+	<select id="isGoodUser" resultType="GoodUser">
+	<![CDATA[
+		select userId, firstDate
+		from gooduser
+		where userId = #{userId} and rownum <= 1
+		ORDER BY startdate DESC
+	]]>
+	</select>
+		
+
 
 
 	

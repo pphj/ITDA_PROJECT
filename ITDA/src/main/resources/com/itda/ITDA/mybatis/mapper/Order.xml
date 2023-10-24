@@ -60,5 +60,23 @@
 				#{payedPrice}, 'N', 'N', #{payedOkDate}, 
 				'Y', #{payedCode}, #{payedVat})
 	</insert>
+	
+	<!-- 유료회원 insert를 위한 값 뽑아오기 -->
+	<select id="paymentCompletUser" resultType="Payment">
+		<![CDATA[
+		SELECT
+		    py.payednum, 
+		    py.payedokdate, 
+		    pc.userid, 
+		    sp.PRODUCTTERM 
+		FROM
+		    payment py
+		JOIN paycall pc ON py.ordernum = pc.callnum
+		JOIN subproduct sp ON pc.productid = sp.productid
+		JOIN itda_user iu ON pc.userid = iu.userid
+		where iu.userid = #{userId} and rownum <= 1
+		ORDER BY py.payednum DESC
+		]]>
+	</select>
 
 </mapper>
