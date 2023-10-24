@@ -43,8 +43,6 @@ import com.itda.ITDA.service.NaverService;
 import com.itda.ITDA.service.UserCategoryService;
 import com.itda.ITDA.task.SendMail;
 
-import javax.servlet.http.Cookie;
-
 //DAO와 Service가 작성되어야 Controller가 완성된다
 @Controller
 @RequestMapping(value = "/member")
@@ -207,8 +205,8 @@ public class Itda_UserController {
 
 				Files.write(path, bytes); // 해당 경로에 파일 쓰기
 
-				String urlPath = "/" + mem.getUserId() + "/" + DateService.toDay() + "/"
-						+ file.getOriginalFilename();
+
+				String urlPath = "/" + DateService.toDay() + "/" + file.getOriginalFilename();
 
 				mem.setUserProfile(urlPath); // 업로그한 이미지 URL set
 				session.setAttribute("userProfilePath", urlPath); // 세션에 이미지 URL 저장
