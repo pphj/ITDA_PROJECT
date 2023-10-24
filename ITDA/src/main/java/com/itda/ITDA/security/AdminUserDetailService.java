@@ -23,22 +23,12 @@ public class AdminUserDetailService implements UserDetailsService {
 	    logger.info("관리자 로그인시 입력한 값: " + username);
 	    Admin admin = adminDao.idadminId(username);
 
-	    if (admin != null) {
-	        logger.info("로그인 아이디: " + username + " 관리자가 로그인 시도했습니다.");
-	        // 사용자 정보를 User 클래스로 만들어 반환
-	        return User.builder()
-	            .username(admin.getAdminId())
-	            .password(admin.getAdminPw())
-	            .authorities(new SimpleGrantedAuthority(admin.getAuthName()))
-	            .accountExpired(false)
-	            .accountLocked(false)
-	            .credentialsExpired(false)
-	            .disabled(false)
-	            .build();
-	        
+	    if (admin == null) {
+	    	throw new UsernameNotFoundException(
+	    			"로그인 아이디: " + username + " 관리자 정보를 찾을 수 없습니다.");
 	    }
 
-	    throw new UsernameNotFoundException("로그인 아이디: " + username + " 사용자 또는 관리자 정보를 찾을 수 없습니다.");
+	    return admin;
 	}
 
 }
