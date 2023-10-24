@@ -38,7 +38,7 @@
 				1, #{callPrice}, SYSTIMESTAMP)
 	</insert>
 	
-	<select id="getOrderNo" resultType="int">
+	<select id="getOrderNo" resultType="String">
 		<![CDATA[
 		 SELECT callnum 
 		 FROM(
@@ -57,7 +57,7 @@
 			payedprice, payeduser, payerbank, payedokdate, 
 			payedstatus, payedcode, payedvat)
 		VALUES (paynum_seq.nextval, #{payedMethod}, #{orderNum}, #{payedDate}, 
-				#{payedPrice}, 'N', 'N', #{payedOkdate}, 
+				#{payedPrice}, 'N', 'N', #{payedOkDate}, 
 				'Y', #{payedCode}, #{payedVat})
 	</insert>
 

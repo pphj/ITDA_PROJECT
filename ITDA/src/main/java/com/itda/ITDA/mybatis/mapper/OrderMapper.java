@@ -17,7 +17,7 @@ public interface OrderMapper {
 
 	int insertPayCall(Paycall payCall);
 
-	int getOrderNo(String id);
+	String getOrderNo(String id);
 
 	int insertPayment(Payment payment);
 

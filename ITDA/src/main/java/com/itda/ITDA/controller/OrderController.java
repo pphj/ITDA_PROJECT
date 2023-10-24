@@ -3,6 +3,8 @@ package com.itda.ITDA.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.itda.ITDA.domain.Amount;
 import com.itda.ITDA.domain.KakaoPayApproval;
 import com.itda.ITDA.domain.Paycall;
 import com.itda.ITDA.domain.Payment;
@@ -32,7 +34,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Controller
-@SessionAttributes({"tid","order"}) 
+@SessionAttributes({"tid"}) 
 @RequestMapping(value= "/product")
 public class OrderController {
 	
@@ -124,10 +126,10 @@ public class OrderController {
 		String id = principal.getName();
 		payCall.setUserId(id);
 		payCall.setCallPrice(totalAmount);
-		payCall.setProductId(product.getProductId());
+		payCall.setProductId(payCall.getProductId());
 
 		String callPrice = String.valueOf(payCall.getCallPrice());
-
+		
 		if (id != null && callPrice != null) {
 			int insertPayCall = orderService.insertPayCall(payCall);
 
@@ -141,7 +143,7 @@ public class OrderController {
 		logger.info("주문가격:" + totalAmount);
 		// 카카오 결제 준비하기 - 결제요청 service 실행.
 		
-		int getOrderNo = orderService.getOrderNo(id);
+		String getOrderNo = orderService.getOrderNo(id);
 		
 		logger.info("getOrderNo : " + getOrderNo);
 		
@@ -151,7 +153,7 @@ public class OrderController {
 		model.addAttribute("tid", readyResponse.getTid());
 		logger.info("결제고유 번호: " + readyResponse.getTid());
 		// Order정보를 모델에 저장
-		model.addAttribute("payCall", payCall);
+		//model.addAttribute("payCall", payCall);
 
 		return readyResponse;
 	}
@@ -159,31 +161,42 @@ public class OrderController {
 	@GetMapping(value="/approval")
 	public String payCompleted(@RequestParam("pg_token") String pgToken, 
 								@ModelAttribute("tid") String tid, 
-								@ModelAttribute("getOrderNo") int getOrderNo,
+								@ModelAttribute("getOrderNo") String getOrderNo,
 								Payment payment,
 								Model model) {
 		
 		logger.info("결제승인 요청을 인증하는 토큰: " + pgToken);
 		//logger.info("주문정보: " + order);		
 		logger.info("결제고유 번호: " + tid);
+		logger.info("getOrderNo 번호: " + getOrderNo);
 		
 		// 카카오 결재 요청하기
 		KakaoPayApproval approveResponse = orderService.payApprove(tid, pgToken, getOrderNo);	
 		
+		
+		if(pgToken != null && tid != null) {
 		// 5. payment 저장
 		//	orderNo, payMathod, 주문명.
 		// - 카카오 페이로 넘겨받은 결재정보값을 저장.
 		//payment.setOrderNum(Integer.parseInt(approveResponse.getItem_code()));
+		
+		Amount amount = approveResponse.getAmount();
+			
 		payment.setPayedMethod(approveResponse.getPayment_method_type()); // 결제 수단
-		payment.setOrderNum(getOrderNo); // 주문 번호
+		payment.setOrderNum(Integer.parseInt(approveResponse.getItem_code())); // 주문 번호
 		payment.setPayedDate(approveResponse.getCreated_at()); // 결제 시간
-		payment.setPayedPrice(approveResponse.getTotal_amount()); // 총 금액
-		payment.setPayedVat(approveResponse.getVat_amount()); // 부가세
+		payment.setPayedPrice(amount.getTotal()); // 총 금액
+		payment.setPayedVat(amount.getVat()); // 부가세
 		payment.setPayedCode(tid); // 결제 코드
 		payment.setPayedOkDate(approveResponse.getApproved_at()); // 결제 완료 시간
 		
 		int insert = orderService.insertPayment(payment);
 		
+		if(insert == Constants.INSERT_SUCCESS) {
+			logger.info(Message.INSERT_SUCCESS);
+		}
+		
+		}
 		
 		//logger.info(order);
 		logger.info("payment.getPayedCode" + payment.getPayedCode());
@@ -198,16 +211,20 @@ public class OrderController {
 	
 
 	@RequestMapping(value="/fail")
-	public ModelAndView payFail(ModelAndView mv) {
+	public String payFail(HttpServletRequest request) {
 		
-		mv.setViewName("product/product_subscriptions_fail");
-		return mv;
+		logger.info(Message.PAYMENT_FAIL);
+		request.setAttribute("msg", Message.PAYMENT_FAIL);
+		
+		return "product/payment_fail";
 	}
 	
 	@RequestMapping(value="/cancel")
-	public ModelAndView payCancel(ModelAndView mv) {
+	public String payCancel(HttpServletRequest request) {
+
+		logger.info(Message.PAYMENT_CANCLE);
+		request.setAttribute("msg", Message.PAYMENT_CANCLE);
 		
-		mv.setViewName("product/product_subscriptions_result");
-		return mv;
+		return "product/payment_cancle";
 	}
 }

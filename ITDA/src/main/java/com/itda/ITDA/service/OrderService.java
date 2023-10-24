@@ -14,15 +14,16 @@ public interface OrderService {
 
 	SubProduct productInfo(SubProduct product);
 
-	ReadyResponse payReady(int totalAmount, String string, int getOrderNo);
+	ReadyResponse payReady(int totalAmount, String string, String getOrderNo);
 
 	int insertPayCall(Paycall payCall);
 
-	KakaoPayApproval payApprove(String tid, String pgToken, int getOrderNo);
+	KakaoPayApproval payApprove(String tid, String pgToken, String getOrderNo);
 
-	int getOrderNo(String id);
+	String getOrderNo(String id);
 
 	int insertPayment(Payment payment);
+
 	
 
 

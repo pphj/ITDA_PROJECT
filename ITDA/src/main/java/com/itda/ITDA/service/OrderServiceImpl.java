@@ -44,12 +44,12 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public int getOrderNo(String id) {
+	public String getOrderNo(String id) {
 		return dao.getOrderNo(id);
 	}
 	
 	@Override
-	public ReadyResponse payReady(int totalAmount, String productName, int getOrderNo) {
+	public ReadyResponse payReady(int totalAmount, String productName, String getOrderNo) {
 		
 
 		
@@ -59,9 +59,10 @@ public class OrderServiceImpl implements OrderService {
 		
 		MultiValueMap<String, String> payParams = new LinkedMultiValueMap<String, String>();
 		payParams.add("cid", "TC0ONETIME");
-		payParams.add("partner_order_id", String.valueOf(getOrderNo));
+		payParams.add("partner_order_id", "1004");
 		payParams.add("partner_user_id", "ITDA");
 		payParams.add("item_name", productName);
+		payParams.add("item_code", getOrderNo);
 		payParams.add("quantity", "1");
 		payParams.add("total_amount", String.valueOf(totalAmount));
 		payParams.add("tax_free_amount", "0");
@@ -70,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
 		payParams.add("cancel_url", cancelUrl);
 		
 		logger.info("item_name : " + productName);
-		logger.info("partner_order_id : " + getOrderNo);
+		
 		
 		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(payParams, this.getHeaders());
 		RestTemplate template = new RestTemplate();
@@ -83,14 +84,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
     // 결제 승인요청 메서드
-	public KakaoPayApproval payApprove(String tid, String pgToken, int getOrderNo) {
+	public KakaoPayApproval payApprove(String tid, String pgToken, String getOrderNo) {
 		
 
 		// request값 담기.
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.add("cid", "TC0ONETIME");
 		parameters.add("tid", tid);
-		parameters.add("partner_order_id", String.valueOf(getOrderNo)); // 주문명
+		parameters.add("partner_order_id", "1004"); // 주문명
 		parameters.add("partner_user_id", "ITDA");
 		parameters.add("pg_token", pgToken);
 		
@@ -125,6 +126,7 @@ public class OrderServiceImpl implements OrderService {
 	public int insertPayment(Payment payment) {
 		return dao.insertPayment(payment);
 	}
+
 
 
 
