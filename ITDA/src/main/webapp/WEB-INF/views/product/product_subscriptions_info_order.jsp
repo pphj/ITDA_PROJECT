@@ -59,6 +59,7 @@
 	<input type="hidden" name="userName" value="">
 	<input type="hidden" name="productName" value="${productInfo.productName}">
 	<input type="hidden" name="productPrice" value="${productInfo.productPrice}">
+	<input type="hidden" name="productId" value="${productInfo.productId}">
 	<input type="hidden" name="totalProductPrice" value="">
 	<input type="hidden" name="totalPayPrice" value="">
 	<input type="hidden" name="discountPrice" value="">

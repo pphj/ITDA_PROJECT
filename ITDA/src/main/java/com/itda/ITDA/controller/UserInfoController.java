@@ -523,8 +523,7 @@ public class UserInfoController {
 	@PostMapping("/leaveAction")
 	public String leaveAction(Principal principal, 
 								UserLeaveReason leaveReason, 
-								HttpServletRequest request,
-								Model model) {
+								HttpServletRequest request) {
 
 		String id = principal.getName();
 

@@ -15,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.NaverDTO;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.MainService;
+import com.itda.ITDA.service.NaverService;
 
 @Controller
 @RequestMapping(value="/main")
@@ -25,11 +27,13 @@ public class MainController {
 	
 	private MainService mainService;
 	private ContentService contentService;
+	private NaverService naverService;
 	
 	@Autowired
-	public MainController(MainService mainService, ContentService contentService) {
+	public MainController(MainService mainService, ContentService contentService, NaverService naverService) {
 		this.mainService=mainService;
 		this.contentService=contentService;
+		this.naverService=naverService;
 	}
 	
 	@GetMapping(value="/protomain")		//인기 게시글(카드 로테이션 부분) 로직 포함
@@ -98,6 +102,29 @@ public class MainController {
 
 		return modelAndView;
 	}
+	
+	
+	@GetMapping("/callback")
+	public String naverCallback(@RequestParam("code") String code, @RequestParam(name="state", required=false) String state) {
+	    try {
+	        if (code != null) {
+	            // 네이버 인증 코드를 받아와서 처리하는 로직을 구현합니다.
+	            NaverDTO naverInfo = naverService.getNaverInfo(code);
+
+	            // 네이버 로그인 성공 후 리다이렉트할 경로 지정
+	            return "redirect:/";
+	        } else {
+	            // code가 없을 경우 예외 처리
+	            throw new IllegalArgumentException("Invalid authorization code");
+	        }
+	    } catch (Exception e) {
+	        // 예외 처리 로직 작성
+
+	        // 예외 발생 시 리다이렉트할 경로 지정
+	        return "redirect:/error-page";
+	    }
+	}
+
 	
 	
 }

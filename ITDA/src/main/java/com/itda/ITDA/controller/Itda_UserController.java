@@ -2,6 +2,8 @@ package com.itda.ITDA.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +36,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.NaverDTO;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.service.DateService;
 import com.itda.ITDA.service.FolderService;
 import com.itda.ITDA.service.Itda_UserService;
+import com.itda.ITDA.service.NaverService;
 import com.itda.ITDA.service.UserCategoryService;
 import com.itda.ITDA.task.SendMail;
 
@@ -59,7 +64,7 @@ public class Itda_UserController {
 
 	@Autowired
 	public Itda_UserController(Itda_UserService Itda_UserService, UserCategoryService userCategoryService,
-			PasswordEncoder passwordEncoder, HttpSession session, SendMail sendMail) {
+			PasswordEncoder passwordEncoder, HttpSession session, SendMail sendMail ) {
 		this.Itda_UserService = Itda_UserService;
 		this.passwordEncoder = passwordEncoder;
 		this.userCategoryService = userCategoryService;
@@ -134,9 +139,12 @@ public class Itda_UserController {
 	        return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
 	    }
 	}
+	
+	
+	
+	 
+	 
 
-	
-	
 
 	
 	
@@ -176,7 +184,7 @@ public class Itda_UserController {
 
 				Files.write(path, bytes); // 해당 경로에 파일 쓰기
 
-				String urlPath = "/" + mem.getUserId() + "/" + DateService.toDay() + "/" + file.getOriginalFilename();
+				String urlPath = "/" + DateService.toDay() + "/" + file.getOriginalFilename();
 
 				mem.setUserProfile(urlPath); // 업로그한 이미지 URL set
 				session.setAttribute("userProfilePath", urlPath); // 세션에 이미지 URL 저장
@@ -216,7 +224,6 @@ public class Itda_UserController {
 		}
 
 		model.addAttribute("url", request.getRequestURI()).addAttribute("message", "회원 가입 실패");
-
 		return "/main/protomain";
 	}
 

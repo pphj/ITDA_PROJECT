@@ -12,4 +12,5 @@ public class Heart {
 	private String userId;
 	private int boardNum;
 	private Timestamp createdAt;
+	private int heartCount; // 좋아요 갯수를 저장하는 필드 추가
 }
