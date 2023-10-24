@@ -5,12 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.ehcache.EhCacheCache;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.PathContainer.Element;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +17,6 @@ import net.sf.ehcache.Ehcache;
 @RestController
 @RequestMapping("/api/ehcache")
 public class EhcacheController {
-	private static final Logger logger = LoggerFactory.getLogger(EhcacheController.class);
-	
 	private CacheManager cacheManager;
 
     public EhcacheController(CacheManager cacheManager) {

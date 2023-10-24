@@ -25,8 +25,33 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/itdaNotice.js"></script>
+<style>
+	#itdaNoticeList_Form {
+		width: 100%;
+	}
+	#itdaNoticeList_Form > div {
+		display: flex;
+	    width: 30%;
+	    height: 40px;
+	    margin: auto;
+	}
+	#viewcount2 {
+		height: 25px;
+	}
+	#itdaNoticeList_Form > div > input {
+		width: 240px;
+	    height: 25px;
+	    border-radius: 0;
+	    border: 1px solid black;
+	}
+	#search_but {
+		height: 25px;
+	    font-size: 8px;
+	    border-radius: 0;
+	}
+</style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -62,7 +87,7 @@
 	 		<thead>
 	 		<tr>
 	 			<th colspan="4">사내 공지사항</th>
-	 			<th colspan="1"><span>글 개수 : ${listcount}</span></th>
+	 			<th colspan="1" class="text-center"><span>글 개수 : ${listcount}</span></th>
 	 		</tr>
 	 		<tr>
 	 			<th class="text-center"><div>번호</div></th>
@@ -105,7 +130,8 @@
 	 		</tbody>
 		 	</table>
 		 	<div class="center-block">
-		 		<ul class="pagination justify-content-center">
+		 		<button type="button" id="itdaNoticeWbtn" class="btn btn-success float-right btn-sm btn-round">사내 공지 작성</button>
+		 		<ul class="pagination justify-content-end">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
 		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
@@ -149,7 +175,22 @@
 		 		<h3 style="text-align: center">등록된 글이 없습니다.</h3>
 		 	</c:if>
 		 	
-		 	<button type="button" id="itdaNoticeWbtn" class="btn btn-success float-right btn-sm btn-round">사내 공지 작성</button>
+	 		<div class="searchBoxArea" style="margin-top: 30px;">
+				<form action="itdaNotice" method="post" id="itdaNoticeList_Form">
+					<div class="form-group">
+						<select id="viewcount2" name="search_field">
+							<option value="0" selected>제목</option>
+							<option value="1">작성자</option>
+							<option value="2">날짜</option>
+						</select>
+						<input name="search_word" type="text" class="form-control"
+						 placeholder="검색어를 입력하세요" value="${search_word}">
+						<button class="btn btn-primary btn-sm" type="submit"
+						 id="search_but"><i class="fa fa-search" aria-hidden="true"></i></button>
+					</div>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				</form>
+			</div>
 	 	</div>
     	</div>
 	</div>

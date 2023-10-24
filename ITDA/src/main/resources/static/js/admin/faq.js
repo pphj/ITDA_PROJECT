@@ -40,17 +40,17 @@
 	function ajax(sdata, goURL) {
 		console.log(sdata);
 		console.log(goURL);
-		//let token = $("meta[name='_csrf']").attr("content");	
-		//let header = $("meta[name='_csrf_header']").attr("content");
+		let token = $("meta[name='_csrf']").attr("content");	
+		let header = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({
 			type : "post",
 			data : sdata,
 			url	 : goURL,
 			dataType : "json",
 			cache : false,
-			//beforeSend : function(xhr) {
-			//	xhr.setRequestHeader(header, token);
-			//},
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
 			success : function(data) {
 				$("#viewcount").val(data.limit);
 				$("thead").find("span").text("글 개수 : " + data.listcount);
@@ -204,8 +204,43 @@
 		})// click end
 		
 		$("#viewcount").change(function(){
-			go(1, "FAQList_ajax"); 				// 보여줄 페이지를 1페이지로 설정한다
-		
+			if ($("#FAQ").hasClass("button-active")) {
+		        go(1, "FAQList_ajax");
+		    } else if ($("#QNA").hasClass("button-active")) {
+		        go(1, "QNAList_ajax");
+		    }
 		})//change end
 		
 	});//ready end
+	
+	$(document).ready(function() {
+		let selectedValue = $('input[name=search_field]').val();
+		
+		if (selectedValue == undefined) {
+			selectedValue = 0;
+		}else if (selectedValue != '-1') {
+			$("#viewcount2").val(selectedValue);
+		}
+   		
+		const $input = $("input[name=search_word]");			//$input을 모든 이벤트에서 사용
+		const message = ["제목", "카테고리", "질문자", "작성자", "날짜"]
+	   	
+		$input.attr("placeholder", message[selectedValue] + "을(를) 입력하세요");
+	   	
+		
+		$('#viewcount2').change(function() {						//검색창에 placeholder를 나타나게 하는 이벤트
+			selectedValue = $(this).val();
+			$input.val('').attr("placeholder", message[selectedValue] + "을(를) 입력하세요");
+	   	
+		})//change end
+	   	
+	   	
+		$("#search_but").on("click", function() {	//검색버튼 클릭시 이벤트
+			if ($input.val() == "") {				//검색창에 아무것도 없는 경우
+				alert("검색어를 입력하세요.");
+				$input.focus();
+				return false;
+			}
+		})//click end
+		
+	});
