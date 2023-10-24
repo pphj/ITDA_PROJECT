@@ -262,6 +262,8 @@ public class ChannelListController {
 			idPath1.mkdir();// 새로운 폴더를 생성
 		}
 
+		
+
 		// 채널번호 폴더 생성하는 거
 		File path2 = new File(saveFolder);
 		if (!(path2.exists()))

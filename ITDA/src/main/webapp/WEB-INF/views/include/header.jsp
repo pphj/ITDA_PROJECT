@@ -66,10 +66,11 @@
 											<img id="profile_img" src="${pageContext.request.contextPath}/image/main/login.png"/>
 										</c:when>
 										<c:otherwise>
-											<img id="profile_img" src="${pageContext.request.contextPath}/image/Member/${pinfo.username}${pinfo.userProfile}"
+											<img id="profile_img" src="${pageContext.request.contextPath}/image/Member${pinfo.userProfile}"
 												style="width: 40px; height: 40px; object-fit: cover;" />
 										</c:otherwise>
-							        </c:choose>
+							        </c:choose> 
+							        
 							    </button>
 							    <div class="dropdown-content">
 							        <a href="${pageContext.request.contextPath}/my/subscriptions">마이 페이지</a>

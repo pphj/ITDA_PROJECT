@@ -17,7 +17,6 @@ import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.MainService;
-import com.itda.ITDA.service.NaverService;
 
 @Controller
 @RequestMapping(value="/main")
@@ -26,13 +25,11 @@ public class MainController {
 	
 	private MainService mainService;
 	private ContentService contentService;
-	private final NaverService naverService;
 	
 	@Autowired
-	public MainController(MainService mainService, ContentService contentService, NaverService naverService) {
+	public MainController(MainService mainService, ContentService contentService) {
 		this.mainService=mainService;
 		this.contentService=contentService;
-		this.naverService=naverService;
 	}
 	
 	@GetMapping(value="/protomain")		//인기 게시글(카드 로테이션 부분) 로직 포함
@@ -101,5 +98,6 @@ public class MainController {
 
 		return modelAndView;
 	}
-
+	
+	
 }
