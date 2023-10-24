@@ -207,7 +207,7 @@ public class OrderController {
 					Payment completUser = orderService.paymentCompletUser(id);
 
 					GoodUser goodUser = new GoodUser();
-					//goodUser  
+					//goodUser isUser = itdaUserService.  
 					
 					if (completUser.getUserId() == null) {
 
