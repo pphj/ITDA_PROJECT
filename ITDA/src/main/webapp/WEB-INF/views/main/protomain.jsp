@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="t" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="kor">
 <head>
@@ -19,6 +20,7 @@
 </head>
 <body>
 <jsp:include page="top.jsp"/>
+<input type="hidden" name="LoginId" id="LoginId" value="${userinfo.userId }" />
 <div class="main_container">
     <div class="recommend_area">
         <div class="recommend_bar">
@@ -30,7 +32,7 @@
                     <t:forEach var="c" items="${HotContentList}"> 	<!-- MainController에서 보낸 값 -->
                         <li class="reco_card" style="position: absolute; transform: translate(0% , 0px);">
                             <div class="card-view">
-                                <a style="text-decoration: none; color: black" href="${pageContext.request.contextPath}/contents/${c.chNum}/${c.boardNum}">
+                                <a style="text-decoration: none; color: black" href="${pageContext.request.contextPath}/contents/${c.chNum}/${c.boardNum}?userid=${c.writer}">
                                     <t:choose>
                                         <t:when test="${empty c.thumbNail}">
                                             <img class="card_img"

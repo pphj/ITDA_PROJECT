@@ -180,7 +180,7 @@ $(document).ready(function(){
 										<a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}" class="link_category"> 
 										<em class="tit_category">${c.chCate_Name}</em>
 										</a> 
-										<a href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}?userid=${sellerinfo.userId}&chcate_name=${c.chCate_Name}" class="link_post has_image #post_listview"> 
+										<a href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}?userid=${pinfo.username}" class="link_post has_image #post_listview"> 
 													<strong class="tit_subject"> <%-- 글자 수 제한 적용 --%> 
 													<c:set var="limitedTitle" value="${c.boardTitle}" /> <c:choose>
 													<c:when test="${fn:length(c.boardTitle) > 35}">

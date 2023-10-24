@@ -16,6 +16,9 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +68,7 @@ public class ChannelListController {
 
 	@RequestMapping(value = "/{chnum}", method = RequestMethod.GET)
 	public ModelAndView showChannelMainPage(@PathVariable(value = "chnum") int chnum, // chnum을 파라미터로 전달 받음
-			String userid, ModelAndView mv, HttpServletRequest request, Principal principal) {
+			String userid, ModelAndView mv, HttpServletRequest request, Principal principal, HttpSession session) {
 
 		if (chnum == WRONG_CHNUM)
 		{
@@ -74,7 +77,6 @@ public class ChannelListController {
 			mv.addObject("message", "채널 메인 페이지 표시 실패: chnum 파라미터가 없거나 잘못된 값입니다.");
 			return mv;
 		}
-
 		logger.info("채널 메인 페이지 표시 요청: chnum=" + chnum);
 
 		// 채널 리스트를 가져옴
@@ -95,7 +97,7 @@ public class ChannelListController {
 			// 채널 정보를 뷰로 전달
 			mv.setViewName("channel/ChannelMain");
 			mv.addObject("ChannelList", ChannelList);
-
+			session.setAttribute("chname", ChannelList.getChName());
 			mv.addObject("sellerinfo", sellerinfo);
 
 			// 채널과 연관된 게시물 목록을 가져옴
@@ -260,14 +262,12 @@ public class ChannelListController {
 			idPath1.mkdir();// 새로운 폴더를 생성
 		}
 
-
 		// 채널번호 폴더 생성하는 거
 		File path2 = new File(saveFolder);
 		if (!(path2.exists()))
 		{
 			path2.mkdir();// 새로운 폴더를 생성
 		}
-
 
 		String homedir = saveFolder + "/" + year + "-" + month + "-" + date;
 		logger.info(homedir);
@@ -439,7 +439,6 @@ public class ChannelListController {
 		int chnum = (int) session.getAttribute("chnum");
 
 		// HTML 파싱 및 Intro 문자열 생성
-		/*
 		Document doc = Jsoup.parse(contentText);
 		Elements paragraphs = doc.select("p");
 		String Intro = "";
@@ -456,14 +455,14 @@ public class ChannelListController {
 				}
 			}
 		}
-		*/
+
 
 		try
 		{
 			chboard.setChNum(chnum);
 			chboard.setWriter(principal.getName());
 
-			// chboard.setIntro(Intro);
+			chboard.setIntro(Intro);
 
 			int result = channelList_Service.contentInsert(chboard);
 			List<ChBoard> newcontent = channelList_Service.newContentSelect(chnum);

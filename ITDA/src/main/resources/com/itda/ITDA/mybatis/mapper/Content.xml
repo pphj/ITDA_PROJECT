@@ -55,9 +55,11 @@
 	</select>
 
 	<select id="getContentDetail" resultType="ChBoard">
-		SELECT *
-		FROM chboard
-		WHERE boardnum = #{boardnum}
+		 SELECT chboard.*, chboardcategory.chcate_name
+	     FROM chboard JOIN chboardcategory
+	     ON chboard.chnum = chboardcategory.chnum
+	     WHERE boardnum = #{boardNum}
+	     AND chboard.chcate_id = chboardcategory.chcate_id 
 	</select>
 
 
@@ -142,6 +144,11 @@
 		    JOIN ChBoardCategory cbc ON cb.chCate_Id = cbc.chCate_Id 
 		    WHERE cb.boardnum = #{boardNum}
 	</select>
+	
+	<select id="findNameById" resultType="string">
+		  SELECT chCate_Name FROM ChBoardCategory WHERE chCate_Id = #{chCateId}
+	</select>
+	
 
 
 </mapper>
