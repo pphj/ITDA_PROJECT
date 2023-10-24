@@ -24,6 +24,8 @@ public interface OrderService {
 
 	int insertPayment(Payment payment);
 
+	Payment paymentCompletUser(String id);
+
 	
 
 

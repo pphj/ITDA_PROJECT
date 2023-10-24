@@ -127,6 +127,11 @@ public class OrderServiceImpl implements OrderService {
 		return dao.insertPayment(payment);
 	}
 
+	@Override
+	public Payment paymentCompletUser(String id) {
+		return dao.paymentCompletUser(id);
+	}
+
 
 
 

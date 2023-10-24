@@ -52,6 +52,8 @@ public interface Itda_UserMapper {
 	
 	void updateUserPassword(String userEmail, String encryptedPassword);
 
+	int insertPaymentUser(String id);
+
 
 	
 	

@@ -21,4 +21,6 @@ public interface OrderMapper {
 
 	int insertPayment(Payment payment);
 
+	Payment paymentCompletUser(String id);
+
 }

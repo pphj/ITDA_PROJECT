@@ -51,6 +51,8 @@ public interface Itda_UserService {
 
 	boolean changePassword(String userEmail, String newPassword);
 
+	int insertPaymentUser(String id);
+
 
 
 	

@@ -1,6 +1,8 @@
 package com.itda.ITDA.controller;
 
 import java.security.Principal;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,14 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.itda.ITDA.domain.Amount;
+import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.KakaoPayApproval;
 import com.itda.ITDA.domain.Paycall;
 import com.itda.ITDA.domain.Payment;
 import com.itda.ITDA.domain.ReadyResponse;
 import com.itda.ITDA.domain.SubProduct;
+import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.OrderService;
 import com.itda.ITDA.util.Constants;
 import com.itda.ITDA.util.Message;
@@ -41,10 +44,13 @@ public class OrderController {
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 	
 	private OrderService orderService;
+	private Itda_UserService itdaUserService;
 
 	@Autowired
-	public OrderController(OrderService orderService) {
+	public OrderController(OrderService orderService, Itda_UserService itdaUserService) {
 		this.orderService = orderService;
+		this.itdaUserService = itdaUserService;
+
 	}
 	
 	@GetMapping(value="/subscriptions")
@@ -163,49 +169,76 @@ public class OrderController {
 								@ModelAttribute("tid") String tid, 
 								@ModelAttribute("getOrderNo") String getOrderNo,
 								Payment payment,
-								Model model) {
+								Model model,
+								Principal principal) {
 		
 		logger.info("결제승인 요청을 인증하는 토큰: " + pgToken);
-		//logger.info("주문정보: " + order);		
 		logger.info("결제고유 번호: " + tid);
 		logger.info("getOrderNo 번호: " + getOrderNo);
-		
+
 		// 카카오 결재 요청하기
-		KakaoPayApproval approveResponse = orderService.payApprove(tid, pgToken, getOrderNo);	
-		
-		
-		if(pgToken != null && tid != null) {
-		// 5. payment 저장
-		//	orderNo, payMathod, 주문명.
-		// - 카카오 페이로 넘겨받은 결재정보값을 저장.
-		//payment.setOrderNum(Integer.parseInt(approveResponse.getItem_code()));
-		
-		Amount amount = approveResponse.getAmount();
-			
-		payment.setPayedMethod(approveResponse.getPayment_method_type()); // 결제 수단
-		payment.setOrderNum(Integer.parseInt(approveResponse.getItem_code())); // 주문 번호
-		payment.setPayedDate(approveResponse.getCreated_at()); // 결제 시간
-		payment.setPayedPrice(amount.getTotal()); // 총 금액
-		payment.setPayedVat(amount.getVat()); // 부가세
-		payment.setPayedCode(tid); // 결제 코드
-		payment.setPayedOkDate(approveResponse.getApproved_at()); // 결제 완료 시간
-		
-		int insert = orderService.insertPayment(payment);
-		
-		if(insert == Constants.INSERT_SUCCESS) {
-			logger.info(Message.INSERT_SUCCESS);
+		KakaoPayApproval approveResponse = orderService.payApprove(tid, pgToken, getOrderNo);
+
+		if (pgToken != null && tid != null) {
+			// 5. payment 저장
+			// orderNo, payMathod, 주문명.
+			// - 카카오 페이로 넘겨받은 결재정보값을 저장.
+			// payment.setOrderNum(Integer.parseInt(approveResponse.getItem_code()));
+
+			Amount amount = approveResponse.getAmount();
+
+			payment.setPayedMethod(approveResponse.getPayment_method_type()); // 결제 수단
+			payment.setOrderNum(Integer.parseInt(approveResponse.getItem_code())); // 주문 번호
+			payment.setPayedDate(approveResponse.getCreated_at()); // 결제 시간
+			payment.setPayedPrice(amount.getTotal()); // 총 금액
+			payment.setPayedVat(amount.getVat()); // 부가세
+			payment.setPayedCode(tid); // 결제 코드
+			payment.setPayedOkDate(approveResponse.getApproved_at()); // 결제 완료 시간
+
+			int insert = orderService.insertPayment(payment);
+
+			if (insert == Constants.INSERT_SUCCESS) {
+				logger.info(Message.INSERT_SUCCESS);
+
+				String id = principal.getName();
+				logger.info("principal.getName() : " + id);
+				if (id != null) {
+
+					Payment completUser = orderService.paymentCompletUser(id);
+
+					GoodUser goodUser = new GoodUser();
+					//goodUser  
+					
+					if (completUser.getUserId() == null) {
+
+
+						goodUser.setPayedNum(completUser.getPayedNum());
+						goodUser.setStartDate(completUser.getPayedOkDate());
+						goodUser.setUserId(completUser.getUserId());
+
+						Timestamp timestamp = completUser.getPayedOkDate();
+						Timestamp getProductTerm = Timestamp.valueOf(String.valueOf(completUser.getProductTerm()));
+
+						goodUser.setEndDate(timestamp.getTime() + getProductTerm.getTime());
+
+						logger.info("goodUser.getEndDate() = " + goodUser.getEndDate());
+
+						// int result = itdaUserService.insertPaymentUser(id);
+					}
+
+				}
+			}
+
 		}
-		
-		}
-		
-		//logger.info(order);
+
+		// logger.info(order);
 		logger.info("payment.getPayedCode" + payment.getPayedCode());
 		logger.info("payment.setPayedMethod" + payment.getPayedMethod());
 		logger.info("payment.setOrderNum" + payment.getOrderNum());
-		
-		//int insert = orderService.InsertPayment(payment);
+
+		// int insert = orderService.InsertPayment(payment);
 		logger.info(Message.INSERT_SUCCESS);
-		
+
 		return "redirect:/my/subscriptions";
 	}
 	

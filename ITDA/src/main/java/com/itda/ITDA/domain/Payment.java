@@ -20,5 +20,11 @@ public class Payment {
     private String payedCode;			//tid 저장
     private int payedVat;				//부가세
     
+    
+    // gooduser에 insert를 위한 도메인
+    private String userId;
+    private int productTerm;
+    private Timestamp firstDate;
+    
 
 }
