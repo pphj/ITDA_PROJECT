@@ -5,8 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,9 +24,6 @@ import com.itda.ITDA.security.UserAccessDeniedHandler;
 import com.itda.ITDA.security.UserDetailService;
 import com.itda.ITDA.security.UserLoginFailHandler;
 import com.itda.ITDA.security.UserLoginSuccessHandler;
-import com.itda.ITDA.security.CustomUserDetailService;
-import com.itda.ITDA.security.LoginFailHandler;
-import com.itda.ITDA.security.LoginSuccessHandler;
 
 @EnableWebSecurity // 스프링과 시큐리티 결합
 @Configuration
