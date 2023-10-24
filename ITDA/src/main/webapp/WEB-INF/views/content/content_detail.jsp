@@ -33,9 +33,14 @@
 	<div class="board_detail_wrap">
 		<div class="board_detail_all_group">
 			<div class="board_detail_title_group">
+				<div class="inline_header">
+					<a href="${pageContext.request.contextPath}/channels/${board.chNum}?userid=${userinfo.userId }" class="button_back _BACK"><img class="link_premium" style="width: 30px; margin-top: 20px;"
+						src="/itda/resources/image/content/errow_left.png"> <span class="blind">이전으로</span> </a>
+				</div>
 				<div class="board_detail_category">
 					<a href="${pageContext.request.contextPath}/channels/${board.chNum}" class="viewer_category_link">${board.chCate_Name}</a>
 				</div>
+
 
 				<div class="board_detail_title_inline">
 					<span class="board_detail_title">${board.boardTitle}</span>
