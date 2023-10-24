@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Itda_User implements UserDetails {
-	private static final long serialVersionUID = 1503811374822162759L;
+	private static final long serialVersionUID = 1L;
 	private String userId;
 	private String userPw;
 	private String userName;

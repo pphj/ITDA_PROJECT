@@ -12,15 +12,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<script> var contextPath = "<%=request.getContextPath()%>" </script>
+<script> var contextPath = "<%=request.getContextPath()%>
+	"
+</script>
 <script src="${pageContext.request.contextPath}/js/content/Reply.js"></script>
 <script src="${pageContext.request.contextPath}/js/content/Heart.js"></script>
 <link href='${pageContext.request.contextPath}/resources/css/Reply.css' type='text/css' rel='stylesheet'>
 <link href="${pageContext.request.contextPath}/resources/css/content/content_detail.css" type="text/css" rel="stylesheet">
 <script>
-$(document).ready(function() {
-    getList(1); // 페이지 로드 시 처음으로 댓글 목록 가져오기
-});
+	$(document).ready(function() {
+		getList(1); // 페이지 로드 시 처음으로 댓글 목록 가져오기
+	});
 </script>
 <title>${board.boardTitle}</title>
 </head>
@@ -31,24 +33,31 @@ $(document).ready(function() {
 	<div class="board_detail_wrap">
 		<div class="board_detail_all_group">
 			<div class="board_detail_title_group">
-				<div class="board_detail_category">
-					<a href="${pageContext.request.contextPath}/channels/${board.chNum}" class="viewer_category_link">${param.chcate_name}</a>
+				<div class="inline_header">
+					<a href="${pageContext.request.contextPath}/channels/${board.chNum}?userid=${userinfo.userId }" class="button_back _BACK"><img class="link_premium" style="width: 30px; margin-top: 20px;"
+						src="/itda/resources/image/content/errow_left.png"> <span class="blind">이전으로</span> </a>
 				</div>
-			
+				<div class="board_detail_category">
+					<a href="${pageContext.request.contextPath}/channels/${board.chNum}" class="viewer_category_link">${board.chCate_Name}</a>
+				</div>
+
+
 				<div class="board_detail_title_inline">
 					<span class="board_detail_title">${board.boardTitle}</span>
 				</div>
 				<sec:authorize access="isAuthenticated()">
 					<sec:authentication property="principal" var="pinfo" />
 					<c:if test="${sellerinfo.userId == pinfo.username}">
-						<a href="${pageContext.request.contextPath}/contents/${board.chNum}/modifyView?boardnum=${board.boardNum}">
+						<a
+							href="${pageContext.request.contextPath}/contents/${board.chNum}/modifyView?boardnum=${board.boardNum}&${board.chCate_Name}">
 							<button type="button" class="btn_type">
 								<span class="txt_default">
 									<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png"><b>글수정</b>
 								</span>
 							</button>
 						</a>
-						<form name="deleteForm" action="${pageContext.request.contextPath}/contents/${board.chNum}/delete" method="post" style="all: unset;">
+						<form name="deleteForm" action="${pageContext.request.contextPath}/contents/${board.chNum}/delete" method="post"
+							style="all: unset;">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> <input type='hidden' name='boardnum'
 								value='${board.boardNum}' />
 							<button type="submit" class="btn_type">
@@ -67,7 +76,7 @@ $(document).ready(function() {
 								<span class="content_comment_wrap">
 									<a href="#" class="heart_butt" data-id="${board.boardNum}"> <img class="content_comment_img"
 										src='${pageContext.request.contextPath}/image/content/heart.png'> <span class="content_comment_count"></span> <input
-										type="hidden" name="boardHeart" value="${board.boardHeart}" id="boardHeart"> <em class="u_heart_count">${board.boardHeart}</em>
+										type="hidden" name="boardHeart" value="${updatedValue.heartCount}" id="boardHeart"> <em class="u_heart_count">${updatedValue.heartCount}</em>
 									</a> <a href="#reply_area"><img class="content_comment_img2"
 										src='${pageContext.request.contextPath}/image/content/comment.png'> <span class="content_comment_count"></span> <em
 										class="u_cnt_count">${rcnt}</em> </a>
@@ -101,6 +110,7 @@ $(document).ready(function() {
 						</div>
 					</div>
 				</div>
+
 				<div class="viewer_bottom_info">
 					<div class="viewer_tag">
 						<ul class="viewer_tag_list">

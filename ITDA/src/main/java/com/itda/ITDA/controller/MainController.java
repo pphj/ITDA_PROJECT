@@ -5,8 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,20 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.itda.ITDA.domain.ApiResponse;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
-import com.itda.ITDA.domain.NaverDTO;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.MainService;
 import com.itda.ITDA.service.NaverService;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 @Controller
 @RequestMapping(value="/main")
 public class MainController {
