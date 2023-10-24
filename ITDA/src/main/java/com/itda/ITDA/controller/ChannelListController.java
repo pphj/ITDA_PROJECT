@@ -1,7 +1,6 @@
 package com.itda.ITDA.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,11 +15,15 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,7 +68,7 @@ public class ChannelListController {
 
 	@RequestMapping(value = "/{chnum}", method = RequestMethod.GET)
 	public ModelAndView showChannelMainPage(@PathVariable(value = "chnum") int chnum, // chnum을 파라미터로 전달 받음
-			String userid, ModelAndView mv, HttpServletRequest request, Principal principal) {
+			String userid, ModelAndView mv, HttpServletRequest request, Principal principal, HttpSession session) {
 
 		if (chnum == WRONG_CHNUM)
 		{
@@ -74,7 +77,6 @@ public class ChannelListController {
 			mv.addObject("message", "채널 메인 페이지 표시 실패: chnum 파라미터가 없거나 잘못된 값입니다.");
 			return mv;
 		}
-
 		logger.info("채널 메인 페이지 표시 요청: chnum=" + chnum);
 
 		// 채널 리스트를 가져옴
@@ -82,8 +84,6 @@ public class ChannelListController {
 
 		// 채널주인 확인
 		Seller sellerinfo = channelList_Service.getSellerInfo(userid);
-
-
 
 		if (ChannelList == null)
 		{
@@ -97,9 +97,8 @@ public class ChannelListController {
 			// 채널 정보를 뷰로 전달
 			mv.setViewName("channel/ChannelMain");
 			mv.addObject("ChannelList", ChannelList);
-
+			session.setAttribute("chname", ChannelList.getChName());
 			mv.addObject("sellerinfo", sellerinfo);
-
 
 			// 채널과 연관된 게시물 목록을 가져옴
 			List<ChBoard> ChannelBoardList = channelList_Service.getBoardListByBoardNum(chnum);
@@ -160,7 +159,6 @@ public class ChannelListController {
 			int endpage = startpage + 10 - 1;
 			if (endpage > maxpage)
 				endpage = maxpage;
-
 
 			mv.addObject("sellerinfo", sellerinfo);
 			mv.addObject("page", page);
@@ -230,7 +228,7 @@ public class ChannelListController {
 
 	@GetMapping(value = "{chnum}/sellersetting")
 	public ModelAndView showChannelSetting(@PathVariable("chnum") int chnum, ModelAndView mv, ChannelList ChannelList,
-			String check, HttpServletRequest request, HttpSession session, Principal principal) {
+			String check, HttpServletRequest request, HttpSession session) {
 
 		if (ChannelList == null)
 		{
@@ -265,13 +263,14 @@ public class ChannelListController {
 		}
 
 		
+
 		// 채널번호 폴더 생성하는 거
 		File path2 = new File(saveFolder);
 		if (!(path2.exists()))
 		{
 			path2.mkdir();// 새로운 폴더를 생성
 		}
-		
+
 		String homedir = saveFolder + "/" + year + "-" + month + "-" + date;
 		logger.info(homedir);
 		File path1 = new File(homedir);
@@ -408,9 +407,9 @@ public class ChannelListController {
 	}
 
 	@PostMapping("/contentadd")
-	public String insertContent(ChBoard chboard, Tag tag, @RequestParam("content") String contentText,
+	public String insertContent(ChBoard chboard, Tag tag,
 			@RequestParam(value = "tagname", required = false) List<String> taglist, Principal principal,
-			HttpSession session, HttpServletRequest request) throws IOException {
+			HttpSession session, HttpServletRequest request, BindingResult result) throws Exception {
 
 		MultipartFile uploadfile = chboard.getUpload();
 
@@ -441,77 +440,69 @@ public class ChannelListController {
 		// 세션에서 데이터 가져오기
 		int chnum = (int) session.getAttribute("chnum");
 
-		// HTML 파싱 및 Intro 문자열 생성
-		/*
+		String contentText = chboard.getBoardContent(); // 여기를 수정했습니다.
+
 		Document doc = Jsoup.parse(contentText);
+
 		Elements paragraphs = doc.select("p");
 		String Intro = "";
-		for (org.jsoup.nodes.Element paragraph : paragraphs)
+		for (int i = 0; i < paragraphs.size(); i++)
 		{
-			System.out.println(paragraph.text());
-			boolean textNotEmpty = paragraph.text().matches("^(?=.*\\S).*$");
-			if (textNotEmpty)
+			System.out.println(paragraphs.get(i).text());
+			boolean text = paragraphs.get(i).text().matches("^(?=.*\\S).*$");
+			if (text)
 			{
-				Intro += paragraph.text();
+				Intro += paragraphs.get(i).text();
 				if (Intro.length() > 80)
 				{
 					break;
 				}
 			}
 		}
-		*/
 
-		try
+		chboard.setChNum(chnum);
+		chboard.setWriter(principal.getName());
+		chboard.setIntro(Intro);
+
+		int results = channelList_Service.contentInsert(chboard);
+		List<ChBoard> newcontent = channelList_Service.newContentSelect(chnum);
+
+		int contentNum = 0;
+		if (!newcontent.isEmpty())
 		{
-			chboard.setChNum(chnum);
-			chboard.setWriter(principal.getName());
+			contentNum = newcontent.get(0).getBoardNum();
+			System.out.println(contentNum);
 
-			// chboard.setIntro(Intro);
+		}
 
-			int result = channelList_Service.contentInsert(chboard);
-			List<ChBoard> newcontent = channelList_Service.newContentSelect(chnum);
-
-			int contentNum = 0;
-			if (!newcontent.isEmpty())
-			{
-				contentNum = newcontent.get(0).getBoardNum();
-				System.out.println(contentNum);
-
-			}
-
-			int tagLength = 0;
-			if (request.getParameterValues("tagname") != null)
-			{
-				tagLength = request.getParameterValues("tagname").length;
-			}
-
-			if (taglist != null && !taglist.isEmpty())
-			{
-				// 태그 입력 처리
-				for (String tags : taglist)
-				{
-					logger.info("tags =" + tags);
-
-					Map<String, Object> parameters = new HashMap<>();
-					parameters.put("tagName", tags); // Here use 'tags' instead of 'tag.getTagName()'
-					parameters.put("boardNum", contentNum);
-
-					int resultTagInsert = TagService.tagInsert(parameters);
-				}
-			}
-
-			if (result > 0)
-			{
-				return "redirect:/channels/" + chnum;
-			} else
-			{
-				throw new Exception("게시물 작성 오류");
-			}
-
-		} catch (Exception ex)
+		int tagLength = 0;
+		if (request.getParameterValues("tagname") != null)
 		{
-			ex.printStackTrace();
-			return "error/error";
+			tagLength = request.getParameterValues("tagname").length;
+		}
+
+		if (taglist != null && !taglist.isEmpty())
+		{
+			// 태그 입력 처리
+			for (String tags : taglist)
+			{
+				logger.info("tags =" + tags);
+
+				Map<String, Object> parameters = new HashMap<>();
+				parameters.put("tagName", tags); // Here use 'tags' instead of 'tag.getTagName()'
+				parameters.put("boardNum", contentNum);
+
+				int resultTagInsert = TagService.tagInsert(parameters);
+			}
+		}
+
+		if (results > 0)
+		{
+			return "redirect:/channels/" + chnum;
+		} else
+		{
+			throw new Exception("게시물 작성 오류");
+
 		}
 	}
 

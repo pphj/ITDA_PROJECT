@@ -5,9 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -216,14 +214,7 @@ public class SecurityConfig {
 		   
 	   return http.build();
    }
-   
-   AuthenticationManager authenticationManager(		//인증 요청을 처리
-         AuthenticationConfiguration authenticationConfiguration) throws Exception {
-            return authenticationConfiguration.getAuthenticationManager();
-   }
-   
-   //사용자 정보, 비밀번호를 데이터베이스에서 가져와
-   //사용자가 입력한 비밀번호와 저장된 비밀번호를 비교하여 사용자를 인증
+
    @Bean	//유저
    public DaoAuthenticationProvider userAuthencationProvider() {
       DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -241,7 +232,7 @@ public class SecurityConfig {
 	   }
    
    @Bean
-   public PersistentTokenRepository tokenRepository() {			//로그인 정보 기억시
+   public PersistentTokenRepository tokenRepository() {
       JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
       jdbcTokenRepository.setDataSource(datasource);
       return jdbcTokenRepository;
@@ -291,5 +282,5 @@ public class SecurityConfig {
    public BCryptPasswordEncoder encodePassword() {			//비밀번호 인코더
       return new BCryptPasswordEncoder();
    }
-   
+
 }

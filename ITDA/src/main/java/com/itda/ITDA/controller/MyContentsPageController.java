@@ -10,18 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.Payment;
+import com.itda.ITDA.domain.SubProduct;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.Itda_UserService;
+import com.itda.ITDA.service.OrderService;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 @Controller
 @RequestMapping(value= "/my")
 public class MyContentsPageController {
@@ -30,11 +29,14 @@ public class MyContentsPageController {
 	
 	private Itda_UserService itdaUserService;
 	private ChannelList_Service channelList_Service;
+	private OrderService orderService;
+	
 	
 	@Autowired
-	public MyContentsPageController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service) {
+	public MyContentsPageController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service, OrderService orderService) {
 		this.itdaUserService = itdaUserService;
 		this.channelList_Service = channelList_Service;
+		this.orderService = orderService;
 	}
 	
 	
@@ -94,13 +96,19 @@ public class MyContentsPageController {
 	
 	// 마이페이지 결제 내역
 	@GetMapping(value="/payment/subscriptions")
-	public String paymentSubscriptions() {
+	public String paymentSubscriptions(Payment payment,
+										Model model,
+										Principal principal) {
+		
+		//SubProduct subproduct = orderService.myOrderList();
+		
+		
 		return "mypage/payment_subscriptions";
 	}
 	
 	// 마이페이지 결제 내역 자세히 보기
-	@GetMapping(value="/payment/subscriptions/episode")
-	public String paymentSubscriptionsEpisode() {
+	@GetMapping(value="/payment/subscriptions/{}")
+	public String paymentSubscriptionsEpisode(@PathVariable(value = "") int boardnum) {
 		return "mypage/payment_subscriptions_episode";
 	}
 	
@@ -110,7 +118,7 @@ public class MyContentsPageController {
 		return "mypage/contents";
 	}
 	
-	// 관심 콘텐츠(좋아요 콘텐츠)
+	// 나의 채널 가져오기
 	@GetMapping(value="/channellist")
 	public String myChannellist(ChannelList channel,
 								Principal principal,

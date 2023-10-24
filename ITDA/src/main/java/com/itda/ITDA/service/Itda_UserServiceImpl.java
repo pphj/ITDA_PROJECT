@@ -154,6 +154,11 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	    return false;
 	}
 
+	@Override
+	public int insertPaymentUser(String id) {
+		return dao.insertPaymentUser(id);
+	}
+
 
 
 }

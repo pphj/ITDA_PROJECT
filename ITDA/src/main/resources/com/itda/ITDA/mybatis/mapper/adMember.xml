@@ -45,6 +45,7 @@
     WHERE adNum = #{adNum}
     </select>
     
+
 	<select id="adminInfo" parameterType="String" resultType="Admin">
 		select adminId, adminPw, adminName, adminDept, adminClass, adminEmail
 		from admin
@@ -58,9 +59,4 @@
 		 adminClass = #{adminClass}, adminEmail = #{adminEmail}
 		where adminId = #{adminId}
 	</update>
-	
-	<select id="idadminId" resultType="Admin">
-		select * from admin 
-		where adminId = #{adminId}
-	</select>
 </mapper>

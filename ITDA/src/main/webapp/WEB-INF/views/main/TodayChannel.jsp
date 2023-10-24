@@ -36,6 +36,7 @@
                     var imageUrl = item.chprofile
                         ? "resources/image/MemberUpload/" + item.ownerId + "/" + item.chprofile
                         : "${pageContext.request.contextPath}/resources/image/common/itda_logo3.png";
+                        //: "${pageContext.request.contextPath}/resources/image/MemberUpload/${item.ownerId}${item.chprofile}"
 
                     appendData += '<img src="' + imageUrl + '" alt="...">'
                     + '<a href="channels/' + item.chNum +'?userid='+ item.ownerId +'">'

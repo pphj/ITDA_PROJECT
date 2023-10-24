@@ -15,12 +15,17 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -87,7 +92,6 @@ public class ContentController {
 
 		// 채널과 연관된 카테고리 목록을 가져옴
 		List<ChBoardCategory> ContentCategory = contentService.getChannelCategory(boardnum);
-		System.out.println("가지고오나" + ContentCategory);
 
 		// 로그인한 사용자의 ID를 가져오기
 		if (principal != null)
@@ -101,7 +105,7 @@ public class ContentController {
 		List<Tag> taginfo = contentService.getTagInfo(chnum, boardnum);
 		logger.info("taginfo = " + taginfo);
 
-		model.addAttribute("ContentCategory", ContentCategory);
+		// model.addAttribute("ContentCategory", ContentCategory);
 		model.addAttribute("userinfo", userinfo);
 		model.addAttribute("rcnt", rcnt);
 		model.addAttribute("taginfo", taginfo);
@@ -141,13 +145,16 @@ public class ContentController {
 		return "content/content_modify"; // 실제 수정 페이지 뷰 이름으로 변경해야 합니다.
 	}
 
-	// 게시글 수정
+	// 게시물 수정
 	@PostMapping("/{chnum}/contentmodify")
-	public String updateContent(ChBoard chboard, Tag tag, @PathVariable("chnum") int chnum,
+	public String updateContent(ChBoard chboard, ChBoardCategory chBoardCategory, Tag tag,
+			@PathVariable("chnum") int chnum,
 			@RequestParam(value = "tagname", required = false) List<String> taglist,
 			@RequestParam(value = "tagId", required = false) List<String> tagIdlist,
+			@RequestParam(value = "chCate_Id", defaultValue = "0") int chCateId,
 			@RequestParam(value = "upload", required = false) MultipartFile uploadfile, Principal principal,
-			RedirectAttributes rattr, String check, Model mv, HttpServletRequest request) throws IOException {
+			RedirectAttributes rattr, BindingResult result, String check, Model mv, HttpServletRequest request)
+			throws IOException {
 
 		boolean usercheck = contentService.isContentWriter(chboard.getBoardNum());
 
@@ -190,8 +197,31 @@ public class ContentController {
 				chboard.setBoardUpdate("");
 				chboard.setThumbNail("");
 			}
+			String contentText = chboard.getBoardContent(); // 여기를 수정했습니다.
 
-			int result = contentService.contentModify(chboard);
+			Document doc = Jsoup.parse(contentText);
+
+			Elements paragraphs = doc.select("p");
+			String Intro = "";
+			for (int i = 0; i < paragraphs.size(); i++)
+			{
+				System.out.println(paragraphs.get(i).text());
+				boolean text = paragraphs.get(i).text().matches("^(?=.*\\S).*$");
+				if (text)
+				{
+					Intro += paragraphs.get(i).text();
+					if (Intro.length() > 80)
+					{
+						break;
+					}
+				}
+			}
+
+			chboard.setChNum(chnum);
+			chboard.setWriter(principal.getName());
+			chboard.setIntro(Intro);
+
+			int results = contentService.contentModify(chboard);
 			List<ChBoard> newcontent = contentService.newContentSelect(chnum);
 
 			int contentNum = 0;
@@ -231,22 +261,27 @@ public class ContentController {
 			}
 
 			// 수정에 실패한 경우
-			if (result == 0)
+			if (results == 0)
 			{
 				logger.info("게시판 수정 실패");
 				mv.addAttribute("url", request.getRequestURL());
 				mv.addAttribute("message", "게시판 수정 실패");
 				url = "error/error";
 			} else
-			{// 수정 성공의 경우
+			{ // 수정 성공의 경우
 				logger.info("게시판 수정 완료");
 				// 수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
-				url = "redirect:/content/content_detail/" + chboard.getBoardNum();
-				rattr.addAttribute("num", chboard.getBoardNum());
+				url = "redirect:/contents/" + chnum + "/" + chboard.getBoardNum() + "?userid=" + principal.getName()
+						+ "&chcate_name=" + chBoardCategory.getChCate_Name();
+
+				String chcateName = contentService.findNameById(chCateId);
+
+				url = "redirect:/contents/" + chnum + "/" + chboard.getBoardNum() + "?userid=" + principal.getName()
+						+ "&chcate_name=" + chcateName;
+
 			}
 		}
 		return url;
-
 	}
 
 	private String fileDBName(String fileName, String saveFolder) {
@@ -290,11 +325,27 @@ public class ContentController {
 
 		try
 		{
+			// 1. Get the post details using the board number
+			ChBoard chboard = contentService.getContentDetail(boardnum);
+
+			// 2. Delete the uploaded image file if it exists
+			if (chboard.getThumbNail() != null && !chboard.getThumbNail().isEmpty())
+			{
+				Path filePath = Paths.get(
+						saveFolder + "/contents/" + chboard.getChNum() + File.separator + chboard.getThumbNail());
+				Files.deleteIfExists(filePath);
+			}
+
+			// 3. Delete tags associated with this post
+			// TagService.deleteTagsByBoardNum(boardnum);
+
+			// 4. Finally delete the post itself
 			contentService.deleteBoard(boardnum);
 
 			logger.info("Successfully deleted post with boardNum: " + boardnum);
 
 			rattr.addFlashAttribute("result", "deleteSuccess");
+
 			return "redirect:/channels/" + chnum;
 
 		} catch (Exception e)
@@ -304,7 +355,6 @@ public class ContentController {
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "삭제 실패");
 			return "error/error";
-
 		}
 	}
 
@@ -387,32 +437,72 @@ public class ContentController {
 		return result;
 	}
 
-	// 하트 좋아요
 	@PostMapping("/heartUpdate")
 	@ResponseBody
 	public Map<String, Object> updateHeartCount(@RequestParam("boardNum") int boardNum,
-			@RequestParam("heartstate") int heartState, @RequestParam("userId") String userId) {
+			@RequestParam("heartstate") int heartState, @RequestParam("userId") String userId, Principal principal) {
 		Map<String, Object> response = new HashMap<>();
+
+		userId = principal.getName();
+		logger.info("Received heartState: " + heartState + " for user " + userId);
 
 		try
 		{
 			if (heartState == 1)
 			{
 				// 좋아요 추가 로직
-				heartService.addHeart(boardNum, userId);
+				try
+				{
+					heartService.addHeart(boardNum, userId);
+					logger.info("좋아요 성공");
+				} catch (DuplicateKeyException e)
+				{ // 이미 좋아요가 등록된 경우
+					response.put("success", false);
+					response.put("message", "이미 좋아요를 누른 게시물입니다.");
+					return response;
+				}
 			} else if (heartState == 0)
 			{
 				// 좋아요 취소 로직
 				heartService.removeHeart(boardNum, userId);
+				logger.info("좋아요 취소 성공");
 			}
 
-			// int updatedValue = contentService.getHeartCount(boardNum);
+			int updatedValue = heartService.getHeartCount(boardNum);
+			logger.info("updatedValue = " + updatedValue);
 
-			// response.put("success", true);
-			// 그ㅓresponse.put("updatedValue", updatedValue);
+			response.put("success", true);
+			response.put("updatedValue", updatedValue);
+
 		} catch (Exception e)
 		{
-			// 오류 처리
+			logger.error("Error updating heart count or getting the count", e);
+			response.put("success", false);
+		}
+
+		return response;
+	}
+
+	@GetMapping("/getHeartStateAndCount")
+	@ResponseBody
+	public Map<String, Object> getHeartStateAndCount(@RequestParam("boardNum") int boardNum,
+			@RequestParam("userId") String userId) {
+		Map<String, Object> response = new HashMap<>();
+
+		try
+		{
+			// '좋아요' 상태 조회 로직
+			boolean heartExists = heartService.existsByBoardNumAndUserId(boardNum, userId);
+
+			// '좋아요' 갯수 조회 로직
+			int heartCount = heartService.getHeartCount(boardNum);
+
+			response.put("heartState", heartExists ? 1 : 0);
+			response.put("heartCount", heartCount);
+			response.put("success", true);
+		} catch (Exception e)
+		{
+			logger.error("Error getting heart state and count", e);
 			response.put("success", false);
 		}
 

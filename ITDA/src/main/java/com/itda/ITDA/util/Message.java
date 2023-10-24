@@ -14,6 +14,11 @@ public class Message {
 	public static String ERROR = "에러가 발생하였습니다.";
 	
 	public static String EMAIL_AUTHENTICATION_MESSAGE_TITLE = "이메일 변경 인증 메일입니다.";
-	public static String EMAIL_AUTHENTICATION_MESSAGE_CONTENT = "이메일 변경 인증 코드입니다..";
+	public static String EMAIL_AUTHENTICATION_MESSAGE_CONTENT = "이메일 변경 인증 코드입니다.";
+	
+	// 결제 관련 메세지
+	public static String PAYMENT_CANCLE = "결제가 취소되었습니다.";
+	public static String PAYMENT_FAIL = "일시적인 오류입니다. 결제가 취소되었습니다.";
+	
 	
 }

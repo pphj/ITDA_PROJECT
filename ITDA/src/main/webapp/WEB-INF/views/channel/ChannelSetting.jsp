@@ -81,7 +81,7 @@
 																</c:when>
 																<c:otherwise>
 																	<img id="imgThumb"
-																		src="${pageContext.request.contextPath}/resources/image/channel/${SellerSetting.chNum}${SellerSetting.chProfile}"
+																		src="${pageContext.request.contextPath}/resources/image/MemberUpload/${SellerSetting.ownerId}${SellerSetting.chProfile}"
 																		width="100" height="100">
 																</c:otherwise>
 															</c:choose> <span class="mask"></span>
