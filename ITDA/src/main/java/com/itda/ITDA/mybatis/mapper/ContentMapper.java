@@ -53,4 +53,6 @@ public interface ContentMapper {
 
 	String findNameById(int chCateId);
 
+	void deleteBoard(int boardNum);
+
 }

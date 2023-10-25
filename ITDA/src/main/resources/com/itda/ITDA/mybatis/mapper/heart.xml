@@ -26,9 +26,25 @@
 
 	<!-- 좋아요 상태 조회 -->
 	<select id="existsByBoardNumAndUserId" resultType="boolean">
-		SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
+		SELECT CASE
+		WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
 		FROM heart
-		WHERE board_num = #{boardNum} AND user_id = #{userId}
+		WHERE board_num =
+		#{boardNum} AND user_id = #{userId}
 	</select>
+
+	<!-- 'chboard' 테이블의 'boardheart'를 증가시키는 메서드 -->
+	<update id="updateChBoardHeart">
+		UPDATE chboard
+		SET boardheart = boardheart + 1
+		WHERE boardnum = #{boardNum}
+	</update>
+
+	<!-- 'chboard' 테이블의 'boardheart'를 감소시키는 메서드 -->
+	<update id="decreaseChBoardHeart">
+		UPDATE chboard
+		SET boardheart = boardheart - 1
+		WHERE boardnum = #{boardNum} AND boardheart > 0
+	</update>
 
 </mapper>

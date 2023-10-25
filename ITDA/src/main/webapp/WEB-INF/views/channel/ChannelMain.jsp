@@ -7,6 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf_header" content="${_csrf.headerName}">
+<meta name="_csrf" content="${_csrf.token}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- header 연결 -->
@@ -42,6 +44,8 @@ $(document).ready(function(){
 </style>
 </head>
 <body>
+
+	<input type="hidden" id="chnum" value="${ChannelList.chNum}" name="chnum">
 	<!--  채널바  -->
 	<div class="wrap_profile">
 		<div class="bloger_thumb">
@@ -72,24 +76,25 @@ $(document).ready(function(){
 	               	<sec:authentication property="principal" var="pinfo"/>
 			               	<c:if test="${sellerinfo.userId == pinfo.username}">
 			               		<a href="${pageContext.request.contextPath}/channels/contentwrite.co/${ChannelList.chNum}">
-								<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow btnWrite">
-									<span class="txt_default">
-										<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글작성
-									</span>
+								<button type="button" class="btn_type btn_write btn_new_type btn_default btn_profile btnFollow #p_follow btnWrite">
+								    <span class="txt_default">
+								        <img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png">글작성
+								    </span>
 								</button>
 								</a>
 							</c:if>
 					</sec:authorize>
-					
+				<!--  
 				<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
 					<span class="txt_default">
 						<img class="ico_plus" src="../image/channel/ico-plus.png" alt="알림 버튼 아이콘">알림
 					</span>
 				</button>
-				<button type="button" class="btn_type btn_new_type btn_default btn_profile btnFollow #p_follow">
-					<span class="txt_default">
-						<img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 버튼 아이콘">구독
-					</span>
+				-->
+				<button type="button" class="btn_type btn_subscribe btn_new_type btn_default btn_profile btnFollow #p_follow">
+				    <span class="txt_default_subscribe">
+				        <img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 버튼 아이콘">구독
+				    </span>
 				</button>
 			</span>
 		</div>
@@ -177,7 +182,7 @@ $(document).ready(function(){
 								<ul class="list_article list_post1 #post_list">
 									<li data-articleuid="xTI_303" class="animation_up" data-tiara-action-name="작가 프로필 > 글탭 > 리스트 클릭"
 										data-tiara-action-kind="ClickContent" data-tiara-layer="articles" data-tiara-id="@@xTI">
-										<a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}?userid=${pinfo.username}" class="link_category"> 
+										<a href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}?&userid=${pinfo.username}" class="link_category"> 
 										<em class="tit_category">${c.chCate_Name}</em>
 										</a> 
 										<a href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}?userid=${pinfo.username}" class="link_post has_image #post_listview"> 

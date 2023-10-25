@@ -100,17 +100,14 @@ public class ContentServiceImpl implements ContentService {
 		return dao.newContentSelect(chnum);
 	}
 
-	@Override
-	public int boardDelete(int boardnum) {
-		return dao.boardDelete(boardnum);
-	}
+
 
 	@Override
 	@Transactional
 	public void deleteBoard(int boardNum) {
-		tagService.deleteByBoardNum(boardNum);
+		tagService.deleteTagsByBoardNum(boardNum);
 
-		dao.boardDelete(boardNum);
+		dao.deleteBoard(boardNum);
 
 	}
 

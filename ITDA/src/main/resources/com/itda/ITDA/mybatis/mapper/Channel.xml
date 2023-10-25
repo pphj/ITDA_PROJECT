@@ -14,7 +14,7 @@
 
 
 
-	<select id="getBoardListByBoardNum" resultType="ChBoard">
+	<!-- <select id="getBoardListByBoardNum" resultType="ChBoard">
 	   <![CDATA[
 	    SELECT * FROM (
 	        SELECT cbc.chCate_Name, cb.boardNum, cb.boardTitle, cb.thumbNail, cb.intro, cb.boardDate
@@ -23,6 +23,18 @@
 	        WHERE cb.chnum = #{chnum}
 	        ORDER BY boardHeart DESC
 	    ) WHERE ROWNUM <= 20
+	    ]]>
+	</select> -->
+	
+	<select id="getBoardListByBoardNum" resultType="ChBoard">
+	   <![CDATA[
+	    SELECT * FROM (
+	        SELECT cbc.chCate_Name, cb.boardNum, cb.boardTitle, cb.thumbNail, cb.intro, cb.boardDate
+	        FROM chboard cb
+	        JOIN chboardcategory cbc ON cb.chCate_Id = cbc.chCate_Id 
+	        WHERE cb.chnum = #{chnum}
+	        ORDER BY boardHeart DESC
+	    ) WHERE ROWNUM <= 1000
 	    ]]>
 	</select>
 
@@ -240,6 +252,20 @@
 		    )
 		    WHERE rownum = 1
 	</select>
+	
+	<select id="isSubscribed" resultType="int">
+    	SELECT COUNT(*) FROM sub WHERE userid = #{userid} AND chnum = #{chnum}
+	</select>
+
+	 <insert id="subscribe" parameterType="map">
+	    INSERT INTO sub (subsnum, userid, subchnum, subdate)
+	    VALUES ( seq_sub.NEXTVAL, #{userId}, #{chnum}, SYSTIMESTAMP)
+	 </insert>
+
+	 <delete id="unsubscribe" parameterType="map">
+	    DELETE FROM sub
+	    WHERE userid = #{userId} AND subchnum = #{chnum}
+	 </delete>
 	
 	
 

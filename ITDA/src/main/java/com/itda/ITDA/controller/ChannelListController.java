@@ -262,8 +262,6 @@ public class ChannelListController {
 			idPath1.mkdir();// 새로운 폴더를 생성
 		}
 
-		
-
 		// 채널번호 폴더 생성하는 거
 		File path2 = new File(saveFolder);
 		if (!(path2.exists()))
@@ -504,6 +502,25 @@ public class ChannelListController {
 			throw new Exception("게시물 작성 오류");
 
 		}
+	}
+
+	@PostMapping("/subscribe")
+	@ResponseBody
+	public String subscribe(@RequestParam String userId, @RequestParam int chnum) {
+		logger.info("구독 요청 처리 시작: userId = " + userId + ", chnum = " + chnum);
+		channelList_Service.subscribe(userId, chnum);
+		logger.info("구독 요청 처리 완료: userId = " + userId + ", chnum = " + chnum);
+		return "구독 처리 완료";
+	}
+
+
+	@PostMapping("/unsubscribe")
+	@ResponseBody
+	public String unsubscribe(@RequestParam String userId, @RequestParam int chnum) {
+		logger.info("구독 취소 처리 시작: userId = " + userId + ", chnum = " + chnum);
+		channelList_Service.unsubscribe(userId, chnum);
+		logger.info("구독 취소 처리 시작: userId = " + userId + ", chnum = " + chnum);
+		return "구독 취소 처리 완료";
 	}
 
 }

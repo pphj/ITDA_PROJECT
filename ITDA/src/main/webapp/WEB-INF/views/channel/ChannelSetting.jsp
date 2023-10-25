@@ -23,8 +23,15 @@
 </script>
 </head>
 <body>
+	<input type="hidden" name="LoginId" id="LoginId" value="${SellerSetting.ownerId}" />
 	<!-- 수정 선택바 -->
 	<div id="wrap">
+		<div class="inline_header">
+			<a href="${pageContext.request.contextPath}/channels/${SellerSetting.chNum}?userid=${SellerSetting.ownerId}"
+				class="button_back _BACK"> <img class="link_premium" style="width: 25px; margin-top: 3px; margin-left: 450px;"
+				src="/itda/resources/image/content/errow_left.png"> <span class="blind">이전으로</span>
+			</a>
+		</div>
 		<div class="tab_contents">
 			<div id="lnb_area">
 				<div class="lnb">
@@ -170,13 +177,12 @@
 														<c:forEach var="c" items="${SellerCategory}">
 															<li class="channel_category_item">
 																<input type="hidden" name="categorychnum" id="categorychnum" value="${SellerSetting.chNum}"
-																	style="width: 254px; border: none;">
-																<input type="hidden" class="channel_category_id" type="text"
-																		name="categoryId" id="categoryId" value="${c.chCate_Id}" style="width: 254px; border: none;">
+																	style="width: 254px; border: none;"> <input type="hidden" class="channel_category_id" type="text"
+																	name="categoryId" id="categoryId" value="${c.chCate_Id}" style="width: 254px; border: none;">
 																<%--<strong class="channel_category_name">${c.chCate_Name}</strong>--%>
 																<div class="channel_category_num">
 																	<input class="channel_category_name" type="text" name="categoryName" id="categoryName" value="${c.chCate_Name}"
-																		style="width: 254px; border: none;" readonly> 
+																		style="width: 254px; border: none;" readonly>
 																	<div class="channel_category_button">
 																		<button type="button" class="btn_model">
 																			<b id="btnChangeCategcategoryNameory" class="btn3 input" updatenum="${c.chCate_Id}">수정</b>
