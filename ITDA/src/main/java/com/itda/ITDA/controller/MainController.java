@@ -15,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.NaverDTO;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.MainService;
+import com.itda.ITDA.service.NaverService;
 
 @Controller
 @RequestMapping(value="/main")
@@ -25,11 +27,13 @@ public class MainController {
 	
 	private MainService mainService;
 	private ContentService contentService;
+	private NaverService naverService;
 	
 	@Autowired
-	public MainController(MainService mainService, ContentService contentService) {
+	public MainController(MainService mainService, ContentService contentService, NaverService naverService) {
 		this.mainService=mainService;
 		this.contentService=contentService;
+		this.naverService=naverService;
 	}
 	
 	@GetMapping(value="/protomain")		//인기 게시글(카드 로테이션 부분) 로직 포함
@@ -86,18 +90,49 @@ public class MainController {
 
 	@GetMapping("/search/result")
 	public ModelAndView searchResult(@RequestParam("searchQuery") String keyword) {
-		List<ChannelList> channelResults = mainService.searchChannelsByKeyword(keyword);
-		List<ChBoard> contentResults = mainService.searchContentsByKeyword(keyword);
+	    List<ChannelList> channelResults = mainService.searchChannelsByKeyword(keyword);
+	    List<ChBoard> contentResults = mainService.searchContentsByKeyword(keyword);
 
-		ModelAndView modelAndView = new ModelAndView("main/search_View");
-		modelAndView.addObject("channelResults", channelResults);
-		modelAndView.addObject("contentResults", contentResults);
+	    ModelAndView modelAndView;
 
-		// 수정된 부분: 검색어를 모델에 추가하여 뷰로 전달
-		modelAndView.addObject("searchQuery", keyword);
+	    if (channelResults.isEmpty() && contentResults.isEmpty()) {
+	        // 검색 결과가 없을 때 "결과없음" 페이지로 리다이렉트
+	        modelAndView = new ModelAndView("main/no_results");
+	    } else {
+	        modelAndView = new ModelAndView("main/search_View");
+	        modelAndView.addObject("channelResults", channelResults);
+	        modelAndView.addObject("contentResults", contentResults);
+	    }
 
-		return modelAndView;
+	    // 검색어를 모델에 추가하여 뷰로 전달
+	    modelAndView.addObject("searchQuery", keyword);
+
+	    return modelAndView;
 	}
+	
+	
+	
+	@GetMapping("/callback")
+	public String naverCallback(@RequestParam("code") String code, @RequestParam(name="state", required=false) String state) {
+	    try {
+	        if (code != null) {
+	            // 네이버 인증 코드를 받아와서 처리하는 로직을 구현합니다.
+	            NaverDTO naverInfo = naverService.getNaverInfo(code);
+
+	            // 네이버 로그인 성공 후 리다이렉트할 경로 지정
+	            return "redirect:/";
+	        } else {
+	            // code가 없을 경우 예외 처리
+	            throw new IllegalArgumentException("Invalid authorization code");
+	        }
+	    } catch (Exception e) {
+	        // 예외 처리 로직 작성
+
+	        // 예외 발생 시 리다이렉트할 경로 지정
+	        return "redirect:/error-page";
+	    }
+	}
+
 	
 	
 }
