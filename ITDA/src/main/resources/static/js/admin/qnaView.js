@@ -37,8 +37,8 @@ $(function(){
 						let output = '';
 						let img = '';
 						if ($('#loginId').text() == this.adminId) {
-							img = "<img src=" + contextPath + "/resources/image/pencil2.png width='15px' class='update'>"
-								+ "<img src=" + contextPath + "/resources/image/delete.png width='15px' class='remove'>"
+							img = "&nbsp;&nbsp;&nbsp;<img src=" + contextPath + "/resources/image/edit_icon.png width='15px' class='update'>&nbsp;&nbsp;&nbsp;"
+								+ "<img src=" + contextPath + "/resources/image/delete_icon.png width='15px' class='remove'>"
 								+ "<input type='hidden' value='" + this.qnaReplyNum + "'>";
 						}
 						output += "<tr>";

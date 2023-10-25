@@ -115,7 +115,7 @@
 			  		from adminboard
 			  		where key = 'uNOTI'
 			  		and adState = 'Y'
-					order by adNum desc
+					order by adDate desc
 			  ) b
 			  where rownum &lt;= #{end}
 		)
@@ -158,7 +158,7 @@
 			  		from adminboard
 			  		where key = 'itNOTI'
 			  		and adState = 'Y'
-					order by adNum desc
+					order by adDate desc
 			  ) b
 			  where rownum &lt;= #{end}
 		)
@@ -251,11 +251,9 @@
 			  FROM (select sickid, count(*) as sumcount
 				  	from (select distinct sickid, warnnum
 						  from boardwarn
-						  where warnOk = 'N'
 						  union all
 						  select distinct sickid, warnnum
 						  from replywarn
-						  where warnOk = 'N'
 					      )
 				    group by sickid
 			       ) b
@@ -266,18 +264,18 @@
 	</select>
 	
 	<select id="problemListCount" resultType="int">
-	select count(*) 
-	from (select sickid, count(*) as sumcount
-		  from (select distinct sickid, warnnum
-		  	    from boardwarn
-		  	    where warnOk = 'N'
-		  	    union all
-		  	    select distinct sickid, warnnum
-		  	    from replywarn
-		  	    where warnOk = 'N'
-			   )
-		  group by sickid
-		 )
+		select count(*) 
+		from (select sickid, count(*) as sumcount
+			  from (select distinct sickid, warnnum
+			  	    from boardwarn
+			  	    where warnOk = 'N'
+			  	    union all
+			  	    select distinct sickid, warnnum
+			  	    from replywarn
+			  	    where warnOk = 'N'
+				   )
+			 group by sickid
+			 )
 	</select>
 	
 	<select id="getProblemBoardCount" resultType="int">
@@ -296,6 +294,18 @@
 		where userId = #{userId}
 	</update>
 	
+	<update id="userBoardUpdate" parameterType="String">
+		update boardwarn
+		set warnOk = 'Y'
+		where sickId = #{userId}
+	</update>
+	
+	<update id="userReplyUpdate" parameterType="String">
+		update replywarn
+		set warnOk = 'Y'
+		where sickId = #{userId}
+	</update>
+	
 	<update id="userUpdateStop" parameterType="String">
 		update itda_user
 		set statusid = 3
@@ -311,11 +321,30 @@
 	<select id="boardProblemDetail" parameterType="java.util.Map" resultType="BoardWarn">
 		select warnNum, punchId, sickId, boardNum, chNum, 
 		warnCateId, warnDate, warnReason
-		 from boardwarn
+		from boardwarn
 		where sickid = #{sickId}
+		and warnOk = 'N'
 	</select>
 	
 	<select id="replyProblemDetail" parameterType="java.util.Map" resultType="ReplyWarn">
+		select rw.*, cb.chnum
+		from (select warnNum, punchId, sickId, replyNum, boardNum, 
+				warnCateId, warnDate, warnReason 
+				from replywarn 
+				where sickid = #{sickId}
+				and warnOk = 'N'
+			 ) rw
+		left join chboard cb on rw.boardnum = cb.boardnum
+	</select>
+	
+	<select id="boardProblemDetailAll" parameterType="java.util.Map" resultType="BoardWarn">
+		select warnNum, punchId, sickId, boardNum, chNum, 
+		warnCateId, warnDate, warnReason
+		from boardwarn
+		where sickid = #{sickId}
+	</select>
+	
+	<select id="replyProblemDetailAll" parameterType="java.util.Map" resultType="ReplyWarn">
 		select rw.*, cb.chnum
 		from (select warnNum, punchId, sickId, replyNum, boardNum, 
 				warnCateId, warnDate, warnReason 
@@ -501,7 +530,7 @@
 			  		where key = 'uNOTI'
 			  		and adState = 'Y'
 			  		<include refid="search_Notice" />
-					order by adNum desc
+					order by adDate desc
 			  ) b
 			  where rownum &lt;= #{end}
 		)
@@ -516,7 +545,7 @@
 			  		where key = 'itNOTI'
 			  		and adState = 'Y'
 			  		<include refid="search_Notice" />
-					order by adNum desc
+					order by adDate desc
 			  ) b
 			  where rownum &lt;= #{end}
 		)
@@ -559,4 +588,16 @@
 			like #{search_word}
 		</if>
 	</sql>
+	
+	<select id="getTotalSalesList" parameterType="java.util.Map" resultType="SalesTotal">
+		select salestotal, credate
+		from (
+		    select salestotal, credate
+		    from salestotal
+		    order by credate desc
+		)
+		where rownum &lt;= 10
+	</select>
+	
+	
 </mapper>

@@ -19,6 +19,8 @@ public class BoardWarn {
     private Timestamp warnDate;		//신고일
     private String warnOk;			//신고처리 여부
     private String warnReason;		//신고 사유
-    private int sumCount;
-    private int statusid;
+    private int totalCount;			//전체 신고건수
+    private int sumCount;			//미처리 신고건수
+    private int statusid;			//아이디 상태
+    private int rnum;
 }

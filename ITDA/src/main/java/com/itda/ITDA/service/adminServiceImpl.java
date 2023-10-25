@@ -47,7 +47,6 @@ public class adminServiceImpl implements adminService {
 		return dao.getFAQListCount();
 	}
 	
-	@Cacheable("faq")
 	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getFaqList(int page, int limit) {
@@ -99,7 +98,6 @@ public class adminServiceImpl implements adminService {
 		return dao.getQNAListCount();
 	}
 	
-	@Cacheable("qna")
 	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getQnaList(int page, int limit) {
@@ -107,7 +105,6 @@ public class adminServiceImpl implements adminService {
 		return dao.getQNAList(list);
 	}
 	
-	@Cacheable("userNotice")
 	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getUserNoticeList(int page, int limit) {
@@ -151,7 +148,6 @@ public class adminServiceImpl implements adminService {
 		return dao.getItdaNoticeListCount();
 	}
 	
-	@Cacheable("itdaNotice")
 	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getItdaNoticeList(int page, int limit) {
@@ -190,7 +186,6 @@ public class adminServiceImpl implements adminService {
 		return dao.getAdminApproveListCount();
 	}
 	
-	//@Cacheable("adminApprove")
 	@Transactional(readOnly = true)
 	@Override
 	public List<Admin> getAdminApproveList(int page, int limit) {
@@ -210,7 +205,6 @@ public class adminServiceImpl implements adminService {
 		return dao.getSellerApproveListCount();
 	}
 	
-	//@Cacheable("sellerApprove")
 	@Transactional(readOnly = true)
 	@Override
 	public List<Seller> getSellerApproveList(int page, int limit) {
@@ -275,6 +269,18 @@ public class adminServiceImpl implements adminService {
 		return dao.userUpdateClear(userId);
 	}
 	
+	@Transactional
+	@Override
+	public int userBoardUpdate(String userId) {
+		return dao.userBoardUpdate(userId);
+	}
+	
+	@Transactional
+	@Override
+	public int userReplyUpdate(String userId) {
+		return dao.userReplyUpdate(userId);
+	}
+	
 	@Transactional(readOnly = true)
 	@Override
 	public List<ReplyWarn> replyProblemDetail(String sickId) {
@@ -289,12 +295,23 @@ public class adminServiceImpl implements adminService {
 	
 	@Transactional(readOnly = true)
 	@Override
+	public List<ReplyWarn> replyProblemDetailAll(String sickId) {
+		return dao.replyProblemDetailAll(sickId);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<BoardWarn> boardProblemDetailAll(String sickId) {
+		return dao.boardProblemDetailAll(sickId);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
 	public int getCouponListCount() {
 		return dao.getCouponListCount();
 	}
 	
 	@Transactional(readOnly = true)
-	@Cacheable("couponList")
 	@Override
 	public List<Coupon> couponList(int page, int limit) {
 		HashMap<String, Integer> list = listLogic(page, limit);
@@ -390,7 +407,6 @@ public class adminServiceImpl implements adminService {
 		return dao.couponDelete(couponNum);
 	}
 	
-	//@Cacheable("adminApproveList")
 	@Transactional(readOnly = true)
 	@Override
 	public List<Admin> getAdminApproveList(int index, String search_word, int page, int limit) {
@@ -407,8 +423,7 @@ public class adminServiceImpl implements adminService {
 		
 		return dao.getAdminApproveList2(map);
 	}
-	
-	@Cacheable("faqList")
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getFaqList(int index, String search_word, int page, int limit) {
@@ -425,8 +440,7 @@ public class adminServiceImpl implements adminService {
 		
 		return dao.getFAQList2(map);
 	}
-	
-	@Cacheable("userNoticeList")
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getUserNoticeList(int index, String search_word, int page, int limit) {
@@ -444,7 +458,6 @@ public class adminServiceImpl implements adminService {
 		return dao.getUserNoticeList2(map);
 	}
 	
-	@Cacheable("itdaNoticeList")
 	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getItdaNoticeList(int index, String search_word, int page, int limit) {
@@ -462,7 +475,6 @@ public class adminServiceImpl implements adminService {
 		return dao.getItdaNoticeList2(map);
 	}
 	
-	//@Cacheable("sellerApproveList")
 	@Transactional(readOnly = true)
 	@Override
 	public List<Seller> getSellerApproveList(int index, String search_word, int page, int limit) {
@@ -479,6 +491,13 @@ public class adminServiceImpl implements adminService {
 		
 		return dao.getSellerApproveList2(map);
 	}
-
+	
+	@Cacheable("totalSalesList")
+	@Transactional(readOnly = true)
+	@Override
+	public List<UserTotal> getTotalSalesList() {
+		return dao.getTotalSalesList();
+	}
+	
 	
 }
