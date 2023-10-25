@@ -52,7 +52,7 @@
 	}
 </style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -89,7 +89,7 @@
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5"
+ 				<textarea class="form-control" rows="20"
  				 style="resize: none;" readOnly>${userNoticeData.adContent}</textarea></td>
  			</tr>
  			<tr>
@@ -141,5 +141,6 @@
  		</div>
  	</div>	
  	</div>
+</main>
 </body>
 </html>

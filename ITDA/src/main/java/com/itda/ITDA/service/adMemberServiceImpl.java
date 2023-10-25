@@ -3,6 +3,7 @@ package com.itda.ITDA.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.mybatis.mapper.adMemberMapper;
@@ -18,6 +19,7 @@ public class adMemberServiceImpl implements adMemberService {
 		this.passwordEncoder = passwordEncoder;
 	}
 	
+	@Transactional(readOnly = true)
 	@Override
 	public int isId(String adminId, String adminPw) {
 		Admin ad = dao.isId(adminId);
@@ -32,18 +34,21 @@ public class adMemberServiceImpl implements adMemberService {
 		}
 		return result;
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public int isId(String id) {
 		Admin ad = dao.isId(id);
 		return (ad == null) ? -1 : 1;
 	}
 	
+	@Transactional(readOnly = true)
 	@Override
 	public Admin adminInfo(String adminId) {
 		return dao.adminInfo(adminId);
 	}
-
+	
+	@Transactional
 	@Override
 	public int adminUpdate(Admin admin) {
 		return dao.adminUpdate(admin);

@@ -38,8 +38,6 @@ public interface ContentService {
 
 	List<ChBoard> newContentSelect(int chnum);
 
-	int boardDelete(int boardnum);
-
 	void deleteBoard(int boardnum);
 
 	Itda_User getUserInfo(String userId);

@@ -25,9 +25,9 @@ $(function(){
 			url : "../QnaReplyList",
 			data : {"adNum" : $("#adNum").val(), "page" : currentPage},
 			dataType : "json",
-			//beforeSend : function(xhr) {
-			//	xhr.setRequestHeader(header, token);
-			//},
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
 			success : function(rdata){
 			 	if(rdata.listcount > 0){
 				   	$('#qnaReply table').show();				//로딩될 때 hide()했던 부분을 보이게
@@ -37,8 +37,8 @@ $(function(){
 						let output = '';
 						let img = '';
 						if ($('#loginId').text() == this.adminId) {
-							img = "<img src=" + contextPath + "/resources/image/pencil2.png width='15px' class='update'>"
-								+ "<img src=" + contextPath + "/resources/image/delete.png width='15px' class='remove'>"
+							img = "&nbsp;&nbsp;&nbsp;<img src=" + contextPath + "/resources/image/edit_icon.png width='15px' class='update'>&nbsp;&nbsp;&nbsp;"
+								+ "<img src=" + contextPath + "/resources/image/delete_icon.png width='15px' class='remove'>"
 								+ "<input type='hidden' value='" + this.qnaReplyNum + "'>";
 						}
 						output += "<tr>";
@@ -110,9 +110,9 @@ $(function(){
 			type : 'post',
 			url : url,  								//답변 등록, 수정 둘중 하나의 url
 			data : data,								//답변 등록, 수정 둘중 하나의 data
-			//beforeSend : function(xhr) {
-			//	xhr.setRequestHeader(header, token);
-			//},
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
 			success : function(rdata) {
 				$("#qnaReplyContent").val('');
 				if (url == '../QnaReplyInsert') {
@@ -169,9 +169,9 @@ $(function(){
 			type: 'post',
 			url:'../QnaReplyDelete',
 			data:{"qnaReplyNum" : deleteNum},
-			//beforeSend : function(xhr) {
-			//	xhr.setRequestHeader(header, token);
-			//},
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
 			success:function(rdata){
 				if (rdata == 1){
 					alert("답변 삭제 성공");

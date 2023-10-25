@@ -22,12 +22,14 @@ public class CacheConfig {
         net.sf.ehcache.config.Configuration config = new net.sf.ehcache.config.Configuration();
         config.setName("__meeting");
 
-        config.addCache(getCacheConfiguration("couponList", 60*10));
         config.addCache(getCacheConfiguration("userTotal", 60*10));
         config.addCache(getCacheConfiguration("ContentAll", 60*10));
         config.addCache(getCacheConfiguration("ChannelList", 60*10));
         config.addCache(getCacheConfiguration("HotContent", 60*10));
         config.addCache(getCacheConfiguration("selectchCate_Id", 60*10));
+        config.addCache(getCacheConfiguration("product", 60*10));
+        config.addCache(getCacheConfiguration("totalSalesList", 60*10));
+        
         return net.sf.ehcache.CacheManager.newInstance(config);
     }
 

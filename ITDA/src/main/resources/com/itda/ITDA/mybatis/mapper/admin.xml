@@ -115,7 +115,7 @@
 			  		from adminboard
 			  		where key = 'uNOTI'
 			  		and adState = 'Y'
-					order by adNum desc
+					order by adDate desc
 			  ) b
 			  where rownum &lt;= #{end}
 		)
@@ -158,7 +158,7 @@
 			  		from adminboard
 			  		where key = 'itNOTI'
 			  		and adState = 'Y'
-					order by adNum desc
+					order by adDate desc
 			  ) b
 			  where rownum &lt;= #{end}
 		)
@@ -193,22 +193,6 @@
 		set adState = 'N'
 		where adNum = #{adNum}
 	</update>
-	
-	<!--
-	<sql id="search_">
-		<if test="search_field != null">
-			where
-			<choose>
-				<when test="search_field == 'adminId'">adminId</when>
-				<when test="search_field == 'adminName'">adminName</when>
-				<when test="search_field == 'adminDept'">adminDept</when>
-				<when test="search_field == 'adminClass'">adminClass</when>
-				<when test="search_field == 'authName'">authName</when>
-			</choose>
-			like #{search_word}
-		</if>
-	</sql>
-	-->
 	
 	<select id="getAdminApproveList" parameterType="java.util.Map" resultType="Admin">
 		select * 
@@ -280,30 +264,46 @@
 	</select>
 	
 	<select id="problemListCount" resultType="int">
-	select count(*) 
-	from (select sickid, count(*) as sumcount
-		  from (select distinct sickid, warnnum
-		  	    from boardwarn
-		  	    union all
-		  	    select distinct sickid, warnnum
-		  	    from replywarn
-			   )
-		  group by sickid
-		 )
+		select count(*) 
+		from (select sickid, count(*) as sumcount
+			  from (select distinct sickid, warnnum
+			  	    from boardwarn
+			  	    where warnOk = 'N'
+			  	    union all
+			  	    select distinct sickid, warnnum
+			  	    from replywarn
+			  	    where warnOk = 'N'
+				   )
+			 group by sickid
+			 )
 	</select>
 	
 	<select id="getProblemBoardCount" resultType="int">
 		select count(*) from boardwarn
+		where warnOk = 'N'
 	</select>
 	
 	<select id="getProblemReplyCount" resultType="int">
 		select count(*) from replywarn
+		where warnOk = 'N'
 	</select>
 	
 	<update id="userUpdatePause" parameterType="String">
 		update itda_user
 		set statusid = 2
 		where userId = #{userId}
+	</update>
+	
+	<update id="userBoardUpdate" parameterType="String">
+		update boardwarn
+		set warnOk = 'Y'
+		where sickId = #{userId}
+	</update>
+	
+	<update id="userReplyUpdate" parameterType="String">
+		update replywarn
+		set warnOk = 'Y'
+		where sickId = #{userId}
 	</update>
 	
 	<update id="userUpdateStop" parameterType="String">
@@ -319,13 +319,39 @@
 	</update>
 	
 	<select id="boardProblemDetail" parameterType="java.util.Map" resultType="BoardWarn">
-		select warnNum, punchId, sickId, boardNum, warnCateId, warnDate, warnReason from boardwarn
+		select warnNum, punchId, sickId, boardNum, chNum, 
+		warnCateId, warnDate, warnReason
+		from boardwarn
 		where sickid = #{sickId}
+		and warnOk = 'N'
 	</select>
 	
 	<select id="replyProblemDetail" parameterType="java.util.Map" resultType="ReplyWarn">
-		select warnNum, punchId, sickId, replyNum, warnCateId, warnDate, warnReason from replywarn
+		select rw.*, cb.chnum
+		from (select warnNum, punchId, sickId, replyNum, boardNum, 
+				warnCateId, warnDate, warnReason 
+				from replywarn 
+				where sickid = #{sickId}
+				and warnOk = 'N'
+			 ) rw
+		left join chboard cb on rw.boardnum = cb.boardnum
+	</select>
+	
+	<select id="boardProblemDetailAll" parameterType="java.util.Map" resultType="BoardWarn">
+		select warnNum, punchId, sickId, boardNum, chNum, 
+		warnCateId, warnDate, warnReason
+		from boardwarn
 		where sickid = #{sickId}
+	</select>
+	
+	<select id="replyProblemDetailAll" parameterType="java.util.Map" resultType="ReplyWarn">
+		select rw.*, cb.chnum
+		from (select warnNum, punchId, sickId, replyNum, boardNum, 
+				warnCateId, warnDate, warnReason 
+				from replywarn 
+				where sickid = #{sickId}
+			 ) rw
+		left join chboard cb on rw.boardnum = cb.boardnum
 	</select>
 	
 	<select id="couponList" parameterType="java.util.Map" resultType="Coupon">
@@ -333,6 +359,7 @@
 		from (select rownum rnum, c.*
 			  from (select *
 			  		from Coupon
+			  		where couponState = 'Y'
 					order by couponCreate desc
 			  ) c
 			  where rownum &lt;= #{end}
@@ -342,12 +369,13 @@
 	
 	<select id="getCouponListCount" resultType="int">
 		select count(*) from Coupon
+		where couponState = 'Y'
 	</select>
 	
 	<insert id="couponInsert" parameterType="Coupon">
 		insert into coupon
 		values(#{couponCode}, COUPON_SEQ.nextval, #{couponName}, #{couponDetail},
-		#{couponPrice}, SYSDATE, null, #{adminId})
+		#{couponPrice}, SYSDATE, null, #{adminId}, 'Y')
 	</insert>
 	
 	<select id="getUserTotal" parameterType="java.lang.Integer" resultType="java.lang.Integer">
@@ -428,4 +456,148 @@
 		where warndate &gt;= trunc(SYSDATE)
 		 and warndate &lt; trunc(SYSDATE  + 1)
 	</select>
+	
+	<select id="isCouponWriter" parameterType="Map" resultType="Coupon">
+		select couponNum, couponCode, adminId from coupon
+		where couponNum = #{couponNum}
+		and couponCode = #{couponCode}
+	</select>
+	
+	<update id="couponDelete" parameterType="Coupon">
+		update coupon
+		set couponState = 'N'
+		where couponNum = #{couponNum}
+	</update>
+	
+	<select id="getAdminApproveList2" parameterType="map" resultType="Admin">
+		select * from (select rownum rnum, a.* 
+	      			   from (select *  from admin
+							 <include refid="search_" />
+							 order by adminId) a 
+					   where rownum &lt;= #{end}
+					  ) 
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<sql id="search_">
+		<if test="search_field != null">
+			where
+			<choose>
+				<when test="search_field == '아이디'">adminId</when>
+				<when test="search_field == '이름'">adminName</when>
+				<when test="search_field == '부서'">adminDept</when>
+				<when test="search_field == '직급'">adminClass</when>
+				<when test="search_field == '권한 등급'">authName</when>
+			</choose>
+			like #{search_word}
+		</if>
+	</sql>
+	
+	<select id="getFAQList2" parameterType="map" resultType="AdminBoard">
+		select * 
+		from (select rownum rnum, b.*
+			  from (select *
+			  		from adminboard
+			  		where key = 'FAQ'
+			  		and adState = 'Y'
+			  		<include refid="search_FAQ" />
+					order by adNum desc
+			  ) b
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<sql id="search_FAQ">
+		<if test="search_field != null">
+			and
+			<choose>
+				<when test="search_field == '제목'">adTitle</when>
+				<when test="search_field == '카테고리'">QcateId</when>
+				<when test="search_field == '질문자'">userId</when>
+				<when test="search_field == '작성자'">adWriter</when>
+				<when test="search_field == '날짜'">adDate</when>
+			</choose>
+			like #{search_word}
+		</if>
+	</sql>
+	
+	<select id="getUserNoticeList2" parameterType="map" resultType="AdminBoard">
+		select * 
+		from (select rownum rnum, b.*
+			  from (select *
+			  		from adminboard
+			  		where key = 'uNOTI'
+			  		and adState = 'Y'
+			  		<include refid="search_Notice" />
+					order by adDate desc
+			  ) b
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<select id="getItdaNoticeList2" parameterType="map" resultType="AdminBoard">
+		select * 
+		from (select rownum rnum, b.*
+			  from (select *
+			  		from adminboard
+			  		where key = 'itNOTI'
+			  		and adState = 'Y'
+			  		<include refid="search_Notice" />
+					order by adDate desc
+			  ) b
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<sql id="search_Notice">
+		<if test="search_field != null">
+			and
+			<choose>
+				<when test="search_field == '제목'">adTitle</when>
+				<when test="search_field == '작성자'">adWriter</when>
+				<when test="search_field == '날짜'">adDate</when>
+			</choose>
+			like #{search_word}
+		</if>
+	</sql>
+	
+	<select id="getSellerApproveList2" parameterType="map" resultType="Seller">
+		select * 
+		from (select rownum rnum, s.*
+			  from (select userId, sellerPhone, sellerEmail, sellerJoinDate
+			  		from Seller
+			  		where waitState = 'W'
+			  		<include refid="search_SellerApprove" />
+			  		order by sellerJoinDate desc
+			  ) s
+			  where rownum &lt;= #{end}
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	
+	<sql id="search_SellerApprove">
+		<if test="search_field != null">
+			and
+			<choose>
+				<when test="search_field == '신청자'">userId</when>
+				<when test="search_field == '신청일'">sellerJoinDate</when>
+			</choose>
+			like #{search_word}
+		</if>
+	</sql>
+	
+	<select id="getTotalSalesList" parameterType="java.util.Map" resultType="SalesTotal">
+		select salestotal, credate
+		from (
+		    select salestotal, credate
+		    from salestotal
+		    order by credate desc
+		)
+		where rownum &lt;= 10
+	</select>
+	
+	
 </mapper>

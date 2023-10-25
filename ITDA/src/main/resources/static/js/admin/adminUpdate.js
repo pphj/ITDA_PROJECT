@@ -15,10 +15,10 @@
 		
 		$(".adminName").on("input", function() {
 	        let input_name = $(this).val();
-	        let pattern = /^[가-힣]{3,4}$/;
+	        let pattern = /^[A-Za-z가-힣\s]{1,15}$/;
 	
 	        if (!pattern.test(input_name)) {
-	            $(".message2").css('color', 'red').html("한글로 입력하세요 ex)홍길동, 세종대왕");
+	            $(".message2").css('color', 'red').html("한글 또는 영어로 1~15자 이내로 입력하세요.");
 	        } else {
 	            $(".message2").css('color', 'green').html("확인되었습니다.");
 	        }

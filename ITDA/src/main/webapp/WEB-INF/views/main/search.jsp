@@ -3,7 +3,7 @@
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"><head>
 	<title>채널 및 콘텐츠 검색</title>
-	<link rel="stylesheet" href="https://static-nnews.pstatic.net/css/min/20230914a/premium_service.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header/premium_service2.css">
 	<link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
 	<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/search.css">

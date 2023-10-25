@@ -98,10 +98,18 @@ public interface AdminMapper {
 	public int userUpdateStop(String userId);
 
 	public int userUpdateClear(String userId);
+	
+	public int userBoardUpdate(String userId);
+
+	public int userReplyUpdate(String userId);
 
 	public List<ReplyWarn> replyProblemDetail(String sickId);
 
 	public List<BoardWarn> boardProblemDetail(String sickId);
+	
+	public List<ReplyWarn> replyProblemDetailAll(String sickId);
+
+	public List<BoardWarn> boardProblemDetailAll(String sickId);
 
 	public int getCouponListCount();
 
@@ -129,8 +137,22 @@ public interface AdminMapper {
 
 	public int problemDailyCount();
 
+	public Coupon isCouponWriter(HashMap<String, Object> map);
 
+	public int couponDelete(int couponNum);
 
+	public List<Admin> getAdminApproveList2(Map<String, Object> map);
+
+	public List<AdminBoard> getFAQList2(Map<String, Object> map);
+
+	public List<AdminBoard> getUserNoticeList2(Map<String, Object> map);
+
+	public List<AdminBoard> getItdaNoticeList2(Map<String, Object> map);
+
+	public List<Seller> getSellerApproveList2(Map<String, Object> map);
+
+	public List<UserTotal> getTotalSalesList();
+	
 
 
 }

@@ -47,7 +47,7 @@
 				WHERE userid = #{userId}
 				ORDER BY callDate DESC
 			)
-		where rownum <= 1
+		where rownum = 1
 		]]>
 	</select>
 	
@@ -57,8 +57,33 @@
 			payedprice, payeduser, payerbank, payedokdate, 
 			payedstatus, payedcode, payedvat)
 		VALUES (paynum_seq.nextval, #{payedMethod}, #{orderNum}, #{payedDate}, 
-				#{payedPrice}, 'N', 'N', #{payedOkDate}, 
+				#{payedPrice}, #{userId}, 'N', #{payedOkDate}, 
 				'Y', #{payedCode}, #{payedVat})
 	</insert>
-
+	
+	<!-- 유료회원 insert를 위한 값 뽑아오기 -->
+	<select id="paymentCompletUser" resultType="Payment">
+		<![CDATA[
+			SELECT
+			    payednum,
+			    payedokdate,
+			    userid,
+			    PRODUCTTERM
+			FROM
+			    (SELECT
+			        py.payednum, 
+			        py.payedokdate,
+			        pc.userid,
+			        sp.PRODUCTTERM,
+			        ROW_NUMBER() OVER (ORDER BY py.payednum DESC) AS rnum
+			    FROM
+			        payment py
+			    JOIN paycall pc ON py.ordernum = pc.callnum
+			    JOIN subproduct sp ON pc.productid = sp.productid
+			    JOIN itda_user iu ON pc.userid = iu.userid
+			    WHERE iu.userid = #{userId})
+			WHERE rnum = 1
+		]]>
+	</select>
+	
 </mapper>

@@ -1,5 +1,6 @@
 package com.itda.ITDA.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import com.itda.ITDA.domain.Admin;
@@ -13,23 +14,23 @@ import com.itda.ITDA.domain.UserTotal;
 
 public interface adminService {
 
-	public int getFAQListCount();
+	public int getFaqListCount();
 
-	public List<AdminBoard> getFAQList(int page, int limit);
+	public List<AdminBoard> getFaqList(int page, int limit);
 
-	public AdminBoard getFAQDetail(int num);
+	public AdminBoard getFaqDetail(int num);
 
-	public void insertFAQ(AdminBoard faq);
+	public void insertFaq(AdminBoard faq);
 
-	public boolean isadWriter(int adNum, String adPassword);
+	public boolean isAdWriter(int adNum, String adPassword);
 
-	public int FAQModify(AdminBoard FAQdata);
+	public int faqModify(AdminBoard FAQdata);
 
 	public int faqDelete(int num);
 
-	public int getQNAListCount();
+	public int getQnaListCount();
 
-	public List<AdminBoard> getQNAList(int page, int limit);
+	public List<AdminBoard> getQnaList(int page, int limit);
 
 	public List<AdminBoard> getUserNoticeList(int page, int i);
 
@@ -83,10 +84,18 @@ public interface adminService {
 	
 	public int userUpdateClear(String userId);
 
+	public int userBoardUpdate(String userId);
+
+	public int userReplyUpdate(String userId);
+	
 	public List<ReplyWarn> replyProblemDetail(String sickId);
 
 	public List<BoardWarn> boardProblemDetail(String sickId);
+	
+	public List<ReplyWarn> replyProblemDetailAll(String sickId);
 
+	public List<BoardWarn> boardProblemDetailAll(String sickId);
+	
 	public int getCouponListCount();
 
 	public List<Coupon> couponList(int page, int i);
@@ -113,6 +122,21 @@ public interface adminService {
 
 	public int problemDailyCount();
 
+	public boolean isCouponWriter(int couponNum, BigInteger couponCode);
 
+	public int couponDelete(int couponNum);
+
+	public List<Admin> getAdminApproveList(int index, String search_word, int page, int limit);
+
+	public List<AdminBoard> getFaqList(int index, String search_word, int page, int limit);
+
+	public List<AdminBoard> getUserNoticeList(int index, String search_word, int page, int limit);
+
+	public List<AdminBoard> getItdaNoticeList(int index, String search_word, int page, int limit);
+
+	public List<Seller> getSellerApproveList(int index, String search_word, int page, int limit);
+
+	public List<UserTotal> getTotalSalesList();
+	
 
 }

@@ -5,8 +5,7 @@
 <mapper namespace="com.itda.ITDA.mybatis.mapper.TagMapper">
 
 	<insert id="tagInsert" parameterType="map">
-		INSERT INTO tag (tagId,
-		boardNum, tagName)
+		INSERT INTO tag (tagId, boardNum, tagName)
 		VALUES(tag_seq.nextval, #{boardNum}, #{tagName})
 	</insert>
 
@@ -26,13 +25,14 @@
 		FROM tag
 		WHERE tagName = #{tagName}
 	</select>
-
-	<delete id="deleteByBoardNum" parameterType="int">
-		DELETE FROM tag WHERE BOARDNUM = #{boardNum}
-	</delete>
 	
+	<!--  글 수정시 태그 삭제 -->
 	<delete id="tagDelete">
 		DELETE FROM tag WHERE tagId = #{tagId}
+	</delete>
+	
+	<delete id="deleteTagsByBoardNum">
+		DELETE FROM tag WHERE BOARDNUM = #{boardNum}
 	</delete>
 
 </mapper>

@@ -26,7 +26,7 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/problem.js"></script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -47,6 +47,7 @@
     <div class="main-content" style="padding: 30px 25px;">
 	<div class="card">
 		<div class="card-body">
+		<h3 style="text-align: center;">신고 목록</h3>
  		<c:if test="${listcount > 0}">
  		<div class="rows" style="width: 48px; float: right;">
 	 		<span>줄보기</span>
@@ -77,24 +78,25 @@
 	 			<c:forEach var="p" items="${problemList}">
 	 				<tr>
 	 					<td class="text-center">
-		 					<c:out value="${num}" />
-		 					<c:set var="num" value="${num-1}" />
+		 					<c:out value="${p.rnum}" />
 	 					</td>
 	 					<td class="text-center targetSickId">
-		 					<a href="${pageContext.request.contextPath}/admin/problem/${p.sickId}">
-		 						<div name=sickId><c:out value="${p.sickId}" /></div>
+		 					<a href="${pageContext.request.contextPath}/admin/problem/${p.sickId}" style="color: #1294FA; font-weight: bold;">
+		 						<div name="sickId"><c:out value="${p.sickId}" /></div>
 		 					</a>
 	 					</td>
-	 					<td class="text-center"><div><c:out value="${p.sumCount}" /></div></td>
+	 					<td class="text-center" style="color: red; font-weight: bold;">
+	 						<div><c:out value="${p.sumCount}" /></div>
+	 					</td>
 	 					<c:choose>
 						    <c:when test="${p.statusid == 1}">
-						        <td class="text-center"><div>정상</div></td>
+						        <td class="text-center" style="color: #38CFD5; font-weight: bold;"><div>정상</div></td>
 						    </c:when>
 						    <c:when test="${p.statusid == 2}">
-						        <td class="text-center"><div>일시 정지</div></td>
+						        <td class="text-center" style="color: #38CFD5; font-weight: bold;"><div>일시 정지</div></td>
 						    </c:when>
 						    <c:when test="${p.statusid == 3}">
-						        <td class="text-center"><div>정지</div></td>
+						        <td class="text-center" style="color: #38CFD5; font-weight: bold;"><div>정지</div></td>
 						    </c:when>
 						</c:choose>
 		 				<td class="td-actions text-center">
@@ -131,7 +133,7 @@
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			</form>
 		 	<div class="center-block">
-		 		<ul class="pagination justify-content-center">
+		 		<ul class="pagination justify-content-end">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
 		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>

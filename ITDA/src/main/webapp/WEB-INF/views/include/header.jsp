@@ -180,7 +180,7 @@
 												<div class="sns_login_form">
 													<p class="txt_c mb10">
 													<div>
-   <a class="btn btn-naver !tw-block" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=rcyeX4m7t_YVfke5Wd6Y&amp;state=1111G&amp;redirect_uri=http://localhost:9400/itda/">네이버로 시작하기</a>
+  <a class="btn btn-naver !tw-block" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=rcyeX4m7t_YVfke5Wd6Y&amp;state=1111&amp;redirect_uri=http://localhost:9400/itda/naver/callback">네이버로 시작하기</a>
 
 </div>
 

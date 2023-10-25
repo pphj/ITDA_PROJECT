@@ -1,10 +1,10 @@
 package com.itda.ITDA.domain;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+@NoArgsConstructor
 public class NaverDTO {
     private String id;
     private String email;

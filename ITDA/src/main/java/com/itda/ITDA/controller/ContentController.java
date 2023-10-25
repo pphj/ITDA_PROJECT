@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -325,37 +326,43 @@ public class ContentController {
 
 		try
 		{
-			// 1. Get the post details using the board number
+
 			ChBoard chboard = contentService.getContentDetail(boardnum);
 
-			// 2. Delete the uploaded image file if it exists
+			// 이미지 삭제
 			if (chboard.getThumbNail() != null && !chboard.getThumbNail().isEmpty())
 			{
 				Path filePath = Paths.get(
 						saveFolder + "/contents/" + chboard.getChNum() + File.separator + chboard.getThumbNail());
 				Files.deleteIfExists(filePath);
+
+				logger.info("이미지 삭제 = " + filePath);
 			}
 
-			// 3. Delete tags associated with this post
-			// TagService.deleteTagsByBoardNum(boardnum);
+			// 태그 삭제
+			// contentService.deleteTagsByBoardNum(boardnum); // 태그 삭제 로직 호출
 
-			// 4. Finally delete the post itself
+			// 게시글 삭제
 			contentService.deleteBoard(boardnum);
 
 			logger.info("Successfully deleted post with boardNum: " + boardnum);
 
 			rattr.addFlashAttribute("result", "deleteSuccess");
 
-			return "redirect:/channels/" + chnum;
-
 		} catch (Exception e)
 		{
+
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			// 위의 어느 과정에서 에러가 발생하면 롤백
 
 			logger.error("Failed to delete post with boardNum: " + boardnum);
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "삭제 실패");
+
 			return "error/error";
 		}
+
+		return "redirect:/channels/" + chnum;
 	}
 
 	// 댓글 리스트
@@ -450,21 +457,21 @@ public class ContentController {
 		{
 			if (heartState == 1)
 			{
-				// 좋아요 추가 로직
 				try
 				{
-					heartService.addHeart(boardNum, userId);
+					heartService.addHeart(boardNum, userId); // heart 테이블에 레코드 추가
+					heartService.updateChBoardHeart(boardNum); // chboard 테이블의 boardheart 업데이트
 					logger.info("좋아요 성공");
 				} catch (DuplicateKeyException e)
-				{ // 이미 좋아요가 등록된 경우
+				{
 					response.put("success", false);
 					response.put("message", "이미 좋아요를 누른 게시물입니다.");
 					return response;
 				}
 			} else if (heartState == 0)
 			{
-				// 좋아요 취소 로직
 				heartService.removeHeart(boardNum, userId);
+				heartService.decreaseChBoardHeart(boardNum); // chboard 테이블의 boardheart 감소
 				logger.info("좋아요 취소 성공");
 			}
 

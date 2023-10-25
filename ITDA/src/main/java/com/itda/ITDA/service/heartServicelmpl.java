@@ -34,4 +34,14 @@ public class heartServicelmpl implements heartService {
 		return dao.getHeartCount(boardNum);
 	}
 
+	@Override
+	public void updateChBoardHeart(int boardNum) {
+		dao.updateChBoardHeart(boardNum);
+	}
+
+	@Override
+	public void decreaseChBoardHeart(int boardNum) {
+		dao.decreaseChBoardHeart(boardNum);
+	}
+
 }
