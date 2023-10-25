@@ -2,15 +2,11 @@ package com.itda.ITDA.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itda.ITDA.domain.NaverDTO;
 
 @Service
@@ -34,15 +30,16 @@ public class NaverService {
     }
 
     public NaverDTO getNaverInfo(String code) throws Exception {
-        if (code == null)
+        if (code == null) {
             throw new Exception("Failed to get authorization code");
+        }
 
         String accessToken = "";
         String refreshToken = "";
 
         try {
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-type", "application/x-www-form-urlencoded");
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
             MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
             params.add("grant_type", "authorization_code");
@@ -51,19 +48,21 @@ public class NaverService {
             params.add("code", code);
             params.add("redirect_uri", NAVER_REDIRECT_URL);
 
-            RestTemplate restTemplate = new RestTemplate();
-            HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
+            HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
+            ResponseEntity<String> responseEntity = new RestTemplate().exchange(
+                    NAVER_AUTH_URI + "/oauth2.0/token", HttpMethod.POST, requestEntity, String.class);
 
-            ResponseEntity<String> response = restTemplate.exchange(
-                    NAVER_AUTH_URI + "/oauth2.0/token", HttpMethod.POST, httpEntity, String.class);
+            if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                String responseBody = responseEntity.getBody();
+                JSONObject jsonObject = new JSONObject(responseBody);
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            JSONObject jsonObj = objectMapper.readValue(response.getBody(), JSONObject.class);
-
-            accessToken = (String) jsonObj.get("access_token");
-            refreshToken = (String) jsonObj.get("refresh_token");
+                accessToken = jsonObject.getString("access_token");
+                refreshToken = jsonObject.getString("refresh_token");
+            } else {
+                throw new Exception("Failed to get access token");
+            }
         } catch (Exception e) {
-            throw new Exception("API call failed");
+            throw new Exception("API call failed: " + e.getMessage());
         }
 
         return getUserInfoWithToken(accessToken);
@@ -71,26 +70,27 @@ public class NaverService {
 
     private NaverDTO getUserInfoWithToken(String accessToken) throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + accessToken);
-        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        headers.set("Authorization", "Bearer " + accessToken);
 
-        RestTemplate rt = new RestTemplate();
-        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = rt.exchange(NAVER_API_URI + "/v1/nid/me", HttpMethod.POST, httpEntity, String.class);
+        HttpEntity<?> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<String> responseEntity = new RestTemplate().exchange(
+                NAVER_API_URI + "/v1/nid/me", HttpMethod.GET, requestEntity, String.class);
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            String responseBody = responseEntity.getBody();
+            JSONObject jsonObject = new JSONObject(responseBody).getJSONObject("response");
 
-        JSONObject jsonObj = objectMapper.readValue(response.getBody(), JSONObject.class);
-        JSONObject account = jsonObj.getJSONObject("response");
+            String id = jsonObject.getString("id");
+            String email = jsonObject.getString("email");
+            String name = jsonObject.getString("name");
 
-        String id = account.getString("id");
-        String email = account.getString("email");
-        String name = account.getString("name");
-
-        return NaverDTO.builder()
-                .id(id)
-                .email(email)
-                .name(name)
-                .build();
+            return NaverDTO.builder()
+                    .id(id)
+                    .email(email)
+                    .name(name)
+                    .build();
+        } else {
+            throw new Exception("Failed to get user info");
+        }
     }
 }

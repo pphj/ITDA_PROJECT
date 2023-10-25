@@ -2,6 +2,8 @@ package com.itda.ITDA.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -43,8 +45,6 @@ import com.itda.ITDA.service.NaverService;
 import com.itda.ITDA.service.UserCategoryService;
 import com.itda.ITDA.task.SendMail;
 
-import javax.servlet.http.Cookie;
-
 //DAO와 Service가 작성되어야 Controller가 완성된다
 @Controller
 @RequestMapping(value = "/member")
@@ -59,27 +59,28 @@ public class Itda_UserController {
 	private HttpSession session; // HttpSession 객체 선언
 	private SendMail sendMail;
 	private NaverService naverService;
-	
+
 
 	@Autowired
 	public Itda_UserController(Itda_UserService Itda_UserService, UserCategoryService userCategoryService,
-			PasswordEncoder passwordEncoder, HttpSession session, SendMail sendMail, NaverService naverService) {
+			PasswordEncoder passwordEncoder, HttpSession session, SendMail sendMail ) {
 		this.Itda_UserService = Itda_UserService;
 		this.passwordEncoder = passwordEncoder;
 		this.userCategoryService = userCategoryService;
 		this.session = session; // HttpSession 객체 주입
 		this.sendMail = sendMail;
-		this.naverService = naverService;
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(ModelAndView mv, @CookieValue(value = "saveid", required = false) Cookie readCookie,
 			HttpSession session, Principal userPrincipal) {
 
-		if (readCookie != null) {
+		if (readCookie != null)
+		{
 			logger.info("저장된 아이디 : " + userPrincipal.getName()); // 로그인한 아이디값을 로그에 찍어봄
 			mv.setViewName("redirect:/main/protomain");
-		} else {
+		} else
+		{
 			mv.setViewName("/main/protomain");
 			mv.addObject("loginfail", session.getAttribute("loginfail")); // loginfail을 mv에 저장해주고
 			session.removeAttribute("loginfail"); // 세션값은 삭제한다
@@ -93,15 +94,14 @@ public class Itda_UserController {
 	public int idcheck(@RequestParam("userId") String userId) {
 		return Itda_UserService.isId(userId);
 	}
-	
-	
 
 	@ResponseBody
 	@RequestMapping(value = "/sendIdEmail", method = RequestMethod.GET)
 	public String findId(String userEmail) {
 		Itda_User user = Itda_UserService.findUserByEmail(userEmail);
 
-		if (user != null) {
+		if (user != null)
+		{
 			// 이메일 전송
 			sendMail.sendMail(userEmail, user.getUserId());
 			return "success";
@@ -112,65 +112,64 @@ public class Itda_UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "/checkingResettingEmails", method = RequestMethod.GET)
-	public String checkingResettingEmails(String userEmail, HttpServletRequest request) {  // HttpServletRequest 추가
-	    Itda_User user = Itda_UserService.findUserByEmail(userEmail);
+	public String checkingResettingEmails(String userEmail, HttpServletRequest request) { // HttpServletRequest 추가
+		Itda_User user = Itda_UserService.findUserByEmail(userEmail);
 
-	    if (user != null) {
-	        // 이메일 값이 유효하면 세션에 저장
-	        HttpSession session = request.getSession();
-	        session.setAttribute("userEmail", userEmail);
-	        
-	        return "success";
-	    }
+		if (user != null)
+		{
+			// 이메일 값이 유효하면 세션에 저장
+			HttpSession session = request.getSession();
+			session.setAttribute("userEmail", userEmail);
 
-	    return "error";
+			return "success";
+		}
+
+		return "error";
 	}
 
-	
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public ResponseEntity<String> changePassword(@RequestParam("userEmail") String userEmail,
-	                                             @RequestParam("confirmPassword") String newPassword) {
+			@RequestParam("confirmPassword") String newPassword) {
 
-	    boolean passwordChanged = Itda_UserService.changePassword(userEmail, newPassword);
+		boolean passwordChanged = Itda_UserService.changePassword(userEmail, newPassword);
 
-	    if (passwordChanged) {
-	        return new ResponseEntity<>("success", HttpStatus.OK);
-	    } else {
-	        return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
-	    }
+		if (passwordChanged)
+		{
+			return new ResponseEntity<>("success", HttpStatus.OK);
+		} else
+		{
+			return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
+		}
 	}
-	
-	
-	
-	
 
 
 	@GetMapping("/callback")
-	public String naverCallback(@RequestParam("code") String code, @RequestParam(name="state", required=false) String state) {
-	    try {
-	        if (code != null) {
-	            // 네이버 인증 코드를 받아와서 처리하는 로직을 구현합니다.
-	            NaverDTO naverInfo = naverService.getNaverInfo(code);
+	public String naverCallback(@RequestParam("code") String code,
+			@RequestParam(name = "state", required = false) String state) {
+		try
+		{
+			if (code != null)
+			{
+				// 네이버 인증 코드를 받아와서 처리하는 로직을 구현합니다.
+				NaverDTO naverInfo = naverService.getNaverInfo(code);
 
-	            // 네이버 로그인 성공 후 리다이렉트할 경로 지정
-	            return "redirect:/main/protomain";
-	        } else {
-	            // code가 없을 경우 예외 처리
-	            throw new IllegalArgumentException("Invalid authorization code");
-	        }
-	    } catch (Exception e) {
-	        // 예외 처리 로직 작성
+				// 네이버 로그인 성공 후 리다이렉트할 경로 지정
+				return "redirect:/main/protomain";
+			} else
+			{
+				// code가 없을 경우 예외 처리
+				throw new IllegalArgumentException("Invalid authorization code");
+			}
+		} catch (Exception e)
+		{
+			// 예외 처리 로직 작성
 
-	        // 예외 발생 시 리다이렉트할 경로 지정
-	        return "redirect:/error-page";
-	    }
+			// 예외 발생 시 리다이렉트할 경로 지정
+			return "redirect:/error-page";
+		}
 	}
 
-	
-	
 
-	
-	
 	@RequestMapping(value = "/joinForm", method = RequestMethod.GET)
 	public String joinForm() {
 		return "member/joinForm";
@@ -180,8 +179,9 @@ public class Itda_UserController {
 	public String insert(@ModelAttribute Itda_User mem,
 			@RequestParam(value = "profile", required = false) MultipartFile file,
 			@RequestParam("userCategory") int userCategory, RedirectAttributes ra, Model model,
-			HttpServletRequest request, HttpSession session, HttpServletResponse response) { // HttpServletResponse 객체를
-																								// 파라미터로 추가합니다.
+			HttpServletRequest request, HttpSession session, HttpServletResponse response) { // HttpServletResponse
+																				// 객체를
+																				// 파라미터로 추가합니다.
 		String encPassword = passwordEncoder.encode(mem.getUserPw());
 		logger.info(encPassword);
 		mem.setUserPw(encPassword);
@@ -198,14 +198,17 @@ public class Itda_UserController {
 		// 날짜별 폴더 생성
 		FolderService.createFolder(userFolder);
 
-		if (file != null && !file.isEmpty()) {
-			try {
+		if (file != null && !file.isEmpty())
+		{
+			try
+			{
 				byte[] bytes = file.getBytes(); // 파일의 내용을 바이트 배열로 읽어옵니다.
 
 				Path path = Paths.get(userFolder + File.separator + file.getOriginalFilename()); // 파일을 저장할 절대경로
-																									// 객체(Path) 생성
+																					// 객체(Path) 생성
 
 				Files.write(path, bytes); // 해당 경로에 파일 쓰기
+
 
 				String urlPath = "/" + DateService.toDay() + "/" + file.getOriginalFilename();
 
@@ -217,10 +220,12 @@ public class Itda_UserController {
 				profileCookie.setMaxAge(60 * 60 * 24 * 7); // 예: 7일 동안 유지되도록 설정 (초 단위)
 				response.addCookie(profileCookie);
 
-			} catch (IOException e) {
+			} catch (IOException e)
+			{
 				e.printStackTrace();
 			}
-		} else {
+		} else
+		{
 			mem.setUserProfile("/static/image/main/login.png");
 			session.setAttribute("userProfilePath", "/static/image/main/login.png");
 
@@ -232,7 +237,8 @@ public class Itda_UserController {
 
 		int result = Itda_UserService.insert(mem);
 
-		if (result == 1) {
+		if (result == 1)
+		{
 			ra.addFlashAttribute("result", "joinSuccess");
 
 			UserCategory usercategory = new UserCategory();
@@ -241,7 +247,8 @@ public class Itda_UserController {
 
 			int categoryResult = userCategoryService.insert(usercategory);
 
-			if (categoryResult == 1) {
+			if (categoryResult == 1)
+			{
 				return "redirect:/";
 			}
 		}
@@ -262,10 +269,12 @@ public class Itda_UserController {
 		logger.info("결과 : " + result);
 		logger.info("get parameter : " + id + " " + password);
 
-		if (result == 1) {
+		if (result == 1)
+		{
 			session.setAttribute("id", id);
 			return "redirect:/";
-		} else {
+		} else
+		{
 			rattr.addFlashAttribute("result", result);
 			return "/";
 		}
@@ -275,8 +284,5 @@ public class Itda_UserController {
 	public String findIdPasswordForm() {
 		return "member/FindIdPasswordForm";
 	}
-	
-	
-	 
 
 }

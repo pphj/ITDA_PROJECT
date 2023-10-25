@@ -10,4 +10,8 @@ public interface heartService {
 
 	int getHeartCount(int boardNum);
 
+	void updateChBoardHeart(int boardNum);
+
+	void decreaseChBoardHeart(int boardNum);
+
 }

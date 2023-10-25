@@ -65,4 +65,10 @@ public interface ChannelList_Service {
 
 	Itda_User getUserInfo(String userid);
 
+	void subscribe(String userId, int chnum);
+
+	void unsubscribe(String userId, int chnum);
+
+
+
 }
