@@ -21,7 +21,7 @@ public class Admin implements UserDetails {
     private String adminClass;		//관리자 직급
     private String adminEmail;		//관리자 이메일
     private String authName;		//권한명
-    
+    private String userProfile;
     @Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
@@ -57,5 +57,9 @@ public class Admin implements UserDetails {
 	@Override
 	public String getUsername() {
 		return adminId;
+	}
+	
+	public String setUserProfile() {
+		return "/static/image/main/login.png";
 	}
 }

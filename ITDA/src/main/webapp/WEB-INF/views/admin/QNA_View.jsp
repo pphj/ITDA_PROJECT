@@ -71,22 +71,22 @@
  				<td><div>카테고리</div></td>
  				<c:choose>
 					<c:when test="${qnadata.qcateId == 1}">
-						<td><div>홍보, 영리목적</div></td>
+						<td><div>구매, 환불</div></td>
 					</c:when>
 					<c:when test="${qnadata.qcateId == 2}">
-						<td><div>불법 정보</div></td>
+						<td><div>회원</div></td>
 					</c:when>
 					<c:when test="${qnadata.qcateId == 3}">
-						<td><div>음란, 청소년 유해</div></td>
+						<td><div>상품</div></td>
 					</c:when>
 					<c:when test="${qnadata.qcateId == 4}">
-						<td><div>욕설, 비방, 차별, 혐오</div></td>
+						<td><div>채널</div></td>
 					</c:when>
 					<c:when test="${qnadata.qcateId == 5}">
-						<td><div>도배, 스팸</div></td>
+						<td><div>서비스 소개, 이용 방법</div></td>
 					</c:when>
 					<c:when test="${qnadata.qcateId == 6}">
-						<td><div>개인정보 노출, 거래</div></td>
+						<td><div>오류, 피해 접수</div></td>
 					</c:when>
 					<c:otherwise>
 						<td><div>기타</div></td>

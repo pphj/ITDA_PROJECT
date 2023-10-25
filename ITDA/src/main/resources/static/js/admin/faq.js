@@ -73,22 +73,22 @@
 							let qacategory = "";
 							switch (item.qcateId) {
 								case 1:
-									qacategory = "홍보, 영리목적";
+									qacategory = "구매, 환불";
 									break;
 								case 2:
-									qacategory = "불법 정보";
+									qacategory = "회원";
 									break;
 								case 3:
-									qacategory = "음란, 청소년 유해";
+									qacategory = "상품";
 									break;
 								case 4:
-									qacategory = "욕설, 비방, 차별, 혐오";
+									qacategory = "채널";
 									break;
 								case 5:
-									qacategory = "도배, 스팸";
+									qacategory = "서비스 소개, 이용 방법";
 									break;
 								case 6:
-									qacategory = "개인정보 노출, 거래";
+									qacategory = "오류, 피해 접수";
 									break;
 								case 7:
 									qacategory = "기타";
@@ -99,8 +99,9 @@
 							
 							if (item.userId === 'system') {
 								output += "<td class='text-center'><div>"
-										+ ' <a href="FAQ/' + item.adNum + '">'
+										+ '<a href="FAQ/' + item.adNum + '">'
 										+ adTitle.replace(/</g,'&lt;').replace(/>/g,'&gt;')
+										+ '</a></div></td>'
 										+ '<td class="text-left"><div>' + qacategory + '</div></td>'
 										+ '<td class="text-center"><div>' + item.adWriter + '</div></td>'
 										+ '<td class="text-left"><div>' + item.adDate.substr(0,10) + '</div></td></tr>'
@@ -110,6 +111,7 @@
 								output += "<td class='text-center'><div>"
 								   		+ ' <a href="QNA/' + item.adNum + '">'
 								   	 	+ adTitle.replace(/</g,'&lt;').replace(/>/g,'&gt;')
+										+ '</a></div></td>'
 										+ '<td class="text-left"><div>' + qacategory + '</div></td>'
 										+ '<td class="text-center"><div>' + item.userId + '</div></td>'
 										+ '<td class="text-left"><div>' + item.adDate.substr(0,10) + '</div></td></tr>'
