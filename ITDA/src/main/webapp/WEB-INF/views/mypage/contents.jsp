@@ -53,22 +53,7 @@
 	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>
 	<progress id="_CONTENT_INDICATOR" class="progress" max="100" value="0"></progress>
 </div>
-<!--<header class="flat_header_wrap as_my_home">
-	<div class="flat_header">
-	<h1 class="flat_header_logo">
-	<a href="/" class="link_premium" data-clk="my_lnb.pclogo"><span class="blind">Premium Contents</span></a>
-	</h1>
-	<a href="#" class="button_close _BACK_ELSE_CLOSE" data-clk="my_lnb.close">
-		<span class="blind">이전으로</span>
-	</a>
-	<h2 class="flat_header_title">
-		<span class="flat_header_title_inner as_pc">
-			MY
-		</span>
-	</h2>
-	</div>
-</header>
-<hr>-->
+
 <script>
 	var svt = "20230918010858.272";
 	var timestamp = svt.substr(0, 8);
@@ -155,7 +140,7 @@
 								</div>
 							</div>
 						</div>
-						<button type="button" class="my_attention_remove _DELETE_VISITED_CONTENT" data-content-id="230914181035921tg" data-clk="my_conts.del"><span class="blind">삭제</span></button>
+						<button type="button" class="my_attention_remove _DELETE_VISITED_CONTENT" data-clk="my_conts.del"><span class="blind">삭제</span></button>
 					</div>
 				</li>
 				</c:forEach>
@@ -268,90 +253,7 @@
 </script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
-<script>
-$(window).on("load", function() {
-	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
 
-	if ($content.length > 0 && $content.hasClass("_NIL_SEND") === true) {
-		window.ntm = window.ntm || [];
-
-		var ntmOption = {};
-
-
-		var cpName = $content.data("cp-name");
-		var subId = $content.data("sub-id");
-		var contentId = $content.data("content-id");
-		var contentAuth = $content.data("content-auth");
-		var isMembership = $content.data("is-membership");
-		var isPromotion = $content.data("is-promotion");
-		var isPreview = $content.data("is-preview");
-		var partnerChannel = $content.data("partner-channel");
-		var partnerType = $content.data("partner-type");
-		var type = $content.data("type");
-		var subType = $content.data("sub-type");
-		var userType = 0;
-
-		if (contentAuth === true) {
-			userType = 1;
-		}
-
-		var source = "";
-		var sourceId = "";
-
-		ntmOption["hitType"] = "cv";
-		ntmOption["eventCategory"] = "post_view";
-
-		ntmOption["channelId"] = cpName + "_" + subId;
-		ntmOption["uri"] = "https://contents.premium.naver.com/" + cpName + "/" + subId + "/contents/" + contentId;
-		ntmOption["userType"] = userType;
-		ntmOption["dimension1"] = cpName;
-		ntmOption["dimension2"] = isMembership == true ? "original" : "preview";
-		if (isPromotion == true) {
-			ntmOption["dimension3"] = "free";
-		}
-
-		if (source) {
-			ntmOption["dimension4"] = source;
-
-			if (sourceId) {
-				ntmOption["dimension5"] = sourceId;
-			}
-		}
-
-		if (partnerChannel) {
-			ntmOption["dimension6"] = partnerChannel === "Y" ? "partner" : "premium";
-		}
-
-		if (partnerType) {
-			ntmOption["dimension7"] = partnerType.toLowerCase();
-		}
-
-		if ("VIDEO" === subType) {
-			ntmOption["dimension8"] = "video";
-		}
-
-		if (!!!isPreview) {
-			ntm.push({
-				event: "nilSend",
-				ni: ntmOption
-			});
-
-			var eventType = "onpagehide" in window ? "pagehide" : "beforeunload";
-			$(window).on(eventType, function() {
-				ntmOption["hitType"] = "event";
-				ntmOption["eventCategory"] = "action";
-				ntmOption["eventAction"] = "leave";
-
-				ntm.push({
-					event: "nilSend",
-					ni: ntmOption
-				});
-			});
-
-		}
-	}
-});
-</script>
 
 </body>
 <script>
