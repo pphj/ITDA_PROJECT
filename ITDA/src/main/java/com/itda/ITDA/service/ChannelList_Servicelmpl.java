@@ -124,7 +124,7 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	public ChannelList myChannelList(String id) {
 		return dao.myChannelList(id);
 	}
-	
+
 	@Override
 	public int updateCategory(int chCate_Id, String chCate_Name) {
 		return dao.updateCategory(chCate_Id, chCate_Name);
@@ -163,6 +163,16 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	@Override
 	public Itda_User getUserInfo(String userid) {
 		return dao.getUserInfo(userid);
+	}
+
+	@Override
+	public void subscribe(String userId, int chnum) {
+		dao.subscribe(userId, chnum);
+	}
+
+	@Override
+	public void unsubscribe(String userId, int chnum) {
+		dao.unsubscribe(userId, chnum);
 	}
 
 }

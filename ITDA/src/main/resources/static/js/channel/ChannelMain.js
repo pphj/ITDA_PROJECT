@@ -1,15 +1,23 @@
+$(document).ready(function() {
+    // 초기에는 'articles' 탭을 보이도록 설정
+    onTabClick('articles');
+    // 드롯다운 버튼에 이벤트 핸들러 연결
+    $("#settingButton").click(onDropdownButtonClick);
+    // 글 작성 버튼 클릭 이벤트 처리
+    $(".btn_write").click(goToWritePage);
+
+    // 구독 버튼 클릭 이벤트 처리
+    $(document).on('click', '.btn_subscribe', toggleSubscription);
+
+    // 페이지 로딩 시 사용자의 구독 상태를 확인합니다.
+    checkSubscription();
+});
+
 // 탭 클릭 이벤트 처리 함수
 function onTabClick(tabId) {
-    // 모든 탭 콘텐츠를 숨김
     $(".tab_content").hide();
-
-    // 클릭한 탭 콘텐츠를 fade 애니메이션으로 보이도록 설정
-    $("#" + tabId).css('opacity', 0).show().animate({ opacity: 1 }, 400); // 400 밀리초 동안 애니메이션
-    
-    // 모든 탭 메뉴 스타일 초기화
+    $("#" + tabId).css('opacity', 0).show().animate({ opacity: 1 }, 400);
     $(".list_tab li").removeClass("on");
-
-    // 클릭한 탭 메뉴에 'on' 클래스 추가
     $("#" + tabId + "_tab").parent().addClass("on");
 }
 
@@ -18,20 +26,94 @@ function onDropdownButtonClick() {
 	$(".layer_action_ctrl").toggle();
 }
 
-$(document).ready(function() {
-    // 초기에는 'articles' 탭을 보이도록 설정
-    onTabClick('articles');
+// 글 작성 버튼 클릭 이벤트 처리 함수
+function goToWritePage() {
+    var chnum = $("input[name='btnwrite']").val();
+    window.location.href = 'contentwrite.co/' + chnum;
+}
 
-    // 드롯다운 버튼에 이벤트 핸들러 연결
-    $("#settingButton").click(onDropdownButtonClick);
+let isSubscribed = false;
 
-    // 글 작성 버튼 클릭 이벤트 처리
-	$(".btnWrite").click(function(){
-	    var chnum = $("input[name='btnwrite']").val();
-	    //alert(chnum)
-	    window.location.href = 'contentwrite.co/' + chnum;
-	});
-	
-	
+// 구독 버튼 클릭 이벤트 처리 함수
+function toggleSubscription() {
+    if (!isLoggedIn()) {
+        alert("로그인이 필요한 서비스입니다. 로그인 후 이용해주세요.");
+        return;
+    }
 
-});
+    if (isSubscribed) {
+        unsubscribe();
+        $(this).removeClass("subscribed");
+        $(".txt_default_subscribe").html('<img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 버튼 아이콘">구독');
+        isSubscribed = false;
+    } else {
+        subscribe();
+        $(this).addClass("subscribed");
+        $(".txt_default_subscribe").html('<img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 취소 버튼 아이콘">구독 취소');
+        isSubscribed = true;
+    }
+}
+
+// 로그인 여부를 확인하는 함수
+function isLoggedIn() {
+    let userId = $('#LoginId').val();
+    return userId !== null && userId !== '';
+}
+
+// 구독 처리를 하는 함수
+function subscribe() {
+    sendSubscriptionRequest("/itda/channels/subscribe");
+}
+
+// 구독 취소 처리를 하는 함수
+function unsubscribe() {
+    sendSubscriptionRequest("/itda/channels/unsubscribe");
+}
+
+// 구독 요청을 보내는 함수
+function sendSubscriptionRequest(url) {
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    let userId = $('#LoginId').val();
+    let chnum = $('#chnum').val();
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: { userId: userId, chnum: chnum },
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        success: function(data) {
+            console.log(url.split('/').pop() + " 처리 완료");
+        }
+    });
+}
+
+// 로그인한 사용자의 구독 상태를 확인하는 함수
+function checkSubscription() {
+    let userId = $('#LoginId').val();
+    let chnum = $('#chnum').val();
+    
+    
+
+    if (!userId) {
+        return;
+    }
+
+    $.ajax({
+        url: "/itda/channels/checkSubscription",
+        type: 'POST',
+        data: { userId: userId, chnum: chnum },
+        success: function(data) {
+            isSubscribed = data.isSubscribed;
+            if (isSubscribed) {
+                $('.btn_subscribe').addClass("subscribed");
+                $(".txt_default_subscribe").html('<img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 취소 버튼 아이콘">구독 취소');
+            } else {
+                $('.btn_subscribe').removeClass("subscribed");
+                $(".txt_default_subscribe").html('<img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 버튼 아이콘">구독');
+            }
+        }
+    });
+}

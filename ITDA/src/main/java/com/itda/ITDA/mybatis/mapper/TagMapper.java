@@ -23,5 +23,7 @@ public interface TagMapper {
 	void deleteByBoardNum(int boardNum);
 
 	void tagDelete(String tagid);
+
+	void deleteTagsByBoardNum(int boardnum);
 	
 }

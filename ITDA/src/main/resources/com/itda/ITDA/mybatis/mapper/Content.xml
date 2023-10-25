@@ -125,7 +125,7 @@
 		rownum = 1
 	</select>
 
-	<delete id="boardDelete" parameterType="int">
+	<delete id="deleteBoard" >
 	    <![CDATA[
 	      DELETE FROM chboard 
 	      WHERE BOARDNUM = #{boardNum}
