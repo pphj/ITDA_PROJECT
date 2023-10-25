@@ -2,6 +2,8 @@ package com.itda.ITDA.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -58,18 +60,16 @@ public class Itda_UserController {
 	private UserCategoryService userCategoryService;
 	private HttpSession session; // HttpSession 객체 선언
 	private SendMail sendMail;
-	private NaverService naverService;
 	
 
 	@Autowired
 	public Itda_UserController(Itda_UserService Itda_UserService, UserCategoryService userCategoryService,
-			PasswordEncoder passwordEncoder, HttpSession session, SendMail sendMail, NaverService naverService) {
+			PasswordEncoder passwordEncoder, HttpSession session, SendMail sendMail ) {
 		this.Itda_UserService = Itda_UserService;
 		this.passwordEncoder = passwordEncoder;
 		this.userCategoryService = userCategoryService;
 		this.session = session; // HttpSession 객체 주입
 		this.sendMail = sendMail;
-		this.naverService = naverService;
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -142,32 +142,9 @@ public class Itda_UserController {
 	
 	
 	
-	
+	 
+	 
 
-
-	@GetMapping("/callback")
-	public String naverCallback(@RequestParam("code") String code, @RequestParam(name="state", required=false) String state) {
-	    try {
-	        if (code != null) {
-	            // 네이버 인증 코드를 받아와서 처리하는 로직을 구현합니다.
-	            NaverDTO naverInfo = naverService.getNaverInfo(code);
-
-	            // 네이버 로그인 성공 후 리다이렉트할 경로 지정
-	            return "redirect:/main/protomain";
-	        } else {
-	            // code가 없을 경우 예외 처리
-	            throw new IllegalArgumentException("Invalid authorization code");
-	        }
-	    } catch (Exception e) {
-	        // 예외 처리 로직 작성
-
-	        // 예외 발생 시 리다이렉트할 경로 지정
-	        return "redirect:/error-page";
-	    }
-	}
-
-	
-	
 
 	
 	

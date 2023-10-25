@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>공지사항</title>
 
-<link rel="shortcut icon" href="https://www.hankyung.com/favicon.ico">
+<link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
 <!--  <link rel="apple-touch-icon" sizes="192x192" href="https://static.hankyung.com/resource/common/img/favicon/apple-touch-icon.png"> -->
 <!-- 페이지 네이션 -->
 <link rel="stylesheet"
