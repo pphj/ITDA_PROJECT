@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
-import com.itda.ITDA.domain.Payment;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.OrderService;
@@ -103,10 +103,10 @@ public class MyContentsPageController {
 		
 		String id = principal.getName();
 		List<Order> orderList = itdaUserService.myOrderList(id);
-		//int count = itdaUserService.orderListCount(order);
+		int count = itdaUserService.orderListCount(id);
 		
 		model.addAttribute("orderList", orderList);
-		//model.addAttribute("count", count);
+		model.addAttribute("count", count);
 		
 		return "mypage/payment_subscriptions";
 	}
@@ -124,9 +124,21 @@ public class MyContentsPageController {
 	}
 
 	
-	// 관심 콘텐츠(좋아요 콘텐츠)
+	// 관심 콘텐츠(좋아요 콘텐츠) 페이지
 	@GetMapping(value="/contents")
-	public String contents() {
+	public String lickContents(LikeContent likeContent,
+								Principal principal,
+								Model model) {
+		
+		String id = principal.getName();
+		
+		List<LikeContent> likeContentList = itdaUserService.likeContentList(id);
+		int count = itdaUserService.likeContentCount(id);
+		
+		model.addAttribute("contentList", likeContentList);
+		model.addAttribute("cnt", count);
+		
+		
 		return "mypage/contents";
 	}
 	

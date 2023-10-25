@@ -183,9 +183,9 @@
 		<div class="my_detail_info_item">
 			<dt>할인금액</dt>
 			<dd>
-<!-- 				<span class="num">0</span>원
-				<span class="my_detail_info_item_sub">(쿠폰: 무료 쿠폰)</span>
- -->			</dd>
+ 				<span class="num">${orderInfo.discountPrice}</span>원
+<!--				<span class="my_detail_info_item_sub">(쿠폰: 무료 쿠폰)</span>
+ -->		</dd>
 		</div>
 		<div class="my_detail_info_item">
 			<dt>결제금액</dt>

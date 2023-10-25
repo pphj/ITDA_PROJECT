@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<meta name="format-detection" content="telephone=no">
 	<title>MY : 잇다</title>
+	<jsp:include page="../include/header.jsp"></jsp:include>
 	<base target="_parent">
  	<script>
 		var svr = "one-service-premium-r-20230914-230914-164329-5bff964899-zf5k2";
@@ -31,7 +32,7 @@
 		var isPremiumReferer = false;
 	</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
-	<jsp:include page="../include/header.jsp"></jsp:include>
+
 
 </head>
 <body class="as_white_background body_mp">
@@ -61,7 +62,7 @@
 			</div>
 			<div class="container_content _GRID_TEMPLATE_COLUMN _STICKY_CONTENT">
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
-<jsp:include page="../mypage/sidebar.jsp"></jsp:include>
+		<jsp:include page="../mypage/sidebar.jsp"></jsp:include>
 
 	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
 		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
@@ -79,7 +80,7 @@
 	</ul>
 </div>
 <div class="my_payment">
-	<h2 class="my_section_title">구독 결제 내역 <em>1</em></h2>
+	<h2 class="my_section_title">구독 결제 내역 <em>${count}</em></h2>
 	<ul class="my_subscribe_payment_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_PAYMENT_SUBSCRIPTION_LIST" data-cursor-name="page" data-cursor="1" data-has-next="">
 	<c:forEach var="orderList" items="${orderList}">
 		<li class="my_subscribe_payment_item">
@@ -138,117 +139,10 @@
 <div id="_MODAL_WRAP"></div>
 
 <div id="_TOAST_WRAP"></div>
-<script type="x-tmpl-mustache" class="_TOAST_TEMPLATE">
-<div class="toast_popup_layer">
-	<p class="toast_popup_desc">{{{text}}}</p>
-</div>
-</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
-<script>
-$(window).on("load", function() {
-	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
 
-	if ($content.length > 0 && $content.hasClass("_NIL_SEND") === true) {
-		window.ntm = window.ntm || [];
-
-		var ntmOption = {};
-
-
-		var cpName = $content.data("cp-name");
-		var subId = $content.data("sub-id");
-		var contentId = $content.data("content-id");
-		var contentAuth = $content.data("content-auth");
-		var isMembership = $content.data("is-membership");
-		var isPromotion = $content.data("is-promotion");
-		var isPreview = $content.data("is-preview");
-		var partnerChannel = $content.data("partner-channel");
-		var partnerType = $content.data("partner-type");
-		var type = $content.data("type");
-		var subType = $content.data("sub-type");
-		var userType = 0;
-
-		if (contentAuth === true) {
-			userType = 1;
-		}
-
-		var source = "";
-		var sourceId = "";
-
-		ntmOption["hitType"] = "cv";
-		ntmOption["eventCategory"] = "post_view";
-
-		ntmOption["channelId"] = cpName + "_" + subId;
-		ntmOption["uri"] = "https://contents.premium.naver.com/" + cpName + "/" + subId + "/contents/" + contentId;
-		ntmOption["userType"] = userType;
-		ntmOption["dimension1"] = cpName;
-		ntmOption["dimension2"] = isMembership == true ? "original" : "preview";
-		if (isPromotion == true) {
-			ntmOption["dimension3"] = "free";
-		}
-
-		if (source) {
-			ntmOption["dimension4"] = source;
-
-			if (sourceId) {
-				ntmOption["dimension5"] = sourceId;
-			}
-		}
-
-		if (partnerChannel) {
-			ntmOption["dimension6"] = partnerChannel === "Y" ? "partner" : "premium";
-		}
-
-		if (partnerType) {
-			ntmOption["dimension7"] = partnerType.toLowerCase();
-		}
-
-		if ("VIDEO" === subType) {
-			ntmOption["dimension8"] = "video";
-		}
-
-		if (!!!isPreview) {
-			ntm.push({
-				event: "nilSend",
-				ni: ntmOption
-			});
-
-			var eventType = "onpagehide" in window ? "pagehide" : "beforeunload";
-			$(window).on(eventType, function() {
-				ntmOption["hitType"] = "event";
-				ntmOption["eventCategory"] = "action";
-				ntmOption["eventAction"] = "leave";
-
-				ntm.push({
-					event: "nilSend",
-					ni: ntmOption
-				});
-			});
-
-		}
-	}
-});
-</script>
 
 </body>
-<script>
-var eventType = "onpageshow" in window ? "pageshow" : "load";
-$(window).on(eventType, function() {
-	var additionalInfo = {};
 
-	var sti = "";
-	if (sti) {
-		additionalInfo["sti"] = sti;
-	}
-
-	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
-
-	var gdid = $content.data("gdid");
-	if (gdid) {
-		window.lcsResult = lcs_do_gdid(gdid, additionalInfo);
-	} else {
-		window.lcsResult = lcs_do(additionalInfo);
-	}
-});
-</script>
 </html>

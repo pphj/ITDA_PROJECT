@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
@@ -68,7 +69,12 @@ public interface Itda_UserMapper {
 
 	Order getOrderInfo(int orderNum);
 
-//	int orderListCount(Order order);
+	int orderListCount(String id);
+
+	List<LikeContent> likeContentList(String id);
+
+	int likeContentCount(String id);
+
 
 
 	

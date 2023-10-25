@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
@@ -186,16 +187,26 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	public List<Order> myOrderList(String id) {
 		return dao.myOrderList(id);
 	}
-	/*
+	
 	 
-	public int orderListCount(Order order) {
-		return dao.orderListCount(order);
+	public int orderListCount(String id) {
+		return dao.orderListCount(id);
 	}
-	 */
+	 
 
 	@Override
 	public Order getOrderInfo(int orderNum) {
 		return dao.getOrderInfo(orderNum);
+	}
+
+	@Override
+	public List<LikeContent> likeContentList(String id) {
+		return dao.likeContentList(id);
+	}
+
+	@Override
+	public int likeContentCount(String id) {
+		return dao.likeContentCount(id);
 	}
 
 

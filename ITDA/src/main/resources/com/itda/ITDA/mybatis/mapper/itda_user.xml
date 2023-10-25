@@ -221,7 +221,7 @@
 	<select id="getOrderInfo" resultType="Order">
 		SELECT sp.productname, sp.productprice,
 	       py.payednum, py.payedmethod, py.ordernum, py.payedokdate, py.payedprice, py.payedstatus,
-	       pc.callnum, pc.userid, sp.PRODUCTTERM, gu.startdate
+	       pc.callnum, pc.userid, sp.PRODUCTTERM, gu.startdate, py.discountPrice
 		FROM subproduct sp
 		INNER JOIN paycall pc ON sp.productid = pc.productid
 		INNER JOIN payment py ON pc.callnum = py.ordernum
@@ -229,12 +229,39 @@
 		WHERE py.payednum = #{payedNum}
 	</select>
 
-<!-- 나의 결제 list count -->
-<!-- 	
+	<!-- 나의 결제 list count -->	
 	<select id="orderListCount" resultType="int">
-		select count(*)
-			<include refid="myOrderList"/>
+		SELECT count(*) as cnt
+		FROM subproduct sp
+		INNER JOIN paycall pc ON sp.productid = pc.productid
+		INNER JOIN payment py ON pc.callnum = py.ordernum
+		WHERE pc.userid = #{userId}
 	</select> 
-	-->
+	
+	<!-- 나의 좋아요 게시글 목록 -->
+	<select id="likeContentList" resultType="LikeContent">
+		SELECT 
+				h.id, h.user_id, h.board_num, h.created_at,
+		       cb.boardtitle, cb.boardheart, cb.boarddate, cb.thumbnail,
+		       cl.chnum, cl.chname
+		FROM 
+				Heart h
+		INNER JOIN chboard cb ON h.board_num = cb.boardnum
+		INNER JOIN channellist cl ON cb.chnum = cl.chnum
+		WHERE 
+			h.user_id = #{userId}
+	</select>
+	
+		<!-- 나의 좋아요 게시글 전체 count -->
+	<select id="likeContentCount" resultType="int">
+		SELECT count(*) as count
+		FROM 
+				Heart h
+		INNER JOIN chboard cb ON h.board_num = cb.boardnum
+		INNER JOIN channellist cl ON cb.chnum = cl.chnum
+		WHERE 
+			h.user_id = #{userId}
+	</select>
+	
 	
 </mapper>
