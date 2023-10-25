@@ -254,7 +254,6 @@
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
 
-
 </body>
 <script>
 var eventType = "onpageshow" in window ? "pageshow" : "load";
