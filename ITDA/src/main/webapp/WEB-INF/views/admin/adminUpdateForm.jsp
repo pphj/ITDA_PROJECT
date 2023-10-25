@@ -21,8 +21,6 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/chartjs.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/Chart.extension.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/adminUpdate.js"></script>
 <style>
@@ -127,7 +125,7 @@
 				</tr>
 			</table>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-			<div class="form-group" style="text-align: center;">
+			<div class="form-group" style="text-align: center; margin-top: 30px;">
 				<button type=submit class="btn btn-primary btn-sm btn-round">변경</button>
 	 			<button type=reset class="btn btn-danger btn-sm btn-round" onClick="history.go(-1)">취소</button>
 			</div>

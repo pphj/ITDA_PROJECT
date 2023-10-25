@@ -129,8 +129,19 @@ public interface AdminMapper {
 
 	public int problemDailyCount();
 
+	public Coupon isCouponWriter(HashMap<String, Object> map);
 
+	public int couponDelete(int couponNum);
 
+	public List<Admin> getAdminApproveList2(Map<String, Object> map);
+
+	public List<AdminBoard> getFAQList2(Map<String, Object> map);
+
+	public List<AdminBoard> getUserNoticeList2(Map<String, Object> map);
+
+	public List<AdminBoard> getItdaNoticeList2(Map<String, Object> map);
+
+	public List<Seller> getSellerApproveList2(Map<String, Object> map);
 
 
 }

@@ -28,6 +28,20 @@ public class CacheConfig {
         config.addCache(getCacheConfiguration("ChannelList", 60*10));
         config.addCache(getCacheConfiguration("HotContent", 60*10));
         config.addCache(getCacheConfiguration("selectchCate_Id", 60*10));
+        config.addCache(getCacheConfiguration("faq", 60*10));
+        config.addCache(getCacheConfiguration("faqList", 60*10));
+        config.addCache(getCacheConfiguration("qna", 60*10));
+        config.addCache(getCacheConfiguration("qnaList", 60*10));
+        config.addCache(getCacheConfiguration("userNotice", 60*10));
+        config.addCache(getCacheConfiguration("userNoticeList", 60*10));
+        config.addCache(getCacheConfiguration("itdaNotice", 60*10));
+        config.addCache(getCacheConfiguration("itdaNoticeList", 60*10));
+        config.addCache(getCacheConfiguration("sellerApprove", 60*10));
+        config.addCache(getCacheConfiguration("sellerApproveList", 60*10));
+        config.addCache(getCacheConfiguration("adminApprove", 60*10));
+        config.addCache(getCacheConfiguration("adminApproveList", 60*10));
+        config.addCache(getCacheConfiguration("product", 60*10));
+        config.addCache(getCacheConfiguration("problem", 60*10));
         return net.sf.ehcache.CacheManager.newInstance(config);
     }
 
