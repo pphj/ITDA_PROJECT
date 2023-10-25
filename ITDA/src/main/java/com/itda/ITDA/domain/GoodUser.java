@@ -12,8 +12,12 @@ public class GoodUser {
 	private String userId;
 	private int payedNum;
 	private Timestamp startDate;
-	private long endDate;
+	private Timestamp endDate;
 	private Timestamp firstDate;
+	private int productTerm;
 	
 
+//	public void setEndDate(long endDateInMillis) {
+//	     this.endDate = new Timestamp(endDateInMillis);
+//	  }
 }

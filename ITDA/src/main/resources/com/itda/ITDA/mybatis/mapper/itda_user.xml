@@ -154,18 +154,114 @@
 	    set userEmail = #{userEmail}
 	    where userId = #{userId}
 	</update>
+	
 	<!-- 비밀번호 재설정 -->
 	<update id="updateUserPassword">
   	UPDATE itda_user SET userPw = #{encryptedPassword} WHERE userEmail = #{userEmail}
 	</update>
 
-
+	<!-- 유저 프로필 업데이트 -->
 	<update id="userUpdateProfile" parameterType="Itda_User">
 		update itda_user
 	    set userProfile = #{userProfile}
 	    where userId = #{userId}
 	</update>
+	
+	<!-- 유료회원인지 확인하는 문장 -->
+	<select id="isGoodUser" resultType="GoodUser">
+	<![CDATA[
+		select userId, startDate, firstDate, endDate
+		from gooduser
+		where userId = #{userId} and rownum <= 1
+		ORDER BY startdate DESC
+	]]>
+	</select>
+	
+	<!-- 유료 회원에 inset -->
+	<insert id="insertFirstPaymentUser" parameterType="GoodUser">
+	    <![CDATA[
+	    INSERT INTO gooduser 
+	    (userid, payednum, startdate, enddate, firstdate)
+	    VALUES 
+	    (#{userId}, #{payedNum}, #{startDate}, TO_DATE(TO_CHAR(#{startDate} + #{productTerm}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS'), #{firstDate})
+	    ]]>
+	</insert>
 
+	<!-- 유료회원이고 구독기간이 남았을 시 end 값 update -->
+	<update id="updatePaymentUser" parameterType="GoodUser">
+		update GoodUser
+		set startDate = #{startDate},
+			endDate = TO_DATE(TO_CHAR(#{endDate} + #{productTerm}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+		where userid = #{userId}
+	</update>
+	
+	
+	<!-- 유료회원이었고 구독기간이 끝났을 때 end 값 update -->
+	<update id="updateResetPaymentUser" parameterType="GoodUser">
+		update GoodUser
+		set startDate = #{startDate},
+			endDate = TO_DATE(TO_CHAR(#{startDate} + #{productTerm}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+		where userid = #{userId}
+	</update>
+	
+	<!-- 나의 결제 list 불러오기 -->
+	<select id="myOrderList" resultType="Order">
+		SELECT 
+			sp.productname, sp.PRODUCTDETAIL,
+	        py.payednum, py.ordernum, py.payedokdate, py.payedprice, 
+	        py.payedstatus, pc.userid
+		FROM 
+			subproduct sp
+		INNER JOIN paycall pc ON sp.productid = pc.productid
+		INNER JOIN payment py ON pc.callnum = py.ordernum
+		WHERE pc.userid = #{userId}
+	</select>
+	
+	<!-- 결제 정보 자세히 보기 -->
+	<select id="getOrderInfo" resultType="Order">
+		SELECT sp.productname, sp.productprice,
+	       py.payednum, py.payedmethod, py.ordernum, py.payedokdate, py.payedprice, py.payedstatus,
+	       pc.callnum, pc.userid, sp.PRODUCTTERM, gu.startdate, py.discountPrice
+		FROM subproduct sp
+		INNER JOIN paycall pc ON sp.productid = pc.productid
+		INNER JOIN payment py ON pc.callnum = py.ordernum
+		INNER JOIN gooduser gu ON gu.userid = pc.userid
+		WHERE py.payednum = #{payedNum}
+	</select>
 
+	<!-- 나의 결제 list count -->	
+	<select id="orderListCount" resultType="int">
+		SELECT count(*) as cnt
+		FROM subproduct sp
+		INNER JOIN paycall pc ON sp.productid = pc.productid
+		INNER JOIN payment py ON pc.callnum = py.ordernum
+		WHERE pc.userid = #{userId}
+	</select> 
+	
+	<!-- 나의 좋아요 게시글 목록 -->
+	<select id="likeContentList" resultType="LikeContent">
+		SELECT 
+				h.id, h.user_id, h.board_num, h.created_at,
+		       cb.boardtitle, cb.boardheart, cb.boarddate, cb.thumbnail,
+		       cl.chnum, cl.chname
+		FROM 
+				Heart h
+		INNER JOIN chboard cb ON h.board_num = cb.boardnum
+		INNER JOIN channellist cl ON cb.chnum = cl.chnum
+		WHERE 
+			h.user_id = #{userId}
+	</select>
+	
+		<!-- 나의 좋아요 게시글 전체 count -->
+	<select id="likeContentCount" resultType="int">
+		SELECT count(*) as count
+		FROM 
+				Heart h
+		INNER JOIN chboard cb ON h.board_num = cb.boardnum
+		INNER JOIN channellist cl ON cb.chnum = cl.chnum
+		WHERE 
+			h.user_id = #{userId}
+	</select>
+	
 	
 </mapper>

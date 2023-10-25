@@ -10,10 +10,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<meta name="format-detection" content="telephone=no">
 	<title>MY : 잇다</title>
-	<link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="192x192" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
 	<base target="_parent">
 	<script>
 		var g_ssc = nsc = "Mpremiumcontents.all";
@@ -60,20 +56,7 @@
 	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>
 	<progress id="_CONTENT_INDICATOR" class="progress" max="100" value="0"></progress>
 </div>
-<script>
-/* 	var svt = "20230917184229.713";
-	var timestamp = svt.substr(0, 8);
-	var isLogin = true;
 
-	var service = {
-		premium: true
-	};
-
-	var analyticsNtmUrl = "https://ntm.pstatic.net/scripts/ntm_774a0c8e7c40.js";
-
-	var envPhase = "production";
-	var isProduction = true; */
-</script>
 <div id="ct_wrap" class="container">
 	<div id="ct" class="container_inner">
 		    <div class="flat_header">

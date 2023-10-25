@@ -84,10 +84,18 @@ public interface adminService {
 	
 	public int userUpdateClear(String userId);
 
+	public int userBoardUpdate(String userId);
+
+	public int userReplyUpdate(String userId);
+	
 	public List<ReplyWarn> replyProblemDetail(String sickId);
 
 	public List<BoardWarn> boardProblemDetail(String sickId);
+	
+	public List<ReplyWarn> replyProblemDetailAll(String sickId);
 
+	public List<BoardWarn> boardProblemDetailAll(String sickId);
+	
 	public int getCouponListCount();
 
 	public List<Coupon> couponList(int page, int i);
@@ -127,5 +135,8 @@ public interface adminService {
 	public List<AdminBoard> getItdaNoticeList(int index, String search_word, int page, int limit);
 
 	public List<Seller> getSellerApproveList(int index, String search_word, int page, int limit);
+
+	public List<UserTotal> getTotalSalesList();
+	
 
 }

@@ -96,7 +96,7 @@
 	 		<c:forEach var="c" items="${productList}">
 		 	<div class="card text-center" style="width: 270px; border-radius: 30px; margin-left: 15px;">
 			    <div class="card-item metal ar mx-auto">
-			        <div class="product_img_container">
+			        <div class="product_img_container" style="background: white;">
 			        	<img alt="" src="${pageContext.request.contextPath}/resources/assets/img/product.png">
 			        	<a href="${pageContext.request.contextPath}/admin/product/${c.productName}"
 			        	class="floatData1">

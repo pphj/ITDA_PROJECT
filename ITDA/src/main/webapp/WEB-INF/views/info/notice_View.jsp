@@ -5,12 +5,10 @@
 <html lang="ko"
 	data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
 <head>
-<meta charset="utf-8">
-<head>
 <meta charset="UTF-8">
 <title>공지사항</title>
 
-<link rel="shortcut icon" href="https://www.hankyung.com/favicon.ico">
+<link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
 <link rel="stylesheet"
 	href="https://static.hankyung.com/css/www/w/common.ui.all.css?v=202309211654">
 <!-- 공지사항 페이지 전체 css -->

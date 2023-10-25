@@ -174,9 +174,10 @@
 		parameterType="java.lang.String"
 		resultType="com.itda.ITDA.domain.ChannelList">
 		SELECT *
-		FROM channellist
-		WHERE chName LIKE #{search}
-		or chinfo LIKE #{search}
+	FROM channellist
+	WHERE chName LIKE #{search}
+		OR chinfo LIKE #{search}
+		OR cate_id LIKE #{search} <!-- cate_id에 대한 검색 조건을 추가 -->
 	</select>
 
 	<!-- mypage에서 channellist 불러오기 -->

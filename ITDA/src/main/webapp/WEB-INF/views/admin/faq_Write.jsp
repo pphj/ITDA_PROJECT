@@ -70,12 +70,12 @@
  			<div class="form-group">
 			  <label for="QcateId">FAQ 카테고리</label>
 			  <select name="QcateId" id="QcateId">
-			    <option value="1">홍보, 영리목적</option>
-			    <option value="2">불법 정보</option>
-			    <option value="3">음란, 청소년 유해</option>
-			    <option value="4">욕설, 비방, 차별, 혐오</option>
-			    <option value="5">도배, 스팸</option>
-			    <option value="6">개인정보 노출, 거래</option>
+			    <option value="1">구매, 환불</option>
+			    <option value="2">회원</option>
+			    <option value="3">상품</option>
+			    <option value="4">채널</option>
+			    <option value="5">서비스 소개, 이용 방법</option>
+			    <option value="6">오류, 피해 접수</option>
 			    <option value="7">기타</option>
 			  </select>
 			</div>

@@ -47,6 +47,7 @@
     <div class="main-content" style="padding: 30px 25px;">
 	<div class="card">
 		<div class="card-body">
+		<h3 style="text-align: center;">신고 목록</h3>
  		<c:if test="${listcount > 0}">
  		<div class="rows" style="width: 48px; float: right;">
 	 		<span>줄보기</span>
@@ -77,15 +78,16 @@
 	 			<c:forEach var="p" items="${problemList}">
 	 				<tr>
 	 					<td class="text-center">
-		 					<c:out value="${num}" />
-		 					<c:set var="num" value="${num-1}" />
+		 					<c:out value="${p.rnum}" />
 	 					</td>
 	 					<td class="text-center targetSickId">
 		 					<a href="${pageContext.request.contextPath}/admin/problem/${p.sickId}" style="color: #1294FA; font-weight: bold;">
-		 						<div name=sickId><c:out value="${p.sickId}" /></div>
+		 						<div name="sickId"><c:out value="${p.sickId}" /></div>
 		 					</a>
 	 					</td>
-	 					<td class="text-center" style="color: red; font-weight: bold;"><div><c:out value="${p.sumCount}" /></div></td>
+	 					<td class="text-center" style="color: red; font-weight: bold;">
+	 						<div><c:out value="${p.sumCount}" /></div>
+	 					</td>
 	 					<c:choose>
 						    <c:when test="${p.statusid == 1}">
 						        <td class="text-center" style="color: #38CFD5; font-weight: bold;"><div>정상</div></td>
