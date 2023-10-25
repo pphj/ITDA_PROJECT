@@ -115,13 +115,24 @@
 					<strong class="my_attention_top_date _CONTENT_LIST_GROUP_TITLE" style="display:block;">
 						<fmt:formatDate value="${contentList.created_at}" pattern="yyyy.MM.dd" />.</strong>
 					<div class="my_attention_inside">
-						<a href="https://contents.premium.naver.com/bangkuseok/bangkuseok1/contents/230914181035921tg" class="my_attention_thumb" data-clk="my_conts.list">
+						<a href="${pageContext.request.contextPath}/contents/${contentList.chNum}/${contentList.boardNum}?userid=${contentList.writer}" class="my_attention_thumb" data-clk="my_conts.list">
 							<div class="visited_content_thumb">
-								<img src="https://scs-phinf.pstatic.net/MjAyMzA5MTRfMTUg/MDAxNjk0NjgyNTk4OTAw.oO8vmg8KeZxwD1RsJraljBspCSfeMUoLyXw8MZMxAw0g.etYHgCFOOIKzcLaT94re4kuqAJgiu8VXsQ1Huzp0nXIg.PNG/image.png?type&#x3D;nfs260_260" width="94" height="94" onerror="this.parentNode.innerHTML='<span class=&quot;no_image&quot;></span>'">
+							        <c:choose>
+                                        <c:when test="${empty contentList.thumbNail}">
+                                            <img class="card_img"
+                                             src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <!--<img class="card_img"
+                                             src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png">-->
+                                             <img class="card_img" src="${pageContext.request.contextPath}/image/contents/${contentList.chNum}${contentList.thumbNail}">
+													
+                                        </c:otherwise>
+                                    </c:choose>
 							</div>
 						</a>
 						<div class="my_attention_text">
-							<a href="https://contents.premium.naver.com/bangkuseok/bangkuseok1/contents/230914181035921tg" class="my_attention_text_link" data-clk="my_conts.list">
+							<a href="${pageContext.request.contextPath}/contents/${contentListchNum}/${contentListboardNum}?userid=${contentListwriter}" class="my_attention_text_link" data-clk="my_conts.list">
 								<div class="my_attention_channel">${contentList.chName}</div>
 								<strong class="my_attention_title">
 								${contentList.boardTitle}</strong>
@@ -130,7 +141,7 @@
 								<div class="my_attention_date">						
 								<fmt:formatDate value="${contentList.boardDate}" pattern="yyyy.MM.dd" />.</div>
 								<div class="my_attention_count">
-									<div class="u_likeit_list_module _reactionModule" data-sid="SCS" data-cid="p_bangkuseok_bangkuseok1_230914181035921tg">
+									<div class="u_likeit_list_module _reactionModule" data-sid="SCS" >
 										<a class="u_likeit_list_btn _button" data-type="like" aria-pressed="false" data-ishiddenlabel="true" data-isHiddenZeroCount="true" >
 											<span class="u_ico _icon"></span>
 											<em class="u_txt _label">좋아요</em>
