@@ -79,10 +79,15 @@ public class adminController {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String userTotalDataJson = objectMapper.writeValueAsString(userTotalData);
 		
+		List<UserTotal> totalSalesData = adminService.getTotalSalesList();
+		ObjectMapper objectMapper2 = new ObjectMapper();
+		String totalSalesDataJson = objectMapper2.writeValueAsString(totalSalesData);
+		
 		mv.addObject("qnaDailyCount", qnaDailyCount);
 		mv.addObject("sellerDailyCount", sellerDailyCount);
 		mv.addObject("problemDailyCount", problemDailyCount);
 		mv.addObject("userTotalData", userTotalDataJson);
+		mv.addObject("totalSalesData", totalSalesDataJson);
 		mv.setViewName("admin/adminMain");
 		return mv;
 	}
@@ -839,8 +844,12 @@ public class adminController {
 		
 		if(approve == ProblemState.PAUSE) {				//일시정지
 			updateResult = adminService.userUpdatePause(userId);
+			adminService.userBoardUpdate(userId);
+			adminService.userReplyUpdate(userId);
 		}else if (approve == ProblemState.STOP) {		//정지
 			updateResult = adminService.userUpdateStop(userId);
+			adminService.userBoardUpdate(userId);
+			adminService.userReplyUpdate(userId);
 		}else if (approve == ProblemState.CLEAR) {		//해제(정상)
 			updateResult = adminService.userUpdateClear(userId);
 		}
@@ -877,6 +886,30 @@ public class adminController {
 		}else {
 			logger.info("problem 상세보기 성공");
 			mv.setViewName("admin/problem_View");
+			mv.addObject("boardProblemData", boardProblemData);
+			mv.addObject("replyProblemData", replyProblemData);
+			mv.addObject("sickId", sickId);
+		}
+		return mv;
+	}
+	
+	@GetMapping("/problem/{sickId}/all")
+	public ModelAndView problemDetailAll(
+			@PathVariable("sickId") String sickId, ModelAndView mv, HttpServletRequest request,
+			@RequestHeader(value="referer", required=false) String beforeURL) {
+		
+		logger.info("referer : " + beforeURL);
+		
+		List<BoardWarn> boardProblemData = adminService.boardProblemDetailAll(sickId);
+		List<ReplyWarn> replyProblemData = adminService.replyProblemDetailAll(sickId);
+		
+		if (boardProblemData == null || replyProblemData == null) {
+			logger.info("problem 전체보기 실패");
+			mv.addObject("url", request.getRequestURI());
+			mv.addObject("message", "problem 상세보기 실패");
+		}else {
+			logger.info("problem 전체보기 성공");
+			mv.setViewName("admin/problem_ViewAll");
 			mv.addObject("boardProblemData", boardProblemData);
 			mv.addObject("replyProblemData", replyProblemData);
 		}

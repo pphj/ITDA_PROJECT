@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/assets/img/itda_logo.png">
-  <title>신고 상세 페이지</title>
+  <title>전체 신고 상세 페이지</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
@@ -51,7 +51,7 @@
 	<div class="main-content" style="padding: 30px 25px;">
 	<div class="card">
 		<div class="card-body">
-		<h3 style="text-align: center;">미처리 신고 목록</h3>
+		<h3 style="text-align: center;">전체 신고 목록</h3>
 		<c:if test="${not empty boardProblemData}">
  		<table class="table boardProblemTable">
  		<thead>
@@ -173,13 +173,10 @@
 	 			<i class="ni ni-bullet-list-67"></i>&nbsp;목록
 	 		</button>
 	 	</a>
-	 	<a href="${pageContext.request.contextPath}/admin/problem/${sickId}/all">
-		 	<button class="btn btn-info btn-sm btn-round allProblem">
-		 		<i class="ni ni-bullet-list-67"></i>&nbsp;모든 신고내용 보기
-		 	</button>
-	 	</a>
+	 	<button class="btn btn-danger btn-sm btn-round" onClick="history.go(-1)">
+	 		취소
+	 	</button>
  	</div>
- 	<input type="hidden" name="sickId" value="${sickId}">
 </main>
 </body>
 </html>

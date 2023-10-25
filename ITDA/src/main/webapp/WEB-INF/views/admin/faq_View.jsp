@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,22 +28,22 @@
 		$("#faqDelete").click(function(){
 			$("#faqModal").modal("show");
 		})
+		
+		$(function() {
+			$("form[name=faqDeleteForm]").submit(function() {
+				if ($("#adPassword").val() == '') {
+					alert("비밀번호를 입력하세요");
+					$("#adPassword").focus();
+					return false;
+				}
+			})
+		})
 	})
 	
 	let result = "${result}";
 	if (result == 'passFail') {
 		alert("비밀번호가 일치하지 않습니다.");
 	}
-	
-	$(function() {
-		$("form[name=faqDeleteForm]").submit(function() {
-			if ($("#adPassword").val() == '') {
-				alert("비밀번호를 입력하세요");
-				$("#adPassword").focus();
-				return false;
-			}
-		})
-	})
 </script>
 </head>
 <body class="g-sidenav-show bg-gray-100">
@@ -83,7 +82,7 @@
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly
+ 				<textarea class="form-control" rows="20" readOnly
  				style="resize: none;">${faqdata.adContent}</textarea></td>
  			</tr>
  			<tr>
@@ -92,22 +91,19 @@
  						<button class="btn btn-success btn-sm btn-round">
  						<i class="ni ni-bullet-list-67"></i>&nbsp;목록</button>
  					</a>
- 					<sec:authorize access="isAuthenticated()">
- 						<sec:authentication property="principal" var="pinfo" />
-		 				<c:if test="${id == adWriter}">	<%-- 작성자일때 권한 부여 --%>
-		 					<a href="${pageContext.request.contextPath}/admin/faqUpdate/${faqdata.adNum}">
-		 						<button class="btn btn-warning btn-sm btn-round">
-		 							<i class="fa fa-pencil-square-o"></i>&nbsp;수정
-		 						</button>	
-		 					</a>
-		 					<a href="#">
-		 						<button class="btn btn-danger btn-sm btn-round" id="faqDelete"
-		 						data-toggle="modal" data-target="#faqModal">
-		 							<i class="fa fa-trash-o"></i>&nbsp;삭제
-		 						</button>	
-		 					</a>
-		 				</c:if>
- 					</sec:authorize>
+		 			<c:if test="${adminId == adWriter}">	<%-- 작성자일때 권한 부여 --%>
+		 				<a href="${pageContext.request.contextPath}/admin/faqUpdate/${faqdata.adNum}">
+		 					<button class="btn btn-warning btn-sm btn-round">
+		 						<i class="fa fa-pencil-square-o"></i>&nbsp;수정
+		 					</button>	
+		 				</a>
+		 				<a href="#">
+		 					<button class="btn btn-danger btn-sm btn-round" id="faqDelete"
+		 					data-toggle="modal" data-target="#faqModal">
+		 						<i class="fa fa-trash-o"></i>&nbsp;삭제
+		 					</button>	
+		 				</a>
+		 			</c:if>
  				</td>
  			</tr>
  			<%-- 삭제 모달 시작 --%>

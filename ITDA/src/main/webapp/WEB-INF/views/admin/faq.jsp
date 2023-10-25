@@ -142,22 +142,22 @@
 	 					</td>
 	 					<c:choose>
 						    <c:when test="${F.qcateId == 1}">
-						        <td class="text-center"><div>&nbsp;&nbsp;홍보, 영리목적</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;구매, 환불</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 2}">
-						        <td class="text-center"><div>&nbsp;&nbsp;불법 정보</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;회원</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 3}">
-						        <td class="text-center"><div>&nbsp;&nbsp;음란, 청소년 유해</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;상품</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 4}">
-						        <td class="text-center"><div>&nbsp;&nbsp;욕설, 비방, 차별, 혐오</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;채널</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 5}">
-						        <td class="text-center"><div>&nbsp;&nbsp;도배, 스팸</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;서비스 소개, 이용 방법</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 6}">
-						        <td class="text-center"><div>&nbsp;&nbsp;개인정보 노출, 거래</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;오류, 피해 접수</div></td>
 						    </c:when>
 						    <c:otherwise>
 						        <td class="text-center"><div>&nbsp;&nbsp;기타</div></td>

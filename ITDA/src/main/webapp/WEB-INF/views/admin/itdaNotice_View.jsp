@@ -88,7 +88,7 @@
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" style="resize: none;"
+ 				<textarea class="form-control" rows="20" style="resize: none;"
  				 readOnly>${itdaNoticeData.adContent}</textarea></td>
  			</tr>
  			<tr>
