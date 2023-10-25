@@ -5,7 +5,10 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.LikeContent;
+import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 
@@ -53,6 +56,25 @@ public interface Itda_UserMapper {
 	void updateUserPassword(String userEmail, String encryptedPassword);
 
 	int insertPaymentUser(String id);
+
+	GoodUser isGoodUser(String id);
+
+	int insertFirstPaymentUser(GoodUser goodUser);
+
+	int updatePaymentUser(GoodUser goodUser);
+
+	int updateResetPaymentUser(GoodUser goodUser);
+
+	List<Order> myOrderList(String id);
+
+	Order getOrderInfo(int orderNum);
+
+	int orderListCount(String id);
+
+	List<LikeContent> likeContentList(String id);
+
+	int likeContentCount(String id);
+
 
 
 	

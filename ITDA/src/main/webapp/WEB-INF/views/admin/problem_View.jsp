@@ -24,7 +24,6 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-  <script> var contextPath = "<%=request.getContextPath()%>";</script>
 <style>
 	.table {
 		width: 100%;
@@ -52,6 +51,7 @@
 	<div class="main-content" style="padding: 30px 25px;">
 	<div class="card">
 		<div class="card-body">
+		<h3 style="text-align: center;">미처리 신고 목록</h3>
 		<c:if test="${not empty boardProblemData}">
  		<table class="table boardProblemTable">
  		<thead>
@@ -170,10 +170,16 @@
  	<div class="text-center">
 	 	<a href="${pageContext.request.contextPath}/admin/problem">
 	 		<button class="btn btn-success btn-sm btn-round">
-	 			<i class="ni ni-bullet-list-67"></i> 목록
+	 			<i class="ni ni-bullet-list-67"></i>&nbsp;목록
 	 		</button>
 	 	</a>
+	 	<a href="${pageContext.request.contextPath}/admin/problem/${sickId}/all">
+		 	<button class="btn btn-info btn-sm btn-round allProblem">
+		 		<i class="ni ni-bullet-list-67"></i>&nbsp;모든 신고내용 보기
+		 	</button>
+	 	</a>
  	</div>
+ 	<input type="hidden" name="sickId" value="${sickId}">
 </main>
 </body>
 </html>

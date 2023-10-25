@@ -89,7 +89,7 @@
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5"
+ 				<textarea class="form-control" rows="20"
  				 style="resize: none;" readOnly>${userNoticeData.adContent}</textarea></td>
  			</tr>
  			<tr>

@@ -47,4 +47,10 @@ public class TagServicelmpl implements TagService {
 
 	}
 
+	@Override
+	public void deleteTagsByBoardNum(int boardnum) {
+		dao.deleteTagsByBoardNum(boardnum);
+
+	}
+
 }

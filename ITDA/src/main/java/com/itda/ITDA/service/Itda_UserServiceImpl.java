@@ -3,11 +3,15 @@ package com.itda.ITDA.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.LikeContent;
+import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
@@ -157,6 +161,52 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	@Override
 	public int insertPaymentUser(String id) {
 		return dao.insertPaymentUser(id);
+	}
+
+	@Override
+	public GoodUser isGoodUser(String id) {
+		return dao.isGoodUser(id);
+	}
+
+	@Override
+	public int insertFirstPaymentUser(GoodUser goodUser) {
+		return dao.insertFirstPaymentUser(goodUser);
+	}
+
+	@Override
+	public int updatePaymentUser(GoodUser goodUser) {
+		return dao.updatePaymentUser(goodUser);
+	}
+
+	@Override
+	public int updateResetPaymentUser(GoodUser goodUser) {
+		return dao.updateResetPaymentUser(goodUser);
+	}
+
+	@Override
+	public List<Order> myOrderList(String id) {
+		return dao.myOrderList(id);
+	}
+	
+	 
+	public int orderListCount(String id) {
+		return dao.orderListCount(id);
+	}
+	 
+
+	@Override
+	public Order getOrderInfo(int orderNum) {
+		return dao.getOrderInfo(orderNum);
+	}
+
+	@Override
+	public List<LikeContent> likeContentList(String id) {
+		return dao.likeContentList(id);
+	}
+
+	@Override
+	public int likeContentCount(String id) {
+		return dao.likeContentCount(id);
 	}
 
 

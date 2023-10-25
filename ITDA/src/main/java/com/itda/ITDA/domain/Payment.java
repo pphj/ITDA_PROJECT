@@ -19,12 +19,14 @@ public class Payment {
     private String payedStatus;			//결제상태
     private String payedCode;			//tid 저장
     private int payedVat;				//부가세
-    
+    private int discountPrice;
+
     
     // gooduser에 insert를 위한 도메인
     private String userId;
     private int productTerm;
     private Timestamp firstDate;
     
+
 
 }

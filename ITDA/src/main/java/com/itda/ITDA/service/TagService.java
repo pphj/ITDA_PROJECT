@@ -19,4 +19,6 @@ public interface TagService {
 
 	void tagDelete(List<String> tagIdlist);
 
+	void deleteTagsByBoardNum(int boardnum);
+
 }

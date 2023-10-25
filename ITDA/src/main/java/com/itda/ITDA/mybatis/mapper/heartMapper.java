@@ -14,4 +14,8 @@ public interface heartMapper {
 
 	int getHeartCount(@Param("boardNum") int boardNum);
 
+	void updateChBoardHeart(int boardNum);
+
+	void decreaseChBoardHeart(int boardNum);
+
 }

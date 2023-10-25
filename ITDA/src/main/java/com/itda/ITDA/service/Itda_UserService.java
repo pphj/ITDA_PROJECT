@@ -3,7 +3,10 @@ package com.itda.ITDA.service;
 import java.util.List;
 import java.util.Map;
 
+import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.LikeContent;
+import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 
@@ -52,6 +55,25 @@ public interface Itda_UserService {
 	boolean changePassword(String userEmail, String newPassword);
 
 	int insertPaymentUser(String id);
+
+	GoodUser isGoodUser(String id);
+
+	int insertFirstPaymentUser(GoodUser goodUser);
+
+	int updatePaymentUser(GoodUser goodUser);
+
+	int updateResetPaymentUser(GoodUser goodUser);
+
+	List<Order> myOrderList(String id);
+
+	Order getOrderInfo(int orderNum);
+
+	int orderListCount(String id);
+
+	List<LikeContent> likeContentList(String id);
+
+	int likeContentCount(String id);
+	
 
 
 

@@ -98,10 +98,18 @@ public interface AdminMapper {
 	public int userUpdateStop(String userId);
 
 	public int userUpdateClear(String userId);
+	
+	public int userBoardUpdate(String userId);
+
+	public int userReplyUpdate(String userId);
 
 	public List<ReplyWarn> replyProblemDetail(String sickId);
 
 	public List<BoardWarn> boardProblemDetail(String sickId);
+	
+	public List<ReplyWarn> replyProblemDetailAll(String sickId);
+
+	public List<BoardWarn> boardProblemDetailAll(String sickId);
 
 	public int getCouponListCount();
 
@@ -142,6 +150,9 @@ public interface AdminMapper {
 	public List<AdminBoard> getItdaNoticeList2(Map<String, Object> map);
 
 	public List<Seller> getSellerApproveList2(Map<String, Object> map);
+
+	public List<UserTotal> getTotalSalesList();
+	
 
 
 }
