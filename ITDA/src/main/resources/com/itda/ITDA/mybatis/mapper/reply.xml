@@ -80,7 +80,7 @@
 	</update>
 
 	<delete id="commentsDelete">
-		DELETE FROM BoardReply WHERE replyRef = #{replyRef}
+		DELETE FROM BoardReply WHERE REPLYNUM = #{replyNum}
 	</delete>
 	
 	<select id="getListCount" resultType="int">

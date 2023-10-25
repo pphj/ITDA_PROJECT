@@ -44,7 +44,7 @@ $(document).ready(function(){
 </style>
 </head>
 <body>
-	<input type="hidden" name="LoginId" id="LoginId" value="${sellerinfo.userId }" />
+
 	<input type="hidden" id="chnum" value="${ChannelList.chNum}" name="chnum">
 	<!--  채널바  -->
 	<div class="wrap_profile">

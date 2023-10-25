@@ -56,8 +56,10 @@ function toggleSubscription() {
 
 // 로그인 여부를 확인하는 함수
 function isLoggedIn() {
-    let userId = $('#LoginId').val();
-    return userId !== null && userId !== '';
+    let userId = $('#loginid').text();
+    console.log(userId);
+    console.log(userId !== undefined && userId !== '')
+    return userId !== undefined && userId !== '';
 }
 
 // 구독 처리를 하는 함수
