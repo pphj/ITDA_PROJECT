@@ -3,6 +3,7 @@ package com.itda.ITDA.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itda.ITDA.domain.ChannelList;
@@ -19,8 +21,11 @@ import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.service.ChannelList_Service;
+import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.OrderService;
+import com.itda.ITDA.service.heartService;
+import com.itda.ITDA.util.Message;
 
 @Controller
 @RequestMapping(value= "/my")
@@ -31,13 +36,19 @@ public class MyContentsPageController {
 	private Itda_UserService itdaUserService;
 	private ChannelList_Service channelList_Service;
 	private OrderService orderService;
+	private ContentService contentService;
+	private heartService heartService; 
 	
 	
 	@Autowired
-	public MyContentsPageController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service, OrderService orderService) {
+	public MyContentsPageController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service, 
+									OrderService orderService, ContentService contentService,
+									heartService heartService) {
 		this.itdaUserService = itdaUserService;
 		this.channelList_Service = channelList_Service;
 		this.orderService = orderService;
+		this.contentService = contentService;
+		this.heartService = heartService;
 	}
 	
 	
@@ -140,6 +151,28 @@ public class MyContentsPageController {
 		
 		
 		return "mypage/contents";
+	}
+	
+	// 관심 콘텐츠 삭제 프로세스
+	@PostMapping(value="contents/likeDeletePro")
+	public String likeDeleteProcess(LikeContent likeContent,
+								Principal principal,
+								Model model,
+								HttpServletRequest request) {
+		
+		String id = principal.getName();
+		
+		likeContent.setBoardNum(likeContent.getBoardNum());
+		likeContent.setUser_id(id);
+		
+		int boardNum = likeContent.getBoardNum();
+		
+		heartService.removeHeart(boardNum, id);
+		heartService.decreaseChBoardHeart(boardNum);
+		
+		request.setAttribute("msg", Message.SUCCESS);
+		
+		return "mypage/contents_delete_action";
 	}
 	
 	// 나의 채널 가져오기

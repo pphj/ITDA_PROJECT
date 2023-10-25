@@ -10,7 +10,6 @@
 	    event.preventDefault(); // 제출을 막습니다.
 	  	var productName = $("input[name='productName']").val();
 	  	var productId = $("input[name='productId']").val();
-	  	//sessionStorage.setItem('item_name', productName);
 	    //var discountPrice = $("#discountPrice").val(); 
 	    var productPrice = $("input[name='productPrice']").val();
 	    var totalProductPrice = productPrice;
@@ -39,7 +38,7 @@
 	      },
 	      success: function(data) {
 	        var paybox = data.next_redirect_pc_url;
-	        alert(data.tid);
+//	        alert(data.tid);
 	        window.open(paybox);
 	      },
 	      error: function(jqXHR, textStatus, errorThrown) {

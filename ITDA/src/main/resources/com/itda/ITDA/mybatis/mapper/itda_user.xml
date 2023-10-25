@@ -242,7 +242,7 @@
 	<select id="likeContentList" resultType="LikeContent">
 		SELECT 
 				h.id, h.user_id, h.board_num, h.created_at,
-		       cb.boardtitle, cb.boardheart, cb.boarddate, cb.thumbnail,
+		       cb.boardnum, cb.boardtitle, cb.boardheart, cb.boarddate, cb.thumbnail,
 		       cl.chnum, cl.chname, cb.writer
 		FROM 
 				Heart h
@@ -250,6 +250,7 @@
 		INNER JOIN channellist cl ON cb.chnum = cl.chnum
 		WHERE 
 			h.user_id = #{userId}
+		order by h.created_at desc
 	</select>
 	
 		<!-- 나의 좋아요 게시글 전체 count -->
