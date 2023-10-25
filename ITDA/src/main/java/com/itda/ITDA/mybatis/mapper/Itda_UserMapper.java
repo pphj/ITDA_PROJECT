@@ -61,6 +61,8 @@ public interface Itda_UserMapper {
 
 	int updatePaymentUser(GoodUser goodUser);
 
+	int updateResetPaymentUser(GoodUser goodUser);
+
 
 	
 	

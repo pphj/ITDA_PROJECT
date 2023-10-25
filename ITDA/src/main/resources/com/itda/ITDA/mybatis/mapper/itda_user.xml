@@ -170,7 +170,7 @@
 	<!-- 유료회원인지 확인하는 문장 -->
 	<select id="isGoodUser" resultType="GoodUser">
 	<![CDATA[
-		select userId, firstDate, endDate
+		select userId, startDate, firstDate, endDate
 		from gooduser
 		where userId = #{userId} and rownum <= 1
 		ORDER BY startdate DESC
@@ -187,13 +187,21 @@
 	    ]]>
 	</insert>
 
-	<!-- 유료회원일 시 end 값 update -->
+	<!-- 유료회원이고 구독기간이 남았을 시 end 값 update -->
 	<update id="updatePaymentUser" parameterType="GoodUser">
+		update GoodUser
+		set startDate = #{startDate},
+			endDate = TO_DATE(TO_CHAR(#{endDate} + #{productTerm}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
+		where userid = #{userId}
+	</update>
+	
+	
+	<!-- 유료회원이었고 구독기간이 끝났을 때 end 값 update -->
+	<update id="updateResetPaymentUser" parameterType="GoodUser">
 		update GoodUser
 		set startDate = #{startDate},
 			endDate = TO_DATE(TO_CHAR(#{startDate} + #{productTerm}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
 		where userid = #{userId}
-		
 	</update>
 
 	

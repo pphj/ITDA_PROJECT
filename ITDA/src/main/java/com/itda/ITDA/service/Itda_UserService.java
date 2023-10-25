@@ -60,6 +60,8 @@ public interface Itda_UserService {
 
 	int updatePaymentUser(GoodUser goodUser);
 
+	int updateResetPaymentUser(GoodUser goodUser);
+
 
 
 	
