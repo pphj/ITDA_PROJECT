@@ -19,16 +19,16 @@
 	    $("input[name='totalProductPrice']").val(totalProductPrice);
 	    $("input[name='totalPayPrice']").val(totalPayPrice);
 
-//	    let token = $("meta[name='_csrf']").attr("content");  
-//	    let header = $("meta[name='_csrf_header']").attr("content");
+	    let token = $("meta[name='_csrf']").attr("content");  
+	    let header = $("meta[name='_csrf_header']").attr("content");
 	    $.ajax({
 	      url: '/itda/product/subscriptions/info/order/kakaoPay.do',
-//	      type: 'POST', // HTTP 요청 메서드를 POST로 지정
+	      type: 'POST', // HTTP 요청 메서드를 POST로 지정
 	      dataType: 'json',
 	      cache: false,
-//	      beforeSend: function(xhr) {
-//	        xhr.setRequestHeader(header, token);
-//	      },
+	      beforeSend: function(xhr) {
+	        xhr.setRequestHeader(header, token);
+	      },
 	      data: {
 	      	productId : productId,
 	      	item_name : productName,
