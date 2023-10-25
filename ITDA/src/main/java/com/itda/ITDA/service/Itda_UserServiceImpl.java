@@ -3,12 +3,14 @@ package com.itda.ITDA.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
@@ -178,6 +180,22 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	@Override
 	public int updateResetPaymentUser(GoodUser goodUser) {
 		return dao.updateResetPaymentUser(goodUser);
+	}
+
+	@Override
+	public List<Order> myOrderList(String id) {
+		return dao.myOrderList(id);
+	}
+	/*
+	 
+	public int orderListCount(Order order) {
+		return dao.orderListCount(order);
+	}
+	 */
+
+	@Override
+	public Order getOrderInfo(int orderNum) {
+		return dao.getOrderInfo(orderNum);
 	}
 
 

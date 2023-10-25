@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
@@ -7,10 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<meta name="format-detection" content="telephone=no">
 	<title>MY : 잇다</title>
-	<link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="192x192" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
+	<jsp:include page="../include/header.jsp"></jsp:include>
 	<base target="_parent">
 	<script>
 		var g_ssc = nsc = "Mpremiumcontents.all";
@@ -47,8 +46,6 @@
 
 		var isPremiumReferer = false;
 	</script>
-	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
-	<jsp:include page="../include/header.jsp"></jsp:include>
 
 </head>
 <body class=" body_mp">
@@ -57,20 +54,7 @@
 	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>
 	<progress id="_CONTENT_INDICATOR" class="progress" max="100" value="0"></progress>
 </div>
-<script>
-	var svt = "20230917181250.936";
-	var timestamp = svt.substr(0, 8);
-	var isLogin = true;
 
-	var service = {
-		premium: true
-	};
-
-	var analyticsNtmUrl = "https://ntm.pstatic.net/scripts/ntm_774a0c8e7c40.js";
-
-	var envPhase = "production";
-	var isProduction = true;
-</script>
 <div id="ct_wrap" class="container">
 	<div id="ct" class="container_inner">
 	
@@ -93,32 +77,7 @@
 			<div class="container_content _GRID_TEMPLATE_COLUMN _STICKY_CONTENT">
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
 <jsp:include page="../mypage/sidebar.jsp"></jsp:include>
-<%-- 	<div class="my_sidebar_box">
-		<div class="my_user">
-			<a href="https://nid.naver.com/user2/help/myInfo?lang=ko_KR" class="my_user_modify_link" data-clk="my_lnb.myinfo">
-				<div class="my_user_img_wrap">
-				</div>
-				<strong class="my_user_name">
-					${user.userName}
-				</strong>
-			</a>
-			<div class="my_user_link_wrap">
-				<a href="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_user_link is_payment is_active" data-clk="my_lnb.paydet">결제내역</a>
-				<a href="${pageContext.request.contextPath}/my/coupons" class="my_user_link is_coupon" data-clk="my_lnb.coupon">쿠폰</a>
-				<a href="${pageContext.request.contextPath}/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
-			</div>
-		</div>
-		<div class="my_tab_wrap">
-			<ul class="my_tab">
-				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
-				</li>
-				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
-				</li>
-			</ul>
-		</div>
-	</div> --%>
+
 	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
 		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
 			<img class="_LAZY_LOADING" data-src="https://ssl.pstatic.net/static.news/image/news/m/2023/08/18/sidebar_banner.jpg" width="315" height="110" alt="">
@@ -126,11 +85,7 @@
 	</div>
 </div>
 <div class="my_detail_head">
-	<a href="/bangkuseok/bangkuseok1" class="my_detail_head_thumb" data-clk="my_order.chlgo">
-<%-- 		<img src="https://scs-phinf.pstatic.net/MjAyMjExMDNfMTcx/MDAxNjY3NDM3NTA3NzQw.6FO2E_Tk_6YwHAYi-50a26pOdDQWQebvFOM_6KR9xokg.724u8stegrnbL_DLl_Z5U8HfYQuesuVLGJIyeONubIUg.PNG/image%7Cpremium%7Cchannel%7Cbangkuseok%7C2022%7C11%7C03%7C1667437507721.png?type&#x3D;nfs200_200" width="46" height="46" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
- --%>		<i class="icon_premium"><span class="blind">프리미엄 채널</span></i>
-	</a>
-	<a href="/bangkuseok/bangkuseok1" class="my_detail_head_name" data-clk="my_order.chlgo">방구석 어학연수</a>
+	<div class="my_detail_head_name">결제 상세 보기</div>
 </div>
 <div class="my_detail_card">
 	<div class="membership_card">
@@ -138,18 +93,17 @@
 			<div class="mc_text">
 				<span class="mct_sub">
 					<span class="mct_sub_text">개인</span>
-					<span class="mct_sub_text">월간이용권</span>
+					<span class="mct_sub_text">이용권</span>
 				</span>
-				<strong class="mct_name">방구석 어학연수</strong>
+				<strong class="mct_name">${orderInfo.productName}</strong>
 			</div>
 			<div class="mc_price_info">
-				<span class="mcp_price"><em class="mcp_number">4,900</em><span class="mcp_text">원/월</span></span>
+				<span class="mcp_price"><em class="mcp_number">${orderInfo.productPrice}</em><span class="mcp_text">원/월</span></span>
 			</div>
 		</div>
 	</div>
 </div>
 <div class="my_detail_talk">
-	<a href="#" class="my_detail_talk_link _TALKTALK_INQUIRY" data-clk="my_order.talk" data-talktalk-url="talk.naver.com/w45kvq" data-purchase-no="2960786403">톡톡 문의하기</a>
 </div>
 <div class="my_detail_content">
 	<div class="my_detail_titlewrap">
@@ -158,19 +112,11 @@
 	<dl class="my_detail_info">
 		<div class="my_detail_info_item">
 			<dt>상품명</dt>
-			<dd><div class="my_detail_info_name">방구석 어학연수</div></dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>채널명</dt>
-			<dd>방구석 어학연수</dd>
-		</div>
-		<div class="my_detail_info_item">
-			<dt>이용회차</dt>
-			<dd><span class="num">1</span>회차</dd>
+			<dd><div class="my_detail_info_name">${orderInfo.productName}</div></dd>
 		</div>
 		<div class="my_detail_info_item">
 			<dt>이용기간</dt>
-			<dd><span class="num">2023.09.08. ~ 2023.10.08.</span></dd>
+			<dd><span class="num">${orderInfo.productTerm} 일</span></dd>
 		</div>
 	</dl>
 </div>
@@ -205,36 +151,45 @@
 	<dl class="my_detail_info">
 		<div class="my_detail_info_item">
 			<dt>구매상태</dt>
-			<dd><em>결제 완료</em></dd>
+				<c:if test="${orderInfo.payedStatus == 'Y'}">
+					<dd><em><c:out value="결제완료"/></em></dd>
+				</c:if>
+				<c:if test="${orderInfo.payedStatus == 'N'}">
+					<dd><em><c:out value="결제취소"/></em></dd>
+				</c:if>
+				<c:if test="${orderInfo.payedStatus == 'F'}">
+					<dd><em><c:out value="결제실패"/></em></dd>
+				</c:if>
+			
 		</div>
 		<div class="my_detail_info_item">
 			<dt>구매번호</dt>
-			<dd><span class="num">2960786403</span></dd>
+			<dd><span class="num">${orderInfo.payedNum}</span></dd>
 		</div>
 		<div class="my_detail_info_item">
 			<dt>결제일</dt>
-			<dd><span class="num">2023.09.08. 14:57</span></dd>
+			<dd><span class="num"><fmt:formatDate value="${orderInfo.payedOkDate}" pattern="yyyy.MM.dd HH:mm" /></span></dd>
 		</div>
 		<div class="my_detail_info_item">
 			<dt>결제수단</dt>
-			<dd>쿠폰</dd>
+			<dd>${orderInfo.payedMethod}</dd>
 		</div>
 		<div class="my_detail_info_item">
 			<dt>상품금액</dt>
 			<dd>
-				<span class="num">4,900</span>원
+				<span class="num">${orderInfo.productPrice}</span>원
 			</dd>
 		</div>
 		<div class="my_detail_info_item">
 			<dt>할인금액</dt>
 			<dd>
-				<span class="num">-4,900</span>원
+<!-- 				<span class="num">0</span>원
 				<span class="my_detail_info_item_sub">(쿠폰: 무료 쿠폰)</span>
-			</dd>
+ -->			</dd>
 		</div>
 		<div class="my_detail_info_item">
 			<dt>결제금액</dt>
-			<dd><em><span class="num">0</span>원</em></dd>
+			<dd><em><span class="num">${orderInfo.payedPrice}</span>원</em></dd>
 		</div>
 	</dl>
 </div>
@@ -263,170 +218,12 @@
 <div id="frontDetect"></div>
 <div id="_LAYER_DIMMED" class="layer_dimmed" style="display:none;"></div>
 <div id="_MODAL_WRAP"></div>
-<script type="x-tmpl-mustache" class="_MODAL_TEMPLATE">
-<div class="popup_layer{{#isClose}} as_close_button{{/isClose}}{{#popupClass}} {{popupClass}}{{/popupClass}} _MODAL">
-	{{#description}}
-	<strong class="popup_tit">{{{title}}}</strong>
-	<p class="popup_sub_desc">{{{description}}}</p>
-	{{/description}}
-	{{^description}}
-	{{#itemList.length}}
-	<strong class="popup_tit">{{{title}}}</strong>
-	<dl class="popup_dl">
-		{{#itemList}}
-		<div class="popup_description_wrap">
-			<dt class="popup_dt">{{{key}}}</dt>
-			<dd class="popup_dd">{{{value}}}</dd>
-		</div>
-		{{/itemList}}
-	</dl>
-	{{/itemList.length}}
-	{{^itemList.length}}
-	<p class="popup_desc">{{{title}}}</p>
-	{{/itemList.length}}
-	{{/description}}
-	{{#linkButtonList.length}}
-	<div class="popup_link_wrap">
-		{{#linkButtonList}}
-		<a href="{{url}}" class="popup_link">
-			<div class="popup_link_text">{{{title}}}</div>
-			{{#description}}
-			<div class="popup_link_desc">{{{description}}}</div>
-			{{/description}}
-		</a>
-		{{/linkButtonList}}
-	</div>
-	{{/linkButtonList.length}}
-	{{#isClose}}
-	<button type="button" class="popup_close_button _MODAL_CANCEL"><i class="icon_close">닫기</i></button>
-	{{/isClose}}
-	{{^isHiddenConfirm}}
-	<div class="popup_button_wrap">
-		{{#isCancel}}
-		<button type="button" class="button_layer _MODAL_CANCEL">
-			{{cancelMessage}}
-		</button>
-		{{/isCancel}}
-		<button type="button" class="button_layer type_confirm _MODAL_CONFIRM">
-			{{confirmMessage}}
-		</button>
-	</div>
-	{{/isHiddenConfirm}}
-</div>
-</script>
 <div id="_TOAST_WRAP"></div>
-<script type="x-tmpl-mustache" class="_TOAST_TEMPLATE">
-<div class="toast_popup_layer">
-	<p class="toast_popup_desc">{{{text}}}</p>
-</div>
-</script>
+
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
-<script>
-$(window).on("load", function() {
-	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
-
-	if ($content.length > 0 && $content.hasClass("_NIL_SEND") === true) {
-		window.ntm = window.ntm || [];
-
-		var ntmOption = {};
-
-
-		var cpName = $content.data("cp-name");
-		var subId = $content.data("sub-id");
-		var contentId = $content.data("content-id");
-		var contentAuth = $content.data("content-auth");
-		var isMembership = $content.data("is-membership");
-		var isPromotion = $content.data("is-promotion");
-		var isPreview = $content.data("is-preview");
-		var partnerChannel = $content.data("partner-channel");
-		var partnerType = $content.data("partner-type");
-		var type = $content.data("type");
-		var subType = $content.data("sub-type");
-		var userType = 0;
-
-		if (contentAuth === true) {
-			userType = 1;
-		}
-
-		var source = "";
-		var sourceId = "";
-
-		ntmOption["hitType"] = "cv";
-		ntmOption["eventCategory"] = "post_view";
-
-		ntmOption["channelId"] = cpName + "_" + subId;
-		ntmOption["uri"] = "https://contents.premium.naver.com/" + cpName + "/" + subId + "/contents/" + contentId;
-		ntmOption["userType"] = userType;
-		ntmOption["dimension1"] = cpName;
-		ntmOption["dimension2"] = isMembership == true ? "original" : "preview";
-		if (isPromotion == true) {
-			ntmOption["dimension3"] = "free";
-		}
-
-		if (source) {
-			ntmOption["dimension4"] = source;
-
-			if (sourceId) {
-				ntmOption["dimension5"] = sourceId;
-			}
-		}
-
-		if (partnerChannel) {
-			ntmOption["dimension6"] = partnerChannel === "Y" ? "partner" : "premium";
-		}
-
-		if (partnerType) {
-			ntmOption["dimension7"] = partnerType.toLowerCase();
-		}
-
-		if ("VIDEO" === subType) {
-			ntmOption["dimension8"] = "video";
-		}
-
-		if (!!!isPreview) {
-			ntm.push({
-				event: "nilSend",
-				ni: ntmOption
-			});
-
-			var eventType = "onpagehide" in window ? "pagehide" : "beforeunload";
-			$(window).on(eventType, function() {
-				ntmOption["hitType"] = "event";
-				ntmOption["eventCategory"] = "action";
-				ntmOption["eventAction"] = "leave";
-
-				ntm.push({
-					event: "nilSend",
-					ni: ntmOption
-				});
-			});
-
-		}
-	}
-});
-</script>
 
 </body>
-<script>
-var eventType = "onpageshow" in window ? "pageshow" : "load";
-$(window).on(eventType, function() {
-	var additionalInfo = {};
 
-	var sti = "";
-	if (sti) {
-		additionalInfo["sti"] = sti;
-	}
-
-	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
-
-	var gdid = $content.data("gdid");
-	if (gdid) {
-		window.lcsResult = lcs_do_gdid(gdid, additionalInfo);
-	} else {
-		window.lcsResult = lcs_do(additionalInfo);
-	}
-});
-</script>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

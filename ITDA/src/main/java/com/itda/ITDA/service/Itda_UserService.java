@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 
@@ -61,6 +62,12 @@ public interface Itda_UserService {
 	int updatePaymentUser(GoodUser goodUser);
 
 	int updateResetPaymentUser(GoodUser goodUser);
+
+	List<Order> myOrderList(String id);
+
+	Order getOrderInfo(int orderNum);
+	
+	//int orderListCount(Order order) throws Exception;
 
 
 

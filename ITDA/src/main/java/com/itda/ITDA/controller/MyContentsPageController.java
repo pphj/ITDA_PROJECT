@@ -1,6 +1,7 @@
 package com.itda.ITDA.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.Payment;
-import com.itda.ITDA.domain.SubProduct;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.OrderService;
@@ -96,21 +97,32 @@ public class MyContentsPageController {
 	
 	// 마이페이지 결제 내역
 	@GetMapping(value="/payment/subscriptions")
-	public String paymentSubscriptions(Payment payment,
-										Model model,
-										Principal principal) {
+	public String paymentSubscriptions(Model model,
+										Principal principal,
+										Order order) throws Exception {
 		
-		//SubProduct subproduct = orderService.myOrderList();
+		String id = principal.getName();
+		List<Order> orderList = itdaUserService.myOrderList(id);
+		//int count = itdaUserService.orderListCount(order);
 		
+		model.addAttribute("orderList", orderList);
+		//model.addAttribute("count", count);
 		
 		return "mypage/payment_subscriptions";
 	}
 	
 	// 마이페이지 결제 내역 자세히 보기
-	@GetMapping(value="/payment/subscriptions/{}")
-	public String paymentSubscriptionsEpisode(@PathVariable(value = "") int boardnum) {
+	@GetMapping(value="/payment/subscriptions/{payedNum}")
+	public String paymentSubscriptionsEpisode(@PathVariable(value = "payedNum") int payedNum,
+												Model model, Order order) {
+		
+		order = itdaUserService.getOrderInfo(payedNum);
+		
+		model.addAttribute("orderInfo", order);
+		
 		return "mypage/payment_subscriptions_episode";
 	}
+
 	
 	// 관심 콘텐츠(좋아요 콘텐츠)
 	@GetMapping(value="/contents")

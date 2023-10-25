@@ -203,6 +203,38 @@
 			endDate = TO_DATE(TO_CHAR(#{startDate} + #{productTerm}, 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS')
 		where userid = #{userId}
 	</update>
+	
+	<!-- 나의 결제 list 불러오기 -->
+	<select id="myOrderList" resultType="Order">
+		SELECT 
+			sp.productname, sp.PRODUCTDETAIL,
+	        py.payednum, py.ordernum, py.payedokdate, py.payedprice, 
+	        py.payedstatus, pc.userid
+		FROM 
+			subproduct sp
+		INNER JOIN paycall pc ON sp.productid = pc.productid
+		INNER JOIN payment py ON pc.callnum = py.ordernum
+		WHERE pc.userid = #{userId}
+	</select>
+	
+	<!-- 결제 정보 자세히 보기 -->
+	<select id="getOrderInfo" resultType="Order">
+		SELECT sp.productname, sp.productprice,
+	       py.payednum, py.payedmethod, py.ordernum, py.payedokdate, py.payedprice, py.payedstatus,
+	       pc.callnum, pc.userid, sp.PRODUCTTERM, gu.startdate
+		FROM subproduct sp
+		INNER JOIN paycall pc ON sp.productid = pc.productid
+		INNER JOIN payment py ON pc.callnum = py.ordernum
+		INNER JOIN gooduser gu ON gu.userid = pc.userid
+		WHERE py.payednum = #{payedNum}
+	</select>
 
+<!-- 나의 결제 list count -->
+<!-- 	
+	<select id="orderListCount" resultType="int">
+		select count(*)
+			<include refid="myOrderList"/>
+	</select> 
+	-->
 	
 </mapper>

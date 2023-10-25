@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
@@ -9,9 +11,6 @@
 	<title>MY : 잇다</title>
 	<base target="_parent">
  	<script>
-		var g_ssc = nsc = "Mpremiumcontents.all";
-		var g_default_area = "art";
-
 		var svr = "one-service-premium-r-20230914-230914-164329-5bff964899-zf5k2";
 		var nelo = {
 			sampleNumber : 100,
@@ -19,7 +18,6 @@
 			maxSendMessage : "로그 전송 최대치 도달"
 		};
 
-		var isGreendot = document.cookie.indexOf("MM_NEW=1") > -1;
 
 		var domain = "https://contents.premium.naver.com";
 		var ajaxDomain = "";
@@ -29,17 +27,6 @@
 		var urlPrefix = "";
 		var newsDomain = "";
 		var layoutName = "my_payment_subscriptions";
-
-		var unitIds = [];
-		var divIds = [];
-		var ArticleAd = {};
-
-		var _paq = window._paq = window._paq || [];
-		_paq.push(["setDocumentTitle", layoutName + " / " + document.title]);
-		_paq.push(["trackPageView"]);
-		_paq.push(["enableLinkTracking"]);
-		_paq.push(["setTrackerUrl", PREMIUM_LOG_DOMAIN + "/matomo"]);
-		_paq.push(["setSiteId", "1"]);
 
 		var isPremiumReferer = false;
 	</script>
@@ -53,20 +40,7 @@
 	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>
 	<progress id="_CONTENT_INDICATOR" class="progress" max="100" value="0"></progress>
 </div>
-<script>
-	var svt = "20230917180557.811";
-	var timestamp = svt.substr(0, 8);
-	var isLogin = true;
 
-	var service = {
-		premium: true
-	};
-
-	var analyticsNtmUrl = "https://ntm.pstatic.net/scripts/ntm_774a0c8e7c40.js";
-
-	var envPhase = "production";
-	var isProduction = true;
-</script>
 <div id="ct_wrap" class="container">
 	<div id="ct" class="container_inner">
 			    <div class="flat_header">
@@ -89,32 +63,6 @@
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
 <jsp:include page="../mypage/sidebar.jsp"></jsp:include>
 
-<%-- 	<div class="my_sidebar_box">
-		<div class="my_user">
-			<a href="https://nid.naver.com/user2/help${pageContext.request.contextPath}/myInfo?lang=ko_KR" class="my_user_modify_link" data-clk="my_lnb.myinfo">
-				<div class="my_user_img_wrap">
-				</div>
-				<strong class="my_user_name">
-					${user.USERNAME}
-				</strong>
-			</a>
-			<div class="my_user_link_wrap">
-				<a href="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_user_link is_payment is_active" data-clk="my_lnb.paydet">결제내역</a>
-				<a href="${pageContext.request.contextPath}/my/coupons" class="my_user_link is_coupon" data-clk="my_lnb.coupon">쿠폰</a>
-				<a href="${pageContext.request.contextPath}/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
-			</div>
-		</div>
-		<div class="my_tab_wrap">
-			<ul class="my_tab">
-				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
-				</li>
-				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
-				</li>
-			</ul>
-		</div>
-	</div> --%>
 	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
 		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
 			<img class="_LAZY_LOADING" data-src="https://ssl.pstatic.net/static.news/image/news/m/2023/08/18/sidebar_banner.jpg" width="315" height="110" alt="">
@@ -124,6 +72,7 @@
 <h2 class="my_title">결제 내역</h2>
 <div class="my_tab_wrap">
 	<ul class="my_tab">
+	
 		<li class="my_tab_item is_active" data-clk="my_order.subs">
 			<a href="#" data-url="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_tab_link _LOCATION_REPLACE"><span class="my_tab_text">구독 결제 내역<em>1</em></span></a>
 		</li>
@@ -132,27 +81,37 @@
 <div class="my_payment">
 	<h2 class="my_section_title">구독 결제 내역 <em>1</em></h2>
 	<ul class="my_subscribe_payment_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_PAYMENT_SUBSCRIPTION_LIST" data-cursor-name="page" data-cursor="1" data-has-next="">
+	<c:forEach var="orderList" items="${orderList}">
 		<li class="my_subscribe_payment_item">
 			<a href="/bangkuseok/bangkuseok1" class="my_subscribe_payment_thumb" data-clk="my_order.chlgo">
 				<img src="https://scs-phinf.pstatic.net/MjAyMjExMDNfMTcx/MDAxNjY3NDM3NTA3NzQw.6FO2E_Tk_6YwHAYi-50a26pOdDQWQebvFOM_6KR9xokg.724u8stegrnbL_DLl_Z5U8HfYQuesuVLGJIyeONubIUg.PNG/image%7Cpremium%7Cchannel%7Cbangkuseok%7C2022%7C11%7C03%7C1667437507721.png?type&#x3D;nfs200_200" width="48" height="48" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 			</a>
-			<a href="${pageContext.request.contextPath}/my/payment/subscriptions/episode" class="my_subscribe_payment_link" data-clk="my_order.subslist">
+			<a href="${pageContext.request.contextPath}/my/payment/subscriptions/${orderList.payedNum}" class="my_subscribe_payment_link" data-clk="my_order.subslist">
 				<div class="my_subscribe_payment_text">
 					<div class="my_subscribe_payment_info">
-						<strong class="my_subscribe_payment_channel">방구석 어학연수</strong>
-						<div class="my_subscribe_payment_name">방구석 어학연수</div>
-						<em class="my_subscribe_payment_price"><span class="num">0</span>원</em>
+						<strong class="my_subscribe_payment_channel">${orderList.productName}</strong>
+						<div class="my_subscribe_payment_name">${orderList.productDetail}</div>
+						<em class="my_subscribe_payment_price"><span class="num">${orderList.payedPrice}</span>원</em>
 					</div>
 					<div class="my_subscribe_payment">
 						<strong class="my_subscribe_payment_status false">
-							결제완료
+							<c:if test="${orderList.payedStatus == 'Y'}">
+								<c:out value="결제완료"/>
+							</c:if>
+							<c:if test="${orderList.payedStatus == 'N'}">
+								<c:out value="결제취소"/>
+							</c:if>
+							<c:if test="${orderList.payedStatus == 'F'}">
+								<c:out value="결제실패"/>
+							</c:if>
 						</strong>
-						<div class="my_subscribe_payment_date">2023.09.08.</div>
-						<div class="my_subscribe_payment_episode"><span class="num">1</span>회차</div>
+						<div class="my_subscribe_payment_date"><fmt:formatDate value="${orderList.payedOkDate}" pattern="yyyy.MM.dd" /></div>
+						<div class="my_subscribe_payment_episode"><span class="num"></span>상세보기</div>
 					</div>
 				</div>
 			</a>
 		</li>
+	</c:forEach>
 	</ul>
 	<div class="loading _CONTENT_LIST_LOADING" style="display:none;">
 		<div class="loader">
@@ -177,57 +136,7 @@
 <div id="frontDetect"></div>
 <div id="_LAYER_DIMMED" class="layer_dimmed" style="display:none;"></div>
 <div id="_MODAL_WRAP"></div>
-<script type="x-tmpl-mustache" class="_MODAL_TEMPLATE">
-<div class="popup_layer{{#isClose}} as_close_button{{/isClose}}{{#popupClass}} {{popupClass}}{{/popupClass}} _MODAL">
-	{{#description}}
-	<strong class="popup_tit">{{{title}}}</strong>
-	<p class="popup_sub_desc">{{{description}}}</p>
-	{{/description}}
-	{{^description}}
-	{{#itemList.length}}
-	<strong class="popup_tit">{{{title}}}</strong>
-	<dl class="popup_dl">
-		{{#itemList}}
-		<div class="popup_description_wrap">
-			<dt class="popup_dt">{{{key}}}</dt>
-			<dd class="popup_dd">{{{value}}}</dd>
-		</div>
-		{{/itemList}}
-	</dl>
-	{{/itemList.length}}
-	{{^itemList.length}}
-	<p class="popup_desc">{{{title}}}</p>
-	{{/itemList.length}}
-	{{/description}}
-	{{#linkButtonList.length}}
-	<div class="popup_link_wrap">
-		{{#linkButtonList}}
-		<a href="{{url}}" class="popup_link">
-			<div class="popup_link_text">{{{title}}}</div>
-			{{#description}}
-			<div class="popup_link_desc">{{{description}}}</div>
-			{{/description}}
-		</a>
-		{{/linkButtonList}}
-	</div>
-	{{/linkButtonList.length}}
-	{{#isClose}}
-	<button type="button" class="popup_close_button _MODAL_CANCEL"><i class="icon_close">닫기</i></button>
-	{{/isClose}}
-	{{^isHiddenConfirm}}
-	<div class="popup_button_wrap">
-		{{#isCancel}}
-		<button type="button" class="button_layer _MODAL_CANCEL">
-			{{cancelMessage}}
-		</button>
-		{{/isCancel}}
-		<button type="button" class="button_layer type_confirm _MODAL_CONFIRM">
-			{{confirmMessage}}
-		</button>
-	</div>
-	{{/isHiddenConfirm}}
-</div>
-</script>
+
 <div id="_TOAST_WRAP"></div>
 <script type="x-tmpl-mustache" class="_TOAST_TEMPLATE">
 <div class="toast_popup_layer">
