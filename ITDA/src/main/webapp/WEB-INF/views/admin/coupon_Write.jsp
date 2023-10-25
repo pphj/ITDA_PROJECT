@@ -52,11 +52,6 @@
 	 				<input name="adminId" id="adminId" value="${pinfo.username}" readOnly
 	 					   type="text" class="form-control">
 	 			</div>
-	 			<!-- <div class="form-group">
-	 				<label for="couponCode">쿠폰 코드</label>
-	 				<input name="couponCode" id="couponCode" type="text" maxlength="20"
-	 					   class="form-control" placeholder="숫자로 20자까지">
-	 			</div> -->
 	 			<div class="form-group">
 	 				<label for="couponName">쿠폰 이름</label>
 	 				<input name="couponName" id="couponName" type="text" maxlength="20"
