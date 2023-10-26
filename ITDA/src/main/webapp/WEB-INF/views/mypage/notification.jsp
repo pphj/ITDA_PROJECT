@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
 <head>
@@ -7,10 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<meta name="format-detection" content="telephone=no">
 	<title>MY : 잇다</title>
-	<link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="192x192" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
+	<jsp:include page="../include/header.jsp"></jsp:include>
 	<base target="_parent">
 	<script>
 		var g_ssc = nsc = "Mpremiumcontents.all";
@@ -48,7 +46,7 @@
 		var isPremiumReferer = false;
 	</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
-	<jsp:include page="../include/header.jsp"></jsp:include>
+	
 
 </head>
 <body class="as_white_background body_mp">
@@ -92,32 +90,7 @@
 			<div class="container_content _GRID_TEMPLATE_COLUMN _STICKY_CONTENT">
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
 <jsp:include page="../mypage/sidebar.jsp"></jsp:include>
-<%-- 	<div class="my_sidebar_box">
-		<div class="my_user">
-			<a href="https://nid.naver.com/user2/help${pageContext.request.contextPath}/myInfo?lang=ko_KR" class="my_user_modify_link" data-clk="my_lnb.myinfo">
-				<div class="my_user_img_wrap">
-				</div>
-				<strong class="my_user_name">
-					${userName}
-				</strong>
-			</a>
-			<div class="my_user_link_wrap">
-				<a href="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_user_link is_payment" data-clk="my_lnb.paydet">결제내역</a>
-				<a href="${pageContext.request.contextPath}/my/coupons" class="my_user_link is_coupon" data-clk="my_lnb.coupon">쿠폰</a>
-				<a href="${pageContext.request.contextPath}/my/notification" class="my_user_link is_setting is_active" data-clk="my_lnb.set">설정</a>
-			</div>
-		</div>
-		<div class="my_tab_wrap">
-			<ul class="my_tab">
-				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
-				</li>
-				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
-				</li>
-			</ul>
-		</div>
-	</div> --%>
+
 	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
 		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
 			<img class="_LAZY_LOADING" data-src="https://ssl.pstatic.net/static.news/image/news/m/2023/08/18/sidebar_banner.jpg" width="315" height="110" alt="">
@@ -128,31 +101,47 @@
 <div class="my_tab_wrap">
 	<ul class="my_tab">
 		<li class="my_tab_item is_active">
-			<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/notification/marketing" data-clk="my_lnb.setmrk">
+			<div class="my_tab_link _LOCATION_REPLACE" >
 				<span class="my_tab_text">
-					소식받기 <span class=my_tab_sub_text>목록</span>
-					<em>1</em>
+					구독 <span class=my_tab_sub_text>목록</span>
+					<em>${count}</em>
 				</span>
-			</a>
+			</div>
 		</li>
 	</ul>
 </div>
 <div class="my_setting as_news _TEMPLATE" data-template-id="SCS_PREMIUM_MY_NOTIFICATION_MARKETING_LIST">
-	<h3 class="my_setting_title">채널 소식받기</h3>
-	<p class="my_setting_desc">소식받기로 설정하신 채널 목록입니다. 톡톡으로 이벤트, 혜택 소식을 받고 싶지 않은 채널은 소식받기를 취소해주세요.</p>
     <ul class="my_setting_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_NOTIFICATION_MARKETING_LIST" data-cursor-name="next" data-cursor="" data-has-next="">
-    	<li class="my_setting_item _MARKETING_BUTTON_WRAP">
-    		<a href="/slowpianist/pandapiano" class="my_setting_link" data-clk="my_setmrk.chlgo">
-    			<div class="my_setting_thumb">
-    				<img src="https://scs-phinf.pstatic.net/MjAyMzAzMDhfMTQ5/MDAxNjc4MjY2NDQ0NDY4.1iQvKFpgdcj2oIRpHnFYRAq7gObdl1dELIk6Y64E9tEg.EhkIlVrDnv_-YEHbCVRY8lz5yXkfE-51xmjQkzUhy4sg.JPEG/image%7Cpremium%7Cchannel%7Cslowpianist%7C2023%7C03%7C08%7C1678266444441.jpg?type&#x3D;nfs200_200" width="48" height="48" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
-    			</div>
-    			<strong class="my_setting_name">노애리의 피아노 이야기</strong>
-    		</a>
+    	<c:forEach var="likeChList" items="${likeChList}">
+    	<li class="my_setting_item">
+			<a href="${pageContext.request.contextPath}/channels/${likeChList.chNum}?userid=${likeChList.ownerId}" class="my_channel_thumb" data-clk="my_subs.list">
+				<c:choose>
+                   <c:when test="${empty likeChList.chProfile}">
+                      <img src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png" width="48" height="48">
+                   </c:when>
+                	<c:otherwise>
+                    	<img src="${pageContext.request.contextPath}/image/MemberUpload/${likeChList.ownerId}${likeChList.chProfile}" width="48" height="48" onerror="this.parentNode.innerHTML='<span class=&quot;no_image&quot;></span>'">
+                	</c:otherwise>
+                </c:choose>
+			</a>
+			<div class="my_channel_text">
+				<a href="${pageContext.request.contextPath}/channels/${likeChList.chNum}?userid=${likeChList.ownerId}" class="my_channel_link" data-clk="my_subs.list">
+					<div class="my_channel_name">
+						<strong class="my_channel_name_text">${likeChList.chName}</strong>
+					</div>
+					<div class="my_subscribe_date">
+						<em class="my_channel_date_title">구독일</em>
+						<div class="my_channel_date_text"><fmt:formatDate value="${likeChList.subdate}" pattern="yyyy.MM.dd" />.</div>
+					</div>
+				</a>
+			</div>
+    		
     		<button type="button" aria-pressed="true" class="news_button _MARKETING_BUTTON" data-enabled="true" data-cp-name="slowpianist" data-sub-id="pandapiano" data-channel-name="노애리의 피아노 이야기" data-on-clk="my_setmrk.on" data-off-clk="my_setmrk.off">
     		</button>
     		<button type="button" style="display:none;" aria-pressed="false" class="news_button _MARKETING_BUTTON" data-enabled="false" data-cp-name="slowpianist" data-sub-id="pandapiano" data-channel-name="노애리의 피아노 이야기" data-on-clk="my_setmrk.on" data-off-clk="my_setmrk.off">
     		</button>
     	</li>
+    	</c:forEach>
     </ul>
     <div class="loading _CONTENT_LIST_LOADING" style="display:none;">
     	<div class="loader">
@@ -236,110 +225,8 @@
 </script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
-<script>
-$(window).on("load", function() {
-	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
 
-	if ($content.length > 0 && $content.hasClass("_NIL_SEND") === true) {
-		window.ntm = window.ntm || [];
-
-		var ntmOption = {};
-
-
-		var cpName = $content.data("cp-name");
-		var subId = $content.data("sub-id");
-		var contentId = $content.data("content-id");
-		var contentAuth = $content.data("content-auth");
-		var isMembership = $content.data("is-membership");
-		var isPromotion = $content.data("is-promotion");
-		var isPreview = $content.data("is-preview");
-		var partnerChannel = $content.data("partner-channel");
-		var partnerType = $content.data("partner-type");
-		var type = $content.data("type");
-		var subType = $content.data("sub-type");
-		var userType = 0;
-
-		if (contentAuth === true) {
-			userType = 1;
-		}
-
-		var source = "";
-		var sourceId = "";
-
-		ntmOption["hitType"] = "cv";
-		ntmOption["eventCategory"] = "post_view";
-
-		ntmOption["channelId"] = cpName + "_" + subId;
-		ntmOption["uri"] = "https://contents.premium.naver.com/" + cpName + "/" + subId + "/contents/" + contentId;
-		ntmOption["userType"] = userType;
-		ntmOption["dimension1"] = cpName;
-		ntmOption["dimension2"] = isMembership == true ? "original" : "preview";
-		if (isPromotion == true) {
-			ntmOption["dimension3"] = "free";
-		}
-
-		if (source) {
-			ntmOption["dimension4"] = source;
-
-			if (sourceId) {
-				ntmOption["dimension5"] = sourceId;
-			}
-		}
-
-		if (partnerChannel) {
-			ntmOption["dimension6"] = partnerChannel === "Y" ? "partner" : "premium";
-		}
-
-		if (partnerType) {
-			ntmOption["dimension7"] = partnerType.toLowerCase();
-		}
-
-		if ("VIDEO" === subType) {
-			ntmOption["dimension8"] = "video";
-		}
-
-		if (!!!isPreview) {
-			ntm.push({
-				event: "nilSend",
-				ni: ntmOption
-			});
-
-			var eventType = "onpagehide" in window ? "pagehide" : "beforeunload";
-			$(window).on(eventType, function() {
-				ntmOption["hitType"] = "event";
-				ntmOption["eventCategory"] = "action";
-				ntmOption["eventAction"] = "leave";
-
-				ntm.push({
-					event: "nilSend",
-					ni: ntmOption
-				});
-			});
-
-		}
-	}
-});
-</script>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
-<script>
-var eventType = "onpageshow" in window ? "pageshow" : "load";
-$(window).on(eventType, function() {
-	var additionalInfo = {};
 
-	var sti = "";
-	if (sti) {
-		additionalInfo["sti"] = sti;
-	}
-
-	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
-
-	var gdid = $content.data("gdid");
-	if (gdid) {
-		window.lcsResult = lcs_do_gdid(gdid, additionalInfo);
-	} else {
-		window.lcsResult = lcs_do(additionalInfo);
-	}
-});
-</script>
 </html>

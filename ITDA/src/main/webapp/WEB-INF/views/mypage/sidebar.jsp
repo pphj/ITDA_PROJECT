@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" uri="http://java.sun.com/jsp/jstl/core" %>
+<style type="text/css">
+.my_tab_text.active{
+    font-weight: bold;
+    color: black;
+}
+</style>
 <body>
+
 <script>
 $(document).ready(function(){
     // 페이지 로드 시, 로컬 스토리지에서 저장된 값으로 글꼴 두께와 색상을 설정합니다.
@@ -69,11 +76,25 @@ $(document).ready(function(){
 		</div>
 		<div class="my_tab_wrap">
 			<ul class="my_tab">
-				<li class="my_tab_item is_active">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
+				<li class="my_tab_item">
+					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions" data-clk="my_lnb.substab">
+					<t:if test="${!empty subActive }">
+						<span class="my_tab_text active">구독 채널</span>
+					</t:if>
+					<t:if test="${empty subActive }">
+						<span class="my_tab_text">구독 채널</span>
+					</t:if>
+					</a>
 				</li>
 				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
+					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/contents" data-clk="my_lnb.constab">
+					<t:if test="${!empty contentsActive }">
+						<span class="my_tab_text active">관심 콘텐츠</span>
+					</t:if>
+					<t:if test="${empty contentsActive }">
+						<span class="my_tab_text">관심 콘텐츠</span>
+					</t:if>
+					</a>
 				</li>
 			</ul>
 		</div>

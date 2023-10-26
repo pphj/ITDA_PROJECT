@@ -51,7 +51,7 @@
 		var isPremiumReferer = false;
 	</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
-	
+
 </head>
 <body class="as_my_home body_mp as_my_home">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
@@ -221,23 +221,6 @@
 </body>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 <script>
-var eventType = "onpageshow" in window ? "pageshow" : "load";
-$(window).on(eventType, function() {
-	var additionalInfo = {};
 
-	var sti = "";
-	if (sti) {
-		additionalInfo["sti"] = sti;
-	}
-
-	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
-
-	var gdid = $content.data("gdid");
-	if (gdid) {
-		window.lcsResult = lcs_do_gdid(gdid, additionalInfo);
-	} else {
-		window.lcsResult = lcs_do(additionalInfo);
-	}
-});
 </script>
 </html>

@@ -82,6 +82,7 @@ public class MyContentsPageController {
 	    	
 	    	model.addAttribute("likeChList", likeChList);
 	    	model.addAttribute("count", count);
+	    	model.addAttribute("subActive", "active");
 	    	
 	    	if (sellerId == null || sellerId.equals("")) {
 	    		model.addAttribute("message", "NOT_SELLER");
@@ -109,7 +110,7 @@ public class MyContentsPageController {
 		List<LikeChNewContent> newContentList = itdaUserService.myLikeChNewContentList(id);
 		
 		model.addAttribute("newContentList", newContentList);
-		
+		model.addAttribute("subActive", "active");
 		
 		return"mypage/subscriptions_contents";
 	}
@@ -122,7 +123,18 @@ public class MyContentsPageController {
 	
 	// 마이페이지 설정(구독 설정)
 	@GetMapping(value="/notification")
-	public String notification() {
+	public String notification(LikeChannel likeCh,
+								Principal principal,
+								Model model) {
+		
+		String id = principal.getName();
+		
+		List<LikeChannel> likeChList = itdaUserService.myLikeChList(id);
+		int count = itdaUserService.myLikeChListCount(id);
+		
+		model.addAttribute("likeChList", likeChList);
+		model.addAttribute("count", count);
+		
 		return "mypage/notification";
 	}
 	
@@ -168,7 +180,7 @@ public class MyContentsPageController {
 		
 		model.addAttribute("contentList", likeContentList);
 		model.addAttribute("cnt", count);
-		
+		model.addAttribute("contentsActive", "active");
 		
 		return "mypage/contents";
 	}

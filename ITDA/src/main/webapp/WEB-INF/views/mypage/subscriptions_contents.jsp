@@ -128,10 +128,10 @@
 					<div class="my_subscriptions_channel_thumb">
 					<c:choose>
                    <c:when test="${empty newContentList.chProfile}">
-                      <img src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png" width="48" height="48">
+                      <img src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png" width="22" height="22">
                    </c:when>
                 	<c:otherwise>
-                    	<img src="${pageContext.request.contextPath}/image/MemberUpload/${newContentList.ownerId}${newContentList.chProfile}" style="width: 22px;"width="48" height="48" <span class=&quot;no_image&quot;></span>>
+                    	<img src="${pageContext.request.contextPath}/image/MemberUpload/${newContentList.ownerId}${newContentList.chProfile}" width="22" height="22" <span class=&quot;no_image&quot;></span>>
                 	</c:otherwise>
                 </c:choose>
 					
@@ -172,6 +172,9 @@
 		</li>
 		</c:forEach>
 	</ul>
+	
+	<button id="loadMoreButton">더 보기</button> 
+	
 	<div class="loading _CONTENT_LIST_LOADING">
 		<div class="loader">
 			<div class="dot dot1"></div>
@@ -255,87 +258,40 @@
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
 <script>
-$(window).on("load", function() {
-	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
+$(document).ready(function() {
+	
+    var showitems = 6;
+    var visibleitems = 6;
 
-	if ($content.length > 0 && $content.hasClass("_NIL_SEND") === true) {
-		window.ntm = window.ntm || [];
+    function toggleEventItems() {
+    	
+    	const contentList = $(".my_subscriptions_content_list").hide();
+    	$(".my_subscriptions_content_list:lt(" + visibleitems + ")").show();
+    	
+    	if(visibleitems >= ('.my_subscriptions_content_list').length){
+    		
+    	}
+    	
+    }
+    const loadMoreButton = $("#loadMoreButton");
+    const contentList = $(".my_subscriptions_content_list");
+    let cursor = contentList.attr("data-cursor");
 
-		var ntmOption = {};
+    loadMoreButton.on("click", function() {
+        // 여기서 서버에서 추가 데이터를 가져오는 대신 더 많은 아이템을 보여줍니다.
+        const hiddenItems = contentList.find(".my_subscriptions_content_item.hidden");
+        for (let i = 0; i < 6; i++) { // 6개씩 더 보여줍니다.
+            if (hiddenItems[i]) {
+                $(hiddenItems[i]).removeClass("hidden");
+            }
+        }
 
-
-		var cpName = $content.data("cp-name");
-		var subId = $content.data("sub-id");
-		var contentId = $content.data("content-id");
-		var contentAuth = $content.data("content-auth");
-		var isMembership = $content.data("is-membership");
-		var isPromotion = $content.data("is-promotion");
-		var isPreview = $content.data("is-preview");
-		var partnerChannel = $content.data("partner-channel");
-		var partnerType = $content.data("partner-type");
-		var type = $content.data("type");
-		var subType = $content.data("sub-type");
-		var userType = 0;
-
-		if (contentAuth === true) {
-			userType = 1;
-		}
-
-		var source = "";
-		var sourceId = "";
-
-		ntmOption["hitType"] = "cv";
-		ntmOption["eventCategory"] = "post_view";
-
-		ntmOption["channelId"] = cpName + "_" + subId;
-		ntmOption["uri"] = "https://contents.premium.naver.com/" + cpName + "/" + subId + "/contents/" + contentId;
-		ntmOption["userType"] = userType;
-		ntmOption["dimension1"] = cpName;
-		ntmOption["dimension2"] = isMembership == true ? "original" : "preview";
-		if (isPromotion == true) {
-			ntmOption["dimension3"] = "free";
-		}
-
-		if (source) {
-			ntmOption["dimension4"] = source;
-
-			if (sourceId) {
-				ntmOption["dimension5"] = sourceId;
-			}
-		}
-
-		if (partnerChannel) {
-			ntmOption["dimension6"] = partnerChannel === "Y" ? "partner" : "premium";
-		}
-
-		if (partnerType) {
-			ntmOption["dimension7"] = partnerType.toLowerCase();
-		}
-
-		if ("VIDEO" === subType) {
-			ntmOption["dimension8"] = "video";
-		}
-
-		if (!!!isPreview) {
-			ntm.push({
-				event: "nilSend",
-				ni: ntmOption
-			});
-
-			var eventType = "onpagehide" in window ? "pagehide" : "beforeunload";
-			$(window).on(eventType, function() {
-				ntmOption["hitType"] = "event";
-				ntmOption["eventCategory"] = "action";
-				ntmOption["eventAction"] = "leave";
-
-				ntm.push({
-					event: "nilSend",
-					ni: ntmOption
-				});
-			});
-
-		}
-	}
+        cursor = contentList.attr("data-cursor"); // 다음 페이지를 위한 새로운 cursor 가져옴
+        const hasNext = contentList.attr("data-has-next");
+        if (hasNext === "false") {
+            loadMoreButton.hide(); // 다음 페이지가 없으면 더보기 버튼을 숨깁니다.
+        }
+    });
 });
 </script>
 <jsp:include page="../include/footer.jsp"></jsp:include>
