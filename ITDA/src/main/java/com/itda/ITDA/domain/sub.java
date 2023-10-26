@@ -14,4 +14,5 @@ public class sub {
 	private Timestamp subdate;
 	private String userGender;
 	private Timestamp userBirth;
+	private int subscriberCount; // 새로 추가한 필드
 }

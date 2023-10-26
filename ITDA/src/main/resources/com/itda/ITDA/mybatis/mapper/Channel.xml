@@ -275,9 +275,19 @@
 	    WHERE userid = #{userId} AND subchnum = #{chnum}
 	</select>
 	
-	<select id="getBoardVisit" resultType="ChBoard">
-	    select boardVisit
-		from chboard
-		where chnum = #{chnum}
+	<select id="getBoardVisit" resultType="sub">
+	     SELECT COUNT(userid) as subscriberCount
+	     FROM sub 
+	     WHERE subchnum = #{subchnum}
 	</select>
+	
+	
+	<select id="getSubscriberCount" resultType="java.lang.Integer">
+	    SELECT COUNT(*) 
+	    FROM sub
+	    WHERE subchnum = #{chnum}
+	</select>
+	
+	
+
 </mapper> 

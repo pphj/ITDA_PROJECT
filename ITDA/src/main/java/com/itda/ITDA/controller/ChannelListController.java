@@ -41,6 +41,7 @@ import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.domain.Tag;
+import com.itda.ITDA.domain.sub;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.TagService;
 
@@ -86,9 +87,8 @@ public class ChannelListController {
 		Seller sellerinfo = channelList_Service.getSellerInfo(userid);
 
 		// 구독자 확인
-		ChBoard chBoard = channelList_Service.getBoardVisit(chnum);
-
-		mv.addObject("chBoard", chBoard);
+		sub subinfo = channelList_Service.getBoardVisit(chnum);
+		mv.addObject("subinfo", subinfo);
 
 		if (ChannelList == null)
 		{
@@ -534,6 +534,20 @@ public class ChannelListController {
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("isSubscribed", isSubscribed);
 		logger.info("구독 상태 확인 완료: userId = " + userId + ", chnum = " + chnum);
+		return response;
+	}
+
+	@PostMapping("/getSubscriberCount")
+	@ResponseBody
+	public Map<String, Integer> getSubscriberCount(@RequestParam String userId, @RequestParam int chnum) {
+		logger.info("구독자 수 확인 시작: userId = " + userId + ", chnum = " + chnum);
+
+		int subscriberCount = channelList_Service.getSubscriberCount(userId, chnum);
+
+		Map<String, Integer> response = new HashMap<>();
+		response.put("subscriberCount", subscriberCount);
+
+		logger.info("구독자 수 확인 완료: userId = " + userId + ", chnum = " + chnum);
 		return response;
 	}
 
