@@ -14,4 +14,6 @@ public interface heartService {
 
 	void decreaseChBoardHeart(int boardNum);
 
+	int updateChBoardHeartMinus(int boardNum);
+
 }

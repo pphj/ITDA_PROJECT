@@ -258,8 +258,10 @@
 	</select>
 
 	 <insert id="subscribe" parameterType="map">
-	    INSERT INTO sub (subsnum, userid, subchnum, subdate)
-	    VALUES ( seq_sub.NEXTVAL, #{userId}, #{chnum}, SYSTIMESTAMP)
+	   INSERT INTO sub (subsnum, userid, subchnum, subdate, usergender, userbirth)
+	   SELECT seq_sub.NEXTVAL, #{userId}, #{chnum}, SYSTIMESTAMP, userGender, userBirth
+	   FROM itda_user
+	   WHERE userId = #{userId}
 	 </insert>
 
 	 <delete id="unsubscribe" parameterType="map">
@@ -267,11 +269,31 @@
 	    WHERE userid = #{userId} AND subchnum = #{chnum}
 	 </delete>
 	
-	<select id="getSubData" parameterType="java.util.Map" resultType="Sub">
+	<select id="getSubData" parameterType="java.util.Map" resultType="sub">
 		select subchNum, userGender, userBirth
 		from sub
 		where subchnum = #{chnum}
 	</select>
+
+	<select id="checkSubscription" parameterType="map" resultType="boolean">
+	    SELECT COUNT(*) 
+	    FROM sub
+	    WHERE userid = #{userId} AND subchnum = #{chnum}
+	</select>
+	
+	<select id="getBoardVisit" resultType="sub">
+	     SELECT COUNT(userid) as subscriberCount
+	     FROM sub 
+	     WHERE subchnum = #{subchnum}
+	</select>
+	
+	
+	<select id="getSubscriberCount" resultType="java.lang.Integer">
+	    SELECT COUNT(*) 
+	    FROM sub
+	    WHERE subchnum = #{chnum}
+	</select>
+	
 	
 
 </mapper> 

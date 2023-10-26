@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Sub {
+public class sub {
 	private int subsnum;
 	private String userid;
 	private int subchnum;

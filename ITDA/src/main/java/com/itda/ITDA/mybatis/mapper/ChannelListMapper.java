@@ -11,7 +11,7 @@ import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
-import com.itda.ITDA.domain.Sub;
+import com.itda.ITDA.domain.sub;
 
 @Mapper
 public interface ChannelListMapper {
@@ -82,6 +82,12 @@ public interface ChannelListMapper {
 
 	void unsubscribe(String userId, int chnum);
 
-	List<Sub> getSubData(int chnum);
+	List<sub> getSubData(int chnum);
+
+	boolean checkSubscription(String userId, int chnum);
+
+	sub getBoardVisit(int chnum);
+
+	int getSubscriberCount(String userId, int chnum);
 
 }

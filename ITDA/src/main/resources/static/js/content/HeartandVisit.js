@@ -9,14 +9,33 @@ $(function(){
     var boardNum = $(".heart_butt").data('id'); // 게시글 번호 가져오기
     
     
-    
+    	// 페이지 로드 시 조회수 증가
+	    $.ajax({
+	        type: "post",
+	        url: "/itda/contents/updateViewCount", // 조회수를 증가시키는 서버 측 코드의 URL
+	        data: {
+	            boardNum: boardNum
+	        },
+	        beforeSend: function(xhr) {
+	            // 데이터를 전송하기 전에 헤더에 csrf 값을 설정합니다.
+	            xhr.setRequestHeader(header, token);
+	        },
+	        success : function() {
+	            console.log("조회수가 성공적으로 증가하였습니다.");
+	        },
+	        error: function() {
+	            console.error("조회수 증가 실패");
+	        }
+	    });
+	    
+	    
 	    // 페이지 로드 시 '좋아요' 상태 및 갯수 조회
 	    $.ajax({
 	        type: "get",
 	        url: "/itda/contents" + "/getHeartStateAndCount",
 	        data: {
 	            boardNum: boardNum,
-	            userId: userId
+	            userId: userId  
 	         },
 	         dataType : "json",
 	         success : function(rdata) {

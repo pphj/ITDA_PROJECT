@@ -107,8 +107,8 @@ $(document).ready(function(){
 			<strong class="profileUserName tit_bloger">${ChannelList.chName}</strong>
 			<dl class="blog_count ">
 				<dd>
-					<a href="/@garangbimaker/follower" class="link_count #follower"> <em class="txt_g">구독자</em> <span class="num_count">4,460</span>
-					</a>
+					<b class="link_count #follower"> <em class="txt_g">구독자</em> <span class="num_count"  style="text-decoration: none;">${subinfo.subscriberCount}</span>
+					</b>
 				</dd>
 			</dl>
 		</div>
