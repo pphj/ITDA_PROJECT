@@ -141,33 +141,16 @@ public class Itda_UserController {
 			return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	 @RequestMapping(value="/", method= RequestMethod.GET)
+	    public String login(Model model) {
+	        model.addAttribute("naverUrl", naverService.getNaverLogin());
+
+	        return "index";
+	    }
 
 
-	@GetMapping("/callback")
-	public String naverCallback(@RequestParam("code") String code,
-			@RequestParam(name = "state", required = false) String state) {
-		try
-		{
-			if (code != null)
-			{
-				// 네이버 인증 코드를 받아와서 처리하는 로직을 구현합니다.
-				NaverDTO naverInfo = naverService.getNaverInfo(code);
-
-				// 네이버 로그인 성공 후 리다이렉트할 경로 지정
-				return "redirect:/main/protomain";
-			} else
-			{
-				// code가 없을 경우 예외 처리
-				throw new IllegalArgumentException("Invalid authorization code");
-			}
-		} catch (Exception e)
-		{
-			// 예외 처리 로직 작성
-
-			// 예외 발생 시 리다이렉트할 경로 지정
-			return "redirect:/error-page";
-		}
-	}
+	
 
 
 	@RequestMapping(value = "/joinForm", method = RequestMethod.GET)

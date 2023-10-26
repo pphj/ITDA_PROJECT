@@ -8,6 +8,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
@@ -15,6 +16,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Component
 public class Itda_User implements UserDetails {
 	private static final long serialVersionUID = 1503811374822162759L;
 	private String userId;
@@ -134,5 +136,17 @@ public class Itda_User implements UserDetails {
 	public String getUserName() {
 		return userName;
 	}
+
+	public void saveNaverUserInfo(NaverDTO naverDTO) {
+	    // NaverDTO에서 필요한 정보를 추출하여 Itda_User에 저장하는 로직을 구현해주세요.
+	    // 예시로 userId, userName, userEmail을 저장하는 예시 코드를 작성하였습니다.
+	    this.setUserId(naverDTO.getId());
+	    this.setUserName(naverDTO.getName());
+	    this.setUserEmail(naverDTO.getEmail());
+	    
+	    // 나머지 필요한 정보도 동일한 방식으로 저장해주세요.
+	    // 예를 들어, userPhone, userAddress1 등의 정보도 NaverDTO에서 가져와서 저장할 수 있습니다.
+	}
+
 
 }
