@@ -8,6 +8,7 @@ import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.Sub;
 
 public interface ChannelList_Service {
 
@@ -68,6 +69,8 @@ public interface ChannelList_Service {
 	void subscribe(String userId, int chnum);
 
 	void unsubscribe(String userId, int chnum);
+
+	List<Sub> getSubData(int chnum);
 
 
 

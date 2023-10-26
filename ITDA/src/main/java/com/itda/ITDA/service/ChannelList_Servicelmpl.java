@@ -12,6 +12,7 @@ import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.Sub;
 import com.itda.ITDA.mybatis.mapper.ChannelListMapper;
 
 @Service
@@ -173,6 +174,11 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	@Override
 	public void unsubscribe(String userId, int chnum) {
 		dao.unsubscribe(userId, chnum);
+	}
+
+	@Override
+	public List<Sub> getSubData(int chnum) {
+		return dao.getSubData(chnum);
 	}
 
 }

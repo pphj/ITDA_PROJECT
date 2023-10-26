@@ -267,6 +267,11 @@
 	    WHERE userid = #{userId} AND subchnum = #{chnum}
 	 </delete>
 	
+	<select id="getSubData" parameterType="java.util.Map" resultType="Sub">
+		select subchNum, userGender, userBirth
+		from sub
+		where subchnum = #{chnum}
+	</select>
 	
 
 </mapper> 
