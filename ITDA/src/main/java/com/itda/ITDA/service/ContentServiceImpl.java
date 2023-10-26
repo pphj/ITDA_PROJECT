@@ -3,10 +3,13 @@ package com.itda.ITDA.service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.itda.ITDA.controller.ContentController;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChCategory;
@@ -18,6 +21,8 @@ import com.itda.ITDA.mybatis.mapper.ContentMapper;
 
 @Service
 public class ContentServiceImpl implements ContentService {
+	private static final Logger logger = LoggerFactory.getLogger(ContentController.class);
+
 	private ContentMapper dao;
 	private TagService tagService;
 
@@ -100,15 +105,11 @@ public class ContentServiceImpl implements ContentService {
 		return dao.newContentSelect(chnum);
 	}
 
-
-
 	@Override
 	@Transactional
 	public void deleteBoard(int boardNum) {
 		tagService.deleteTagsByBoardNum(boardNum);
-
 		dao.deleteBoard(boardNum);
-
 	}
 
 	@Override
@@ -124,6 +125,23 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	public String findNameById(int chCateId) {
 		return dao.findNameById(chCateId);
+	}
+
+	// ContentServiceImpl 클래스
+	@Override
+	@Transactional
+	public void increaseViewCount(int boardNum, int boardVisit) {
+		Logger logger = LoggerFactory.getLogger(this.getClass());
+		try
+		{
+			logger.info("increaseViewCount method in service called with boardNum: " + boardNum);
+			dao.increaseViewCount(boardNum, boardVisit);
+			logger.info("조회수 증가합니다!");
+		} catch (Exception e)
+		{
+			logger.error("조회수 증가 실패", e);
+			throw new RuntimeException("조회수 증가 실패", e);
+		}
 	}
 
 }

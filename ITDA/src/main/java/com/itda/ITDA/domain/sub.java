@@ -12,4 +12,6 @@ public class sub {
 	private String userid;
 	private int subchnum;
 	private Timestamp subdate;
+	private String userGender;
+	private Timestamp userBirth;
 }

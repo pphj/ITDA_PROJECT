@@ -100,7 +100,7 @@ function getList(state) {
                         + '		<div title="더보기" class="reply_tool_button">'
                         + '     	<div>&#46;&#46;&#46;</div>'
                         + ' 	</div>'
-                        + ' 	<div id="reply_list_item_layer' + this.replyNum + '"  class="LayerMore"  style="display: flex; width: 150px;">'
+                        + ' 	<div id="reply_list_item_layer' + this.replyNum + '"  class="LayerMore"  style="display: none; width: 150px;">'
                         + '     	<ul class="layer_list"  style="display: flex;">'
                         + '     	<li class="layer_item"  style="display: flex;">'
                         + '      		<a href="javascript:updateForm(' + this.replyNum + ')"'

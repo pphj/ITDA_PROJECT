@@ -69,6 +69,8 @@ public interface ChannelList_Service {
 
 	void unsubscribe(String userId, int chnum);
 
+	boolean checkSubscription(String userId, int chnum);
 
+	ChBoard getBoardVisit(int chnum);
 
 }

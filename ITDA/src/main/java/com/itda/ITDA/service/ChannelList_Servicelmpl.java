@@ -175,4 +175,14 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 		dao.unsubscribe(userId, chnum);
 	}
 
+	@Override
+	public boolean checkSubscription(String userId, int chnum) {
+		return dao.checkSubscription(userId, chnum);
+	}
+
+	@Override
+	public ChBoard getBoardVisit(int chnum) {
+		return dao.getBoardVisit(chnum);
+	}
+
 }

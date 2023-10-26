@@ -2,6 +2,8 @@ package com.itda.ITDA.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChCategory;
@@ -38,6 +40,7 @@ public interface ContentService {
 
 	List<ChBoard> newContentSelect(int chnum);
 
+	@Transactional
 	void deleteBoard(int boardnum);
 
 	Itda_User getUserInfo(String userId);
@@ -45,4 +48,6 @@ public interface ContentService {
 	List<ChBoardCategory> getChannelCategory(int boardnum);
 
 	String findNameById(int chCateId);
+
+	void increaseViewCount(int boardNum, int boardVisit);
 }

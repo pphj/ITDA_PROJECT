@@ -149,6 +149,13 @@
 		  SELECT chCate_Name FROM ChBoardCategory WHERE chCate_Id = #{chCateId}
 	</select>
 	
+	<update id="increaseViewCount">
+	    UPDATE chboard
+	    SET boardVisit = #{boardVisit}
+	    WHERE boardNum = #{boardNum}
+	</update>
+
+
 
 
 </mapper>

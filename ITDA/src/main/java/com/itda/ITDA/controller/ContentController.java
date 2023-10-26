@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -319,6 +320,7 @@ public class ContentController {
 
 	// 게시글 삭제
 	@PostMapping("/{chnum}/delete")
+	@Transactional
 	public String BoardDeleteAction(@PathVariable("chnum") int chnum, @RequestParam("boardnum") int boardnum, Model mv,
 			RedirectAttributes rattr, HttpServletRequest request) {
 
@@ -514,6 +516,23 @@ public class ContentController {
 		}
 
 		return response;
+	}
+
+	@PostMapping("/updateViewCount")
+	@ResponseBody
+	public void increaseViewCount(@RequestParam("boardNum") int boardNum) {
+		Logger logger = LoggerFactory.getLogger(this.getClass());
+		try
+		{
+			ChBoard chBoard = contentService.getContentDetail(boardNum);
+			int updatedBoardVisit = chBoard.getBoardVisit() + 1;
+			contentService.increaseViewCount(boardNum, updatedBoardVisit);
+			logger.info("조회수 증가합니다!");
+		} catch (Exception e)
+		{
+			logger.error("조회수 증가 실패", e);
+			throw new RuntimeException("조회수 증가 실패", e);
+		}
 	}
 
 	/*@RequestMapping(value = "/contentlist.co")

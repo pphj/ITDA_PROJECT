@@ -55,4 +55,8 @@ public interface ContentMapper {
 
 	void deleteBoard(int boardNum);
 
+	void increaseViewCount(int boardNum, int boardVisit);
+
+	void increaseViewCount(int boardNum);
+
 }
