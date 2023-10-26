@@ -41,6 +41,7 @@ import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.domain.Tag;
+import com.itda.ITDA.domain.sub;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.TagService;
 
@@ -85,6 +86,10 @@ public class ChannelListController {
 		// 채널주인 확인
 		Seller sellerinfo = channelList_Service.getSellerInfo(userid);
 
+		// 구독자 확인
+		sub subinfo = channelList_Service.getBoardVisit(chnum);
+		mv.addObject("subinfo", subinfo);
+
 		if (ChannelList == null)
 		{
 			logger.info("채널 메인 페이지 표시 실패: 해당 번호의 채널을 찾을 수 없습니다.");
@@ -99,7 +104,6 @@ public class ChannelListController {
 			mv.addObject("ChannelList", ChannelList);
 			session.setAttribute("chname", ChannelList.getChName());
 			mv.addObject("sellerinfo", sellerinfo);
-
 			// 채널과 연관된 게시물 목록을 가져옴
 			List<ChBoard> ChannelBoardList = channelList_Service.getBoardListByBoardNum(chnum);
 			mv.addObject("ChannelBoardList", ChannelBoardList);
@@ -513,7 +517,6 @@ public class ChannelListController {
 		return "구독 처리 완료";
 	}
 
-
 	@PostMapping("/unsubscribe")
 	@ResponseBody
 	public String unsubscribe(@RequestParam String userId, @RequestParam int chnum) {
@@ -521,6 +524,31 @@ public class ChannelListController {
 		channelList_Service.unsubscribe(userId, chnum);
 		logger.info("구독 취소 처리 시작: userId = " + userId + ", chnum = " + chnum);
 		return "구독 취소 처리 완료";
+	}
+
+	@PostMapping("/checkSubscription")
+	@ResponseBody
+	public Map<String, Boolean> checkSubscription(@RequestParam String userId, @RequestParam int chnum) {
+		logger.info("구독 상태 확인 시작: userId = " + userId + ", chnum = " + chnum);
+		boolean isSubscribed = channelList_Service.checkSubscription(userId, chnum);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("isSubscribed", isSubscribed);
+		logger.info("구독 상태 확인 완료: userId = " + userId + ", chnum = " + chnum);
+		return response;
+	}
+
+	@PostMapping("/getSubscriberCount")
+	@ResponseBody
+	public Map<String, Integer> getSubscriberCount(@RequestParam String userId, @RequestParam int chnum) {
+		logger.info("구독자 수 확인 시작: userId = " + userId + ", chnum = " + chnum);
+
+		int subscriberCount = channelList_Service.getSubscriberCount(userId, chnum);
+
+		Map<String, Integer> response = new HashMap<>();
+		response.put("subscriberCount", subscriberCount);
+
+		logger.info("구독자 수 확인 완료: userId = " + userId + ", chnum = " + chnum);
+		return response;
 	}
 
 }

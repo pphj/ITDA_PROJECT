@@ -8,6 +8,7 @@ import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
+import com.itda.ITDA.domain.sub;
 
 public interface ChannelList_Service {
 
@@ -69,6 +70,10 @@ public interface ChannelList_Service {
 
 	void unsubscribe(String userId, int chnum);
 
+	boolean checkSubscription(String userId, int chnum);
 
+	sub getBoardVisit(int chnum);
+
+	int getSubscriberCount(String userId, int chnum);
 
 }
