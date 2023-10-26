@@ -2,20 +2,16 @@ package com.itda.ITDA.domain;
 
 import java.sql.Timestamp;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class LikeContent {
-	private int id;
-	private String user_id;
-	private int board_num;
-	private Timestamp created_at;
-	private int heartCount; // 좋아요 갯수를 저장하는 필드 추가
-	
+public class LikeChNewContent {
+	//chboard
 	private int boardNum;
-
 	private int chNum;
 	private String Writer;
 	private String writer;
@@ -25,7 +21,20 @@ public class LikeContent {
 	private Timestamp boardDate;
 	private String thumbNail;
 	private String intro;
-	private int cnt;
 	
+	//channellist
+	private String ownerId;
 	private String chName;
+	private String chProfile;
+	private String chInfo;
+	private int chFollow;
+	private String userProfile;
+	private MultipartFile uploadfile;
+	private String chProfile_original;
+	
+	//sub
+	private String userid;
+	private int subchnum;
+	
+	
 }

@@ -10,7 +10,6 @@
 	    event.preventDefault(); // 제출을 막습니다.
 	  	var productName = $("input[name='productName']").val();
 	  	var productId = $("input[name='productId']").val();
-	  	//sessionStorage.setItem('item_name', productName);
 	    //var discountPrice = $("#discountPrice").val(); 
 	    var productPrice = $("input[name='productPrice']").val();
 	    var totalProductPrice = productPrice;
@@ -20,16 +19,16 @@
 	    $("input[name='totalProductPrice']").val(totalProductPrice);
 	    $("input[name='totalPayPrice']").val(totalPayPrice);
 
-//	    let token = $("meta[name='_csrf']").attr("content");  
-//	    let header = $("meta[name='_csrf_header']").attr("content");
+	    let token = $("meta[name='_csrf']").attr("content");  
+	    let header = $("meta[name='_csrf_header']").attr("content");
 	    $.ajax({
 	      url: '/itda/product/subscriptions/info/order/kakaoPay.do',
-//	      type: 'POST', // HTTP 요청 메서드를 POST로 지정
+	      type: 'POST', // HTTP 요청 메서드를 POST로 지정
 	      dataType: 'json',
 	      cache: false,
-//	      beforeSend: function(xhr) {
-//	        xhr.setRequestHeader(header, token);
-//	      },
+	      beforeSend: function(xhr) {
+	        xhr.setRequestHeader(header, token);
+	      },
 	      data: {
 	      	productId : productId,
 	      	item_name : productName,
@@ -39,7 +38,7 @@
 	      },
 	      success: function(data) {
 	        var paybox = data.next_redirect_pc_url;
-	        alert(data.tid);
+//	        alert(data.tid);
 	        window.open(paybox);
 	      },
 	      error: function(jqXHR, textStatus, errorThrown) {

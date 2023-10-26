@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.LikeChNewContent;
 import com.itda.ITDA.domain.LikeContent;
+import com.itda.ITDA.domain.LikeChannel;
 import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
@@ -207,6 +209,21 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	@Override
 	public int likeContentCount(String id) {
 		return dao.likeContentCount(id);
+	}
+
+	@Override
+	public List<LikeChannel> myLikeChList(String id) {
+		return dao.myLikeChList(id);
+	}
+
+	@Override
+	public int myLikeChListCount(String id) {
+		return dao.myLikeChListCount(id);
+	}
+
+	@Override
+	public List<LikeChNewContent> myLikeChNewContentList(String id) {
+		return dao.myLikeChNewContentList(id);
 	}
 
 

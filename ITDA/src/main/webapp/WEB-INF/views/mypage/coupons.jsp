@@ -393,7 +393,7 @@ $(window).on("load", function() {
 	}
 });
 </script>
-
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 <script>
 var eventType = "onpageshow" in window ? "pageshow" : "load";
