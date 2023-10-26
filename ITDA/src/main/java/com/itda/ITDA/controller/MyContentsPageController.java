@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.LikeChNewContent;
+import com.itda.ITDA.domain.LikeChannel;
 import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.service.ChannelList_Service;
@@ -54,7 +56,9 @@ public class MyContentsPageController {
 	
 	@GetMapping(value="/subscriptions")
 	public String goSubscriptions(Model model,
-			HttpSession session, Principal principal) {
+								  HttpSession session, 
+								  Principal principal,
+								  LikeChannel LikeChannel) {
 		
 		String id = principal.getName();
 		logger.info("id : " + principal.getName());
@@ -73,6 +77,12 @@ public class MyContentsPageController {
 	    	session.setAttribute("userId", vo.getUserId());
 	    	session.setAttribute("userProfile", vo.getUserProfile());
 	    	
+	    	List<LikeChannel> likeChList = itdaUserService.myLikeChList(id);
+	    	int count = itdaUserService.myLikeChListCount(id);
+	    	
+	    	model.addAttribute("likeChList", likeChList);
+	    	model.addAttribute("count", count);
+	    	
 	    	if (sellerId == null || sellerId.equals("")) {
 	    		model.addAttribute("message", "NOT_SELLER");
 	    		session.setAttribute("message", "NOT_SELLER");
@@ -90,7 +100,17 @@ public class MyContentsPageController {
 	
 	// 마이페이지 구독채널의 최신 콘텐츠
 	@GetMapping(value="/subscriptions/contents")
-	public String subscriptionsContents() {
+	public String subscriptionsContents(LikeChNewContent newContent,
+										Principal principal,
+										Model model) {
+		
+		String id = principal.getName();
+		
+		List<LikeChNewContent> newContentList = itdaUserService.myLikeChNewContentList(id);
+		
+		model.addAttribute("newContentList", newContentList);
+		
+		
 		return"mypage/subscriptions_contents";
 	}
 	
@@ -162,10 +182,10 @@ public class MyContentsPageController {
 		
 		String id = principal.getName();
 		
-		likeContent.setBoardNum(likeContent.getBoardNum());
+		likeContent.setBoard_num(likeContent.getBoard_num());
 		likeContent.setUser_id(id);
 		
-		int boardNum = likeContent.getBoardNum();
+		int boardNum = likeContent.getBoard_num();
 		
 		heartService.removeHeart(boardNum, id);
 		heartService.decreaseChBoardHeart(boardNum);

@@ -47,10 +47,10 @@ $(document).ready(function(){
 				<div class="my_user_img_wrap2">
 				   <t:choose>
                      <t:when test="${empty userProfile}">
-			                <img src="https://static.nid.naver.com/images/web/user/default.png" width="56" height="56" alt="프로필 이미지">
+			                <img class="my_user_img_wrap" src="https://static.nid.naver.com/images/web/user/default.png" alt="프로필 이미지">
                         </t:when>
                     <t:when test="${!empty userProfile}">
-                                <img id="imgThumb" src="${pageContext.request.contextPath}/image/Member/${userId}${userProfile}" width="56" height="56">
+                                <img class="my_user_img_wrap" src="${pageContext.request.contextPath}/image/Member/${userId}${userProfile}">
                         </t:when>
                  </t:choose>
 				</div>
@@ -79,3 +79,27 @@ $(document).ready(function(){
 		</div>
 	</div>
 </body>
+<script>
+$(document).ready(function() {
+    $(".my_tab_link").click(function(event) {
+        event.preventDefault(); // 기본 링크 동작 방지
+        
+        // data-url 속성의 URL 가져오기
+        var url = $(this).data('url');
+        
+        // 페이지 이동
+        window.location.href = url;
+    });
+    
+    $(".my_subscriptions_tab_button[data-clk='my_subs.chl']").click(function() {
+        var url = $(this).data('url');
+        window.location.href = url;
+    });
+
+    // "최신 콘텐츠" 버튼 클릭 이벤트 핸들러
+    $(".my_subscriptions_tab_button[data-clk='my_subs.cont']").click(function() {
+        var url = $(this).data('url');
+        window.location.href = url;
+    });
+});
+</script>

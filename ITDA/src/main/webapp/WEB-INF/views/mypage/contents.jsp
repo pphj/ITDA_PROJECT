@@ -112,7 +112,6 @@
                                             <!--<img class="card_img"
                                              src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png">-->
                                              <img class="card_img" src="${pageContext.request.contextPath}/image/contents/${contentList.chNum}${contentList.thumbNail}">
-													
                                         </c:otherwise>
                                     </c:choose>
 							</div>
@@ -133,7 +132,7 @@
 							</a>
 							<div class="my_attention_info">
 								<div class="my_attention_date">						
-								<fmt:formatDate value="${contentList.boardDate}" pattern="yyyy.MM.dd" />.</div>
+									<fmt:formatDate value="${contentList.boardDate}" pattern="yyyy.MM.dd" />.</div>
 								<div class="my_attention_count">
 									<div class="u_likeit_list_module">
 										<a class="u_likeit_list_btn _button">
@@ -184,6 +183,7 @@
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
 
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 <script>
 var eventType = "onpageshow" in window ? "pageshow" : "load";
