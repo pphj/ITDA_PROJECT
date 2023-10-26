@@ -16,6 +16,7 @@ import com.itda.ITDA.domain.LikeChannel;
 import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
+import com.itda.ITDA.domain.sub;
 import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
 
 @Service
@@ -225,6 +226,12 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	public List<LikeChNewContent> myLikeChNewContentList(String id) {
 		return dao.myLikeChNewContentList(id);
 	}
+
+	@Override
+	public int deleteLickCh(sub sub) {
+		return dao.deleteLickCh(sub);
+	}
+
 
 
 

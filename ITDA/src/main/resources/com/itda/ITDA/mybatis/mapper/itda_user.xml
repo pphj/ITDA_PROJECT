@@ -299,6 +299,11 @@
 		  AND bo.boarddate >= (SYSDATE - 7)  
 		ORDER BY bo.boarddate DESC
 	</select>
+		
+	<!-- 구독한 채널 삭제하는 쿼리문 -->
+	<delete	id="deleteLickCh" parameterType="sub">
+		delete sub where userid=#{userid} and subchnum = #{subchnum}
+	</delete>
 	
 	
 	

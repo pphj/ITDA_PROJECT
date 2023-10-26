@@ -110,6 +110,8 @@
 		</li>
 	</ul>
 </div>
+    <form id="fm">
+    	<input type="hidden" name="chNum" value="">
 <div class="my_setting as_news _TEMPLATE" data-template-id="SCS_PREMIUM_MY_NOTIFICATION_MARKETING_LIST">
     <ul class="my_setting_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_NOTIFICATION_MARKETING_LIST" data-cursor-name="next" data-cursor="" data-has-next="">
     	<c:forEach var="likeChList" items="${likeChList}">
@@ -135,12 +137,11 @@
 					</div>
 				</a>
 			</div>
-						<div>
-						<button type="button" class="my_attention_remove2" id="delButton" data-boardnum="${contentList.boardNum}"><span class="blind">삭제</span></button>
-						</div>
+			<button type="button" class="my_attention_remove2" id="delButton" data-chnum="${likeChList.chNum}"><span class="blind">삭제</span></button>
     	</li>
     	</c:forEach>
     </ul>
+		
     <div class="loading _CONTENT_LIST_LOADING" style="display:none;">
     	<div class="loader">
     		<div class="dot dot1"></div>
@@ -152,7 +153,8 @@
     	</div>
     </div>
 </div>
-
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+</form>
 			</div>
 			<div class="container_aside _CONTAINER_ASIDE">
 				<div class="container_aside_inner _GRID_TEMPLATE_COLUMN_ASIDE _CONTAINER_ASIDE_INNER"></div>
@@ -164,62 +166,56 @@
 <div id="frontDetect"></div>
 <div id="_LAYER_DIMMED" class="layer_dimmed" style="display:none;"></div>
 <div id="_MODAL_WRAP"></div>
-<script type="x-tmpl-mustache" class="_MODAL_TEMPLATE">
-<div class="popup_layer{{#isClose}} as_close_button{{/isClose}}{{#popupClass}} {{popupClass}}{{/popupClass}} _MODAL">
-	{{#description}}
-	<strong class="popup_tit">{{{title}}}</strong>
-	<p class="popup_sub_desc">{{{description}}}</p>
-	{{/description}}
-	{{^description}}
-	{{#itemList.length}}
-	<strong class="popup_tit">{{{title}}}</strong>
-	<dl class="popup_dl">
-		{{#itemList}}
-		<div class="popup_description_wrap">
-			<dt class="popup_dt">{{{key}}}</dt>
-			<dd class="popup_dd">{{{value}}}</dd>
-		</div>
-		{{/itemList}}
-	</dl>
-	{{/itemList.length}}
-	{{^itemList.length}}
-	<p class="popup_desc">{{{title}}}</p>
-	{{/itemList.length}}
-	{{/description}}
-	{{#linkButtonList.length}}
-	<div class="popup_link_wrap">
-		{{#linkButtonList}}
-		<a href="{{url}}" class="popup_link">
-			<div class="popup_link_text">{{{title}}}</div>
-			{{#description}}
-			<div class="popup_link_desc">{{{description}}}</div>
-			{{/description}}
-		</a>
-		{{/linkButtonList}}
-	</div>
-	{{/linkButtonList.length}}
-	{{#isClose}}
-	<button type="button" class="popup_close_button _MODAL_CANCEL"><i class="icon_close">닫기</i></button>
-	{{/isClose}}
-	{{^isHiddenConfirm}}
-	<div class="popup_button_wrap">
-		{{#isCancel}}
-		<button type="button" class="button_layer _MODAL_CANCEL">
-			{{cancelMessage}}
-		</button>
-		{{/isCancel}}
-		<button type="button" class="button_layer type_confirm _MODAL_CONFIRM">
-			{{confirmMessage}}
-		</button>
-	</div>
-	{{/isHiddenConfirm}}
-</div>
-</script>
 <div id="_TOAST_WRAP"></div>
-<script type="x-tmpl-mustache" class="_TOAST_TEMPLATE">
-<div class="toast_popup_layer">
-	<p class="toast_popup_desc">{{{text}}}</p>
-</div>
+<script>
+$(document).ready(function() {
+    // "삭제" 버튼 클릭 이벤트 핸들러
+    $(".my_attention_remove2").click(function() {
+    	
+    	var chnum = $(this).data("chnum");
+        // 모달 레이어 생성
+        var modalHtml = `
+            <div class="popup_layer _MODAL">
+                <strong class="popup_tit"></strong>
+                <p class="popup_sub_desc">해당 구독 채널을 목록에서 삭제하시겠습니까?</p>
+                <div class="popup_button_wrap">
+                    <button type="button" class="button_layer _MODAL_CANCEL">
+                        취소
+                    </button>
+                    <button type="submit" class="button_layer type_confirm" id="delSub">
+                        확인
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // 모달 레이어를 _LAYER_DIMMED 아래에 추가
+        $("#_LAYER_DIMMED").html(modalHtml);
+
+        // _LAYER_DIMMED를 보이게 함
+        $("#_LAYER_DIMMED").show();
+
+        // "취소" 버튼 클릭 이벤트 핸들러
+        $(".button_layer._MODAL_CANCEL").click(function() {
+            // 모달 레이어를 숨김
+            $("#_LAYER_DIMMED").hide();
+        });
+        
+        $("#delSub").click(function(event) {
+            event.preventDefault();
+            
+            $("#fm input[name='chNum']").val(chnum);
+            console.log(chnum);
+            // 여기에서 필요한 작업을 수행
+
+            // 마지막으로 양식을 제출
+            $("#fm").attr('action', '/itda/my/notification/likeChDeletePro');
+            $("#fm").attr('method', 'post');
+            $("#fm").submit();
+        });
+        
+    });
+});
 </script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>

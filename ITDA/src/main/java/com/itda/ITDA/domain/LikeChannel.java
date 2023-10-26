@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LikeChannel {
-	private String userid;
+	private String userId;
 	private int subchnum;
 	private Timestamp subdate;
 	private int chNum;

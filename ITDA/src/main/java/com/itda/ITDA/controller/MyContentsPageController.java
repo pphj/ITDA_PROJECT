@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
@@ -22,6 +23,7 @@ import com.itda.ITDA.domain.LikeChNewContent;
 import com.itda.ITDA.domain.LikeChannel;
 import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
+import com.itda.ITDA.domain.sub;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.Itda_UserService;
@@ -137,6 +139,30 @@ public class MyContentsPageController {
 		
 		return "mypage/notification";
 	}
+	
+	
+	// 마이페이지 설정(구독 설정)
+	@PostMapping(value="notification/likeChDeletePro")
+	public String likeChDeleteProcess(sub sub,
+									  Principal principal,
+								      Model model,
+								      @RequestParam("chNum") int chnum) {
+		
+		String id = principal.getName();
+
+		sub.setUserid(id);
+		sub.setSubchnum(chnum);
+		
+		
+		int result = itdaUserService.deleteLickCh(sub);
+		
+		if(result > 0) {
+			logger.info(Message.SUCCESS);
+		}
+		
+		return "redirect:/my/notification";
+	}
+	
 	
 	// 마이페이지 결제 내역
 	@GetMapping(value="/payment/subscriptions")
