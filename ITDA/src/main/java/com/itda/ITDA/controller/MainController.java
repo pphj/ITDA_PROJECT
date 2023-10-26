@@ -110,6 +110,20 @@ public class MainController {
 	    return modelAndView;
 	}
 	
+	@GetMapping("/search/result/channel")
+	public ModelAndView searchChannelResult(@RequestParam("searchQuery") String keyword) {
+	    // 여기서 검색 결과를 조회하는 서비스 메서드를 호출하여 채널 검색 결과를 가져옵니다.
+	    List<ChannelList> channelResults = mainService.searchChannelsByKeyword(keyword);
+
+	    ModelAndView modelAndView = new ModelAndView("main/ch/channel_search_view"); // 뷰 페이지 이름을 적절히 설정
+
+	    modelAndView.addObject("channelResults", channelResults);
+	    modelAndView.addObject("searchQuery", keyword);
+
+	    return modelAndView;
+	}
+
+	
 	
 	
 	

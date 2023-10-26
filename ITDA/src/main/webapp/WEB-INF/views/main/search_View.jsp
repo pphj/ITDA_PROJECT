@@ -457,6 +457,19 @@ $(document).ready(function() {
 	    $('.psp_content_item:hidden:lt(4)').show(); // 4개의 컨텐츠를 추가로 표시
 	  });
 	});
+	
+	
+document.addEventListener("DOMContentLoaded", function() {
+    // '채널' 클릭 이벤트를 추가
+    const channelButton = document.querySelector(".psp_nav_button._SEARCH_SUBMIT_BTN");
+    channelButton.addEventListener("click", function(event) {
+        event.preventDefault(); // 기본 동작(링크 이동)을 막음
+        const url = channelButton.getAttribute("data-url");
+        window.location.href = url; // 클릭한 URL로 이동
+    });
+});
+</script>
+
 
 
 
