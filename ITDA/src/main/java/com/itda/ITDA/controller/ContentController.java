@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itda.ITDA.domain.BoardReply;
@@ -45,6 +46,7 @@ import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.domain.Tag;
+import com.itda.ITDA.domain.WCATEGORY;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.ReplyService;
 import com.itda.ITDA.service.TagService;
@@ -533,6 +535,18 @@ public class ContentController {
 			logger.error("조회수 증가 실패", e);
 			throw new RuntimeException("조회수 증가 실패", e);
 		}
+	}
+
+	// 신고하기 페이지
+	@PostMapping("/warn/{chnum}")
+	public ModelAndView warnPage(@PathVariable("chnum") int chnum, @RequestParam("boardNum") int boardNum,
+			@RequestParam("replyNum") int replyNum, ModelAndView mv) {
+		WCATEGORY warnCategory = contentService.getWarnCategory();
+		mv.addObject("warnCategory", warnCategory);
+		mv.addObject("boardNum", boardNum);
+		mv.addObject("replyNum", replyNum);
+		mv.setViewName("/content/warn");
+		return mv;
 	}
 
 	/*@RequestMapping(value = "/contentlist.co")

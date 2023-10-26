@@ -94,25 +94,40 @@ function getList(state) {
 
                 output += '  </div>'
 
+				 var contextPath = "${pageContext.request.contextPath}";
+				 
                 // 더보기 및 수정, 삭제, 신고 버튼
-                if ($("#LoginId").val() == this.replyWriter) {
-                    output += '<div class="reply_tool">'
-                        + '		<div title="더보기" class="reply_tool_button">'
-                        + '     	<div>&#46;&#46;&#46;</div>'
-                        + ' 	</div>'
-                        + ' 	<div id="reply_list_item_layer' + this.replyNum + '"  class="LayerMore"  style="display: none; width: 150px;">'
-                        + '     	<ul class="layer_list"  style="display: flex;">'
-                        + '     	<li class="layer_item"  style="display: flex;">'
-                        + '      		<a href="javascript:updateForm(' + this.replyNum + ')"'
-                        + '         	class="layer_button">수정</a>&nbsp;&nbsp;'
-                        + '      		<a href="javascript:del(' + this.replyNum + ')"'
-                        + '         	class="layer_button">삭제</a>&nbsp;&nbsp;'
-                        + '				<a href="javascript:del(' + this.replyNum + ')"'
-                        + '         	class="layer_button">신고하기</a>'
-                        + '      		</li></ul>'
-                        + '   	</div>'
-                        + '</div>'
-                }
+				if ($("#LoginId").val() == this.replyWriter) {
+				    output += '<div class="reply_tool">'
+				        + '		<div title="더보기" class="reply_tool_button">'
+				        + '     	<div>&#46;&#46;&#46;</div>'
+				        + ' 	</div>'
+				        + ' 	<div id="reply_list_item_layer' + this.replyNum + '"  class="LayerMore"  style="display: none; width: 90px;">'
+				        + '     	<ul class="layer_list"  style="display: flex;">'
+				        + '     	<li class="layer_item"  style="display: flex;">'
+				        + '      		<a href="javascript:updateForm(' + this.replyNum + ')"'
+				        + '         	class="layer_button">수정</a>&nbsp;&nbsp;'
+				        + '      		<a href="javascript:del(' + this.replyNum + ')"'
+				        + '         	class="layer_button">삭제</a>&nbsp;&nbsp;'
+				        + '     	</li></ul>'
+				        + '   </div>'
+				        + '</div>'
+				} else {
+				    output += '<div class="reply_tool">'
+				        + '		<div title="더보기" class="reply_tool_button">'
+				        + '     	<div>&#46;&#46;&#46;</div>'
+				        + ' 	</div>'
+				        + ' 	<div id="reply_list_item_layer' + this.replyNum + '"  class="LayerMore"  style="display: none; width: 70px;">'
+				        + '     	<ul class="layer_list"  style="display: flex;">'
+				        + '     	<li class="layer_item"  style="display: flex;">'
+					    + '         <a href="/itda/contents/warn/' + chnum + '?boardNum=' + boardNum + '&replyNum=' + this.replyNum + '"'
+					    + '			target="_blank"'
+					    + '         class="layer_button">신고하기</a>'
+					    + '     	</li></ul>'
+					    + '   </div>'
+					    + '</div>'
+				}
+
 
                 output += '</div>'
                     + '</li>'

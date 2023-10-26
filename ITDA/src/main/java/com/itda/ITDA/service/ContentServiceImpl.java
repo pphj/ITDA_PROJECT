@@ -17,6 +17,7 @@ import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.domain.Tag;
+import com.itda.ITDA.domain.WCATEGORY;
 import com.itda.ITDA.mybatis.mapper.ContentMapper;
 
 @Service
@@ -142,6 +143,11 @@ public class ContentServiceImpl implements ContentService {
 			logger.error("조회수 증가 실패", e);
 			throw new RuntimeException("조회수 증가 실패", e);
 		}
+	}
+
+	@Override
+	public WCATEGORY getWarnCategory() {
+		return dao.getWarnCategory();
 	}
 
 }

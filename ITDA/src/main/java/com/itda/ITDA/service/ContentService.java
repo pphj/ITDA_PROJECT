@@ -11,6 +11,7 @@ import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.domain.Tag;
+import com.itda.ITDA.domain.WCATEGORY;
 
 public interface ContentService {
 
@@ -50,4 +51,6 @@ public interface ContentService {
 	String findNameById(int chCateId);
 
 	void increaseViewCount(int boardNum, int boardVisit);
+
+	WCATEGORY getWarnCategory();
 }

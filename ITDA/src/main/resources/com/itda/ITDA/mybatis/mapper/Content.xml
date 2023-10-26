@@ -155,6 +155,11 @@
 	    WHERE boardNum = #{boardNum}
 	</update>
 
+	 <!-- 신고 카테고리를 가져오는 쿼리 -->
+    <select id="getWarnCategory" resultType="WCATEGORY">
+        SELECT warnCateId, warnCateName
+        FROM WCATEGORY
+    </select>
 
 
 
