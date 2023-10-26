@@ -82,6 +82,8 @@ public interface ChannelListMapper {
 
 	void unsubscribe(String userId, int chnum);
 
+	List<sub> getSubData(int chnum);
+
 	boolean checkSubscription(String userId, int chnum);
 
 	sub getBoardVisit(int chnum);

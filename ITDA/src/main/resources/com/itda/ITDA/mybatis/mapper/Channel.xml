@@ -269,6 +269,12 @@
 	    WHERE userid = #{userId} AND subchnum = #{chnum}
 	 </delete>
 	
+	<select id="getSubData" parameterType="java.util.Map" resultType="sub">
+		select subchNum, userGender, userBirth
+		from sub
+		where subchnum = #{chnum}
+	</select>
+
 	<select id="checkSubscription" parameterType="map" resultType="boolean">
 	    SELECT COUNT(*) 
 	    FROM sub
