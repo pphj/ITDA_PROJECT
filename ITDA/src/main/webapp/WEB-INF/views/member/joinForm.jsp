@@ -13,7 +13,6 @@
 </head>
 <body>
 <script>
-
 $(function() {
     let checkid = false;
     let checkpassword = false;

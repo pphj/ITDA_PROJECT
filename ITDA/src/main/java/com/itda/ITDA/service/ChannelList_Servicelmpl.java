@@ -177,6 +177,10 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	}
 
 	@Override
+	public List<sub> getSubData(int chnum) {
+		return dao.getSubData(chnum);
+	}
+
 	public boolean checkSubscription(String userId, int chnum) {
 		return dao.checkSubscription(userId, chnum);
 	}
