@@ -18,7 +18,7 @@
     });
 
       function loadChannelList(categoryNum) {
-
+		var contextPath = '${pageContext.request.contextPath}'
         $.ajax({			//오늘의 채널
             type: "get",
             url: "main/ChannelListAction",
@@ -34,8 +34,10 @@
                         + '<div class="model_img">';
                     // 이미지 URL을 동적으로 설정합니다.
                     var imageUrl = item.chprofile
-                        ? "resources/image/MemberUpload/" + item.ownerId + "/" + item.chprofile
-                        : "${pageContext.request.contextPath}/resources/image/common/itda_logo3.png";
+                        ? contextPath + "/image/common/itda_logo3.png"
+                        :contextPath + "/image/MemberUpload/" + item.ownerId + item.chProfile;
+                    
+                        //: contextPath + "/image/common/itda_logo3.png";
                         //: "${pageContext.request.contextPath}/resources/image/MemberUpload/${item.ownerId}${item.chprofile}"
 
                     appendData += '<img src="' + imageUrl + '" alt="...">'

@@ -145,7 +145,9 @@
 								</div>
 							</div>
 						</div>
+						<div>
 						<button type="button" class="my_attention_remove" id="delButton" data-boardnum="${contentList.boardNum}"><span class="blind">삭제</span></button>
+						</div>
 					</div>
 				</li>
 				</c:forEach>

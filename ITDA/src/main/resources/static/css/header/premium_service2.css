@@ -24478,6 +24478,15 @@ div.my_subscriptions_channel_link::after {
 	display: inline-flex;
 }
 
+.my_attention_remove2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: -5px;
+    padding: 5px;
+    display: contents;
+}
+
 .my_attention_remove {
 	position: absolute;
 	top: 0;

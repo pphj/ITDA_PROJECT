@@ -135,11 +135,9 @@
 					</div>
 				</a>
 			</div>
-    		
-    		<button type="button" aria-pressed="true" class="news_button _MARKETING_BUTTON" data-enabled="true" data-cp-name="slowpianist" data-sub-id="pandapiano" data-channel-name="노애리의 피아노 이야기" data-on-clk="my_setmrk.on" data-off-clk="my_setmrk.off">
-    		</button>
-    		<button type="button" style="display:none;" aria-pressed="false" class="news_button _MARKETING_BUTTON" data-enabled="false" data-cp-name="slowpianist" data-sub-id="pandapiano" data-channel-name="노애리의 피아노 이야기" data-on-clk="my_setmrk.on" data-off-clk="my_setmrk.off">
-    		</button>
+						<div>
+						<button type="button" class="my_attention_remove2" id="delButton" data-boardnum="${contentList.boardNum}"><span class="blind">삭제</span></button>
+						</div>
     	</li>
     	</c:forEach>
     </ul>
