@@ -75,6 +75,8 @@ public interface Itda_UserMapper {
 
 	int likeContentCount(String id);
 
+	String insertSocialUser(String userEmail, String userName);
+
 
 
 	

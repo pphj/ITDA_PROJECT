@@ -4,7 +4,7 @@
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36">
 <head>
-	<title>채널 및 콘텐츠 검색</title>
+	<title>콘텐츠 검색</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header/premium_service2.css">
 	<link rel="stylesheet" href="https://static-nnews.pstatic.net/css/min/20230914a/premium_service.css">
 	<link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
@@ -43,12 +43,12 @@
 		_paq.push(["setSiteId", "1"]);
 
 		var isPremiumReferer = false;
-		isPremiumReferer = true;
+		
 		
 		
 		
 	</script>
-	<script src="${pageContext.request.contextPath}/resources/js/search/itda_common.js"></script>
+	<script src="https://static-nnews.pstatic.net/js/min/20231019a/premium_common.min.js"></script>
 </head>
 <body class="">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
@@ -102,9 +102,7 @@
 		<div class="psp_recent _SEARCH_HISTORY_AREA" style="display: none;">
 			<strong class="psp_recent_title">최근 검색어</strong>
 			<div class="psp_recent_list_area">
-				<div id="_SEARCH_HISTORY_LIST_WRAP" data-nclk-prefix="pch_search">
-				<div class="psp_recent_text">검색어 저장 기능이 꺼져 있습니다.</div>
-				</div>
+				<div id="_SEARCH_HISTORY_LIST_WRAP" data-nclk-prefix="pch_search"></div>
 				<script type="x-tmpl-mustache" class="_SEARCH_HISTORY_LIST">
 				{{#autoSave}}
 				{{#hasKeywords}}
@@ -142,47 +140,19 @@
 		<div class="psp_nav _SEARCH_RESULT_AREA">
 			<div class="psp_nav_inner">
 				<ul class="psp_nav_list" role="tablist">
-					<li class="psp_nav_item" role="tab" aria-selected="true">
+					<li class="psp_nav_item" role="tab" aria-selected="false">
 						<a href="#" class="psp_nav_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.taball" data-url="${pageContext.request.contextPath}/main/search/result">전체</a>
 					</li>
 					<li class="psp_nav_item" role="tab" aria-selected="false">
 						<a href="#" class="psp_nav_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.tabch" data-url="${pageContext.request.contextPath}/main/search/result/channel">채널</a>
 					</li>
-					<li class="psp_nav_item" role="tab" aria-selected="false">
+					<li class="psp_nav_item" role="tab" aria-selected="true">
 						<a href="#" class="psp_nav_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.tabcont" data-url="${pageContext.request.contextPath}/main/search/result/content">콘텐츠</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 		<div class="psp_body _SEARCH_RESULT_AREA">
-			<div class="psp_result_area">
-				<div class="psp_sort_area">
-					<strong class="psp_category">채널 <em>${channelResults.size()}</em></strong>
-				</div>
-				<ul class="psp_channel_list _CONTENT_LIST _SEARCH_RESULT_LIST" data-template="SCS_PREMIUM_CHANNEL_SEARCH_CHANNEL" data-type="channel" data-search-query="" data-cursor-name="page" data-cursor="" data-has-next="true" data-total-count="">
-				
-				  
-				<c:forEach var="channel" items="${channelResults}">
-				    <li class="psp_channel_item">
-				      <a href="${pageContext.request.contextPath}/channels/${channel.chNum}?userid=${channel.ownerId}" class="psp_channel_link" data-clk="pch_search.resultch" target="_blank">
-				            <div class="psp_channel_thumb">
-				                <img src="${channel}" class="psp_channel_img" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
-				            </div>
-				            <div class="psp_text">
-				                <strong class="psp_name">${channel.chName}</strong>
-				                <p class="psp_info">${channel.chInfo}</p>
-				                <p class="psp_date">
-				                    <span class="update">구독자 수: ${channel.chFollow}</span>
-				                </p>
-				            </div>
-				        </a>
-				    </li>
-				</c:forEach>
-					</ul>
-				<div class="psp_dropdown">
-					<button type="button" class="psp_button_more _SEARCH_SUBMIT_BTN" data-clk="pch_search.resultchmore" data-url="${pageContext.request.contextPath}/main/search/result/channel">채널 검색 결과 더보기</button>
-				</div>
-			</div>
 			
 			
 			
@@ -224,7 +194,7 @@
 					                </div>
 					            </div>
 					            <a href="" class="psp_content_thumb" data-clk="pch_search.resultcont" target="_blank">
-					                <img src="" class="psp_content_img" width="50" height="50" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+					                <img src="${pageContext.request.contextPath}/resources/image/channel/channel.jpeg" class="psp_content_img" width="50" height="50" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 					            </a>
 					        </div>
 					    </li>
@@ -440,65 +410,61 @@ $(window).on(eventType, function() {
 });
 
 
-$(document).ready(function() {
-  // 초기에는 4개의 채널만 표시되므로 다른 채널을 숨깁니다.
-  $('.psp_channel_item:gt(3)').hide();
 
-  // "채널 검색 결과 더보기" 버튼을 클릭할 때 추가 채널을 로드합니다.
-  $('#loadMoreButton').on('click', function() {
-    $('.psp_channel_item:hidden:lt(4)').show(); // 4개의 채널을 추가로 표시
-  });
-});
 
-$(document).ready(function() {
-	  // 초기에는 4개의 컨텐츠만 표시되므로 다른 컨텐츠를 숨깁니다.
-	  $('.psp_content_item:gt(3)').hide();
 
-	  // "컨텐츠 검색 결과 더보기" 버튼을 클릭할 때 추가 컨텐츠를 로드합니다.
-	  $('#loadMoreButton').on('click', function() {
-	    $('.psp_content_item:hidden:lt(4)').show(); // 4개의 컨텐츠를 추가로 표시
-	  });
-	});
-	
-	
-document.addEventListener("DOMContentLoaded", function() {
-    // '채널' 클릭 이벤트를 추가
-    const channelButton = document.querySelector(".psp_nav_button._SEARCH_SUBMIT_BTN");
-    channelButton.addEventListener("click", function(event) {
-        event.preventDefault(); // 기본 동작(링크 이동)을 막음
-        const url = channelButton.getAttribute("data-url");
-        window.location.href = url; // 클릭한 URL로 이동
+
+//스크롤 다운 데이터 호출
+$(document).ready(function () {
+    const pageSize = 15; // 한 페이지에 표시할 항목 수
+    let currentPage = 1; // 현재 페이지 번호
+    let isFetching = false; // 데이터를 가져오는 중인지 여부
+
+    const apiUrl = '/api/content-results/';
+
+    function loadMoreData() {
+        if (isFetching) {
+            return;
+        }
+
+        isFetching = true;
+
+        $.get(apiUrl + currentPage, { keyword: '검색어', pageSize: pageSize }, function (data) {
+            if (data.length > 0) {
+                data.forEach(function (item) {
+                    // 데이터를 화면에 추가하는 로직을 구현
+                });
+
+                currentPage++;
+            }
+
+            isFetching = false;
+        });
+    }
+
+    loadMoreData();
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+            loadMoreData();
+        }
     });
 });
 
 
 document.addEventListener("DOMContentLoaded", function() {
-    const channelResultsSize = ${channelResults.size()}; // 채널 결과의 크기
     const contentResultsSize = ${contentResults.size()}; // 콘텐츠 결과의 크기
-
-    // "채널 검색 결과 더보기" 버튼을 삭제
-    const channelMoreButton = document.querySelector('.psp_button_more._SEARCH_SUBMIT_BTN');
-    if (channelMoreButton && channelResultsSize === 0) {
-        channelMoreButton.remove(); // 채널 결과가 없으면 버튼을 삭제
-    }
 
     // "콘텐츠 검색 결과 더보기" 버튼을 삭제
     const contentMoreButton = document.querySelector('.psp_button_more._SEARCH_SUBMIT_BTN');
     if (contentMoreButton && contentResultsSize === 0) {
         contentMoreButton.remove(); // 콘텐츠 결과가 없으면 버튼을 삭제
     }
-
 });
 
 
 
 
 
-
 </script>
-
-
-
-
-
 </html>

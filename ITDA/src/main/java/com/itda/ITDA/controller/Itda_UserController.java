@@ -262,6 +262,27 @@ public class Itda_UserController {
 			return "/";
 		}
 	}
+	
+	
+	@PostMapping("/naverLoginCallback")
+	public String handleNaverLoginCallback(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName) {
+	    // 사용자 정보를 데이터베이스에 저장
+	    
+		String user = Itda_UserService.insertSocialUser(userEmail, userName);
+
+	    if (user != null) {
+	        // 사용자 정보 저장에 성공한 경우 로그인 처리
+
+	        // 로그인 후 리다이렉트 또는 메인 페이지로 이동
+	        return "redirect:/main";
+	    } else {
+	        // 사용자 정보 저장에 실패한 경우 처리
+	        return "redirect:/login"; // 사용자를 로그인 페이지로 리다이렉트 또는 다른 처리를 수행
+	    }
+	}
+
+
+
 
 	@RequestMapping(value = "FindIdPasswordForm", method = RequestMethod.GET)
 	public String findIdPasswordForm() {
