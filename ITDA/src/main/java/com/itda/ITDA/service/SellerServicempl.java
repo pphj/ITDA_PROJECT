@@ -29,4 +29,14 @@ public class SellerServicempl implements SellerService {
 		sellerMapper.insert(itda_User);
 
 	}
+
+	@Override
+	public Seller sellerEmailCheck(String id) {
+		return sellerMapper.sellerEmailCheck(id);
+	}
+
+	@Override
+	public int sellerEmailUpdate(Seller seller) {
+		return sellerMapper.sellerEmailUpdate(seller);
+	}
 }

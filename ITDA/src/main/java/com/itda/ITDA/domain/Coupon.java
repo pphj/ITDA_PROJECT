@@ -9,7 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Coupon {
-	private String couponCode;			//쿠폰 코드
+	private BigInteger couponCode;			//쿠폰 코드
+	//private String couponCode;			//쿠폰 코드
 	private int couponNum;				//쿠폰 발행 순서
 	private String couponName;			//쿠폰 이름
 	private String couponDetail;		//쿠폰 내용

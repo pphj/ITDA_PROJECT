@@ -12,7 +12,7 @@
 	</select>
 	
 	<!-- 쿠폰의 이용기간을 구하는 쿼리 -->
-	<select id="isCouponTerm" resultType="Coupon">
+	<select id="isCouponTerm" resultType="CouponIssue">
 		select couponterm  
 		from coupon
 		where couponcode = #{couponCode} and couponstate = 'Y'
@@ -21,7 +21,7 @@
 	<!-- 유저가 입력한 쿠폰을 등록하는 쿼리 -->
 	<insert id="registerUserCoupon" parameterType="CouponIssue">
 		INSERT INTO couponissue 
-			(cpnum, cuponcode, userid, cpuse, 
+			(cpnum, couponcode, userid, cpuse, 
 			startdate, couponuseexdate)
 		VALUES 
 			(couponIssue_seq.nextval, #{couponCode}, #{userId}, 'N',

@@ -9,7 +9,7 @@ public interface CouponService {
 
 	int isCouponCode(String couponCode);
 
-	Coupon isCouponTerm(Coupon coupon);
+	CouponIssue isCouponTerm(CouponIssue couponIssue);
 
 	int registerUserCoupon(CouponIssue couponIssue);
 

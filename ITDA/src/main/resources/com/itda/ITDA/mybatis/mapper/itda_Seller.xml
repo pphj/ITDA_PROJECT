@@ -12,6 +12,19 @@
         VALUES (null, #{userId}, #{userPhone}, #{userEmail}, sysdate, 'W')
     </insert>
     
+    <!-- 판매자 이메일 체크 -->
+    <select id="sellerEmailCheck" resultType="Seller">
+    	select sellerEmail
+    	from seller
+    	where userid = #{userId}
+    </select>
+    
+    <!-- 판매자 이메일 변경 -->
+    <update id="sellerEmailUpdate" parameterType="Seller">
+		update Seller
+	    set sellerEmail = #{sellerEmail}
+	    where userId = #{userId}
+	</update>
    
     
 

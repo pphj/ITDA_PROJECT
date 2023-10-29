@@ -23,8 +23,8 @@ public class CouponServiceImp implements CouponService{
 	}
 
 	@Override
-	public Coupon isCouponTerm(Coupon coupon) {
-		return dao.isCouponTerm(coupon);
+	public CouponIssue isCouponTerm(CouponIssue CouponIssue) {
+		return dao.isCouponTerm(CouponIssue);
 	}
 
 	@Override

@@ -163,19 +163,20 @@ public class MyContentsPageController {
 	@PostMapping(value="coupons/couponAddPro")
 	public String couponAddProcess(CouponIssue couponIssue,
 									Coupon coupon,
-									Principal principal) {
+									Principal principal,
+									@RequestParam("couponCode") String couponCode) {
 		
 		String id = principal.getName();
 		
-		coupon.setCouponCode(coupon.getCouponCode());
+		couponIssue.setCouponCode(couponIssue.getCouponCode());
 		
-		coupon = couponService.isCouponTerm(coupon);
+		couponIssue = couponService.isCouponTerm(couponIssue);
 		
 		couponIssue.setUserId(id);
-		couponIssue.setCouponCode(couponIssue.getCouponCode());
-		couponIssue.setCouponTerm(coupon.getCouponTerm());
+		couponIssue.setCouponCode(couponCode);
+		couponIssue.setCouponTerm(couponIssue.getCouponTerm());
 		
-		
+		logger.info("couponIssue.setCouponCode : " + couponIssue.getCouponCode());
 		int result = couponService.registerUserCoupon(couponIssue);
 		
 		if(result == Constants.INSERT_SUCCESS) {
