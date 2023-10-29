@@ -4,7 +4,7 @@
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36">
 <head>
-	<title>채널 및 콘텐츠 검색</title>
+	<title>채널 검색</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header/premium_service2.css">
 	<link rel="stylesheet" href="https://static-nnews.pstatic.net/css/min/20230914a/premium_service.css">
 	<link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
@@ -92,7 +92,7 @@
 				    <button id="_SEARCH_RESET_BTN" type="button" class="psp_input_cancel_button" data-clk="pch_search.close">삭제</button>
 				    
 				</div>
-                    <button type="button" class="psp_search_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.search" data-url="${pageContext.request.contextPath}/main/search" data-search-value="true"><span class="blind">검색</span></button>
+                    <button type="button" class="psp_search_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.search" data-url="${pageContext.request.contextPath}/main/search/result" data-search-value="true"><span class="blind">검색</span></button>
                 </div>
             </div>
         </div>
@@ -140,10 +140,10 @@
 		<div class="psp_nav _SEARCH_RESULT_AREA">
 			<div class="psp_nav_inner">
 				<ul class="psp_nav_list" role="tablist">
-					<li class="psp_nav_item" role="tab" aria-selected="true">
+					<li class="psp_nav_item" role="tab" aria-selected="false">
 						<a href="#" class="psp_nav_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.taball" data-url="${pageContext.request.contextPath}/main/search/result">전체</a>
 					</li>
-					<li class="psp_nav_item" role="tab" aria-selected="false">
+					<li class="psp_nav_item" role="tab" aria-selected="true">
 						<a href="#" class="psp_nav_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.tabch" data-url="${pageContext.request.contextPath}/main/search/result/channel">채널</a>
 					</li>
 					<li class="psp_nav_item" role="tab" aria-selected="false">
@@ -186,52 +186,7 @@
 			
 			
 			
-			<div class="psp_result_area">
-				<div class="psp_sort_area">
-					<strong class="psp_category">콘텐츠 <em>${contentResults.size()}</em></strong>
-				</div>
-				<ul class="psp_content_list _CONTENT_LIST _SEARCH_RESULT_LIST" data-template="SCS_PREMIUM_CHANNEL_SEARCH_CONTENT" data-type="content" data-stype="" data-search-query="부동산" data-cursor-name="page" data-cursor="2" data-has-next="true" data-cp-name="" data-sub-id="" data-total-count="18960">
-					
-					<c:forEach var="content" items="${contentResults}">
-					    <li class="psp_content_item">
-					        <div class="psp_content_name">
-					            <a href="${pageContext.request.contextPath}/contents/${content.chNum}/${content.boardNum}?userid=" class="psp_channel_link" data-clk="pch_search.resultcontch" target="_blank">
-					                <span class="psp_channel_thumb_small">
-					                    <img src="${content.upload}" class="psp_channel_img" width="18" height="18" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
-					                </span>
-					                <span class="psp_channel_name">${content.chNum}</span>
-					            </a>
-					            <a href="" class="psp_category_name" data-clk="pch_search.resultcontcate" target="_blank">${content.chCate_Id}</a>
-					        </div>
-					        <div class="psp_content_inner">
-					            <div class="psp_text">
-					                <a href="${pageContext.request.contextPath}/contents/${content.chNum}/${content.boardNum}?userid=" class="psp_content_link" data-clk="pch_search.resultcont" target="_blank">
-					                    <strong class="psp_name">${content.boardTitle}</strong>
-					                </a>
-					                <a href="${pageContext.request.contextPath}/contents/${content.chNum}/${content.boardNum}?userid=" class="psp_content_link" data-clk="pch_search.resultcont" target="_blank">
-					                    <p class="psp_info">${content.intro}</p>
-					                </a>
-					                <a href="${pageContext.request.contextPath}/contents/${content.chNum}/${content.boardNum}?userid=" class="psp_content_link" data-clk="pch_search.resultcont" target="_blank">
-					                    <div class="psp_content_author">
-					                        <em class="psp_content_author_by">by</em>
-					                        <div class="psp_content_author_text">${content.writer}</div>
-					                    </div>
-					                </a> 
-					                <div class="psp_content_info">
-					                    <span class="psp_content_info_text">${content.boardDate}</span>
-					                </div>
-					            </div>
-					            <a href="" class="psp_content_thumb" data-clk="pch_search.resultcont" target="_blank">
-					                <img src="" class="psp_content_img" width="50" height="50" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
-					            </a>
-					        </div>
-					    </li>
-					</c:forEach>
-				</ul>
-				<div class="psp_dropdown">
-					<button type="button" class="psp_button_more _SEARCH_SUBMIT_BTN" data-clk="pch_search.resultcontmore" data-url="${pageContext.request.contextPath}/main/search/result/content">콘텐츠 검색 결과 더보기</button>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 </div>
@@ -448,17 +403,17 @@ $(document).ready(function() {
   });
 });
 
-$(document).ready(function() {
-	  // 초기에는 4개의 컨텐츠만 표시되므로 다른 컨텐츠를 숨깁니다.
-	  $('.psp_content_item:gt(3)').hide();
+document.addEventListener("DOMContentLoaded", function() {
+    const channelResultsSize = ${channelResults.size()}; // 채널 결과의 크기
 
-	  // "컨텐츠 검색 결과 더보기" 버튼을 클릭할 때 추가 컨텐츠를 로드합니다.
-	  $('#loadMoreButton').on('click', function() {
-	    $('.psp_content_item:hidden:lt(4)').show(); // 4개의 컨텐츠를 추가로 표시
-	  });
-	});
+    // "채널 검색 결과 더보기" 버튼을 삭제
+    const channelMoreButton = document.querySelector('.psp_button_more._SEARCH_SUBMIT_BTN');
+    if (channelMoreButton && channelResultsSize === 0) {
+        channelMoreButton.remove(); // 채널 결과가 없으면 버튼을 삭제
+    }
 
 
+});
 
 
 </script>

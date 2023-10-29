@@ -209,6 +209,11 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return dao.likeContentCount(id);
 	}
 
+	@Override
+	public String insertSocialUser(String userEmail, String userName) {
+		return dao.insertSocialUser(userEmail, userName);
+	}
+
 
 
 }

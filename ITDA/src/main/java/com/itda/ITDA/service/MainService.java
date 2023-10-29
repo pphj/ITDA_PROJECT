@@ -11,4 +11,6 @@ public interface MainService {
 
 	 List<ChBoard> searchContentsByKeyword(String keyword);
 
+	List<ChBoard> searchContentsByKeyword(String keyword, int pageSize, int offset);
+
 }

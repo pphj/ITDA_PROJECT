@@ -73,6 +73,9 @@ public interface Itda_UserService {
 	List<LikeContent> likeContentList(String id);
 
 	int likeContentCount(String id);
+
+	String insertSocialUser(String userEmail, String userName);
+
 	
 
 

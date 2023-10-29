@@ -142,15 +142,6 @@ public class Itda_UserController {
 		}
 	}
 	
-	 @RequestMapping(value="/", method= RequestMethod.GET)
-	    public String login(Model model) {
-	        model.addAttribute("naverUrl", naverService.getNaverLogin());
-
-	        return "index";
-	    }
-
-
-	
 
 
 	@RequestMapping(value = "/joinForm", method = RequestMethod.GET)
@@ -262,6 +253,8 @@ public class Itda_UserController {
 			return "/";
 		}
 	}
+	
+	
 
 	@RequestMapping(value = "FindIdPasswordForm", method = RequestMethod.GET)
 	public String findIdPasswordForm() {
