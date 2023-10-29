@@ -145,9 +145,7 @@ sup {
 }
 
 a {
-	color: #333;
 	text-decoration: none;
-	background-color: transparent;
 }
 
 a:not([href]):not([class]) {

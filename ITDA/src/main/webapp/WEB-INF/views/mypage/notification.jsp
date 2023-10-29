@@ -101,12 +101,12 @@
 <div class="my_tab_wrap">
 	<ul class="my_tab">
 		<li class="my_tab_item is_active">
-			<div class="my_tab_link _LOCATION_REPLACE" >
+			<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/notification" data-clk="my_lnb.setmrk">
 				<span class="my_tab_text">
-					구독 <span class=my_tab_sub_text>목록</span>
+					구독<span class=my_tab_sub_text>목록</span>
 					<em>${count}</em>
 				</span>
-			</div>
+			</a>
 		</li>
 	</ul>
 </div>

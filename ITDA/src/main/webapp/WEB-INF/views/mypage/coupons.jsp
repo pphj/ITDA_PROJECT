@@ -97,11 +97,11 @@
 <div class="my_tab_wrap">
 	<ul class="my_tab">
 		<li class="my_tab_item is_active">
-			<a href="#" data-url="${pageContext.request.contextPath}/my/coupons" class="my_tab_link _LOCATION_REPLACE" data-clk="my_coupon.valid"><span class="my_tab_text">보유한 쿠폰<em>1</em></span></a>
+			<a href="#" data-url="${pageContext.request.contextPath}/my/coupons" class="my_tab_link _LOCATION_REPLACE" data-clk="my_coupon.valid"><span class="my_tab_text">보유한 쿠폰<em>${count}</em></span></a>
 		</li>
-		<li class="my_tab_item">
+<%-- 		<li class="my_tab_item">
 			<a href="#" data-url="${pageContext.request.contextPath}/my/coupons?stype&#x3D;expired" class="my_tab_link _LOCATION_REPLACE" data-clk="my_coupon.expire"><span class="my_tab_text">종료된 쿠폰</span></a>
-		</li>
+		</li> --%>
 	</ul>
 </div>
 <div class="my_coupon">

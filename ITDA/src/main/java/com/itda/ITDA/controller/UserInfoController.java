@@ -350,7 +350,7 @@ public class UserInfoController {
 			
 		} else {
 			logger.info("Password confirm fail");
-			return result;
+			return result -1;
 		}
 		
 	}
@@ -369,11 +369,10 @@ public class UserInfoController {
 		
 		String userPw = encoder.encode(user.getUserPw());
 
-		Itda_User itdaUser = new Itda_User();
 		user.setUserId(id);
 		user.setUserPw(userPw);
 
-		itdaUserService.pwUpdate(itdaUser);
+		itdaUserService.pwUpdate(user);
 
 		logger.info("비밀번호 암호화 후 : " + userPw);
 

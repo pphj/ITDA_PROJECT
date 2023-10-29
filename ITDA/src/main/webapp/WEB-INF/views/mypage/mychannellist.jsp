@@ -88,7 +88,7 @@
 <div class="my_tab_wrap">
 	<ul class="my_tab">
 		<li class="my_tab_item is_active">
-			<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/notification/marketing" data-clk="my_lnb.setmrk">
+			<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/channellist" data-clk="my_lnb.setmrk">
 				<span class="my_tab_text">
 					나의 채널 <span class=my_tab_sub_text>목록</span>
 					<em>1</em>

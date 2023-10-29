@@ -66,10 +66,28 @@ $(document).ready(function(){
 				</strong>
 			</a>
 			<div class="my_user_link_wrap">
+			<t:if test="${!empty payActive }">
+				<a href="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_user_link is_payment is_active" data-clk="my_lnb.paydet">결제내역</a>
+			</t:if>
+			<t:if test="${empty payActive }">
 				<a href="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_user_link is_payment" data-clk="my_lnb.paydet">결제내역</a>
+			</t:if>
+			<t:if test="${!empty cpActive }">
+				<a href="${pageContext.request.contextPath}/my/coupons" class="my_user_link is_coupon is_active" data-clk="my_lnb.coupon">쿠폰</a>
+			</t:if>
+			<t:if test="${empty cpActive }">
 				<a href="${pageContext.request.contextPath}/my/coupons" class="my_user_link is_coupon" data-clk="my_lnb.coupon">쿠폰</a>
+			</t:if>
+			<t:if test="${!empty notiActive }">
+				<a href="${pageContext.request.contextPath}/my/notification" class="my_user_link is_setting is_active" data-clk="my_lnb.set">설정</a>
+			</t:if>
+			<t:if test="${empty notiActive }">
 				<a href="${pageContext.request.contextPath}/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
-			<t:if test="${message ne 'NOT_SELLER' }">	
+			</t:if>
+			<t:if test="${message ne 'NOT_SELLER' && !empty chActive }">	
+				<a href="${pageContext.request.contextPath}/my/channellist" class="my_user_link is_channel is_active" data-clk="my_lnb.set">나의채널</a>
+			</t:if>	
+			<t:if test="${message ne 'NOT_SELLER' && empty chActive }">	
 				<a href="${pageContext.request.contextPath}/my/channellist" class="my_user_link is_channel" data-clk="my_lnb.set">나의채널</a>
 			</t:if>	
 			</div>

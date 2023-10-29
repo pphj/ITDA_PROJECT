@@ -11,7 +11,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/common.css">
-
 <script> var contextPath = "<%=request.getContextPath()%>";</script>
 <script>
 	$(function() {

@@ -252,18 +252,18 @@
         <li>
             <div class="row_item name">
                 <span class="item_text">${user.userName}</span>
-                <button type="button" class="btn_edit" onclick="changeName()">
+<%--                 <button type="button" class="btn_edit" onclick="changeName()">
                     <span class="text">실명수정</span>
-                </button>
+                </button> --%>
             </div>
         </li>
 
         <li>
             <div id="phoneNoRegDiv" class="row_item phone">
                 <span id="phoneNoRegSpan" class="item_text">${user.userPhone}</span>
-                <button type="button" id="phoneNoRegBtn" class="btn_edit" onclick="showPhoneNumberChangePopUp()">
+<%--                <button type="button" id="phoneNoRegBtn" class="btn_edit" onclick="showPhoneNumberChangePopUp()">
                     <span id="phoneNoRegBtnTxt" class="text">수정</span>
-                </button>
+                </button>--%>
             </div>
         </li>
 
@@ -308,12 +308,12 @@
             <div id="phoneNoRegDiv" class="row_item phone ">
                 <span id="phoneNoRegSpan"
                       class="item_text">${user.sellerPhone}</span>
-                <button type="button" id="phoneNoRegBtn"
+<%--                <button type="button" id="phoneNoRegBtn"
                         class="btn_edit"
                         onclick="showPhoneNumberChangePopUp()">
                     <span id="phoneNoRegBtnTxt"
                           class="text">수정</span>
-                </button>
+                </button>--%>
             </div>
         </li>
         <li>

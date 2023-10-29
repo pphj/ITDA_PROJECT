@@ -108,7 +108,7 @@ em, address {
 }
 
 a {
-	text-decoration: none;
+	text-decoration: none !important
 }
 
 table {
@@ -135,7 +135,7 @@ button {
 }
 
 a:hover{
-	text-decoration-line : none !important
+	text-decoration-line : none !important;
 }
 
 
@@ -21533,14 +21533,14 @@ html[data-useragent*='Windows'] .popup_sub_price_desc {
 	flex-basis: auto;
 }
 
-/* .my_tab_item.is_active .my_tab_link {
+ .my_tab_item.is_active .my_tab_link {
 	color: #222;
 }
- */
+ 
 @media (min-width: 1080px) {
-/* 	.my_tab_item.is_active .my_tab_link {
+ 	.my_tab_item.is_active .my_tab_link {
 		font-weight: bold;
-	} */
+	} 
 }
 
 .my_tab_item.is_active .my_tab_text::before {
@@ -21591,8 +21591,17 @@ html[data-useragent*='Windows'] .popup_sub_price_desc {
 		margin-left: 50px;
 	}
 }
-
 .my_tab_link {
+	display: block;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 19px;
+	letter-spacing: -0.5px;
+	color: #888;
+}
+
+.my_tab_link2 {
 	display: block;
 	text-align: center;
 	font-size: 15px;
@@ -26674,7 +26683,7 @@ div.my_subscriptions_channel_link::after {
 	font-size: 21px;
 	font-weight: 600;
 	letter-spacing: -0.49px;
-	color: #ab915e;
+	color: #00c6be;
 }
 
 .my_coupon_title em.is_zero {

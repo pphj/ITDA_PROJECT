@@ -140,7 +140,7 @@ public class MyContentsPageController {
 		
 		model.addAttribute("couponList", myCouponList);
 		model.addAttribute("count", count);
-		
+		model.addAttribute("cpActive", "is_active");
 		
 		return"mypage/coupons";
 	}
@@ -207,6 +207,7 @@ public class MyContentsPageController {
 		
 		model.addAttribute("likeChList", likeChList);
 		model.addAttribute("count", count);
+		model.addAttribute("notiActive", "is_active");
 		
 		return "mypage/notification";
 	}
@@ -247,6 +248,7 @@ public class MyContentsPageController {
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("count", count);
+		model.addAttribute("payActive", "is_active");
 		
 		return "mypage/payment_subscriptions";
 	}
@@ -318,6 +320,7 @@ public class MyContentsPageController {
 		channel = channelList_Service.myChannelList(id);
 		
 		model.addAttribute("channel", channel);
+		model.addAttribute("chActive", "is_active");
 		logger.info("CHOPENDATE : " + channel.getChOpenDate());
 		
 		return "mypage/mychannellist";
