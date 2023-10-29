@@ -255,6 +255,46 @@
             }
         });
     }
+    //샐러 이메일 팝업 레이어
+	function showSellerLetterEmailChangePopUp(){
+		        var clickCode = "imn";
+            clickCode = "nid";
+
+        displayObj('dimmed');
+        displayObj('showSellerLetterEmailChangePopUpLayer');
+        document.getElementById("wrap").classList.add("is_fixed");
+        if (isValid === "Y" && emailType === "myLetterEmail") {
+            document.getElementById("myLetterEmailForm").style.display = "none";
+            document.getElementById("p_txt_myLetterEmailForm").style.display = "none";
+            document.getElementById("myLetterEmailPhoneVerify").style.display = "none";
+            document.getElementById("myLetterEmail").disabled = false;
+        } else {
+            nclk(this, clickCode + '.primaryedit', '', '', event)
+            document.getElementById("myLetterEmailForm").style.display = "block";
+            document.getElementById("p_txt_myLetterEmailForm").style.display = "block";
+            document.getElementById("myLetterEmailPhoneVerify").style.display = "block";
+            document.getElementById("myLetterEmail").disabled = true;
+        }
+    }
+    
+    // 샐러 이미지 닫기
+    function hideSellerMyLetterEmailChangePopUp() {
+        hiddenObj('dimmed');
+        hiddenObj('showSellerLetterEmailChangePopUpLayer');
+        document.getElementById("wrap").classList.remove("is_fixed");
+        document.getElementById("confirmMyLetterEmail").value = "";
+        document.getElementById("myLetterEmail").value = "";
+        document.getElementById("myLetterEmailAuthNo").value = "";
+        document.getElementById("myLetterEmailAuthNo").className = "popup_input";
+        document.getElementById("e_myLetterEmail").innerHTML = "";
+        document.getElementById("myLetterEmail").disabled = true;
+        document.getElementById("myLetterEmailAuthNo").disabled = true;
+        document.getElementById("myLetterEmailAuthGuideTxt").style.display = "none"
+    }
+
+
+
+
 
     function showMyLetterEmailChangePopUp() {
         var clickCode = "imn";
@@ -335,51 +375,7 @@
     confirmMyLetterEmail(doConfirmMyLetterEmailFlag);
 }
 
-/*
-    function confirmMyLetterEmail(submitFlag) {
-        if (submitFlag === true) {
-            return;
-        } else {
-            submitFlag = true;
-        }
-        var header = '${_csrf.headerName}';
-  		var token = '${_csrf.token}';
 
-
-        var myLetterEmail = element_confirmMyLetterEmail.value;
-
-        var urls = '${pageContext.request.contextPath}/user/myInfo/emailCheck';
-
-        $.ajax({
-            type: "POST",
-            url: urls,
-            beforeSend: function (xhr) {
-          	  xhr.setRequestHeader(header, token);
-        	},
-            data: {"userEmail": myLetterEmail},
-            success: function (result) {
-
-                if (result == 1) {
-                    element_e_myLetterEmail.className = "popup_error green";
-                    element_e_myLetterEmail.innerHTML = "현재 정보가 확인되었습니다. 변경할 이메일을 입력해주세요.";
-                    element_myLetterEmail.disabled = false;
-                    element_myLetterEmail.focus();
-                } else {
-                    element_e_myLetterEmail.className = "popup_error";
-                    element_e_myLetterEmail.innerHTML = result.resultMsg;
-                }
-            },
-            error: function (xhr, status, error) {
-                alert("일시적인 오류입니다. 잠시 후 다시 시도해 주세요.");
-                $(location).attr("href", rawRurl);
-            },
-            complete: function () {
-                submitFlag = false;
-            }
-        });
-    }
-
-*/
 
 function confirmMyLetterEmail(submitFlag) {
     if (submitFlag === true) {

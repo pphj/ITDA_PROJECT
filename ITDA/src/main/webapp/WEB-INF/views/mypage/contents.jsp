@@ -181,7 +181,6 @@
 <div id="_MODAL_WRAP"></div>
 <div id="_TOAST_WRAP"></div>
 <script src="${pageContext.request.contextPath}/js/mypage/contents_heart.js"></script>
-</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
 

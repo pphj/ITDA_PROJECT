@@ -274,12 +274,6 @@
                     <span class="text">수정</span>
                 </button>
             </div>
-            <div id="pswdEmailRegDiv" class="row_item mail not">
-                <span id="pswdEmailRegSpan" class="item_text">본인확인 이메일 없음</span>
-                <button type="button" id="pswdEmailRegBtn" class="btn_accent" onclick="showPswdEmailChangePopUp()">
-                    <span id="pswdEmailRegBtnTxt" class="text">등록</span>
-                </button>
-            </div>
         </li>
         <li>
             <div id="phoneNoRegDiv" class="row_item post">
@@ -327,18 +321,8 @@
                 <span id="myLetterEmailRegSpan"
                       class="item_text">${user.sellerEmail }</span>
                 <button type="button" class="btn_edit"
-                        onclick="showMyLetterEmailChangePopUp()">
+                        onclick="showSellerLetterEmailChangePopUp()">
                     <span class="text">수정</span>
-                </button>
-            </div>
-            <div id="pswdEmailRegDiv" class="row_item mail not">
-                <span id="pswdEmailRegSpan"
-                      class="item_text">본인확인 이메일 없음</span>
-                <button type="button" id="pswdEmailRegBtn"
-                        class="btn_accent"
-                        onclick="showPswdEmailChangePopUp()">
-                    <span id="pswdEmailRegBtnTxt"
-                          class="text">등록</span>
                 </button>
             </div>
         </li>
@@ -606,13 +590,13 @@
     </div>
     
     <!-- 키워드 변경 팝업 -->
-        <!-- 주소변경창 -->
+        
            <div id="keyWordChangePopUpLayer" class="layer" style="display:none;">
         <div class="popup_layer">
             <div class="popup_layer_inner">
                 <div class="popup_content">
                 
-                <!--주소 팝업콘텐츠영역-->
+                <!--키워드 팝업콘텐츠영역-->
 
 
                  <div class="contact_edit_popup" style="width:329px;">
@@ -1022,8 +1006,9 @@
             </div>
         </div>
     </div>
-
-    <div id="pswdEmailChangePopUpLayer" class="layer" style="display:none;">
+pswdEmailChangePopUpLayer
+<!-- 샐러 이메일 변경 팝업 -->
+    <div id="showSellerLetterEmailChangePopUpLayer" class="layer" style="display:none;">
         <div class="popup_layer">
             <div class="popup_layer_inner">
                 <div class="popup_content">
@@ -1032,74 +1017,69 @@
                     <div class="contact_edit_popup" style="width:329px;">
                         <h4 class="contact_edit_title">
                                 <strong class="bold">${user.userName}님</strong>의 회원정보 중
-                                <em class="accent">본인확인
-                                    이메일</em>을 <span
-                                    id="p_txt_pswdEmail_changeYn">등록</span>하기 위해
+                                <em class="accent">연락처
+                                    이메일</em>을 수정하기 위해
                                 인증절차가 필요합니다.
                         </h4>
-                        <div id="p_txt_pswdEmailForm" class="row_item mail" style="display: none;">
-                        <span id="p_txt_pswdEmail"
-                              class="item_text"></span>
-                        </div>
-                        <div id="pswdEmailForm" class="contact_form one" style="display: none;">
-                            <div class="popup_row rightgap">
-                                <input type="email" placeholder="현재 본인확인 이메일 입력" id="confirmPswdEmail"
-                                       class="popup_input">
-                                <button type="button" class="btn_contact"
-                                        onclick="doConfirmPswdEmail()">
-                                    확인
-                                </button>
+                            <div id="p_txt_myLetterEmailForm" class="row_item mail">
+                                <span id="p_txt_myLetterEmail" class="item_text">${user.sellerEmail }</span>
                             </div>
-                        </div>
-                        <div class="contact_edit_desc" aria-expanded="false">
-                            아이디, 비밀번호 찾기, 로그인이 안되는 경우 등 본인확인이 필요한 경우 사용합니다.
-                        </div>
+                            <div id="myLetterEmailForm" class="contact_form one">
+                                <div class="popup_row rightgap">
+                                    <input type="email" placeholder="현재 연락처 이메일 입력"
+                                           id="confirmMyLetterEmail"
+                                           class="popup_input">
+                                    <button type="button" class="btn_contact"
+                                            onclick="doConfirmMyLetterEmail()">확인
+                                    </button>
+                                </div>
+                            </div>
                         <div class="contact_edit_desc">
-                            지금 로그인한 잇다 아이디나, 다른 사람의 잇다 아이디는 연락처로 사용하실 수 없습니다. 비상 시 사용할 이메일 정보이니 정확하게 입력해 주세요.
+                            잇다 서비스의 변경/종료, 본인 작성 게시물 조치 등 대부분의 잇다 안내에 사용합니다.
                         </div>
-                        <div id="pswdEmailPhoneVerify" class="contact_edit_desc" style="display: none;">
+                        <div id="myLetterEmailPhoneVerify" class="contact_edit_desc">
                             등록된 이메일 주소가 기억나지 않는다면 휴대전화 인증 후 이메일을 수정할 수 있습니다.
-                            <a href="javascript:;" class="link_come" onclick="userMobile('pswdEmail')">
+                            <a href="javascript:;" class="link_come"
+                               onclick="userMobile('myLetterEmail')">
                                 <span class="text">전화번호 인증</span>
                             </a>
                         </div>
                         <div class="contact_form">
                             <div class="popup_row rightgap">
-                                <input type="email"
-                                       placeholder="등록할 이메일 입력"
-                                       id="pswdEmail" class="popup_input" disabled>
+                                <input type="email" placeholder="변경할 이메일 입력" id="myLetterEmail"
+                                       class="popup_input" disabled>
                                 <button type="button" class="btn_contact"
-                                        onclick="sendAuthNoForEmailAuth('pswdEmail')">인증
+                                        onclick="sendAuthNoForEmailAuth('myLetterEmail')">
+                                    인증
                                 </button>
                             </div>
                             <div class="popup_row">
-                                <input type="text" placeholder="인증번호 입력" id="pswdEmailAuthNo"
-                                       class="popup_input" oninput="changeVerifyToPopupInput('pswdEmailAuthNo')"
+                                <input type="text" placeholder="인증번호 입력" id="myLetterEmailAuthNo"
+                                       class="popup_input" oninput="changeVerifyToPopupInput('myLetterEmailAuthNo')"
                                        disabled>
                             </div>
-                            <a href="javascript:;" id="pswdEmailAuthGuide" class="link_come"
-                               onclick="nclk(this,'inf.recoveryhelp','','',event)">
+                            <a href="javascript:;" id="myLetterEmailAuthGuide" class="link_come"
+                               onclick="nclk(this,'inf.primaryhelp','','',event)">
                                 <span class="text">인증번호가 오지 않나요?</span>
                             </a>
-                            <div id="pswdEmailAuthGuideTxt" class="link_come_desc" style="display: none;">
+                            <div id="myLetterEmailAuthGuideTxt" class="link_come_desc" style="display: none;">
                                 잇다가 발송한 메일이 스팸 메일로 분류된 것은 아닌지 확인해 주세요. 스팸 메일함에도 메일이 없다면, 다시 한 번 '인증'을 눌러주세요.
                             </div>
-                            <p id="e_pswdEmail" class="popup_error"></p>
+                            <p id="e_myLetterEmail" class="popup_error"></p>
                         </div>
                         <div class="btn_duo_popup">
                             <a href="javascript:;" class="btn_item" role="button"
-                               onclick="excuteNclicksCancelAsPswdEmailYn();hidePswdEmailChangePopUp()">
+                               onclick="nclk(this,'inf.primarycancel','','',event);hideSellerMyLetterEmailChangePopUp()">
                                 <span class="btn_text">취소</span>
                             </a>
-                            <a href="javascript:;" class="btn_item on" role="button" onclick="setPswdEmail()">
-                                <span id="b_txt_pswdEmail_reg"
-                                      class="btn_text">등록</span>
+                            <a href="javascript:;" class="btn_item on" role="button" onclick="setEmail()">
+                                <span id="b_txt_myLetterEmail_reg"
+                                      class="btn_text">변경</span>
                             </a>
                         </div>
                         <button type="button" class="close_popup"
-                                onclick="excuteNclicksCloseAsPswdEmailYn();hidePswdEmailChangePopUp()"><span
-                                    class="blind">닫기</span>
-                        </button>
+                                onclick="nclk(this,'inf.primaryx','','',event);hideSellerMyLetterEmailChangePopUp()"><span
+                                    class="blind">닫기</span></button>
                     </div>
                 </div>
             </div>
@@ -1232,49 +1212,9 @@
     </div>
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 </form>
-<form name="formAuth" method="post" action="/user2/help/changeUserInfo?m=actionUserMobile">
-    <input type=hidden name="authRes" value=""/>
-    <input type=hidden name="token_help" value=" "/>
-</form>
 
     
-<div id="dimmed2" class="dimmed" aria-hidden="true" style="display:none;"></div>
-<!--팝업내용-->
-<div id="twoStepVerificationPopUpLayer" class="layer" style="display:none;">
-    <div class="popup_layer">
-        <div class="popup_layer_inner">
-            <div class="popup_content">
-                <!--팝업콘텐츠영역-->
-                <div class="contact_2step_popup" style="width:329px;">
-                    <h4 class="contact_edit_title">
-                        새로운 <strong class="bold">2단계 인증</strong>으로 바꿔 보세요.<br>
-                        "번거로운 숫자 대신, 한번의 클릭"
-                    </h4>
-                    <div class="contact_edit_desc">
-                        보안성은 그대로, 편리함을 더한 새로운 '2단계 인증'으로 바꿔 보세요.
-                        스마트 기기 알림 화면에서 '예' 버튼만 클릭하면 안전하게 로그인할 수 있습니다.
-                        새로운 기능 제공으로 현재 OTP 관리 기능은 지원하지 않습니다.
-                    </div>
-                    <div class="contact_edit_desc">
-                        <strong>OTP 로그인을 해제한 후, 2단계 인증을 설정하세요.</strong>
-                    </div>
-                    <div class="btn_duo_popup ratio">
-                        <a href="/user2/help/2StepVerif?m=viewReleaseSettings&token_help= &lang=ko_KR"
-                           class="btn_item on" role="button" onclick="nclk(this,'2fc.otprelease','','',event)">
-                            <span class="btn_text">OTP 해제하기</span>
-                        </a>
-                        <a href="javascript:;" class="btn_item" role="button" onclick="nclk(this,'2fc.otplater','','',event);hide2StepVerificationPopUp()">
-                            <span class="btn_text">나중에 하기</span>
-                        </a>
-                    </div>
-                    <button type="button" class="close_popup" onclick="nclk(this,'2fc.otprx','','',event);hide2StepVerificationPopUp()"><span
-                                class="blind">닫기</span></button>
-                </div>
-                <!-- // -->
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/mypage/userinfo/myinfobottom1.js"></script>
 

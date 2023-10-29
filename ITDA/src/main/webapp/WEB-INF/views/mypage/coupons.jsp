@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
 <head>
@@ -6,10 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<meta name="format-detection" content="telephone=no">
 	<title>MY : 잇다</title>
-	<link rel="apple-touch-icon-precomposed" size="72x72" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="96x96" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="144x144" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
-	<link rel="apple-touch-icon-precomposed" size="192x192" href="https://ssl.pstatic.net/static.news/image/news/premium/studio/meta/2021/04/22/og.png" />
+	<jsp:include page="../include/header.jsp"></jsp:include>
 	<base target="_parent">
 	<script>
 		var g_ssc = nsc = "Mpremiumcontents.all";
@@ -47,7 +46,7 @@
 		var isPremiumReferer = false;
 	</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
-	<jsp:include page="../include/header.jsp"></jsp:include>
+
 </head>
 <body class="as_white_background body_mp">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
@@ -57,15 +56,12 @@
 </div>
 
 <script>
-	var svt = "20230917182352.683";
-	var timestamp = svt.substr(0, 8);
 	var isLogin = true;
 
 	var service = {
 		premium: true
 	};
 
-	var analyticsNtmUrl = "https://ntm.pstatic.net/scripts/ntm_774a0c8e7c40.js";
 
 	var envPhase = "production";
 	var isProduction = true;
@@ -91,32 +87,6 @@
 			<div class="container_content _GRID_TEMPLATE_COLUMN _STICKY_CONTENT">
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
 <jsp:include page="../mypage/sidebar.jsp"></jsp:include>
-<%-- 	<div class="my_sidebar_box">
-		<div class="my_user">
-			<a href="https://nid.naver.com/user2/help/myInfo?lang=ko_KR" class="my_user_modify_link" data-clk="my_lnb.myinfo">
-				<div class="my_user_img_wrap">
-				</div>
-				<strong class="my_user_name">
-					${userName}
-				</strong>
-			</a>
-			<div class="my_user_link_wrap">
-				<a href="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_user_link is_payment" data-clk="my_lnb.paydet">결제내역</a>
-				<a href="${pageContext.request.contextPath}/my/coupons" class="my_user_link is_coupon is_active" data-clk="my_lnb.coupon">쿠폰</a>
-				<a href="${pageContext.request.contextPath}/my/notification" class="my_user_link is_setting" data-clk="my_lnb.set">설정</a>
-			</div>
-		</div>
-		<div class="my_tab_wrap">
-			<ul class="my_tab">
-				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
-				</li>
-				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
-				</li>
-			</ul>
-		</div>
-	</div> --%>
 	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
 		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
 			<img class="_LAZY_LOADING" data-src="https://ssl.pstatic.net/static.news/image/news/m/2023/08/18/sidebar_banner.jpg" width="315" height="110" alt="">
@@ -135,36 +105,39 @@
 	</ul>
 </div>
 <div class="my_coupon">
-	<a href="#" class="my_coupon_register _TOGGLE" data-target="_CONTENT_LAYER_COUPON_REDEEM" data-prevent-scroll="true" data-clk="my_coupon.redeem">쿠폰 등록</a>
+	<a href="#" class="my_coupon_register _TOGGLE" data-target="_CONTENT_LAYER_COUPON_REDEEM" data-prevent-scroll="true">쿠폰 등록</a>
 	<h3 class="my_coupon_title">
 		보유한 쿠폰
-		<em>1</em>
+		<em>${count}</em>
 	</h3>
 		<ul class="my_coupon_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_COUPON_LIST" data-stype="" data-cursor-name="page" data-cursor="1" data-has-next="">
+		
+		<c:forEach var="couponList" items="${couponList}">
+		
 		<li class="my_coupon_item">
 			<div class="my_coupon_card">
 				<div class="myc_content">
 					<div class="myc_top">
 						<div class="myc_name">
-							<em class="myc_name_text">Welcome 20 (최대 2만원 할인)</em>
+							<em class="myc_name_text">${couponList.couponName}</em>
 						</div>
-						<em class="myc_badge">D-23</em>
+						<em class="myc_badge" data-useExdate="${couponList.couponUseExdate}"></em>
 					</div>
 					<strong class="myc_title">
 						<span class="myc_title_discount">
-							<span class="myc_title_num">100</span>
-							<span class="myc_title_unit as_percent">%</span>
+							<span class="myc_title_num">${couponList.couponPrice}</span>
+							<span class="myc_title_unit as_percent">원</span>
 						</span>
 						<span class="myc_title_text">할인</span>
 					</strong>
 					<div class="myc_sub">
 						<div class="myc_type">
-								구독 유지 시 다음 정기 결제일에 자동 사용
+								${couponList.couponDetail}
 														</div>
 						<div class="myc_info">
-							<span class="myc_info_title">채널 :</span>
+							<span class="myc_info_title"></span>
 							<div class="myc_info_content">
-								<span class="myc_info_text">방구석 어학연수</span>
+								<span class="myc_info_text"></span>
 							</div>
 						</div>
 					</div>
@@ -173,11 +146,11 @@
 			<div class="myc_caution">
 					<button id="_COUPON_DESCRIPTION_171811956" class="myc_caution_button _TOGGLE" type="button" data-target="_COUPON_DESCRIPTION_171811956" data-classValue="is_open" data-show-clk="my_coupon.expopen" data-hide-clk="my_coupon.expclose">쿠폰설명 (유의사항)</button>
 					<ul class="myc_caution_list">
-						<li class="myc_caution_item">기간 : 2023.09.08. 14:57 ~ 2023.10.10. 14:57</li>
-						<li class="myc_caution_item">상품 :
-							<a href="${pageContext.request.contextPath}/bangkuseok/bangkuseok1/subscriptions" class="myc_caution_link" data-clk="my_coupon.subgo">구독권(전체)</a>
+						<li class="myc_caution_item">기간 : <fmt:formatDate value="${couponList.startDate}" pattern="yyyy.MM.dd. HH:MM" /> ~ <fmt:formatDate value="${couponList.couponUseExdate}" pattern="yyyy.MM.dd. HH:MM" /></li>
+						<li class="myc_caution_item">상품 : ${couponList.couponName}
 						</li>
-						<li class="myc_caution_item">구독 상품 100% 할인 (최대 할인 금액 2만원, 차액 결제 필요)</li>
+						<li class="myc_caution_item">설명 : ${couponList.couponDetail}</li>
+						</c:forEach>
 					</ul>
 			</div>
 		</li>
@@ -207,6 +180,8 @@
 		<dd>그 외에 판매자가 발행한 포인트/쿠폰의 경우 판매자가 정한 바에 따라 취급됩니다.</dd>
 	</dl>
 </div>
+<form id="fm" method="post">
+
 <div id="_CONTENT_LAYER_COUPON_REDEEM" class="content_layer_wrap as_coupon" style="display: none;">
 	<div class="content_layer">
 		<div class="content_layer_inside">
@@ -214,7 +189,7 @@
 				<h2 class="content_layer_title">
 					쿠폰 번호를 입력해주세요
 				</h2>
-				<button type="button" class="content_layer_close _TOGGLE _COUPON_REDEEM_RESET_BTN" data-target="_CONTENT_LAYER_COUPON_REDEEM" data-prevent-scroll="true" data-clk="my_coupon.layerclose">
+				<button type="button" class="content_layer_close _TOGGLE _COUPON_REDEEM_RESET_BTN" data-target="_CONTENT_LAYER_COUPON_REDEEM" data-prevent-scroll="true">
 					<span class="blind">닫기</span>
 				</button>
 			</div>
@@ -222,22 +197,24 @@
 				<div class="content_layer_inner">
 					<div class="my_coupon">
 						<div class="coupon_enroll_wrap">
-							<input type="text" class="coupon_enroll_input _COUPON_REDEEM_CODE_INPUT" placeholder="쿠폰 번호를 입력해주세요" maxlength="8" autocomplete="off">
+							<input type="text" id="cpCodeIn" name="couponCode"  class="coupon_enroll_input _COUPON_REDEEM_CODE_INPUT" placeholder="쿠폰 번호를 입력해주세요" maxlength="20" autocomplete="off">
 						</div>
 						<dl class="my_setting_none">
 							<dt class="blind">제한 사항</dt>
 							<dd>유효 기간이 지난 쿠폰은 등록이 불가합니다.</dd>
-							<dd>쿠폰 등록이 5회 초과 실패한 경우, 고객센터로 문의해주세요.</dd>
+							<!-- <dd>쿠폰 등록이 5회 초과 실패한 경우, 고객센터로 문의해주세요.</dd> -->
 						</dl>
 					</div>
 					<div class="floating_button_wrap">
-						<button class="floating_button _COUPON_REDEEM_DOWNLOAD_BUTTON" disabled>확인</button>
+						<button id="couponSubmit" class="floating_button" disabled>확인</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+</form>
 
 			</div>
 			<div class="container_aside _CONTAINER_ASIDE">
@@ -250,57 +227,88 @@
 <div id="frontDetect"></div>
 <div id="_LAYER_DIMMED" class="layer_dimmed" style="display:none;"></div>
 <div id="_MODAL_WRAP"></div>
-<script type="x-tmpl-mustache" class="_MODAL_TEMPLATE">
-<div class="popup_layer{{#isClose}} as_close_button{{/isClose}}{{#popupClass}} {{popupClass}}{{/popupClass}} _MODAL">
-	{{#description}}
-	<strong class="popup_tit">{{{title}}}</strong>
-	<p class="popup_sub_desc">{{{description}}}</p>
-	{{/description}}
-	{{^description}}
-	{{#itemList.length}}
-	<strong class="popup_tit">{{{title}}}</strong>
-	<dl class="popup_dl">
-		{{#itemList}}
-		<div class="popup_description_wrap">
-			<dt class="popup_dt">{{{key}}}</dt>
-			<dd class="popup_dd">{{{value}}}</dd>
-		</div>
-		{{/itemList}}
-	</dl>
-	{{/itemList.length}}
-	{{^itemList.length}}
-	<p class="popup_desc">{{{title}}}</p>
-	{{/itemList.length}}
-	{{/description}}
-	{{#linkButtonList.length}}
-	<div class="popup_link_wrap">
-		{{#linkButtonList}}
-		<a href="{{url}}" class="popup_link">
-			<div class="popup_link_text">{{{title}}}</div>
-			{{#description}}
-			<div class="popup_link_desc">{{{description}}}</div>
-			{{/description}}
-		</a>
-		{{/linkButtonList}}
-	</div>
-	{{/linkButtonList.length}}
-	{{#isClose}}
-	<button type="button" class="popup_close_button _MODAL_CANCEL"><i class="icon_close">닫기</i></button>
-	{{/isClose}}
-	{{^isHiddenConfirm}}
-	<div class="popup_button_wrap">
-		{{#isCancel}}
-		<button type="button" class="button_layer _MODAL_CANCEL">
-			{{cancelMessage}}
-		</button>
-		{{/isCancel}}
-		<button type="button" class="button_layer type_confirm _MODAL_CONFIRM">
-			{{confirmMessage}}
-		</button>
-	</div>
-	{{/isHiddenConfirm}}
-</div>
+<script>
+$(document).ready(function() {
+    // 팝업을 열기 위한 클릭 이벤트 핸들러
+    $(".open-popup-button").click(function() {
+        $("#_CONTENT_LAYER_COUPON_REDEEM").show(); // 팝업을 표시합니다.
+    });
+
+    // 팝업을 닫기 위한 클릭 이벤트 핸들러
+    $(".content_layer_close _TOGGLE _COUPON_REDEEM_RESET_BTN").click(function() {
+        $("#_CONTENT_LAYER_COUPON_REDEEM").hide(); // 팝업을 숨깁니다.
+    });
+    
+ // input 엘리먼트의 값이 20일 때 버튼을 활성화
+    $("#cpCodeIn").on("input", function() {
+        var inputLength = $(this).val().length;
+        if (inputLength === 20) {
+            $("#couponSubmit").prop("disabled", false);
+        } else {
+            $("#couponSubmit").prop("disabled", true);
+        }
+    });
+
+    $("#couponSubmit").click(function(event) {
+        event.preventDefault();
+
+        let contextpath = "${pageContext.request.contextPath}";
+        var header = '${_csrf.headerName}';
+        var token = '${_csrf.token}';
+        var couponCode = $("input[name='couponCode']").val(); // 쿠폰 코드 입력 필드에서 값을 가져옵니다.
+
+        $.ajax({
+            type: "POST",
+            url: contextpath + "/my/coupons/cpCodeCheck",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            data: { "couponCode": couponCode },
+            dataType: "json",
+            success: function(result) {
+                console.log(result);
+
+                if (result === 1) {
+                    alert("쿠폰이 등록되었습니다.");
+                    // 원하는 작업 수행
+
+                 // 폼의 action 속성 설정 후 제출
+                    $("#fm").attr("action", contextpath + "/my/coupons/couponAddPro");
+                    $("#fm").attr("method", "POST"); // POST 메서드 설정
+                    $("#fm").submit();
+
+                } else {
+                    alert("쿠폰 번호가 일치하지 않습니다.");
+                    $("input[name='couponCode']").val("");
+                }
+            },
+            error: function(error) {
+                console.log("error: " + error);
+            }
+        });
+    });
+    // <em> 엘리먼트 선택
+    var $emElement = $(".myc_badge");
+
+    // data-useExdate 속성에서 날짜 정보 가져오기
+    var useExdate = $emElement.data("useexdate");
+
+    // 현재 날짜 가져오기
+    var currentDate = new Date();
+
+    // 날짜 차이 계산
+    var timeDiff = Math.abs(new Date(useExdate) - currentDate);
+    var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    // 디데이 형식으로 출력
+    var dDayText = "D-" + daysDiff;
+
+    // 결과를 <em> 엘리먼트에 삽입
+    $emElement.text(dDayText);
+});
+
 </script>
+
 <div id="_TOAST_WRAP"></div>
 <script type="x-tmpl-mustache" class="_TOAST_TEMPLATE">
 <div class="toast_popup_layer">
@@ -309,110 +317,7 @@
 </script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
-<script>
-$(window).on("load", function() {
-	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
-
-	if ($content.length > 0 && $content.hasClass("_NIL_SEND") === true) {
-		window.ntm = window.ntm || [];
-
-		var ntmOption = {};
-
-
-		var cpName = $content.data("cp-name");
-		var subId = $content.data("sub-id");
-		var contentId = $content.data("content-id");
-		var contentAuth = $content.data("content-auth");
-		var isMembership = $content.data("is-membership");
-		var isPromotion = $content.data("is-promotion");
-		var isPreview = $content.data("is-preview");
-		var partnerChannel = $content.data("partner-channel");
-		var partnerType = $content.data("partner-type");
-		var type = $content.data("type");
-		var subType = $content.data("sub-type");
-		var userType = 0;
-
-		if (contentAuth === true) {
-			userType = 1;
-		}
-
-		var source = "";
-		var sourceId = "";
-
-		ntmOption["hitType"] = "cv";
-		ntmOption["eventCategory"] = "post_view";
-
-		ntmOption["channelId"] = cpName + "_" + subId;
-		ntmOption["uri"] = "https://contents.premium.naver.com/" + cpName + "/" + subId + "/contents/" + contentId;
-		ntmOption["userType"] = userType;
-		ntmOption["dimension1"] = cpName;
-		ntmOption["dimension2"] = isMembership == true ? "original" : "preview";
-		if (isPromotion == true) {
-			ntmOption["dimension3"] = "free";
-		}
-
-		if (source) {
-			ntmOption["dimension4"] = source;
-
-			if (sourceId) {
-				ntmOption["dimension5"] = sourceId;
-			}
-		}
-
-		if (partnerChannel) {
-			ntmOption["dimension6"] = partnerChannel === "Y" ? "partner" : "premium";
-		}
-
-		if (partnerType) {
-			ntmOption["dimension7"] = partnerType.toLowerCase();
-		}
-
-		if ("VIDEO" === subType) {
-			ntmOption["dimension8"] = "video";
-		}
-
-		if (!!!isPreview) {
-			ntm.push({
-				event: "nilSend",
-				ni: ntmOption
-			});
-
-			var eventType = "onpagehide" in window ? "pagehide" : "beforeunload";
-			$(window).on(eventType, function() {
-				ntmOption["hitType"] = "event";
-				ntmOption["eventCategory"] = "action";
-				ntmOption["eventAction"] = "leave";
-
-				ntm.push({
-					event: "nilSend",
-					ni: ntmOption
-				});
-			});
-
-		}
-	}
-});
-</script>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
-<script>
-var eventType = "onpageshow" in window ? "pageshow" : "load";
-$(window).on(eventType, function() {
-	var additionalInfo = {};
 
-	var sti = "";
-	if (sti) {
-		additionalInfo["sti"] = sti;
-	}
-
-	var $content = $("#_SE_VIEWER_CONTENT, ._VOD_PLAYER_WRAP");
-
-	var gdid = $content.data("gdid");
-	if (gdid) {
-		window.lcsResult = lcs_do_gdid(gdid, additionalInfo);
-	} else {
-		window.lcsResult = lcs_do(additionalInfo);
-	}
-});
-</script>
 </html>
