@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
 <head>
@@ -128,32 +128,49 @@
 <div class="my_tab_wrap">
 	<ul class="my_tab">
 		<li class="my_tab_item is_active">
-			<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/notification/marketing" data-clk="my_lnb.setmrk">
+			<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/notification" data-clk="my_lnb.setmrk">
 				<span class="my_tab_text">
-					소식받기 <span class=my_tab_sub_text>목록</span>
-					<em>1</em>
+					구독<span class=my_tab_sub_text>목록</span>
+					<em>${count}</em>
 				</span>
 			</a>
 		</li>
 	</ul>
 </div>
+    <form id="fm">
+    	<input type="hidden" name="chNum" value="">
 <div class="my_setting as_news _TEMPLATE" data-template-id="SCS_PREMIUM_MY_NOTIFICATION_MARKETING_LIST">
 	<h3 class="my_setting_title">채널 소식받기</h3>
 	<p class="my_setting_desc">소식받기로 설정하신 채널 목록입니다. 톡톡으로 이벤트, 혜택 소식을 받고 싶지 않은 채널은 소식받기를 취소해주세요.</p>
     <ul class="my_setting_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_NOTIFICATION_MARKETING_LIST" data-cursor-name="next" data-cursor="" data-has-next="">
-    	<li class="my_setting_item _MARKETING_BUTTON_WRAP">
-    		<a href="/slowpianist/pandapiano" class="my_setting_link" data-clk="my_setmrk.chlgo">
-    			<div class="my_setting_thumb">
-    				<img src="https://scs-phinf.pstatic.net/MjAyMzAzMDhfMTQ5/MDAxNjc4MjY2NDQ0NDY4.1iQvKFpgdcj2oIRpHnFYRAq7gObdl1dELIk6Y64E9tEg.EhkIlVrDnv_-YEHbCVRY8lz5yXkfE-51xmjQkzUhy4sg.JPEG/image%7Cpremium%7Cchannel%7Cslowpianist%7C2023%7C03%7C08%7C1678266444441.jpg?type&#x3D;nfs200_200" width="48" height="48" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
-    			</div>
-    			<strong class="my_setting_name">노애리의 피아노 이야기</strong>
-    		</a>
-    		<button type="button" aria-pressed="true" class="news_button _MARKETING_BUTTON" data-enabled="true" data-cp-name="slowpianist" data-sub-id="pandapiano" data-channel-name="노애리의 피아노 이야기" data-on-clk="my_setmrk.on" data-off-clk="my_setmrk.off">
-    		</button>
-    		<button type="button" style="display:none;" aria-pressed="false" class="news_button _MARKETING_BUTTON" data-enabled="false" data-cp-name="slowpianist" data-sub-id="pandapiano" data-channel-name="노애리의 피아노 이야기" data-on-clk="my_setmrk.on" data-off-clk="my_setmrk.off">
-    		</button>
+    	<c:forEach var="likeChList" items="${likeChList}">
+    	<li class="my_setting_item">
+			<a href="${pageContext.request.contextPath}/channels/${likeChList.chNum}?userid=${likeChList.ownerId}" class="my_channel_thumb" data-clk="my_subs.list">
+				<c:choose>
+                   <c:when test="${empty likeChList.chProfile}">
+                      <img src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png" width="48" height="48">
+                   </c:when>
+                	<c:otherwise>
+                    	<img src="${pageContext.request.contextPath}/image/MemberUpload/${likeChList.ownerId}${likeChList.chProfile}" width="48" height="48" onerror="this.parentNode.innerHTML='<span class=&quot;no_image&quot;></span>'">
+                	</c:otherwise>
+                </c:choose>
+			</a>
+			<div class="my_channel_text">
+				<a href="${pageContext.request.contextPath}/channels/${likeChList.chNum}?userid=${likeChList.ownerId}" class="my_channel_link" data-clk="my_subs.list">
+					<div class="my_channel_name">
+						<strong class="my_channel_name_text">${likeChList.chName}</strong>
+					</div>
+					<div class="my_subscribe_date">
+						<em class="my_channel_date_title">구독일</em>
+						<div class="my_channel_date_text"><fmt:formatDate value="${likeChList.subdate}" pattern="yyyy.MM.dd" />.</div>
+					</div>
+				</a>
+			</div>
+			<button type="button" class="my_attention_remove2" id="delButton" data-chnum="${likeChList.chNum}"><span class="blind">삭제</span></button>
     	</li>
+    	</c:forEach>
     </ul>
+		
     <div class="loading _CONTENT_LIST_LOADING" style="display:none;">
     	<div class="loader">
     		<div class="dot dot1"></div>
@@ -165,7 +182,8 @@
     	</div>
     </div>
 </div>
-
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+</form>
 			</div>
 			<div class="container_aside _CONTAINER_ASIDE">
 				<div class="container_aside_inner _GRID_TEMPLATE_COLUMN_ASIDE _CONTAINER_ASIDE_INNER"></div>
@@ -177,62 +195,56 @@
 <div id="frontDetect"></div>
 <div id="_LAYER_DIMMED" class="layer_dimmed" style="display:none;"></div>
 <div id="_MODAL_WRAP"></div>
-<script type="x-tmpl-mustache" class="_MODAL_TEMPLATE">
-<div class="popup_layer{{#isClose}} as_close_button{{/isClose}}{{#popupClass}} {{popupClass}}{{/popupClass}} _MODAL">
-	{{#description}}
-	<strong class="popup_tit">{{{title}}}</strong>
-	<p class="popup_sub_desc">{{{description}}}</p>
-	{{/description}}
-	{{^description}}
-	{{#itemList.length}}
-	<strong class="popup_tit">{{{title}}}</strong>
-	<dl class="popup_dl">
-		{{#itemList}}
-		<div class="popup_description_wrap">
-			<dt class="popup_dt">{{{key}}}</dt>
-			<dd class="popup_dd">{{{value}}}</dd>
-		</div>
-		{{/itemList}}
-	</dl>
-	{{/itemList.length}}
-	{{^itemList.length}}
-	<p class="popup_desc">{{{title}}}</p>
-	{{/itemList.length}}
-	{{/description}}
-	{{#linkButtonList.length}}
-	<div class="popup_link_wrap">
-		{{#linkButtonList}}
-		<a href="{{url}}" class="popup_link">
-			<div class="popup_link_text">{{{title}}}</div>
-			{{#description}}
-			<div class="popup_link_desc">{{{description}}}</div>
-			{{/description}}
-		</a>
-		{{/linkButtonList}}
-	</div>
-	{{/linkButtonList.length}}
-	{{#isClose}}
-	<button type="button" class="popup_close_button _MODAL_CANCEL"><i class="icon_close">닫기</i></button>
-	{{/isClose}}
-	{{^isHiddenConfirm}}
-	<div class="popup_button_wrap">
-		{{#isCancel}}
-		<button type="button" class="button_layer _MODAL_CANCEL">
-			{{cancelMessage}}
-		</button>
-		{{/isCancel}}
-		<button type="button" class="button_layer type_confirm _MODAL_CONFIRM">
-			{{confirmMessage}}
-		</button>
-	</div>
-	{{/isHiddenConfirm}}
-</div>
-</script>
 <div id="_TOAST_WRAP"></div>
-<script type="x-tmpl-mustache" class="_TOAST_TEMPLATE">
-<div class="toast_popup_layer">
-	<p class="toast_popup_desc">{{{text}}}</p>
-</div>
+<script>
+$(document).ready(function() {
+    // "삭제" 버튼 클릭 이벤트 핸들러
+    $(".my_attention_remove2").click(function() {
+    	
+    	var chnum = $(this).data("chnum");
+        // 모달 레이어 생성
+        var modalHtml = `
+            <div class="popup_layer _MODAL">
+                <strong class="popup_tit"></strong>
+                <p class="popup_sub_desc">해당 구독 채널을 목록에서 삭제하시겠습니까?</p>
+                <div class="popup_button_wrap">
+                    <button type="button" class="button_layer _MODAL_CANCEL">
+                        취소
+                    </button>
+                    <button type="submit" class="button_layer type_confirm" id="delSub">
+                        확인
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // 모달 레이어를 _LAYER_DIMMED 아래에 추가
+        $("#_LAYER_DIMMED").html(modalHtml);
+
+        // _LAYER_DIMMED를 보이게 함
+        $("#_LAYER_DIMMED").show();
+
+        // "취소" 버튼 클릭 이벤트 핸들러
+        $(".button_layer._MODAL_CANCEL").click(function() {
+            // 모달 레이어를 숨김
+            $("#_LAYER_DIMMED").hide();
+        });
+        
+        $("#delSub").click(function(event) {
+            event.preventDefault();
+            
+            $("#fm input[name='chNum']").val(chnum);
+            console.log(chnum);
+            // 여기에서 필요한 작업을 수행
+
+            // 마지막으로 양식을 제출
+            $("#fm").attr('action', '/itda/my/notification/likeChDeletePro');
+            $("#fm").attr('method', 'post');
+            $("#fm").submit();
+        });
+        
+    });
+});
 </script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>

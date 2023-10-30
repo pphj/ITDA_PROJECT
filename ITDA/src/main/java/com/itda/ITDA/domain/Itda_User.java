@@ -8,6 +8,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
@@ -15,6 +16,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Component
 public class Itda_User implements UserDetails {
 	private static final long serialVersionUID = 1503811374822162759L;
 	private String userId;
@@ -134,5 +136,7 @@ public class Itda_User implements UserDetails {
 	public String getUserName() {
 		return userName;
 	}
+
+
 
 }

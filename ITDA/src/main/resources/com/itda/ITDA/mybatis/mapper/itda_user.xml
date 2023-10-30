@@ -123,6 +123,7 @@
 		WHERE userId = #{userId}
 	</delete>
 	
+	<!-- 유저 관심 카테고리 수정 -->
 	<update id="userCategoryUpdate" parameterType="usercategory">
 	    update usercategory
 	    set cate_Id = #{cate_Id}
@@ -262,6 +263,48 @@
 		WHERE 
 			h.user_id = #{userId}
 	</select>
+	
+	<!-- 구독한 채널의 list 불러오기 -->
+	<select id ="myLikeChList" resultType="LikeChannel">
+		select 
+				s.userid, s.subdate,
+				ch.chnum, ch.chprofile, ch.chname, ch.ownerId
+		from 
+				sub s
+		left join channellist ch on ch.chnum = s.subchnum
+		left join itda_user iu on iu.userid = s.userid
+		where s.userid = #{userId}
+	</select>
+	
+	<!-- 구독한 채널의 list 갯수 불러오기 -->
+	<select id ="myLikeChListCount" resultType="int">
+		select count(*) as count
+		from sub s
+		left join channellist ch on ch.chnum = s.subchnum
+		left join itda_user iu on iu.userid = s.userid
+		where s.userid = #{userId}
+	</select>
+	
+	<!-- 구독한 채널의 최신글 중 7일 이내로 작성된 글을 보여주는 쿼리문 -->
+	<select id="myLikeChNewContentList" resultType="LikeChNewContent">
+		SELECT 
+				ch.chnum, ch.chname, ch.chprofile, ch.ownerid,
+		        s.userid, s.subchnum,
+		        bo.boardnum, bo.writer, bo.boardtitle, bo.intro, bo.boarddate, bo.thumbNail
+		FROM sub s
+		LEFT JOIN channellist ch ON ch.chnum = s.subchnum
+		LEFT JOIN itda_user iu ON iu.userid = s.userid
+		LEFT JOIN chboard bo ON bo.chnum = s.subchnum
+		WHERE s.userid = #{userId}
+		  AND bo.boarddate >= (SYSDATE - 7)  
+		ORDER BY bo.boarddate DESC
+	</select>
+		
+	<!-- 구독한 채널 삭제하는 쿼리문 -->
+	<delete	id="deleteLickCh" parameterType="sub">
+		delete sub where userid=#{userid} and subchnum = #{subchnum}
+	</delete>
+	
 	
 	
 </mapper>

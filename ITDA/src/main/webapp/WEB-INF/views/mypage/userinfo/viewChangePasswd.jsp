@@ -19,23 +19,63 @@
 <link href="https://nid.naver.com/favicon_1024.png" rel="apple-touch-icon-precomposed" sizes="1024x1024" />
 <script type="text/javascript">
 
-	function gnbClose(){
+/*  	function gnbClose(){
 		$('#wrap').click(function(e){
 			if( !$('#gnb').has(e.target).length ){
 				gnbAllLayerClose();
 			}
 		});
-	}
+	} 
 	//120919 win8 이슈 대응 : capslock 자동설정해제
 	document.msCapsLockWarningOff = true;
 	function setContainerHeight(height) {}
-	function clearDocs(){}
+	function clearDocs(){} */
 </script>
 <meta name="decorator" content="NEW_USER_MYINFO">
 
  <script type="text/javascript">
 
-// 비밀번호 확인 ajax
+
+
+</script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    function mainSubmit() {
+        if ($("#now_pw").val() === "") {
+            alert("비밀번호를 입력하세요.");
+            $("#now_pw").focus();
+            return false; // 비밀번호가 비어있는 경우 false를 반환
+        } else if ($("#new_pw").val() === "") {
+            alert("새 비밀번호를 입력하세요.");
+            $("#new_pw").focus();
+            return false; // 새 비밀번호가 비어있는 경우 false를 반환
+        } else if ($("#conf_pw").val() === "") {
+            alert("새 비밀번호 확인을 입력하세요.");
+            $("#lb_conf_pw").css("display", "block");
+            $("#conf_pw").focus();
+            return false; // 비밀번호 확인이 비어있는 경우 false를 반환
+        } else if ($("#new_pw").val() !== $("#conf_pw").val()) {
+            alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+            $("#conf_pw").val("");
+            $("#lb_conf_pw").css("display", "block");
+            $("#conf_pw").focus();
+            return false; // 새 비밀번호와 비밀번호 확인이 일치하지 않는 경우 false를 반환
+        }
+        return true; // 모든 조건을 통과한 경우에만 true를 반환
+    }
+
+    $("#changeSubmit").click(function() {
+        if (!mainSubmit()) {
+            return false; // 유효성 검사에 실패한 경우 처리
+        }
+
+        // 유효성 검사를 통과한 경우 여기에 실제 데이터 제출 코드를 추가할 수 있습니다.
+        // 예를 들어, AJAX를 사용하여 서버로 데이터를 전송할 수 있습니다.
+    });
+});
+
+//비밀번호 확인 ajax
 $(function() {
     let contextpath = "${pageContext.request.contextPath}";
     let checkPw = false;
@@ -74,84 +114,32 @@ $(function() {
 });
 
 
-</script>
-<script type="text/javascript">
+ var addform = $("#fm");
 
-function mainSubmit() {
-    if (document.fm.now_pw.value == "") {
-        alert("비밀번호를 입력하세요.");
-        document.fm.now_pw.focus();
-        return false; // 비밀번호가 비어있는 경우 false를 반환
-    } else if (document.fm.new_pw.value == "") {
-        alert("새 비밀번호를 입력하세요.");
-        document.fm.new_pw.focus();
-        return false; // 새 비밀번호가 비어있는 경우 false를 반환
-    } else if (document.fm.conf_pw.value == "") {
-        alert("새 비밀번호 확인을 입력하세요.");
-        document.getElementById("lb_conf_pw").style.display = "block";
-        document.fm.conf_pw.focus();
-        return false; // 비밀번호 확인이 비어있는 경우 false를 반환
-    } else if (document.fm.new_pw.value != document.fm.conf_pw.value) {
-        alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-        document.fm.conf_pw.value = "";
-        document.getElementById("lb_conf_pw").style.display = "block";
-        document.fm.conf_pw.focus();
-        return false; // 새 비밀번호와 비밀번호 확인이 일치하지 않는 경우 false를 반환
-    }
-    return true; // 모든 조건을 통과한 경우에만 true를 반환
-}
+ $("#changeSubmit").on("click", function(event) {
+		event.preventDefault();
+     if(checkPw == false){
+     	alert("비밀번호가 일치하지 않습니다");
+     	return false;
+     }else{
+		alert("비밀번호가 변경 되었습니다.");
+     	let contextpath = "${pageContext.request.contextPath}";
+     	
+     	//addform.attr("action", contextpath + "/user/myInfo/passWdChangePro"); // 경로와 메서드 속성을 설정합니다.
+     	//addform.attr("method", "POST");
+     	addform.submit();
+		//return true;
+     }
+
+ });
 
 
 
-/* function showCapslockForNowPw(option) {
-	if ( option == -1) {
-		document.getElementById("help0_1").style.display = "none";
-	} else {
-		if ( isCapslock ) {
-			document.getElementById("help0_1").style.display = "block";
-		} else {
-			document.getElementById("help0_1").style.display = "none";
-		}
-	}
-}
 
-function toggle(obj){
-}
-
-
-
-function getLenChar(texts) {
-	texts = texts + "";
-	return String.fromCharCode(texts.length);
-}
-
-function initializeForm(){
-	document.fm.now_pw.value = "";
-	document.fm.new_pw.value = "";
-	document.fm.conf_pw.value = "";
-	document.fm.autoValue.value = "";
-    document.getElementById("lbCapcha").className = "lbl_in";
-	document.getElementById("lb_now_pw").style.display = "block";
-	document.getElementById("lb_new_pw").style.display = "block";
-	document.getElementById("lb_conf_pw").style.display = "block";
-	document.getElementById("chkBlockIp").checked = false;
-}
-*/
 function goSecurityAfterCancel(){
 	document.location.href = "${pageContext.request.contextPath}/user/myInfo";
 }
 
-/*
-function hiddenText(objName){
-	document.getElementById(objName).className = "blind";
-}
-
-function showText(objName, compName){
-	if(document.getElementById(compName).value == ""){
-		document.getElementById(objName).className = "lbl_in";
-	}
-}
-*/
 // placeholder
 function convertDiv(obj, stat){
 	if(stat == "none") {
@@ -170,7 +158,7 @@ function convertDiv(obj, stat){
 <jsp:include page="../../include/header.jsp"></jsp:include>
 </head>
 
-<body onclick="clearDocs();gnbClose();" id="mainBody">
+<body id="mainBody">
 <div class="contentbodywrap">
 <div id="wrap">
 	<!-- 스킵네비게이션 : 웹접근성대응-->
@@ -181,20 +169,7 @@ function convertDiv(obj, stat){
  -->	</div>
 	<!-- //스킵네비게이션 -->
 	<div id="header">
-<%-- 		<div class="top">
-			<h1>
-			   <a href="${pageContext.request.contextPath}/" onclick="clickcr(this,'STA.my','','',event);">
-       			 <img class="header_logo_img" src="${pageContext.request.contextPath}/resources/image/common/itda_logo6.png">
-            <span class="blind">잇다</span>
-				<a href="http://www.naver.com" target="_top" onclick="clickcr(this,'STA.naver','','',event);"><span class="sptxt">NAVER</span><em></em></a>
-				<a href="/user2/help/myInfo?lang=ko_KR" onclick="clickcr(this,'STA.my','','',event);" ><span class="sptxt">네이버ID</span><em></em></a>
-			</h1>
-			<div class="gnb_area">
-				<div id="gnb" class="gnb_one">
-					<script type='text/javascript' charset='utf-8' src='https://static.nid.naver.com/template/gnb_utf8.nhn?2023. 10. 5'></script>
-				</div>
-			</div>
-		</div> --%>
+
 		<div id="lnb_area">
 			<div class="lnb">
 	            <ul role="menu">
@@ -218,12 +193,7 @@ function convertDiv(obj, stat){
 			<p class="contxt contxt_list"><em>이전에 사용한 적 없는 비밀번호</em>가 안전합니다.</p>			
 		</div>
 		<div class="spc_content">
-			<form id="fm" name="fm">
-			<input type="hidden" id="encPasswd" name="encPasswd">
-			<input type="hidden" id="encNewPasswd" name="encNewPasswd">
-			<input type="hidden" id="encNm" name="encNm">		
-			<input type="hidden" id="captcha_type" name="captcha_type" value="image">
-			<input type="hidden" id="chptchakey" name="chptchakey" value="">
+			<form id="fm" name="fm" action="${pageContext.request.contextPath}/user/myInfo/passWdChangePro" method="post">
 			
 				<fieldset>
 					<legend>비밀번호 변경</legend>
@@ -468,7 +438,7 @@ function convertDiv(obj, stat){
 
 <script type="text/javascript">
 
-     
+/*      
 // var normalCount = 0;
 /* var _submitFlag = false;
 
@@ -508,32 +478,9 @@ $("#fm").submit(function(e) {
     
 }); */
 
-    var _submitFlag = false;
-    var addform = $("#fm");
-
-    $("#changeSubmit").on("click", function(event) {
-		event.preventDefault();
-        if(_submitFlag == false || checkPw == false){
-        	alert("비밀번호가 일치하지 않습니다");
-        	return false;
-        }else if(!mainSubmit()){
-        	 return false;
-        }else{
-        	let contextpath = "${pageContext.request.contextPath}";
-        	
-			 $("#fm").attr("action", contextpath + "/user/myInfo/passWdChangePro"); // 경로와 메서드 속성을 설정합니다.
-			 $("#fm").attr("method", "POST");
-			 $("#fm").submit();
-			 
-			 alert("비밀번호가 변경 되었습니다.");
-			 
-        }
-
-    });
 
 
-
-
+ 
 
 
 </script>

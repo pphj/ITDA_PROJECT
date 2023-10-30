@@ -73,17 +73,17 @@
 
 
 			<div class="pagination" role="navigation">
-				<a href="https://www.hankyung.com/help/qna?page=1" class="btn-page-first">
+				<a href="${pageContext.request.contextPath}/info/qna?page=1" class="btn-page-first">
 					<span class="blind">처음</span>
 				</a>
-				<a href="https://www.hankyung.com/help/qna?page=1" class="btn-page-prev">
+				<a href="${pageContext.request.contextPath}/info/qna?page=1" class="btn-page-prev">
 					<span class="blind">이전</span>
 				</a>
 					<strong>1</strong>
-				<a href="https://www.hankyung.com/help/qna?page=1" class="btn-page-next">
+				<a href="${pageContext.request.contextPath}/info/qna?page=2" class="btn-page-next">
 					<span class="blind">다음</span>
 				</a>
-				<a href="https://www.hankyung.com/help/qna?page=1" class="btn-page-last">
+				<a href="${pageContext.request.contextPath}/info/qna?page=3" class="btn-page-last">
 					<span class="blind">마지막</span>
 				</a>
 			</div>

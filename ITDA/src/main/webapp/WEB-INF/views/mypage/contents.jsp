@@ -140,7 +140,9 @@
 								</div>
 							</div>
 						</div>
-						<button type="button" class="my_attention_remove _DELETE_VISITED_CONTENT" data-clk="my_conts.del"><span class="blind">삭제</span></button>
+						<div>
+						<button type="button" class="my_attention_remove" id="delButton" data-boardnum="${contentList.boardNum}"><span class="blind">삭제</span></button>
+						</div>
 					</div>
 				</li>
 				</c:forEach>
@@ -251,6 +253,7 @@
 	<p class="toast_popup_desc">{{{text}}}</p>
 </div>
 </script>
+<script src="${pageContext.request.contextPath}/js/mypage/contents_heart.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
 

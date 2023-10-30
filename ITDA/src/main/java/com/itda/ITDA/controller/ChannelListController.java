@@ -36,6 +36,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
@@ -69,7 +71,7 @@ public class ChannelListController {
 
 	@RequestMapping(value = "/{chnum}", method = RequestMethod.GET)
 	public ModelAndView showChannelMainPage(@PathVariable(value = "chnum") int chnum, // chnum을 파라미터로 전달 받음
-			String userid, ModelAndView mv, HttpServletRequest request, Principal principal, HttpSession session) {
+			String userid, ModelAndView mv, HttpServletRequest request, Principal principal, HttpSession session) throws JsonProcessingException {
 
 		if (chnum == WRONG_CHNUM)
 		{
@@ -85,6 +87,10 @@ public class ChannelListController {
 
 		// 채널주인 확인
 		Seller sellerinfo = channelList_Service.getSellerInfo(userid);
+		
+		List<sub> subData = channelList_Service.getSubData(chnum);
+		ObjectMapper om= new ObjectMapper();
+		String subDataJson = om.writeValueAsString(subData);
 
 		// 구독자 확인
 		sub subinfo = channelList_Service.getBoardVisit(chnum);
@@ -104,6 +110,9 @@ public class ChannelListController {
 			mv.addObject("ChannelList", ChannelList);
 			session.setAttribute("chname", ChannelList.getChName());
 			mv.addObject("sellerinfo", sellerinfo);
+
+			mv.addObject("subData", subDataJson);
+
 			// 채널과 연관된 게시물 목록을 가져옴
 			List<ChBoard> ChannelBoardList = channelList_Service.getBoardListByBoardNum(chnum);
 			mv.addObject("ChannelBoardList", ChannelBoardList);

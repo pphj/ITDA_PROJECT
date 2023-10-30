@@ -43,12 +43,12 @@
 		_paq.push(["setSiteId", "1"]);
 
 		var isPremiumReferer = false;
-		
+		isPremiumReferer = true;
 		
 		
 		
 	</script>
-	<script src="https://static-nnews.pstatic.net/js/min/20231019a/premium_common.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/search/itda_common.js"></script>
 </head>
 <body class="">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
@@ -92,7 +92,7 @@
 				    <button id="_SEARCH_RESET_BTN" type="button" class="psp_input_cancel_button" data-clk="pch_search.close">삭제</button>
 				    
 				</div>
-                    <button type="button" class="psp_search_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.search" data-url="${pageContext.request.contextPath}/main/search" data-search-value="true"><span class="blind">검색</span></button>
+                    <button type="button" class="psp_search_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.search" data-url="${pageContext.request.contextPath}/main/search/result" data-search-value="true"><span class="blind">검색</span></button>
                 </div>
             </div>
         </div>
@@ -102,7 +102,9 @@
 		<div class="psp_recent _SEARCH_HISTORY_AREA" style="display: none;">
 			<strong class="psp_recent_title">최근 검색어</strong>
 			<div class="psp_recent_list_area">
-				<div id="_SEARCH_HISTORY_LIST_WRAP" data-nclk-prefix="pch_search"></div>
+				<div id="_SEARCH_HISTORY_LIST_WRAP" data-nclk-prefix="pch_search">
+				<div class="psp_recent_text">검색어 저장 기능이 꺼져 있습니다.</div>
+				</div>
 				<script type="x-tmpl-mustache" class="_SEARCH_HISTORY_LIST">
 				{{#autoSave}}
 				{{#hasKeywords}}
@@ -457,9 +459,46 @@ $(document).ready(function() {
 	    $('.psp_content_item:hidden:lt(4)').show(); // 4개의 컨텐츠를 추가로 표시
 	  });
 	});
+	
+	
+document.addEventListener("DOMContentLoaded", function() {
+    // '채널' 클릭 이벤트를 추가
+    const channelButton = document.querySelector(".psp_nav_button._SEARCH_SUBMIT_BTN");
+    channelButton.addEventListener("click", function(event) {
+        event.preventDefault(); // 기본 동작(링크 이동)을 막음
+        const url = channelButton.getAttribute("data-url");
+        window.location.href = url; // 클릭한 URL로 이동
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const channelResultsSize = ${channelResults.size()}; // 채널 결과의 크기
+    const contentResultsSize = ${contentResults.size()}; // 콘텐츠 결과의 크기
+
+    // "채널 검색 결과 더보기" 버튼을 삭제
+    const channelMoreButton = document.querySelector('.psp_button_more._SEARCH_SUBMIT_BTN');
+    if (channelMoreButton && channelResultsSize === 0) {
+        channelMoreButton.remove(); // 채널 결과가 없으면 버튼을 삭제
+    }
+
+    // "콘텐츠 검색 결과 더보기" 버튼을 삭제
+    const contentMoreButton = document.querySelector('.psp_button_more._SEARCH_SUBMIT_BTN');
+    if (contentMoreButton && contentResultsSize === 0) {
+        contentMoreButton.remove(); // 콘텐츠 결과가 없으면 버튼을 삭제
+    }
+
+});
+
+
 
 
 
 
 </script>
+
+
+
+
+
 </html>
