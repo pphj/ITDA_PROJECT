@@ -18,4 +18,6 @@ public interface heartMapper {
 
 	void decreaseChBoardHeart(int boardNum);
 
+	void deleteChBoardHeart(int boardNum);
+
 }

@@ -1,7 +1,13 @@
 
-  package com.itda.ITDA.mybatis.mapper; import com.itda.ITDA.domain.NaverDTO;
-  
-  public class NaverMapper { void insertNaverInfo(NaverDTO naverDTO) { }
-  
-  }
- 
+package com.itda.ITDA.mybatis.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.itda.ITDA.domain.NaverDTO;
+
+@Mapper
+public interface NaverMapper {
+
+   boolean saveNaverUserInfo(NaverDTO dto);
+
+}

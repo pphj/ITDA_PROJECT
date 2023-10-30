@@ -44,15 +44,27 @@ function toggleSubscription() {
     if (isSubscribed) {
         unsubscribe();
         $(this).removeClass("subscribed");
+        $(this).css({
+            "border-color": "#00c6be",
+            "background-color": "initial",
+            "color": "#00c6be"
+        });
         $(".txt_default_subscribe").html('<img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 버튼 아이콘">구독');
         isSubscribed = false;
     } else {
         subscribe();
         $(this).addClass("subscribed");
-        $(".txt_default_subscribe").html('<img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 취소 버튼 아이콘">구독 취소');
+        $(this).css({
+            "border-color": "#00c6be",
+            "background-color": "#00c6be",
+            "color": "#fff"
+        });
+        $(".txt_default_subscribe").html('<img class="ico_plus" src="../image/channel/subing.png" style="height: 10px; margin-right: 4px; vertical-align: sub; width: 13px; margin-bottom: 4px;" alt="구독 취소 버튼 아이콘">구독중');
         isSubscribed = true;
     }
+    updateSubscriberCount();
 }
+
 
 // 로그인 여부를 확인하는 함수
 function isLoggedIn() {
@@ -76,10 +88,10 @@ function unsubscribe() {
 function sendSubscriptionRequest(url) {
     let token = $("meta[name='_csrf']").attr("content");
     let header = $("meta[name='_csrf_header']").attr("content");
-    let userId = $('#LoginId').val();
+    let userId = $('#loginid').text();
     let chnum = $('#chnum').val();
 
-    $.ajax({
+     $.ajax({
         url: url,
         type: 'POST',
         data: { userId: userId, chnum: chnum },
@@ -88,17 +100,43 @@ function sendSubscriptionRequest(url) {
         },
         success: function(data) {
             console.log(url.split('/').pop() + " 처리 완료");
+            
+            // 구독자 수 업데이트
+            updateSubscriberCount();
         }
     });
 }
 
+// 구독자 수를 실시간 업데이트하는 함수
+function updateSubscriberCount() {
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    let userId = $('#loginid').text();
+    let chnum = $('#chnum').val();
+
+    $.ajax({
+        url: "/itda/channels/getSubscriberCount",
+        type: 'POST',
+        data: { userId: userId, chnum: chnum },
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        success: function(data) {
+            // 구독자 수 업데이트
+            $(".num_count").text(data.subscriberCount);
+        }
+    });
+}
+
+
 // 로그인한 사용자의 구독 상태를 확인하는 함수
 function checkSubscription() {
-    let userId = $('#LoginId').val();
+	let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
+    let userId = $('#loginid').text();
     let chnum = $('#chnum').val();
     
-    
-
+   
     if (!userId) {
         return;
     }
@@ -107,13 +145,26 @@ function checkSubscription() {
         url: "/itda/channels/checkSubscription",
         type: 'POST',
         data: { userId: userId, chnum: chnum },
-        success: function(data) {
-            isSubscribed = data.isSubscribed;
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        success: function(response) {
+            isSubscribed = response.isSubscribed;
             if (isSubscribed) {
                 $('.btn_subscribe').addClass("subscribed");
-                $(".txt_default_subscribe").html('<img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 취소 버튼 아이콘">구독 취소');
+                $('.btn_subscribe').css({
+                    "border-color": "#00c6be",
+                    "background-color": "#00c6be",
+                    "color": "#fff"
+                });
+                $(".txt_default_subscribe").html('<img class="ico_plus" src="../image/channel/subing.png" style="height: 10px; margin-right: 4px; vertical-align: sub; width: 13px; margin-bottom: 4px;" alt="구독중 버튼 아이콘">구독중');
             } else {
                 $('.btn_subscribe').removeClass("subscribed");
+                $('.btn_subscribe').css({
+                    "border-color": "#00c6be",
+                    "background-color": "initial",
+                    "color": "#00c6be"
+                });
                 $(".txt_default_subscribe").html('<img class="ico_plus" src="../image/channel/ico-plus.png" alt="구독 버튼 아이콘">구독');
             }
         }

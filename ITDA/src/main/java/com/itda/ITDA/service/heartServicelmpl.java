@@ -44,4 +44,9 @@ public class heartServicelmpl implements heartService {
 		dao.decreaseChBoardHeart(boardNum);
 	}
 
+	@Override
+	public void deleteChBoardHeart(int boardNum) {
+		dao.deleteChBoardHeart(boardNum);
+	}
+
 }

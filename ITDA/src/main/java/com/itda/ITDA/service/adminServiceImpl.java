@@ -407,89 +407,59 @@ public class adminServiceImpl implements adminService {
 		return dao.couponDelete(couponNum);
 	}
 	
+	//검색 리스트 공통 메소드
+	public Map<String, Object> listLogic_Search(int index, String search_word, int page, int limit, String[] searchField) {
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    if (index != -1) {
+	        map.put("search_field", searchField[index]);
+	        map.put("search_word", "%" + search_word + "%");
+	    }
+	    int startrow = (page - 1) * limit + 1;
+	    int endrow = startrow + limit - 1;
+	    map.put("start", startrow);
+	    map.put("end", endrow);
+
+	    return map;
+	}
+	
 	@Transactional(readOnly = true)
 	@Override
 	public List<Admin> getAdminApproveList(int index, String search_word, int page, int limit) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		if (index != -1) {
-			String[] search_field = new String[] {"아이디", "이름", "부서", "직급", "권한 등급"};
-			map.put("search_field", search_field[index]);
-			map.put("search_word", "%" + search_word + "%");
-		}
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.getAdminApproveList2(map);
+		String[] searchField = {"아이디", "이름", "부서", "직급", "권한 등급"};
+	    Map<String, Object> list = listLogic_Search(index, search_word, page, limit, searchField);
+		return dao.getAdminApproveList2(list);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getFaqList(int index, String search_word, int page, int limit) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		if (index != -1) {
-			String[] search_field = new String[] {"제목", "카테고리", "질문자", "작성자", "날짜"};
-			map.put("search_field", search_field[index]);
-			map.put("search_word", "%" + search_word + "%");
-		}
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.getFAQList2(map);
+		String[] searchField = {"제목", "카테고리", "질문자", "작성자", "날짜"};
+		Map<String, Object> list = listLogic_Search(index, search_word, page, limit, searchField);
+		return dao.getFAQList2(list);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getUserNoticeList(int index, String search_word, int page, int limit) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		if (index != -1) {
-			String[] search_field = new String[] {"제목", "작성자", "날짜"};
-			map.put("search_field", search_field[index]);
-			map.put("search_word", "%" + search_word + "%");
-		}
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.getUserNoticeList2(map);
+		String[] searchField = {"제목", "작성자", "날짜"};
+		Map<String, Object> list = listLogic_Search(index, search_word, page, limit, searchField);
+		return dao.getUserNoticeList2(list);
 	}
 	
 	@Transactional(readOnly = true)
 	@Override
 	public List<AdminBoard> getItdaNoticeList(int index, String search_word, int page, int limit) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		if (index != -1) {
-			String[] search_field = new String[] {"제목", "작성자", "날짜"};
-			map.put("search_field", search_field[index]);
-			map.put("search_word", "%" + search_word + "%");
-		}
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.getItdaNoticeList2(map);
+		String[] searchField = {"제목", "작성자", "날짜"};
+		Map<String, Object> list = listLogic_Search(index, search_word, page, limit, searchField);
+		return dao.getItdaNoticeList2(list);
 	}
 	
 	@Transactional(readOnly = true)
 	@Override
 	public List<Seller> getSellerApproveList(int index, String search_word, int page, int limit) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		if (index != -1) {
-			String[] search_field = new String[] {"신청자", "신청일"};
-			map.put("search_field", search_field[index]);
-			map.put("search_word", "%" + search_word + "%");
-		}
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
-		map.put("start", startrow);
-		map.put("end", endrow);
-		
-		return dao.getSellerApproveList2(map);
+		String[] searchField = {"신청자", "신청일"};
+		Map<String, Object> list = listLogic_Search(index, search_word, page, limit, searchField);
+		return dao.getSellerApproveList2(list);
 	}
 	
 	@Cacheable("totalSalesList")

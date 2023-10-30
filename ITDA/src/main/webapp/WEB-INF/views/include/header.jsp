@@ -7,11 +7,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/login_modal.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/premium_service2.css">
 <link rel="icon" href="${pageContext.request.contextPath}/resources/image/main/tv_icon.ico">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/common.css">
-
 <script> var contextPath = "<%=request.getContextPath()%>";</script>
 <script>
 	$(function() {
@@ -20,6 +19,9 @@
 			$("form[name=logout]").submit();
 		})
 	})
+	
+	
+	
 </script>
 </head>
 <header class="header_wrap as_home">
@@ -57,7 +59,9 @@
 						<sec:authorize access="isAuthenticated()">
 							<sec:authentication property="principal" var="pinfo" />
 
-
+						<!-- !empty 시 프로필사진 출력 O + 기본 이미지 X -->
+						<!-- empty 시 프로필사진 X + 기본 이미지 출력 O -->
+						
 						<!-- 로그인한 경우 프로필 사진을 표시합니다. -->
 							<div class="dropdown">
 								<button class="dropbtn">
@@ -67,7 +71,7 @@
 										</c:when>
 										<c:otherwise>
 											<img id="profile_img" src="${pageContext.request.contextPath}/image/Member/${pinfo.username}${pinfo.userProfile}"
-												style="width: 40px; height: 40px; object-fit: cover;" />
+												style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;" />
 										</c:otherwise>
 							        </c:choose> 
 							        
@@ -180,18 +184,12 @@
 												<div class="sns_login_form">
 													<p class="txt_c mb10">
 													<div>
-   <a class="btn btn-naver !tw-block" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&amp;client_id=rcyeX4m7t_YVfke5Wd6Y&amp;state=1111G&amp;redirect_uri=http://localhost:9400/itda/">네이버로 시작하기</a>
-
-</div>
-
+												<jsp:include page="test.jsp"/>
+													</div>
 
 													</p>
 												
-												
 												</div>
-
-
-
 
 											</article>
 											<!-- 병합-end -->
@@ -215,4 +213,17 @@
 	</div>
 	</div>
 	<hr>
+	
+<script>
+    // 버튼 요소를 가져옴
+    const naverStartButton = document.getElementById('naver-start-btn');
+
+    // 버튼 클릭 시 이벤트 처리
+    naverStartButton.addEventListener('click', function () {
+        // test.jsp로 이동
+        window.location.href = 'test.jsp';
+    });
+</script>
+	
+	
 </header>

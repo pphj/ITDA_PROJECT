@@ -31,11 +31,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.MailVO;
+import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.Itda_UserService;
+import com.itda.ITDA.service.SellerService;
 import com.itda.ITDA.service.UserCategoryService;
 import com.itda.ITDA.task.SendMail;
 import com.itda.ITDA.util.Constants;
@@ -62,17 +64,19 @@ public class UserInfoController {
 	private ChannelList_Service channelList_Service;
 	private ContentService contentService;
 	private UserCategoryService userCategoryService;
+	private SellerService sellerService;
 	private SendMail sendMail;
 	
 	@Autowired
 	public UserInfoController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service, 
 								ContentService contentService, UserCategoryService userCategoryService
-								, SendMail SendMail) {
+								, SendMail SendMail, SellerService sellerService) {
 		this.itdaUserService = itdaUserService;
 		this.channelList_Service = channelList_Service;
 		this.contentService = contentService;
 		this.userCategoryService = userCategoryService;
 		this.sendMail = SendMail;
+		this.sellerService = sellerService;
 	}
 
 	
@@ -210,7 +214,7 @@ public class UserInfoController {
 	
 	// 회원 이메일 변경 프로세스
 	@PostMapping(value="/emailChangePro")
-	public String userEmailUodateProcess(Itda_User user,
+	public String userEmailUpdateProcess(Itda_User user,
 										Principal principal) {
 		
 		String id = principal.getName();
@@ -222,6 +226,61 @@ public class UserInfoController {
 		int result = itdaUserService.userEmailUpdate(user);		
 		
 		String newMail = user.getUserEmail();
+		
+		if(newMail != null && newMail != "" &&  result == Constants.UPDATE_SUCCESS) {
+			
+			logger.info(Message.USER_UPDATE_SUCCESS);
+			return "redirect:/user/myInfo";
+		}else {
+			
+			logger.info(Message.USER_UPDATE_FALL);
+			return "redirect:/user/myInfo";
+		}
+	}
+	
+	
+	// 마이페이지 seller 이메일 체크
+	@ResponseBody
+	@PostMapping(value = "myInfo/sellerEmailCheck")
+	public int getSellerEmailCheck(Principal principal,
+							@RequestParam("sellerEmail") String sellerEmail) {
+
+		String id = principal.getName();
+
+		logger.info("id : " + principal.getName());
+
+		Seller seller = sellerService.sellerEmailCheck(id);
+
+		String getSellerEmail = seller.getSellerEmail();
+
+		int result = 0;
+		if (sellerEmail.equals(getSellerEmail)) {
+			logger.info(sellerEmail);
+			result = EMAIL_CONFIRM_OK;
+
+			return result;
+		} else {
+			logger.info(Message.ERROR);
+			return result;
+		}
+
+	}
+	
+	
+	// 회원 이메일 변경 프로세스
+	@PostMapping(value="/sellerEmailChangePro")
+	public String sellerEmailUpdateProcess(Seller seller,
+										Principal principal) {
+		
+		String id = principal.getName();
+		
+		seller.setUserId(id);
+		seller.setSellerEmail(seller.getSellerEmail());
+		logger.info("seller.setUserEmail : " + seller.getSellerEmail());
+		
+		int result = sellerService.sellerEmailUpdate(seller);		
+		
+		String newMail = seller.getSellerEmail();
 		
 		if(newMail != null && newMail != "" &&  result == Constants.UPDATE_SUCCESS) {
 			
@@ -291,7 +350,7 @@ public class UserInfoController {
 			
 		} else {
 			logger.info("Password confirm fail");
-			return result;
+			return result -1;
 		}
 		
 	}
@@ -310,11 +369,10 @@ public class UserInfoController {
 		
 		String userPw = encoder.encode(user.getUserPw());
 
-		Itda_User itdaUser = new Itda_User();
 		user.setUserId(id);
 		user.setUserPw(userPw);
 
-		itdaUserService.pwUpdate(itdaUser);
+		itdaUserService.pwUpdate(user);
 
 		logger.info("비밀번호 암호화 후 : " + userPw);
 

@@ -1,5 +1,6 @@
 package com.itda.ITDA.domain;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import lombok.Getter;
@@ -12,4 +13,6 @@ public class sub {
 	private String userid;
 	private int subchnum;
 	private Timestamp subdate;
+	private String userGender;
+	private Date userBirth;
 }

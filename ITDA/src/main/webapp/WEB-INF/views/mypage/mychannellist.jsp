@@ -88,7 +88,7 @@
 <div class="my_tab_wrap">
 	<ul class="my_tab">
 		<li class="my_tab_item is_active">
-			<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/notification/marketing" data-clk="my_lnb.setmrk">
+			<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/channellist" data-clk="my_lnb.setmrk">
 				<span class="my_tab_text">
 					나의 채널 <span class=my_tab_sub_text>목록</span>
 					<em>1</em>
@@ -104,7 +104,14 @@
     	<li class="my_setting_item _MARKETING_BUTTON_WRAP">
     		<a href="${pageContext.request.contextPath}/channels/${channel.chNum}?userid=${channel.ownerId}" class="my_setting_link" data-clk="my_setmrk.chlgo">
     			<div class="my_setting_thumb">
-    				<img src="" width="48" height="48" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+    							<c:choose>
+                   <c:when test="${empty channel.chProfile}">
+                      <img src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png" width="48" height="48">
+                   </c:when>
+                	<c:otherwise>
+                    	<img src="${pageContext.request.contextPath}/image/MemberUpload/${channel.ownerId}${channel.chProfile}" width="48" height="48" onerror="this.parentNode.innerHTML='<span class=&quot;no_image&quot;></span>'">
+                	</c:otherwise>
+                </c:choose>
     			</div>
     			<div class="my_channel_text">
     			<div class="my_channel_name">

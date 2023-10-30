@@ -16,7 +16,7 @@
 
 	<select id="getContentByCategory" resultType="ChBoard">
 		select * from
-		(select rownum r, chboard.*
+		(select rownum r, chboard.*getUserInfo
 		from chBoard join ChannelList
 		on
 		chBoard.chNum = ChannelList.chNum
@@ -55,11 +55,14 @@
 	</select>
 
 	<select id="getContentDetail" resultType="ChBoard">
-		 SELECT chboard.*, chboardcategory.chcate_name
-	     FROM chboard JOIN chboardcategory
-	     ON chboard.chnum = chboardcategory.chnum
-	     WHERE boardnum = #{boardNum}
-	     AND chboard.chcate_id = chboardcategory.chcate_id 
+		SELECT chboard.*,
+		chboardcategory.chcate_name
+		FROM chboard JOIN chboardcategory
+		ON
+		chboard.chnum = chboardcategory.chnum
+		WHERE boardnum = #{boardNum}
+		AND
+		chboard.chcate_id = chboardcategory.chcate_id
 	</select>
 
 
@@ -125,7 +128,7 @@
 		rownum = 1
 	</select>
 
-	<delete id="deleteBoard" >
+	<delete id="deleteBoard">
 	    <![CDATA[
 	      DELETE FROM chboard 
 	      WHERE BOARDNUM = #{boardNum}
@@ -137,18 +140,126 @@
 		where
 		userId = #{userId}
 	</select>
-	
+
 	<select id="getChannelCategory" resultType="ChBoardCategory">
-		   SELECT cbc.chCate_Id, cbc.chNum, cbc.chCate_Name 
-		    FROM ChBoard cb
-		    JOIN ChBoardCategory cbc ON cb.chCate_Id = cbc.chCate_Id 
-		    WHERE cb.boardnum = #{boardNum}
+		SELECT cbc.chCate_Id,
+		cbc.chNum, cbc.chCate_Name
+		FROM ChBoard cb
+		JOIN ChBoardCategory cbc ON
+		cb.chCate_Id = cbc.chCate_Id
+		WHERE cb.boardnum = #{boardNum}
 	</select>
-	
+
 	<select id="findNameById" resultType="string">
-		  SELECT chCate_Name FROM ChBoardCategory WHERE chCate_Id = #{chCateId}
+		SELECT chCate_Name FROM
+		ChBoardCategory WHERE chCate_Id = #{chCateId}
 	</select>
-	
+
+	<update id="increaseViewCount">
+		UPDATE chboard
+		SET boardVisit = #{boardVisit}
+		WHERE
+		boardNum = #{boardNum}
+	</update>
+
+	<!-- 신고 카테고리를 가져오는 쿼리 -->
+	<select id="getAllWCategories" resultType="WCATEGORY">
+		SELECT *
+		FROM wcategory
+	</select>
+
+	<!-- 댓글 정보를 가져오는 쿼리 -->
+	<select id="getReplyById" resultType="BoardReply">
+		SELECT *
+		FROM boardreply
+		WHERE replyNum = #{replyNum}
+	</select>
 
 
+	<insert id="insertReport">
+		INSERT INTO replywarn (
+		WARNNUM, PUNCHID, SICKID, REPLYNUM, WARNCATEID, WARNDATE, WARNOK, WARNREASON,
+		BOARDNUM
+		) VALUES (
+		replywarn_seq.NEXTVAL, #{punchId}, #{sickId}, #{replyNum}, #{warnCateId}, SYSDATE, 'N',
+		#{warnReason}, #{boardNum}
+		)
+	</insert>
+
+	<select id="getUser" resultType="Itda_User">
+		select * from itda_user
+		where
+		userId = #{userId}
+	</select>
+
+	<select id="checkReportedCategory" parameterType="map"
+		resultType="boolean">
+		SELECT COUNT(*) FROM replywarn
+		WHERE punchId = #{userId}
+		AND warnCateId = #{category}
+	</select>
+
+	<select id="getBoardInfo" resultType="ChBoard">
+		select * from
+		chboard
+		where boardNum = #{boardNum}
+	</select>
+
+	<insert id="insertContentReport">
+		INSERT INTO boardwarn (
+		WARNNUM, PUNCHID, SICKID,
+		BOARDNUM, WARNCATEID, WARNDATE, WARNOK, WARNREASON,
+		CHNUM
+		) VALUES (
+		boardwarn_seq.NEXTVAL, #{punchId}, #{sickId}, #{boardNum},
+		#{warnCateId}, SYSDATE, 'N',
+		#{warnReason}, #{chNum}
+		)
+	</insert>
+
+	<select id="checkContentCategory" parameterType="map"
+		resultType="boolean">
+		SELECT COUNT(*) FROM boardwarn
+		WHERE punchId = #{userId}
+		AND warnCateId = #{category}
+	</select>
+
+	<select id="getUsersFromGoodUser" resultType="Itda_User">
+		SELECT *
+		FROM itda_user
+		where userid = #{userId}
+	</select>
+
+	<select id="getsubUser" resultType="GoodUser">
+		SELECT *
+		FROM gooduser
+		where userid = #{userId}
+	</select>
+
+	<delete id="deleteWarningsByBoardNum">
+		DELETE FROM BOARDWARN
+		WHERE boardNum = #{boardNum}
+	</delete>
+
+  	<!-- 신고된 댓글인지 확인하는 쿼리 -->
+    <select id="checkReportStatus" resultType="boolean">
+        SELECT CASE 
+            WHEN COUNT(*) > 0 THEN 1 -- 신고된 댓글이 있을 경우 1 반환
+            ELSE 0 -- 신고된 댓글이 없을 경우 0 반환
+        END
+        FROM ReplyWarn -- 신고 정보를 담고 있는 테이블
+        WHERE replyNum = #{num} -- 댓글 번호를 기준으로 검색
+    </select>
+    
+    <select id="getChannelListByChnum" resultType="ChannelList">
+        SELECT *
+        FROM ChannelList
+        WHERE chNum = #{chnum}
+    </select>
+    
+    <select id="getSellerInfoByUserId" resultType="Seller">
+		SELECT * FROM SELLER
+		WHERE
+		userid = #{userId}
+	</select>
 </mapper>

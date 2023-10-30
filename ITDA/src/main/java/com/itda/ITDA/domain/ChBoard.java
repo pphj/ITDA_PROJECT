@@ -20,7 +20,7 @@ public class ChBoard {
 	private String boardNore;
 	private String boardDate;
 	private String boardUpdate;
-	private int boardVisit;
+	private Integer boardVisit;
 	private MultipartFile upload;
 	private String thumbNail;
 	private String intro;

@@ -85,54 +85,57 @@ public class MainController {
 	
 	@GetMapping(value = "/search")
 	public String search() {
-	    return "main/search";
+		return "main/search";
 	}
 
 	@GetMapping("/search/result")
 	public ModelAndView searchResult(@RequestParam("searchQuery") String keyword) {
-	    List<ChannelList> channelResults = mainService.searchChannelsByKeyword(keyword);
-	    List<ChBoard> contentResults = mainService.searchContentsByKeyword(keyword);
+		List<ChannelList> channelResults = mainService.searchChannelsByKeyword(keyword);
+		List<ChBoard> contentResults = mainService.searchContentsByKeyword(keyword);
 
-	    ModelAndView modelAndView;
+		ModelAndView modelAndView;
 
-	    if (channelResults.isEmpty() && contentResults.isEmpty()) {
-	        // 검색 결과가 없을 때 "결과없음" 페이지로 리다이렉트
-	        modelAndView = new ModelAndView("main/no_results");
-	    } else {
-	        modelAndView = new ModelAndView("main/search_View");
-	        modelAndView.addObject("channelResults", channelResults);
-	        modelAndView.addObject("contentResults", contentResults);
-	    }
+		if (channelResults.isEmpty() && contentResults.isEmpty()) {
+			// 검색 결과가 없을 때 "결과없음" 페이지로 리다이렉트
+			modelAndView = new ModelAndView("main/no_results");
+		} else {
+			modelAndView = new ModelAndView("main/search_View");
+			modelAndView.addObject("channelResults", channelResults);
+			modelAndView.addObject("contentResults", contentResults);
+		}
 
-	    // 검색어를 모델에 추가하여 뷰로 전달
-	    modelAndView.addObject("searchQuery", keyword);
+		// 검색어를 모델에 추가하여 뷰로 전달
+		modelAndView.addObject("searchQuery", keyword);
 
-	    return modelAndView;
+		return modelAndView;
+	}
+
+	@GetMapping("/search/result/channel")
+	public ModelAndView searchChannelResult(@RequestParam("searchQuery") String keyword) {
+		// 여기서 검색 결과를 조회하는 서비스 메서드를 호출하여 채널 검색 결과를 가져옵니다.
+		List<ChannelList> channelResults = mainService.searchChannelsByKeyword(keyword);
+
+		ModelAndView modelAndView = new ModelAndView("main/ch/channel_search_view"); // 뷰 페이지 이름을 적절히 설정
+
+		modelAndView.addObject("channelResults", channelResults);
+		modelAndView.addObject("searchQuery", keyword);
+
+		return modelAndView;
+	}
+
+	@GetMapping("/search/result/content")
+	public ModelAndView searchContentResult(@RequestParam("searchQuery") String keyword) {
+		List<ChBoard> contentResults = mainService.searchContentsByKeyword(keyword);
+
+		ModelAndView modelAndView = new ModelAndView("main/ch/content_search_view");
+
+		modelAndView.addObject("contentResults", contentResults);
+		modelAndView.addObject("searchQuery", keyword);
+
+		return modelAndView;
 	}
 	
 	
-	
-	@GetMapping("/callback")
-	public String naverCallback(@RequestParam("code") String code, @RequestParam(name="state", required=false) String state) {
-	    try {
-	        if (code != null) {
-	            // 네이버 인증 코드를 받아와서 처리하는 로직을 구현합니다.
-	            NaverDTO naverInfo = naverService.getNaverInfo(code);
-
-	            // 네이버 로그인 성공 후 리다이렉트할 경로 지정
-	            return "redirect:/";
-	        } else {
-	            // code가 없을 경우 예외 처리
-	            throw new IllegalArgumentException("Invalid authorization code");
-	        }
-	    } catch (Exception e) {
-	        // 예외 처리 로직 작성
-
-	        // 예외 발생 시 리다이렉트할 경로 지정
-	        return "redirect:/error-page";
-	    }
-	}
-
 	
 	
 }

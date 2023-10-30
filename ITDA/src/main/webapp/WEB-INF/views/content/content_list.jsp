@@ -113,8 +113,8 @@
 						<c:forEach var="b" items="${contentlist}">
 							<li class="content_item">
 								<div class="content_item_line">
-									<a href="${pageContext.request.contextPath}/contents/${param.chnum}/${b.boardNum}?userid=${sellerinfo.userId}"><img
-										src="${pageContext.request.contextPath}/image/content/${param.chnum}/${b.boardNum }/${b.thumbNail}?userid=${sellerinfo.userId}"
+									<a href="${pageContext.request.contextPath}/contents/${param.chnum}/${b.boardNum}?userid=${sellerinfo.userId}">
+									<img src="${pageContext.request.contextPath}/image/contents/${param.chnum}${b.thumbNail}?userid=${sellerinfo.userId}"
 										class="content_thumb"> </a>
 									<div class="content_text">
 										<a class="content_text_link" href="${pageContext.request.contextPath}/contents/${param.chnum}/${b.boardNum}?userid=${sellerinfo.userId}"> 
