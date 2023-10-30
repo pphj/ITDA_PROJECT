@@ -20,6 +20,9 @@
 			$("form[name=logout]").submit();
 		})
 	})
+	
+	
+	
 </script>
 </head>
 <header class="header_wrap as_home">
@@ -57,8 +60,8 @@
 						<sec:authorize access="isAuthenticated()">
 							<sec:authentication property="principal" var="pinfo" />
 
-						<!-- !없으면 프로필사진 출력 기본 이미지 X -->
-						<!-- !있으면 프로필사진 X 기본 이미지 출력 -->
+						<!-- !empty 시 프로필사진 출력 O + 기본 이미지 X -->
+						<!-- empty 시 프로필사진 X + 기본 이미지 출력 O -->
 						
 						<!-- 로그인한 경우 프로필 사진을 표시합니다. -->
 							<div class="dropdown">

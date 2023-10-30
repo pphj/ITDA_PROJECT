@@ -28,7 +28,7 @@
 var naverLogin = new naver.LoginWithNaverId(
 		{
 			clientId: "<%=MyInfo.clientId%>", //내 애플리케이션 정보에 cliendId를 입력해줍니다.
-			callbackUrl: "<%=MyInfo.callbackurl%>", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
+			callbackUrl: "<%=MyInfo.callbackUrl%>", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
 			isPopup: false,
 			callbackHandle: true
 		}
@@ -36,23 +36,27 @@ var naverLogin = new naver.LoginWithNaverId(
 
 naverLogin.init();
 
+
+
+
+
 window.addEventListener('load', function () {
-	naverLogin.getLoginStatus(function (status) {
-		if (status) {
-			var email = naverLogin.user.getEmail(); // 필수로 설정할것을 받아와 아래처럼 조건문을 줍니다.
-    		
-			console.log(naverLogin.user); 
-    		
-            if( email == undefined || email == null) {
-				alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
-				naverLogin.reprompt();
-				return;
-			}
-		} else {
-			console.log("callback 처리에 실패하였습니다.");
-		}
+	  naverLogin.getLoginStatus(function (status) {
+	    if (status) {
+	      var email = naverLogin.user.getEmail(); // 필수로 설정할 것을 받아와 아래와 같이 조건문을 추가합니다.
+
+	      console.log(naverLogin.user);
+
+	      if (email == undefined || email == null) {
+	        alert("이메일은 필수 정보입니다. 정보 제공에 동의하십시오.");
+	        naverLogin.reprompt();
+	        return;
+	      }
+	    } else {
+	      console.log("콜백 처리에 실패했습니다.");
+	    }
+	  });
 	});
-});
 
 
 var testPopUp;

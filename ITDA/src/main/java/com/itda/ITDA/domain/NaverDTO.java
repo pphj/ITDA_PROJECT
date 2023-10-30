@@ -7,10 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class NaverDTO {
-    private String id;
-    private String email;
-    private String name;
+	    private String name;
+	    private String email;
+	    private String nickname;
+	    private String gender;
+	    private String age;
+	    private String phone;
+
 @Getter
     private String access_token;
 }
-
