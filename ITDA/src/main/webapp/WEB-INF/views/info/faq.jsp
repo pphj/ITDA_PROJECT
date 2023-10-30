@@ -10,7 +10,7 @@
         <link rel="shortcut icon" href="https://www.hankyung.com/favicon.ico">
         <link rel="apple-touch-icon" sizes="192x192" href="https://static.hankyung.com/resource/common/img/favicon/apple-touch-icon.png">
         <link rel="stylesheet" href="https://static.hankyung.com/css/www/w/common.ui.all.css?v=202309221514">
-        <link rel="stylesheet" href="https://static.hankyung.com/resource/www/help/css/help.css?v=202309221514">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/info/help.css">	
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/info/faq.css" rel="stylesheet" />
 
         <script src="https://static.hankyung.com/plugin/jquery-1.12.4.min.js"></script>
@@ -117,7 +117,7 @@
 										<div class="faq-a editor-area">
 
 											[이메일로 회원가입]시 @를 포함한 이메일 형식으로 입력해야 합니다. 올바르게 입력했을 경우 "사용 가능한
-											아이디 입니다"라는 안내 문구가 나타납니다. <br /> 예) hkinfo@hankyung.com
+											아이디 입니다"라는 안내 문구가 나타납니다. <br /> 예) itda@itda.com
 										</div>
 									</div>
 									<ul class="down-list">
@@ -226,24 +226,7 @@
 									</ul>
 								</div>
 							</div>
-							<div class="faq-item" data-no="8">
-								<!-- 활성화 .on -->
-								<a role="button" class="faq-item-tit"> <span
-									class="faq-category faq-cate2">회원가입</span> <em class="faq-q">
-										네이버 소셜 회원가입을 클릭했는데 “네이버 소셜가입이 아니라 카카오 소셜로 가입된 계정"이라고 나옵니다. </em>
-								</a>
-
-								<div class="faq-item-cont">
-									<div class="faq-cont-area">
-										<div class="faq-a editor-area">카카오 소셜 계정의 이메일주소가 네이버 이메일
-											주소로 되어있을 수 있습니다. 한국경제 회원은 이메일주소로 식별하고 있습니다. 고객님의 카카오톡 앱을 실행해서
-											더보기 > 설정(톱니바퀴 아이콘) > 카카오계정 클릭 > 계정정보의 이메일 클릭 > 대표 이메일을
-											확인해주세요.</div>
-									</div>
-									<ul class="down-list">
-									</ul>
-								</div>
-							</div>
+							
 							<div class="faq-item" data-no="9">
 								<!-- 활성화 .on -->
 								<a role="button" class="faq-item-tit"> <span
@@ -300,7 +283,7 @@
 										<div class="faq-a editor-area">
 
 											이메일 로그인 오류의 경우 다음과 같은 사항으로 로그인 실패 하실 수 있습니다.<br /> 1) 아이디
-											입력란에 이메일형식으로 올바르게 입력하였는지 확인해주세요. 예) hkinfo@hankyung.com<br />
+											입력란에 이메일형식으로 올바르게 입력하였는지 확인해주세요. 예) itda@itda.com<br />
 											2) 이메일 또는 비밀번호를 기입해주실 때 복사&붙혀넣기를 할 경우 공백(띄어쓰기)이 포함될 수 있습니다.
 											공백이 포함되어있을 경우 로그인 정보가 불일치로 될 수 있습니다.<br /> 3) 이메일주소로 회원가입이
 											아니라 소셜 계정으로 회원가입을 했다면 로그인이 되지 않습니다. [계정찾기] 를 통해 가입수단을 확인해주세요.
@@ -362,40 +345,8 @@
 									</ul>
 								</div>
 							</div>
-							<div class="faq-item" data-no="22">
-								<!-- 활성화 .on -->
-								<a role="button" class="faq-item-tit"> <span
-									class="faq-category faq-cate3">로그인</span> <em class="faq-q">
-										휴면계정 안내메일을 받았습니다. 휴면계정이 무엇인가요? </em>
-								</a>
-
-								<div class="faq-item-cont">
-									<div class="faq-cont-area">
-										<div class="faq-a editor-area">한국경제에서는 고객님의 개인정보보호를 위해
-											최근 1년간 로그인하지 않은 계정은 휴면상태로 전환하고 개인정보보호법에 따라 회원정보에서 분리해서 보관하고
-											있습니다.</div>
-									</div>
-									<ul class="down-list">
-									</ul>
-								</div>
-							</div>
-							<div class="faq-item" data-no="23">
-								<!-- 활성화 .on -->
-								<a role="button" class="faq-item-tit"> <span
-									class="faq-category faq-cate3">로그인</span> <em class="faq-q">
-										휴면계정을 해제하려면 어떻게 해야 하나요? </em>
-								</a>
-
-								<div class="faq-item-cont">
-									<div class="faq-cont-area">
-										<div class="faq-a editor-area">휴면으로 전환된 계정은 로그인 후 간단한
-											승인절차를 거쳐 바로 해제가 가능합니다. 사용하던 계정으로 로그인한 후 휴면계정 해제안내 페이지로 이동합니다.
-											[휴면해제] 버튼을 클릭하면 휴면처리가 해제되고 서비스 이용이 가능합니다.</div>
-									</div>
-									<ul class="down-list">
-									</ul>
-								</div>
-							</div>
+							
+						
 							<div class="faq-item" data-no="24">
 								<!-- 활성화 .on -->
 								<a role="button" class="faq-item-tit"> <span

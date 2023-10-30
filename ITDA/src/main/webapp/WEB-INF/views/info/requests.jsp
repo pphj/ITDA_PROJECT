@@ -28,6 +28,7 @@
       <div class="board_group">
          <form action="${pageContext.request.contextPath}/info/qnainsert" method="post"
             enctype="multipart/form-data">
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			    <select name="QcateId" id="recipeType" class="category_select_from">
 			        <option value="">카테고리를 선택하세요</option>
 			        <option value="1">홍보, 영리목적</option>
@@ -58,7 +59,7 @@
             </div>
             <div class="board_button_wrap">
                <button type="button" class="board_write_button write_cancel">작성취소</button>
-               <button type="submit" class="board_write_button">작성완료</button>
+               <button type="submit" class="board_write_button" id="submit-button">작성완료</button>
             </div>
          </form>
       </div>
@@ -68,9 +69,28 @@
    document.getElementById('userIdInput').value = userId; // 폼 데이터에 userId 추가
 
    $(document).ready(function() {
-       $(".board_write_button").click(function(e) {
+       $("#submit-button").click(function(e) {
            e.preventDefault();
-           $("form").submit();
+           // 폼 데이터를 수집
+           var formData = new FormData($("form")[0]);
+           // CSRF 토큰을 가져와서 폼 데이터에 추가
+           formData.append('${_csrf.parameterName}', '${_csrf.token}');
+
+           $.ajax({
+               type: "POST",
+               url: "${pageContext.request.contextPath}/info/qnainsert",
+               data: formData,
+               processData: false,
+               contentType: false,
+               success: function(response) {
+                   // 성공 시 처리 (예: 리디렉션)
+                   window.location.href = "${pageContext.request.contextPath}/info/qna";
+               },
+               error: function(xhr, status, error) {
+                   // 오류 발생 시 처리
+                   console.log("에러: " + error);
+               }
+           });
        });
    });
 </script>

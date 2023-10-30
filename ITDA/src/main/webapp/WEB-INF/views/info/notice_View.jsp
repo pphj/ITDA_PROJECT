@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="ko"
 	data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
@@ -12,8 +13,7 @@
 <link rel="stylesheet"
 	href="https://static.hankyung.com/css/www/w/common.ui.all.css?v=202309211654">
 <!-- 공지사항 페이지 전체 css -->
-<link rel="stylesheet"
-	href="https://static.hankyung.com/resource/www/help/css/help.css?v=202309211654">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/info/help.css">	
 
 <script src="https://static.hankyung.com/plugin/jquery-1.12.4.min.js"></script>
 <script src="https://static.hankyung.com/plugin/jquery.cookie.js"></script>
@@ -33,16 +33,19 @@
 				<div class="view-top">
 					<h1 class="tit">${adminBoard.adTitle}</h1>
 					<div class="view-info">
-						<span class="txt-num">${adminBoard.adDate}</span>
+						<span class="col date txt-num">
+				            <fmt:formatDate value="${adminBoard.adDate}" pattern="yyyy-MM-dd HH:mm"/>
+				        </span>
 					</div>
 				</div>
 				<div class="view-cont ql-editor">${adminBoard.adContent}</div>
-				<div class="btn-area">
+				<div class="btn-area" style=" padding: 20px;">
 					<a href="${pageContext.request.contextPath}/info/notice" class="btn-default">목록</a>
 				</div>
 			</section>
 		</div>
 	</div>
+	
 	<jsp:include page="../include/footer.jsp" />
 </body>
 </html>
