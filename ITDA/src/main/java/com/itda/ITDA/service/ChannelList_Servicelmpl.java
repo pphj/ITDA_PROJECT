@@ -2,6 +2,7 @@ package com.itda.ITDA.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -152,7 +153,7 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	}
 
 	@Override
-	public Seller getContentSellerInfo(String userid) {
+	public ChannelList getContentSellerInfo(String userid) {
 		return dao.getContentSellerInfo(userid);
 	}
 
@@ -186,7 +187,7 @@ public class ChannelList_Servicelmpl implements ChannelList_Service {
 	}
 
 	@Override
-	public sub getBoardVisit(int chnum) {
+	public Map<String, Object> getBoardVisit(int chnum) {
 		return dao.getBoardVisit(chnum);
 	}
 

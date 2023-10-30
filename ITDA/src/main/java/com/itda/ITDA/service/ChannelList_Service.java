@@ -1,6 +1,7 @@
 package com.itda.ITDA.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
@@ -62,7 +63,7 @@ public interface ChannelList_Service {
 
 	int checkChannelName(int chnum, String chName);
 
-	Seller getContentSellerInfo(String userid);
+	ChannelList getContentSellerInfo(String userid);
 
 	List<ChBoard> newContentSelect(int chnum);
 
@@ -76,7 +77,7 @@ public interface ChannelList_Service {
 
 	boolean checkSubscription(String userId, int chnum);
 
-	sub getBoardVisit(int chnum);
+	Map<String, Object> getBoardVisit(int chnum);
 
 	int getSubscriberCount(String userId, int chnum);
 
