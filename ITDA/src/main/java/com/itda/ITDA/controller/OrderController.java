@@ -329,6 +329,13 @@ public class OrderController {
        
 		KakaoCancelResponse kakaoCancelResponse = orderService.kakaoCancel(refundOrder);
 		
+		int result = orderService.updatePayRefundUser(payment);
+		//int result = itdaUserService.updatePayRefundUser
+		
+		if(result > 0) {
+			logger.info(Message.PAYMENT_USER_UPDATE_SUCCESS);
+		}
+		
 		//new ResponseEntity<>(kakaoCancelResponse, HttpStatus.OK);
         
 		return "redirect:/product/cancel";

@@ -84,11 +84,11 @@ hr {
 .contentbodywrap{
 }
 
-.header_logo_img{
+/* .header_logo_img{
 	width: 70px;
 	margin-top: -5px;
 }
-
+ */
 .blind,legend {
     position: absolute;
     clip: rect(0 0 0 0);

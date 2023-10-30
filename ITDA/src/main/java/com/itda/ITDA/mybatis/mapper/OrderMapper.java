@@ -25,4 +25,6 @@ public interface OrderMapper {
 
 	Payment isPayRefundOrder(Payment payment);
 
+	int updatePayRefundUser(Payment payment);
+
 }

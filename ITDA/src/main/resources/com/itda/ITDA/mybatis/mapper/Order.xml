@@ -116,4 +116,10 @@
 		]]>
 	</select>
 	
+	<update id="updatePayRefundUser" parameterType="Payment">
+		update payment
+		set payedstatus = 'R'
+		where payednum = #{payedNum}
+	</update>
+	
 </mapper>

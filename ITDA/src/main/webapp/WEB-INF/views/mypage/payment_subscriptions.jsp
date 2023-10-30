@@ -104,11 +104,14 @@
 							<c:if test="${orderList.payedStatus == 'Y'}">
 								<c:out value="결제완료"/>
 							</c:if>
-							<c:if test="${orderList.payedStatus == 'N'}">
-								<c:out value="결제취소"/>
-							</c:if>
 							<c:if test="${orderList.payedStatus == 'F'}">
 								<c:out value="결제실패"/>
+							</c:if>
+							<c:if test="${orderList.payedStatus == 'N'}">
+								<c:out value="결제중단"/>
+							</c:if>
+							<c:if test="${orderList.payedStatus == 'R'}">
+								<c:out value="결제취소"/>
 							</c:if>
 						</strong>
 						<div class="my_subscribe_payment_date"><fmt:formatDate value="${orderList.payedOkDate}" pattern="yyyy.MM.dd" /></div>

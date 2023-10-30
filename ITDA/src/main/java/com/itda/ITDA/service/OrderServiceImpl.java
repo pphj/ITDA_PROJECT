@@ -163,6 +163,11 @@ public class OrderServiceImpl implements OrderService {
 	public Payment isPayRefundOrder(Payment payment) {
 		return dao.isPayRefundOrder(payment);
 	}
+
+	@Override
+	public int updatePayRefundUser(Payment payment) {
+		return dao.updatePayRefundUser(payment);
+	}
 		
 
 

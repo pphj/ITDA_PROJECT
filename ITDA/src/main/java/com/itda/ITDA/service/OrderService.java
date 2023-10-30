@@ -31,5 +31,7 @@ public interface OrderService {
 
 	Payment isPayRefundOrder(Payment payment);
 
+	int updatePayRefundUser(Payment payment);
+
 
 }
