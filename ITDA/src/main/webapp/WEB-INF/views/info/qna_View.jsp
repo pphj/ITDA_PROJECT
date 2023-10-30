@@ -59,16 +59,14 @@
 						</dl>
 					</div>
 					
-					<div class="btn-area">
-					<button type="reset" class="btn-default bg-gray" id="btn-delete">삭제</button>
-				</div>
+					
 				
 				<div class="content-box">
 				<div class="form-list">
-					<dl>
+					<!-- <dl>
 						<dt>답변</dt>
 						<dd>답변 대기중입니다.</dd>
-					</dl>
+					</dl> -->
 				</div>
 				<div class="btn-area">
 					<a href="${pageContext.request.contextPath}/info/qna" class="btn-default">목록</a>

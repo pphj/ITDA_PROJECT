@@ -214,6 +214,24 @@ public class SecurityConfig {
 		   
 	   return http.build();
    }
+   
+   //네이버
+   @Bean
+   public SecurityFilterChain naverSecurityFilterChain(HttpSecurity http) throws Exception {
+       http.antMatcher("/main/**") // 네이버 로그인 URL 설정
+               .authorizeRequests(authorizeRequests -> authorizeRequests
+                       .antMatchers("/resources/**").permitAll()
+                       .antMatchers("/main").access("hasRole('ROLE_USER')") // 이 줄은 해당 유저 권한으로 설정하세요
+               );
+
+       http.formLogin(formLogin -> formLogin
+               .loginPage("/main") // 네이버 로그인 성공 시 리디렉션될 페이지
+               .successHandler(userLoginSuccessHandler()) // 네이버 로그인 성공 처리
+       );
+
+       return http.build();
+   }
+
 
    @Bean	//유저
    public DaoAuthenticationProvider userAuthencationProvider() {

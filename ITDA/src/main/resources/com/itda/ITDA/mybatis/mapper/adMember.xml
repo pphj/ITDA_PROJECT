@@ -43,7 +43,7 @@
 
     <!-- 공지사항 페이지 글 노출 -->
      <select id="getAdminBoardList" resultType="com.itda.ITDA.domain.AdminBoard">
-        SELECT * FROM ADMINBOARD WHERE key != 'QNA' AND (key = 'uNOTI' OR key = 'itNOTI')
+        SELECT * FROM ADMINBOARD WHERE key = 'uNOTI' AND adState = 'Y' AND key != 'QNA'
 
     </select>
 
