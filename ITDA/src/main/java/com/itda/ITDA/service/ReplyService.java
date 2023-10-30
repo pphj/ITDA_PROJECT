@@ -14,10 +14,14 @@ public interface ReplyService {
 
 	int commentsUpdate(BoardReply reply);
 
-	int commentsDelete(int num);
-
 	int getListCount(int boardnum);
 
 	int getTotalReplies(int boardNum);
+
+	int commentsDelete(int num);
+
+	int boardcommentsDelete(int num);
+
+	void deleteBoardReplyByBoardNum(int boardNum);
 
 }

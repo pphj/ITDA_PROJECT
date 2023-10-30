@@ -12,28 +12,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script src="${pageContext.request.contextPath}/js/content/warn.js"></script>
 <link href="${pageContext.request.contextPath}/resources/css/content/warn.css" type="text/css" rel="stylesheet">
-<title>댓글신고</title>
-<style>
-.report_cont {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    height: 200px;
-}
-body {
-    height: 1000px;    /* 높이 설정 */
-    overflow: auto;   /* 스크롤바 추가 */
-}
-</style>
+<title>신고</title>
 </head>
+<body>
 <body>
 	<input type="hidden" name="LoginId" id="LoginId" value="${userinfo.userId}" />
 	<input type="hidden" id="chnum" value="${chnum}">
-	<input type="hidden" id="writer" value="${boardinfo.writer}">
-	
 	
 	<div class="pop_wrap">
 		<div class="pop_header">
-			<h1>댓글 신고하기</h1>
+			<h1>신고하기</h1>
 		</div>
 		<div class="pop_container">
 			<div class="pop_content">
@@ -46,7 +34,7 @@ body {
 						<dt>
 							<span class="inner">내 용</span>
 						</dt>
-						<dd class="report_cont" style="height: 80px;">${reply.replyContent}</dd>
+						<dd class="report_cont">${reply.replyContent}</dd>
 					</dl>
 				</div>
 				<div class="lst_reason">
@@ -62,38 +50,9 @@ body {
 										<button type="button" class="more">
 											<span class="blind">더보기</span>
 										</button>
-										<!-- <ul class="answer_area">
+										<ul class="answer_area">
 											<li class="list_answer">사행성 오락이나 도박을 홍보하거나 권장하는 내용 등의 부적절한 스팸 홍보 행위</li>
 											<li class="list_answer">동일하거나 유사한 내용 반복 게시</li>
-										</ul> -->
-										<ul class="answer_area">
-											<c:choose>
-												<c:when test="${category.warnCateId eq 1}">
-													<li class="list_answer">동일하거나 유사한 내용 반복 게시</li>
-												</c:when>
-												<c:when test="${category.warnCateId eq 2}">
-													<li class="list_answer">불법 행위, 불법 링크에 대한 정보 제공</li>
-													<li class="list_answer">불법 상품을 판매하거나 유도하는 내용</li>
-												</c:when>
-												<c:when test="${category.warnCateId eq 3}">
-													<li class="list_answer">성적 수치심을 일으키는 내용</li>
-													<li class="list_answer">가출/왕따/학교폭력/자살 등 청소년에게 부정적인 영향을 조성하는 내용</li>
-												</c:when>
-												<c:when test="${category.warnCateId eq 4}">
-													<li class="list_answer">직·간접적인 욕설을 사용하여 타인에게 모욕감을 주는 내용</li>
-													<li class="list_answer">생명을 경시여기거나 비하하는 내용</li>
-												</c:when>
-												<c:when test="${category.warnCateId eq 5}">
-													<li class="list_answer">사행성 오락이나 도박을 홍보하거나 권장하는 내용 등의 부적절한 스팸 홍보 행위</li>
-												</c:when>
-												<c:when test="${category.warnCateId eq 6}">
-													<li class="list_answer">당사자 동의 없는 특정 개인을 인지할 수 있는 정보</li>
-													<li class="list_answer">법적으로 중요한 타인의 개인정보를 게재</li>
-												</c:when>
-												<c:when test="${category.warnCateId eq 7}">
-													<li class="list_answer">불쾌한 표현 포함</li>
-												</c:when>
-											</c:choose>
 										</ul>
 									</div>
 								</li>
@@ -114,11 +73,9 @@ body {
 		<div class="pop_footer">
 			<a href="#" class="btn_submit">신고하기</a>
 		</div>
-		<!-- 
 		<button type="button" class="btn_close">
 			<span class="blind">닫기</span>
 		</button>
-		-->
 	</div>
 	<script>
 		/*<![CDATA[*/

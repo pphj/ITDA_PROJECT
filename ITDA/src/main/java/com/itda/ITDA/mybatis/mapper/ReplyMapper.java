@@ -17,7 +17,7 @@ public interface ReplyMapper {
 
 	int commentsUpdate(BoardReply reply);
 
-	int commentsDelete(int num);
+	int commentsDelete(int num, int replyRef, int replyLev, int replySeq);
 
 	int getListCount(int boardnum);
 
@@ -28,5 +28,13 @@ public interface ReplyMapper {
 	List<BoardReply> getRepliesDesc(int boardNum);
 
 	List<BoardReply> getRepliesAsc(int boardNum);
+
+	BoardReply getDetail(int num);
+
+	int commentsDelete(BoardReply boardReply);
+
+	List<BoardReply> getDetails(int num);
+
+	void deleteBoardReplyByBoardNum(int boardNum);
 
 }

@@ -100,14 +100,12 @@
 										class="u_cnt_count">${rcnt}</em> </a>
 								</span>
 							</div>
-							<sec:authorize access="isAuthenticated()">
-								<sec:authentication property="principal" var="pinfo" />
-								<c:if test="${sellerinfo.userId != pinfo.username}">
-									<button type="button" class="btn_type btn_Delete" data-board-num="${board.boardNum}" style="width: 200px;">
-										<p style="width: 200px; height: 10px; color: #929294;">게시글 신고하기</p>
-									</button>
-								</c:if>
-							</sec:authorize>
+							<sec:authentication property="principal" var="pinfo" />
+							<c:if test="${sellerinfo.userId != pinfo.username}">
+								<button type="button" class="btn_type btn_Delete" data-board-num="${board.boardNum}" style="width: 200px;">
+									<p style="width: 200px; height: 10px; color: #929294;">게시글 신고하기</p>
+								</button>
+							</c:if>
 						</div>
 					</div>
 				</div>

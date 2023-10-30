@@ -2,14 +2,17 @@ package com.itda.ITDA.mybatis.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.itda.ITDA.domain.BoardReply;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.domain.Tag;
@@ -17,7 +20,6 @@ import com.itda.ITDA.domain.WCATEGORY;
 
 @Mapper
 public interface ContentMapper {
-
 
 	List<ChBoard> getContentAll(int pageCount, int startRow, int endRow);
 
@@ -55,11 +57,38 @@ public interface ContentMapper {
 
 	String findNameById(int chCateId);
 
-	void deleteBoard(int boardNum);
+	int deleteBoard(int boardNum);
 
 	void increaseViewCount(int boardNum, int boardVisit);
 
 	void increaseViewCount(int boardNum);
 
-	WCATEGORY getWarnCategory();
+	BoardReply getReplyById(int replyNum);
+
+	List<WCATEGORY> getAllWCategories();
+
+	int insertReport(Map<String, Object> params);
+
+	Itda_User getUser(String userId);
+
+	boolean checkReportedCategory(String userId, String category);
+
+	ChBoard getBoardInfo(int boardNum);
+
+	int insertContentReport(Map<String, Object> params);
+
+	boolean checkContentCategory(String userId, String category);
+
+	Itda_User getUsersFromGoodUser(String userid);
+
+	GoodUser getsubUser(String userid);
+
+	void deleteWarningsByBoardNum(int boardNum);
+
+	boolean checkReportStatus(int num);
+
+	ChannelList getChannelListByChnum(int chnum);
+
+	Seller getSellerInfoByUserId(String userId);
+
 }

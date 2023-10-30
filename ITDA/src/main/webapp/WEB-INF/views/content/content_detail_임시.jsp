@@ -13,35 +13,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<script> var contextPath = "<%=request.getContextPath()%>"
+<script> var contextPath = "<%=request.getContextPath()%>
+	"
 </script>
 <script src="${pageContext.request.contextPath}/js/content/Reply.js"></script>
 <script src="${pageContext.request.contextPath}/js/content/HeartandVisit.js"></script>
-<link href='${pageContext.request.contextPath}/resources/css/content/Reply.css' type='text/css' rel='stylesheet'>
+<link href='${pageContext.request.contextPath}/resources/css/Reply.css' type='text/css' rel='stylesheet'>
 <link href="${pageContext.request.contextPath}/resources/css/content/content_detail.css" type="text/css" rel="stylesheet">
 <script>
 	$(document).ready(function() {
 		getList(1); // 페이지 로드 시 처음으로 댓글 목록 가져오기
-		
-		$('.btn_Delete').on('click', function(e) {
-		    e.preventDefault();
-
-		    // 팝업 창 설정
-		    let width = 736; // 팝업 창의 너비
-    		let height = 945; // 팝업 창의 높이
-		    let left = (window.screen.width - width) / 2;
-		    let top = (window.screen.height - height) / 2;
-		    
-		 	// 팝업 창 열기
-		    let popupWindow = window.open(contextPath + '/contents/contentwarn/' + ${board.chNum} + '?boardNum=' + ${board.boardNum}, '신고하기', 
-		        'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
-		 	
-		 	
-		});
-
-	});	
+	});
 </script>
-<title>${board.boardTitle}</title>
+<title>${board.boardTitle}${subUser.userId}</title>
 </head>
 <body>
 	<input type="hidden" name="LoginId" id="LoginId" value="${userinfo.userId }" />
@@ -51,7 +35,7 @@
 		<div class="board_detail_all_group">
 			<div class="board_detail_title_group">
 				<div class="inline_header">
-					<a href="${pageContext.request.contextPath}/channels/${board.chNum}?userid=${board.writer}" class="button_back _BACK"><img
+					<a href="${pageContext.request.contextPath}/channels/${board.chNum}?userid=${userinfo.userId }" class="button_back _BACK"><img
 						class="link_premium" style="width: 30px; margin-top: 20px;" src="/itda/resources/image/content/errow_left.png"> <span
 							class="blind">이전으로</span> </a>
 				</div>
@@ -75,15 +59,16 @@
 							</button>
 						</a>
 						<form name="deleteForm" action="${pageContext.request.contextPath}/contents/${board.chNum}/delete" method="post"
-							style="all: unset;" onsubmit="return confirm('정말 삭제하시겠습니까?')">
+							style="all: unset;">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> <input type='hidden' name='boardnum'
 								value='${board.boardNum}' />
 							<button type="submit" class="btn_type">
 								<span class="txt_default">
-									<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png"> <b>글삭제</b>
+									<img class="ico_plus" src="${pageContext.request.contextPath}/resources/image/channel/ico-plus.png"><b>글삭제</b>
 								</span>
 							</button>
 						</form>
+
 					</c:if>
 				</sec:authorize>
 				<div class="viewer_title_content">
@@ -103,93 +88,109 @@
 							<sec:authorize access="isAuthenticated()">
 								<sec:authentication property="principal" var="pinfo" />
 								<c:if test="${sellerinfo.userId != pinfo.username}">
-									<button type="button" class="btn_type btn_Delete" data-board-num="${board.boardNum}" style="width: 200px;">
-										<p style="width: 200px; height: 10px; color: #929294;">게시글 신고하기</p>
-									</button>
+									<!-- 로그인한 사용자의 ID와 sellerinfo.userId가 다르면 버튼을 보여줌 -->
+									<a href="${pageContext.request.contextPath}/contents/contentwarn/${board.chNum}?boardNum=${board.boardNum}">
+										<button type="button" class="btn_type" style="width: 200px;">
+											<p style="width: 200px; height: 10px; color: #929294;">게시글 신고하기</p>
+										</button>
+									</a>
 								</c:if>
+							</sec:authorize>
+							<sec:authorize access="isAnonymous()">
+								<!-- 로그인하지 않은 사용자에게 버튼을 보여줌 -->
+								<button type="button" class="btn_type" style="width: 200px;" onclick="alert('로그인 후 사용해주세요.')">
+									<p style="width: 200px; height: 10px; color: #929294;">게시글 신고하기</p>
+								</button>
 							</sec:authorize>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!--  
-			<div class="viewer_main_text_group">
-				<div class="ck-content content_main_text">${board.boardContent}
-					<input type="hidden" name="num" value="${board.boardNum}" id="Reply_board_num">
-				</div>
-			</div> 
-			-->
+			<%-- <div class="viewer_main_text_group">
+					<div class="ck-content content_main_text">${board.boardContent}
+						<input type="hidden" name="num" value="${board.boardNum}" id="Reply_board_num">
+					</div>
+				</div> --%>
+			<c:choose>
+				<c:when test="${not empty subUser}">
+					<!-- 구독자에게 보여줄 콘텐츠 -->
+					<div class="viewer_main_text_group">
+						<div class="ck-content content_main_text">${board.boardContent}
+							<input type="hidden" name="num" value="${board.boardNum}" id="Reply_board_num">
+						</div>
+					</div>
+				</c:when>
+				<c:when test="${sellerinfo.userId == principal.username}">
+					<!-- 판매자에게 보여줄 콘텐츠 -->
+					<div class="viewer_main_text_group">
+						<div class="ck-content content_main_text">${board.boardContent}
+							<input type="hidden" name="num" value="${board.boardNum}" id="Reply_board_num">
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<!-- 비구독자에게 보여줄 콘텐츠 -->
+					<div class="viewer_main_text_group">
+						<div class="ck-content content_main_text">${fn:substring(board.boardContent, 0, 150)}
+							<!-- 내용의 첫 500자만 출력 -->
+							<input type="hidden" name="num" value="${board.boardNum}" id="Reply_board_num">
+						</div>
+					</div>
+				</c:otherwise>
 
-			<div class="viewer_main_text_group">
-				<div class="ck-content content_main_text">
-					<sec:authorize access="isAuthenticated()">
-						<sec:authentication property="principal" var="pinfo" />
-						<c:choose>
-							<c:when test="${sellerinfo != null and sellerinfo.userId == pinfo.username}">
-								<!-- 채널 주인인 경우, 게시글의 전체 내용을 보여줍니다. -->   			
-			                   			 ${board.boardContent}
-			                </c:when>
+			</c:choose>
 
-							<c:when test="${subUser != null and subUser.userId == pinfo.username}">
-								<!-- 구독자인 경우, 게시글의 전체 내용을 보여줍니다. -->
-										${board.boardContent}
-							</c:when>
 
-							<c:otherwise>
-								<!-- 채널 주인이나 구독자가 아닌 로그인한 사용자에게 게시글의 내용을 150자까지만 보여줍니다. -->
-			                    		${fn:substring(board.boardContent, 0, 150)}
-			                </c:otherwise>
-						</c:choose>
-					</sec:authorize>
-
-					<sec:authorize access="isAnonymous()">
-						<!-- 로그인하지 않은 사용자에게 게시글의 내용을 150자까지만 보여줍니다. -->
-			            ${fn:substring(board.boardContent, 0, 150)}
-			        </sec:authorize>
-
-					<input type="hidden" name="num" value="${board.boardNum}" id="Reply_board_num">
-				</div>
-			</div>
-
-			<div class="viewer_bottom_warp">
-
-				<sec:authorize access="isAuthenticated()">
-					<sec:authentication property="principal" var="pinfo" />
-					<c:choose>
-						<c:when test="${sellerinfo != null and sellerinfo.userId == pinfo.username}">
-							<!-- 채널 주인 또는 구독자인 경우, 메시지를 숨깁니다. -->
-						</c:when>
-
-						<c:when test="${subUser != null and subUser.userId == pinfo.username}">
-
-						</c:when>
-
-						<c:otherwise>
-							<!-- 채널 주인이나 구독자가 아닌 로그인한 사용자에게 메시지를 보여줍니다. -->
-							<div class="viewer_paywall_none">
-								<p class="viewer_paywall_none_text">해당 콘텐츠는 프리미엄 구독자 공개(유료) 콘텐츠로 무단 캡쳐 및 불법 공유시 법적 제재를 받을 수 있습니다.</p>
+			<sec:authorize access="isAuthenticated()">
+				<c:if test="${subUser.userId != goodUsers.userId && sellerinfo.userId != principal.username}">
+					<div class="viewer_bottom_warp">
+						<div class="viewer_paywall_none">
+							<p class="viewer_paywall_none_text">해당 콘텐츠는 프리미엄 구독자 공개(유료) 콘텐츠로 무단 캡쳐 및 불법 공유시 법적 제재를 받을 수 있습니다.</p>
+						</div>
+						<div class="viewer_paywall">
+							<div class="viewer_paywall_text">
+								<strong class="viewer_paywall_title">본 콘텐츠는 무료로 제공중입니다.<br>콘텐츠가 마음에 드셨나요?
+								</strong>
+								<p class="viewer_paywall_desc">올바른 구독으로 더 많은 콘텐츠를 만나보세요!</p>
 							</div>
-							<div class="viewer_paywall">
-								<div class="viewer_paywall_text">
-									<strong class="viewer_paywall_title">본 콘텐츠는 무료로 제공중입니다.<br>콘텐츠가 마음에 드셨나요?
-									</strong>
-									<p class="viewer_paywall_desc">올바른 구독으로 더 많은 콘텐츠를 만나보세요!</p>
-								</div>
-								<div class="viewer_paywall_subscribe _PAYWALL_BUTTON" data-is-ticket="true" data-is-product="" data-price="19,900"
-									data-url="/allbareun/allbareunkr/subscriptions?rContentId=230726221406327lp">
-									<div class="viewer_paywall_subscribe_inner">
-										<a href="${pageContext.request.contextPath}/product/subscriptions"> <span class="viewer_paywall_subscribe_title">프리미엄
-												구독으로 다양한 콘텐츠를 만나보세요!</span>
-										</a>
-									</div>
+							<div class="viewer_paywall_subscribe _PAYWALL_BUTTON" data-is-ticket="true" data-is-product="" data-price="19,900"
+								data-url="/allbareun/allbareunkr/subscriptions?rContentId=230726221406327lp">
+								<div class="viewer_paywall_subscribe_inner">
+									<a href="${pageContext.request.contextPath}/product/subscriptions"> <span class="viewer_paywall_subscribe_title">프리미엄
+											구독으로 다양한 콘텐츠를 만나보세요!</span>
+									</a>
 								</div>
 							</div>
-						</c:otherwise>
-					</c:choose>
-				</sec:authorize>
+						</div>
 
-				<sec:authorize access="isAnonymous()">
-					<!-- 로그인하지 않은 사용자에게 메시지를 보여줍니다. -->
+						<div class="viewer_bottom_info">
+							<div class="viewer_tag">
+								<ul class="viewer_tag_list">
+									<c:forEach var="tag" items="${taginfo}" varStatus="status">
+										<input type="hidden" name="tagId" value="${tag.tagId}">
+										<li class="viewer_tag_item">
+											<a href class="viewer_tag_link" data-clk="chlh_cont.tag">${tag.tagName}</a>
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
+							<div class="viewer_bottom_count_wrap">
+								<div class="viewer_bottom_count">
+									<span class="content_comment_wrap">
+										<a href><img class="content_comment_img" src='${pageContext.request.contextPath}/image/content/heart.png'> <span
+												class="content_comment_count"></span> <em class="u_heart_count">${board.boardHeart}</em> </a> <a href><img
+											class="content_comment_img2" src='${pageContext.request.contextPath}/image/content/comment.png'> <span
+												class="content_comment_count"></span> <em class="u_cnt_count">${rcnt}</em> </a>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
+			</sec:authorize>
+
+			<sec:authorize access="isAnonymous()">
+				<div class="viewer_bottom_warp">
 					<div class="viewer_paywall_none">
 						<p class="viewer_paywall_none_text">해당 콘텐츠는 프리미엄 구독자 공개(유료) 콘텐츠로 무단 캡쳐 및 불법 공유시 법적 제재를 받을 수 있습니다.</p>
 					</div>
@@ -208,32 +209,31 @@
 							</div>
 						</div>
 					</div>
-				</sec:authorize>
 
-
-				<div class="viewer_bottom_info">
-					<div class="viewer_tag">
-						<ul class="viewer_tag_list">
-							<c:forEach var="tag" items="${taginfo}" varStatus="status">
-								<input type="hidden" name="tagId" value="${tag.tagId}">
-								<li class="viewer_tag_item">
-									<a href class="viewer_tag_link" data-clk="chlh_cont.tag">${tag.tagName}</a>
-								</li>
-							</c:forEach>
-						</ul>
-					</div>
-					<div class="viewer_bottom_count_wrap">
-						<div class="viewer_bottom_count">
-							<span class="content_comment_wrap">
-								<a href><img class="content_comment_img" src='${pageContext.request.contextPath}/image/content/heart.png'> <span
-										class="content_comment_count"></span> <em class="u_heart_count">${board.boardHeart}</em> </a> <a href><img
-									class="content_comment_img2" src='${pageContext.request.contextPath}/image/content/comment.png'> <span
-										class="content_comment_count"></span> <em class="u_cnt_count">${rcnt}</em> </a>
-							</span>
+					<div class="viewer_bottom_info">
+						<div class="viewer_tag">
+							<ul class="viewer_tag_list">
+								<c:forEach var="tag" items="${taginfo}" varStatus="status">
+									<input type="hidden" name="tagId" value="${tag.tagId}">
+									<li class="viewer_tag_item">
+										<a href class="viewer_tag_link" data-clk="chlh_cont.tag">${tag.tagName}</a>
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
+						<div class="viewer_bottom_count_wrap">
+							<div class="viewer_bottom_count">
+								<span class="content_comment_wrap">
+									<a href><img class="content_comment_img" src='${pageContext.request.contextPath}/image/content/heart.png'> <span
+											class="content_comment_count"></span> <em class="u_heart_count">${board.boardHeart}</em> </a> <a href><img
+										class="content_comment_img2" src='${pageContext.request.contextPath}/image/content/comment.png'> <span
+											class="content_comment_count"></span> <em class="u_cnt_count">${rcnt}</em> </a>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</sec:authorize>
 		</div>
 		<div class="reply_area" id="reply_area">
 			<div class="reply_head">

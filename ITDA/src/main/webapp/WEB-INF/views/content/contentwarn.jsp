@@ -10,18 +10,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<script src="${pageContext.request.contextPath}/js/content/warn.js"></script>
-<link href="${pageContext.request.contextPath}/resources/css/content/warn.css" type="text/css" rel="stylesheet">
-<title>댓글신고</title>
+<script src="${pageContext.request.contextPath}/js/content/contentwarn.js"></script>
+<link href="${pageContext.request.contextPath}/resources/css/content/contentwarn.css" type="text/css" rel="stylesheet">
+<title>게시글신고</title>
 <style>
 .report_cont {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    height: 200px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	height: 200px;
 }
+
 body {
-    height: 1000px;    /* 높이 설정 */
-    overflow: auto;   /* 스크롤바 추가 */
+	height: 1000px; /* 높이 설정 */
+	overflow: auto; /* 스크롤바 추가 */
 }
 </style>
 </head>
@@ -29,11 +30,11 @@ body {
 	<input type="hidden" name="LoginId" id="LoginId" value="${userinfo.userId}" />
 	<input type="hidden" id="chnum" value="${chnum}">
 	<input type="hidden" id="writer" value="${boardinfo.writer}">
-	
-	
+
+
 	<div class="pop_wrap">
 		<div class="pop_header">
-			<h1>댓글 신고하기</h1>
+			<h1>게시글 신고하기</h1>
 		</div>
 		<div class="pop_container">
 			<div class="pop_content">
@@ -42,11 +43,11 @@ body {
 						<dt>
 							<span class="inner">작성자</span>
 						</dt>
-						<dd class="report_nick">${reply.replyWriter}</dd>
+						<dd class="report_nick">${boardinfo.writer }</dd>
 						<dt>
 							<span class="inner">내 용</span>
 						</dt>
-						<dd class="report_cont" style="height: 80px;">${reply.replyContent}</dd>
+						<dd class="report_cont">${boardinfo.boardContent }</dd>
 					</dl>
 				</div>
 				<div class="lst_reason">
@@ -96,13 +97,12 @@ body {
 											</c:choose>
 										</ul>
 									</div>
-								</li>
 							</c:forEach>
 						</ul>
 
 						<div class="other-reason" style="display: none;">
 							<label for="otherReason" style="font-size: 14px; margin-left: 55px; margin-top: 5px;">기타 신고 사유</label>
-							<textarea class= "list" id="otherReason" name="otherReason" ></textarea>
+							<textarea class="list" id="otherReason" name="otherReason"></textarea>
 						</div>
 
 					</div>
@@ -114,7 +114,7 @@ body {
 		<div class="pop_footer">
 			<a href="#" class="btn_submit">신고하기</a>
 		</div>
-		<!-- 
+		<!--  -
 		<button type="button" class="btn_close">
 			<span class="blind">닫기</span>
 		</button>
