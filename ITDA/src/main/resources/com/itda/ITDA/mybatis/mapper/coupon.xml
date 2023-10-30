@@ -31,11 +31,12 @@
 	<!-- 유저가 등록한 쿠폰의 정보를 불러오는 쿼리 -->
 	<select id="myCouponList" resultType="CouponIssue">
 		SELECT 
-				c.couponname, c.coupondetail, c.couponprice,
-		       ci.userid, ci.cpuse, ci.startdate, ci.couponuseexdate
+				c.couponname, c.coupondetail, c.couponprice, 
+		       ci.cpNum, ci.userid, ci.cpuse, ci.startdate, ci.couponuseexdate
 		FROM coupon c
 		JOIN couponissue ci ON c.couponcode = ci.couponcode
 		WHERE ci.userid = #{userId} and ci.cpuse = 'N'
+		order by ci.startdate asc
 	</select>
 	
 	<!-- 유저가 가진 쿠폰 갯수 -->

@@ -144,16 +144,16 @@
 				</div>
 			</div>
 			<div class="myc_caution">
-					<button id="_COUPON_DESCRIPTION_171811956" class="myc_caution_button _TOGGLE" type="button" data-target="_COUPON_DESCRIPTION_171811956" data-classValue="is_open" data-show-clk="my_coupon.expopen" data-hide-clk="my_coupon.expclose">쿠폰설명 (유의사항)</button>
+					<button id="_COUPON_DESCRIPTION_${couponList.cpNum }" class="myc_caution_button _TOGGLE" type="button" data-target="_COUPON_DESCRIPTION_${couponList.cpNum }" data-classValue="is_open" data-show-clk="my_coupon.expopen" data-hide-clk="my_coupon.expclose">쿠폰설명 (유의사항)</button>
 					<ul class="myc_caution_list">
 						<li class="myc_caution_item">기간 : <fmt:formatDate value="${couponList.startDate}" pattern="yyyy.MM.dd. HH:MM" /> ~ <fmt:formatDate value="${couponList.couponUseExdate}" pattern="yyyy.MM.dd. HH:MM" /></li>
 						<li class="myc_caution_item">상품 : ${couponList.couponName}
 						</li>
 						<li class="myc_caution_item">설명 : ${couponList.couponDetail}</li>
-						</c:forEach>
 					</ul>
 			</div>
 		</li>
+		</c:forEach>
 	</ul>
 	<div class="loading _CONTENT_LIST_LOADING" style="display:none;">
 		<div class="loader">
@@ -291,7 +291,7 @@ $(document).ready(function() {
     var $emElement = $(".myc_badge");
 
     // data-useExdate 속성에서 날짜 정보 가져오기
-    var useExdate = $emElement.data("useexdate");
+    var useExdate = $(this).data("useexdate");
 
     // 현재 날짜 가져오기
     var currentDate = new Date();
