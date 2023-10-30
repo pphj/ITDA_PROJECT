@@ -55,7 +55,6 @@
 						<!-- <img class="thumbNailImage" src="${src}" alt="profile">  -->
 						<img class="thumbNailImage" style="display: block;" 
 							src="${pageContext.request.contextPath}/image/contents/${chboard.chNum}${chboard.thumbNail}" alt="profile">
-
 						<textarea name="content" id="editor"></textarea>
 
 					</div>
@@ -65,7 +64,7 @@
 					<button class="tag_add" id="tag_add" type="button" onclick="cnt_tag();">추가</button>
 					<div class="add_tag_group">
 						<div class="viewer_tag">
-							<ul class="viewer_tag_list" id="ul_tag_list">
+							<ul class="viewer_tag_list" id="ul_tag_list" style=" display: flex; flex-direction: row; flex-wrap: wrap;">
 									<ul class="viewer_tag_list">
 										<c:forEach var="tag" items="${taginfo}" varStatus="status">
 											<input type="hidden" name="tagId" value="${tag.tagId}">

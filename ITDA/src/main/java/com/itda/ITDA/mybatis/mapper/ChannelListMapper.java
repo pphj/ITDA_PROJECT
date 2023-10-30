@@ -2,6 +2,7 @@ package com.itda.ITDA.mybatis.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -72,7 +73,7 @@ public interface ChannelListMapper {
 
 	// int contentInsert(ChBoard contentAdd);
 
-	Seller getContentSellerInfo(String userid);
+	ChannelList getContentSellerInfo(String userid);
 
 	List<ChBoard> newContentSelect(int chnum);
 
@@ -86,7 +87,7 @@ public interface ChannelListMapper {
 
 	boolean checkSubscription(String userId, int chnum);
 
-	sub getBoardVisit(int chnum);
+	Map<String, Object> getBoardVisit(int chnum);
 
 	int getSubscriberCount(String userId, int chnum);
 

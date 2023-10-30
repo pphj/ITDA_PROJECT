@@ -236,8 +236,8 @@
 		)
 	</insert>
 	
-	<select id="getContentSellerInfo" resultType="Seller">
-		SELECT * FROM SELLER
+	<select id="getContentSellerInfo" resultType="Channellist">
+		SELECT * FROM chboard
 		WHERE
 		userId = #{userid}
 	</select>
@@ -281,10 +281,10 @@
 	    WHERE userid = #{userId} AND subchnum = #{chnum}
 	</select>
 	
-	<select id="getBoardVisit" resultType="sub">
-	     SELECT COUNT(userid) as subscriberCount
-	     FROM sub 
-	     WHERE subchnum = #{subchnum}
+	<select id="getBoardVisit" resultType="map">
+	    SELECT COUNT(userid) AS subscriberCount
+	    FROM sub 
+	    WHERE subchnum = #{subchnum}
 	</select>
 	
 	
