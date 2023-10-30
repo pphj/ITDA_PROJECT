@@ -123,6 +123,7 @@
 		WHERE userId = #{userId}
 	</delete>
 	
+	<!-- 유저 관심 카테고리 수정 -->
 	<update id="userCategoryUpdate" parameterType="usercategory">
 	    update usercategory
 	    set cate_Id = #{cate_Id}
@@ -242,15 +243,14 @@
 	<select id="likeContentList" resultType="LikeContent">
 		SELECT 
 				h.id, h.user_id, h.board_num, h.created_at,
-		       cb.boardnum, cb.boardtitle, cb.boardheart, cb.boarddate, cb.thumbnail,
-		       cl.chnum, cl.chname, cb.writer
+		       cb.boardtitle, cb.boardheart, cb.boarddate, cb.thumbnail,
+		       cl.chnum, cl.chname
 		FROM 
 				Heart h
 		INNER JOIN chboard cb ON h.board_num = cb.boardnum
 		INNER JOIN channellist cl ON cb.chnum = cl.chnum
 		WHERE 
 			h.user_id = #{userId}
-		order by h.created_at desc
 	</select>
 	
 		<!-- 나의 좋아요 게시글 전체 count -->
@@ -299,6 +299,11 @@
 		  AND bo.boarddate >= (SYSDATE - 7)  
 		ORDER BY bo.boarddate DESC
 	</select>
+		
+	<!-- 구독한 채널 삭제하는 쿼리문 -->
+	<delete	id="deleteLickCh" parameterType="sub">
+		delete sub where userid=#{userid} and subchnum = #{subchnum}
+	</delete>
 	
 	
 	

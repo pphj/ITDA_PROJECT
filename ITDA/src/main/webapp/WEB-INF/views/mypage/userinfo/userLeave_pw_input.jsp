@@ -102,26 +102,6 @@ function mainSubmit() {
 
 }
 
-/* function createRsaKey() {
-	var rsa = new RSAKey();
-	var sessionKey = "";
-	var keyName = "";
-	var eValue = "";
-	var nValue = "";
-	var id = "";
-	rsa.setPublic(eValue, nValue);
-    
-	if (sessionKey == "" || eValue == "" || nValue == "" || keyName == "") {
-		alert("일시적인 오류입니다. 처음부터 다시 진행해 주세요.");
-		reset();
-	} else {
-		var form = document.getElementById("fm");
-		var comVal = getLenChar(sessionKey) + sessionKey + getLenChar(id) + id;
-		form.encPasswd.value = rsa.encrypt(comVal + getLenChar(form.upw.value) + form.upw.value);
-		form.encNm.value = keyName;
-		document.fm.upw.value = "";
-	}
-} */
 function getLenChar(texts) {
 	texts = texts + "";
 	return String.fromCharCode(texts.length);

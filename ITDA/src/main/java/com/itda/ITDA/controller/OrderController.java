@@ -2,6 +2,7 @@ package com.itda.ITDA.controller;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -121,7 +121,7 @@ public class OrderController {
 
 	}	
 		
-	@PostMapping("/subscriptions/info/order/kakaoPay.do")
+	@GetMapping("/subscriptions/info/order/kakaoPay.do")
 	public @ResponseBody ReadyResponse payReady(Principal principal, 
 										SubProduct product,
 										Model model, 
@@ -171,24 +171,22 @@ public class OrderController {
 								Payment payment,
 								Model model,
 								Principal principal,
-								Paycall payCall, 
 								GoodUser goodUser) throws Exception {
 		
 		logger.info("결제승인 요청을 인증하는 토큰: " + pgToken);
 		logger.info("결제고유 번호: " + tid);
 		logger.info("getOrderNo 번호: " + getOrderNo);
-		
-		String id = principal.getName();
+
 		// 카카오 결재 요청하기
 		KakaoPayApproval approveResponse = orderService.payApprove(tid, pgToken, getOrderNo);
-		GoodUser isGoodUser = itdaUserService.isGoodUser(id);
-		
+
 		if (pgToken != null && tid != null) {
 			// 5. payment 저장
 			// orderNo, payMathod, 주문명.
 			// - 카카오 페이로 넘겨받은 결재정보값을 저장.
 			// payment.setOrderNum(Integer.parseInt(approveResponse.getItem_code()));
-			
+			String id = principal.getName();
+
 			Amount amount = approveResponse.getAmount();
 
 			payment.setPayedMethod(approveResponse.getPayment_method_type()); // 결제 수단
@@ -211,7 +209,7 @@ public class OrderController {
 					Payment completUser = orderService.paymentCompletUser(id);
 
 					// GoodUser goodUser = new GoodUser();
-					
+					GoodUser isGoodUser = itdaUserService.isGoodUser(id);
 
 					Timestamp realTime = new Timestamp(System.currentTimeMillis());
 					Timestamp getEndDate;
@@ -283,10 +281,6 @@ public class OrderController {
 			}
 
 		}
-		// 결제가 실패하거나 문제가 생겼을 경우 페이지 이동 or 결제 테이블 payment에 insert문 구현필요
-		//else {
-			//payCall.set
-		//}
 
 		// logger.info(order);
 		logger.info("payment.getPayedCode" + payment.getPayedCode());

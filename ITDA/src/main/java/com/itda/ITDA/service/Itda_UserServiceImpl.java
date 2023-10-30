@@ -1,9 +1,7 @@
 package com.itda.ITDA.service;
 
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,11 +9,12 @@ import org.springframework.stereotype.Service;
 import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.LikeChNewContent;
-import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.LikeChannel;
+import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
+import com.itda.ITDA.domain.sub;
 import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
 
 @Service
@@ -224,6 +223,12 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 	public List<LikeChNewContent> myLikeChNewContentList(String id) {
 		return dao.myLikeChNewContentList(id);
 	}
+
+	@Override
+	public int deleteLickCh(sub sub) {
+		return dao.deleteLickCh(sub);
+	}
+
 
 
 

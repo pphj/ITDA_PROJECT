@@ -1,16 +1,16 @@
 package com.itda.ITDA.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.LikeChNewContent;
-import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.LikeChannel;
+import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
+import com.itda.ITDA.domain.sub;
 
 public interface Itda_UserService {
 
@@ -81,6 +81,8 @@ public interface Itda_UserService {
 	int myLikeChListCount(String id);
 
 	List<LikeChNewContent> myLikeChNewContentList(String id);
+
+	int deleteLickCh(sub sub);
 	
 
 

@@ -15,18 +15,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.Coupon;
+import com.itda.ITDA.domain.CouponIssue;
 import com.itda.ITDA.domain.Itda_User;
-import com.itda.ITDA.domain.LikeChNewContent;
 import com.itda.ITDA.domain.LikeChannel;
 import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
+import com.itda.ITDA.domain.sub;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.ContentService;
+import com.itda.ITDA.service.CouponService;
+//github.com/pphj/ITDA_PROJECT.git
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.OrderService;
 import com.itda.ITDA.service.heartService;
+import com.itda.ITDA.util.Constants;
 import com.itda.ITDA.util.Message;
 
 @Controller
@@ -40,25 +47,25 @@ public class MyContentsPageController {
 	private OrderService orderService;
 	private ContentService contentService;
 	private heartService heartService; 
+	private CouponService couponService;
 	
 	
 	@Autowired
 	public MyContentsPageController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service, 
 									OrderService orderService, ContentService contentService,
-									heartService heartService) {
+									heartService heartService, CouponService couponService) {
 		this.itdaUserService = itdaUserService;
 		this.channelList_Service = channelList_Service;
 		this.orderService = orderService;
 		this.contentService = contentService;
 		this.heartService = heartService;
+		this.couponService = couponService;
 	}
 	
 	
 	@GetMapping(value="/subscriptions")
 	public String goSubscriptions(Model model,
-								  HttpSession session, 
-								  Principal principal,
-								  LikeChannel LikeChannel) {
+			HttpSession session, Principal principal) {
 		
 		String id = principal.getName();
 		logger.info("id : " + principal.getName());
@@ -77,13 +84,6 @@ public class MyContentsPageController {
 	    	session.setAttribute("userId", vo.getUserId());
 	    	session.setAttribute("userProfile", vo.getUserProfile());
 	    	
-	    	List<LikeChannel> likeChList = itdaUserService.myLikeChList(id);
-	    	int count = itdaUserService.myLikeChListCount(id);
-	    	
-	    	model.addAttribute("likeChList", likeChList);
-	    	model.addAttribute("count", count);
-	    	model.addAttribute("subActive", "active");
-	    	
 	    	if (sellerId == null || sellerId.equals("")) {
 	    		model.addAttribute("message", "NOT_SELLER");
 	    		session.setAttribute("message", "NOT_SELLER");
@@ -101,25 +101,77 @@ public class MyContentsPageController {
 	
 	// 마이페이지 구독채널의 최신 콘텐츠
 	@GetMapping(value="/subscriptions/contents")
-	public String subscriptionsContents(LikeChNewContent newContent,
-										Principal principal,
-										Model model) {
-		
-		String id = principal.getName();
-		
-		List<LikeChNewContent> newContentList = itdaUserService.myLikeChNewContentList(id);
-		
-		model.addAttribute("newContentList", newContentList);
-		model.addAttribute("subActive", "active");
-		
+	public String subscriptionsContents() {
 		return"mypage/subscriptions_contents";
 	}
 	
 	// 마이페이지 쿠폰
 	@GetMapping(value="/coupons")
-	public String coupons() {
+	public String coupons(Coupon coupon,
+						  CouponIssue cpIssue,
+						  Principal principal,
+						  Model model) {
+		
+		String id = principal.getName();
+		
+		List<CouponIssue> myCouponList = couponService.myCouponList(id);
+		int count = couponService.myCouponCount(id);
+		
+		model.addAttribute("couponList", myCouponList);
+		model.addAttribute("count", count);
+		model.addAttribute("cpActive", "is_active");
+		
 		return"mypage/coupons";
 	}
+	
+	// 마이페이지 쿠폰 번호 체크
+	@PostMapping(value="coupons/cpCodeCheck")
+	@ResponseBody
+	public int couponCodeCheck(@RequestParam("couponCode") String couponCode) {
+		
+		
+		int result = couponService.isCouponCode(couponCode);
+		
+		logger.info("result ======= " + result);
+		
+			return result;
+	}
+	
+	
+	// 마이페이지 쿠폰 등록
+	@PostMapping(value="coupons/couponAddPro")
+	public String couponAddProcess(CouponIssue couponIssue,
+									Coupon coupon,
+									Principal principal,
+									@RequestParam("couponCode") String couponCode) {
+		
+		String id = principal.getName();
+		
+		couponIssue.setCouponCode(couponIssue.getCouponCode());
+		
+		couponIssue = couponService.isCouponTerm(couponIssue);
+		
+		couponIssue.setUserId(id);
+		couponIssue.setCouponCode(couponCode);
+		couponIssue.setCouponTerm(couponIssue.getCouponTerm());
+		
+		logger.info("couponIssue.setCouponCode : " + couponIssue.getCouponCode());
+		int result = couponService.registerUserCoupon(couponIssue);
+		
+		if(result == Constants.INSERT_SUCCESS) {
+			
+			logger.info(Message.INSERT_SUCCESS);
+			return"redirect:/my/coupons";
+		}else {
+			logger.info(Message.INSERT_FALL);
+			return"redirect:/my/coupons";
+		}
+	
+		
+	}
+	
+	
+	
 	
 	// 마이페이지 설정(구독 설정)
 	@GetMapping(value="/notification")
@@ -134,9 +186,34 @@ public class MyContentsPageController {
 		
 		model.addAttribute("likeChList", likeChList);
 		model.addAttribute("count", count);
+		model.addAttribute("notiActive", "is_active");
 		
 		return "mypage/notification";
 	}
+	
+	
+	// 마이페이지 설정(구독 설정)
+	@PostMapping(value="notification/likeChDeletePro")
+	public String likeChDeleteProcess(sub sub,
+									  Principal principal,
+								      Model model,
+								      @RequestParam("chNum") int chnum) {
+		
+		String id = principal.getName();
+
+		sub.setUserid(id);
+		sub.setSubchnum(chnum);
+		
+		
+		int result = itdaUserService.deleteLickCh(sub);
+		
+		if(result > 0) {
+			logger.info(Message.SUCCESS);
+		}
+		
+		return "redirect:/my/notification";
+	}
+	
 	
 	// 마이페이지 결제 내역
 	@GetMapping(value="/payment/subscriptions")
@@ -150,6 +227,7 @@ public class MyContentsPageController {
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("count", count);
+		model.addAttribute("payActive", "is_active");
 		
 		return "mypage/payment_subscriptions";
 	}
@@ -180,7 +258,7 @@ public class MyContentsPageController {
 		
 		model.addAttribute("contentList", likeContentList);
 		model.addAttribute("cnt", count);
-		model.addAttribute("contentsActive", "active");
+		
 		
 		return "mypage/contents";
 	}
@@ -190,18 +268,21 @@ public class MyContentsPageController {
 	public String likeDeleteProcess(LikeContent likeContent,
 								Principal principal,
 								Model model,
-								HttpServletRequest request) {
+								HttpServletRequest request,
+								@RequestParam("boardNum") int boardnum) {
 		
 		String id = principal.getName();
 		
-		likeContent.setBoard_num(likeContent.getBoard_num());
+		likeContent.setBoard_num(boardnum);
 		likeContent.setUser_id(id);
 		
-		int boardNum = likeContent.getBoard_num();
+		logger.info("likeContent.getboard_num : " + likeContent.getBoard_num());
 		
+		//int ardHeart(boardNum);
+		int boardNum = likeContent.getBoard_num();
+	
 		heartService.removeHeart(boardNum, id);
 		heartService.decreaseChBoardHeart(boardNum);
-		
 		request.setAttribute("msg", Message.SUCCESS);
 		
 		return "mypage/contents_delete_action";
@@ -218,6 +299,7 @@ public class MyContentsPageController {
 		channel = channelList_Service.myChannelList(id);
 		
 		model.addAttribute("channel", channel);
+		model.addAttribute("chActive", "is_active");
 		logger.info("CHOPENDATE : " + channel.getChOpenDate());
 		
 		return "mypage/mychannellist";

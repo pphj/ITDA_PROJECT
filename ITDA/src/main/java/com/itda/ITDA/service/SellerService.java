@@ -8,4 +8,8 @@ public interface SellerService {
 	boolean isSeller(String userId);
 
 	void saveSeller(Itda_User itda_User);
+
+	Seller sellerEmailCheck(String id);
+
+	int sellerEmailUpdate(Seller seller);
 }

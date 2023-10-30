@@ -1,4 +1,9 @@
 /* Common */
+#otherReason {
+    border: 1px solid #6FDFDA !important;
+    border-radius: 0 0 6px 6px;
+}
+
 body,
 p,
 h1,
@@ -386,7 +391,7 @@ input[type*=radio], button {
 }
 
 .pop_wrap .report_reason:checked + .check_area {
-    border: 1px solid #03c75a !important;
+    border: 1px solid #6FDFDA !important;
     box-sizing: border-box;
     margin-top: -1px;
 }
@@ -396,11 +401,12 @@ input[type*=radio], button {
     position: absolute;
     left: 0;
     top: 0;
-    background: url(https://ssl.pstatic.net/static/help/support/sp_ly_help.png) no-repeat 0 -1px;
+    background: url(/itda/resources/image/content/warnicon.png) no-repeat 0 -1px;
     background-size: 95px 24px;
     width: 22px;
     height: 22px;
 }
+
 
 .pop_footer {
     padding: 24px 30px 30px;
@@ -408,7 +414,7 @@ input[type*=radio], button {
 
 .pop_footer .btn_submit {
     display: block;
-    background-color: #03c75a;
+    background-color: #6FDFDA;
     color: #fff;
     font-size: 18px;
     font-weight: bold;

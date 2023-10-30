@@ -74,8 +74,13 @@
 <div class="my_tab_wrap">
 	<ul class="my_tab">
 	
-		<li class="my_tab_item is_active" data-clk="my_order.subs">
-			<a href="#" data-url="${pageContext.request.contextPath}/my/payment/subscriptions" class="my_tab_link _LOCATION_REPLACE"><span class="my_tab_text">구독 결제 내역<em>1</em></span></a>
+		<li class="my_tab_item is_active">
+			<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/payment/subscriptions" data-clk="my_lnb.setmrk">
+				<span class="my_tab_text">
+					결제 내역 <span class=my_tab_sub_text>목록</span>
+					<em>${count}</em>
+				</span>
+			</a>
 		</li>
 	</ul>
 </div>
@@ -84,9 +89,6 @@
 	<ul class="my_subscribe_payment_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_PAYMENT_SUBSCRIPTION_LIST" data-cursor-name="page" data-cursor="1" data-has-next="">
 	<c:forEach var="orderList" items="${orderList}">
 		<li class="my_subscribe_payment_item">
-			<a href="/bangkuseok/bangkuseok1" class="my_subscribe_payment_thumb" data-clk="my_order.chlgo">
-				<img src="https://scs-phinf.pstatic.net/MjAyMjExMDNfMTcx/MDAxNjY3NDM3NTA3NzQw.6FO2E_Tk_6YwHAYi-50a26pOdDQWQebvFOM_6KR9xokg.724u8stegrnbL_DLl_Z5U8HfYQuesuVLGJIyeONubIUg.PNG/image%7Cpremium%7Cchannel%7Cbangkuseok%7C2022%7C11%7C03%7C1667437507721.png?type&#x3D;nfs200_200" width="48" height="48" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
-			</a>
 			<a href="${pageContext.request.contextPath}/my/payment/subscriptions/${orderList.payedNum}" class="my_subscribe_payment_link" data-clk="my_order.subslist">
 				<div class="my_subscribe_payment_text">
 					<div class="my_subscribe_payment_info">
@@ -144,5 +146,5 @@
 
 
 </body>
-<jsp:include page="../include/footer.jsp"></jsp:include>
+
 </html>

@@ -63,11 +63,6 @@ public class ReplyServicelmpl implements ReplyService {
 	}
 
 	@Override
-	public int commentsDelete(int num) {
-		return dao.commentsDelete(num);
-	}
-
-	@Override
 	public int getListCount(int boardnum) {
 		return dao.getListCount(boardnum);
 	}
@@ -77,4 +72,36 @@ public class ReplyServicelmpl implements ReplyService {
 		return dao.getTotalReplies(boardNum);
 	}
 
+	@Override
+	public int commentsDelete(int num) {
+		int result = 0;
+		BoardReply BoardReply = dao.getDetail(num);
+		if (BoardReply != null)
+		{
+			result = dao.commentsDelete(BoardReply);
+		}
+		return result;
+	}
+
+	@Override
+	public int boardcommentsDelete(int num) {
+		int result = 0;
+		List<BoardReply> boardReplies = dao.getDetails(num);
+
+		logger.info("Fetched Board Replies: " + boardReplies);
+
+		if (boardReplies != null)
+		{
+			for (BoardReply boardReply : boardReplies)
+			{
+				result += dao.commentsDelete(boardReply);
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public void deleteBoardReplyByBoardNum(int boardNum) {
+		dao.deleteBoardReplyByBoardNum(boardNum);
+	}
 }

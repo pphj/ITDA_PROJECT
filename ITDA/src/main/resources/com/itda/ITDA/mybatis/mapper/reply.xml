@@ -79,9 +79,39 @@
 		where REPLYNUM = #{replyNum}
 	</update>
 
+	<!-- 
 	<delete id="commentsDelete">
 		DELETE FROM BoardReply WHERE REPLYNUM = #{replyNum}
 	</delete>
+	 -->
+	
+	
+	<delete id="commentsDelete" parameterType="boardReply">
+	  		<![CDATA[
+				delete from BoardReply 
+			      where replyRef = #{replyRef} 
+			      and   replyLev >= #{replyLev} 
+			      and   replySeq >= #{replySeq} 
+			      and   replySeq <=( nvl((select min(replySeq) - 1 
+			                     from BoardReply 
+			                     where replyRef = #{replyRef} 
+			                     and   replyLev = #{replyLev} 
+			                     and   replySeq > #{replySeq})   ,
+			                     (select max(replySeq) 
+			                     from BoardReply  
+			                        where replyRef = #{replyRef} ))
+			                     )
+			]]>
+	</delete>
+	
+	<select id="getDetail" parameterType="int" resultType="BoardReply">
+      select *
+      from
+      boardreply
+      where replyNum = #{replyNum}
+   </select>
+
+	
 	
 	<select id="getListCount" resultType="int">
 	  SELECT COUNT(*)
@@ -96,6 +126,17 @@
 	</select>
 	
 	
+	<select id="getDetails" resultType="BoardReply">
+      select *
+      from
+      boardreply
+      where boardNum = #{boardNum}
+   </select>
+	
+	<delete id="deleteBoardReplyByBoardNum">
+		DELETE FROM replywarn
+		WHERE boardNum = #{boardNum}
+	</delete>
 
 
 </mapper>

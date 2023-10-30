@@ -120,9 +120,7 @@ function getList(state) {
 				        + ' 	<div id="reply_list_item_layer' + this.replyNum + '"  class="LayerMore"  style="display: none; width: 70px;">'
 				        + '     	<ul class="layer_list"  style="display: flex;">'
 				        + '     	<li class="layer_item"  style="display: flex;">'
-					    + '         <a href="/itda/contents/warn/' + chnum + '?boardNum=' + boardNum + '&replyNum=' + this.replyNum + '"'
-					    + '			target="_blank"'
-					    + '         class="layer_button">신고하기</a>'
+					    + '<a href="javascript:;" onclick="window.open(\'/itda/contents/warn/' + chnum + '?boardNum=' + boardNum + '&replyNum=' + this.replyNum + '\', \'_blank\', \'width=636, height=845\');" class="layer_button">신고하기</a>'
 					    + '     	</li></ul>'
 					    + '   </div>'
 					    + '</div>'
@@ -159,28 +157,56 @@ function updateForm(num) {
     $num.find('.reply_write_area_count').text(count + "/200");
 }
 
+// 댓글 삭제 버튼이 클릭되었을 때 이벤트 핸들러
+$('.reply_area').on('click', '.delete', function () {
+    const num = $(this).attr('data-id'); // 댓글 ID
+    
+    alert(num);
+});
+
 // 댓글 삭제
-function del(num) {
-    if (!confirm('정말 삭제하시겠습니까?')) {
-        $('#reply_list_item_layer' + num).hide();
-        return;
-    }
-    let token = $("meta[name='_csrf']").attr("content");
+function del(num, ref, lev, seq) {
+	let token = $("meta[name='_csrf']").attr("content");
     let header = $("meta[name='_csrf_header']").attr("content");
+    // 먼저 해당 댓글이 신고된 상태인지 확인합니다.
     $.ajax({
-        url: '/itda/contents' + '/replydelete',
+        url: '/itda/contents' + '/checkReportStatus',
         data: { num: num },
         type: 'POST',
         beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
         },
-       success: function (rdata) {
-		    if (rdata >= 1) {
-		        getList(option);
-		    } else {
-		        alert("댓글 삭제중 오류");
-		    }
-		}
+        success: function (rdata) {
+            // 만약 신고된 댓글이라면,
+            if (rdata.status == "reported") {  // 이 부분을 수정했습니다.
+                // 경고 메시지를 띄우고,
+                alert('신고된 댓글로 삭제가 불가합니다.');
+                // 함수를 종료합니다.
+                return;
+            }
+
+            // 신고되지 않은 댓글이라면, 삭제를 진행합니다.
+            if (!confirm('정말 삭제하시겠습니까?')) {
+                $('#reply_list_item_layer' + num).hide();
+                return;
+            }
+            
+            $.ajax({
+                url: '/itda/contents' + '/replydelete',
+                data: { num: num },
+                type: 'POST',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function (rdata) {
+                    if (rdata >= 1) {
+                        getList(option);
+                    } else {
+                        alert("댓글 삭제중 오류");
+                    }
+                }
+            });
+        }
     });
 }
 

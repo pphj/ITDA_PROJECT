@@ -8,11 +8,12 @@ import org.apache.ibatis.annotations.Mapper;
 import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.LikeChNewContent;
-import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.LikeChannel;
+import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.domain.UserCategory;
 import com.itda.ITDA.domain.UserLeaveReason;
+import com.itda.ITDA.domain.sub;
 
 @Mapper
 public interface Itda_UserMapper {
@@ -82,6 +83,8 @@ public interface Itda_UserMapper {
 	int myLikeChListCount(String id);
 
 	List<LikeChNewContent> myLikeChNewContentList(String id);
+
+	int deleteLickCh(sub sub);
 
 
 

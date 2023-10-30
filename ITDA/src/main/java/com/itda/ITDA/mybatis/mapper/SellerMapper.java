@@ -10,6 +10,10 @@ public interface SellerMapper {
 	Seller findById(String userId);
 
 	void insert(Itda_User itda_User);
+
+	Seller sellerEmailCheck(String id);
+
+	int sellerEmailUpdate(Seller seller);
 		
 	
 }
