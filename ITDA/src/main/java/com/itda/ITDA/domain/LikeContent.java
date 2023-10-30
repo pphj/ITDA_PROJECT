@@ -17,7 +17,10 @@ public class LikeContent {
 	
 	//chboard
 	private int boardNum;
+
 	private int chNum;
+	private String Writer;
+	private String writer;
 	// writer둘다지우지마시오
 	private String boardTitle;
 	private int boardHeart;

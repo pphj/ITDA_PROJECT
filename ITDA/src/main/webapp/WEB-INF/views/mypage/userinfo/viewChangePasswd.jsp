@@ -73,10 +73,8 @@ $(document).ready(function() {
         // 유효성 검사를 통과한 경우 여기에 실제 데이터 제출 코드를 추가할 수 있습니다.
         // 예를 들어, AJAX를 사용하여 서버로 데이터를 전송할 수 있습니다.
     });
-});
 
 //비밀번호 확인 ajax
-$(function() {
     let contextpath = "${pageContext.request.contextPath}";
     let checkPw = false;
     var header = '${_csrf.headerName}';
@@ -110,8 +108,7 @@ $(function() {
                 console.log("error: " + error);
             }
         });
-    });
-});
+    }); // ajax
 
 
  var addform = $("#fm");
@@ -131,7 +128,8 @@ $(function() {
 		//return true;
      }
 
- });
+ }); //click
+}); //rady
 
 
 

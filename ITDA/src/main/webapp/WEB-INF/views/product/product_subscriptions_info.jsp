@@ -159,7 +159,9 @@ $("#productSubmit").on('click', function(e){
 	e.preventDefault();
 	$("#fm").submit();
 })
+
 });
+
 </script>
 </body>
 </html>

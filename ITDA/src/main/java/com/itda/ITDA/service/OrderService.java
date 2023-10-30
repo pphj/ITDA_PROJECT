@@ -2,6 +2,7 @@ package com.itda.ITDA.service;
 
 import java.util.List;
 
+import com.itda.ITDA.domain.KakaoCancelResponse;
 import com.itda.ITDA.domain.KakaoPayApproval;
 import com.itda.ITDA.domain.Paycall;
 import com.itda.ITDA.domain.Payment;
@@ -26,7 +27,9 @@ public interface OrderService {
 
 	Payment paymentCompletUser(String id);
 
-	
+	KakaoCancelResponse kakaoCancel(Payment payment);
+
+	Payment isPayRefundOrder(Payment payment);
 
 
 }

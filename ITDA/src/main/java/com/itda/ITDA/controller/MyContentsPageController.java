@@ -22,6 +22,7 @@ import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Coupon;
 import com.itda.ITDA.domain.CouponIssue;
 import com.itda.ITDA.domain.Itda_User;
+import com.itda.ITDA.domain.LikeChNewContent;
 import com.itda.ITDA.domain.LikeChannel;
 import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
@@ -29,12 +30,13 @@ import com.itda.ITDA.domain.sub;
 import com.itda.ITDA.service.ChannelList_Service;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.CouponService;
-//github.com/pphj/ITDA_PROJECT.git
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.OrderService;
 import com.itda.ITDA.service.heartService;
 import com.itda.ITDA.util.Constants;
 import com.itda.ITDA.util.Message;
+
+import oracle.net.aso.c;
 
 @Controller
 @RequestMapping(value= "/my")
@@ -65,7 +67,9 @@ public class MyContentsPageController {
 	
 	@GetMapping(value="/subscriptions")
 	public String goSubscriptions(Model model,
-			HttpSession session, Principal principal) {
+								  HttpSession session, 
+								  Principal principal,
+								  LikeChannel LikeChannel) {
 		
 		String id = principal.getName();
 		logger.info("id : " + principal.getName());
@@ -84,6 +88,13 @@ public class MyContentsPageController {
 	    	session.setAttribute("userId", vo.getUserId());
 	    	session.setAttribute("userProfile", vo.getUserProfile());
 	    	
+	    	List<LikeChannel> likeChList = itdaUserService.myLikeChList(id);
+	    	int count = itdaUserService.myLikeChListCount(id);
+	    	
+	    	model.addAttribute("likeChList", likeChList);
+	    	model.addAttribute("count", count);
+	    	model.addAttribute("subActive", "active");
+	    	
 	    	if (sellerId == null || sellerId.equals("")) {
 	    		model.addAttribute("message", "NOT_SELLER");
 	    		session.setAttribute("message", "NOT_SELLER");
@@ -101,7 +112,17 @@ public class MyContentsPageController {
 	
 	// 마이페이지 구독채널의 최신 콘텐츠
 	@GetMapping(value="/subscriptions/contents")
-	public String subscriptionsContents() {
+	public String subscriptionsContents(LikeChNewContent newContent,
+										Principal principal,
+										Model model) {
+		
+		String id = principal.getName();
+		
+		List<LikeChNewContent> newContentList = itdaUserService.myLikeChNewContentList(id);
+		
+		model.addAttribute("newContentList", newContentList);
+		model.addAttribute("subActive", "active");
+		
 		return"mypage/subscriptions_contents";
 	}
 	
@@ -258,7 +279,7 @@ public class MyContentsPageController {
 		
 		model.addAttribute("contentList", likeContentList);
 		model.addAttribute("cnt", count);
-		
+		model.addAttribute("contentsActive", "active");
 		
 		return "mypage/contents";
 	}

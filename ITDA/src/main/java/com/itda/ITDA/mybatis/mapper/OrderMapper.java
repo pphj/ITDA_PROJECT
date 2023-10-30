@@ -23,4 +23,6 @@ public interface OrderMapper {
 
 	Payment paymentCompletUser(String id);
 
+	Payment isPayRefundOrder(Payment payment);
+
 }

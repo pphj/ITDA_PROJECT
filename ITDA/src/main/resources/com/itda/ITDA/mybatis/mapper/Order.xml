@@ -86,4 +86,34 @@
 		]]>
 	</select>
 	
+		<!-- 환불과 관련된 정보 조회하는 쿼리 -->
+	<select id="isPayRefundOrder" resultType="Payment">
+		<![CDATA[
+			SELECT
+			    payednum,
+			    payedokdate,
+			    userid,
+                payedCode,
+                payedprice,
+                payedvat
+                
+			FROM
+			    (SELECT
+			        py.payednum, 
+			        py.payedokdate,
+			        pc.userid,
+                    py.payedcode,
+                    py.payedprice,
+                    py.payedvat,
+			        ROW_NUMBER() OVER (ORDER BY py.payednum DESC) AS rnum
+			    FROM
+			        payment py
+			    JOIN paycall pc ON py.ordernum = pc.callnum
+			    JOIN subproduct sp ON pc.productid = sp.productid
+			    JOIN itda_user iu ON pc.userid = iu.userid
+			    WHERE iu.userid = #{userId})
+			WHERE payednum = #{payedNum}
+		]]>
+	</select>
+	
 </mapper>

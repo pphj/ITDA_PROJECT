@@ -167,11 +167,12 @@ public class UserInfoController {
 									HttpServletRequest request) {
 			
 		session.removeAttribute("authCode");
-		request.getSession().getAttribute("authCode");
+		//request.getSession().getAttribute("authCode");
 		String authCode = generateAuthCode();
 		
 		session.setAttribute("authCode", authCode);
-		session.setMaxInactiveInterval(THREE_MINUTE_TIMER);
+		//session.setMaxInactiveInterval(THREE_MINUTE_TIMER);
+		//session.removeAttribute("authCode");
 		int result = 0;
 		
 		sendMail.emailAuthentication(email, authCode, vo);
@@ -578,14 +579,15 @@ public class UserInfoController {
 		return "mypage/userinfo/userLeaveReason";
 	}
 	
+	@ResponseBody
 	@PostMapping("/leaveAction")
-	public String leaveAction(Principal principal, 
+	public String leaveAction( 
 								UserLeaveReason leaveReason, 
 								HttpServletRequest request) {
 
-		String id = principal.getName();
+		
 
-		leaveReason.setUserId(id);
+		leaveReason.setUserId(leaveReason.getUserId());
 		leaveReason.setLeaveReason_id((leaveReason.getLeaveReason_id()));
 		leaveReason.setUserLeaveReason(leaveReason.getUserLeaveReason());
 
@@ -595,11 +597,11 @@ public class UserInfoController {
 			logger.info("탈퇴이유 insert 성공");
 
 			if (result == Constants.INSERT_SUCCESS) {
-				result = itdaUserService.deleteUserInsert(id);
+				result = itdaUserService.deleteUserInsert(leaveReason.getUserId());
 				System.out.println("탈퇴유저 insert 성공 :" + result);
 
 				
-				result = itdaUserService.itda_userDelete(id);
+				result = itdaUserService.itda_userDelete(leaveReason.getUserId());
 
 				if (result == Constants.DELETE_SUCCESS) {
 
@@ -608,13 +610,12 @@ public class UserInfoController {
 			}
 
 			logger.info("탈퇴 성공");
-			request.setAttribute("msg", Message.USER_LEAVE_SUCCESS);
+			return Message.USER_LEAVE_SUCCESS;
 
 		} else {
 			logger.info("회원 탈퇴 실패");
-			request.setAttribute("msg", Message.USER_LEAVE_FALL);
+			return  Message.USER_LEAVE_FALL;
 		}
-		return "mypage/userinfo/userLeaveAction";
 	}
 	
 

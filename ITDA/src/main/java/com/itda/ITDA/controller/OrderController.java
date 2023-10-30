@@ -2,7 +2,6 @@ package com.itda.ITDA.controller;
 
 import java.security.Principal;
 import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.itda.ITDA.domain.Amount;
 import com.itda.ITDA.domain.GoodUser;
+import com.itda.ITDA.domain.KakaoCancelResponse;
 import com.itda.ITDA.domain.KakaoPayApproval;
 import com.itda.ITDA.domain.Paycall;
 import com.itda.ITDA.domain.Payment;
@@ -290,7 +292,7 @@ public class OrderController {
 		// int insert = orderService.InsertPayment(payment);
 		logger.info(Message.INSERT_SUCCESS);
 
-		return "redirect:/my/subscriptions";
+		return "redirect:/my/payment/subscriptions";
 	}	
 
 	@RequestMapping(value="/fail")
@@ -310,4 +312,25 @@ public class OrderController {
 		
 		return "product/payment_cancle";
 	}
+	
+	@RequestMapping(value="/subscriptions/info/refund")
+	public String payRefund(Principal principal,
+													Payment payment) {
+		
+		String id = principal.getName();
+		
+		payment.setUserId(id);
+		payment.setPayedNum(payment.getPayedNum());
+		payment.setPayedPrice(payment.getPayedPrice());
+		
+		Payment refundOrder = orderService.isPayRefundOrder(payment);
+		
+		logger.info("payment.setPayedNum : " + payment.getPayedNum());
+       
+		KakaoCancelResponse kakaoCancelResponse = orderService.kakaoCancel(refundOrder);
+		
+		//new ResponseEntity<>(kakaoCancelResponse, HttpStatus.OK);
+        
+		return "redirect:/product/cancel";
+    }
 }

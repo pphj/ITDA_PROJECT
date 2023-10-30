@@ -78,11 +78,6 @@
 			<div class="container_content _GRID_TEMPLATE_COLUMN _STICKY_CONTENT">
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
 <jsp:include page="../mypage/sidebar.jsp"></jsp:include>
-	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
-		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
-			<img class="_LAZY_LOADING" data-src="https://ssl.pstatic.net/static.news/image/news/m/2023/08/18/sidebar_banner.jpg" width="315" height="110" alt="">
-		</a>
-	</div>
 </div>
 <h2 class="my_title">나의 채널</h2>
 <div class="my_tab_wrap">
@@ -303,7 +298,7 @@ $(window).on("load", function() {
 	}
 });
 </script>
-
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 <script>
 var eventType = "onpageshow" in window ? "pageshow" : "load";

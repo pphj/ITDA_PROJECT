@@ -10,7 +10,7 @@
 <script>
 		var msg = "<c:out value='${msg}'/>";
 		alert(msg);
-		location.href = "${pageContext.request.contextPath}";
+		location.href = "${pageContext.request.contextPath}/my/subscriptions";
 </script>
 </head>
 <body>

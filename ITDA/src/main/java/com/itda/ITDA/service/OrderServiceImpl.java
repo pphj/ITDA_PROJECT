@@ -13,6 +13,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.itda.ITDA.controller.OrderController;
+import com.itda.ITDA.domain.KakaoCancelResponse;
 import com.itda.ITDA.domain.KakaoPayApproval;
 import com.itda.ITDA.domain.Paycall;
 import com.itda.ITDA.domain.Payment;
@@ -132,7 +133,37 @@ public class OrderServiceImpl implements OrderService {
 		return dao.paymentCompletUser(id);
 	}
 
+	@Override
+	public KakaoCancelResponse kakaoCancel(Payment payment) {
+	       // 카카오페이 요청
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("cid", "TC0ONETIME");
+        parameters.add("tid", payment.getPayedCode());
+        parameters.add("cancel_amount", String.valueOf(payment.getPayedPrice()));
+        parameters.add("cancel_tax_free_amount", "0");
+        parameters.add("cancel_vat_amount", String.valueOf(payment.getPayedVat()));
 
+        
+        logger.info("payment.getPayedPrice() : " + payment.getPayedPrice());
+        // 파라미터, 헤더
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+    
+        // 외부에 보낼 url
+        RestTemplate restTemplate = new RestTemplate();
+    
+        KakaoCancelResponse cancelResponse = restTemplate.postForObject(
+                "https://kapi.kakao.com/v1/payment/cancel",
+                requestEntity,
+                KakaoCancelResponse.class);
+                
+        return cancelResponse;
+    }
+
+	@Override
+	public Payment isPayRefundOrder(Payment payment) {
+		return dao.isPayRefundOrder(payment);
+	}
+		
 
 
 

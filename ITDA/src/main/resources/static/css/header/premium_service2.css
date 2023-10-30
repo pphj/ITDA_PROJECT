@@ -163,7 +163,15 @@ a:hover{
 	overflow: hidden;
 }
 
+/* 콘텐츠 없을 경우 이미지 */
+.no_contents{
+	margin: auto;
+}
 
+.no_contents_center {
+    margin: auto;
+    text-align: center;
+}
 
 /* 마이페이지 배경 */
 .as_white_background{
@@ -25622,7 +25630,7 @@ div.my_subscriptions_channel_link::after {
 
 @media (min-width: 1080px) {
 	.my_setting {
-		padding-top: 12px;
+		padding-top: 5px;
 		padding-bottom: 50px;
 	}
 }
@@ -25664,13 +25672,15 @@ div.my_subscriptions_channel_link::after {
 }
 
 .my_setting_item {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	border-bottom: 1px solid #efeff0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px solid #efeff0;
+    padding: 5px 0px 10px 0px;
+    margin-top: 5px;
 }
 
 .my_setting_item:last-child {

@@ -78,14 +78,11 @@
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
 <jsp:include page="../mypage/sidebar.jsp"></jsp:include>
 
-	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
-		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
-			<img class="_LAZY_LOADING" data-src="https://ssl.pstatic.net/static.news/image/news/m/2023/08/18/sidebar_banner.jpg" width="315" height="110" alt="">
-		</a>
-	</div>
 </div>
 <div class="my_detail_head">
 	<div class="my_detail_head_name">결제 상세 보기</div>
+	
+	
 </div>
 <div class="my_detail_card">
 	<div class="membership_card">
@@ -144,6 +141,10 @@
 		</div>
 	</dl>
 </div>
+<form id="fm" action='${pageContext.request.contextPath}/product/subscriptions/info/refund'>
+<input type="hidden" name="payedNum" value="${orderInfo.payedNum}">
+<input type="hidden" name="payedPrice" value="${orderInfo.payedPrice}">
+<input type="hidden" name="discountPrice" value="${orderInfo.discountPrice}">
 <div class="my_detail_content">
 	<div class="my_detail_titlewrap">
 		<h2 class="my_detail_title">구매 정보</h2>
@@ -193,7 +194,11 @@
 		</div>
 	</dl>
 </div>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
+</form>
 <div class="my_detail_button_wrap">
+	<button class="my_detail_button _CANCLE" data-clk="my_order.cancle">환불</button>
 	<a href="#" class="my_detail_button _BACK" data-clk="my_order.back">이전</a>
 </div>
 <div class="my_detail_guide">
@@ -222,7 +227,14 @@
 
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_library.min.js"></script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
+<script>
+//환불 링크를 클릭할 때 실행할 함수
+$('.my_detail_button._CANCLE').click(function() {
+  // 페이지 이동을 수행하는 코드
+  $("#fm").submit();
+});
 
+</script>
 </body>
 
 <jsp:include page="../include/footer.jsp"></jsp:include>

@@ -87,11 +87,6 @@
 			<div class="container_content _GRID_TEMPLATE_COLUMN _STICKY_CONTENT">
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
 <jsp:include page="../mypage/sidebar.jsp"></jsp:include>
-	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
-		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
-			<img class="_LAZY_LOADING" data-src="https://ssl.pstatic.net/static.news/image/news/m/2023/08/18/sidebar_banner.jpg" width="315" height="110" alt="">
-		</a>
-	</div>
 </div>
 <h2 class="my_title">쿠폰</h2>
 <div class="my_tab_wrap">
@@ -99,19 +94,24 @@
 		<li class="my_tab_item is_active">
 			<a href="#" data-url="${pageContext.request.contextPath}/my/coupons" class="my_tab_link _LOCATION_REPLACE" data-clk="my_coupon.valid"><span class="my_tab_text">보유한 쿠폰<em>${count}</em></span></a>
 		</li>
-<%-- 		<li class="my_tab_item">
-			<a href="#" data-url="${pageContext.request.contextPath}/my/coupons?stype&#x3D;expired" class="my_tab_link _LOCATION_REPLACE" data-clk="my_coupon.expire"><span class="my_tab_text">종료된 쿠폰</span></a>
-		</li> --%>
 	</ul>
 </div>
 <div class="my_coupon">
 	<a href="#" class="my_coupon_register _TOGGLE" data-target="_CONTENT_LAYER_COUPON_REDEEM" data-prevent-scroll="true">쿠폰 등록</a>
+	
+
+	
+	
 	<h3 class="my_coupon_title">
 		보유한 쿠폰
 		<em>${count}</em>
 	</h3>
 		<ul class="my_coupon_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_COUPON_LIST" data-stype="" data-cursor-name="page" data-cursor="1" data-has-next="">
-		
+	<c:choose>
+			<c:when test="${count eq 0}">
+				<img class="no_contents" src="${pageContext.request.contextPath}/image/mypage/content_null.png">
+			</c:when>
+		<c:otherwise>
 		<c:forEach var="couponList" items="${couponList}">
 		
 		<li class="my_coupon_item">
@@ -154,6 +154,8 @@
 			</div>
 		</li>
 		</c:forEach>
+		</c:otherwise> 
+		</c:choose>
 	</ul>
 	<div class="loading _CONTENT_LIST_LOADING" style="display:none;">
 		<div class="loader">
@@ -179,7 +181,10 @@
 		<dd>네이버가 발행한 쿠폰을 사용하여 구매한 뒤 청약철회등 된 경우, 해당 쿠폰은 재발급되어 다시 사용이 가능합니다. 단, 부분 환불된 경우 또는 유효기간이 지난 쿠폰의 경우는 재발급 불가합니다.</dd>
 		<dd>그 외에 판매자가 발행한 포인트/쿠폰의 경우 판매자가 정한 바에 따라 취급됩니다.</dd>
 	</dl>
+	
+	
 </div>
+
 <form id="fm" method="post">
 
 <div id="_CONTENT_LAYER_COUPON_REDEEM" class="content_layer_wrap as_coupon" style="display: none;">
@@ -287,24 +292,28 @@ $(document).ready(function() {
             }
         });
     });
-    // <em> 엘리먼트 선택
-    var $emElement = $(".myc_badge");
 
     // data-useExdate 속성에서 날짜 정보 가져오기
-    var useExdate = $(this).data("useexdate");
+    $(".myc_badge").each(function(index, item){
+    	console.log(index);
+        var currentDate = new Date();
+        
+    	var useExdate = $(this).data("useexdate");
+    
+        // 날짜 차이 계산
+        var timeDiff = Math.abs(new Date(useExdate) - currentDate);
+        var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+        // 디데이 형식으로 출력
+        var dDayText = "D-" + daysDiff;
+
+        // 결과를 <em> 엘리먼트에 삽입
+        $(this).text(dDayText);
+    	
+    })
 
     // 현재 날짜 가져오기
-    var currentDate = new Date();
 
-    // 날짜 차이 계산
-    var timeDiff = Math.abs(new Date(useExdate) - currentDate);
-    var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-    // 디데이 형식으로 출력
-    var dDayText = "D-" + daysDiff;
-
-    // 결과를 <em> 엘리먼트에 삽입
-    $emElement.text(dDayText);
 });
 
 </script>
