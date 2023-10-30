@@ -32,4 +32,10 @@ public class MainServiceImpl implements MainService {
 		return contentMapper.searchContentsByKeyword("%" + keyword + "%");
 	}
 
+	@Override
+	public List<ChBoard> searchContentsByKeyword(String keyword, int pageSize, int offset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

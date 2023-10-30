@@ -212,7 +212,6 @@ public class Itda_UserServiceImpl implements Itda_UserService {
 		return dao.likeContentCount(id);
 	}
 
-	@Override
 	public List<LikeChannel> myLikeChList(String id) {
 		return dao.myLikeChList(id);
 	}
