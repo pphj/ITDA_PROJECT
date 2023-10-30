@@ -47,4 +47,8 @@
 		WHERE boardnum = #{boardNum} AND boardheart > 0
 	</update>
 
+	<delete id="deleteChBoardHeart">
+		delete from heart
+		where board_num = #{boardNum}
+	</delete>
 </mapper>

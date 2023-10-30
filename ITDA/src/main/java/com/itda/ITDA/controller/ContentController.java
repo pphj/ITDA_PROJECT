@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -43,6 +44,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.itda.ITDA.domain.BoardReply;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
+import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.domain.Tag;
@@ -89,7 +92,13 @@ public class ContentController {
 		// 채널주인 확인
 		Seller sellerinfo = contentService.getSellerInfo(userid);
 
+		// 채널주인 확인
+		Seller seller = null;
+
 		Itda_User userinfo = null;
+
+		// 구독 회원
+		GoodUser subUser = null;
 
 		int rcnt = 0;
 		rcnt = replyService.getListCount(boardnum);
@@ -97,12 +106,17 @@ public class ContentController {
 		// 채널과 연관된 카테고리 목록을 가져옴
 		List<ChBoardCategory> ContentCategory = contentService.getChannelCategory(boardnum);
 
-		// 로그인한 사용자의 ID를 가져오기
 		if (principal != null)
 		{
+
 			String userId = principal.getName();
+
 			// user확인
 			userinfo = contentService.getUserInfo(userId);
+			seller = contentService.getSellerInfoByUserId(userId);
+
+			subUser = contentService.getsubUser(userId);
+
 		}
 
 		// 태그
@@ -110,6 +124,8 @@ public class ContentController {
 		logger.info("taginfo = " + taginfo);
 
 		// model.addAttribute("ContentCategory", ContentCategory);
+		model.addAttribute("seller", seller);
+		model.addAttribute("subUser", subUser);
 		model.addAttribute("userinfo", userinfo);
 		model.addAttribute("rcnt", rcnt);
 		model.addAttribute("taginfo", taginfo);
@@ -321,12 +337,16 @@ public class ContentController {
 	}
 
 	// 게시글 삭제
-	@PostMapping("/{chnum}/delete")
 	@Transactional
+	@PostMapping("/{chnum}/delete")
 	public String BoardDeleteAction(@PathVariable("chnum") int chnum, @RequestParam("boardnum") int boardnum, Model mv,
 			RedirectAttributes rattr, HttpServletRequest request) {
 
 		logger.info("Attempting to delete post with boardnum= " + boardnum);
+
+		// ChannelList를 로드하는 로직이 필요합니다.
+		ChannelList channelList = contentService.getChannelListByChnum(chnum);
+		String userid = channelList.getOwnerId(); // getOwnerId() 메서드를 사용해야 합니다.
 
 		try
 		{
@@ -355,18 +375,14 @@ public class ContentController {
 
 		} catch (Exception e)
 		{
-
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			// 위의 어느 과정에서 에러가 발생하면 롤백
-
-			logger.error("Failed to delete post with boardNum: " + boardnum);
+			logger.error("Failed to delete post with boardNum: " + boardnum, e);
 			mv.addAttribute("url", request.getRequestURL());
 			mv.addAttribute("message", "삭제 실패");
 
 			return "error/error";
 		}
-
-		return "redirect:/channels/" + chnum;
+		return "redirect:/channels/" + chnum + "?userid=" + userid;
 	}
 
 	// 댓글 리스트
@@ -439,10 +455,10 @@ public class ContentController {
 		return replyService.commentsUpdate(reply);
 	}
 
-	// 댓글 삭제
 	@ResponseBody
 	@PostMapping(value = "/replydelete")
-	public int CommentDelete(int num) {
+	public int CommentDelete(@RequestParam("num") int num) {
+		// 서비스 호출 시 필요한 파라미터를 같이 전달합니다.
 		int result = replyService.commentsDelete(num);
 		logger.info("result=========" + result);
 		return result;
@@ -527,7 +543,18 @@ public class ContentController {
 		try
 		{
 			ChBoard chBoard = contentService.getContentDetail(boardNum);
-			int updatedBoardVisit = chBoard.getBoardVisit() + 1;
+			if (chBoard == null)
+			{
+				logger.error("해당 번호의 게시글을 찾을 수 없습니다: " + boardNum);
+				throw new RuntimeException("해당 번호의 게시글을 찾을 수 없습니다: " + boardNum);
+			}
+			Integer currentBoardVisit = chBoard.getBoardVisit();
+			if (currentBoardVisit == null)
+			{
+				currentBoardVisit = 0;
+				logger.info("boardVisit가 null입니다. 0으로 초기화합니다: " + boardNum);
+			}
+			int updatedBoardVisit = currentBoardVisit + 1;
 			contentService.increaseViewCount(boardNum, updatedBoardVisit);
 			logger.info("조회수 증가합니다!");
 		} catch (Exception e)
@@ -538,61 +565,175 @@ public class ContentController {
 	}
 
 	// 신고하기 페이지
-	@PostMapping("/warn/{chnum}")
+	@GetMapping("/warn/{chnum}")
 	public ModelAndView warnPage(@PathVariable("chnum") int chnum, @RequestParam("boardNum") int boardNum,
-			@RequestParam("replyNum") int replyNum, ModelAndView mv) {
-		WCATEGORY warnCategory = contentService.getWarnCategory();
-		mv.addObject("warnCategory", warnCategory);
-		mv.addObject("boardNum", boardNum);
-		mv.addObject("replyNum", replyNum);
+			@RequestParam("replyNum") int replyNum, ModelAndView mv, Principal principal) {
+
+		BoardReply reply = contentService.getReplyById(replyNum);
+		List<WCATEGORY> categories = contentService.getAllWCategories();
+		ChBoard boardinfo = contentService.getBoardInfo(boardNum);
+
+		// itda_user
+		Itda_User userinfo = contentService.getUser(principal.getName());
+
+		mv.addObject("boardinfo", boardinfo);
+		mv.addObject("userinfo", userinfo);
+		mv.addObject("reply", reply);
+		mv.addObject("categories", categories);
 		mv.setViewName("/content/warn");
 		return mv;
 	}
 
-	/*@RequestMapping(value = "/contentlist.co")
-	public String getContentList(@RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "limit", defaultValue = "10") int limit,
-			@RequestParam(name = "channelnum") int channelnum,
-			@RequestParam(name = "order", defaultValue = "desc") String order,
-			@RequestParam(name = "chcate_id") int categoryId,
-			@RequestParam(name = "state", required = false) String state, Model mv) {
-	
-		List<ChBoard> contentlist = new ArrayList<ChBoard>();
-	
-		int listcount = 0;
-	
-		if (categoryId == 0)
-		{ // 전체
-			contentlist = contentService.getAllChannelCategoryData(channelnum, order, page, limit);
-			listcount = contentService.getAllChannelCategoryCount(channelnum);
-	
-		} else
-		{ // 카테고리
-			contentlist = contentService.getChannelCategoryData(channelnum, categoryId, page, limit);
-			listcount = contentService.getChannelCategoryCount(channelnum, categoryId);
-		}
-	
-		int maxpage = (listcount + limit - 1) / limit;
-	
-		int startpage = ((page - 1) / 10) * 10 + 1;
-		int endpage = startpage + 10 - 1;
-		if (endpage > maxpage)
-			endpage = maxpage;
-	
-		mv.addAttribute("page", page);
-		mv.addAttribute("limit", limit);
-		mv.addAttribute("channelnum", channelnum);
-		mv.addAttribute("order", order);
-		mv.addAttribute("chcate_id", categoryId);
-		mv.addAttribute("state", state);
-		mv.addAttribute("maxpage", maxpage);
-		mv.addAttribute("startpage", startpage);
-		mv.addAttribute("endpage", endpage);
-		mv.addAttribute("listcount", listcount);
-		mv.addAttribute("contentlist", contentlist);
-	
-		// 뷰 페이지로 이동
-		return "content/content_list";
-	}*/
+	@PostMapping("/report")
+	public ResponseEntity<Map<String, Object>> report(@RequestParam("punchId") String punchId,
+			@RequestParam("sickId") String sickId, @RequestParam("warnCateId") String warnCateId,
+			@RequestParam("boardNum") int boardNum, @RequestParam("warnReason") String warnReason,
+			@RequestParam("replyNum") int replyNum) {
+		Map<String, Object> result = new HashMap<>();
 
+		boolean reportResult = contentService.report(punchId, sickId, warnCateId, boardNum, warnReason, replyNum);
+
+		if (reportResult)
+		{
+			result.put("status", "success");
+			result.put("message", "신고성공");
+		} else
+		{
+			result.put("status", "fail");
+			result.put("message", "신고실패");
+		}
+
+		return ResponseEntity.ok(result);
+	}
+
+	@GetMapping("/checkReportedCategory")
+	public ResponseEntity<Map<String, Object>> checkReportedCategory(@RequestParam("userId") String userId,
+			@RequestParam("category") String category) {
+		Map<String, Object> result = new HashMap<>();
+
+		boolean isReported = contentService.checkReportedCategory(userId, category);
+
+		if (isReported)
+		{
+			result.put("reported", true);
+		} else
+		{
+			result.put("reported", false);
+		}
+
+		return ResponseEntity.ok(result);
+	}
+
+	// 게시글신고하기 페이지
+	@GetMapping("/contentwarn/{chnum}")
+	public ModelAndView warnPage(@PathVariable("chnum") int chnum, @RequestParam("boardNum") int boardNum,
+			ModelAndView mv, Principal principal) {
+
+		ChBoard boardinfo = contentService.getBoardInfo(boardNum);
+		List<WCATEGORY> categories = contentService.getAllWCategories();
+
+		// itda_user
+		Itda_User userinfo = contentService.getUser(principal.getName());
+
+		mv.addObject("boardinfo", boardinfo);
+		mv.addObject("userinfo", userinfo);
+		mv.addObject("categories", categories);
+		mv.setViewName("/content/contentwarn");
+		return mv;
+	}
+
+	// 이미 신고한 카테고리인지 확인하는 요청 처리
+	@GetMapping("/checkContentCategory")
+	@ResponseBody
+	public Map<String, Boolean> checkContentCategory(@RequestParam String userId, @RequestParam String category) {
+		Map<String, Boolean> result = new HashMap<>();
+		boolean isReported = contentService.checkContentCategory(userId, category);
+
+		result.put("reported", isReported);
+		return result;
+	}
+
+	// 신고 접수 요청 처리
+	@PostMapping("/contentreport")
+	@ResponseBody
+	public Map<String, Object> reportContent(@RequestParam String punchId, @RequestParam String sickId,
+			@RequestParam String warnCateId, @RequestParam int boardNum,
+			@RequestParam(required = false) String warnReason, @RequestParam int chNum) {
+		Map<String, Object> result = new HashMap<>();
+		try
+		{
+			contentService.reportContent(punchId, sickId, warnCateId, boardNum, warnReason, chNum);
+			result.put("status", "success");
+		} catch (Exception e)
+		{
+			result.put("status", "fail");
+			result.put("message", e.getMessage());
+		}
+		return result;
+	}
+
+	// 댓글이 신고된 상태인지 확인하는 요청을 처리
+	@PostMapping("/checkReportStatus")
+	@ResponseBody
+	public Map<String, String> checkReportStatus(@RequestParam int num) {
+		Map<String, String> result = new HashMap<>();
+		boolean isReported = contentService.checkReportStatus(num);
+
+		// 신고된 상태라면 'reported'라는 값을 반환
+		if (isReported)
+		{
+			result.put("status", "reported");
+		} else
+		{
+			result.put("status", "not reported");
+		}
+
+		return result;
+	}
 }
+
+/*@RequestMapping(value = "/contentlist.co")
+public String getContentList(@RequestParam(name = "page", defaultValue = "1") int page,
+		@RequestParam(name = "limit", defaultValue = "10") int limit,
+		@RequestParam(name = "channelnum") int channelnum,
+		@RequestParam(name = "order", defaultValue = "desc") String order,
+		@RequestParam(name = "chcate_id") int categoryId,
+		@RequestParam(name = "state", required = false) String state, Model mv) {
+
+	List<ChBoard> contentlist = new ArrayList<ChBoard>();
+
+	int listcount = 0;
+
+	if (categoryId == 0)
+	{ // 전체
+		contentlist = contentService.getAllChannelCategoryData(channelnum, order, page, limit);
+		listcount = contentService.getAllChannelCategoryCount(channelnum);
+
+	} else
+	{ // 카테고리
+		contentlist = contentService.getChannelCategoryData(channelnum, categoryId, page, limit);
+		listcount = contentService.getChannelCategoryCount(channelnum, categoryId);
+	}
+
+	int maxpage = (listcount + limit - 1) / limit;
+
+	int startpage = ((page - 1) / 10) * 10 + 1;
+	int endpage = startpage + 10 - 1;
+	if (endpage > maxpage)
+		endpage = maxpage;
+
+	mv.addAttribute("page", page);
+	mv.addAttribute("limit", limit);
+	mv.addAttribute("channelnum", channelnum);
+	mv.addAttribute("order", order);
+	mv.addAttribute("chcate_id", categoryId);
+	mv.addAttribute("state", state);
+	mv.addAttribute("maxpage", maxpage);
+	mv.addAttribute("startpage", startpage);
+	mv.addAttribute("endpage", endpage);
+	mv.addAttribute("listcount", listcount);
+	mv.addAttribute("contentlist", contentlist);
+
+	// 뷰 페이지로 이동
+	return "content/content_list";
+}*/

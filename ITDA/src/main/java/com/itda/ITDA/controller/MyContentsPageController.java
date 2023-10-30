@@ -3,7 +3,6 @@ package com.itda.ITDA.controller;
 import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,21 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
-import com.itda.ITDA.domain.LikeChNewContent;
-import com.itda.ITDA.domain.LikeChannel;
 import com.itda.ITDA.domain.LikeContent;
 import com.itda.ITDA.domain.Order;
 import com.itda.ITDA.service.ChannelList_Service;
-import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.OrderService;
-import com.itda.ITDA.service.heartService;
-import com.itda.ITDA.util.Message;
 
 @Controller
 @RequestMapping(value= "/my")
@@ -38,27 +31,19 @@ public class MyContentsPageController {
 	private Itda_UserService itdaUserService;
 	private ChannelList_Service channelList_Service;
 	private OrderService orderService;
-	private ContentService contentService;
-	private heartService heartService; 
 	
 	
 	@Autowired
-	public MyContentsPageController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service, 
-									OrderService orderService, ContentService contentService,
-									heartService heartService) {
+	public MyContentsPageController(Itda_UserService itdaUserService, ChannelList_Service channelList_Service, OrderService orderService) {
 		this.itdaUserService = itdaUserService;
 		this.channelList_Service = channelList_Service;
 		this.orderService = orderService;
-		this.contentService = contentService;
-		this.heartService = heartService;
 	}
 	
 	
 	@GetMapping(value="/subscriptions")
 	public String goSubscriptions(Model model,
-								  HttpSession session, 
-								  Principal principal,
-								  LikeChannel LikeChannel) {
+			HttpSession session, Principal principal) {
 		
 		String id = principal.getName();
 		logger.info("id : " + principal.getName());
@@ -77,13 +62,6 @@ public class MyContentsPageController {
 	    	session.setAttribute("userId", vo.getUserId());
 	    	session.setAttribute("userProfile", vo.getUserProfile());
 	    	
-	    	List<LikeChannel> likeChList = itdaUserService.myLikeChList(id);
-	    	int count = itdaUserService.myLikeChListCount(id);
-	    	
-	    	model.addAttribute("likeChList", likeChList);
-	    	model.addAttribute("count", count);
-	    	model.addAttribute("subActive", "active");
-	    	
 	    	if (sellerId == null || sellerId.equals("")) {
 	    		model.addAttribute("message", "NOT_SELLER");
 	    		session.setAttribute("message", "NOT_SELLER");
@@ -101,17 +79,7 @@ public class MyContentsPageController {
 	
 	// 마이페이지 구독채널의 최신 콘텐츠
 	@GetMapping(value="/subscriptions/contents")
-	public String subscriptionsContents(LikeChNewContent newContent,
-										Principal principal,
-										Model model) {
-		
-		String id = principal.getName();
-		
-		List<LikeChNewContent> newContentList = itdaUserService.myLikeChNewContentList(id);
-		
-		model.addAttribute("newContentList", newContentList);
-		model.addAttribute("subActive", "active");
-		
+	public String subscriptionsContents() {
 		return"mypage/subscriptions_contents";
 	}
 	
@@ -123,18 +91,7 @@ public class MyContentsPageController {
 	
 	// 마이페이지 설정(구독 설정)
 	@GetMapping(value="/notification")
-	public String notification(LikeChannel likeCh,
-								Principal principal,
-								Model model) {
-		
-		String id = principal.getName();
-		
-		List<LikeChannel> likeChList = itdaUserService.myLikeChList(id);
-		int count = itdaUserService.myLikeChListCount(id);
-		
-		model.addAttribute("likeChList", likeChList);
-		model.addAttribute("count", count);
-		
+	public String notification() {
 		return "mypage/notification";
 	}
 	
@@ -180,31 +137,9 @@ public class MyContentsPageController {
 		
 		model.addAttribute("contentList", likeContentList);
 		model.addAttribute("cnt", count);
-		model.addAttribute("contentsActive", "active");
+		
 		
 		return "mypage/contents";
-	}
-	
-	// 관심 콘텐츠 삭제 프로세스
-	@PostMapping(value="contents/likeDeletePro")
-	public String likeDeleteProcess(LikeContent likeContent,
-								Principal principal,
-								Model model,
-								HttpServletRequest request) {
-		
-		String id = principal.getName();
-		
-		likeContent.setBoard_num(likeContent.getBoard_num());
-		likeContent.setUser_id(id);
-		
-		int boardNum = likeContent.getBoard_num();
-		
-		heartService.removeHeart(boardNum, id);
-		heartService.decreaseChBoardHeart(boardNum);
-		
-		request.setAttribute("msg", Message.SUCCESS);
-		
-		return "mypage/contents_delete_action";
 	}
 	
 	// 나의 채널 가져오기

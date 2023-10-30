@@ -23,7 +23,7 @@ function onTabClick(tabId) {
 
 // 드롭다운 버튼 클린 이벤트 처리 함수
 function onDropdownButtonClick() {
-   $(".layer_action_ctrl").toggle();
+	$(".layer_action_ctrl").toggle();
 }
 
 // 글 작성 버튼 클릭 이벤트 처리 함수
@@ -59,9 +59,7 @@ function toggleSubscription() {
             "background-color": "#00c6be",
             "color": "#fff"
         });
-
         $(".txt_default_subscribe").html('<img class="ico_plus" src="../image/channel/subing.png" style="height: 10px; margin-right: 4px; vertical-align: sub; width: 13px; margin-bottom: 4px;" alt="구독 취소 버튼 아이콘">구독중');
-
         isSubscribed = true;
     }
     updateSubscriberCount();
@@ -133,10 +131,8 @@ function updateSubscriberCount() {
 
 // 로그인한 사용자의 구독 상태를 확인하는 함수
 function checkSubscription() {
-
 	let token = $("meta[name='_csrf']").attr("content");
     let header = $("meta[name='_csrf_header']").attr("content");
-
     let userId = $('#loginid').text();
     let chnum = $('#chnum').val();
     

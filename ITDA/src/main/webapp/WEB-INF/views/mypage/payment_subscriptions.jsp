@@ -144,5 +144,5 @@
 
 
 </body>
-<jsp:include page="../include/footer.jsp"></jsp:include>
+
 </html>

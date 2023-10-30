@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" uri="http://java.sun.com/jsp/jstl/core" %>
-<style type="text/css">
-.my_tab_text.active{
-    font-weight: bold;
-    color: black;
-}
-</style>
 <body>
-
 <script>
 $(document).ready(function(){
     // 페이지 로드 시, 로컬 스토리지에서 저장된 값으로 글꼴 두께와 색상을 설정합니다.
@@ -54,10 +47,10 @@ $(document).ready(function(){
 				<div class="my_user_img_wrap2">
 				   <t:choose>
                      <t:when test="${empty userProfile}">
-			                <img class="my_user_img_wrap" src="https://static.nid.naver.com/images/web/user/default.png" alt="프로필 이미지">
+			                <img src="https://static.nid.naver.com/images/web/user/default.png" width="56" height="56" alt="프로필 이미지">
                         </t:when>
                     <t:when test="${!empty userProfile}">
-                                <img class="my_user_img_wrap" src="${pageContext.request.contextPath}/image/Member/${userId}${userProfile}">
+                                <img id="imgThumb" src="${pageContext.request.contextPath}/image/Member/${userId}${userProfile}" width="56" height="56">
                         </t:when>
                  </t:choose>
 				</div>
@@ -76,51 +69,13 @@ $(document).ready(function(){
 		</div>
 		<div class="my_tab_wrap">
 			<ul class="my_tab">
-				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions" data-clk="my_lnb.substab">
-					<t:if test="${!empty subActive }">
-						<span class="my_tab_text active">구독 채널</span>
-					</t:if>
-					<t:if test="${empty subActive }">
-						<span class="my_tab_text">구독 채널</span>
-					</t:if>
-					</a>
+				<li class="my_tab_item is_active">
+					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/subscriptions" data-clk="my_lnb.substab"><span class="my_tab_text">구독 채널</span></a>
 				</li>
 				<li class="my_tab_item">
-					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/contents" data-clk="my_lnb.constab">
-					<t:if test="${!empty contentsActive }">
-						<span class="my_tab_text active">관심 콘텐츠</span>
-					</t:if>
-					<t:if test="${empty contentsActive }">
-						<span class="my_tab_text">관심 콘텐츠</span>
-					</t:if>
-					</a>
+					<a href="#" class="my_tab_link _LOCATION_REPLACE" data-url="${pageContext.request.contextPath}/my/contents" data-clk="my_lnb.constab"><span class="my_tab_text">관심 콘텐츠</span></a>
 				</li>
 			</ul>
 		</div>
 	</div>
 </body>
-<script>
-$(document).ready(function() {
-    $(".my_tab_link").click(function(event) {
-        event.preventDefault(); // 기본 링크 동작 방지
-        
-        // data-url 속성의 URL 가져오기
-        var url = $(this).data('url');
-        
-        // 페이지 이동
-        window.location.href = url;
-    });
-    
-    $(".my_subscriptions_tab_button[data-clk='my_subs.chl']").click(function() {
-        var url = $(this).data('url');
-        window.location.href = url;
-    });
-
-    // "최신 콘텐츠" 버튼 클릭 이벤트 핸들러
-    $(".my_subscriptions_tab_button[data-clk='my_subs.cont']").click(function() {
-        var url = $(this).data('url');
-        window.location.href = url;
-    });
-});
-</script>

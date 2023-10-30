@@ -3,13 +3,18 @@ package com.itda.ITDA.service;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.itda.ITDA.controller.ContentController;
 import com.itda.ITDA.mybatis.mapper.TagMapper;
 
 @Service
 public class TagServicelmpl implements TagService {
+	private static final Logger logger = LoggerFactory.getLogger(ContentController.class);
 
 	private TagMapper dao;
 
@@ -49,8 +54,15 @@ public class TagServicelmpl implements TagService {
 
 	@Override
 	public void deleteTagsByBoardNum(int boardnum) {
-		dao.deleteTagsByBoardNum(boardnum);
-
+		try
+		{
+			dao.deleteTagsByBoardNum(boardnum);
+		} catch (EmptyResultDataAccessException e)
+		{
+			// 'boardnum'에 해당하는 태그가 없을 때 발생하는 예외를 적절히 처리
+			// 이 경우, 삭제할 태그가 없으므로 별도의 처리가 필요 없음
+			logger.info("No tags to delete with boardNum: " + boardnum);
+		}
 	}
 
 }
