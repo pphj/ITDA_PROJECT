@@ -15,7 +15,7 @@
 <script> var contextPath = "<%=request.getContextPath()%>"
 </script>
 <script src="${pageContext.request.contextPath}/js/content/Reply.js"></script>
-<script src="${pageContext.request.contextPath}/js/content/Heart.js"></script>
+<script src="${pageContext.request.contextPath}/js/content/HeartandVisit.js"></script>
 <link href='${pageContext.request.contextPath}/resources/css/Reply.css' type='text/css' rel='stylesheet'>
 <link href="${pageContext.request.contextPath}/resources/css/content/content_detail.css" type="text/css" rel="stylesheet">
 <script>

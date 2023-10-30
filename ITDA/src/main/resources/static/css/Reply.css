@@ -279,9 +279,10 @@ a:hover {
 	display:none;
 }
 
-.reply_area{
-	width: 70%;
-	margin-left: 360px;
+.reply_area {
+    width: 70%;
+    margin-left: 450px;
+    
 }
 .reply_head, .reply_write{
 	margin-left: 200px;

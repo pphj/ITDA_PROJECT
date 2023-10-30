@@ -13,9 +13,11 @@ import com.itda.ITDA.domain.ChannelList;
 import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.domain.Tag;
+import com.itda.ITDA.domain.WCATEGORY;
 
 @Mapper
 public interface ContentMapper {
+
 
 	List<ChBoard> getContentAll(int pageCount, int startRow, int endRow);
 
@@ -55,4 +57,9 @@ public interface ContentMapper {
 
 	void deleteBoard(int boardNum);
 
+	void increaseViewCount(int boardNum, int boardVisit);
+
+	void increaseViewCount(int boardNum);
+
+	WCATEGORY getWarnCategory();
 }

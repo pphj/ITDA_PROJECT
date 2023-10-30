@@ -24,12 +24,57 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/channel/B.Home.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/channel/ChannelMain.js"></script>
 <jsp:include page="../include/header.jsp" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/Chart.extension.js"></script>
 <script>
 <!--프로필 설정으로 이동 -->
 $(document).ready(function(){
-	  $(".btnBlockProfile").click(function(){
-	    window.location.href = '${pageContext.request.contextPath}/channels/${ChannelList.chNum}/sellersetting';
-	  });	  
+	$(".btnBlockProfile").click(function(){
+		window.location.href = '${pageContext.request.contextPath}/channels/${ChannelList.chNum}/sellersetting';
+	});
+	  
+	window.onload = function() {
+		let subData = ${subData};
+		
+		let maleCount = 0;
+		let femaleCount = 0;
+		
+		for (const data of subData) {
+		    if (data.userGender === '남') {
+		    	maleCount++;
+		    }
+		    if (data.userGender === '여') {
+		    	femaleCount++;
+		    }
+		}
+	
+		new Chart(document.getElementById("doughnut-chart"), {
+		    type: 'doughnut',
+		    data: {
+		    	labels: ["남", "여"],
+		    	datasets: [{
+		    		backgroundColor: ['rgb(102, 135, 187)', 'rgb(232, 147, 147)'],
+		        	data: [maleCount, femaleCount]
+		        }
+		      ]
+		    },
+		    options: {
+		    	maintainAspectRatio: false,
+		    	responsive: true,
+		    	plugins: {
+		            legend: {
+		                position: 'right' // 범례의 위치를 오른쪽으로 설정
+		            },
+		            title: {
+				        display: true,
+				        text: '채널 구독자 성별',
+				        align: 'center',
+				        padding: 20
+			    	}
+		        }
+		    }
+		});
+	}
 });
 </script>
 <style>
@@ -62,8 +107,8 @@ $(document).ready(function(){
 			<strong class="profileUserName tit_bloger">${ChannelList.chName}</strong>
 			<dl class="blog_count ">
 				<dd>
-					<a href="/@garangbimaker/follower" class="link_count #follower"> <em class="txt_g">구독자</em> <span class="num_count">4,460</span>
-					</a>
+					<b class="link_count #follower"> <em class="txt_g">구독자</em> <span class="num_count"  style="text-decoration: none;">${subinfo.subscriberCount}</span>
+					</b>
 				</dd>
 			</dl>
 		</div>
@@ -229,30 +274,7 @@ $(document).ready(function(){
 				<div class="author_intro animation_up">
 					<strong class="tit_intro">채널소개</strong>
 					<p class="desc_intro">${ChannelList.chInfo}</p>
-					<!-- 태그 -->
-					<!-- <ul class="list_tag">
-						<li>
-							<a href="/keyword/profile/에세이" class="link_tag #profilekeyword">에세이</a>
-						</li>
-						<li>
-							<a href="/keyword/profile/가족" class="link_tag #profilekeyword">가족</a>
-						</li>
-						<li>
-							<a href="/keyword/profile/육아" class="link_tag #profilekeyword">육아</a>
-						</li>
-						<li>
-							<a href="/keyword/profile/의사" class="link_tag #profilekeyword">의사</a>
-						</li>
-						<li>
-							<a href="/keyword/profile/출간작가" class="link_tag #profilekeyword">출간작가</a>
-						</li>
-						<li>
-							<a href="/keyword/profile/교수" class="link_tag #profilekeyword">교수</a>
-						</li>
-					</ul> -->
 				</div>
-				<!-- <div class="author_intro animation_up"> 작가소개 -->
-
 				<!-- 통계 -->
 				<div class="author_intro animation_up">
 					<strong class="tit_intro">구독자 통계</strong>
@@ -260,102 +282,9 @@ $(document).ready(function(){
 						<div class="inner_slide">
 							<ul class="list_book" data-page="1" style="width: 221px; transition-duration: 0.3s;">
 								<li>
-									<div class="channel_stats">
-										<div class="channel_stats_both">
-											<div class="channel_stats_left">
-												<ul class="channel_stats_graph">
-													<li class="channel_stats_item">
-														<div class="channel_stats_bar">
-															<div class="channel_stats_bar_value" style="height: 2%;">
-																<span class="channel_stats_bar_percent">1%</span>
-															</div>
-														</div>
-														<!-- <div class="channel_stats_legend">10<span class="channel_stats_legend_unit">대</span></div> -->
-													</li>
-													<li class="channel_stats_item">
-														<div class="channel_stats_bar">
-															<div class="channel_stats_bar_value is_2" style="height: 64%;">
-																<span class="channel_stats_bar_percent">24%</span>
-																<span class="channel_stats_bar_text">
-																	2
-																	<span class="blind">위</span>
-																</span>
-															</div>
-														</div>
-													</li>
-													<li class="channel_stats_item">
-														<div class="channel_stats_bar">
-															<div class="channel_stats_bar_value is_1" style="height: 100%;">
-																<span class="channel_stats_bar_percent">38%</span>
-																<span class="channel_stats_bar_text">
-																	1
-																	<span class="blind">위</span>
-																</span>
-															</div>
-														</div>
-													</li>
-													<li class="channel_stats_item">
-														<div class="channel_stats_bar">
-															<div class="channel_stats_bar_value" style="height: 63%;">
-																<span class="channel_stats_bar_percent">24%</span>
-															</div>
-														</div>
-													</li>
-													<li class="channel_stats_item">
-														<div class="channel_stats_bar">
-															<div class="channel_stats_bar_value" style="height: 29%;">
-																<span class="channel_stats_bar_percent">11%</span>
-															</div>
-														</div>
-													</li>
-													<li class="channel_stats_item">
-														<div class="channel_stats_bar">
-															<div class="channel_stats_bar_value" style="height: 7%;">
-																<span class="channel_stats_bar_percent">3%</span>
-															</div>
-														</div>
-													</li>
-												</ul>
-											</div>
-											<!-- 원 통계 -->
-											<div class="channel_stats_right">
-												<div class="channel_stats_donut">
-													<div id="_CHANNEL_HOME_PROFILE_SUBSCRIBER_GENDER" class="pie_chart _gender_chart bb" style="position: relative;">
-														<svg width="130" height="130" style="overflow: hidden; display: block;">
-														<g class="bb-main" transform="translate(0.5, 0.5)">
-														
-														<g class="bb-chart" clip-path="">
-														<g class="bb-chart-arcs" transform="translate(65, 60)">
-														<g class="bb-chart-arc bb-target bb-target-female">
-														
-														<g class="bb-shapes bb-shapes-female bb-arcs bb-arcs-female">
-														<path class="bb-shape bb-shape bb-arc bb-arc-female" transform="scale(1,1)" style="fill: rgb(232, 147, 147);"
-																d="M-53.286345393897996,-20.237722069496993A57,57,0,0,1,-1.726449813346965,-56.97384813264762L-1.726449813346935,-38.961768068736234A39,39,0,0,0,-36.26181095760991,-14.355523887150968Z"></path>
-														</g>
-														
-														<text dy=".35em" transform="translate(-11.141215697917236,-15.636921460840131)"
-																style="text-anchor: middle; pointer-events: none;">19%</text>
-														</g>
-														
-														<g class="bb-chart-arc bb-target bb-target-male">
-														<g class="bb-shapes bb-shapes-male bb-arcs bb-arcs-male">
-														<path class="bb-shape bb-shape bb-arc bb-arc-male" transform="scale(1,1)" style="fill: rgb(102, 135, 187);"
-																d="M1.7264498133468948,-56.97384813264762A57,57,0,1,1,-54.41395752064261,-16.974134055724363L-37.38942308435453,-11.09193587337831A39,39,0,1,0,1.726449813346887,-38.961768068736234Z"></path>
-														</g>
-														
-														<text dy=".35em" transform="translate(11.141215697917218,15.63692146084014)"
-																style="text-anchor: middle; pointer-events: none;">81%</text>
-														</g>
-														</g></g></g>
-														</svg>
-														<div class="bb-tooltip-container" style="position: absolute; pointer-events: none; display: none;"></div>
-													</div>
-													<div class="channel_stats_donutlegend">
-														<span class="channel_stats_donutlegend_item _GENDER is_female" data-id="female" data-percent="0.1921540991308433">여자</span>
-														<span class="channel_stats_donutlegend_item _GENDER is_male" data-id="male" data-percent="0.8078459008691566">남자</span>
-													</div>
-												</div>
-											</div>
+									<div class="channel_stats" style="width: 450px; margin-top: 25px;">
+										<div class="chart-div">
+											<canvas id="doughnut-chart"></canvas>
 										</div>
 									</div>
 								</li>
@@ -363,9 +292,7 @@ $(document).ready(function(){
 						</div>
 					</div>
 				</div>
-				<!-- 	<div class="author_intro animation_up"> 통계 -->
 			</div>
-			<!-- <div class="tab_content" -->
 
 			<!-- 카테고리 내용 -->
 			<div class="tab_content" id="works">
