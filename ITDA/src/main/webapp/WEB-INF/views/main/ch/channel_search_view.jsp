@@ -164,7 +164,8 @@
 				    <li class="psp_channel_item">
 				      <a href="${pageContext.request.contextPath}/channels/${channel.chNum}?userid=${channel.ownerId}" class="psp_channel_link" data-clk="pch_search.resultch" target="_blank">
 				            <div class="psp_channel_thumb">
-				                <img src="${channel}" class="psp_channel_img" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+				                <img  src="${pageContext.request.contextPath}/image/MemberUpload/${channel.ownerId}${channel.chProfile}"
+ 								class="psp_channel_img" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 				            </div>
 				            <div class="psp_text">
 				                <strong class="psp_name">${channel.chName}</strong>

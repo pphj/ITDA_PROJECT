@@ -166,7 +166,7 @@
 				    <li class="psp_channel_item">
 				      <a href="${pageContext.request.contextPath}/channels/${channel.chNum}?userid=${channel.ownerId}" class="psp_channel_link" data-clk="pch_search.resultch" target="_blank">
 				            <div class="psp_channel_thumb">
-				            <img  src="${pageContext.request.contextPath}/resources/image/MemberUpload/${channel.ownerId}${channel.chProfile}"
+				            <img  src="${pageContext.request.contextPath}/image/MemberUpload/${channel.ownerId}${channel.chProfile}"
  								class="psp_channel_img" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 				            </div>
 				            <div class="psp_text">
@@ -201,7 +201,7 @@
 					            <a href="${pageContext.request.contextPath}/contents/${content.chNum}/${content.boardNum}?userid=" class="psp_channel_link" data-clk="pch_search.resultcontch" target="_blank">
 					                <span class="psp_channel_thumb_small">
 				
-					                   <img src="${pageContext.request.contextPath}/image/MemberUpload/${content.writer}${content.thumbNail}" class="psp_channel_img" width="18" height="18" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+					                   <img src="${pageContext.request.contextPath}/image/contents/${content.chNum}${content.thumbNail}" class="psp_channel_img" width="18" height="18" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 					                </span>
 					                <span class="psp_channel_name">${content.chNum}</span>
 					            </a>
