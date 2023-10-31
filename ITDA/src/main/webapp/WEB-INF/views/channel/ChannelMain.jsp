@@ -251,9 +251,9 @@ $(document).ready(function(){
 					</div>
 					<c:if test="${empty ChannelBoardList}">
 						<div class="emptycontent"
-							style="height: 450px; width: 1903px; text-align: center; position: relative; margin-top: 80px; margin-left: 110px;">
+							style="height: 450px; width: 1903px; text-align: center; position: relative; margin-top: 80px;">
 							<p
-								style="color: #959595; font-size: 20px; font-weight: normal; letter-spacing: -1px; white-space: nowrap;">등록된
+								style="color: #959595; font-size: 20px; font-weight: normal; letter-spacing: -1px; white-space: nowrap; text-align: center;">등록된
 								게시글이 없습니다.</p>
 						</div>
 					</c:if>
@@ -355,6 +355,7 @@ $(document).ready(function(){
 						</c:forEach>
 					</ul>
 				</div>
+				<div class="article_wrap_contents"></div>
 				<!-- 	<div class="wrap_contents"> 카테고리 -->
 			</div>
 			<!-- <div class="tab_content"> -->

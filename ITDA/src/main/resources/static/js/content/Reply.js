@@ -1,6 +1,16 @@
 // 현재 선택된 옵션을 저장하는 변수
 let option = 1;
 
+// 신고하기 함수 추가
+function reportComment(chnum, boardNum, replyNum) {
+    if (!$("#LoginId").val()) {
+        alert('로그인이 필요한 서비스입니다.');
+        return;
+    }
+
+    window.open('/itda/contents/warn/' + chnum + '?boardNum=' + boardNum + '&replyNum=' + replyNum, '_blank', 'width=636, height=845');
+}
+
 // 댓글 목록을 가져오는 함수
 function getList(state) {
     // CSRF 토큰을 가져옴
@@ -120,7 +130,7 @@ function getList(state) {
 				        + ' 	<div id="reply_list_item_layer' + this.replyNum + '"  class="LayerMore"  style="display: none; width: 70px;">'
 				        + '     	<ul class="layer_list"  style="display: flex;">'
 				        + '     	<li class="layer_item"  style="display: flex;">'
-					    + '<a href="javascript:;" onclick="window.open(\'/itda/contents/warn/' + chnum + '?boardNum=' + boardNum + '&replyNum=' + this.replyNum + '\', \'_blank\', \'width=636, height=845\');" class="layer_button">신고하기</a>'
+					    + '<a href="javascript:reportComment(' + chnum + ', ' + boardNum + ', ' + this.replyNum + ')" class="layer_button">신고하기</a>'
 					    + '     	</li></ul>'
 					    + '   </div>'
 					    + '</div>'
