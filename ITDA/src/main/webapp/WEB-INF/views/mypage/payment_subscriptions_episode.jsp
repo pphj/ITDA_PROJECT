@@ -145,6 +145,7 @@
 <input type="hidden" name="payedNum" value="${orderInfo.payedNum}">
 <input type="hidden" name="payedPrice" value="${orderInfo.payedPrice}">
 <input type="hidden" name="discountPrice" value="${orderInfo.discountPrice}">
+<input type="hidden" name="productTerm" value="${orderInfo.productTerm}">
 <div class="my_detail_content">
 	<div class="my_detail_titlewrap">
 		<h2 class="my_detail_title">구매 정보</h2>
@@ -155,12 +156,15 @@
 				<c:if test="${orderInfo.payedStatus == 'Y'}">
 					<dd><em><c:out value="결제완료"/></em></dd>
 				</c:if>
-				<c:if test="${orderInfo.payedStatus == 'N'}">
+				<c:if test="${orderInfo.payedStatus == 'R'}">
 					<dd><em><c:out value="결제취소"/></em></dd>
 				</c:if>
 				<c:if test="${orderInfo.payedStatus == 'F'}">
 					<dd><em><c:out value="결제실패"/></em></dd>
 				</c:if>
+				<c:if test="${orderList.payedStatus == 'N'}">
+					<dd><em><c:out value="결제중단"/></em></dd>
+				</c:if>				
 			
 		</div>
 		<div class="my_detail_info_item">

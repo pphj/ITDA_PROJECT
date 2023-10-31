@@ -2,6 +2,8 @@ package com.itda.ITDA.controller;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +27,7 @@ import com.itda.ITDA.domain.KakaoPayApproval;
 import com.itda.ITDA.domain.Paycall;
 import com.itda.ITDA.domain.Payment;
 import com.itda.ITDA.domain.ReadyResponse;
+import com.itda.ITDA.domain.RefundUser;
 import com.itda.ITDA.domain.SubProduct;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.OrderService;
@@ -44,6 +45,7 @@ import lombok.Setter;
 public class OrderController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
+	
 	
 	private OrderService orderService;
 	private Itda_UserService itdaUserService;
@@ -214,11 +216,15 @@ public class OrderController {
 					GoodUser isGoodUser = itdaUserService.isGoodUser(id);
 
 					Timestamp realTime = new Timestamp(System.currentTimeMillis());
+					
 					Timestamp getEndDate;
 
 					logger.info("completUser.getUserId() : " + completUser.getUserId());
+					logger.info("리얼타임리얼타임=============== : " + realTime.getTime());
 					try {
+						// 처음 결제하는 유저일 경우
 						if (completUser.getUserId() != null && isGoodUser == null) {
+							logger.info("==================처음 결제하는 유저 ================== : " );
 
 							goodUser.setPayedNum(completUser.getPayedNum());
 							goodUser.setFirstDate(completUser.getPayedOkDate());
@@ -242,8 +248,10 @@ public class OrderController {
 							if(result == Constants.INSERT_SUCCESS) {
 								logger.info(Message.INSERT_SUCCESS);
 							}
-							// 현재 날짜보다 구독 만료일이 클 경우
-						} else if (isGoodUser.getEndDate().getTime() >= realTime.getTime()) {
+							// 유료 회원인데, 현재 날짜보다 구독 만료일이 클 경우
+						} else if (isGoodUser.getUserId() != null && isGoodUser.getEndDate() != null && isGoodUser.getEndDate().getTime() >= realTime.getTime()) {
+							
+							logger.info("===================유료 회원인데, 현재 날짜보다 구독 만료일이 클 경우 ================== : " );
 							
 							goodUser.setPayedNum(completUser.getPayedNum());
 							goodUser.setFirstDate(completUser.getFirstDate());
@@ -264,6 +272,8 @@ public class OrderController {
 							 }
 
 						}else {
+							logger.info("===============그 외의 결제유저 ================== : " );
+							
 							goodUser.setPayedNum(completUser.getPayedNum());
 							goodUser.setFirstDate(isGoodUser.getFirstDate());
 							goodUser.setStartDate(completUser.getPayedOkDate());
@@ -274,10 +284,13 @@ public class OrderController {
 							 int result = itdaUserService.updateResetPaymentUser(goodUser);
 							 if(result == Constants.UPDATE_SUCCESS) {
 								 logger.info(Message.PAYMENT_RESET_USER_UPDATE_SUCCESS);
+								 logger.info("=========================================이게 되어야 하는데?");
+								 
 							 }
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
+						logger.info(Message.INSERT_FALL);
 					}
 				}
 			}
@@ -290,7 +303,6 @@ public class OrderController {
 		logger.info("payment.setOrderNum" + payment.getOrderNum());
 
 		// int insert = orderService.InsertPayment(payment);
-		logger.info(Message.INSERT_SUCCESS);
 
 		return "redirect:/my/payment/subscriptions";
 	}	
@@ -315,29 +327,61 @@ public class OrderController {
 	
 	@RequestMapping(value="/subscriptions/info/refund")
 	public String payRefund(Principal principal,
-													Payment payment) {
+							RefundUser refundUser,
+							HttpServletRequest request) {
 		
 		String id = principal.getName();
 		
-		payment.setUserId(id);
-		payment.setPayedNum(payment.getPayedNum());
-		payment.setPayedPrice(payment.getPayedPrice());
+		refundUser.setUserId(id);
+		refundUser.setPayedNum(refundUser.getPayedNum());
+		refundUser.setPayedPrice(refundUser.getPayedPrice());
+		refundUser.setProductTerm(refundUser.getProductTerm());
 		
-		Payment refundOrder = orderService.isPayRefundOrder(payment);
+		RefundUser refundOrder = orderService.isPayRefundOrder(refundUser);
 		
-		logger.info("payment.setPayedNum : " + payment.getPayedNum());
+		GoodUser goodUser = itdaUserService.isGoodUser(id);
+		logger.info("payment.setPayedNum : " + refundUser.getPayedNum());
        
 		KakaoCancelResponse kakaoCancelResponse = orderService.kakaoCancel(refundOrder);
 		
-		int result = orderService.updatePayRefundUser(payment);
-		//int result = itdaUserService.updatePayRefundUser
+		// 결제 환불하는 유저의 유료회원 테이블 업데이트
+		Timestamp nowTime = new Timestamp(System.currentTimeMillis());
 		
-		if(result > 0) {
-			logger.info(Message.PAYMENT_USER_UPDATE_SUCCESS);
+		int productTermInDays = refundUser.getProductTerm();
+		
+		LocalDateTime plusDays = goodUser.getStartDate().toLocalDateTime().plusDays(productTermInDays);
+		LocalDateTime minusDays = goodUser.getEndDate().toLocalDateTime().minusDays(productTermInDays);
+		Timestamp productPeriodUse = Timestamp.valueOf(plusDays);
+		Timestamp userExpirationDate = Timestamp.valueOf(minusDays);
+		
+		
+		logger.info("productPeriodUse ====== " + productPeriodUse);
+		logger.info("userExpirationDate ====== " + userExpirationDate);
+		// endDate - productTerm > 오늘 날짜인 경우
+		if(userExpirationDate.after(nowTime)) {
+			refundUser.setEndDate(userExpirationDate);
+			
+			int result = orderService.updatePayRefundUser(refundUser);
+			int result2 = orderService.updatePayedStatusIsR(refundUser);
+			if(result > 0 && result2 > 0) {
+				logger.info(Message.REFUND_EXISTING_USER_UPDATE_SUCCESS);
+				request.setAttribute("msg", Message.PAYMENT_CANCLE);
+			}
+		// endDate - productTerm < startDate인 경우
+		}else if(userExpirationDate.before(goodUser.getStartDate()) || userExpirationDate == goodUser.getStartDate()) {
+			refundUser.setEndDate(null);
+			int result = orderService.updatePayRefundUser(refundUser);
+			int result2 = orderService.updatePayedStatusIsR(refundUser);
+			
+			if(result > 0 && result2 > 0) {
+				logger.info(Message.REFUND_NEW_USER_UPDATE_SUCCESS);
+				request.setAttribute("msg", Message.PAYMENT_CANCLE);
+			}
+		}else {
+			
+			request.setAttribute("msg", Message.PAYMENT_CANCLE);
 		}
 		
-		//new ResponseEntity<>(kakaoCancelResponse, HttpStatus.OK);
-        
 		return "redirect:/product/cancel";
     }
 }

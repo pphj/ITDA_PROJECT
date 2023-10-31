@@ -101,12 +101,12 @@
 				<em class="product_real_pay_price"><span class="_SUBSCRIPTION_DISCOUNT_PRICE">${productInfo.productPrice}</span>원</em>
 			</dd>
 		</div>
-		<div class="product_pay_info_item">
+<!-- 		<div class="product_pay_info_item">
 			<dt>쿠폰 사용금액</dt>
 			<dd>
 				<em class="product_real_pay_price"><span class="_SUBSCRIPTION_DISCOUNT_PRICE">{}</span>원</em>
 			</dd>
-		</div>
+		</div> -->
 	</dl>
 </div>
 <div class="product_pay_info">

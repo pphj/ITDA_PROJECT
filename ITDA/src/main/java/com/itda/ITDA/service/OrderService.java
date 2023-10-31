@@ -7,6 +7,7 @@ import com.itda.ITDA.domain.KakaoPayApproval;
 import com.itda.ITDA.domain.Paycall;
 import com.itda.ITDA.domain.Payment;
 import com.itda.ITDA.domain.ReadyResponse;
+import com.itda.ITDA.domain.RefundUser;
 import com.itda.ITDA.domain.SubProduct;
 
 public interface OrderService {
@@ -27,11 +28,15 @@ public interface OrderService {
 
 	Payment paymentCompletUser(String id);
 
-	KakaoCancelResponse kakaoCancel(Payment payment);
+	KakaoCancelResponse kakaoCancel(RefundUser refundOrder);
 
-	Payment isPayRefundOrder(Payment payment);
+	RefundUser isPayRefundOrder(RefundUser refundUser);
 
-	int updatePayRefundUser(Payment payment);
+	int updatePayRefundUser(RefundUser refundUser);
+
+	int updateEndDateIsNull(RefundUser refundUser);
+
+	int updatePayedStatusIsR(RefundUser refundUser);
 
 
 }

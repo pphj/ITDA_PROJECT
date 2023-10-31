@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <style type="text/css">
 .my_tab_text.active{
     font-weight: bold;
@@ -47,22 +49,23 @@ $(document).ready(function(){
     });
 });
 </script>
-
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="pinfo" />
 <div class="my_sidebar_box">
 		<div class="my_user">
 			<a href="${pageContext.request.contextPath}/user/myInfo" class="my_user_modify_link">
 				<div class="my_user_img_wrap2">
 				   <t:choose>
-                     <t:when test="${empty userProfile}">
+                     <t:when test="${empty  pinfo.userProfile}">
 			                <img class="my_user_img_wrap" src="https://static.nid.naver.com/images/web/user/default.png" alt="프로필 이미지">
                         </t:when>
-                    <t:when test="${!empty userProfile}">
+                    <t:when test="${!empty pinfo.userProfile}">
                                 <img class="my_user_img_wrap" src="${pageContext.request.contextPath}/image/Member/${userId}${userProfile}">
                         </t:when>
                  </t:choose>
 				</div>
 				<strong class="my_user_name">
-					${userName} 
+					${pinfo.userName} 
 				</strong>
 			</a>
 			<div class="my_user_link_wrap">
@@ -122,6 +125,7 @@ $(document).ready(function(){
 			<img class="_LAZY_LOADING" src="${pageContext.request.contextPath}/image/mypage/mini_banner.png" width="315" height="110" alt="">
 		</a>
 	</div>
+	</sec:authorize>
 </body>
 <script>
 $(document).ready(function() {

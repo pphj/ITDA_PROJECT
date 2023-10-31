@@ -87,7 +87,7 @@
 	</select>
 	
 		<!-- 환불과 관련된 정보 조회하는 쿼리 -->
-	<select id="isPayRefundOrder" resultType="Payment">
+	<select id="isPayRefundOrder" resultType="RefundUser">
 		<![CDATA[
 			SELECT
 			    payednum,
@@ -116,10 +116,17 @@
 		]]>
 	</select>
 	
-	<update id="updatePayRefundUser" parameterType="Payment">
+	<update id="updatePayRefundUser" parameterType="RefundUser">
+		update goodUser
+		set enddate = #{endDate}
+		where userId = #{userId}
+	</update>
+	
+	<update id="updatePayedStatusIsR" parameterType="RefundUser">
 		update payment
 		set payedstatus = 'R'
 		where payednum = #{payedNum}
 	</update>
+	
 	
 </mapper>
