@@ -275,6 +275,7 @@
 		left join channellist ch on ch.chnum = s.subchnum
 		left join itda_user iu on iu.userid = s.userid
 		where s.userid = #{userId}
+		order by s.subdate desc
 	</select>
 	
 	<!-- 구독한 채널의 list 갯수 불러오기 -->

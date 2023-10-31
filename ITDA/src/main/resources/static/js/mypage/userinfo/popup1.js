@@ -385,6 +385,7 @@ function confirmMyLetterEmail(submitFlag) {
             window.location.href = rawRurl; // 페이지 이동
         },
         complete: function () {
+        	
             submitFlag = false;
         }
     });
@@ -406,6 +407,11 @@ function confirmMyLetterEmail(submitFlag) {
  var sendAuthNoForEmailAuthFlag = false;
  
  function sendAuthNoForEmailAuth(obj) {
+ 	if (sendAuthNoForEmailAuthFlag === false) {
+ 		$("#e_myLetterEmail").removeClass("popup_error green");
+        $("#e_myLetterEmail").addClass("popup_error");
+    }
+ 
     if (sendAuthNoForEmailAuthFlag === true) {
         return;
     }
@@ -418,17 +424,17 @@ function confirmMyLetterEmail(submitFlag) {
     var errorElement = $("#e_" + obj);
     
     if (email === "" || email.replace(/^\s+/, "") === "") {
-    	element_e_myLetterEmail.removeClass("popup_error green");
-        element_e_myLetterEmail.addClass("popup_error");
-        errorElement.html("이메일 주소를 입력해 주세요.");
+    	$("#e_myLetterEmail").removeClass("popup_error green");
+        $("#e_myLetterEmail").addClass("popup_error");
+        $("#e_myLetterEmail").html("이메일 주소를 입력해 주세요.");
         $("#" + obj).focus();
         return;
     }
 
     if (!isValidEmailFormat(email)) {
-        element_e_myLetterEmail.removeClass("popup_error green");
-        element_e_myLetterEmail.addClass("popup_error");
-        errorElement.html("이메일 형식이 올바르지 않습니다.");
+        $("#e_myLetterEmail").removeClass("popup_error green");
+        $("#e_myLetterEmail").addClass("popup_error");
+     	$("#e_myLetterEmail").html("이메일 형식이 올바르지 않습니다.");
         $("#" + obj).val("");
         $("#" + obj).focus();
         return;
@@ -475,6 +481,9 @@ function isValidEmailFormat(email) {
     }, 1000);
 }
 */
+	var element_e_myLetterEmail = $("#e_myLetterEmail");
+    var element_myLetterEmail = $("#myLetterEmail"); 
+	var errorElement = $("#e_" + obj);
 	var authCode = $('#authcodecheck').val();
 
     $.ajax({
@@ -487,16 +496,18 @@ function isValidEmailFormat(email) {
         dataType: "json",
         success: function (result) {
             console.log(result);
-            console.log(authCode);
             if (result === 1) {
                 // 인증번호가 성공적으로 발생한 경우
+                errorElement.removeClass("popup_error");
+                errorElement.addClass("popup_error green");
                 $("#" + obj + 'AuthNo').prop("disabled", false);
                 $("#" + obj + 'AuthNo').focus();
-                $("#e_myLetterEmail").html("인증번호가 성공적으로 발송되었습니다. <br>인증번호를 입력해주세요");
+                errorElement.html("인증번호가 성공적으로 발송되었습니다. <br>인증번호를 입력해주세요");
             } else {
                 // 인증번호 발생 실패
-                $("#e_" + obj).addClass("popup_error");
-                $("#e_myLetterEmail").html("인증번호 발송에 실패하였습니다.");
+                errorElement.removeClass("popup_error green");
+                errorElement.addClass("popup_error");
+                errorElement.html("인증번호 발송에 실패하였습니다.");
             }
           //  $("#e_" + obj).html(data.resultMsg);
         },

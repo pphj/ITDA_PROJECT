@@ -211,9 +211,6 @@ function convertDiv(obj, stat){
 						<input type="password" id="new_pw" name="userPw" maxlength="20" style="width:260px" title="새 비밀번호 입력"
 								onFocus="convertDiv('new_pw','none');"
 								onBlur="convertDiv('new_pw','block')" >
-<!-- 								onkeyup="checkShiftUp(event);"
-								onkeypress="capslock(event);"
-								onkeydown="checkShiftDownNoMsg(event);"> -->
 					</p>
 					<p class="spc_row3">
 						<label id="lb_conf_pw" for="conf_pw">새 비밀번호 확인</label>

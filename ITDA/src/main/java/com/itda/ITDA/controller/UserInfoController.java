@@ -181,6 +181,7 @@ public class UserInfoController {
 			result = Constants.CONNECT_SUCCESS;
 			logger.info("메일 전송에 성공하였습니다.");
 		}else {
+			result = Constants.MAIL_SEND_ERROR;
 			logger.info("메일 전송에 실패하였습니다.");
 		}
 		
