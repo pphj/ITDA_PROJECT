@@ -65,14 +65,9 @@ $(document).ready(function() {
         return true; // 모든 조건을 통과한 경우에만 true를 반환
     }
 
-    $("#changeSubmit").click(function() {
-        if (!mainSubmit()) {
-            return false; // 유효성 검사에 실패한 경우 처리
-        }
 
         // 유효성 검사를 통과한 경우 여기에 실제 데이터 제출 코드를 추가할 수 있습니다.
         // 예를 들어, AJAX를 사용하여 서버로 데이터를 전송할 수 있습니다.
-    });
 
 //비밀번호 확인 ajax
     let contextpath = "${pageContext.request.contextPath}";
@@ -115,8 +110,10 @@ $(document).ready(function() {
 
  $("#changeSubmit").on("click", function(event) {
 		event.preventDefault();
-     if(checkPw == false){
-     	alert("비밀번호가 일치하지 않습니다");
+     if(mainSubmit() == false){
+    	 return false;
+     }else if(checkPw == false){
+     	alert("기존 비밀번호가 일치하지 않습니다");
      	return false;
      }else{
 		alert("비밀번호가 변경 되었습니다.");
@@ -130,8 +127,6 @@ $(document).ready(function() {
 
  }); //click
 }); //rady
-
-
 
 
 function goSecurityAfterCancel(){
