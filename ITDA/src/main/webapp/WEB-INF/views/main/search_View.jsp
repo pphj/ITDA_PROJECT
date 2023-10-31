@@ -166,7 +166,8 @@
 				    <li class="psp_channel_item">
 				      <a href="${pageContext.request.contextPath}/channels/${channel.chNum}?userid=${channel.ownerId}" class="psp_channel_link" data-clk="pch_search.resultch" target="_blank">
 				            <div class="psp_channel_thumb">
-				                <img src="${channel}" class="psp_channel_img" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+				            <img  src="${pageContext.request.contextPath}/resources/image/MemberUpload/${channel.ownerId}${channel.chProfile}"
+ 								class="psp_channel_img" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 				            </div>
 				            <div class="psp_text">
 				                <strong class="psp_name">${channel.chName}</strong>
@@ -199,7 +200,8 @@
 					        <div class="psp_content_name">
 					            <a href="${pageContext.request.contextPath}/contents/${content.chNum}/${content.boardNum}?userid=" class="psp_channel_link" data-clk="pch_search.resultcontch" target="_blank">
 					                <span class="psp_channel_thumb_small">
-					                    <img src="${content.upload}" class="psp_channel_img" width="18" height="18" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+				
+					                   <img src="${pageContext.request.contextPath}/image/MemberUpload/${content.writer}${content.thumbNail}" class="psp_channel_img" width="18" height="18" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 					                </span>
 					                <span class="psp_channel_name">${content.chNum}</span>
 					            </a>
@@ -224,7 +226,8 @@
 					                </div>
 					            </div>
 					            <a href="" class="psp_content_thumb" data-clk="pch_search.resultcont" target="_blank">
-					                <img src="" class="psp_content_img" width="50" height="50" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+					                <img src="${pageContext.request.contextPath}/image/contents/${ChannelList.chNum}${c.thumbNail}"
+ 										class="psp_content_img" width="50" height="50" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 					            </a>
 					        </div>
 					    </li>
