@@ -77,10 +77,10 @@ public class InfoController {
 	public ModelAndView showQnaView(@RequestParam("no") int adNum, ModelAndView mv) {
 	    // 질문 정보 조회 로직
 	    AdminBoard adminBoard = infoService.getAdminBoardByAdNum(adNum);
-
-	    mv.addObject("adminBoard", adminBoard); // 조회된 질문 정보 모델 객체에 추가
-
-	    mv.setViewName("info/qna_View"); // view 페이지의 이름 설정
+	    
+	    mv.addObject("adminBoard", adminBoard); 	// 조회된 질문 정보 모델 객체에 추가
+	    
+	    mv.setViewName("info/qna_View"); 			// view 페이지의 이름 설정
 
 	    return mv;
 	}

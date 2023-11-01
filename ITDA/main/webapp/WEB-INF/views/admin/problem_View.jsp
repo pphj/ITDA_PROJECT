@@ -24,15 +24,13 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/admin/qnaView.js"></script>
-  <script> var contextPath = "<%=request.getContextPath()%>";</script>
 <style>
 	.table {
 		width: 100%;
 	}
 </style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -53,9 +51,10 @@
 	<div class="main-content" style="padding: 30px 25px;">
 	<div class="card">
 		<div class="card-body">
+		<h3 style="text-align: center;">미처리 신고 목록</h3>
+		<c:if test="${not empty boardProblemData}">
  		<table class="table boardProblemTable">
  		<thead>
- 			<c:if test="${not empty boardProblemData}">
 	 		<tr>
 	 			<th colspan="6" id="tabHead">신고된 게시글</th>
 	 		</tr>
@@ -67,13 +66,17 @@
 	 			<th class="text-center"><div>신고일</div></th>
 	 			<th class="text-center"><div>내용</div></th>
 	 		</tr>
-	 		</c:if>
 	 	</thead>
  		<c:forEach var="b" items="${boardProblemData}">
  			<tr>
  				<td class="text-center"><c:out value="${b.punchId}" /></td>
  				<td class="text-center"><c:out value="${b.sickId}" /></td>
- 				<td class="text-center"><c:out value="${b.boardNum}" /></td>
+ 				<td class="text-center">
+ 					<a style="color: orange;"
+ 					 href="${pageContext.request.contextPath}/contents/${b.chNum}/${b.boardNum}" >
+ 					<c:out value="${b.boardNum}" />
+ 					</a>
+ 				</td>
  				<c:choose>
 					<c:when test="${b.warnCateId == 1}">
 						<td class="text-center"><div>홍보, 영리목적</div></td>
@@ -99,13 +102,15 @@
 				</c:choose>
  				<td class="text-center"><c:out value="${b.warnDate}" /></td>
  				<td class="text-center" style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly>${b.warnReason}</textarea></td>
+ 				<textarea class="form-control" rows="5" style="resize: none;"
+ 				 readOnly>${b.warnReason}</textarea></td>
  			</tr>
  		</c:forEach>
  		</table>
+ 		</c:if>
+ 		<c:if test="${not empty replyProblemData}">
  		<table class="table replyProblemTable">
  		<thead>
- 			<c:if test="${not empty replyProblemData}">
 	 		<tr>
 	 			<th colspan="6" id="tabHead">신고된 댓글</th>
 	 		</tr>
@@ -117,13 +122,17 @@
 	 			<th class="text-center"><div>신고일</div></th>
 	 			<th class="text-center"><div>내용</div></th>
 	 		</tr>
-	 		</c:if>
 	 	</thead>
  		<c:forEach var="r" items="${replyProblemData}">
  			<tr>
  				<td class="text-center"><c:out value="${r.punchId}" /></td>
  				<td class="text-center"><c:out value="${r.sickId}" /></td>
- 				<td class="text-center"><c:out value="${r.replyNum}" /></td>
+ 				<td class="text-center">
+ 					<a style="color: orange;"
+ 					 href="${pageContext.request.contextPath}/contents/${r.chNum}/${r.boardNum}" >
+ 					<c:out value="${r.replyNum}" />
+ 					</a>
+ 				</td>
  				<c:choose>
 					<c:when test="${r.warnCateId == 1}">
 						<td class="text-center"><div>홍보, 영리목적</div></td>
@@ -149,20 +158,28 @@
 				</c:choose>
  				<td class="text-center"><c:out value="${r.warnDate}" /></td>
  				<td class="text-center" style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly>${r.warnReason}</textarea></td>
+ 				<textarea class="form-control" rows="5" style="resize: none;"
+ 				 readOnly>${r.warnReason}</textarea></td>
  			</tr>
  		</c:forEach>
  		</table>
+ 		</c:if>
  	  </div>	
  	</div>
  	</div>
  	<div class="text-center">
 	 	<a href="${pageContext.request.contextPath}/admin/problem">
-	 		<button class="btn btn-info btn-sm btn-round">
-	 			<i class="ni ni-bullet-list-67"></i> 목록
+	 		<button class="btn btn-success btn-sm btn-round">
+	 			<i class="ni ni-bullet-list-67"></i>&nbsp;목록
 	 		</button>
 	 	</a>
+	 	<a href="${pageContext.request.contextPath}/admin/problem/${sickId}/all">
+		 	<button class="btn btn-info btn-sm btn-round allProblem">
+		 		<i class="ni ni-bullet-list-67"></i>&nbsp;모든 신고내용 보기
+		 	</button>
+	 	</a>
  	</div>
+ 	<input type="hidden" name="sickId" value="${sickId}">
 </main>
 </body>
 </html>

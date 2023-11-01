@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -31,7 +30,7 @@
 	}
 </script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -54,7 +53,7 @@
 		<div class="card-body">
  		<form action="${pageContext.request.contextPath}/admin/itdaNoticeUpdateAction" method="post" enctype="multipart/form-data" name="itdaNoticeUpdate">
  			<input type="hidden" name="adNum" value="${itdaNoticeData.adNum}">
- 			<h1>사내 공지 수정</h1>
+ 			<h3 style="text-align: center;">사내 공지 수정</h3>
  			<div class="form-group">
  				<label for="adWriter">작성자</label>
  				<input type="text" name="adWriter" class="form-control" value="${itdaNoticeData.adWriter}" readOnly>
@@ -62,12 +61,12 @@
  			<div class="form-group">
  				<label for="adTitle">제목</label>
  				<textarea name="adTitle" id="adTitle" rows="1" maxlength="100"
- 						class="form-control">${itdaNoticeData.adTitle}</textarea>
+ 				 class="form-control" style="resize: none;">${itdaNoticeData.adTitle}</textarea>
  			</div>
  			<div class="form-group">
  				<label for="adContent">내용</label>
- 				<textarea name="adContent" id="adContent"
- 					   rows="10" class="form-control">${itdaNoticeData.adContent}</textarea>
+ 				<textarea name="adContent" id="adContent" style="resize: none;"
+ 				 rows="10" class="form-control">${itdaNoticeData.adContent}</textarea>
  			</div>
  			<div class="form-group">
  				<label for="adPassword">비밀번호</label>
@@ -75,13 +74,14 @@
  					   class="form-control" placeholder="Enter adPassword">
  			</div>
  			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
- 			<div class="form-group">
-	 			<button type="submit" class="btn btn-primary">수정</button>
-	 			<button type="reset" class="btn btn-danger" onClick="history.go(-1)">취소</button>
+ 			<div class="form-group" style="text-align: center;">
+	 			<button type="submit" class="btn btn-primary btn-sm btn-round">수정</button>
+	 			<button type="reset" class="btn btn-danger btn-sm btn-round" onClick="history.go(-1)">취소</button>
  			</div>
  		</form>
  		</div>
 	</div>
  	</div>
+</main>
 </body>
 </html>
