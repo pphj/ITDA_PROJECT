@@ -48,7 +48,7 @@
 	</script>
 
 </head>
-<body class=" body_mp">
+<body class="as_white_background body_mp">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
 <div id="_CONTENT_INDICATOR_WRAP" style="display:none;">
 	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>

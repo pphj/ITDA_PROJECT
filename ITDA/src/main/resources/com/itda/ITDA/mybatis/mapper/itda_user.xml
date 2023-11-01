@@ -216,6 +216,7 @@
 		INNER JOIN paycall pc ON sp.productid = pc.productid
 		INNER JOIN payment py ON pc.callnum = py.ordernum
 		WHERE pc.userid = #{userId}
+		order by py.payednum desc
 	</select>
 	
 	<!-- 결제 정보 자세히 보기 -->
