@@ -39,7 +39,6 @@
 	      },
 	      success: function(data) {
 	        var paybox = data.next_redirect_pc_url;
-	        alert(data.tid);
 	        window.open(paybox);
 	      },
 	      error: function(jqXHR, textStatus, errorThrown) {

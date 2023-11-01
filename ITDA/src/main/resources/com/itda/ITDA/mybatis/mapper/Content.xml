@@ -20,7 +20,7 @@
 		from chBoard join ChannelList
 		on
 		chBoard.chNum = ChannelList.chNum
-		where cate_ID = #{categoryNum}
+		where ChannelList.cate_Id = #{categoryNum}
 		order
 		by boardNum desc)
 		where r between #{startRow} and #{endRow}

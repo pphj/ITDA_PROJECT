@@ -14,7 +14,7 @@ function showAddressChangePopUp() {
     displayObj('dimmed'); 
     displayObj('addressChangePopUpLayer');
        document.getElementById("wrap").classList.add("is_fixed");
-        resetInternationalCode();
+        //resetInternationalCode();
     var popupLayer = document.getElementById("addressChangePopUpLayer");
     popupLayer.style.display = "block";
 }
@@ -23,7 +23,7 @@ function showAddressChangePopUp() {
 function hideAddressChangePopUp() {
     displayObj('addressChangePopUpLayer');
     document.getElementById("wrap").classList.remove("is_fixed");
-    resetInternationalCode();
+    //resetInternationalCode();
     var popupLayer = document.getElementById("addressChangePopUpLayer");
     popupLayer.style.display = "none";
     document.getElementById("dimmed").style.display = "none";
@@ -40,7 +40,7 @@ function showKeyWordChangePopUp() {
     displayObj('dimmed'); 
     displayObj('keyWordChangePopUpLayer');
        document.getElementById("wrap").classList.add("is_fixed");
-        resetInternationalCode();
+        //resetInternationalCode();
     var popupLayer = document.getElementById("keyWordChangePopUpLayer");
     popupLayer.style.display = "block";
 }
@@ -49,7 +49,7 @@ function showKeyWordChangePopUp() {
 function hideKeyWordChangePopUp() {
     displayObj('keyWordChangePopUpLayer');
     document.getElementById("wrap").classList.remove("is_fixed");
-    resetInternationalCode();
+    //resetInternationalCode();
     var popupLayer = document.getElementById("keyWordChangePopUpLayer");
     popupLayer.style.display = "none";
     document.getElementById("dimmed").style.display = "none";

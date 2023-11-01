@@ -202,7 +202,14 @@
 
 </form>
 <div class="my_detail_button_wrap">
+   <c:choose>
+       <c:when test="${orderInfo.payedStatus == 'Y'}">
 	<button class="my_detail_button _CANCLE" data-clk="my_order.cancle">환불</button>
+       </c:when>
+     <c:when test="${orderInfo.payedStatus eq 'Y'}">
+        </c:when>
+      </c:choose>
+
 	<a href="#" class="my_detail_button _BACK" data-clk="my_order.back">이전</a>
 </div>
 <div class="my_detail_guide">
@@ -236,6 +243,10 @@
 $('.my_detail_button._CANCLE').click(function() {
   // 페이지 이동을 수행하는 코드
   $("#fm").submit();
+});
+$(".my_detail_button._BACK").on("click", function(e) {
+    e.preventDefault(); // 기본 동작(링크 이동)을 중지합니다.
+    window.history.back();
 });
 
 </script>
