@@ -41,16 +41,35 @@
 							</dl>
 							<dl>
 								<dt>상태</dt>
-								<dd>
-									<span>${adminBoard.adState}</span>
-								</dd>
+						<dd>
+						    <c:choose>
+						        <c:when test="${not empty qnaReplyList}">
+						            <span>답변완료</span>
+						        </c:when>
+						        <c:otherwise>
+						            <span>답변대기</span>
+						        </c:otherwise>
+						    </c:choose>
+						</dd>
 						</dl>
 						</div>
 
-						<dl>
-							<dt>문의유형</dt>
-							<dd>${adminBoard.qcateId}</dd>
-						</dl>
+					<dl>
+				   <dt>문의유형</dt>
+				   <dd>
+				       <c:choose>
+				           <c:when test="${adminBoard.qcateId == 1}">홍보, 영리목적</c:when>
+				           <c:when test="${adminBoard.qcateId == 2}">불법 정보</c:when>
+				           <c:when test="${adminBoard.qcateId == 3}">음란, 청소년 유해</c:when>
+				           <c:when test="${adminBoard.qcateId == 4}">욕설, 비방, 차별, 혐오</c:when>
+				           <c:when test="${adminBoard.qcateId == 5}">도배, 스팸</c:when>
+				           <c:when test="${adminBoard.qcateId == 6}">개인정보 노출, 거래</c:when>
+				           <c:when test="${adminBoard.qcateId == 7}">기타</c:when>
+				           <c:when test="${adminBoard.qcateId == 8}">공지사항</c:when>
+				       </c:choose>
+				   </dd>
+				</dl>
+
 
 						<dl>
 							<dt>문의내용</dt>
@@ -67,10 +86,39 @@
 				
 				<div class="content-box" style=" padding: 20px;">
 				<div class="form-list">
-					<!-- <dl>
-						<dt>답변</dt>
-						<dd>답변 대기중입니다.</dd>
-					</dl> -->
+			<%-- 댓글 --%>
+		 		<!-- 댓글 목록 표시 부분 -->
+				<div id="qnaReply">
+			    <table class="table">
+			        <thead>
+			            <tr>
+			                <th class="text-center">번호</th>
+			                <th>답변자</th>
+			                <th>내용</th>
+			                <th class="text-right">날짜</th>
+			            </tr>
+			        </thead>
+			       <tbody>
+				    <c:forEach var="reply" items="${qnaReplyList}">
+				        <tr>
+				            <td class="text-center">${reply.qnaReplyNum}</td>
+				            <td>${reply.adminId}</td>
+				            <td>${reply.qnaReplyContent}</td>
+				            <td class="text-right">
+				                <fmt:formatDate value="${reply.qnaReplyDate}" pattern="yyyy-MM-dd HH:mm" />
+				            </td>
+				        </tr>
+				    </c:forEach>
+				    <!-- 댓글 데이터가 없을 때 표시할 내용 -->
+				    <c:if test="${empty qnaReplyList}">
+				        <tr>
+				            <td class="text-center" colspan="4">답변 대기중입니다.</td>
+				        </tr>
+				    </c:if>
+				</tbody>
+			    </table>
+			</div>
+
 				</div>
 				<div class="btn-area">
 					<a href="${pageContext.request.contextPath}/info/qna" class="btn-default">목록</a>
@@ -82,6 +130,7 @@
 		</div>
 	</div>
 	<!-- // contents -->
+	
 
 
 	<jsp:include page="../include/footer.jsp" />

@@ -50,7 +50,18 @@
 				<!-- adminBoardList 데이터 반복 출력 -->
 						<c:forEach var="qna" items="${userQnaList}">
 				    <div class="list-item">
-				        <em class="col category">${qna.qcateId}</em>
+				        <em class="col category">
+				            <c:choose>
+				                <c:when test="${qna.qcateId == 1}">홍보, 영리목적</c:when>
+				                <c:when test="${qna.qcateId == 2}">불법 정보</c:when>
+				                <c:when test="${qna.qcateId == 3}">음란, 청소년 유해</c:when>
+				                <c:when test="${qna.qcateId == 4}">욕설, 비방, 차별, 혐오</c:when>
+				                <c:when test="${qna.qcateId == 5}">도배, 스팸</c:when>
+				                <c:when test="${qna.qcateId == 6}">개인정보 노출, 거래</c:when>
+				                <c:when test="${qna.qcateId == 7}">기타</c:when>
+				                <c:when test="${qna.qcateId == 8}">공지사항</c:when>
+				            </c:choose>
+				        </em>
 				        <div class="col tit">
 				            <a href="${pageContext.request.contextPath}/info/qna/view?no=${qna.adNum}">${qna.adTitle}</a>
 				        </div>
@@ -58,16 +69,19 @@
 				            <fmt:formatDate value="${qna.adDate}" pattern="yyyy-MM-dd HH:mm"/>
 				        </span>
 				        <div class="col state">
-				            <span class="badge-answer">${qna.adNum}</span>
+				           <c:choose>
+                <c:when test="${not empty qna.qnaReplyList}">
+                    <span>답변완료</span>
+                </c:when>
+                <c:otherwise>
+                    <span>답변대기</span>
+                </c:otherwise>
+            </c:choose>
 				            <!-- 여기에 상태 필드 추가 -->
 				        </div>
 				    </div>
 				</c:forEach>
-				
-				
 
-
-		
 </div>
 
 				

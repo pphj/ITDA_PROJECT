@@ -17,16 +17,16 @@
 </head>
 
 <body>
-<div class="modal-dialog ui-draggable">
+<!-- <div class="modal-dialog ui-draggable">
     <div class="modal-content">
-        <!-- 모달의 다른 내용 -->
+        모달의 다른 내용
 
         <article class="modal_article pop login p_lr_space no-padding bg-white" id="find_step_1">
             <div class="tit_wrap">
                 <h2 class="find_tit _find_tit findId">네이버 아이디 로그인 성공!</h2>
             </div>
             <div class="force-padding">
-                <!-- 네이버 ID 로그인 정보를 여기에 표시합니다 -->
+                네이버 ID 로그인 정보를 여기에 표시합니다
                 <div id="naverInfo">
                     <h6 id="email"></h6>
                     <h6 id="nickname"></h6>
@@ -35,16 +35,16 @@
                     <h6 id="gender"></h6>
                     <h6 id="userId"></h6>
                 </div>
-                <!-- 네이버 ID 로그인 정보 표시 끝 -->
+                네이버 ID 로그인 정보 표시 끝
                 
                  <button id="saveNaverInfoButton" class="btn btn-primary _update_status findId">메인으로 이동</button>
 
-                <!-- 모달의 다른 내용 -->
+                모달의 다른 내용
             </div>
         </article>
     </div>
 </div>
-
+ -->
 
 
 <%-- <form action="../logout" method="post">

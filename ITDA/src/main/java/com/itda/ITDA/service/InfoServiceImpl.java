@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itda.ITDA.domain.AdminBoard;
+import com.itda.ITDA.domain.QnaReply;
 import com.itda.ITDA.mybatis.mapper.adMemberMapper;
 
 @Service
@@ -77,6 +78,15 @@ public class InfoServiceImpl implements InfoService {
 		 qnaByUser = adMemberMapper.getQnaByUser(userId);
 		return qnaByUser;
 	}
+
+	@Override
+	public List<QnaReply> getQnaRepliesByAdNum(int adNum) {
+	    // 해당 adNum에 대한 댓글 목록을 데이터베이스에서 조회
+	    List<QnaReply> qnaReplies = adMemberMapper.getQnaRepliesByAdNum(adNum);
+	    
+	    return qnaReplies;
+	}
+
 
 
 	

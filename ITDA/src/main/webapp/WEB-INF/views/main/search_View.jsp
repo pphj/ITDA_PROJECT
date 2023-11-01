@@ -226,8 +226,7 @@
 					                </div>
 					            </div>
 					            <a href="" class="psp_content_thumb" data-clk="pch_search.resultcont" target="_blank">
-					                <img src="${pageContext.request.contextPath}/image/contents/${ChannelList.chNum}${c.thumbNail}"
- 										class="psp_content_img" width="50" height="50" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+					                <img src="${pageContext.request.contextPath}/image/contents/${content.chNum}${content.thumbNail}" class="psp_channel_img" width="50" height="50" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 					            </a>
 					        </div>
 					    </li>

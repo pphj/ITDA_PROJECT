@@ -178,9 +178,9 @@
 				    </li>
 				</c:forEach>
 					</ul>
-				<div class="psp_dropdown">
+			<%-- 	<div class="psp_dropdown">
 					<button type="button" class="psp_button_more _SEARCH_SUBMIT_BTN" data-clk="pch_search.resultchmore" data-url="${pageContext.request.contextPath}/main/search/result/channel">채널 검색 결과 더보기</button>
-				</div>
+				</div> --%>
 			</div>
 			
 			
@@ -394,15 +394,7 @@ $(window).on(eventType, function() {
 });
 
 
-$(document).ready(function() {
-  // 초기에는 4개의 채널만 표시되므로 다른 채널을 숨깁니다.
-  $('.psp_channel_item:gt(3)').hide();
 
-  // "채널 검색 결과 더보기" 버튼을 클릭할 때 추가 채널을 로드합니다.
-  $('#loadMoreButton').on('click', function() {
-    $('.psp_channel_item:hidden:lt(4)').show(); // 4개의 채널을 추가로 표시
-  });
-});
 
 document.addEventListener("DOMContentLoaded", function() {
     const channelResultsSize = ${channelResults.size()}; // 채널 결과의 크기
