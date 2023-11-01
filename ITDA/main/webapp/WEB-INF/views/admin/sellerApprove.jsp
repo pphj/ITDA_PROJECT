@@ -24,10 +24,34 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/sellerApprove.js"></script>
+<style>
+	#sellerApproveList_Form {
+		width: 100%;
+	}
+	#sellerApproveList_Form > div {
+		display: flex;
+	    width: 30%;
+	    height: 40px;
+	    margin: auto;
+	}
+	#viewcount2 {
+		height: 25px;
+	}
+	#sellerApproveList_Form > div > input {
+		width: 240px;
+	    height: 25px;
+	    border-radius: 0;
+	    border: 1px solid black;
+	}
+	#search_but {
+		height: 25px;
+	    font-size: 8px;
+	    border-radius: 0;
+	}
+</style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />
@@ -118,7 +142,7 @@
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
 		 	<div class="center-block">
-		 		<ul class="pagination justify-content-center">
+		 		<ul class="pagination justify-content-end">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
 		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
@@ -157,6 +181,22 @@
 		 	<c:if test="${listcount == 0}">
 		 		<h3 style="text-align: center">대기중인 신청자가 없습니다.</h3>
 		 	</c:if>
+		 	
+		 	<div class="searchBoxArea" style="margin-top: 30px;">
+				<form action="sellerApprove" method="post" id="sellerApproveList_Form">
+					<div class="form-group">
+						<select id="viewcount2" name="search_field">
+							<option value="0" selected>신청자</option>
+							<option value="1">신청일</option>
+						</select>
+						<input name="search_word" type="text" class="form-control"
+						 placeholder="검색어를 입력하세요" value="${search_word}">
+						<button class="btn btn-primary btn-sm" type="submit"
+						 id="search_but"><i class="fa fa-search" aria-hidden="true"></i></button>
+					</div>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				</form>
+			</div>
 	 	</div>
 	 </div>
     </div>

@@ -11,7 +11,6 @@
   <title>Q&A/FAQ</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-  <!-- Nucleo Icons -->
   <link href="${pageContext.request.contextPath}/resources/assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="${pageContext.request.contextPath}/resources/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
@@ -19,14 +18,12 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="${pageContext.request.contextPath}/resources/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
     <!--   Core JS Files   -->
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/popper.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/core/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/admin/FAQ.js"></script>
-  <style>
+  <script src="${pageContext.request.contextPath}/resources/js/admin/faq.js"></script>
+<style>
   	.container{
   		width: 100%;
   	}
@@ -38,9 +35,36 @@
 	.button-inactive {
 	  border: none;
 	}
-  </style>
+	#FAQ, #QNA {
+		width: 100px;
+    	height: 40px;
+	}
+	#faqList_Form {
+		width: 100%;
+	}
+	#faqList_Form > div {
+		display: flex;
+	    width: 30%;
+	    height: 40px;
+	    margin: auto;
+	}
+	#viewcount2 {
+		height: 25px;
+	}
+	#faqList_Form > div > input {
+		width: 240px;
+	    height: 25px;
+	    border-radius: 0;
+	    border: 1px solid black;
+	}
+	#search_but {
+		height: 25px;
+	    font-size: 8px;
+	    border-radius: 0;
+	}
+</style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -67,7 +91,7 @@
       <button id="QNA" class="button-inactive">Q&A</button>
      </li>
     </ul>
-    <div class="main-content" style="padding: 30px 25px;">
+    <div class="main-content" style="padding: 0px 25px 30px 25px;">
     <div class="card">
 		<div class="card-body">
 	 		<c:if test="${listcount > 0}">
@@ -118,22 +142,22 @@
 	 					</td>
 	 					<c:choose>
 						    <c:when test="${F.qcateId == 1}">
-						        <td class="text-center"><div>&nbsp;&nbsp;홍보, 영리목적</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;구매, 환불</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 2}">
-						        <td class="text-center"><div>&nbsp;&nbsp;불법 정보</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;회원</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 3}">
-						        <td class="text-center"><div>&nbsp;&nbsp;음란, 청소년 유해</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;상품</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 4}">
-						        <td class="text-center"><div>&nbsp;&nbsp;욕설, 비방, 차별, 혐오</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;채널</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 5}">
-						        <td class="text-center"><div>&nbsp;&nbsp;도배, 스팸</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;서비스 소개, 이용 방법</div></td>
 						    </c:when>
 						    <c:when test="${F.qcateId == 6}">
-						        <td class="text-center"><div>&nbsp;&nbsp;개인정보 노출, 거래</div></td>
+						        <td class="text-center"><div>&nbsp;&nbsp;오류, 피해 접수</div></td>
 						    </c:when>
 						    <c:otherwise>
 						        <td class="text-center"><div>&nbsp;&nbsp;기타</div></td>
@@ -151,7 +175,9 @@
 	 		</tbody>
 		 	</table>
 		 	<div class="center-block">
-		 		<ul class="pagination justify-content-center">
+		 		<button type="button" id="faqwbtn" class="btn btn-success
+		 		 float-right btn-sm btn-round">FAQ 작성</button>
+		 		<ul class="pagination justify-content-end">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
 		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
@@ -190,7 +216,24 @@
 		 	<c:if test="${listcount == 0}">
 		 		<h3 style="text-align: center">등록된 글이 없습니다.</h3>
 		 	</c:if>
-		 	<button type="button" id="faqwbtn" class="btn btn-success float-right btn-sm btn-round">FAQ 작성</button>
+		 	<div class="searchBoxArea" style="margin-top: 30px;">
+				<form action="FAQ" method="post" id="faqList_Form">
+					<div class="form-group">
+						<select id="viewcount2" name="search_field">
+							<option value="0" selected>제목</option>
+							<option value="1">카테고리</option>
+							<option value="2">질문자</option>
+							<option value="3">작성자</option>
+							<option value="4">날짜</option>
+						</select>
+						<input name="search_word" type="text" class="form-control"
+						 placeholder="검색어를 입력하세요" value="${search_word}">
+						<button class="btn btn-primary btn-sm" type="submit"
+						 id="search_but"><i class="fa fa-search" aria-hidden="true"></i></button>
+					</div>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				</form>
+			</div>
 	 	</div>
     </div>
     </div>
