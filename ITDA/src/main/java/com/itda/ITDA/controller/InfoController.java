@@ -58,21 +58,6 @@ public class InfoController {
 	}
 
 
-	/*
-	 * @GetMapping("/qna") public ModelAndView qna(ModelAndView mv, Principal
-	 * principal) {
-	 * 
-	 * // 로그인한 사용자의 ID를 가져오기 String userId = principal.getName();
-	 * 
-	 * // 사용자 ID를 이용하여 ADMINBOARD 테이블의 데이터 조회 List<AdminBoard> userQnaList =
-	 * infoService.getQnaByUser(userId);
-	 * 
-	 * mv.addObject("userQnaList", userQnaList); // 사용자의 QnA 데이터 추가
-	 * mv.setViewName("info/qna");
-	 * 
-	 * return mv; }
-	 */
-	
 	@GetMapping("/qna")
 	public ModelAndView qna(ModelAndView mv, Principal principal) {
 

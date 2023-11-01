@@ -82,7 +82,7 @@
 				<div class="psp_head_content">
 			<a href="#" class="psp_back_button _BACK" data-clk="pch_search.back"><span class="blind">뒤로가기</span></a>
 			<div class="psp_input_wrap _SEARCH_INPUT_WRAP non_searching">
-				<input id="_SEARCH_INPUT" type="text" placeholder="프리미엄 채널, 콘텐츠를 검색해 보세요" class="psp_search_input" value="" data-url="/main/search" data-search-query="" autocomplete="off">
+				<input id="_SEARCH_INPUT" type="text" placeholder="채널, 콘텐츠를 검색해 보세요" class="psp_search_input" value="" data-url="/main/search" data-search-query="" autocomplete="off">
 				<button id="_SEARCH_RESET_BTN" type="button" class="psp_input_cancel_button" data-clk="pch_search.close">삭제</button>
 			</div>
 			<button type="button" class="psp_search_button _SEARCH_SUBMIT_BTN" data-clk="pch_search.search" data-url="${pageContext.request.contextPath}/main/search" data-search-value="true"><span class="blind">검색</span></button>

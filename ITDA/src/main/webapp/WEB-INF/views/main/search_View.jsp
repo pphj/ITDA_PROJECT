@@ -156,34 +156,33 @@
 		</div>
 		<div class="psp_body _SEARCH_RESULT_AREA">
 			<div class="psp_result_area">
-				<div class="psp_sort_area">
-					<strong class="psp_category">채널 <em>${channelResults.size()}</em></strong>
-				</div>
-				<ul class="psp_channel_list _CONTENT_LIST _SEARCH_RESULT_LIST" data-template="SCS_PREMIUM_CHANNEL_SEARCH_CHANNEL" data-type="channel" data-search-query="" data-cursor-name="page" data-cursor="" data-has-next="true" data-total-count="">
-				
-				  
-				<c:forEach var="channel" items="${channelResults}">
-				    <li class="psp_channel_item">
-				      <a href="${pageContext.request.contextPath}/channels/${channel.chNum}?userid=${channel.ownerId}" class="psp_channel_link" data-clk="pch_search.resultch" target="_blank">
-				            <div class="psp_channel_thumb">
-				            <img  src="${pageContext.request.contextPath}/image/MemberUpload/${channel.ownerId}${channel.chProfile}"
- 								class="psp_channel_img" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
-				            </div>
-				            <div class="psp_text">
-				                <strong class="psp_name">${channel.chName}</strong>
-				                <p class="psp_info">${channel.chInfo}</p>
-				                <p class="psp_date">
-				                    <span class="update">구독자 수: ${channel.chFollow}</span>
-				                </p>
-				            </div>
-				        </a>
-				    </li>
-				</c:forEach>
-					</ul>
-				<div class="psp_dropdown">
-					<button type="button" class="psp_button_more _SEARCH_SUBMIT_BTN" data-clk="pch_search.resultchmore" data-url="${pageContext.request.contextPath}/main/search/result/channel">채널 검색 결과 더보기</button>
-				</div>
-			</div>
+	    <div class="psp_sort_area">
+	        <strong class="psp_category">채널 <em>${channelResults.size()}</em></strong>
+	    </div>
+	    <ul class="psp_channel_list _CONTENT_LIST _SEARCH_RESULT_LIST" data-template="SCS_PREMIUM_CHANNEL_SEARCH_CHANNEL" data-type="channel" data-search-query="" data-cursor-name="page" data-cursor="" data-has-next="true" data-total-count="">
+	        <c:forEach var="channel" items="${channelResults}">
+	            <li class="psp_channel_item">
+	                <a href="${pageContext.request.contextPath}/channels/${channel.chNum}?userid=${channel.ownerId}" class="psp_channel_link" data-clk="pch_search.resultch" target="_blank">
+	                    <div class="psp_channel_thumb">
+	                        <img src="${pageContext.request.contextPath}/image/MemberUpload/${channel.ownerId}${channel.chProfile}"
+	                            class="psp_channel_img" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+	                    </div>
+	                    <div class="psp_text">
+	                        <strong class="psp_name">${channel.chName}</strong>
+	                        <p class="psp_info">${channel.chInfo}</p>
+	                        <p class="psp_date">
+	                            <span class="update">구독자 수: ${channel.chFollow}</span>
+	                        </p>
+	                    </div>
+	                </a>
+	            </li>
+	        </c:forEach>
+	    </ul>
+	    <div class="psp_dropdown">
+	        <button type="button" class="psp_button_more _SEARCH_SUBMIT_BTN" data-clk="pch_search.resultchmore" data-url="${pageContext.request.contextPath}/main/search/result/channel">채널 검색 결과 더보기</button>
+	    </div>
+	</div>
+
 			
 			
 			
