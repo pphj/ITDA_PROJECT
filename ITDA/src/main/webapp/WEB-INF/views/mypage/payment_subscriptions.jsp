@@ -64,11 +64,6 @@
 			<div class="_TEMPLATE _LAZY_LOADING_WRAP is_hidden" data-template-id="SCS_PREMIUM_SIDEBAR_MY" data-grid-template-column-sidebar="true">
 		<jsp:include page="../mypage/sidebar.jsp"></jsp:include>
 
-	<div class="sidebar_banner _LAZY_LOADING_ERROR_HIDE">
-		<a href="https://blog.naver.com/premiumcontents/223186087023" data-clk="my_lnb.banner">
-			<img class="_LAZY_LOADING" data-src="https://ssl.pstatic.net/static.news/image/news/m/2023/08/18/sidebar_banner.jpg" width="315" height="110" alt="">
-		</a>
-	</div>
 </div>
 <h2 class="my_title">결제 내역</h2>
 <div class="my_tab_wrap">
@@ -87,6 +82,14 @@
 <div class="my_payment">
 	<h2 class="my_section_title">구독 결제 내역 <em>${count}</em></h2>
 	<ul class="my_subscribe_payment_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_PAYMENT_SUBSCRIPTION_LIST" data-cursor-name="page" data-cursor="1" data-has-next="">
+	    	<c:choose>
+			<c:when test="${count eq 0}">
+			<div class="no_contents_center">
+				<img class="no_contents" src="${pageContext.request.contextPath}/image/mypage/content_null.png">
+			</div>
+			</c:when>
+		<c:otherwise>
+
 	<c:forEach var="orderList" items="${orderList}">
 		<li class="my_subscribe_payment_item">
 			<a href="${pageContext.request.contextPath}/my/payment/subscriptions/${orderList.payedNum}" class="my_subscribe_payment_link" data-clk="my_order.subslist">
@@ -101,11 +104,14 @@
 							<c:if test="${orderList.payedStatus == 'Y'}">
 								<c:out value="결제완료"/>
 							</c:if>
-							<c:if test="${orderList.payedStatus == 'N'}">
-								<c:out value="결제취소"/>
-							</c:if>
 							<c:if test="${orderList.payedStatus == 'F'}">
 								<c:out value="결제실패"/>
+							</c:if>
+							<c:if test="${orderList.payedStatus == 'N'}">
+								<c:out value="결제중단"/>
+							</c:if>
+							<c:if test="${orderList.payedStatus == 'R'}">
+								<c:out value="결제취소"/>
 							</c:if>
 						</strong>
 						<div class="my_subscribe_payment_date"><fmt:formatDate value="${orderList.payedOkDate}" pattern="yyyy.MM.dd" /></div>
@@ -115,6 +121,8 @@
 			</a>
 		</li>
 	</c:forEach>
+	</c:otherwise>
+	</c:choose>
 	</ul>
 	<div class="loading _CONTENT_LIST_LOADING" style="display:none;">
 		<div class="loader">
@@ -146,5 +154,5 @@
 
 
 </body>
-
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

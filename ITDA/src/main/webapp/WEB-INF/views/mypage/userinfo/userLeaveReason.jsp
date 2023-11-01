@@ -128,11 +128,37 @@ function mainSubmit(){
         return;
     }
     
+    let contextpath = "${pageContext.request.contextPath}";
     //clickcr(this,'otn.quitappconfirm','','',window.event);
-     
-    document.fm.submit();
-    return;
-}
+    var header = '${_csrf.headerName}';
+    var token = '${_csrf.token}';
+    
+    $.ajax({
+        type: "POST",
+        url: contextpath + "/user/leaveAction",
+        data:  $("#fm").serialize(),
+        beforeSend: function(xhr){
+            xhr.setRequestHeader(header, token);
+        }, 
+        success: function(result) {
+            console.log(result);
+            
+            alert(result);
+            output = `<form name="logoutform" action="${pageContext.request.contextPath}/member/logout" method="post"> 
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+    		</form>`;
+   			console.log(output)
+			$('body').append(output);
+ 			$('form[name=logoutform]').css('display','none').submit();
+    
+        },
+        error: function(error) {
+            console.log("error: " + error);
+        }
+    }); // ajax
+}; //mainsubmit
+    
+    
 function Len_Check(str,max){
 	var m_cnt=0;
 	var len=0;
@@ -270,7 +296,7 @@ function Len_Check(str,max){
 <jsp:include page="../../include/header.jsp"></jsp:include>
 </head>
 
-<body onclick="clearDocs();gnbClose();" id="mainBody">
+<body id="mainBody">
 <div class="contentbodywrap">
 <div id="wrap">
 	<!-- 스킵네비게이션 : 웹접근성대응-->
@@ -347,7 +373,7 @@ function showMenu(subMenu) {
 		</div>
 
 		<form action="${pageContext.request.contextPath}/user/leaveAction"  name="fm" id="fm" method="post">
-			<!-- <input hidden="userId" id="userId" name="userId"> -->
+			<input hidden="userId" id="userId" name="userId" value="${pinfo.username}">
 			<div class="box3">
 				<ul>
 				<c:forEach var="reason" items="${reason}" begin="0" end="7">

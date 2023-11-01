@@ -139,6 +139,11 @@ $(document).ready(function() {
     	e.preventDefault();
     	$("#fm").submit();
     })
+    
+    $(".button_back._BACK").on("click", function(e) {
+        e.preventDefault(); // 기본 동작(링크 이동)을 중지합니다.
+        window.history.back();
+    });
 });
 
  </script>

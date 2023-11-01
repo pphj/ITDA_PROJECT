@@ -178,7 +178,7 @@
 		INSERT INTO adminboard
 	    (adNum, userId, adWriter, adPassword, adTitle,
 	     adContent, adView, QcateId, adDate, adUpdate, key, adState)
-	    VALUES (ADMINBOARD_SEQ.nextval, 'system', #{adWriter}, #{adPassword}, #{adTitle},
+	    VALUES (ADMINBOARD_SEQ.nextval, 'SYSTEM', #{adWriter}, #{adPassword}, #{adTitle},
 	     #{adContent}, 0, 8, SYSDATE, null, 'itNOTI', 'Y')
 	</insert>
 	
@@ -359,7 +359,7 @@
 		from (select rownum rnum, c.*
 			  from (select *
 			  		from Coupon
-			  		where couponState = 'Y'
+			  		where couponDelete = 'N'
 					order by couponCreate desc
 			  ) c
 			  where rownum &lt;= #{end}
@@ -369,13 +369,13 @@
 	
 	<select id="getCouponListCount" resultType="int">
 		select count(*) from Coupon
-		where couponState = 'Y'
+		where couponDelete = 'N'
 	</select>
 	
 	<insert id="couponInsert" parameterType="Coupon">
 		insert into coupon
 		values(#{couponCode}, COUPON_SEQ.nextval, #{couponName}, #{couponDetail},
-		#{couponPrice}, SYSDATE, null, #{adminId}, 'Y')
+		#{couponPrice}, SYSDATE, #{adminId}, 'Y', #{couponTerm}, null, 'N')
 	</insert>
 	
 	<select id="getUserTotal" parameterType="java.lang.Integer" resultType="java.lang.Integer">
@@ -465,8 +465,21 @@
 	
 	<update id="couponDelete" parameterType="Coupon">
 		update coupon
-		set couponState = 'N'
+		set couponDelete = 'Y'
 		where couponNum = #{couponNum}
+	</update>
+	
+	<select id="couponCheck" parameterType="Map" resultType="Coupon">
+		select couponCode, couponPrice, couponTerm from coupon
+		where couponPrice = #{couponPrice}
+		and couponCode = #{couponCode}
+		and couponTerm = #{couponTerm}
+	</select>
+	
+	<update id="couponUpdate" parameterType="Coupon">
+		update coupon
+		set couponState = 'N'
+		where couponCode = #{couponCode}
 	</update>
 	
 	<select id="getAdminApproveList2" parameterType="map" resultType="Admin">

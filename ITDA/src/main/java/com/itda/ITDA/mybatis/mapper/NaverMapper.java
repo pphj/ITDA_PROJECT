@@ -8,6 +8,10 @@ import com.itda.ITDA.domain.NaverDTO;
 @Mapper
 public interface NaverMapper {
 
-   boolean saveNaverUserInfo(NaverDTO dto);
+boolean saveNaverUserInfo(NaverDTO dto);
+
+void setuserPw(String encPassword);
+
+NaverDTO isId(String username);
 
 }

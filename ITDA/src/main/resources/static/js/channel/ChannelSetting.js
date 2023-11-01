@@ -116,12 +116,19 @@ $(document).ready(function() {
       '<div class="channel_category_num"><button class="btn_model btnApply categorybtn"><b id="btnSaveCategory" class="btn3">적용</b></button>' +
       '<button class="categorybtn btn_model btnDelete"><b id="btnDeleteCategory" class="btn3">삭제</b></button></div>' +
       '</li>';
-    $(".channel_category_list").append(newInput);
+    
+	$(".channel_category_list").append(newInput);
+
+   // 새로운 카데거로 생성을 시작하면 다시 칸데거로추가버튼 비활성화
+   $(this).prop("disabled", true);
   });
 
   $(document).on('click', '.btnDelete', function(e) {
     e.preventDefault();
     $(this).closest('.channel_category_item').remove();
+    
+    // 삭제가 완료되면 카테고리 추가 버튼 활성화
+    $("#btnAddCategory").prop("disabled", false);
   });
  
 
@@ -210,8 +217,11 @@ $(document).ready(function() {
 					    'border': 'none',
 					    'color': '#8e8e8e'
 					  });
-					                     
-                    },
+					   // 카테고리 수정이 성공하면 카테고리 추가 버튼 활성화
+					    $("#btnAddCategory").prop("disabled", false);
+					  },
+										                     
+                    
                     error: function(jqXHR, textStatus, errorThrown) {
                       console.error('카테고리 수정 에러:', textStatus);
                     }
@@ -222,6 +232,7 @@ $(document).ready(function() {
           $(document).on('click', '#btnDeleteCategory', function(e) {
           
              e.preventDefault();
+             e.stopPropagation(); // 이벤트 버블링 중지
              //alert('카테고리를 삭제합니다');
              
              // updatenum 가져오기

@@ -18,22 +18,15 @@ import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
 public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 	private static final Logger logger = LoggerFactory.getLogger(UserLoginSuccessHandler.class);
 	
-	@Autowired
-	private Itda_UserMapper dao;
-	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		logger.info("UserLoginSuceessHandler 아이디 : " + authentication.getName());
 		
-		Itda_User users = dao.isId(authentication.getName());
 		
-		logger.info("users : " + users);
 		
-		if (users != null) {
 			String url = request.getContextPath() + "/";
 			response.sendRedirect(url);
 	        
 	    }
 	}
-}

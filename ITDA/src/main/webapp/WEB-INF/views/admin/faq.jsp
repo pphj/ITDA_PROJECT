@@ -109,7 +109,7 @@
 	 		<thead>
 	 		<tr>
 	 			<th colspan="4" id="tabHead">FAQ</th>
-	 			<th colspan="1"><span>글 개수 : ${listcount}</span></th>
+	 			<th colspan="1" class="text-center"><span>글 개수 : ${listcount}</span></th>
 	 		</tr>
 	 		<tr>
 	 			<th class="text-center"><div>번호</div></th>

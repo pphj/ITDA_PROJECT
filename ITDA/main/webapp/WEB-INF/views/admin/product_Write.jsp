@@ -46,7 +46,7 @@
 		<div class="card">
 		<div class="card-body">
 	 		<form action="productInsert" method="post" enctype="multipart/form-data" name="productform">
-	 			<h1 style="margin-top: 30px; text-align: center;">이용권 내용 작성</h1>
+	 			<h3 style="margin-top: 30px; text-align: center;">이용권 내용 작성</h3>
 	 			<div class="form-group">
 	 				<label for="productWriter">작성자</label>
 	 				<input name="productWriter" id="productWriter" value="${pinfo.username}" readOnly
@@ -60,7 +60,7 @@
 	 			<div class="form-group">
 	 				<label for="productDetail">이용권 내용</label>
 	 				<textarea name="productDetail" id="productDetail"
-	 					   rows="5" class="form-control"></textarea>
+	 				 style="resize: none;" rows="5" class="form-control"></textarea>
 	 			</div>
 	 			<div class="form-group">
 	 				<label for="productPrice">이용권 가격</label>
@@ -73,9 +73,9 @@
 	 					   class="form-control" placeholder="Enter Coupon Price">
 	 			</div>
 	 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-	 			<div class="form-group">
-	 				<button type=submit class="btn btn-primary">등록</button>
-	 				<button type=reset class="btn btn-danger" onClick="history.go(-1)">취소</button>
+	 			<div class="form-group" style="text-align: center;">
+	 				<button type=submit class="btn btn-primary btn-sm btn-round">등록</button>
+	 				<button type=reset class="btn btn-danger btn-sm btn-round" onClick="history.go(-1)">취소</button>
 	 			</div>
 	 		</form>
 	 	</div>

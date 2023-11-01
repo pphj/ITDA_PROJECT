@@ -178,7 +178,7 @@
 	]]>
 	</select>
 	
-	<!-- 유료 회원에 inset -->
+	<!-- 유료 회원에 최초 inset -->
 	<insert id="insertFirstPaymentUser" parameterType="GoodUser">
 	    <![CDATA[
 	    INSERT INTO gooduser 
@@ -216,6 +216,7 @@
 		INNER JOIN paycall pc ON sp.productid = pc.productid
 		INNER JOIN payment py ON pc.callnum = py.ordernum
 		WHERE pc.userid = #{userId}
+		order by py.payednum desc
 	</select>
 	
 	<!-- 결제 정보 자세히 보기 -->
@@ -243,14 +244,15 @@
 	<select id="likeContentList" resultType="LikeContent">
 		SELECT 
 				h.id, h.user_id, h.board_num, h.created_at,
-		       cb.boardtitle, cb.boardheart, cb.boarddate, cb.thumbnail,
-		       cl.chnum, cl.chname
+		       cb.boardnum, cb.boardtitle, cb.boardheart, cb.boarddate, cb.thumbnail,
+		       cl.chnum, cl.chname, cb.writer
 		FROM 
 				Heart h
 		INNER JOIN chboard cb ON h.board_num = cb.boardnum
 		INNER JOIN channellist cl ON cb.chnum = cl.chnum
 		WHERE 
 			h.user_id = #{userId}
+		order by h.created_at desc
 	</select>
 	
 		<!-- 나의 좋아요 게시글 전체 count -->
@@ -274,6 +276,7 @@
 		left join channellist ch on ch.chnum = s.subchnum
 		left join itda_user iu on iu.userid = s.userid
 		where s.userid = #{userId}
+		order by s.subdate desc
 	</select>
 	
 	<!-- 구독한 채널의 list 갯수 불러오기 -->
@@ -296,7 +299,7 @@
 		LEFT JOIN itda_user iu ON iu.userid = s.userid
 		LEFT JOIN chboard bo ON bo.chnum = s.subchnum
 		WHERE s.userid = #{userId}
-		  AND bo.boarddate >= (SYSDATE - 7)  
+		  AND bo.boarddate >= (SYSDATE - 30)  
 		ORDER BY bo.boarddate DESC
 	</select>
 		

@@ -115,8 +115,9 @@ p{
     bottom: 0;
     right: auto;
     margin: auto 0;
+    margin-bottom: 140px;
     opacity: 0.6;
-    transform: translateX(-50%);
+    transform: translateX(-2270%);
 }
 
 .right-area {

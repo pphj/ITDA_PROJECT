@@ -1,5 +1,6 @@
 package com.itda.ITDA.mybatis.mapper;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -152,6 +153,10 @@ public interface AdminMapper {
 	public List<Seller> getSellerApproveList2(Map<String, Object> map);
 
 	public List<UserTotal> getTotalSalesList();
+
+	public Coupon couponCheck(HashMap<String, Object> map);
+
+	public int couponUpdate(BigInteger couponCode);
 	
 
 

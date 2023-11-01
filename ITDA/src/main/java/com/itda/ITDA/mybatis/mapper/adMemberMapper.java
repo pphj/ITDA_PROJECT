@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.itda.ITDA.domain.Admin;
 import com.itda.ITDA.domain.AdminBoard;
+import com.itda.ITDA.domain.QnaReply;
 
 @Mapper
 public interface adMemberMapper {
@@ -31,5 +32,7 @@ public interface adMemberMapper {
 	public int insertQna(AdminBoard adminBoard);
 
 	public Admin idadminId(String username);
+
+	public List<QnaReply> getQnaRepliesByAdNum(int adNum);
 	
 }

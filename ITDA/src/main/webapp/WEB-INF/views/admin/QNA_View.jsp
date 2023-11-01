@@ -96,8 +96,8 @@
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5"
- 				 readOnly style="resize: none;">${qnadata.adContent}</textarea></td>
+ 					<div>${qnadata.adContent}</div>
+ 				</td>
  			</tr>
  			<tr>
  				<td colspan="2" class="center" style="text-align: center;">

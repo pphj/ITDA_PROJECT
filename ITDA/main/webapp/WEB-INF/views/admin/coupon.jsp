@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,11 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/coupon.js"></script>
+<style>
+	form[name=couponDeleteForm] input {
+		margin: 10px 0px;
+	}
+</style>
 </head>
 <body class="g-sidenav-show   bg-gray-100">
   <jsp:include page="adminList.jsp" />
@@ -61,7 +67,7 @@
 		 	<table class="table">
 	 		<thead >
 	 		<tr>
-	 			<th colspan="6">쿠폰 관리</th>
+	 			<th colspan="9">쿠폰 관리</th>
 	 			<th colspan="1"><span>현재 쿠폰 갯수 : ${listcount}</span></th>
 	 		</tr>
 	 		<tr>
@@ -72,6 +78,9 @@
 	 			<th class="text-center"><div>쿠폰 가격</div></th>
 	 			<th class="text-center"><div>생성일</div></th>
 	 			<th class="text-center"><div>만료일</div></th>
+	 			<th class="text-center"><div>활성화 상태</div></th>
+	 			<th class="text-center"><div>유효기간</div></th>
+	 			<th class="text-center"><div>삭제</div></th>
 	 		</tr>
 	 		</thead>
 	 		<tbody>
@@ -101,12 +110,38 @@
 						    	<td class="text-center"><div>만료일 미정</div></td>
 						    </c:otherwise>
 						</c:choose>
+						<c:choose>
+						    <c:when test="${c.couponState eq 'N'}">
+						        <td class="text-center"><div>&nbsp;&nbsp;미사용</div></td>
+						    </c:when>
+						    <c:when test="${c.couponState eq 'Y'}">
+						        <td class="text-center"><div>&nbsp;&nbsp;사용</div></td>
+						    </c:when>
+						</c:choose>
+						<td class="text-center"><div>${c.couponTerm}</div></td>
+						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal" var="pinfo" />
+							<c:choose>
+							    <c:when test="${c.adminId == pinfo.username}">
+							        <td class="text-center">
+									<button type="button" class="couponDeletebtn btn btn-danger
+									 float-right btn-sm btn-round">
+									 <i class="fa fa-trash-o"></i>&nbsp;삭제</button>
+									</td>
+							    </c:when>
+							    <c:otherwise>
+							    	<td class="text-center"><div>작성자가 아님</div></td>
+							    </c:otherwise>
+							</c:choose>
+						</sec:authorize>
 	 				</tr>
 	 			</c:forEach>
 	 		</tbody>
 		 	</table>
 		 	<div class="center-block">
-		 		<ul class="pagination justify-content-center">
+		 		<button type="button" id="couponCreatebtn"
+		 	 	 class="btn btn-success float-right btn-sm btn-round">쿠폰 생성하기</button>
+		 		<ul class="pagination justify-content-end">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
 		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
@@ -145,12 +180,33 @@
 		 		</ul>
 		 	</div>
 		 	</c:if>
-		 	
+		 	<%-- 삭제 모달 시작 --%>
+ 			<div class="modal" id="couponDeleteModal">
+ 				<div class="modal-dialog">
+ 					<div class="modal-content">
+ 						<div class="modal-body">
+ 							<form name="couponDeleteForm" action="${pageContext.request.contextPath}/admin/couponDelete" method="post">
+ 								<div class="form-group">
+ 									<label for="couponCheck">쿠폰 삭제 전 데이터 확인</label>
+ 									<input type="text" class="form-control" placeholder="Enter Coupon Number"
+ 									 name="couponNum" id="couponNum">
+ 									<input type="text" class="form-control" placeholder="Enter Coupon Code"
+ 									 name="couponCode" id="couponCode"><span class="message"></span>
+ 								</div>
+ 								<div style="text-align: center;">
+ 								<button type="submit" class="btn btn-primary btn-sm btn-round">전송</button>
+ 								<button type="button" class="btn btn-danger btn-sm btn-round" data-dismiss="modal">취소</button>
+ 								</div>
+ 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+ 							</form>
+ 						</div>
+ 					</div>
+ 				</div>
+ 			</div>
+ 			<%-- 삭제 모달 끝 --%>
 		 	<c:if test="${listcount == 0}">
 		 		<h3 style="text-align: center">등록된 쿠폰이 없습니다.</h3>
 		 	</c:if>
-		 	
-		 	<button type="button" id="couponCreatebtn" class="btn btn-success float-right btn-sm btn-round">쿠폰 생성하기</button>
 	 	</div>
     </div>
     </div>

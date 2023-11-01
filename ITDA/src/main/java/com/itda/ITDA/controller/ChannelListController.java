@@ -41,6 +41,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChBoardCategory;
 import com.itda.ITDA.domain.ChannelList;
+import com.itda.ITDA.domain.Itda_User;
 import com.itda.ITDA.domain.Seller;
 import com.itda.ITDA.domain.Tag;
 import com.itda.ITDA.domain.sub;
@@ -71,10 +72,10 @@ public class ChannelListController {
 
 	@RequestMapping(value = "/{chnum}", method = RequestMethod.GET)
 	public ModelAndView showChannelMainPage(@PathVariable(value = "chnum") int chnum, // chnum을 파라미터로 전달 받음
-			String userid, ModelAndView mv, HttpServletRequest request, Principal principal, HttpSession session) throws JsonProcessingException {
+			String userid, ModelAndView mv, HttpServletRequest request, Principal principal, HttpSession session)
+			throws JsonProcessingException {
 
-		if (chnum == WRONG_CHNUM)
-		{
+		if (chnum == WRONG_CHNUM) {
 			logger.info("채널 메인 페이지 표시 실패: chnum 파라미터가 없거나 잘못된 값입니다.");
 			mv.addObject("url", request.getRequestURI());
 			mv.addObject("message", "채널 메인 페이지 표시 실패: chnum 파라미터가 없거나 잘못된 값입니다.");
@@ -87,23 +88,22 @@ public class ChannelListController {
 
 		// 채널주인 확인
 		Seller sellerinfo = channelList_Service.getSellerInfo(userid);
-		
+
 		List<sub> subData = channelList_Service.getSubData(chnum);
-		ObjectMapper om= new ObjectMapper();
+		ObjectMapper om = new ObjectMapper();
 		String subDataJson = om.writeValueAsString(subData);
 
 		// 구독자 확인
-		sub subinfo = channelList_Service.getBoardVisit(chnum);
+		Map<String, Object> subinfo = channelList_Service.getBoardVisit(chnum);
+		// sub subinfo = channelList_Service.getBoardVisit(chnum);
 		mv.addObject("subinfo", subinfo);
 
-		if (ChannelList == null)
-		{
+		if (ChannelList == null) {
 			logger.info("채널 메인 페이지 표시 실패: 해당 번호의 채널을 찾을 수 없습니다.");
 			mv.setViewName("error/error");
 			mv.addObject("url", request.getRequestURI());
 			mv.addObject("message", "채널 메인 페이지 표시 실패: 해당 번호의 채널을 찾을 수 없습니다.");
-		} else
-		{
+		} else {
 			// logger.info("채널 메인 페이지 표시 성공");
 			// 채널 정보를 뷰로 전달
 			mv.setViewName("channel/ChannelMain");
@@ -134,46 +134,45 @@ public class ChannelListController {
 			@RequestParam(name = "chcate_id", defaultValue = "0") int chCate_Id,
 			@RequestParam(name = "state", required = false) String state, Principal principal) {
 
-		if (chnum == WRONG_CHNUM)
-		{
+		if (chnum == WRONG_CHNUM) {
 			logger.info("컨텐츠 목록 페이지 표시 실패: channelnum 파라미터가 없거나 잘못된 값입니다.");
 			mv.setViewName("error/error");
 			mv.addObject("url", request.getRequestURI());
 			mv.addObject("message", "컨텐츠 목록 페이지 표시 실패: channelnum 파라미터가 없거나 잘못된 값입니다.");
-		} else
-		{
+		} else {
 			logger.info("컨텐츠 목록 페이지 표시 요청: channelnum=" + chnum);
 			List<ChBoardCategory> chcategorylist = channelList_Service.getChannelCategoryList(chnum);
 			mv.setViewName("content/content_list");
 
 			List<ChBoard> contentlist = new ArrayList<ChBoard>();
 
-			// 채널주인 확인
-			Seller sellerinfo = channelList_Service.getContentSellerInfo(principal.getName());
-			System.out.println(sellerinfo);
+			ChannelList ChannelList = channelList_Service.getChannelDetail(chnum);
+			mv.addObject("ChannelList", ChannelList);
 
 			int listcount = 0;
 
-			if (chCate_Id == 0)
-			{ // 전체
+			if (chCate_Id == 0) { // 전체
 				contentlist = channelList_Service.getAllChannelCategoryData(chnum, order, page, limit);
 				listcount = channelList_Service.getAllChannelCategoryCount(chnum);
 
-			} else
-			{ // 카테고리
+			} else { // 카테고리
 				contentlist = channelList_Service.getChannelCategoryData(chnum, order, chCate_Id, page, limit);
-				System.out.println(contentlist.get(0).getBoardDate());
+
+				if (!contentlist.isEmpty()) {
+					System.out.println(contentlist.get(0).getBoardDate());
+				} else {
+					System.out.println("등록된 게시글이 없습니다.");
+				}
+
 				listcount = channelList_Service.getChannelCategoryCount(chnum, chCate_Id);
 
 			}
-
 			int maxpage = (listcount + limit - 1) / limit;
 			int startpage = ((page - 1) / 10) * 10 + 1;
 			int endpage = startpage + 10 - 1;
 			if (endpage > maxpage)
 				endpage = maxpage;
 
-			mv.addObject("sellerinfo", sellerinfo);
 			mv.addObject("page", page);
 			mv.addObject("limit", limit);
 			mv.addObject("channelnum", chnum);
@@ -193,14 +192,13 @@ public class ChannelListController {
 
 	@PostMapping("{chnum}/sellersetting")
 	public String showChannelUpdate(@PathVariable("chnum") int chnum, ModelAndView mv, ChannelList ChannelList,
-			ChBoardCategory ChBoardCategory, HttpServletRequest request, RedirectAttributes rattr,
-			HttpSession session, Principal principal) throws Exception {
+			ChBoardCategory ChBoardCategory, HttpServletRequest request, RedirectAttributes rattr, HttpSession session,
+			Principal principal) throws Exception {
 
 		MultipartFile uploadfile = ChannelList.getUploadfile();
 		String url = "";
 
-		if (uploadfile != null && !uploadfile.isEmpty())
-		{
+		if (uploadfile != null && !uploadfile.isEmpty()) {
 			logger.info("파일 추가/변경되었습니다.");
 
 			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
@@ -226,12 +224,10 @@ public class ChannelListController {
 		// 채널 프로필 변경
 		int result = channelList_Service.getSellerUpdate(ChannelList);
 
-		if (result == 0)
-		{
+		if (result == 0) {
 			logger.info("업데이트 실패");
 			return "redirect:error/error";
-		} else
-		{// 수정 성공의 경우
+		} else {// 수정 성공의 경우
 			logger.info("업데이트 완료");
 			// 수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
 			return "redirect:sellersetting";
@@ -243,8 +239,7 @@ public class ChannelListController {
 	public ModelAndView showChannelSetting(@PathVariable("chnum") int chnum, ModelAndView mv, ChannelList ChannelList,
 			String check, HttpServletRequest request, HttpSession session) {
 
-		if (ChannelList == null)
-		{
+		if (ChannelList == null) {
 			logger.info("상세보기 실패");
 			mv.setViewName("error/error");
 			mv.addObject("url", request.getRequestURL());
@@ -270,23 +265,20 @@ public class ChannelListController {
 		int date = c.get(Calendar.DATE);// 오늘 일 구합니다.
 
 		File idPath1 = new File(saveFolder);
-		if (!(idPath1.exists()))
-		{
+		if (!(idPath1.exists())) {
 			idPath1.mkdir();// 새로운 폴더를 생성
 		}
 
 		// 채널번호 폴더 생성하는 거
 		File path2 = new File(saveFolder);
-		if (!(path2.exists()))
-		{
+		if (!(path2.exists())) {
 			path2.mkdir();// 새로운 폴더를 생성
 		}
 
 		String homedir = saveFolder + "/" + year + "-" + month + "-" + date;
 		logger.info(homedir);
 		File path1 = new File(homedir);
-		if (!(path1.exists()))
-		{
+		if (!(path1.exists())) {
 			path1.mkdir();// 새로운 폴더를 생성
 		}
 
@@ -323,11 +315,9 @@ public class ChannelListController {
 		String chName = payload.get("chName");
 		int result = channelList_Service.checkChannelName(chnum, chName);
 
-		if (result > 0)
-		{
+		if (result > 0) {
 			logger.info("동일한 채널명이 있습니다. 결과: " + result);
-		} else
-		{
+		} else {
 			logger.info("동일한 채널명이 없습니다.");
 		}
 
@@ -342,11 +332,9 @@ public class ChannelListController {
 
 		int result = channelList_Service.addCategory(chnum, chcatename);
 
-		if (result > 0)
-		{
+		if (result > 0) {
 			logger.info("카테고리 변경 성공. 결과: " + result);
-		} else
-		{
+		} else {
 			logger.error("카테고리 변경 실패.");
 		}
 
@@ -363,11 +351,9 @@ public class ChannelListController {
 
 		int result = channelList_Service.updateCategory(chCate_Id, chCate_Name);
 
-		if (result > 0)
-		{
+		if (result > 0) {
 			logger.info("카테고리 업데이트 성공. 결과: " + result);
-		} else
-		{
+		} else {
 			logger.error("카테고리 업데이트 실패.");
 		}
 
@@ -381,11 +367,9 @@ public class ChannelListController {
 
 		int result = channelList_Service.deleteCategory(chCate_Id);
 
-		if (result > 0)
-		{
+		if (result > 0) {
 			logger.info("카테고리 삭제 성공. 결과: " + result);
-		} else
-		{
+		} else {
 			logger.error("카테고리 삭제 실패.");
 		}
 
@@ -398,8 +382,7 @@ public class ChannelListController {
 
 		session.setAttribute("chnum", chnum);
 
-		if (chnum == WRONG_CHNUM)
-		{
+		if (chnum == WRONG_CHNUM) {
 			logger.info("글작성 페이지: chnum 파라미터가 없거나 잘못된 값입니다.");
 			mv.addObject("url", request.getRequestURI());
 			mv.addObject("message", "채널 메인 페이지 표시 실패: chnum 파라미터가 없거나 잘못된 값입니다.");
@@ -424,8 +407,7 @@ public class ChannelListController {
 
 		MultipartFile uploadfile = chboard.getUpload();
 
-		if (uploadfile != null && !uploadfile.isEmpty())
-		{
+		if (uploadfile != null && !uploadfile.isEmpty()) {
 			logger.info("파일 추가/변경되었습니다.");
 
 			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
@@ -455,17 +437,14 @@ public class ChannelListController {
 
 		Document doc = Jsoup.parse(contentText);
 
-		Elements paragraphs = doc.select("p");
+		Elements paragraphs = doc.select("p,a,h");
 		String Intro = "";
-		for (int i = 0; i < paragraphs.size(); i++)
-		{
+		for (int i = 0; i < paragraphs.size(); i++) {
 			System.out.println(paragraphs.get(i).text());
 			boolean text = paragraphs.get(i).text().matches("^(?=.*\\S).*$");
-			if (text)
-			{
+			if (text) {
 				Intro += paragraphs.get(i).text();
-				if (Intro.length() > 80)
-				{
+				if (Intro.length() > 80) {
 					break;
 				}
 			}
@@ -479,24 +458,20 @@ public class ChannelListController {
 		List<ChBoard> newcontent = channelList_Service.newContentSelect(chnum);
 
 		int contentNum = 0;
-		if (!newcontent.isEmpty())
-		{
+		if (!newcontent.isEmpty()) {
 			contentNum = newcontent.get(0).getBoardNum();
 			System.out.println(contentNum);
 
 		}
 
 		int tagLength = 0;
-		if (request.getParameterValues("tagname") != null)
-		{
+		if (request.getParameterValues("tagname") != null) {
 			tagLength = request.getParameterValues("tagname").length;
 		}
 
-		if (taglist != null && !taglist.isEmpty())
-		{
+		if (taglist != null && !taglist.isEmpty()) {
 			// 태그 입력 처리
-			for (String tags : taglist)
-			{
+			for (String tags : taglist) {
 				logger.info("tags =" + tags);
 
 				Map<String, Object> parameters = new HashMap<>();
@@ -507,13 +482,11 @@ public class ChannelListController {
 			}
 		}
 
-		if (results > 0)
-		{
-			return "redirect:/channels/" + chnum;
-		} else
-		{
+		if (results > 0) {
+			String userId = principal.getName();
+			return "redirect:/channels/" + chnum + "?userid=" + userId;
+		} else {
 			throw new Exception("게시물 작성 오류");
-
 		}
 	}
 
