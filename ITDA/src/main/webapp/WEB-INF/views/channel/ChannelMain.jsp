@@ -251,9 +251,9 @@ $(document).ready(function(){
 					</div>
 					<c:if test="${empty ChannelBoardList}">
 						<div class="emptycontent"
-							style="height: 450px; width: 1903px; text-align: center; position: relative; margin-top: 80px; margin-left: 110px;">
+							style="height: 450px; width: 1903px; text-align: center; position: relative; margin-top: 80px;">
 							<p
-								style="color: #959595; font-size: 20px; font-weight: normal; letter-spacing: -1px; white-space: nowrap;">등록된
+								style="color: #959595; font-size: 20px; font-weight: normal; letter-spacing: -1px; white-space: nowrap; text-align: center;">등록된
 								게시글이 없습니다.</p>
 						</div>
 					</c:if>
@@ -271,7 +271,8 @@ $(document).ready(function(){
 										class="link_category"> <em class="tit_category">${c.chCate_Name}</em>
 									</a> <a
 										href="${pageContext.request.contextPath}/contents/${ChannelList.chNum}/${c.boardNum}?userid=${ChannelList.ownerId}"
-										class="link_post has_image #post_listview" style=" color: inherit; text-decoration: none;"> <strong
+										class="link_post has_image #post_listview"
+										style="color: inherit; text-decoration: none;"> <strong
 											class="tit_subject"> <%-- 글자 수 제한 적용 --%> <c:set
 													var="limitedTitle" value="${c.boardTitle}" /> <c:choose>
 													<c:when test="${fn:length(c.boardTitle) > 35}">
@@ -339,22 +340,25 @@ $(document).ready(function(){
 
 			<!-- 카테고리 내용 -->
 			<div class="tab_content" id="works">
-				<div class="category_wrap_contents">
+				<div class="category_wrap_contents" style="height: 100vh;">
 					<ul class="channel_category_list">
 						<li class="channel_category_item"><a
 							href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_id=0&chname=${ChannelList.chName}"
-							class="channel_category_link" style=" color: #000000; text-decoration: none;"> <strong
+							class="channel_category_link"
+							style="color: #000000; text-decoration: none;"> <strong
 								class="channel_category_name">전체</strong> <!-- <div class="channel_category_num">493</div>  -->
 						</a></li>
 						<c:forEach var="c" items="${ChannelCategory}">
 							<li class="channel_category_item"><a
 								href="${pageContext.request.contextPath}/channels/contentlist.co?chnum=${ChannelList.chNum}&chcate_name=${c.chCate_Name}&chcate_id=${c.chCate_Id}&chname=${ChannelList.chName}"
-								class="channel_category_link" style=" color: #000000; text-decoration: none;"> <strong
+								class="channel_category_link"
+								style="color: #000000; text-decoration: none;"> <strong
 									class="channel_category_name">${c.chCate_Name}</strong> <!-- <div class="channel_category_num">갯수</div> -->
 							</a></li>
 						</c:forEach>
 					</ul>
 				</div>
+				<div class="article_wrap_contents"></div>
 				<!-- 	<div class="wrap_contents"> 카테고리 -->
 			</div>
 			<!-- <div class="tab_content"> -->
