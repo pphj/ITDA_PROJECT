@@ -14,12 +14,12 @@
     <script> var contextPath = '<%= request.getContextPath() %>'; </script>
     <script src="${pageContext.request.contextPath}/resources/js/mainpage.js"></script>
     <title>잇다:세상의 모든 콘텐츠</title>
-    <script>
-	    let result = "${result}";
-		if (result == 'joinSuccess') {
-			alert("회원가입을 축하드립니다.");
-		}
-    </script>
+<script>
+	let result = "${result}";
+	if (result == 'joinSuccess') {
+		alert("회원가입을 축하드립니다.");
+	}
+</script>
 <jsp:include page="../include/header.jsp"/>
 </head>
 <body>
