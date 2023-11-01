@@ -232,6 +232,7 @@ $(document).ready(function() {
           $(document).on('click', '#btnDeleteCategory', function(e) {
           
              e.preventDefault();
+             e.stopPropagation(); // 이벤트 버블링 중지
              //alert('카테고리를 삭제합니다');
              
              // updatenum 가져오기

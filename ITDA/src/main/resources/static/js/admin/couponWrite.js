@@ -21,6 +21,12 @@
 				return false;
 			}
 			
+			if($.trim($("#couponTerm").val()) == ""){
+				alert("쿠폰 이용기간을 입력하세요.");
+				$("#couponTerm").focus();
+				return false;
+			}
+			
 		})//submit end
 		
 	});//ready end

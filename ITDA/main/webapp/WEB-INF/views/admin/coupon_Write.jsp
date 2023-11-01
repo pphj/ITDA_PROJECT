@@ -24,7 +24,7 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/couponWrite.js"></script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -52,15 +52,10 @@
 	 				<input name="adminId" id="adminId" value="${pinfo.username}" readOnly
 	 					   type="text" class="form-control">
 	 			</div>
-	 			<!-- <div class="form-group">
-	 				<label for="couponCode">쿠폰 코드</label>
-	 				<input name="couponCode" id="couponCode" type="text" maxlength="20"
-	 					   class="form-control" placeholder="숫자로 20자까지">
-	 			</div> -->
 	 			<div class="form-group">
 	 				<label for="couponName">쿠폰 이름</label>
 	 				<input name="couponName" id="couponName" type="text" maxlength="20"
-	 					   class="form-control" placeholder="Enter Coupon Name">
+	 					   class="form-control" placeholder="Enter CouponName">
 	 			</div>
 	 			<div class="form-group">
 	 				<label for="couponDetail">쿠폰 내용</label>
@@ -70,12 +65,17 @@
 	 			<div class="form-group">
 	 				<label for="couponPrice">쿠폰 가격</label>
 	 				<input name="couponPrice" id="couponPrice" type="text" maxlength="10"
-	 					   class="form-control" placeholder="Enter Coupon Price">
+	 					   class="form-control" placeholder="Enter CouponPrice">
+	 			</div>
+	 			<div class="form-group">
+	 				<label for="couponTerm">쿠폰 이용기간</label>
+	 				<input name="couponTerm" id="couponTerm" type="text" maxlength="10"
+	 					   class="form-control" placeholder="Enter couponTerm">
 	 			</div>
 	 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	 			<div class="form-group">
-	 				<button type=submit class="btn btn-primary">등록</button>
-	 				<button type=reset class="btn btn-danger" onClick="history.go(-1)">취소</button>
+	 				<button type=submit class="btn btn-primary btn-sm btn-round">등록</button>
+	 				<button type=reset class="btn btn-danger btn-sm btn-round" onClick="history.go(-1)">취소</button>
 	 			</div>
 	 		</form>
 	 	</div>

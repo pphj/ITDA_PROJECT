@@ -167,15 +167,17 @@
 
 							<c:otherwise>
 								<!-- 채널 주인이나 구독자가 아닌 로그인한 사용자에게 게시글의 내용을 150자까지만 보여줍니다. -->
-			                    		${fn:substring(board.boardContent, 0, 200)}
+			                    		${fn:substring(board.boardContent, 0, 350)}
+
 			                </c:otherwise>
 						</c:choose>
 					</sec:authorize>
 
 					<sec:authorize access="isAnonymous()">
+
 						<!-- 로그인하지 않은 사용자에게 게시글의 내용을 150자까지만 보여줍니다. -->
-			            ${fn:substring(board.boardContent, 0, 150)}
-			        </sec:authorize>
+			            ${fn:substring(board.boardContent, 0, 350)}
+ 			        </sec:authorize>
 
 					<input type="hidden" name="num" value="${board.boardNum}"
 						id="Reply_board_num">
@@ -183,10 +185,6 @@
 			</div>
 
 			<div class="viewer_bottom_warp">
-				<div class="viewer_paywall_none" style="color: red;">
-					<p class="viewer_paywall_none_text">해당 콘텐츠는 프리미엄 구독자 공개(유료)
-						콘텐츠로 무단 캡쳐 및 불법 공유시 법적 제재를 받을 수 있습니다.</p>
-				</div>
 
 				<sec:authorize access="isAuthenticated()">
 					<sec:authentication property="principal" var="pinfo" />
@@ -208,7 +206,9 @@
 									<!-- <strong class="viewer_paywall_title">본 콘텐츠는 무료로
 										제공중입니다.<br>콘텐츠가 마음에 드셨나요?
 									</strong> -->
-									<p class="viewer_paywall_desc" style="color: black; text-decoration: none;">올바른 구독으로 더 많은 콘텐츠를 만나보세요!</p>
+									<p class="viewer_paywall_desc"
+										style="color: black; text-decoration: none;">올바른 구독으로 더 많은
+										콘텐츠를 만나보세요!</p>
 								</div>
 								<div class="viewer_paywall_subscribe _PAYWALL_BUTTON"
 									data-is-ticket="true" data-is-product="" data-price="19,900"
@@ -230,7 +230,9 @@
 					<!-- 로그인하지 않은 사용자에게 메시지를 보여줍니다. -->
 					<div class="viewer_paywall">
 						<div class="viewer_paywall_text">
-							<p class="viewer_paywall_desc" style="color: black; text-decoration: none;">올바른 구독으로 더 많은 콘텐츠를 만나보세요!</p>
+							<p class="viewer_paywall_desc"
+								style="color: black; text-decoration: none;">올바른 구독으로 더 많은
+								콘텐츠를 만나보세요!</p>
 						</div>
 						<div class="viewer_paywall_subscribe _PAYWALL_BUTTON"
 							data-is-ticket="true" data-is-product="" data-price="19,900"
@@ -245,6 +247,11 @@
 						</div>
 					</div>
 				</sec:authorize>
+
+				<div class="viewer_paywall_none" style="color: red;">
+					<p class="viewer_paywall_none_text">해당 콘텐츠는 프리미엄 구독자 공개(유료)
+						콘텐츠로 무단 캡쳐 및 불법 공유시 법적 제재를 받을 수 있습니다.</p>
+				</div>
 
 
 				<div class="viewer_bottom_info">

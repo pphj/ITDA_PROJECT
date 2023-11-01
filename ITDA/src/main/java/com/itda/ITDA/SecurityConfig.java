@@ -86,6 +86,7 @@ public class SecurityConfig {
 	            .antMatchers("/admin/sellerApprove").access("hasRole('ROLE_SUPER')")
 	            .antMatchers("/admin/adminApprove").access("hasRole('ROLE_SUPER')")
 	            .antMatchers("/admin/**").access("hasAnyRole('ROLE_SUPER','ROLE_ADMIN')")
+	   			//.antMatchers("/admin/**").permitAll()
 	   			.antMatchers("/resources/**").permitAll());
 	   
 	   http.exceptionHandling().accessDeniedHandler(adminAccessDeniedHandler());

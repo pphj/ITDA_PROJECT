@@ -26,8 +26,27 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/coupon.js"></script>
+<script>
+$(function(){
+	let result = "${result}";
+	
+	if (result == 'passFail') {
+		alert("쿠폰이 DB에 없습니다. 다시 확인해주세요.");
+	}
+	if (result == 'deleteSuccess') {
+		alert("쿠폰 삭제 완료");
+	}
+	if (result == 'updateSuccess') {
+		alert("쿠폰 수정 완료");
+	}
+
+})
+</script>
 <style>
 	form[name=couponDeleteForm] input {
+		margin: 10px 0px;
+	}
+	form[name=couponUpdateForm] input {
 		margin: 10px 0px;
 	}
 </style>
@@ -67,7 +86,7 @@
 		 	<table class="table">
 	 		<thead >
 	 		<tr>
-	 			<th colspan="7">쿠폰 관리</th>
+	 			<th colspan="9">쿠폰 관리</th>
 	 			<th colspan="1"><span>현재 쿠폰 갯수 : ${listcount}</span></th>
 	 		</tr>
 	 		<tr>
@@ -78,6 +97,8 @@
 	 			<th class="text-center"><div>쿠폰 가격</div></th>
 	 			<th class="text-center"><div>생성일</div></th>
 	 			<th class="text-center"><div>만료일</div></th>
+	 			<th class="text-center"><div>활성화 상태</div></th>
+	 			<th class="text-center"><div>유효기간</div></th>
 	 			<th class="text-center"><div>삭제</div></th>
 	 		</tr>
 	 		</thead>
@@ -85,10 +106,7 @@
 	 			<c:set var="num" value="${listcount-(page-1)*limit}" />
 	 			<c:forEach var="c" items="${couponList}">
 	 				<tr>
-	 					<td class="text-center">
-	 						<c:out value="${num}" />
-	 						<c:set var="num" value="${num-1}" />
-	 					</td>
+	 					<td class="text-center"><div>${c.couponNum}</div></td>
 	 					<td class="text-center"><div>${c.couponCode}</div></td>
 	 					<td class="text-center"><div>${c.couponName}</div></td>
 	 					<td class="text-center"><div>${c.couponDetail}</div></td>
@@ -108,6 +126,15 @@
 						    	<td class="text-center"><div>만료일 미정</div></td>
 						    </c:otherwise>
 						</c:choose>
+						<c:choose>
+						    <c:when test="${c.couponState eq 'N'}">
+						        <td class="text-center"><div>&nbsp;&nbsp;사용중지</div></td>
+						    </c:when>
+						    <c:when test="${c.couponState eq 'Y'}">
+						        <td class="text-center"><div>&nbsp;&nbsp;사용중</div></td>
+						    </c:when>
+						</c:choose>
+						<td class="text-center"><div>${c.couponTerm}</div></td>
 						<sec:authorize access="isAuthenticated()">
 							<sec:authentication property="principal" var="pinfo" />
 							<c:choose>
@@ -129,7 +156,9 @@
 		 	</table>
 		 	<div class="center-block">
 		 		<button type="button" id="couponCreatebtn"
-		 	 	 class="btn btn-success float-right btn-sm btn-round">쿠폰 생성하기</button>
+		 	 	 class="btn btn-success float-right btn-sm btn-round">쿠폰 작성하기</button>
+		 	 	<button type="button"
+				 class="btn btn-info float-right btn-sm btn-round couponUpdatebtn">쿠폰 사용중지</button>
 		 		<ul class="pagination justify-content-end">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
@@ -154,6 +183,7 @@
 		 					</li>
 		 				</c:if>
 		 			</c:forEach>
+		 			
 		 			
 		 			<c:if test="${page >= maxpage}">
 		 				<li class="page-item">
@@ -182,7 +212,7 @@
  									 name="couponCode" id="couponCode"><span class="message"></span>
  								</div>
  								<div style="text-align: center;">
- 								<button type="submit" class="btn btn-primary btn-sm btn-round">전송</button>
+ 								<button type="submit" class="btn btn-primary btn-sm btn-round">삭제</button>
  								<button type="button" class="btn btn-danger btn-sm btn-round" data-dismiss="modal">취소</button>
  								</div>
  								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -192,6 +222,32 @@
  				</div>
  			</div>
  			<%-- 삭제 모달 끝 --%>
+ 			<%-- 수정 모달 시작 --%>
+ 			<div class="modal" id="couponUpdateModal">
+ 				<div class="modal-dialog">
+ 					<div class="modal-content">
+ 						<div class="modal-body">
+ 							<form name="couponUpdateForm" action="${pageContext.request.contextPath}/admin/couponUpdate" method="post">
+ 								<div class="form-group">
+ 									<label for="couponCheck">사용중지할 쿠폰의 정보를 입력하세요</label>
+ 									<input type="text" class="form-control" placeholder="Enter Coupon Code"
+ 									 name="couponCode" id="couponCode2"><span class="message2"></span>
+ 									 <input type="text" class="form-control" placeholder="Enter Coupon Price"
+ 									 name="couponPrice" id="couponPrice">
+ 									 <input type="text" class="form-control" placeholder="Enter Coupon Term"
+ 									 name="couponTerm" id="couponTerm">
+ 								</div>
+ 								<div style="text-align: center;">
+ 								<button type="submit" class="btn btn-primary btn-sm btn-round">수정</button>
+ 								<button type="button" class="btn btn-danger btn-sm btn-round" data-dismiss="modal">취소</button>
+ 								</div>
+ 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+ 							</form>
+ 						</div>
+ 					</div>
+ 				</div>
+ 			</div>
+ 			<%-- 수정 모달 끝 --%>
 		 	<c:if test="${listcount == 0}">
 		 		<h3 style="text-align: center">등록된 쿠폰이 없습니다.</h3>
 		 	</c:if>

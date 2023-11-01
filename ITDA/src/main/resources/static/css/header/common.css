@@ -225,8 +225,8 @@ body {
 #join_seller {
 	float: right;
 	border: none;
-	background: white;
-	color: rgb(1, 39, 60);
+	/*background: white;
+	color: rgb(1, 39, 60);*/
 	z-index: 1;
 	font-weight: bold;
 	position: relative;

@@ -483,10 +483,10 @@ public class ChannelListController {
 		}
 
 		if (results > 0) {
-			return "redirect:/channels/" + chnum;
+			String userId = principal.getName();
+			return "redirect:/channels/" + chnum + "?userid=" + userId;
 		} else {
 			throw new Exception("게시물 작성 오류");
-
 		}
 	}
 

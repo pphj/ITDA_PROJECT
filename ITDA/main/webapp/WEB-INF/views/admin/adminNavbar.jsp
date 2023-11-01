@@ -34,6 +34,12 @@ $(function(){
 			e.preventDefault();
 			$("form[name=logout]").submit();
 		})
+		
+		$(".updateBTN").click(function(e){
+			e.preventDefault();
+			location.href="${pageContext.request.contextPath}/adMember/update";
+		})
+		
 	})
 </script>
 </head>
@@ -57,7 +63,7 @@ $(function(){
 				</form>
 			 </sec:authorize>
 	         <li class="nav-item px-3 d-flex align-items-center">
-	            <a href="javascript:;" class="nav-link text-white p-0">
+	            <a href="#" class="updateBTN nav-link text-white p-0">
 	               <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
 	            </a>
 	         </li>

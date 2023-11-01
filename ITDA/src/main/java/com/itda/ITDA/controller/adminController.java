@@ -1019,6 +1019,35 @@ public class adminController {
 		return "redirect:coupon";
 	}
 	
+	@PostMapping("/couponUpdate")
+	public String couponUpdateAction(
+						@RequestParam(value="couponPrice") int couponPrice,
+						@RequestParam(value="couponCode") BigInteger couponCode,
+						@RequestParam(value="couponTerm") int couponTerm,
+						Model mv, RedirectAttributes ra, HttpServletRequest request) {
+		//쿠폰 확인
+		boolean couponCheck = adminService.couponCheck(couponPrice, couponCode, couponTerm);
+		logger.info("couponCheck : " + couponCheck);
+		
+		if (couponCheck == false) {
+			logger.info("couponCheck false");
+			ra.addFlashAttribute("result", "PassFail");
+			return "redirect:coupon";
+		}
+		
+		int result = adminService.couponUpdate(couponCode);
+		
+		if (result == CommonSource.FAIL) {
+			logger.info("쿠폰 수정 실패");
+			mv.addAttribute("url", request.getRequestURL());
+			mv.addAttribute("message", "쿠폰 수정 실패");
+			return "error/error";
+		}
+		logger.info("쿠폰 수정 성공");
+		ra.addFlashAttribute("result", "updateSuccess");
+		return "redirect:coupon";
+	}
+	
 	@RequestMapping(value="/product")
 	public ModelAndView setProductList(@RequestParam(value="page",
 				defaultValue="1",required=false) int page, ModelAndView mv) {
