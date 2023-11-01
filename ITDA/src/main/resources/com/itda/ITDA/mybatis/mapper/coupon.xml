@@ -48,10 +48,12 @@
 	</select>
 	
 	<!-- 쿠폰 사용 상태로 업데이트 -->
-	<update id="updateCouponUse" parameterType="int">
-		update couponIssue
-		set cpuse = #{cpUse}
-		where couponcode = #{couponCode}
+	<update id="updateCouponUse" parameterType="CouponIssue">
+	    update couponIssue
+	    set 
+		    cpuse = #{cpUse},
+		    couponusedate = #{couponUseDate, jdbcType=VARCHAR}
+	    where couponcode = #{couponCode} and userid = #{userId}
 	</update>
 
 

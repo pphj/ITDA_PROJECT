@@ -30,11 +30,16 @@ public class RefundUser {
     
     //Paycall
 	private int callNum;			//주문번호
-	private int couponCode;			//쿠폰 코드
 	private int productId;			//상품 ID
     
     //SubProduct
     private int productTerm;				//이용권 표시기간
+    
+    //couponIssue
+	private int cpNum; 						//쿠폰 발송 번호
+	private String cpUse;					//쿠폰 사용여부
+    private Timestamp couponUseDate;		//사용일
+    private Timestamp couponUseExdate;		//만료 날짜
 	
 	
 	

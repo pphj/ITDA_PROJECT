@@ -212,7 +212,7 @@ public class OrderController {
 		payCall = orderService.isOrderNo(payCall);
 		
 		if(payCall.getCallNum() == (Integer.parseInt(approveResponse.getItem_code()))) {
-			logger.info("getOrderNo & getItem_code() = " );
+			logger.info("getOrderNo & getItem_code() = " + payCall.getCallNum() + "&&" + approveResponse.getItem_code() );
 		}
 
 		if (pgToken != null && tid != null) {
@@ -239,6 +239,8 @@ public class OrderController {
 				CouponIssue couponIssue = new CouponIssue();
 				couponIssue.setCouponCode(payCall.getCouponCode());
 				couponIssue.setCpUse(cpUse);
+				couponIssue.setUserId(id);
+				couponIssue.setCouponUseDate(approveResponse.getCreated_at());
 				int result = couponService.updateCouponUse(couponIssue);
 			}
 
@@ -357,7 +359,8 @@ public class OrderController {
 	@RequestMapping(value="/subscriptions/info/refund")
 	public String payRefund(Principal principal,
 							RefundUser refundUser,
-							HttpServletRequest request) {
+							HttpServletRequest request,
+							@RequestParam("couponCode") String couponCode) {
 		
 		String id = principal.getName();
 		
@@ -366,8 +369,18 @@ public class OrderController {
 		refundUser.setPayedPrice(refundUser.getPayedPrice());
 		refundUser.setProductTerm(refundUser.getProductTerm());
 		
-		RefundUser refundOrder = orderService.isPayRefundOrder(refundUser);
+		// 기존 유저가 쿠폰 사용자인지 확인되면 쿠폰 사용여부 업데이트
+		CouponIssue cpIssue = new CouponIssue();
+		cpIssue.setCouponCode(couponCode);
+		if(cpIssue.getCouponCode()!=null || Integer.parseInt(cpIssue.getCouponCode()) != 0) {
+			String cpUse = "N";
+			cpIssue.setCpUse(cpUse);
+			cpIssue.setUserId(id);
+			cpIssue.setCouponUseDate(null);
+			int result = couponService.updateCouponUse(cpIssue);
+		}
 		
+		RefundUser refundOrder = orderService.isPayRefundOrder(refundUser);
 		GoodUser goodUser = itdaUserService.isGoodUser(id);
 		logger.info("payment.setPayedNum : " + refundUser.getPayedNum());
        

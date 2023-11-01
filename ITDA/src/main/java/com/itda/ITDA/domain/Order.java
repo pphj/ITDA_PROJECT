@@ -22,7 +22,7 @@ public class Order {
     // paycall 내용
 	private int callNum;			//주문번호
 	private String userId;			//결제자
-	private int couponCode;			//쿠폰 코드
+	private String couponCode;			//쿠폰 코드
     
     // payment 내용
 	private int payedNum;				//결제번호

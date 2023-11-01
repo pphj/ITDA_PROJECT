@@ -223,7 +223,7 @@
 	<select id="getOrderInfo" resultType="Order">
 		SELECT sp.productname, sp.productprice,
 	       py.payednum, py.payedmethod, py.ordernum, py.payedokdate, py.payedprice, py.payedstatus,
-	       pc.callnum, pc.userid, sp.PRODUCTTERM, gu.startdate, py.discountPrice
+	       pc.callnum, pc.userid, pc.couponcode, sp.PRODUCTTERM, gu.startdate, py.discountPrice
 		FROM subproduct sp
 		INNER JOIN paycall pc ON sp.productid = pc.productid
 		INNER JOIN payment py ON pc.callnum = py.ordernum
@@ -299,7 +299,7 @@
 		LEFT JOIN itda_user iu ON iu.userid = s.userid
 		LEFT JOIN chboard bo ON bo.chnum = s.subchnum
 		WHERE s.userid = #{userId}
-		  AND bo.boarddate >= (SYSDATE - 30)  
+		  AND bo.boarddate >= (SYSDATE - 14)  
 		ORDER BY bo.boarddate DESC
 	</select>
 		
