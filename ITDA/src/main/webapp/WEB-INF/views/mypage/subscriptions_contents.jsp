@@ -50,7 +50,9 @@
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
 	
 
+
 </head>
+
 <body class="as_my_home body_mp as_my_home">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
 <div id="_CONTENT_INDICATOR_WRAP" style="display:none;">
@@ -115,13 +117,13 @@
 		</div>
 	</div>
 	<ul class="my_subscriptions_content_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_SUBSCRIPTION_CONTENT_LIST" data-cursor-name="next" data-cursor="1699693987230649345" data-has-next="true">
-	    	<c:choose>
+<%-- 	    	<c:choose>
 			<c:when test="${newContentLis.ownerId eq null}">
 			<div class="no_contents_center">
 				<img class="no_contents" src="${pageContext.request.contextPath}/image/mypage/content_null.png">
 			</div>
 			</c:when>
-		<c:otherwise>
+		<c:otherwise> --%>
 		<!-- list 시작 -->
 		<c:forEach var="newContentList" items="${newContentList}">
 		
@@ -174,13 +176,15 @@
 			</div>
 		</li>
 		</c:forEach>
-		</c:otherwise>
-		</c:choose>
+<%-- 		</c:otherwise>
+		</c:choose> --%>
 	</ul>
-	
-	<button id="loadMoreButton">더 보기</button> 
-	
-	<div class="loading _CONTENT_LIST_LOADING">
+	<div class="loading">
+	<div class="loader" style="display:flex; justify-content:center;">
+	<button id="morebtn" type="button" class="load-more-button btn bt-item bt-hover">더보기</button> 
+	</div>
+	</div>
+<!-- 	<div class="loading _CONTENT_LIST_LOADING">
 		<div class="loader">
 			<div class="dot dot1"></div>
 			<div class="dot dot2"></div>
@@ -189,7 +193,7 @@
 			<div class="dot dot5"></div>
 			<div class="dot dot6"></div>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 			</div>
@@ -264,40 +268,29 @@
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_read.min.js"></script>
 <script>
 $(document).ready(function() {
-	
     var showitems = 6;
     var visibleitems = 6;
 
     function toggleEventItems() {
-    	
-    	const contentList = $(".my_subscriptions_content_list").hide();
-    	$(".my_subscriptions_content_list:lt(" + visibleitems + ")").show();
-    	
-    	if(visibleitems >= ('.my_subscriptions_content_list').length){
-    		
-    	}
-    	
+       	$(".my_subscriptions_content_list li").hide();
+        $(".my_subscriptions_content_list li:lt(" + visibleitems + ")").show();
+
+        if (visibleitems >= $('.my_subscriptions_content_list li').length) {
+            $('#morebtn').hide();
+        } else {
+            $('#morebtn').show();
+        }
     }
-    const loadMoreButton = $("#loadMoreButton");
-    const contentList = $(".my_subscriptions_content_list");
-    let cursor = contentList.attr("data-cursor");
 
-    loadMoreButton.on("click", function() {
-        // 여기서 서버에서 추가 데이터를 가져오는 대신 더 많은 아이템을 보여줍니다.
-        const hiddenItems = contentList.find(".my_subscriptions_content_item.hidden");
-        for (let i = 0; i < 6; i++) { // 6개씩 더 보여줍니다.
-            if (hiddenItems[i]) {
-                $(hiddenItems[i]).removeClass("hidden");
-            }
-        }
+    toggleEventItems();
 
-        cursor = contentList.attr("data-cursor"); // 다음 페이지를 위한 새로운 cursor 가져옴
-        const hasNext = contentList.attr("data-has-next");
-        if (hasNext === "false") {
-            loadMoreButton.hide(); // 다음 페이지가 없으면 더보기 버튼을 숨깁니다.
-        }
+    $('#morebtn').click(function(e) {
+        e.preventDefault();
+        visibleitems += showitems;
+        toggleEventItems();
     });
 });
+
 </script>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </body>

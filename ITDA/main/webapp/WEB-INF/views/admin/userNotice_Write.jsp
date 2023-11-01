@@ -24,7 +24,7 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/userNoticeWrite.js"></script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -46,16 +46,16 @@
 	<div class="card">
 		<div class="card-body">
  		<form action="userNoticeInsert" method="post" enctype="multipart/form-data" name="userNoticeform">
- 			<h1>유저 공지사항 작성 페이지</h1>
+ 			<h3 style="text-align: center;">유저 공지사항 작성 페이지</h3>
  			<div class="form-group">
  				<label for="adWriter">작성자</label>
  				<input name="adWriter" id="adWriter" value="${pinfo.username}" readOnly
- 					   type="text" class="form-control"">
+ 				 type="text" class="form-control"">
  			</div>
  			<div class="form-group">
  				<label for="adPassword">비밀번호</label>
  				<input name="adPassword" id="adPassword" type="password" maxlength="30"
- 					   class="form-control" placeholder="Enter Password">
+ 				 class="form-control" placeholder="Enter Password">
  			</div>
  			<div class="form-group">
  				<label for="adTitle">제목</label>
@@ -68,13 +68,14 @@
  					   rows="10" class="form-control"></textarea>
  			</div>
  			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
- 			<div class="form-group">
- 				<button type=submit class="btn btn-primary">등록</button>
- 				<button type=reset class="btn btn-danger" onClick="history.go(-1)">취소</button>
+ 			<div class="form-group" style="text-align: center;">
+ 				<button type=submit class="btn btn-primary btn-sm btn-round">등록</button>
+ 				<button type=reset class="btn btn-danger btn-sm btn-round" onClick="history.go(-1)">취소</button>
  			</div>
  		</form>
  		</div>
  	</div>	
  	</div>
+</main>
 </body>
 </html>

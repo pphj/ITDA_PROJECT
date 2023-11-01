@@ -181,6 +181,7 @@ public class UserInfoController {
 			result = Constants.CONNECT_SUCCESS;
 			logger.info("메일 전송에 성공하였습니다.");
 		}else {
+			result = Constants.MAIL_SEND_ERROR;
 			logger.info("메일 전송에 실패하였습니다.");
 		}
 		
@@ -199,9 +200,9 @@ public class UserInfoController {
 		logger.info("authCode : " + authCode +  "/ authNo : " + authNo);
 		int result = 0;
 		
-		if(authCode.equals(authCode)) {
+		if(authCode.equals(authNo)) {
 			
-			result = Constants.CONNECT_SUCCESS;
+			result = 200;
 			logger.info(Message.SUCCESS);
 			
 			return result;
@@ -548,7 +549,7 @@ public class UserInfoController {
 		{// 수정 성공의 경우
 			logger.info("업데이트 완료");
 			// 수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
-			return "redirect:/";
+			return "redirect:/user/myProfile";
 		}
 
 	}

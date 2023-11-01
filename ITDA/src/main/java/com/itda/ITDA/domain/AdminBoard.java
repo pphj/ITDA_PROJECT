@@ -1,6 +1,7 @@
 package com.itda.ITDA.domain;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,13 @@ public class AdminBoard {
 	private Timestamp adUpdate;			//수정일
 	private String Key;					//글의 종류
 	private String adState;				//상태 
+	
+	private List<QnaReply> qnaReplyList;
+	
+	
+	public void setQnaReplyList(List<QnaReply> qnaReplyList) {
+	    this.qnaReplyList = qnaReplyList;
+	}
 
 }
 

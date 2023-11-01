@@ -32,7 +32,7 @@
 	}
 </style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -52,10 +52,12 @@
     </div>
 	<div class="main-content" style="padding: 30px 25px;">
 	<div class="card">
-			<div class="card-body">
+		<div class="card-body">
  		<table class="table">
  			<tr>
- 				<th colspan="2">&nbsp;</th>
+ 				<th colspan="2">
+					<h3 style="text-align: center;">Q&A 내용</h3>
+				</th>
  			</tr>
  			<tr>
  				<td><div>질문자</div></td>
@@ -69,22 +71,22 @@
  				<td><div>카테고리</div></td>
  				<c:choose>
 					<c:when test="${qnadata.qcateId == 1}">
-						<td><div>홍보, 영리목적</div></td>
+						<td><div>구매, 환불</div></td>
 					</c:when>
 					<c:when test="${qnadata.qcateId == 2}">
-						<td><div>불법 정보</div></td>
+						<td><div>회원</div></td>
 					</c:when>
 					<c:when test="${qnadata.qcateId == 3}">
-						<td><div>음란, 청소년 유해</div></td>
+						<td><div>상품</div></td>
 					</c:when>
 					<c:when test="${qnadata.qcateId == 4}">
-						<td><div>욕설, 비방, 차별, 혐오</div></td>
+						<td><div>채널</div></td>
 					</c:when>
 					<c:when test="${qnadata.qcateId == 5}">
-						<td><div>도배, 스팸</div></td>
+						<td><div>서비스 소개, 이용 방법</div></td>
 					</c:when>
 					<c:when test="${qnadata.qcateId == 6}">
-						<td><div>개인정보 노출, 거래</div></td>
+						<td><div>오류, 피해 접수</div></td>
 					</c:when>
 					<c:otherwise>
 						<td><div>기타</div></td>
@@ -94,7 +96,8 @@
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly>${qnadata.adContent}</textarea></td>
+ 				<textarea class="form-control" rows="5"
+ 				 readOnly style="resize: none;">${qnadata.adContent}</textarea></td>
  			</tr>
  			<tr>
  				<td colspan="2" class="center" style="text-align: center;">
@@ -112,16 +115,7 @@
  		</table>
  		<%-- 댓글 --%>
  		<div id="qnaReply">
-	 		<button class="btn btn-info float-left btn-sm btn-round">총 1000자까지 가능합니다.</button>
-	 		<button id="qnaWrite" class="btn btn-info btn-sm btn-round" style="float: right;">답변 등록</button>
-	 		<textarea rows="3" class="form-control" id="qnaReplyContent" maxLength="1000"
-	 			style="margin-bottom: 30px;">
-	 		</textarea>
-	 		<form name="forNum">
-	 			<input type="hidden" name="num" value="${qnadata.adNum}" id="adNum">
-	 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-	 		</form>
-	 		<table class="table">
+ 			<table class="table">
 	 			<thead>
 	 				<tr>
 	 					<td colspan="1" class="text-center">번호</td>
@@ -134,9 +128,19 @@
 	 			</tbody>
 	 		</table>
 	 		<div id="message" style="margin-bottom: 30px;"></div>
+	 		<button class="btn btn-info float-left btn-sm btn-round">총 1000자까지 가능합니다.</button>
+	 		<button id="qnaWrite" class="btn btn-info btn-sm btn-round" style="float: right;">답변 등록</button>
+	 		<textarea rows="3" class="form-control" id="qnaReplyContent" maxLength="1000"
+	 			style="margin-bottom: 30px; resize: none;">
+	 		</textarea>
+	 		<form name="forNum">
+	 			<input type="hidden" name="num" value="${qnadata.adNum}" id="adNum">
+	 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	 		</form>
 	 	</div>
  	</div>
  	</div>
 	</div>
+</main>
 </body>
 </html>

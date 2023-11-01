@@ -24,7 +24,7 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/faqWrite.js"></script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -46,7 +46,7 @@
 	<div class="card">
 		<div class="card-body">
  		<form action="faqInsert" method="post" enctype="multipart/form-data" name="FAQform">
- 			<h1>FAQ 작성 페이지</h1>
+ 			<h3 style="text-align: center;">FAQ 작성 페이지</h3>
  			<div class="form-group">
  				<label for="adWriter">작성자</label>
  				<input name="adWriter" id="adWriter" value="${pinfo.username}" readOnly
@@ -70,23 +70,24 @@
  			<div class="form-group">
 			  <label for="QcateId">FAQ 카테고리</label>
 			  <select name="QcateId" id="QcateId">
-			    <option value="1">홍보, 영리목적</option>
-			    <option value="2">불법 정보</option>
-			    <option value="3">음란, 청소년 유해</option>
-			    <option value="4">욕설, 비방, 차별, 혐오</option>
-			    <option value="5">도배, 스팸</option>
-			    <option value="6">개인정보 노출, 거래</option>
+			    <option value="1">구매, 환불</option>
+			    <option value="2">회원</option>
+			    <option value="3">상품</option>
+			    <option value="4">채널</option>
+			    <option value="5">서비스 소개, 이용 방법</option>
+			    <option value="6">오류, 피해 접수</option>
 			    <option value="7">기타</option>
 			  </select>
 			</div>
  			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
- 			<div class="form-group">
- 				<button type=submit class="btn btn-primary">등록</button>
- 				<button type=reset class="btn btn-danger" onClick="history.go(-1)">취소</button>
+ 			<div class="form-group" style="text-align: center;">
+ 				<button type=submit class="btn btn-primary btn-sm btn-round">등록</button>
+ 				<button type=reset class="btn btn-danger btn-sm btn-round" onClick="history.go(-1)">취소</button>
  			</div>
  		</form>
  		</div>
 	</div>
  	</div>
+</main>
 </body>
 </html>

@@ -7,5 +7,7 @@ public final class Constants {
 	public static final int DELETE_SUCCESS = 1;
 	public static final int INSERT_SUCCESS = 1;
 	
+	public static final int MAIL_SEND_ERROR = 0;
+	
 
 }

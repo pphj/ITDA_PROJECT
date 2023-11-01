@@ -48,7 +48,7 @@
 	</script>
 
 </head>
-<body class=" body_mp">
+<body class="as_white_background body_mp">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
 <div id="_CONTENT_INDICATOR_WRAP" style="display:none;">
 	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>
@@ -145,6 +145,7 @@
 <input type="hidden" name="payedNum" value="${orderInfo.payedNum}">
 <input type="hidden" name="payedPrice" value="${orderInfo.payedPrice}">
 <input type="hidden" name="discountPrice" value="${orderInfo.discountPrice}">
+<input type="hidden" name="productTerm" value="${orderInfo.productTerm}">
 <div class="my_detail_content">
 	<div class="my_detail_titlewrap">
 		<h2 class="my_detail_title">구매 정보</h2>
@@ -155,12 +156,15 @@
 				<c:if test="${orderInfo.payedStatus == 'Y'}">
 					<dd><em><c:out value="결제완료"/></em></dd>
 				</c:if>
-				<c:if test="${orderInfo.payedStatus == 'N'}">
+				<c:if test="${orderInfo.payedStatus == 'R'}">
 					<dd><em><c:out value="결제취소"/></em></dd>
 				</c:if>
 				<c:if test="${orderInfo.payedStatus == 'F'}">
 					<dd><em><c:out value="결제실패"/></em></dd>
 				</c:if>
+				<c:if test="${orderList.payedStatus == 'N'}">
+					<dd><em><c:out value="결제중단"/></em></dd>
+				</c:if>				
 			
 		</div>
 		<div class="my_detail_info_item">
@@ -198,7 +202,14 @@
 
 </form>
 <div class="my_detail_button_wrap">
+   <c:choose>
+       <c:when test="${orderInfo.payedStatus == 'Y'}">
 	<button class="my_detail_button _CANCLE" data-clk="my_order.cancle">환불</button>
+       </c:when>
+     <c:when test="${orderInfo.payedStatus eq 'Y'}">
+        </c:when>
+      </c:choose>
+
 	<a href="#" class="my_detail_button _BACK" data-clk="my_order.back">이전</a>
 </div>
 <div class="my_detail_guide">
@@ -232,6 +243,10 @@
 $('.my_detail_button._CANCLE').click(function() {
   // 페이지 이동을 수행하는 코드
   $("#fm").submit();
+});
+$(".my_detail_button._BACK").on("click", function(e) {
+    e.preventDefault(); // 기본 동작(링크 이동)을 중지합니다.
+    window.history.back();
 });
 
 </script>

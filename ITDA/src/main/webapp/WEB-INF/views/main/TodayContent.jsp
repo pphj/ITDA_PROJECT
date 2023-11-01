@@ -14,7 +14,7 @@
             <button class="contents_category btn bt-item bt-hover bt-2  on" id="0"><span>전체</span>
             </button>
             <t:forEach var="c" items="${chCategoryList}">
-                <t:set var="categoryLength" value="${fn:length(c.cate_Name)}" />
+<%--                 <t:set var="categoryLength" value="${fn:length(c.cate_Name)}" /> --%>
                 <button class="contents_category btn bt-item bt-hover bt-${categoryLength}" id="${c.cate_Id}">${c.cate_Name}
                 </button>
             </t:forEach>

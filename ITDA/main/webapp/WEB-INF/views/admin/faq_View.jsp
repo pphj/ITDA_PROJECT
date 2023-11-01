@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,15 +23,30 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+	$(function(){
+		$("#faqDelete").click(function(){
+			$("#faqModal").modal("show");
+		})
+		
+		$(function() {
+			$("form[name=faqDeleteForm]").submit(function() {
+				if ($("#adPassword").val() == '') {
+					alert("비밀번호를 입력하세요");
+					$("#adPassword").focus();
+					return false;
+				}
+			})
+		})
+	})
+	
 	let result = "${result}";
 	if (result == 'passFail') {
 		alert("비밀번호가 일치하지 않습니다.");
 	}
 </script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -55,7 +69,7 @@
 		<div class="card-body">
  		<table class="table">
  			<tr>
- 				<th colspan="2">&nbsp;</th>
+ 				<th colspan="2"><h3 style="text-align: center;">FAQ 상세 내용</h3></th>
  			</tr>
  			<tr>
  				<td><div>글쓴이</div></td>
@@ -68,26 +82,54 @@
  			<tr>
  				<td><div>내용</div></td>
  				<td style="padding-right: 0px">
- 				<textarea class="form-control" rows="5" readOnly>${faqdata.adContent}</textarea></td>
+ 				<textarea class="form-control" rows="20" readOnly
+ 				style="resize: none;">${faqdata.adContent}</textarea></td>
  			</tr>
  			<tr>
- 				<td colspan="2" class="center">
+ 				<td colspan="2" class="center" style="text-align: center;">
  					<a href="${pageContext.request.contextPath}/admin/FAQ">
- 						<button class="btn btn-success">FAQ 목록</button>		<%-- 목록 클릭시 FAQ리스트로 --%>
+ 						<button class="btn btn-success btn-sm btn-round">
+ 						<i class="ni ni-bullet-list-67"></i>&nbsp;목록</button>
  					</a>
- 					<sec:authorize access="isAuthenticated()">
- 						<sec:authentication property="principal" var="pinfo" />
-		 				<c:if test="${id == adWriter}">	<%-- 작성자일때 권한 부여 --%>
-		 					<a href="${pageContext.request.contextPath}/admin/faqUpdate/${faqdata.adNum}">
-		 						<button class="btn btn-warning">수정</button>	
-		 					</a>
-		 				</c:if>
- 					</sec:authorize>
+		 			<c:if test="${adminId == adWriter}">	<%-- 작성자일때 권한 부여 --%>
+		 				<a href="${pageContext.request.contextPath}/admin/faqUpdate/${faqdata.adNum}">
+		 					<button class="btn btn-warning btn-sm btn-round">
+		 						<i class="fa fa-pencil-square-o"></i>&nbsp;수정
+		 					</button>	
+		 				</a>
+		 				<a href="#">
+		 					<button class="btn btn-danger btn-sm btn-round" id="faqDelete"
+		 					data-toggle="modal" data-target="#faqModal">
+		 						<i class="fa fa-trash-o"></i>&nbsp;삭제
+		 					</button>	
+		 				</a>
+		 			</c:if>
  				</td>
  			</tr>
+ 			<%-- 삭제 모달 시작 --%>
+ 			<div class="modal" id="faqModal">
+ 				<div class="modal-dialog">
+ 					<div class="modal-content">
+ 						<div class="modal-body">	<%-- 모달 바디 --%>
+ 							<form name="faqDeleteForm" action="${pageContext.request.contextPath}/admin/faqDelete" method="post">
+ 								<input type="hidden" name="num" value="${faqdata.adNum}" id="adNum">
+ 								<div class="form-group">
+ 									<label for="adPassword">비밀번호</label>
+ 									<input type="password" class="form-control" placeholder="Enter password"
+ 									name="adPassword" id="adPassword">
+ 								</div>
+ 								<button type="submit" class="btn btn-primary">전송</button>
+ 								<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+ 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+ 							</form>
+ 						</div>
+ 					</div>
+ 				</div>
+ 			</div><%-- 삭제 모달 끝 --%>
  		</table>
  		</div>
  	</div>
  	</div>
+</main>
 </body>
 </html>

@@ -13,11 +13,11 @@
     네이버로 시작하기
 	</a>
 
-	<li onclick="naverLogout(); return false;">
+	<!-- <li onclick="naverLogout(); return false;">
       <a href="javascript:void(0)">
           <span style="color:black">네이버 로그아웃</span>
       </a>
-	</li>
+	</li> -->
 </ul>
 
 <!-- 네이버 스크립트 -->

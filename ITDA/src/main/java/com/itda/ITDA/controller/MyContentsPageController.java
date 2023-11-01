@@ -218,7 +218,8 @@ public class MyContentsPageController {
 	public String likeChDeleteProcess(sub sub,
 									  Principal principal,
 								      Model model,
-								      @RequestParam("chNum") int chnum) {
+								      @RequestParam("chNum") int chnum,
+								      HttpServletRequest request) {
 		
 		String id = principal.getName();
 
@@ -230,9 +231,11 @@ public class MyContentsPageController {
 		
 		if(result > 0) {
 			logger.info(Message.SUCCESS);
+			request.setAttribute("msg", Message.SUCCESS);
 		}
 		
-		return "redirect:/my/notification";
+		
+		return "mypage/notification_delete_action";
 	}
 	
 	

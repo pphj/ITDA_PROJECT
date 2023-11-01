@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl; 
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.itda.ITDA.security.AdminAccessDeniedHandler;
@@ -24,6 +24,9 @@ import com.itda.ITDA.security.UserAccessDeniedHandler;
 import com.itda.ITDA.security.UserDetailService;
 import com.itda.ITDA.security.UserLoginFailHandler;
 import com.itda.ITDA.security.UserLoginSuccessHandler;
+import com.itda.ITDA.security.naverDetailService;
+import com.itda.ITDA.security.naverLoginFailHandler;
+import com.itda.ITDA.security.naverLoginSuccessHandler;
 
 @EnableWebSecurity // 스프링과 시큐리티 결합
 @Configuration
@@ -40,6 +43,7 @@ public class SecurityConfig {
 
        return http.build();
    }
+   
 
    @Bean
    public SecurityFilterChain adMemberSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -86,6 +90,7 @@ public class SecurityConfig {
 	            .antMatchers("/admin/sellerApprove").access("hasRole('ROLE_SUPER')")
 	            .antMatchers("/admin/adminApprove").access("hasRole('ROLE_SUPER')")
 	            .antMatchers("/admin/**").access("hasAnyRole('ROLE_SUPER','ROLE_ADMIN')")
+	   			//.antMatchers("/admin/**").permitAll()
 	   			.antMatchers("/resources/**").permitAll());
 	   
 	   http.exceptionHandling().accessDeniedHandler(adminAccessDeniedHandler());
@@ -221,19 +226,52 @@ public class SecurityConfig {
        http.antMatcher("/main/**") // 네이버 로그인 URL 설정
                .authorizeRequests(authorizeRequests -> authorizeRequests
                        .antMatchers("/resources/**").permitAll()
-                       .antMatchers("/main").access("hasRole('ROLE_USER')") // 이 줄은 해당 유저 권한으로 설정하세요
-               );
+                       .antMatchers("/main").access("hasRole('ROLE_NAVER')") // 이 줄은 해당 유저 권한으로 설정하세요
+        )
+       .formLogin(formLogin -> formLogin
+               .loginPage("/")
+               .loginProcessingUrl("/member/loginProcess2")
+               .usernameParameter("userId")
+               .passwordParameter("userPw")
+               .successHandler(naverLoginSuccessHandler())
+               .failureHandler(naverLoginFailHandler())
+       )
+       .logout(logout -> logout
+               .logoutSuccessUrl("/")
+               .logoutUrl("/member/logout")
+               .invalidateHttpSession(true)
+               .deleteCookies("remember-me", "JSESSION_ID")
+       )
+       .rememberMe(rememberMe -> {
+    	   try {rememberMe
+					.rememberMeParameter("remember-me")
+					.userDetailsService(naverDetailService())
+					.tokenValiditySeconds(2419200)
+					.tokenRepository(tokenRepository());
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+       });
+   
+   http.exceptionHandling().accessDeniedHandler(adminAccessDeniedHandler());
 
-       http.formLogin(formLogin -> formLogin
-               .loginPage("/main") // 네이버 로그인 성공 시 리디렉션될 페이지
-               .successHandler(userLoginSuccessHandler()) // 네이버 로그인 성공 처리
-       );
-
-       return http.build();
-   }
+   return http.build();
+}
 
 
-   @Bean	//유저
+	private UserDetailsService naverDetailService() {
+		return new naverDetailService();
+	}
+	
+	private AuthenticationFailureHandler naverLoginFailHandler() {
+		return new naverLoginFailHandler();
+	}
+	
+	private AuthenticationSuccessHandler naverLoginSuccessHandler() {
+		return new naverLoginSuccessHandler();
+	}
+
+@Bean	//유저
    public DaoAuthenticationProvider userAuthencationProvider() {
       DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
       provider.setUserDetailsService(userDetailService());

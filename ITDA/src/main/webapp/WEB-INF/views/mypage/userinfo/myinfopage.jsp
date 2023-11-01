@@ -518,7 +518,7 @@
     <input type="hidden" name="addressYn" id="isAddressYn" value="Y"/>
     <input type="hidden" name="userId" id="userId" value="${user.userId }"/>
     <input type="hidden" name="cateNameYn" id="cateNameYn" value="${user.cate_Name}"/>
-    <input type="hidden" name="userEmail" id="sestUserEmail" value=""/>
+    <input type="hidden" name="userEmail" id="setUserEmail" value=""/>
     <input type="hidden" name="sellerEmail" id="sellerUserEmail" value=""/>
     
     
@@ -683,8 +683,8 @@
                         </div>
                         <div id="myLetterEmailPhoneVerify" class="contact_edit_desc">
                             등록된 이메일 주소가 기억나지 않는다면 휴대전화 인증 후 이메일을 수정할 수 있습니다.
-                            <a href="javascript:;" class="link_come"
-                               onclick="userMobile('myLetterEmail')">
+                            <a href="javascript:;" class="link_come">
+                               <!-- onclick="userMobile('myLetterEmail')" -->
                                 <span class="text">전화번호 인증</span>
                             </a>
                         </div>
@@ -762,8 +762,8 @@
                         </div>
                         <div id="myLetterEmailPhoneVerify" class="contact_edit_desc">
                             등록된 이메일 주소가 기억나지 않는다면 휴대전화 인증 후 이메일을 수정할 수 있습니다.
-                            <a href="javascript:;" class="link_come"
-                               onclick="userMobile('myLetterEmail')">
+                            <a href="javascript:;" class="link_come">
+                              <!--  onclick="userMobile('myLetterEmail')"> -->
                                 <span class="text">전화번호 인증</span>
                             </a>
                         </div>

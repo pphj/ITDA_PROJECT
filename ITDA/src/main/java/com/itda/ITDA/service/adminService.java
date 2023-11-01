@@ -137,6 +137,10 @@ public interface adminService {
 	public List<Seller> getSellerApproveList(int index, String search_word, int page, int limit);
 
 	public List<UserTotal> getTotalSalesList();
+
+	public boolean couponCheck(int couponPrice, BigInteger couponCode, int couponTerm);
+
+	public int couponUpdate(BigInteger couponCode);
 	
 
 }

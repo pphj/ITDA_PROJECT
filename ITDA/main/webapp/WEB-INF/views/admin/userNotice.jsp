@@ -24,13 +24,34 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/userNotice.js"></script>
-  <script>
-
-  </script>
+<style>
+	#userNoticeList_Form {
+		width: 100%;
+	}
+	#userNoticeList_Form > div {
+		display: flex;
+	    width: 30%;
+	    height: 40px;
+	    margin: auto;
+	}
+	#viewcount2 {
+		height: 25px;
+	}
+	#userNoticeList_Form > div > input {
+		width: 240px;
+	    height: 25px;
+	    border-radius: 0;
+	    border: 1px solid black;
+	}
+	#search_but {
+		height: 25px;
+	    font-size: 8px;
+	    border-radius: 0;
+	}
+</style>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -78,7 +99,7 @@
 	 		</thead>
 	 		<tbody>
 	 			<c:set var="num" value="${listcount-(page-1)*limit}" />
-	 			<c:forEach var="F" items="${userNoticeList}">
+	 			<c:forEach var="u" items="${userNoticeList}">
 	 				<tr>
 	 					<td class="text-center">		<%-- 번호 부분 --%>
 	 						<c:out value="${num}" />					<%-- num 출력 --%>
@@ -86,30 +107,32 @@
 	 					</td>
 	 					<td class="text-center">		<%-- 제목 부분 --%>
 	 						<div>
-	 							<a href="${pageContext.request.contextPath}/admin/userNotice/${F.adNum}">
-	 								<c:if test="${F.adTitle.length() >= 20}">
-	 									<c:out value="${F.adTitle.substring(0,20)}..." escapeXml="true" />
+	 							<a href="${pageContext.request.contextPath}/admin/userNotice/${u.adNum}">
+	 								<c:if test="${u.adTitle.length() >= 20}">
+	 									<c:out value="${u.adTitle.substring(0,20)}..." escapeXml="true" />
 	 								</c:if>
-	 								<c:if test="${F.adTitle.length() < 20}">
-	 									<c:out value="${F.adTitle}" escapeXml="true" />
+	 								<c:if test="${u.adTitle.length() < 20}">
+	 									<c:out value="${u.adTitle}" escapeXml="true" />
 	 								</c:if>
 	 							</a>
 	 						</div>
 	 					</td>
-	 					<td class="text-center"><div>${F.adWriter}</div></td>
+	 					<td class="text-center"><div>${u.adWriter}</div></td>
 	 					<c:choose>
-						    <c:when test="${not empty F.adDate}">
-						        <c:set var="Date" value="${fn:substring(F.adDate, 0, 10)}" />
+						    <c:when test="${not empty u.adDate}">
+						        <c:set var="Date" value="${fn:substring(u.adDate, 0, 10)}" />
 						        <td class="text-center"><div><c:out value="${Date}" /></div></td>
 						    </c:when>
 						</c:choose>
-						<td class="text-center"><div>${F.adView}</div></td>
+						<td class="text-center"><div>${u.adView}</div></td>
 	 				</tr>
 	 			</c:forEach>
 	 		</tbody>
 		 	</table>
 		 	<div class="center-block">
-		 		<ul class="pagination justify-content-center">
+		 		<button type="button" id="userNoticeWbtn" class="btn btn-success
+		 		 float-right btn-sm btn-round">유저 공지 작성</button>
+		 		<ul class="pagination justify-content-end">
 		 			<c:if test="${page <= 1}">
 		 				<li class="page-item">
 		 					<a class="page-link gray"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
@@ -134,7 +157,6 @@
 		 				</c:if>
 		 			</c:forEach>
 		 			
-		 			
 		 			<c:if test="${page >= maxpage}">
 		 				<li class="page-item">
 		 					<a class="page-link gray"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
@@ -153,7 +175,22 @@
 		 		<h3 style="text-align: center">등록된 글이 없습니다.</h3>
 		 	</c:if>
 		 	
-		 	<button type="button" id="userNoticeWbtn" class="btn btn-success float-right btn-sm btn-round">유저 공지 작성</button>
+		 	<div class="searchBoxArea" style="margin-top: 30px;">
+				<form action="userNotice" method="post" id="userNoticeList_Form">
+					<div class="form-group">
+						<select id="viewcount2" name="search_field">
+							<option value="0" selected>제목</option>
+							<option value="1">작성자</option>
+							<option value="2">날짜</option>
+						</select>
+						<input name="search_word" type="text" class="form-control"
+						 placeholder="검색어를 입력하세요" value="${search_word}">
+						<button class="btn btn-primary btn-sm" type="submit"
+						 id="search_but"><i class="fa fa-search" aria-hidden="true"></i></button>
+					</div>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				</form>
+			</div>
 	 	</div>
     </div>
     </div>
