@@ -101,7 +101,7 @@
 								output += "<td class='text-center'><div>"
 										+ '<a href="FAQ/' + item.adNum + '">'
 										+ adTitle.replace(/</g,'&lt;').replace(/>/g,'&gt;')
-										+ '</a></div><span class="qnaReplyCount">' + item.count +'</span></td>'
+										+ '</a></div></td>'
 										+ '<td class="text-left"><div>' + qacategory + '</div></td>'
 										+ '<td class="text-center"><div>' + item.adWriter + '</div></td>'
 										+ '<td class="text-left"><div>' + item.adDate.substr(0,10) + '</div></td></tr>'

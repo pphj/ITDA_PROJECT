@@ -228,78 +228,10 @@ document.fm.upw.focus();
 	</div>
 </div>
 		</div>
+
+</body>
 	<div id="footer">
 		<jsp:include page="../../include/footer.jsp"></jsp:include>
-<!-- <ul class="policy_lst">
-<li><a href="http://policy.naver.com/policy/privacy.html" onclick="clickcr(this,'fot.privacy','','',event);"><strong>개인정보처리방침</strong></a><span class="bar"></span></li>
-<li><a href="http://policy.naver.com/rules/disclaimer.html" onclick="clickcr(this,'fot.disclaimer','','',event);">책임의 한계와 법적 고지</a><span class="bar"></span></li>
-<li><a href="https://help.naver.com/support/alias/membership/p.membership/p.membership_26.naver" onclick="clickcr(this,'fot.memberhelp','','',event);">회원정보 고객센터</a></li>
 
-</ul>
-<address>
-	<a href="http://www.navercorp.com/" target="_blank"  onclick="clickcr(this,'fot.nhncorp','','',event);" class="logo">NAVER</a>
-	<span class="copyright">Copyright &copy; <a href="http://www.navercorp.com/ko/index.nhn " onclick="clickcr(this,'fot.navercorp','','',event);" target="_blank">NAVER Corp.</a> All Rights Reserved.</span>
-</address> -->
-
-<!-- <script type="text/javascript" src="/inc/common/js/jquery.resize.js"></script>
-<script type="text/javascript">
-var ua = window.navigator.userAgent.toLowerCase();
-var cur_container_height = Number(document.getElementById("content").clientHeight);
-var min_container_height = 647;
-var header_height = 140;
-var footer_height = 85;
-
-window.onload = changeContentSize; // Window 창 로드시
-window.onresize = changeContentSize; // Window 창 크기를 조정할때마다
-$("#content").resize(changeContentSize);
-
-function changeContentSize() {
-	cur_container_height = Number(document.getElementById("content").clientHeight);
-
-	var container_height = min_container_height;
-	var window_height = Number(document.documentElement.clientHeight) - header_height - footer_height;
-	if (window_height > cur_container_height) {
-		if (window_height > min_container_height) {
-			container_height = window_height;
-		}
-	} else {
-		if (cur_container_height > min_container_height) {
-			container_height = cur_container_height;
-		}
-	}
-	
-    if (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) { // ie11 추가
-        document.getElementById("container").style.height = container_height + "px";
-    }else if (window.navigator.userAgent.indexOf("MSIE") == -1 || (document.all && window.XMLHttpRequest)) { // ie6 제외
-        document.getElementById("container").style.height = container_height + "px";
-    } else {
-        document.getElementById("container").style.height ="100%";
-    }
-}
-
-function setContainerHeight(height) {
-	if (height >= 0) {
-		cur_container_height = height;
-	} else {
-		cur_container_height = Number(document.getElementById("container").clientHeight);
-	}
-	
-	if(height == -9 || height == 0 || height == "undefined"){ //공지사항 예외처리 //ie7대응
-		document.getElementById("container").style.height ="100%";
-	}else{
-		changeContentSize();
-	}
-}
-</script>	 -->
 </div>
-
-
-<!-- <script type="text/javascript">
-getGNB();
-
-window.onresize = function() {
-	setContainerHeight(document.getElementById('content').clientHeight);
-}
-</script> -->
-</body>
 </html>

@@ -35,6 +35,6 @@ $(document).ready(function() {
   });
 
   $("#btnCancel").click(function() {
-  	window.history.back();
+  	window.location.href = "/itda";
   });
 });

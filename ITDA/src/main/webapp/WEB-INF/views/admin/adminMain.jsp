@@ -269,7 +269,7 @@
 						<h6 class="text-capitalize">일일 총 유저수</h6>
 						<p class="text-sm mb-0">
 							<i class="ni ni-chart-bar-32 text-success"></i>
-							<span class="font-weight-bold">10월</span> in 2023
+							<span class="font-weight-bold">11월</span> in 2023
 						</p>	            	
 			            <div class="card-body p-3">
 			            	<div class="chart">
@@ -281,7 +281,7 @@
 						<h6 class="text-capitalize">일일 총 매출</h6>
 						<p class="text-sm mb-0">
 							<i class="ni ni-chart-bar-32 text-success"></i>
-							<span class="font-weight-bold">10월</span> in 2023
+							<span class="font-weight-bold">11월</span> in 2023
 						</p>	            	
 			            <div class="card-body p-3">
 			            	 <div class="chart">

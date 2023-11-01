@@ -26780,8 +26780,8 @@ div.my_subscriptions_channel_link::after {
 	border-radius: 15px;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	background-image: -webkit-linear-gradient(134deg, #4250a6, #6489e4);
-	background-image: linear-gradient(316deg, #4250a6, #6489e4);
+	background-image: -webkit-linear-gradient(134deg, #b0c683bd, #12c3b8);
+	background-image: linear-gradient(316deg, #b0c683bd, #12c3b8);
 }
 
 .my_coupon_card::before {

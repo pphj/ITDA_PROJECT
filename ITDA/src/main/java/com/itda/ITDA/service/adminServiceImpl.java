@@ -326,6 +326,47 @@ public class adminServiceImpl implements adminService {
 	
 	@Transactional(readOnly = true)
 	@Override
+	public boolean isCouponWriter(int couponNum, BigInteger couponCode) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("couponNum", couponNum);
+		map.put("couponCode", couponCode);
+		Coupon result = dao.isCouponWriter(map);
+		
+		if (result == null)
+			return false;
+		else
+			return true;
+	}
+	
+	@Transactional
+	@Override
+	public int couponDelete(int couponNum) {
+		return dao.couponDelete(couponNum);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public boolean couponCheck(int couponPrice, BigInteger couponCode, int couponTerm) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("couponPrice", couponPrice);
+		map.put("couponCode", couponCode);
+		map.put("couponTerm", couponTerm);
+		Coupon result = dao.couponCheck(map);
+		
+		if (result == null)
+			return false;
+		else
+			return true;
+	}
+	
+	@Transactional
+	@Override
+	public int couponUpdate(BigInteger couponCode) {
+		return dao.couponUpdate(couponCode);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
 	public int getUserTotal() {
 		return dao.getUserTotal();
 	}
@@ -385,26 +426,6 @@ public class adminServiceImpl implements adminService {
 	@Override
 	public int problemDailyCount() {
 		return dao.problemDailyCount();
-	}
-	
-	@Transactional(readOnly = true)
-	@Override
-	public boolean isCouponWriter(int couponNum, BigInteger couponCode) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("couponNum", couponNum);
-		map.put("couponCode", couponCode);
-		Coupon result = dao.isCouponWriter(map);
-		
-		if (result == null)
-			return false;
-		else
-			return true;
-	}
-	
-	@Transactional
-	@Override
-	public int couponDelete(int couponNum) {
-		return dao.couponDelete(couponNum);
 	}
 	
 	//검색 리스트 공통 메소드

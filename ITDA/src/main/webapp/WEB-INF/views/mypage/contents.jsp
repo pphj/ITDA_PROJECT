@@ -31,7 +31,7 @@
 	</script>
 	<script src="https://static-nnews.pstatic.net/js/min/20230914a/premium_common.min.js"></script>
 </head>
-<body class="as_my_home body_mp as_my_home">
+<body class="as_white_background as_my_home body_mp as_my_home">
 <div class="u_skip"><a href="#ct">본문 바로가기</a></div>
 <div id="_CONTENT_INDICATOR_WRAP" style="display:none;">
 	<label for="_CONTENT_INDICATOR" class="blind">페이지 스크롤 진행률</label>

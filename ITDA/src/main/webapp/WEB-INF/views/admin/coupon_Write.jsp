@@ -24,7 +24,7 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/admin/couponWrite.js"></script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -46,7 +46,7 @@
 		<div class="card">
 		<div class="card-body">
 	 		<form action="couponInsert" method="post" enctype="multipart/form-data" name="couponform">
-	 			<h3 style="margin-top: 30px; text-align: center;">쿠폰 작성</h3>
+	 			<h1 style="margin-top: 30px; text-align: center;">쿠폰 작성</h1>
 	 			<div class="form-group">
 	 				<label for="adminId">작성자</label>
 	 				<input name="adminId" id="adminId" value="${pinfo.username}" readOnly
@@ -55,21 +55,26 @@
 	 			<div class="form-group">
 	 				<label for="couponName">쿠폰 이름</label>
 	 				<input name="couponName" id="couponName" type="text" maxlength="20"
-	 					   class="form-control" placeholder="Enter Coupon Name">
+	 					   class="form-control" placeholder="Enter CouponName">
 	 			</div>
 	 			<div class="form-group">
 	 				<label for="couponDetail">쿠폰 내용</label>
 	 				<textarea name="couponDetail" id="couponDetail"
-	 				 style="resize: none;" rows="5" class="form-control"></textarea>
+	 					   rows="5" class="form-control"></textarea>
 	 			</div>
 	 			<div class="form-group">
 	 				<label for="couponPrice">쿠폰 가격</label>
 	 				<input name="couponPrice" id="couponPrice" type="text" maxlength="10"
-	 					   class="form-control" placeholder="Enter Coupon Price">
+	 					   class="form-control" placeholder="Enter CouponPrice">
+	 			</div>
+	 			<div class="form-group">
+	 				<label for="couponTerm">쿠폰 이용기간</label>
+	 				<input name="couponTerm" id="couponTerm" type="text" maxlength="10"
+	 					   class="form-control" placeholder="Enter couponTerm">
 	 			</div>
 	 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	 			<div class="form-group" style="text-align: center;">
-	 				<button type=submit class="btn btn-primary btn-sm btn-round">등록</button>
+	 				<button type=submit class="btn btn-primary btn-sm btn-round">작성</button>
 	 				<button type=reset class="btn btn-danger btn-sm btn-round" onClick="history.go(-1)">취소</button>
 	 			</div>
 	 		</form>

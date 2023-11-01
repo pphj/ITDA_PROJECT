@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.itda.ITDA.domain.Paycall;
 import com.itda.ITDA.domain.Payment;
+import com.itda.ITDA.domain.RefundUser;
 import com.itda.ITDA.domain.SubProduct;
 
 @Mapper
@@ -23,6 +24,12 @@ public interface OrderMapper {
 
 	Payment paymentCompletUser(String id);
 
-	Payment isPayRefundOrder(Payment payment);
+	RefundUser isPayRefundOrder(RefundUser refundUser);
+
+	int updatePayRefundUser(RefundUser refundUser);
+
+	int updateEndDateIsNull(RefundUser refundUser);
+
+	int updatePayedStatusIsR(RefundUser refundUser);
 
 }

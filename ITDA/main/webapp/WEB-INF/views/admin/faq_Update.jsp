@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -31,7 +30,7 @@
 	}
 </script>
 </head>
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <jsp:include page="adminList.jsp" />
   <main class="main-content position-relative border-radius-lg ">
   <jsp:include page="adminNavbar.jsp" />  
@@ -54,7 +53,7 @@
 		<div class="card-body">
  		<form action="${pageContext.request.contextPath}/admin/faqUpdateAction" method="post" enctype="multipart/form-data" name="FAQmodify">
  			<input type="hidden" name="adNum" value="${FAQdata.adNum}">
- 			<h1>FAQ - 수정</h1>
+ 			<h3 style="text-align: center;">FAQ 수정</h3>
  			<div class="form-group">
  				<label for="adWriter">작성자</label>
  				<input type="text" name="adWriter" class="form-control" value="${FAQdata.adWriter}" readOnly>
@@ -62,22 +61,22 @@
  			<div class="form-group">
  				<label for="adTitle">제목</label>
  				<textarea name="adTitle" id="adTitle" rows="1" maxlength="100"
- 						class="form-control">${FAQdata.adTitle}</textarea>
+ 				 class="form-control" style="resize: none;">${FAQdata.adTitle}</textarea>
  			</div>
  			<div class="form-group">
  				<label for="adContent">내용</label>
- 				<textarea name="adContent" id="adContent"
- 					   rows="10" class="form-control">${FAQdata.adContent}</textarea>
+ 				<textarea name="adContent" id="adContent" rows="10"
+ 				 class="form-control" style="resize: none;">${FAQdata.adContent}</textarea>
  			</div>
  			<div class="form-group">
 			  <label for="QcateId">FAQ 카테고리</label>
 			  <select name="QcateId" id="QcateId">
-			    <option value="1">홍보, 영리목적</option>
-			    <option value="2">불법 정보</option>
-			    <option value="3">음란, 청소년 유해</option>
-			    <option value="4">욕설, 비방, 차별, 혐오</option>
-			    <option value="5">도배, 스팸</option>
-			    <option value="6">개인정보 노출, 거래</option>
+			    <option value="1">구매, 환불</option>
+			    <option value="2">회원</option>
+			    <option value="3">상품</option>
+			    <option value="4">채널</option>
+			    <option value="5">서비스 소개, 이용 방법</option>
+			    <option value="6">오류, 피해 접수</option>
 			    <option value="7">기타</option>
 			  </select>
 			</div>
@@ -87,13 +86,14 @@
  					   class="form-control" placeholder="Enter adPassword">
  			</div>
  			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
- 			<div class="form-group">
-	 			<button type="submit" class="btn btn-primary">수정</button>
-	 			<button type="reset" class="btn btn-danger" onClick="history.go(-1)">취소</button>
+ 			<div class="form-group" style="text-align: center;">
+	 			<button type="submit" class="btn btn-warning btn-sm btn-round">수정</button>
+	 			<button type="reset" class="btn btn-danger btn-sm btn-round" onClick="history.go(-1)">취소</button>
  			</div>
  		</form>
  		</div>
  	</div>
  	</div>
+</main>
 </body>
 </html>

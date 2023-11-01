@@ -139,23 +139,23 @@
 				      		<input type="hidden" name="adminId" class="selectAdminId" value="">
 				      	</div>
 				      	<div class="custom-control custom-radio mb-3">
-				      		<input class="custom-control-input" value="ADMIN" name="authName" type="radio">
-				      		<label class="custom-control-label" for="ADMIN">
-				      			<span>ADMIN</span>
+				      		<input class="custom-control-input" value="ROLE_ADMIN" name="authName" type="radio">
+				      		<label class="custom-control-label" for="ROLE_ADMIN">
+				      			<span>ROLE_ADMIN</span>
 				      		</label>
 				      	</div>
 				      	<div class="custom-control custom-radio mb-3">
-				      		<input class="custom-control-input" value="SUPER_ADMIN" name="authName" type="radio">
-				      		<label class="custom-control-label" for="SUPER_ADMIN">
-				      			<span>SUPER_ADMIN</span>
+				      		<input class="custom-control-input" value="ROLE_SUPER" name="authName" type="radio">
+				      		<label class="custom-control-label" for="ROLE_SUPER">
+				      			<span>ROLE_SUPER</span>
 				      		</label>
 				      	</div>
 					  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				  	</form>
 			      </div>
 			      <div class="modal-footer">
+			      	<button type="button" class="btn btn-primary approveOK">변경</button>
 			        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-			        <button type="button" class="btn btn-primary approveOK">확인</button>
 			      </div>
 			    </div>
 			  </div>

@@ -69,6 +69,13 @@
 						    } else {
 						        deleteButton = '<div>작성자가 아님</div>';
 						    }
+						    
+						    let state = '';
+						    if (item.couponState === 'Y'){
+						    	state = '사용중';
+						    }else {
+						    	state = '사용중지';
+						    }
 						
 						    output += '<tr><td class="text-center"><div>' + item.couponNum + '</div></td>'
 						        + '<td class="text-center"><div>' + item.couponCode + '</div></td>'
@@ -77,6 +84,8 @@
 						        + '<td class="text-center"><div>' + item.couponPrice + '</div></td>'
 						        + '<td class="text-center"><div>' + item.couponCreate.substr(0, 10) + '</div></td>'
 						        + '<td class="text-center"><div>' + item.couponExdate.substr(0, 10) + '</div></td>'
+						        + '<td class="text-center"><div>' + state + '</div></td>'
+						        + '<td class="text-center"><div>' + item.couponTerm + '</div></td>'
 						        + '<td class="text-center">' + deleteButton + '</td>';
 									
 					})//each end
@@ -149,12 +158,10 @@
 	});
 	
 	$(function(){
-		let result = "${result}";
-		if (result == 'passFail') {
-			alert("쿠폰이 DB에 없습니다. 다시 확인해주세요.");
-		}
-	
-	})
+	    $(document).on('click', '.couponUpdatebtn', function(){
+	        $("#couponUpdateModal").modal("show");
+	    });
+	});
 
 	$(function() {
 		$("#couponCode").on("input", function() {
@@ -167,6 +174,17 @@
 	            $(".message").css('color', 'green').html("20자리 확인되었습니다.");
 	        }
 	    })
+		
+		$("#couponCode2").on("input", function() {
+	        let input_couponCode = $(this).val();
+	        let pattern = /^[0-9]{20}$/;
+	
+	        if (!pattern.test(input_couponCode)) {
+	            $(".message2").css('color', 'red').html("쿠폰코드는 총 20자리 입니다. 다시 확인해 주세요.");
+	        } else {
+	            $(".message2").css('color', 'green').html("20자리 확인되었습니다.");
+	        }
+	    })
 	
 		$("form[name=couponDeleteForm]").submit(function() {
 			if ($("#couponNum").val() == '') {
@@ -177,6 +195,24 @@
 			if ($("#couponCode").val() == '') {
 				alert("쿠폰코드를 입력하세요");
 				$("#couponCode").focus();
+				return false;
+			}
+		})
+		
+		$("form[name=couponUpdateForm]").submit(function() {
+			if ($("#couponPrice").val() == '') {
+				alert("쿠폰가격을 입력하세요");
+				$("#couponPrice").focus();
+				return false;
+			}
+			if ($("#couponCode2").val() == '') {
+				alert("쿠폰코드를 입력하세요");
+				$("#couponCode2").focus();
+				return false;
+			}
+			if ($("#couponTerm").val() == '') {
+				alert("쿠폰기간을 입력하세요");
+				$("#couponTerm").focus();
 				return false;
 			}
 		})
