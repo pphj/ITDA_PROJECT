@@ -5,8 +5,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itda.ITDA.domain.ChBoard;
 import com.itda.ITDA.domain.ChCategory;
 import com.itda.ITDA.domain.ChannelList;
-import com.itda.ITDA.domain.NaverDTO;
 import com.itda.ITDA.service.ContentService;
 import com.itda.ITDA.service.MainService;
 import com.itda.ITDA.service.NaverService;
@@ -134,6 +135,19 @@ public class MainController {
 
 		return modelAndView;
 	}
+	
+	/*
+	 * @GetMapping("/api/content-results/{pageNumber}") public
+	 * ResponseEntity<List<ChBoard>> getContentResults(@PathVariable int
+	 * pageNumber, @RequestParam("keyword") String keyword) { int pageSize = 15; //
+	 * 한 페이지에 표시할 항목 수 int startIndex = (pageNumber - 1) * pageSize; // 시작 인덱스 계산
+	 * 
+	 * // 검색어를 사용하여 데이터를 검색하고 startIndex부터 pageSize만큼의 결과를 반환 List<ChBoard>
+	 * contentResults = mainService.searchContentsByKeyword(keyword, startIndex,
+	 * pageSize);
+	 * 
+	 * return ResponseEntity.ok(contentResults); }
+	 */
 	
 	
 	

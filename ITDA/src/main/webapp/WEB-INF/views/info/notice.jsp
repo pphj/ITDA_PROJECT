@@ -45,9 +45,9 @@
 				<section class="notice-wrap">
 					<strong class="cont-tit txt-en">공지사항</strong>
 					<ul class="faq-menu-list">
+						<li><a href="${pageContext.request.contextPath}/info/faq">FAQ</a></li>
 						<li class="on"><a
 							href="${pageContext.request.contextPath}/info/notice" target="">공지사항</a></li>
-						<li><a href="${pageContext.request.contextPath}/info/faq">FAQ</a></li>
 						<li><a href="javascript:void(0);" id="qnaBtn"
 							onclick="handleQnABtnClick()"> 1:1문의<span
 								class="icon-membersonly2">회원전용</span>
@@ -89,27 +89,19 @@
     
 </script>
 
-
-
-					<div class="pagination" role="navigation">
+					  <div class="pagination" role="navigation">
 						<a href="${pageContext.request.contextPath}/info/notice?page=1"
 							class="btn-page-first"> <span class="blind">처음</span>
 						</a> <a href="${pageContext.request.contextPath}/info/notice?page=1"
 							class="btn-page-prev"> <span class="blind">이전</span>
-						</a> <strong>1</strong> <a
-							href="${pageContext.request.contextPath}/info/notice?page=2">2</a>
-						<a href="${pageContext.request.contextPath}/info/notice?page=3">3</a>
-						<a href="${pageContext.request.contextPath}/info/notice?page=4">4</a>
-						<a href="${pageContext.request.contextPath}/info/notice?page=5">5</a>
+						</a> <strong>1</strong>  
 						<a href="${pageContext.request.contextPath}/info/notice?page=5"
 							class="btn-page-next"> <span class="blind">다음</span>
 						</a> <a href="${pageContext.request.contextPath}/info/notice?page=5"
 							class="btn-page-last"> <span class="blind">마지막</span>
 						</a>
-					</div>
-					
-
-
+					</div>   
+				
 				</section>
 			</div>
 		</div>

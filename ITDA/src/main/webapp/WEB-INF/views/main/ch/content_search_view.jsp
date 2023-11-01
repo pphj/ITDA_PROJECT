@@ -169,7 +169,7 @@
 					        <div class="psp_content_name">
 					            <a href="${pageContext.request.contextPath}/contents/${content.chNum}/${content.boardNum}?userid=" class="psp_channel_link" data-clk="pch_search.resultcontch" target="_blank">
 					                <span class="psp_channel_thumb_small">
-					                    <img src="${content.upload}" class="psp_channel_img" width="18" height="18" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+					                      <img src="${pageContext.request.contextPath}/image/contents/${content.chNum}${content.thumbNail}" class="psp_channel_img" width="18" height="18" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 					                </span>
 					                <span class="psp_channel_name">${content.chNum}</span>
 					            </a>
@@ -194,7 +194,8 @@
 					                </div>
 					            </div>
 					            <a href="" class="psp_content_thumb" data-clk="pch_search.resultcont" target="_blank">
-					                <img src="${pageContext.request.contextPath}/resources/image/channel/channel.jpeg" class="psp_content_img" width="50" height="50" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
+					                 <img  src="${pageContext.request.contextPath}/image/MemberUpload/${channel.ownerId}${channel.chProfile}"
+ 								class="psp_channel_img" alt="" onerror="this.outerHTML='<span class=&quot;no_image&quot;></span>'">
 					            </a>
 					        </div>
 					    </li>
@@ -419,7 +420,6 @@ $(document).ready(function () {
     const pageSize = 15; // 한 페이지에 표시할 항목 수
     let currentPage = 1; // 현재 페이지 번호
     let isFetching = false; // 데이터를 가져오는 중인지 여부
-
     const apiUrl = '/api/content-results/';
 
     function loadMoreData() {
@@ -433,22 +433,29 @@ $(document).ready(function () {
             if (data.length > 0) {
                 data.forEach(function (item) {
                     // 데이터를 화면에 추가하는 로직을 구현
+                    // 예: $('#contentList').append('<div>' + item.title + '</div>');
                 });
 
                 currentPage++;
+            } else {
+                // 더 이상 데이터가 없을 때 스크롤 이벤트 리스너 제거
+                $(window).off('scroll', checkScroll);
             }
 
             isFetching = false;
         });
     }
 
-    loadMoreData();
-
-    $(window).scroll(function () {
+    function checkScroll() {
         if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
             loadMoreData();
         }
-    });
+    }
+
+    loadMoreData();
+
+    // 스크롤 이벤트 리스너 추가
+    $(window).on('scroll', checkScroll);
 });
 
 
