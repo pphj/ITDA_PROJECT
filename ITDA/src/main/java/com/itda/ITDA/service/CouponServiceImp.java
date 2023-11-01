@@ -41,6 +41,11 @@ public class CouponServiceImp implements CouponService{
 	public int myCouponCount(String id) {
 		return dao.myCouponCount(id);
 	}
+
+	@Override
+	public int updateCouponUse(CouponIssue couponIssue) {
+		return dao.updateCouponUse(couponIssue);
+	}
 	
 
 }

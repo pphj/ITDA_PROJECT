@@ -46,6 +46,13 @@
 		JOIN couponissue ci ON c.couponcode = ci.couponcode
 		WHERE ci.userid =  #{userId} and ci.cpuse = 'N'
 	</select>
+	
+	<!-- 쿠폰 사용 상태로 업데이트 -->
+	<update id="updateCouponUse" parameterType="int">
+		update couponIssue
+		set cpuse = #{cpUse}
+		where couponcode = #{couponCode}
+	</update>
 
 
 </mapper>
