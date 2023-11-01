@@ -88,7 +88,7 @@
 					style="width: 1280px; height: 400px;">
 				<!--   <a href="#" id="join_seller" style="position:absolute; top: calc(50% + 1cm); left: 50%; transform: translate(-50%, -50%); 
                padding: 10px 25px; width: 3.5cm; height: 1cm; white-space: nowrap; color:#00c6be;">판매회원 가입하기</a> -->
-				<a href="#" id="join_seller" style="position: absolute; top: calc(80% + 1cm); left: 72.3%; transform: translate(-50%, -50%); padding: 10px 25px; white-space: nowrap;">
+				<a href="#" id="join_seller" style="position: absolute; top: calc(80% + 1cm); left: 75.5%; transform: translate(-50%, -50%); padding: 10px 25px; white-space: nowrap;">
 					<img
 					src="${pageContext.request.contextPath}/resources/image/common/sell.png"
 					alt="판매회원 가입하기" style="width: 189px; height: 85px;" />
