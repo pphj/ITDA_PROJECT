@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header/common.css">
 <script> var contextPath = "<%=request.getContextPath()%>";</script>
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <script>
 	$(function() {
 		$("#logout").click(function(event) {

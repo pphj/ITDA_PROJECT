@@ -15,30 +15,23 @@ import com.itda.ITDA.domain.NaverDTO;
 import com.itda.ITDA.mybatis.mapper.Itda_UserMapper;
 import com.itda.ITDA.mybatis.mapper.NaverMapper;
 
-public class UserDetailService implements UserDetailsService {
-	private static final Logger logger = LoggerFactory.getLogger(UserDetailService.class);
+public class naverDetailService implements UserDetailsService {
+	private static final Logger logger = LoggerFactory.getLogger(naverDetailService.class);
 
 	@Autowired
-	private Itda_UserMapper dao;
-	@Autowired
-	private NaverMapper dao2;
-
+	private NaverMapper dao;
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		logger.info("유저 로그인시 입력한 값: 1 " + username);
-		UserDetails user = null;
-		if (username.contains("@")) {
-			user = dao2.isId(username);
-
-		} else {
-			user = dao.isId(username);
-		}
-
+		logger.info("유저 로그인시 입력한 값: " + username);
+		 NaverDTO user = dao.isId(username);
+		
 		if (user == null) {
-			throw new UsernameNotFoundException("로그인 아이디: " + username + " 사용자 정보를 찾을 수 없습니다.");
-
+			throw new UsernameNotFoundException(
+					"로그인 아이디: " + username + " 사용자 정보를 찾을 수 없습니다.");
+			
 		}
-
+		
 		return user;
 	}
 

@@ -65,4 +65,13 @@
     FROM ADMINBOARD 
     WHERE adNum = #{adNum}
     </select>
+    
+    <!-- qna 페이지에서 특정 질문의 댓글 목록 조회 -->
+	<select id="getQnaRepliesByAdNum" parameterType="int" resultType="com.itda.ITDA.domain.QnaReply">
+	 SELECT QR.qnaReplyNum, QR.adNum, QR.adminId, QR.qnaReplyContent, QR.qnaReplyDate, QR.qnaReplyUpdate, QR.qnaReplyState
+	  FROM QNAREPLY QR
+	  WHERE QR.adNum = #{adNum}
+
+	</select>
+    
 </mapper>
