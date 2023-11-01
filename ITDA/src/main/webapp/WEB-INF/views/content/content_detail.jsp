@@ -166,8 +166,8 @@
 							</c:when>
 
 							<c:otherwise>
-								<!-- 채널 주인이나 구독자가 아닌 로그인한 사용자에게 게시글의 내용을 150자까지만 보여줍니다. -->
-			                    		${fn:substring(board.boardContent, 0, 350)}
+								<!-- 채널 주인이나 구독자가 아닌 로그인한 사용자에게 게시글의 내용을 400자까지만 보여줍니다. -->
+			                    		${fn:substring(board.boardContent, 0, 400)}
 
 			                </c:otherwise>
 						</c:choose>
@@ -175,8 +175,8 @@
 
 					<sec:authorize access="isAnonymous()">
 
-						<!-- 로그인하지 않은 사용자에게 게시글의 내용을 150자까지만 보여줍니다. -->
-			            ${fn:substring(board.boardContent, 0, 350)}
+						<!-- 로그인하지 않은 사용자에게 게시글의 내용을 400자까지만 보여줍니다. -->
+			            ${fn:substring(board.boardContent, 0, 400)}
  			        </sec:authorize>
 
 					<input type="hidden" name="num" value="${board.boardNum}"
