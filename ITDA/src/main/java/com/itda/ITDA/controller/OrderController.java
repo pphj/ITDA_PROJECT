@@ -2,7 +2,6 @@ package com.itda.ITDA.controller;
 
 import java.security.Principal;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.itda.ITDA.domain.Amount;
+import com.itda.ITDA.domain.CouponIssue;
 import com.itda.ITDA.domain.GoodUser;
 import com.itda.ITDA.domain.KakaoCancelResponse;
 import com.itda.ITDA.domain.KakaoPayApproval;
@@ -29,6 +29,7 @@ import com.itda.ITDA.domain.Payment;
 import com.itda.ITDA.domain.ReadyResponse;
 import com.itda.ITDA.domain.RefundUser;
 import com.itda.ITDA.domain.SubProduct;
+import com.itda.ITDA.service.CouponService;
 import com.itda.ITDA.service.Itda_UserService;
 import com.itda.ITDA.service.OrderService;
 import com.itda.ITDA.util.Constants;
@@ -49,11 +50,14 @@ public class OrderController {
 	
 	private OrderService orderService;
 	private Itda_UserService itdaUserService;
+	private CouponService couponService;
 
 	@Autowired
-	public OrderController(OrderService orderService, Itda_UserService itdaUserService) {
+	public OrderController(OrderService orderService, Itda_UserService itdaUserService,
+			CouponService couponService) {
 		this.orderService = orderService;
 		this.itdaUserService = itdaUserService;
+		this.couponService = couponService;
 
 	}
 	
@@ -78,11 +82,15 @@ public class OrderController {
 	}
 	
 	@GetMapping(value = "/subscriptions/info")
-	public String product_info(SubProduct product, Model model) {
+	public String product_info(SubProduct product, 
+								Model model) {
 
 		product.setProductId(product.getProductId());
 
 		logger.info("product.getProductId() : " + product.getProductId());
+		
+		
+		
 
 		String productId = String.valueOf(product.getProductId());
 
@@ -104,10 +112,14 @@ public class OrderController {
 	@GetMapping(value = "/subscriptions/info/order")
 	public String product_order(Principal principal, 
 								SubProduct product,
-								Model model) {
+								Model model,
+								CouponIssue couponIssue) {
 		
 		String id = principal.getName();
 		
+		
+		List<CouponIssue> myCouponList = couponService.myCouponList(id);
+		model.addAttribute("couponList", myCouponList);
 		
 		if(id == null) {
 			

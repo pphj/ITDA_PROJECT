@@ -98,10 +98,6 @@
 </div>
 <div class="my_coupon">
 	<a href="#" class="my_coupon_register _TOGGLE" data-target="_CONTENT_LAYER_COUPON_REDEEM" data-prevent-scroll="true">쿠폰 등록</a>
-	
-
-	
-	
 	<h3 class="my_coupon_title">
 		보유한 쿠폰
 		<em>${count}</em>

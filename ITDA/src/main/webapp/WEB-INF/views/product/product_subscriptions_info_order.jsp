@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko" data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36">
 <head>
@@ -99,8 +99,57 @@
                                     </em>
                                 </dd>
                             </div>
-                        </dl>
+                            <div class="product_pay_info_item">
+                                <dt>쿠폰 적용 금액</dt>
+                                <dd>
+                                    <em class="product_real_pay_price">
+                                        <span class="_SUBSCRIPTION_DISCOUNT_PRICE">${productInfo.productPrice}</span>원
+                                    </em>
+                                </dd>
+                            </div>
+                          </dl>
                     </div>
+					<ul class="my_coupon_list _CONTENT_LIST" data-template="SCS_PREMIUM_MY_COUPON_LIST" data-stype="" data-cursor-name="page" data-cursor="1" data-has-next="">
+					<c:forEach var="couponList" items="${couponList}">
+					<li class="product_ticket_item _TICKET_LIST">
+					<div class="product_ticket_inside">
+						<input type="radio" id="cpNum_${couponList.cpNum}" name="cpNum"  value="${couponList.cpNum}">
+ 						<label for="cpNum_${couponList.cpNum}"  class="product_ticket_check_label"><span class="blind">쿠폰선택</span></label>
+						<div class="myc_caution_item">이용기간 :<br> <fmt:formatDate value="${couponList.startDate}" pattern="yyyy.MM.dd. HH:MM" /> ~ <fmt:formatDate value="${couponList.couponUseExdate}" pattern="yyyy.MM.dd. HH:MM" /></div>
+						<div class="my_coupon_card">
+							<div class="myc_content">
+								<div class="myc_top">
+									<div class="myc_name">
+										<em class="myc_name_text">${couponList.couponName}</em>
+									</div>
+									<em class="myc_badge" data-useExdate="${couponList.couponUseExdate}"></em>
+								</div>
+								<strong class="myc_title">
+									<span class="myc_title_discount" data-couponPrice=""${couponList.couponPrice}>
+										<span class="myc_title_num" data-couponCode="${couponList.couponCode}">${couponList.couponPrice}</span>
+										<span class="myc_title_unit as_percent">원</span>
+									</span>
+									<span class="myc_title_text">할인</span>
+								</strong>
+								<div class="myc_sub">
+									<div class="myc_type">
+											${couponList.couponDetail}
+																	</div>
+									<div class="myc_info">
+										<span class="myc_info_title"></span>
+										<div class="myc_info_content">
+											<span class="myc_info_text"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					</li>
+					</c:forEach>
+				</ul>
+                            
+                       
                     <div class="product_pay_info">
                         <div class="product_pay_terms">
                             <div class="pay_terms_check_all">
@@ -157,11 +206,6 @@
                         </div>
                     </div>
                     <div class="floating_button_wrap">
-                    <!--
-                    <form method="post" action="${pageContext.request.contextPath}/pay/kakaoPay.do">
-                        <button type="button" class="floating_button _ORDER" id="kakaoPay" onclick="openKaKaoPayment()">결제하기</button>
-                    </form>
-                    -->
                     <button type="submit" class="floating_button _ORDER" id="btn-kakaopay" style="color: white;">결제하기</button>
                 </div>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -178,6 +222,8 @@
     <div id="_LAYER_DIMMED" class="layer_dimmed" style="display:none;"></div>
     <div id="_MODAL_WRAP"></div>
     <div id="_TOAST_WRAP"></div>
+    <script src="${pageContext.request.contextPath}/resources/js/payment/payment.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/payment/order.js"></script>
     <script>
         $(document).ready(function() {
             // 전체 동의 체크박스를 클릭할 때
@@ -201,6 +247,8 @@
             e.preventDefault(); // 기본 동작(링크 이동)을 중지합니다.
             window.history.back();
         });
+        
+        
     </script>
 </body>
 </html>
