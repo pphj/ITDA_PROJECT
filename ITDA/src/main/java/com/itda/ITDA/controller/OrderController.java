@@ -382,6 +382,7 @@ public class OrderController {
 		RefundUser refundOrder = orderService.isPayRefundOrder(refundUser);
 		GoodUser goodUser = itdaUserService.isGoodUser(id);
 		logger.info("payment.setPayedNum : " + refundUser.getPayedNum());
+		logger.info("refundUser.getProductTerm()========= : " + refundUser.getProductTerm());
        
 		KakaoCancelResponse kakaoCancelResponse = orderService.kakaoCancel(refundOrder);
 		
@@ -396,6 +397,7 @@ public class OrderController {
 		Timestamp userExpirationDate = Timestamp.valueOf(minusDays);
 		
 		
+		logger.info("nowTime ====== " + nowTime);
 		logger.info("productPeriodUse ====== " + productPeriodUse);
 		logger.info("userExpirationDate ====== " + userExpirationDate);
 		// endDate - productTerm > 오늘 날짜인 경우
@@ -409,18 +411,16 @@ public class OrderController {
 				request.setAttribute("msg", Message.PAYMENT_CANCLE);
 			}
 		// endDate - productTerm < startDate인 경우
-		}else if(userExpirationDate.before(goodUser.getStartDate()) || userExpirationDate == goodUser.getStartDate()) {
-			refundUser.setEndDate(null);
+		}else{
+			refundUser.setEndDate(userExpirationDate);
 			int result = orderService.updatePayRefundUser(refundUser);
 			int result2 = orderService.updatePayedStatusIsR(refundUser);
 			
 			if(result > 0 && result2 > 0) {
 				logger.info(Message.REFUND_NEW_USER_UPDATE_SUCCESS);
 				request.setAttribute("msg", Message.PAYMENT_CANCLE);
+				request.setAttribute("msg", Message.PAYMENT_CANCLE);
 			}
-		}else {
-			
-			request.setAttribute("msg", Message.PAYMENT_CANCLE);
 		}
 		
 		return "redirect:/product/cancel";

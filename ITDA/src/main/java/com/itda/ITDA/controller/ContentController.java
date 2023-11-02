@@ -115,9 +115,6 @@ public class ContentController {
 			seller = contentService.getSellerInfoByUserId(userId);
 			subUser = contentService.getsubUser(userId);
 
-			if (subUser != null && subUser.getEndDate() == null) {
-				subUser.setUserId(null);
-			}
 
 		}
 
