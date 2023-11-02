@@ -51,7 +51,7 @@ pipeline {
 
         stage('Dockerizing'){
             steps{
-                dir("Spring_Git"){   ///var/jenkins_home/workspace/test_item/Spring_Git/Dockerfile 위치
+                dir("ITDA"){   ///var/jenkins_home/workspace/test_item/Spring_Git/Dockerfile 위치
                     sh 'echo " Image Bulid Start"'
                     sh 'docker build . -t $repository:$BUILD_NUMBER'				//위 environment에서 설정한 repository에 이미지 생성  BUILD_NUMBER는 pipeline의 #숫자 
                 }
