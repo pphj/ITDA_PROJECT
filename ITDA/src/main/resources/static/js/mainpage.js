@@ -75,7 +75,8 @@ $(function () {
                     if (this.thumbNail == null) {
                         appendData += '<img src="resources/image/common/itda_logo3.png" class="popular-list-img"></li></a>'
                     } else {
-                        appendData += '<img src="resources/image/common/itda_logo3.png" class="popular-list-img"></li></a>'
+                        appendData += '<img src="resources/image/contents/' + this.chNum
+                         + this.thumbNail + '" class="popular-list-img"></li></a>'
                     }
                     
                     $(".popular-list-ul").append(appendData);
