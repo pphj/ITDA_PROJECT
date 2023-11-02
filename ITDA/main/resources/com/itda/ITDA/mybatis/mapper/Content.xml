@@ -4,59 +4,264 @@
 
 <mapper namespace="com.itda.ITDA.mybatis.mapper.ContentMapper">
 	<select id="getContentAll" resultType="ChBoard">
-		select * from (select rownum r, chboard.*
-					   from chBoard join ChannelList
-					   on chBoard.chNum = ChannelList.chNum
-					   order by boardNum desc)
-		where r between #{startRow} and #{endRow}
+		select * from (select
+		rownum r, chboard.*
+		from chBoard join ChannelList
+		on chBoard.chNum =
+		ChannelList.chNum
+		order by boardNum desc)
+		where r between #{startRow}
+		and #{endRow}
 	</select>
-	
+
 	<select id="getContentByCategory" resultType="ChBoard">
-		select * from (select rownum r, chboard.*
-					   from chBoard join ChannelList
-					   on chBoard.chNum = ChannelList.chNum
-					   where cate_ID = #{categoryNum}
-					   order by boardNum desc)
-		where r between #{startRow} and #{endRow}
+		select * from
+		    (select rownum r, chBoard.*
+		    from chBoard join ChannelList
+		    on
+		    chBoard.chNum = ChannelList.chNum
+		    where ChannelList.cate_Id = #{categoryNum}
+		    order
+		    by boardNum desc)
+		    where r between #{startRow} and #{endRow}
 	</select>
-	
+
 	<select id="getChannelList" resultType="ChannelList">
-		select * from (select * from ChannelList
-					   order by chVisit desc)
+		select * from (select *
+		from ChannelList
+		order by chVisit desc)
 		where rownum &lt;= 9
 	</select>
-	
+
 	<select id="getChannelListByNum" resultType="ChannelList">
-		select * from (select * from ChannelList
-					   where cate_ID = #{categoryNum}
-					   order by chVisit desc)
+		select * from
+		(select * from ChannelList
+		where cate_ID = #{categoryNum}
+		order by
+		chVisit desc)
 		where rownum &lt;= 9
 	</select>
-	
+
 	<select id="HotContentSelect" resultType="ChBoard">
-		select * from (select * from chBoard
-					   order by (boardHeart + boardVisit) desc) 
-		where rownum &lt;= 7
+		select * from (select *
+		from chBoard
+		order by (boardHeart + boardVisit) desc)
+		where rownum &lt;=
+		7
 	</select>
-	
+
 	<select id="selectchCate_Id" resultType="chCategory">
 		select * from chCategory
 	</select>
-	
+
 	<select id="getContentDetail" resultType="ChBoard">
-		select chboard.*, chboardcategory.chcate_name  
-		from chboard   join chboardcategory 
-				 on   chboard.chnum  =  chboardcategory.chnum 
-				 where boardnum = #{boardNum}
-				 and chboard.chcate_id = chboardcategory.chcate_id
+		SELECT chboard.*,
+		chboardcategory.chcate_name
+		FROM chboard JOIN chboardcategory
+		ON
+		chboard.chnum = chboardcategory.chnum
+		WHERE boardnum = #{boardNum}
+		AND
+		chboard.chcate_id = chboardcategory.chcate_id
 	</select>
-	
-	<select id="getsubUser" resultType="GoodUser"> 
+
+
+
+	<select id="searchContentsByKeyword"
+		parameterType="java.lang.String"
+		resultType="com.itda.ITDA.domain.ChBoard">
+		SELECT *
+		FROM chboard
+		WHERE boardTitle LIKE #{keyword}
+		OR
+		boardContent LIKE #{keyword}
+	</select>
+
+	<select id="getSellerInfo" resultType="Seller">
+		SELECT * FROM SELLER
+		WHERE
+		userId = #{userid}
+	</select>
+
+	<select id="getTagInfo" resultType="Tag">
+		SELECT tag.*
+		FROM chboard JOIN
+		tag ON chboard.boardnum = tag.boardnum
+		WHERE chboard.chnum = #{chnum}
+		AND chboard.boardnum = #{boardNum}
+	</select>
+
+	<select id="isContentWriter" parameterType="map"
+		resultType="ChBoard">
+		select * from chboard
+		where boardNum =#{boardNum}
+	</select>
+
+	<update id="contentModify" parameterType="chboard">
+		UPDATE chboard
+		SET
+		BOARDTITLE = #{boardTitle},
+		BOARDNORE = 'Y',
+		BOARDDATE = SYSTIMESTAMP,
+		THUMBNAIL = #{thumbNail},
+		INTRO = #{intro,jdbcType=CLOB},
+		BOARDCONTENT =
+		#{boardContent,jdbcType=CLOB}
+		WHERE
+		BOARDNUM = #{boardNum}
+	</update>
+
+	<select id="getCategoryNameList" resultType="ChBoardCategory">
+		select * from
+		chboardcategory where chnum = #{chnum}
+	</select>
+
+	<select id="newContentSelect" resultType="ChBoard">
+		SELECT *
+		FROM (
+		SELECT *
+		FROM chboard
+		WHERE chnum = #{chnum}
+		ORDER BY boardupdate DESC
+		)
+		WHERE
+		rownum = 1
+	</select>
+
+	<delete id="deleteBoard">
+	    <![CDATA[
+	      DELETE FROM chboard 
+	      WHERE BOARDNUM = #{boardNum}
+	    ]]>
+	</delete>
+
+	<select id="getUserInfo" resultType="Itda_User">
+		select * from itda_user
+		where
+		userId = #{userId}
+	</select>
+
+	<select id="getChannelCategory" resultType="ChBoardCategory">
+		SELECT cbc.chCate_Id,
+		cbc.chNum, cbc.chCate_Name
+		FROM ChBoard cb
+		JOIN ChBoardCategory cbc ON
+		cb.chCate_Id = cbc.chCate_Id
+		WHERE cb.boardnum = #{boardNum}
+	</select>
+
+	<select id="findNameById" resultType="string">
+		SELECT chCate_Name FROM
+		ChBoardCategory WHERE chCate_Id = #{chCateId}
+	</select>
+
+	<update id="increaseViewCount">
+		UPDATE chboard
+		SET boardVisit = #{boardVisit}
+		WHERE
+		boardNum = #{boardNum}
+	</update>
+
+	<!-- 신고 카테고리를 가져오는 쿼리 -->
+	<select id="getAllWCategories" resultType="WCATEGORY">
+		SELECT *
+		FROM wcategory
+	</select>
+
+	<!-- 댓글 정보를 가져오는 쿼리 -->
+	<select id="getReplyById" resultType="BoardReply">
+		SELECT *
+		FROM boardreply
+		WHERE replyNum = #{replyNum}
+	</select>
+
+
+	<insert id="insertReport">
+		INSERT INTO replywarn (
+		WARNNUM, PUNCHID, SICKID, REPLYNUM, WARNCATEID, WARNDATE, WARNOK, WARNREASON,
+		BOARDNUM
+		) VALUES (
+		replywarn_seq.NEXTVAL, #{punchId}, #{sickId}, #{replyNum}, #{warnCateId}, SYSDATE, 'N',
+		#{warnReason}, #{boardNum}
+		)
+	</insert>
+
+	<select id="getUser" resultType="Itda_User">
+		select * from itda_user
+		where
+		userId = #{userId}
+	</select>
+
+	<select id="checkReportedCategory" parameterType="map"
+		resultType="boolean">
+		SELECT COUNT(*) FROM replywarn
+		WHERE punchId = #{userId}
+		AND warnCateId = #{category}
+	</select>
+
+	<select id="getBoardInfo" resultType="ChBoard">
+		select * from
+		chboard
+		where boardNum = #{boardNum}
+	</select>
+
+	<insert id="insertContentReport">
+		INSERT INTO boardwarn (
+		WARNNUM, PUNCHID, SICKID,
+		BOARDNUM, WARNCATEID, WARNDATE, WARNOK, WARNREASON,
+		CHNUM
+		) VALUES (
+		boardwarn_seq.NEXTVAL, #{punchId}, #{sickId}, #{boardNum},
+		#{warnCateId}, SYSDATE, 'N',
+		#{warnReason}, #{chNum}
+		)
+	</insert>
+
+	<select id="checkContentCategory" parameterType="map"
+		resultType="boolean">
+		SELECT COUNT(*) FROM boardwarn
+		WHERE punchId = #{userId}
+		AND warnCateId = #{category}
+	</select>
+
+	<select id="getUsersFromGoodUser" resultType="Itda_User">
+		SELECT *
+		FROM itda_user
+		where userid = #{userId}
+	</select>
+
+	<select id="getsubUser" resultType="GoodUser">
 	 <![CDATA[
-	   	SELECT *
-	    FROM gooduser
-        where userid = #{userId}
-	   ]]>
+		SELECT *
+		FROM gooduser
+		where userid = #{userId} and enddate > systimestamp
+		]]>
 	</select>
-	
+
+	<delete id="deleteWarningsByBoardNum">
+		DELETE FROM BOARDWARN
+		WHERE boardNum = #{boardNum}
+	</delete>
+
+  	<!-- 신고된 댓글인지 확인하는 쿼리 -->
+    <select id="checkReportStatus" resultType="boolean">
+        SELECT CASE 
+            WHEN COUNT(*) > 0 THEN 1 -- 신고된 댓글이 있을 경우 1 반환
+            ELSE 0 -- 신고된 댓글이 없을 경우 0 반환
+        END
+        FROM ReplyWarn -- 신고 정보를 담고 있는 테이블
+        WHERE replyNum = #{num} -- 댓글 번호를 기준으로 검색
+    </select>
+    
+    <select id="getChannelListByChnum" resultType="ChannelList">
+        SELECT *
+        FROM ChannelList
+        WHERE chNum = #{chnum}
+    </select>
+    
+    <select id="getSellerInfoByUserId" resultType="Seller">
+		SELECT * FROM SELLER
+		WHERE
+		userid = #{userId}
+	</select>
 </mapper>

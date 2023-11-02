@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
@@ -110,21 +109,12 @@ public class ContentController {
 		if (principal != null) {
 
 			String userId = principal.getName();
-			Timestamp realTime = new Timestamp(System.currentTimeMillis());
 
 			// user확인
 			userinfo = contentService.getUserInfo(userId);
 			seller = contentService.getSellerInfoByUserId(userId);
 			subUser = contentService.getsubUser(userId);
 
-			if (subUser.getEndDate().getTime() < realTime.getTime()) {
-				subUser.setUserId(null);
-			} else if (seller.getUserId().equals(userId)) {
-				subUser.setUserId(userId);
-			}
-
-			logger.info("=====================" + subUser.getUserId());
-			model.addAttribute("subUser", subUser);
 
 		}
 
@@ -134,7 +124,7 @@ public class ContentController {
 
 		// model.addAttribute("ContentCategory", ContentCategory);
 		model.addAttribute("seller", seller);
-
+		model.addAttribute("subUser", subUser);
 		model.addAttribute("userinfo", userinfo);
 		model.addAttribute("rcnt", rcnt);
 		model.addAttribute("taginfo", taginfo);
