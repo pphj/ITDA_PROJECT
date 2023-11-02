@@ -120,8 +120,8 @@
     				<em class="my_channel_date_title">채널 개설일</em><div class="my_channel_date_text"><fmt:formatDate value="${channel.chOpenDate}" pattern="yyyy.MM.dd" /></div>
     			</div>
     			<div class="my_subscribe_date">
-    				<em class="my_channel_date_title">채널 구독자 </em><span class="my_channel_date_text">${channel.chFollow}&nbsp;&nbsp;</span> 
-    				<em class="my_channel_date_title">채널 방문자 </em><span class="my_channel_date_text">${channel.chVisit}</span>
+    				<em class="my_channel_date_title">채널 구독자 </em><span class="my_channel_date_text">${subinfo['SUBSCRIBERCOUNT']}&nbsp;&nbsp;</span> 
+    				<%-- <em class="my_channel_date_title">채널 방문자 </em><span class="my_channel_date_text">${channel.chVisit}</span> --%>
     			</div>
 
     			</div>
