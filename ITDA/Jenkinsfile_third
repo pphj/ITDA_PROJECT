@@ -15,8 +15,7 @@ pipeline {
         stage('Git Pull') {
             steps {
                  // Get some code from a GitHub repository
-                git branch: 'main', credentialsId: 'github-itda, url: 'https://github.com/pphj/ITDA_PROJECT'
-
+                git branch: 'main', credentialsId: 'github-itda', url: 'https://github.com/pphj/ITDA_PROJECT'
             }
             post {
                 success { 
