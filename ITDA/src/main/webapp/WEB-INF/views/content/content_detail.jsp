@@ -59,6 +59,8 @@
 	<input type="hidden" id="chnum" value="${board.chNum}" name="chnum">
 	<input type="hidden" id="boardnum" value="${board.boardNum}"
 		name="boardnum">
+	<input type="hidden" name="num" value="${board.boardNum}"
+		id="Reply_board_num">
 	<div class="board_detail_wrap">
 		<div class="board_detail_all_group">
 			<div class="board_detail_title_group">
@@ -150,6 +152,7 @@
 
 			<div class="viewer_main_text_group">
 				<div class="ck-content content_main_text">
+
 					<sec:authorize access="isAuthenticated()">
 						<sec:authentication property="principal" var="pinfo" />
 						<c:choose>

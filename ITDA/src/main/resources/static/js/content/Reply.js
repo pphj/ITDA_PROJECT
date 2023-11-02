@@ -20,6 +20,7 @@ function getList(state) {
     // chnum과 boardNum을 가져옴
     var chnum = $('#chnum').val();
     var boardNum = $('#boardnum').val();
+    
 
     // 콘솔에 현재 상태 출력
     console.log(state);
