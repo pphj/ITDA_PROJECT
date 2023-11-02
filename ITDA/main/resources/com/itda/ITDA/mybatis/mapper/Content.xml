@@ -51,12 +51,12 @@
 				 and chboard.chcate_id = chboardcategory.chcate_id
 	</select>
 	
-	<select id="getsubUser">
+	<select id="getsubUser" resultType="GoodUser"> 
+	 <![CDATA[
 	   	SELECT *
 	    FROM gooduser
         where userid = #{userId}
-	    and ENDDATE > sysdate
-        and enddate is not null
+	   ]]>
 	</select>
 	
 </mapper>
