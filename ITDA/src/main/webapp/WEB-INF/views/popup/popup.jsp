@@ -9,7 +9,7 @@ font-family: SF Pro KR, SF Pro Display, SF Pro Icons, AOS Icons, Apple Gothic, H
 margin-bottom : 20px;}
 .layerPopup:before {display:block; content:""; position:fixed; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,.5); z-index:9000}
 .layerPopup .layerBox {    z-index:10000;   
-position:fixed; left:85%; top:48%; transform:translate(-50%, -50%); padding:30px; background:#fff; border-radius:6px; }
+position:fixed; left:35%; top:48%; transform:translate(-50%, -50%); padding:30px; background:#fff; border-radius:6px; }
 .layerPopup .layerBox .title {margin-bottom:10px; padding-bottom:10px; font-weight:600; border-bottom:1px solid #d9d9d9;}
 .layerPopup .layerBox .btnTodayHide {
 font-size:14px; font-weight:600; color:black; 
@@ -63,10 +63,10 @@ font-size:16px; font-weight:600; width: 40px; height : 30px;color:black; float: 
 <body>
 <div class="layerPopup" id="layer_popup" style="visibility: visible;">
     <div class="layerBox">
-        <h4 class="title">FineApple 공지사항</h4>
+        <h4 class="title">EVENT_쿠폰번호 : 79235297441356380000</h4>
         <div class="cont">
             <p>
-<img src="../images/popup.jpg" width=350 height=500 usemap="#popup" alt="event page">
+		<img src="${pageContext.request.contextPath}/image/popup/popup_coupon_event.png" width=350 height=500 usemap="#popup" alt="event page">
             </p>
         </div>
           <form name="pop_form">

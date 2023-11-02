@@ -197,10 +197,6 @@ public class OrderController {
 		logger.info("결제고유 번호: " + tid);
 		String id = principal.getName();
 		
-		
-		
-		//Paycall paycall = orderService.callInfo(id);
-
 		// 카카오 결제 요청하기
 		KakaoPayApproval approveResponse = orderService.payApprove(tid, pgToken);
 		
@@ -260,7 +256,7 @@ public class OrderController {
 					Timestamp realTime = new Timestamp(System.currentTimeMillis());
 					
 					logger.info("completUser.getUserId() : " + completUser.getUserId());
-					logger.info("리얼타임리얼타임=============== : " + realTime.getTime());
+					logger.info("현재시간=============== : " + realTime.getTime());
 					try {
 						// 처음 결제하는 유저일 경우
 						if (completUser.getUserId() != null && isGoodUser == null) {
@@ -315,7 +311,6 @@ public class OrderController {
 							 int result = itdaUserService.updateResetPaymentUser(goodUser);
 							 if(result == Constants.UPDATE_SUCCESS) {
 								 logger.info(Message.PAYMENT_RESET_USER_UPDATE_SUCCESS);
-								 logger.info("=========================================이게 되어야 하는데?");
 								 
 							 }
 						}
@@ -333,7 +328,6 @@ public class OrderController {
 		logger.info("payment.setPayedMethod" + payment.getPayedMethod());
 		logger.info("payment.setOrderNum" + payment.getOrderNum());
 
-		// int insert = orderService.InsertPayment(payment);
 
 		return "redirect:/my/payment/subscriptions";
 	}	
