@@ -31,7 +31,7 @@ pipeline {
          //clone 받은 프로젝트 안의 Spring10_Security_War 디렉토리에서 stage 실행
         stage('Build') {
             steps {    
-                dir("Spring_Git"){   ///var/jenkins_home/workspace/test_item/Spring_Git
+                dir("ITDA"){   ///var/jenkins_home/workspace/test_item/Spring_Git
                     sh "mvn -DskipTests  clean package"
                     }  
             }
