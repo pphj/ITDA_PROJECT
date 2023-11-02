@@ -111,7 +111,7 @@
 		<div class="my_section_info_wrap">
 			<button id="_SCS_MY_SUBSCRIPTION_CONTENT_LIST_INFO_LAYER" type="button" class="my_section_info_button _TOGGLE" data-target="_SCS_MY_SUBSCRIPTION_CONTENT_LIST_INFO_LAYER" data-classValue="is_expanded"><span class="blind">안내</span></button>
 			<div class="my_section_info_layer">
-				<p>구독 채널에서 최근 7일 이내 발행한<br>콘텐츠를 모아서 보여 드립니다.</p>
+				<p>구독 채널에서 최근 14일 이내 발행한<br>콘텐츠를 모아서 보여 드립니다.</p>
 				<button type="button" class="my_section_info_layer_close _TOGGLE" data-target="_SCS_MY_SUBSCRIPTION_CONTENT_LIST_INFO_LAYER" data-classValue="is_expanded"><span class="blind">닫기</span></button>
 			</div>
 		</div>

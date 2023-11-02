@@ -136,20 +136,5 @@ public class MainController {
 		return modelAndView;
 	}
 	
-	/*
-	 * @GetMapping("/api/content-results/{pageNumber}") public
-	 * ResponseEntity<List<ChBoard>> getContentResults(@PathVariable int
-	 * pageNumber, @RequestParam("keyword") String keyword) { int pageSize = 15; //
-	 * 한 페이지에 표시할 항목 수 int startIndex = (pageNumber - 1) * pageSize; // 시작 인덱스 계산
-	 * 
-	 * // 검색어를 사용하여 데이터를 검색하고 startIndex부터 pageSize만큼의 결과를 반환 List<ChBoard>
-	 * contentResults = mainService.searchContentsByKeyword(keyword, startIndex,
-	 * pageSize);
-	 * 
-	 * return ResponseEntity.ok(contentResults); }
-	 */
-	
-	
-	
 	
 }

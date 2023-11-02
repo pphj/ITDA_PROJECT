@@ -8,19 +8,15 @@
     "name": "naver.redirect.url",
     "type": "java.lang.String",
     "description": "A description for 'naver.redirect.url'"
-  }
-]} "description": "A description for 'naver.client.id'"
   },
   {
-    "name": "naver.client.secret",
+    "name": "my.sendfile",
     "type": "java.lang.String",
-    "description": "A description for 'naver.client.secret'"
-  }
-]} "description": "A description for 'naver.client.id'"
+    "description": "A description for 'my.sendfile'"
   },
   {
-    "name": "naver.client.secret",
+    "name": "my.savefolder",
     "type": "java.lang.String",
-    "description": "A description for 'naver.client.secret'"
+    "description": "A description for 'my.savefolder'"
   }
 ]}

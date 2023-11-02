@@ -16,14 +16,14 @@
 
 	<select id="getContentByCategory" resultType="ChBoard">
 		select * from
-    (select rownum r, chBoard.*
-    from chBoard join ChannelList
-    on
-    chBoard.chNum = ChannelList.chNum
-    where ChannelList.cate_Id = #{categoryNum}
-    order
-    by boardNum desc)
-    where r between #{startRow} and #{endRow}
+		    (select rownum r, chBoard.*
+		    from chBoard join ChannelList
+		    on
+		    chBoard.chNum = ChannelList.chNum
+		    where ChannelList.cate_Id = #{categoryNum}
+		    order
+		    by boardNum desc)
+		    where r between #{startRow} and #{endRow}
 	</select>
 
 	<select id="getChannelList" resultType="ChannelList">

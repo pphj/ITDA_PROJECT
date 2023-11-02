@@ -33,9 +33,9 @@
 	<insert id="insertPayCall" parameterType="Paycall">
 		INSERT INTO PAYCALL 
 				(callNum, userId, couponCode, productId, 
-				callAmount, callPrice, callDate)
-		VALUES (callnum_seq.nextval, #{userId}, 0, #{productId}, 
-				1, #{callPrice}, SYSTIMESTAMP)
+				callAmount, callPrice, callDate, callDiscount)
+		VALUES (callnum_seq.nextval, #{userId}, #{couponCode}, #{productId}, 
+				1, #{callPrice}, SYSTIMESTAMP, #{callDiscount})
 	</insert>
 	
 	<select id="getOrderNo" resultType="String">
@@ -55,10 +55,10 @@
 		INSERT INTO payment 
 			(payednum, payedmethod, ordernum, payeddate, 
 			payedprice, payeduser, payerbank, payedokdate, 
-			payedstatus, payedcode, payedvat)
+			payedstatus, payedcode, payedvat, discountPrice)
 		VALUES (paynum_seq.nextval, #{payedMethod}, #{orderNum}, #{payedDate}, 
 				#{payedPrice}, #{userId}, 'N', #{payedOkDate}, 
-				'Y', #{payedCode}, #{payedVat})
+				'Y', #{payedCode}, #{payedVat}, #{discountPrice})
 	</insert>
 	
 	<!-- 유료회원 insert를 위한 값 뽑아오기 -->
@@ -128,5 +128,10 @@
 		where payednum = #{payedNum}
 	</update>
 	
+	<select id="isOrderNo" resultType="Paycall">
+		select callNum, calldiscount, couponCode
+		from paycall
+		where callnum = #{callNum}
+	</select>
 	
 </mapper>

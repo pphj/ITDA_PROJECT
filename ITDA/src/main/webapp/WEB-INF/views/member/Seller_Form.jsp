@@ -197,7 +197,7 @@ $(function() {
 			<span id="previewImage">
 				<c:choose>
 					<c:when test="${empty param.profile}">
-						<c:set var="src" value="image/common/profile.png" />
+						<c:set var="src" value="${pageContext.request.contextPath}/image/common/profile.png" />
 					</c:when>
 					<c:otherwise>
 						<c:set var="src" value="${param.profile}" />

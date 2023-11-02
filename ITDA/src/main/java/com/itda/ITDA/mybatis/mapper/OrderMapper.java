@@ -32,4 +32,6 @@ public interface OrderMapper {
 
 	int updatePayedStatusIsR(RefundUser refundUser);
 
+	Paycall isOrderNo(Paycall payCall);
+
 }

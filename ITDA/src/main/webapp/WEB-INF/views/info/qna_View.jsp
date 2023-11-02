@@ -36,39 +36,40 @@
 							<dl class="flex-align-center">
 								<dt>등록일</dt>
 								<dd>
-								  <fmt:formatDate value="${adminBoard.adDate}" pattern="yyyy-MM-dd HH:mm" />
-								</dd>  
+									<fmt:formatDate value="${adminBoard.adDate}"
+										pattern="yyyy-MM-dd HH:mm" />
+								</dd>
 							</dl>
 							<dl>
 								<dt>상태</dt>
-						<dd>
-						    <c:choose>
-						        <c:when test="${not empty qnaReplyList}">
-						            <span>답변완료</span>
-						        </c:when>
-						        <c:otherwise>
-						            <span>답변대기</span>
-						        </c:otherwise>
-						    </c:choose>
-						</dd>
-						</dl>
+								<dd>
+									<c:choose>
+										<c:when test="${not empty qnaReplyList}">
+											<span>답변완료</span>
+										</c:when>
+										<c:otherwise>
+											<span>답변대기</span>
+										</c:otherwise>
+									</c:choose>
+								</dd>
+							</dl>
 						</div>
 
-					<dl>
-				   <dt>문의유형</dt>
-				   <dd>
-				       <c:choose>
-				           <c:when test="${adminBoard.qcateId == 1}">홍보, 영리목적</c:when>
-				           <c:when test="${adminBoard.qcateId == 2}">불법 정보</c:when>
-				           <c:when test="${adminBoard.qcateId == 3}">음란, 청소년 유해</c:when>
-				           <c:when test="${adminBoard.qcateId == 4}">욕설, 비방, 차별, 혐오</c:when>
-				           <c:when test="${adminBoard.qcateId == 5}">도배, 스팸</c:when>
-				           <c:when test="${adminBoard.qcateId == 6}">개인정보 노출, 거래</c:when>
-				           <c:when test="${adminBoard.qcateId == 7}">기타</c:when>
-				           <c:when test="${adminBoard.qcateId == 8}">공지사항</c:when>
-				       </c:choose>
-				   </dd>
-				</dl>
+						<dl>
+							<dt>문의유형</dt>
+							<dd>
+								<c:choose>
+									<c:when test="${adminBoard.qcateId == 1}">홍보, 영리목적</c:when>
+									<c:when test="${adminBoard.qcateId == 2}">불법 정보</c:when>
+									<c:when test="${adminBoard.qcateId == 3}">음란, 청소년 유해</c:when>
+									<c:when test="${adminBoard.qcateId == 4}">욕설, 비방, 차별, 혐오</c:when>
+									<c:when test="${adminBoard.qcateId == 5}">도배, 스팸</c:when>
+									<c:when test="${adminBoard.qcateId == 6}">개인정보 노출, 거래</c:when>
+									<c:when test="${adminBoard.qcateId == 7}">기타</c:when>
+									<c:when test="${adminBoard.qcateId == 8}">공지사항</c:when>
+								</c:choose>
+							</dd>
+						</dl>
 
 
 						<dl>
@@ -77,14 +78,14 @@
 							<dd>
 								<em class="qna-cont-tit">${adminBoard.adTitle}</em>
 
-							<div class="qna-cont ql-editor">${adminBoard.adContent}</div>
+								<div class="qna-cont ql-editor">${adminBoard.adContent}</div>
 							</dd>
 						</dl>
 					</div>
-					
-					
-				
-				<div class="content-box" style=" padding: 20px;">
+
+
+
+					<div class="content-box" style=" padding: 20px;">
 				<div class="form-list">
 			<%-- 댓글 --%>
 		 		<!-- 댓글 목록 표시 부분 -->

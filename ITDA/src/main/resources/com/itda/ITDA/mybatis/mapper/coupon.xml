@@ -31,7 +31,7 @@
 	<!-- 유저가 등록한 쿠폰의 정보를 불러오는 쿼리 -->
 	<select id="myCouponList" resultType="CouponIssue">
 		SELECT 
-				c.couponname, c.coupondetail, c.couponprice, 
+				c.couponname, c.coupondetail, c.couponprice, c.couponCode, 
 		       ci.cpNum, ci.userid, ci.cpuse, ci.startdate, ci.couponuseexdate
 		FROM coupon c
 		JOIN couponissue ci ON c.couponcode = ci.couponcode
@@ -45,6 +45,22 @@
 		FROM coupon c
 		JOIN couponissue ci ON c.couponcode = ci.couponcode
 		WHERE ci.userid =  #{userId} and ci.cpuse = 'N'
+	</select>
+	
+	<!-- 쿠폰 사용 상태로 업데이트 -->
+	<update id="updateCouponUse" parameterType="CouponIssue">
+	    update couponIssue
+	    set 
+		    cpuse = #{cpUse},
+		    couponusedate = #{couponUseDate, jdbcType=VARCHAR}
+	    where couponcode = #{couponCode} and userid = #{userId}
+	</update>
+	
+	<!-- 유저가 쿠폰을 등록한 이력이 있는지 확인 -->
+	<select id="isCouponUse" resultType="CouponIssue">
+		select couponcode, userid
+		from couponissue
+		where userid = #{userId} and couponcode = #{couponCode}
 	</select>
 
 

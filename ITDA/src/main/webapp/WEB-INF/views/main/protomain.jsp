@@ -21,6 +21,7 @@
 	}
 </script>
 <jsp:include page="../include/header.jsp"/>
+<jsp:include page="../popup/popup.jsp"/>
 </head>
 <body>
 <jsp:include page="top.jsp"/>

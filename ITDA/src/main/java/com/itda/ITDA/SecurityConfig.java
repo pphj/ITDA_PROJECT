@@ -34,15 +34,15 @@ public class SecurityConfig {
    @Autowired
    private DataSource datasource;
    
-   @Bean
-   public SecurityFilterChain mainSecurityFilterChain(HttpSecurity http) throws Exception {
-       http.antMatcher("/main/**")
-       		.authorizeRequests(authorizeRequests -> authorizeRequests
-                   .antMatchers("/resources/**").permitAll()
-       		);
-
-       return http.build();
-   }
+//   @Bean
+//   public SecurityFilterChain mainSecurityFilterChain(HttpSecurity http) throws Exception {
+//       http.antMatcher("/main/**")
+//       		.authorizeRequests(authorizeRequests -> authorizeRequests
+//                   .antMatchers("/resources/**").permitAll()
+//       		);
+//
+//       return http.build();
+//   }
    
 
    @Bean
