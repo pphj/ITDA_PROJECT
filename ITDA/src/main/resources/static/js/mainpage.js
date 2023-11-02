@@ -54,6 +54,8 @@ $(function () {
             },
             dataType: "json",
             success: function (data) {
+            var appendData = "";
+            
                 $(data).each(function () {
                     if (data.length != 10) {					//로딩표시
                         $(".loader").css('display', 'none');
@@ -68,7 +70,7 @@ $(function () {
                     }
 
                     
-                    var appendData = '<a href="contents/' + this.chNum + '/' + this.boardNum + '" class="popular-list-card">'
+                    appendData += '<a href="contents/' + this.chNum + '/' + this.boardNum + '" class="popular-list-card">'
                         + '<li class="popular-list-content"><span class="popular-list-title">' + this.boardTitle + '</span><br>'
                         + '<p class="popular-list-text">' + this.intro + '</p></li>'
                         + '<li class="popular-list-imgframe">';
@@ -79,8 +81,8 @@ $(function () {
                          + this.thumbNail + '" class="popular-list-img"></li></a>'
                     }
                     
-                    $(".popular-list-ul").append(appendData);
                 });
+                    $(".popular-list-ul").html(appendData);
             }
         });
     }
@@ -93,7 +95,7 @@ $(function () {
         const categoryNum = $(this).prop('id');
         pageCount = FIRST_PAGE;
         isCategoryButtonOn = categoryNum;
-        $(".popular-list-ul").html("");
+        //$(".popular-list-ul").html("");
         // "더 보기" 버튼을 클릭한 것으로 처리하기 위해 isLoading 변수를 false로 설정
         isLoading = false;
         callContents_ajax(categoryNum);
