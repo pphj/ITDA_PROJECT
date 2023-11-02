@@ -53,8 +53,6 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public ReadyResponse payReady(int totalAmount, String productName, String getOrderNo) {
 		
-
-		
 		String approvalUrl = "http://localhost:9400/itda/product/approval";
 		String failUrl = "http://localhost:9400/itda/product/fail";
 		String cancelUrl = "http://localhost:9400/itda/product/cancel";
@@ -86,7 +84,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
     // 결제 승인요청 메서드
-	public KakaoPayApproval payApprove(String tid, String pgToken, String getOrderNo) {
+	public KakaoPayApproval payApprove(String tid, String pgToken) {
 		
 
 		// request값 담기.
@@ -178,6 +176,12 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int updatePayedStatusIsR(RefundUser refundUser) {
 		return dao.updatePayedStatusIsR(refundUser);
+	}
+
+
+	@Override
+	public Paycall isOrderNo(Paycall payCall) {
+		return dao.isOrderNo(payCall);
 	}
 		
 

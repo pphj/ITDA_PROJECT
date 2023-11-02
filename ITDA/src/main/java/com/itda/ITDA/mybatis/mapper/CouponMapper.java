@@ -20,4 +20,8 @@ public interface CouponMapper {
 
 	int myCouponCount(String id);
 
+	int updateCouponUse(CouponIssue couponIssue);
+
+	CouponIssue isCouponUse(CouponIssue issue);
+
 }

@@ -98,10 +98,6 @@
 </div>
 <div class="my_coupon">
 	<a href="#" class="my_coupon_register _TOGGLE" data-target="_CONTENT_LAYER_COUPON_REDEEM" data-prevent-scroll="true">쿠폰 등록</a>
-	
-
-	
-	
 	<h3 class="my_coupon_title">
 		보유한 쿠폰
 		<em>${count}</em>
@@ -262,6 +258,12 @@ $(document).ready(function() {
         var token = '${_csrf.token}';
         var couponCode = $("input[name='couponCode']").val(); // 쿠폰 코드 입력 필드에서 값을 가져옵니다.
 
+        // 입력된 값 중에 문자열이 하나라도 포함되어 있는지 확인
+        if (couponCode.match(/[a-zA-Z]/)) {
+            alert("쿠폰 번호가 일치하지 않습니다.");
+            return; // alert를 표시하고 함수를 종료
+        }
+
         $.ajax({
             type: "POST",
             url: contextpath + "/my/coupons/cpCodeCheck",
@@ -282,7 +284,10 @@ $(document).ready(function() {
                     $("#fm").attr("method", "POST"); // POST 메서드 설정
                     $("#fm").submit();
 
-                } else {
+                }else if (result == 3){
+                	alert("이미 등록하거나, 사용된 쿠폰입니다.");
+                    $("input[name='couponCode']").val("");
+            	}else {
                     alert("쿠폰 번호가 일치하지 않습니다.");
                     $("input[name='couponCode']").val("");
                 }

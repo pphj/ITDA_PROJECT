@@ -146,6 +146,7 @@
 <input type="hidden" name="payedPrice" value="${orderInfo.payedPrice}">
 <input type="hidden" name="discountPrice" value="${orderInfo.discountPrice}">
 <input type="hidden" name="productTerm" value="${orderInfo.productTerm}">
+<input type="hidden" name="couponCode" value="${orderInfo.couponCode}">
 <div class="my_detail_content">
 	<div class="my_detail_titlewrap">
 		<h2 class="my_detail_title">구매 정보</h2>

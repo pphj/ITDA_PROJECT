@@ -20,7 +20,7 @@ public interface OrderService {
 
 	int insertPayCall(Paycall payCall);
 
-	KakaoPayApproval payApprove(String tid, String pgToken, String getOrderNo);
+	KakaoPayApproval payApprove(String tid, String pgToken);
 
 	String getOrderNo(String id);
 
@@ -37,6 +37,8 @@ public interface OrderService {
 	int updateEndDateIsNull(RefundUser refundUser);
 
 	int updatePayedStatusIsR(RefundUser refundUser);
+
+	Paycall isOrderNo(Paycall payCall);
 
 
 }
