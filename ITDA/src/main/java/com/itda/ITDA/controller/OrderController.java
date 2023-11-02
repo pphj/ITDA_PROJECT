@@ -334,7 +334,7 @@ public class OrderController {
 		logger.info("payment.setOrderNum" + payment.getOrderNum());
 
 
-		return "redirect:/my/payment/subscriptions";
+		return "redirect:/my/subscriptions";
 	}	
 
 	@RequestMapping(value="/fail")
