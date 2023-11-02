@@ -46,6 +46,11 @@ public class CouponServiceImp implements CouponService{
 	public int updateCouponUse(CouponIssue couponIssue) {
 		return dao.updateCouponUse(couponIssue);
 	}
+
+	@Override
+	public CouponIssue isCouponUse(CouponIssue issue) {
+		return dao.isCouponUse(issue);
+	}
 	
 
 }

@@ -66,7 +66,7 @@ font-size:16px; font-weight:600; width: 40px; height : 30px;color:black; float: 
         <h4 class="title">EVENT_쿠폰번호 : 79235297441356380000</h4>
         <div class="cont">
             <p>
-		<img src="${pageContext.request.contextPath}/image/popup/popup_coupon_event.png" width=350 height=500 usemap="#popup" alt="event page">
+		<img src="${pageContext.request.contextPath}/image/popup/popup_coupon_event.png" width=430 height=500 usemap="#popup" alt="event page">
             </p>
         </div>
           <form name="pop_form">

@@ -22,4 +22,6 @@ public interface CouponMapper {
 
 	int updateCouponUse(CouponIssue couponIssue);
 
+	CouponIssue isCouponUse(CouponIssue issue);
+
 }

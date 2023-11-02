@@ -55,6 +55,13 @@
 		    couponusedate = #{couponUseDate, jdbcType=VARCHAR}
 	    where couponcode = #{couponCode} and userid = #{userId}
 	</update>
+	
+	<!-- 유저가 쿠폰을 등록한 이력이 있는지 확인 -->
+	<select id="isCouponUse" resultType="CouponIssue">
+		select couponcode, userid
+		from couponissue
+		where userid = #{userId} and couponcode = #{couponCode}
+	</select>
 
 
 </mapper>

@@ -42,6 +42,8 @@ import oracle.net.aso.c;
 @RequestMapping(value= "/my")
 public class MyContentsPageController {
 	
+	public static final int COUPON_IS_USE = 2;
+	
 	private static final Logger logger = LoggerFactory.getLogger(MyContentsPageController.class);
 	
 	private Itda_UserService itdaUserService;
@@ -148,11 +150,27 @@ public class MyContentsPageController {
 	// 마이페이지 쿠폰 번호 체크
 	@PostMapping(value="coupons/cpCodeCheck")
 	@ResponseBody
-	public int couponCodeCheck(@RequestParam("couponCode") String couponCode) {
+	public int couponCodeCheck(@RequestParam("couponCode") String couponCode, Principal principal) {
 		
+		String id = principal.getName();
+		
+		CouponIssue issue = new CouponIssue();
+		issue.setUserId(id);
+		issue.setCouponCode(couponCode);
 		
 		int result = couponService.isCouponCode(couponCode);
 		
+		issue = couponService.isCouponUse(issue);
+		if(issue == null) {
+			
+			return result;
+			
+		}else if(issue.getCouponCode()!=null || Integer.valueOf(issue.getCouponCode())==0){
+			
+			int result2 = COUPON_IS_USE;
+			return result + result2;
+		}
+			
 		logger.info("result ======= " + result);
 		
 			return result;

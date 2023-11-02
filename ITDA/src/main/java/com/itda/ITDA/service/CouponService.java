@@ -19,4 +19,6 @@ public interface CouponService {
 
 	int updateCouponUse(CouponIssue couponIssue);
 
+	CouponIssue isCouponUse(CouponIssue issue);
+
 }
