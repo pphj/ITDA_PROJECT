@@ -99,14 +99,7 @@
     	<li class="my_setting_item _MARKETING_BUTTON_WRAP">
     		<a href="${pageContext.request.contextPath}/channels/${channel.chNum}?userid=${channel.ownerId}" class="my_setting_link" data-clk="my_setmrk.chlgo">
     			<div class="my_setting_thumb">
-    							<c:choose>
-                   <c:when test="${empty channel.chProfile}">
-                      <img src="${pageContext.request.contextPath}/resources/image/common/itda_logo3.png" width="48" height="48">
-                   </c:when>
-                	<c:otherwise>
                     	<img src="${pageContext.request.contextPath}/image/MemberUpload/${channel.ownerId}${channel.chProfile}" width="48" height="48" onerror="this.parentNode.innerHTML='<span class=&quot;no_image&quot;></span>'">
-                	</c:otherwise>
-                </c:choose>
     			</div>
     			<div class="my_channel_text">
     			<div class="my_channel_name">
@@ -120,8 +113,8 @@
     				<em class="my_channel_date_title">채널 개설일</em><div class="my_channel_date_text"><fmt:formatDate value="${channel.chOpenDate}" pattern="yyyy.MM.dd" /></div>
     			</div>
     			<div class="my_subscribe_date">
-    				<em class="my_channel_date_title">채널 구독자 </em><span class="my_channel_date_text">${channel.chFollow}&nbsp;&nbsp;</span> 
-    				<em class="my_channel_date_title">채널 방문자 </em><span class="my_channel_date_text">${channel.chVisit}</span>
+    				<em class="my_channel_date_title">채널 구독자 </em><span class="my_channel_date_text">${subinfo['SUBSCRIBERCOUNT']}&nbsp;&nbsp;</span> 
+    				<%-- <em class="my_channel_date_title">채널 방문자 </em><span class="my_channel_date_text">${channel.chVisit}</span> --%>
     			</div>
 
     			</div>

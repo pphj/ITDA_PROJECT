@@ -231,9 +231,11 @@
 	</select>
 
 	<select id="getsubUser" resultType="GoodUser">
+	 <![CDATA[
 		SELECT *
 		FROM gooduser
-		where userid = #{userId}
+		where userid = #{userId} and enddate > systimestamp
+		]]>
 	</select>
 
 	<delete id="deleteWarningsByBoardNum">
