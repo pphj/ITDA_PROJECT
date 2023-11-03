@@ -464,15 +464,16 @@ public class UserInfoController {
 		File idPath1 = new File(saveFolder);
 		if (!(idPath1.exists()))
 		{	logger.info(saveFolder + "존재하지 않음");
-			idPath1.mkdir();// 새로운 폴더를 생성
+			idPath1.mkdirs();
+			//idPath1.mkdir();// 새로운 폴더를 생성
 		}
 		
 		String homedir = saveFolder + "/" + year + "-" + month + "-" + date;
 		logger.info(homedir);
 		File path1 = new File(homedir);
 		if (!(path1.exists()))
-		{
-			path1.mkdir();// 새로운 폴더를 생성
+		{	
+			path1.mkdirs();// 새로운 폴더를 생성
 		}
 
 		// 난수를 구합니다.
