@@ -1,0 +1,34 @@
+#https://docs.docker.com/compose/compose-file/compose-file-v3/
+version: '3'
+services:
+
+  oracle_service:   
+    container_name: oracle 
+    image: jaspeen/oracle-xe-11g  
+    volumes:
+      - c:/test/oracle:/u01/app/oracle 
+    ports:
+      - 1521:1521  
+    networks: 
+      test2:
+       
+  web_service:
+    container_name: web
+    image: itda:latest
+    ports:
+      - '9400:9400'
+    environment:
+      spring.datasource.url: jdbc:oracle:thin:@oracle:1521/xe
+      spring.datasource.hikari.data-source-properties.oracle.jdbc.timezoneAsRegion: False
+      my.savefolder: /home/ubuntu/download/upload/
+      my.sendfile: /home/ubuntu/download/cook1.png
+    networks: 
+       test2:
+    volumes:
+      - /home/ubuntu/image:/home/ubuntu/download/
+      - /home/ubuntu/upload:/home/ubuntu/download/upload/
+    depends_on:
+     - oracle_service
+   
+networks: 
+  test2:
