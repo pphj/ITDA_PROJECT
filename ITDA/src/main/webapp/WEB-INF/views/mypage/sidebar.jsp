@@ -56,12 +56,15 @@ $(document).ready(function(){
 			<a href="${pageContext.request.contextPath}/user/myInfo" class="my_user_modify_link">
 				<div class="my_user_img_wrap2">
 				   <t:choose>
-                     <t:when test="${empty  pinfo.userProfile}">
-			                <img class="my_user_img_wrap" src="https://static.nid.naver.com/images/web/user/default.png" alt="프로필 이미지">
-                        </t:when>
+                    <t:when test="${empty  pinfo.userProfile}">
+			        	<img class="my_user_img_wrap" src="https://static.nid.naver.com/images/web/user/default.png" alt="프로필 이미지">
+                    </t:when>
+                    <t:when test="${user.userProfile == '/resources/image/main/login.png'}">
+                    	<img id="imgThumb" src="${pageContext.request.contextPath}/resources/image/main/login.png" width="84" height="84">
+                    </t:when>
                     <t:when test="${!empty pinfo.userProfile}">
-                                <img class="my_user_img_wrap" src="${pageContext.request.contextPath}/image/Member/${userId}${userProfile}">
-                        </t:when>
+                    	<img class="my_user_img_wrap" src="${pageContext.request.contextPath}/image/Member/${userId}${userProfile}">
+                    </t:when>
                  </t:choose>
 				</div>
 				<strong class="my_user_name">
