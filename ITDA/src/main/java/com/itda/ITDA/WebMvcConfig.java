@@ -13,7 +13,10 @@ public class WebMvcConfig implements WebMvcConfigurer{
 
 	@Value("${my.savepath}")
 	private String saveFolder;
-
+	
+	@Value("${app.image-upload-dir2.savepath}")
+	private String saveFolder2;
+	
 	private static final String[] CLASSPATH_RESOURCE_LOCATIONS
 	= {
 			"classpath:/static/",
@@ -35,6 +38,8 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		.addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
 		registry.addResourceHandler("/upload/**")
 				.addResourceLocations(saveFolder);
+		registry.addResourceHandler("/image/MemberUpload/**")
+				.addResourceLocations(saveFolder2);
 
 	}
 	
