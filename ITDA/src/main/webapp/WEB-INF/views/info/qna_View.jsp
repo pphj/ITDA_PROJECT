@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -11,17 +11,18 @@
 
 <jsp:include page="../include/header.jsp" />
 <link href="/help/css/quill_editor.css" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/info/help.css">	
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/info/help.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/info/qna_View.css">
-	
+
 </head>
 <body>
 
 	<!-- contents -->
 	<div id="contents" class="contents">
 		<div class="layout-inner">
-		
+
 			<section class="qna-wrap view-wrap">
 				<div class="cont-top-area">
 					<h1 class="cont-tit">나의 1:1문의</h1>
@@ -85,53 +86,55 @@
 
 
 
-					<div class="content-box" style=" padding: 20px;">
-				<div class="form-list">
-			<%-- 댓글 --%>
-		 		<!-- 댓글 목록 표시 부분 -->
-				<div id="qnaReply">
-			    <table class="table">
-			        <thead>
-			            <tr>
-			                <th class="text-center">번호</th>
-			                <th>답변자</th>
-			                <th>내용</th>
-			                <th class="text-right">날짜</th>
-			            </tr>
-			        </thead>
-			       <tbody>
-				    <c:forEach var="reply" items="${qnaReplyList}">
-				        <tr>
-				            <td class="text-center">${reply.qnaReplyNum}</td>
-				            <td>${reply.adminId}</td>
-				            <td>${reply.qnaReplyContent}</td>
-				            <td class="text-right">
-				                <fmt:formatDate value="${reply.qnaReplyDate}" pattern="yyyy-MM-dd HH:mm" />
-				            </td>
-				        </tr>
-				    </c:forEach>
-				    <!-- 댓글 데이터가 없을 때 표시할 내용 -->
-				    <c:if test="${empty qnaReplyList}">
-				        <tr>
-				            <td class="text-center" colspan="4">답변 대기중입니다.</td>
-				        </tr>
-				    </c:if>
-				</tbody>
-			    </table>
-			</div>
+					<div class="content-box" style="padding: 20px;">
+						<div class="form-list">
+							<%-- 댓글 --%>
+							<!-- 댓글 목록 표시 부분 -->
+							<div id="qnaReply">
+								<table class="table">
+									<thead>
+										<tr>
+											<th class="text-center">번호</th>
+											<th>답변자</th>
+											<th>내용</th>
+											<th class="text-right">날짜</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="reply" items="${qnaReplyList}">
+											<tr>
+												<td class="text-center">${reply.qnaReplyNum}</td>
+												<td>${reply.adminId}</td>
+												<td>${reply.qnaReplyContent}</td>
+												<td class="text-right"><fmt:formatDate
+														value="${reply.qnaReplyDate}" pattern="yyyy-MM-dd HH:mm" />
+												</td>
+											</tr>
+										</c:forEach>
+										<!-- 댓글 데이터가 없을 때 표시할 내용 -->
+										<c:if test="${empty qnaReplyList}">
+											<tr>
+												<td class="text-center" colspan="4" style="height: 50vh;">답변
+													대기중입니다.</td>
+											</tr>
+										</c:if>
+									</tbody>
+								</table>
+							</div>
 
-				</div>
-				<div class="btn-area">
-					<a href="${pageContext.request.contextPath}/info/qna" class="btn-default">목록</a>
-				</div>
-			</div>
+						</div>
+						<div class="btn-area">
+							<a href="${pageContext.request.contextPath}/info/qna"
+								class="btn-default">목록</a>
+						</div>
+					</div>
 				</div>
 
 			</section>
 		</div>
 	</div>
 	<!-- // contents -->
-	
+
 
 
 	<jsp:include page="../include/footer.jsp" />
