@@ -38,7 +38,7 @@
 				        </span>
 					</div>
 				</div>
-				<div class="view-cont ql-editor">${adminBoard.adContent}</div>
+				<div class="view-cont ql-editor" style="height: 70vh;">${adminBoard.adContent}</div>
 				<div class="btn-area" style=" padding: 20px;">
 					<a href="${pageContext.request.contextPath}/info/notice" class="btn-default">목록</a>
 				</div>

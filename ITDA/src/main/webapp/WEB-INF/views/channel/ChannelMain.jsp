@@ -236,7 +236,7 @@ $(document).ready(function(){
 
 			<!-- 게시글(글) -->
 			<div class="tab_content" id="articles">
-				<div class="article_wrap_contents">
+				<div class="article_wrap_contents" style="height: 100vh;">
 					<div id="wrapInfo" class="wrap_authorinfo #my_profile_info"
 						style="display: none;">
 						<h3 class="screen_out">작가소개</h3>

@@ -179,7 +179,7 @@
 					<sec:authorize access="isAnonymous()">
 
 						<!-- 로그인하지 않은 사용자에게 게시글의 내용을 400자까지만 보여줍니다. -->
-			            ${fn:substring(board.boardContent, 0, 1000)}
+			            ${fn:substring(board.boardContent, 0, 400)}
  			        </sec:authorize>
 
 					<input type="hidden" name="num" value="${board.boardNum}"
