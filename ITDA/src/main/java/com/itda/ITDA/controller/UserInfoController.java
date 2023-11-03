@@ -478,7 +478,13 @@ public class UserInfoController {
 		File path1 = new File(homedir);
 		if (!(path1.exists()))
 		{	
-			path1.mkdir();// 새로운 폴더를 생성
+			//path1.mkdir();// 새로운 폴더를 생성
+			if (path1.mkdir()) {
+				logger.info("폴더 생성");
+				
+			}else {
+				logger.info("생성 실패ㅠㅠ");
+			}
 		}
 
 		// 난수를 구합니다.
