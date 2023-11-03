@@ -14,7 +14,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	@Value("${my.savepath}")
 	private String saveFolder;
 	
-	@Value("${app.image-upload-dir2.savepath}")
+	@Value("${app.image-upload-dir.savepath}")
 	private String saveFolder2;
 	
 	private static final String[] CLASSPATH_RESOURCE_LOCATIONS
