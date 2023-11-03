@@ -498,7 +498,7 @@ textarea.inp-txt {overflow-y:auto; height:240px}
 
     /* 버튼 */
     /* .btn-area {margin-top:0px} */
-    .btn-default {padding:14px 50px; border-radius:6px; font-size:15px}
+    .btn-default {padding:14px 50px; border-radius:6px; font-size:15px; background: #00ced1;}
     .btn-default.small {padding:9px 20px 10px; border-radius:5px; font-size:14px}
     .btn-default.line {border-radius:10px}
 
