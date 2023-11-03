@@ -98,12 +98,15 @@
         <div class="profile_inner">
             <a href="#" onclick="changeImage()" class="photo">
                  <t:choose>
-                     <t:when test="${empty user.userProfile}">
+                    <t:when test="${empty user.userProfile}">
 			                <img src="https://static.nid.naver.com/images/web/user/default.png" width="84" height="84" alt="프로필 이미지">
                         </t:when>
+                    <t:when test="${user.userProfile == '/resources/image/main/login.png'}">
+                                <img id="imgThumb" src="${pageContext.request.contextPath}/resources/image/main/login.png" width="84" height="84">
+                    </t:when>
                     <t:when test="${!empty user.userProfile}">
                                 <img id="imgThumb" src="${pageContext.request.contextPath}/image/Member/${user.userId}${user.userProfile}" width="84" height="84">
-                        </t:when>
+                    </t:when>
                  </t:choose>
                      
                 <span class="photo_edit"></span>
