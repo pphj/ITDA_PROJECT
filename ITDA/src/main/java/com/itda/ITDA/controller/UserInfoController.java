@@ -459,6 +459,7 @@ public class UserInfoController {
 		int month = c.get(Calendar.MONTH) + 1;// 오늘 월 구합니다.
 		int date = c.get(Calendar.DATE);// 오늘 일 구합니다.
 
+		logger.info("유저폴더 생성 전" + saveFolder);
 		
 		File idPath1 = new File(saveFolder);
 		if (!(idPath1.exists()))
