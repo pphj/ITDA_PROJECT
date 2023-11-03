@@ -177,6 +177,15 @@ article.modal_article .tab_wrap .btn_find {
 	letter-spacing: 0;
 }
 
+/* 버튼 호버 및 눌린 상태 색상 변경 */
+.btn_find:hover,
+.btn_find:active,
+.btn_find.active {
+	color: #0069d9; /* 호버 및 눌린 상태 글자색 변경 */
+	font-weight: bold; /* 눌린 상태 글꼴 굵게 변경 */
+}
+
+
 .doz_sys .btn_find {
 	display: inline-block;
 	padding: 0;
@@ -210,8 +219,9 @@ article.modal_article .select_wrap_id, article.modal_article .select_wrap_pw,
 	border-collapse: separate
 }
 
-.select_wrap_id .input-group .form-control, .select_wrap_pw .input-group .form-control,
-	.step04_select_wrap_id .input-group .form-control {
+.select_wrap_id .input-group .form-control,
+.select_wrap_pw .input-group .form-control,
+.step04_select_wrap_id .input-group .form-control {
 	padding: 0 12px;
 	line-height: 40px;
 	width: 100%;
@@ -219,7 +229,16 @@ article.modal_article .select_wrap_id, article.modal_article .select_wrap_pw,
 	border: 1px solid #E0E0E0;
 	border-radius: 2px;
 	box-shadow: none;
+	transition: border-color 0.3s, box-shadow 0.3s; /* 트랜지션 효과 추가 */
 }
+
+.select_wrap_id .input-group .form-control:focus,
+.select_wrap_pw .input-group .form-control:focus,
+.step04_select_wrap_id .input-group .form-control:focus {
+	border-color: #00ced1; /* 클릭 시 보더 색상 변경 */
+	box-shadow: 0 0 5px rgba(65, 105, 225, 0.5); /* 클릭 시 그림자 효과 추가 */
+}
+
 
 .select_wrap_id .input-group, .select_wrap_pw .input-group,
 	.step04_select_wrap_id .input-group {
