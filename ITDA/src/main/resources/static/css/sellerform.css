@@ -10,9 +10,10 @@
 #sellerform {
 	width: 40%;
 	height: 990px;
-	border: 1px solid black;
+	border: 1px solid #95959578;
 	margin: 80px auto 50px auto;
 	background: white;
+	padding: 20px;
 }
 
 label {

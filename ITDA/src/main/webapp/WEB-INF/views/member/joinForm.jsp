@@ -220,7 +220,7 @@ $(document).ready(function() {
 
 <div id="sellerback">
     <form name="sellerform" id="sellerform" method="post" action="joinProcess" enctype="multipart/form-data">
-        <h1 style="margin: 30px 50px;">회원가입</h1>
+        <h2 style="margin: 30px 50px;">회원가입</h2>
    		<h5 style="margin: 30px 50px;">회원이 되어 다양한 콘텐츠를 경험해 보세요!</h5>
         <div class='num0 clearfix'>
                 <label for='id' style="float: left;"><span style="color: red">*</span>아이디</label>

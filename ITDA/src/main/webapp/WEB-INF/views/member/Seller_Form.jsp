@@ -214,7 +214,7 @@ $(document).ready(function() {
 <div id="sellerback">
 <form name='sellerform' id='sellerform' enctype="multipart/form-data" method='post'
  action='${pageContext.request.contextPath}/seller/sellerjoinprocess'>
-	<h1 style="margin: 30px 50px;">판매자 회원가입</h1>
+	<h2 style="margin: 30px 50px;">판매자 회원가입</h2>
 	<h5 style="margin: 30px 50px;">판매자가 되어 다양한 콘텐츠를 공유해 주세요!</h5>
 	
 	<div class='num0'>
