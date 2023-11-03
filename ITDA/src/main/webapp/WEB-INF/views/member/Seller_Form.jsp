@@ -94,7 +94,7 @@ $(function() {
 	let channelcheck = '';
 	
 	
-	$('#channel_butt').click(function() { 				//채널명 유효성 검사
+/* 	$('#channel_butt').click(function() { 				//채널명 유효성 검사
 		var channel = $('#channel').val().trim();
 
 		if (channel == '') {
@@ -125,11 +125,32 @@ $(function() {
 			
 		}
 
-	});//click end
+	});//click end */
+	
+	
+	$('#channel_butt').click(function() { 	// 채널명 유효성 검사
+	    var channel = $('#channel').val().trim();
 
-	
-	
-	
+	    if (channel == '') {
+	        alert("채널명을 입력하세요");
+	        $('#channel').focus();
+	        return false;
+	    } else {
+	        var pattern = /^[A-Za-z0-9가-힣]{1,20}$/;
+
+	        if (pattern.test(channel)) {
+	            channelcheck = channel;
+	            var ref = `channelcheck.html?channel=${channel}`;
+	            alert('채널명을 사용할 수 있습니다');
+	        } else {
+	            alert("채널명은 영문 대소문자, 숫자, 또는 한국어 문자를 사용 가능하며, 1자 이상 20자 이하로 입력해야 합니다.");
+	            $('#channel').val('');
+	            $('#channel').focus();
+	            return false;
+	        }
+	    }
+	});
+
 
 	$('input[type=file]').change(function(e){
 		const inputfile = $(this).val().split('\\');
@@ -165,13 +186,33 @@ $(function() {
 	
 });//ready end
 
+
+$(document).ready(function() {
+    $('.num1 input, .num2 input, .num3 input, .num4 input, .num5 input, .num6 input').on('click focus', function() {
+        $(this).css('transition', 'border 0.5s ease-in-out');  
+        $(this).css('border', '1px solid #00bfff');
+        $(this).css('border-radius', '5px'); // 모서리를 8px로 둥글게 변경
+    });
+
+    // 입력이 완료되면 원래 색상 및 두껍기를 복구하는 이벤트 핸들러 추가
+    $('.num1 input, .num2 input, .num3 input, .num4 input, .num5 input, .num6 input').on('blur', function() {
+        $(this).css('transition', 'border 0.3s ease-in-out'); 
+        $(this).css('border', ''); // 입력 완료 시 원래 색상 및 두껍기로 복구
+        $(this).css('border-radius', ''); // 입력 완료 시 모서리 원래대로 복구
+    });
+});
+
+
+
 </script>
 </head>
 <body style="margin: 0;">
 <div id="sellerback">
 <form name='sellerform' id='sellerform' enctype="multipart/form-data" method='post'
  action='${pageContext.request.contextPath}/seller/sellerjoinprocess'>
-	<h1 style="margin: 30px 50px;">Join Seller</h1>
+	<h2 style="margin: 30px 50px;">판매자 회원가입</h2>
+	<h5 style="margin: 30px 50px;">판매자가 되어 다양한 콘텐츠를 공유해 주세요!</h5>
+	
 	<div class='num0'>
 		<label for='id' style="float: left;">&nbsp;아이디</label>
 		<input type="text" name="userId" id="showid" value="${userId}" readOnly>
@@ -179,7 +220,7 @@ $(function() {
 	<div class='num1 clearfix'>
 		<label for='channel' style="float: left;"><span style="color: red">*</span>채널명</label><br>
 	    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-	        <input type='text' placeholder='영문/숫자만 사용 가능, 100자 이하' name='channel' id='channel' style="width: 80%;" required>
+	        <input type='text' placeholder='국문/영문/숫자만 사용 가능, 20자 이하' name='channel' id='channel' style="width: 80%;" required>
 	        <input type='button' id="channel_butt" value='중복확인' style="width: 20%;">
 	    </div>
 	</div>
@@ -217,20 +258,23 @@ $(function() {
 			<input type='text' name='userEmail' id='email' placeholder='예:itda@itda.com' required>
 	</div>
 	<div id="categories clearfix">
-		<label for='category' style="float: left; margin-left: 15px;"><span style="color: red">*</span>채널 카테고리</label><br>
-			<div id="section1">
-			<input type='radio' name='category' id='category1' value="1"> 경제/시사
-			<input type='radio' name='category' id='category2' value="2"> 문화/예술
-			<input type='radio' name='category' id='category3' value="3"> IT트렌트
-			<input type='radio' name='category' id='category4' value="4"> 역사
-			<input type='radio' name='category' id='category5' value="5"> 과학</div>
-			<div id="section2">
-			<input type='radio' name='category' id='category6' value="6"> 건강
-			<input type='radio' name='category' id='category7' value="7"> 요리
-			<input type='radio' name='category' id='category8' value="8"> 스포츠
-			<input type='radio' name='category' id='category9' value="9"> 재테크
-			<input type='radio' name='category' id='category10' value="10"> 취미</div>
-	</div>
+    <label for="category" style="float: left; margin-left: 15px;"><span style="color: red">*</span>채널 카테고리</label><br>
+    <div id="section1">
+        <label><input type="radio" name="category" id="category1" value="1"> 경제/시사</label>
+        <label><input type="radio" name="category" id="category2" value="2"> 문화/예술</label>
+        <label><input type="radio" name="category" id="category3" value="3"> IT트렌트</label>
+        <label><input type="radio" name="category" id="category4" value="4"> 역사</label>
+        <label><input type="radio" name="category" id="category5" value="5"> 과학</label>
+    </div>
+    <div id="section2">
+        <label><input type="radio" name="category" id="category6" value="6"> 건강</label>
+        <label><input type="radio" name="category" id="category7" value="7"> 요리</label>
+        <label><input type="radio" name="category" id="category8" value="8"> 스포츠</label>
+        <label><input type="radio" name="category" id="category9" value="9"> 재테크</label>
+        <label><input type="radio" name="category" id="category10" value="10"> 취미</label>
+    </div>
+</div>
+
 	<div class='num5'>	
 		<label for='info' style="float: left;"><span style="color: red">*</span>채널 소개글</label><br>
 			<textarea rows='10' name='chInfo' id='info' maxLength='300'

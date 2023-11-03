@@ -195,16 +195,33 @@ $(function() {
 
 
 
+$(document).ready(function() {
+    $('.num0 input, .num1 input, .num2 input, .num3 input, .num4 input, .num5 input, .num6 input, .num7 input, .num8 input, .num9 input, .num10 input, .num11 input').on('click focus', function() {
+        $(this).css('transition', 'border 0.5s ease-in-out'); // 애니메이션 효과 추가
+        $(this).css('border', '1px solid #00bfff'); // 2px 두껍게, 주황색으로 변경
+        $(this).css('border-radius', '5px'); // 모서리를 8px로 둥글게 변경
+    });
 
-	
+    // 입력이 완료되면 원래 색상 및 두껍기를 복구하는 이벤트 핸들러 추가
+    $('.num0 input, .num1 input, .num2 input, .num3 input, .num4 input, .num5 input, .num6 input, .num7 input, .num8 input, .num9 input, .num10 input, .num11 input').on('blur', function() {
+        $(this).css('transition', 'border 0.3s ease-in-out'); // 애니메이션 효과 추가
+        $(this).css('border', ''); // 입력 완료 시 원래 색상 및 두껍기로 복구
+        $(this).css('border-radius', ''); // 입력 완료 시 모서리 원래대로 복구
+    });
+});
+
+
+
+
+
 
 </script>
 
 
 <div id="sellerback">
     <form name="sellerform" id="sellerform" method="post" action="joinProcess" enctype="multipart/form-data">
-        <h1 style="margin: 30px 50px;">Sign in it-da</h1>
-   
+        <h2 style="margin: 30px 50px;">회원가입</h2>
+   		<h5 style="margin: 30px 50px;">회원이 되어 다양한 콘텐츠를 경험해 보세요!</h5>
         <div class='num0 clearfix'>
                 <label for='id' style="float: left;"><span style="color: red">*</span>아이디</label>
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">

@@ -154,8 +154,7 @@ public class Itda_UserController {
 			@RequestParam(value = "profile", required = false) MultipartFile file,
 			@RequestParam("userCategory") int userCategory, RedirectAttributes ra, Model model,
 			HttpServletRequest request, HttpSession session, HttpServletResponse response) { // HttpServletResponse
-																				// 객체를
-																				// 파라미터로 추가합니다.
+																				 
 		String encPassword = passwordEncoder.encode(mem.getUserPw());
 		logger.info(encPassword);
 		mem.setUserPw(encPassword);

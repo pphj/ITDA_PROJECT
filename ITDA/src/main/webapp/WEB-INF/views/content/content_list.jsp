@@ -80,7 +80,7 @@
 				<div class="head_content">
 					<div class="head_service">
 						<div class="head_back">
-							<a class=back_content href="../channels/${param.chnum}"><img
+							<a class=back_content href="${pageContext.request.contextPath}/channels/${param.chnum}?userid=${ChannelList.ownerId}"><img
 								src="../image/content/errow_left.png" width="20"></a>
 						</div>
 					</div>

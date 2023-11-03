@@ -220,7 +220,7 @@ img {max-width:100%}
 /* .faq-menu-area.unfold.on .btn-menu-more.active::after {top:5px; transform:rotate(225deg)} */
 .faq-menu-list li {display:inline-block; margin-right:3px; margin-bottom:8px}
 .faq-menu-list li a {display:block; padding:9px 15px 6px; border:1px solid #ccc; border-radius:10px; font-weight:700; font-size:15px; line-height:1.2; box-sizing:border-box}
-.faq-menu-list li.on a {border-color:#142C67; color:#fff; background-color:#142C67}
+.faq-menu-list li.on a {border-color:#00ced1; color:#fff; background-color:#00ced1}
 
 .faq-menu-cont {margin-top:12px; padding-top:20px; border-top:1px solid #ddd; box-sizing:border-box}
 
@@ -498,7 +498,7 @@ textarea.inp-txt {overflow-y:auto; height:240px}
 
     /* 버튼 */
     /* .btn-area {margin-top:0px} */
-    .btn-default {padding:14px 50px; border-radius:6px; font-size:15px}
+    .btn-default {padding:14px 50px; border-radius:6px; font-size:15px; background: #00ced1;}
     .btn-default.small {padding:9px 20px 10px; border-radius:5px; font-size:14px}
     .btn-default.line {border-radius:10px}
 
