@@ -6,9 +6,10 @@
 	}
 	#sellerform {
 		width: 40%;
-		border: 1px solid black;
+		border: 1px solid #95959578;
 		margin: 150px auto 50px auto;
 		background: white;
+		padding: 30px;
 	}
 
 	#section {
