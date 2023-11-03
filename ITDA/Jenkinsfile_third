@@ -126,7 +126,7 @@ pipeline {
        
        stage('multiline ssh') {
             steps {        
-                sshagent (credentials: ['itda-ec2-ssh']) {
+                sshagent (credentials: ['itda-ec2']) {
                 sh """
                     ssh -o StrictHostKeyChecking=no ${TARGET_HOST} '
                     sudo docker-compose up -d
