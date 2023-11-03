@@ -1,0 +1,124 @@
+pipeline {
+    environment { 
+        repository = "parkhj0209/itda"  //docker hub id와 repository 이름
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-itda') // jenkins에 등록해 놓은 docker hub credentials 이름        
+    }
+    agent any
+
+    tools {
+        // 설치된 Maven의 이름
+        maven "maven-itda"
+    }
+
+    stages {
+        stage('Git Pull') {
+            steps {
+                 // Get some code from a GitHub repository
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/pphj/ITDA_PROJECT'
+
+            }
+            post {
+                success { 
+                    sh 'echo "Successfully Cloned Repository"'
+                }
+                failure {
+                    sh 'echo "Fail Cloned Repository"'
+                    exit 1
+                }
+            }    
+        }
+
+         //clone 받은 프로젝트 안의 Spring10_Security_War 디렉토리에서 stage 실행
+        stage('Build') {
+            steps {    
+                dir("ITDA"){   ///var/jenkins_home/workspace/test_item/Spring_Git
+                    sh "mvn -DskipTests  clean package"
+                    }  
+            }
+            post {
+                success {
+                    echo 'maven build success'
+                }
+
+                failure {
+                    echo 'maven build failed'
+                    exit 1
+                }
+            } 
+
+        }
+
+
+        stage('Dockerizing'){
+            steps{
+                dir("ITDA"){   ///var/jenkins_home/workspace/test_item/Spring_Git/Dockerfile 위치
+                    sh 'echo " Image Bulid Start"'
+                    sh 'docker build . -t $repository:$BUILD_NUMBER'				//위 environment에서 설정한 repository에 이미지 생성  BUILD_NUMBER는 pipeline의 #숫자 
+                }
+            }
+                post {
+                    success {
+                        sh 'echo "Bulid Docker Image Success"'
+                    }
+
+                    failure {
+                        sh 'echo "Bulid Docker Image Fail"'
+                        exit 1
+                    }
+                }
+        }
+    
+        stage('Login'){
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin' // docker hub 로그인
+                //DOCKERHUB_CREDENTIALS_PSW : environment에서 설정해놓음,  --password-stdin : DOCKERHUB_CREDENTIALS_PSW를 사용
+            }
+            
+            post {
+                success {
+                    sh 'echo "Docker Login Success"'
+                }
+
+                failure {
+                    sh 'echo "Docker Login Fail"'
+                    exit 1
+                }
+            }
+        }
+
+        stage('Docker hub push'){
+            steps{
+                sh 'echo " docker hub push"'
+                sh 'docker push  $repository:$BUILD_NUMBER'
+            }
+            post {
+                success {
+                    sh 'echo "Docker hub push Success"'
+                }
+
+                failure {
+                    sh 'echo "Docker hub push Fail"'
+                    exit 1
+                }
+            }
+        }    
+
+     stage('Cleaning up'){
+            steps{
+                sh 'echo " docker image rmi"'
+                sh "docker rmi $repository:$BUILD_NUMBER" 	// docker image 제거
+            }
+            post {
+                success {
+                    sh 'echo "Docker hub push Success"'
+                }
+
+                failure {
+                    sh 'echo "Docker hub push Fail"'
+                    exit 1
+                }
+            }
+        }    
+               
+    }
+}

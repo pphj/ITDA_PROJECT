@@ -1,4 +1,8 @@
 $(function () {
+
+	var appendData = "";
+	var selectCategory = "";
+	
     card = $('.reco_card')
     count = 1;
 
@@ -54,6 +58,8 @@ $(function () {
             },
             dataType: "json",
             success: function (data) {
+            
+            
                 $(data).each(function () {
                     if (data.length != 10) {					//로딩표시
                         $(".loader").css('display', 'none');
@@ -68,7 +74,7 @@ $(function () {
                     }
 
                     
-                    var appendData = '<a href="contents/' + this.chNum + '/' + this.boardNum + '" class="popular-list-card">'
+                    appendData += '<a href="contents/' + this.chNum + '/' + this.boardNum + '" class="popular-list-card">'
                         + '<li class="popular-list-content"><span class="popular-list-title">' + this.boardTitle + '</span><br>'
                         + '<p class="popular-list-text">' + this.intro + '</p></li>'
                         + '<li class="popular-list-imgframe">';
@@ -79,8 +85,8 @@ $(function () {
                          + this.thumbNail + '" class="popular-list-img"></li></a>'
                     }
                     
-                    $(".popular-list-ul").append(appendData);
                 });
+                    $(".popular-list-ul").html(appendData);
             }
         });
     }
@@ -93,9 +99,11 @@ $(function () {
         const categoryNum = $(this).prop('id');
         pageCount = FIRST_PAGE;
         isCategoryButtonOn = categoryNum;
-        $(".popular-list-ul").html("");
+        //$(".popular-list-ul").html("");
         // "더 보기" 버튼을 클릭한 것으로 처리하기 위해 isLoading 변수를 false로 설정
         isLoading = false;
+        selectCategory = $(this);
+        appendData = "";
         callContents_ajax(categoryNum);
     });
 
@@ -107,6 +115,7 @@ $(function () {
         if (isLoading) return; // 이미 로딩 중인 경우 무시
         isLoading = true; // 로딩 시작
         pageCount++;
+        selectCategory.addClass("on");
         callContents_ajax(isCategoryButtonOn);
         isLoading = false; // 로딩 종료
     });
