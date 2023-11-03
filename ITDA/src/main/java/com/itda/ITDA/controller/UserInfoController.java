@@ -464,8 +464,13 @@ public class UserInfoController {
 		File idPath1 = new File(saveFolder);
 		if (!(idPath1.exists()))
 		{	logger.info(saveFolder + "존재하지 않음");
-			idPath1.mkdirs();
-			//idPath1.mkdir();// 새로운 폴더를 생성
+			
+			if (idPath1.mkdir()) {
+				logger.info("폴더 생성");
+				
+			}else {
+				logger.info("생성 실패ㅠㅠ");
+			}
 		}
 		
 		String homedir = saveFolder + "/" + year + "-" + month + "-" + date;
@@ -473,7 +478,7 @@ public class UserInfoController {
 		File path1 = new File(homedir);
 		if (!(path1.exists()))
 		{	
-			path1.mkdirs();// 새로운 폴더를 생성
+			path1.mkdir();// 새로운 폴더를 생성
 		}
 
 		// 난수를 구합니다.
@@ -526,7 +531,7 @@ public class UserInfoController {
 			logger.info("fileDBName = " + fileDBName);
 			
 			String userFolder = saveFolder + "Member/" + id + File.separator + fileDBName;
-
+			
 			byte[] bytes = uploadfile.getBytes(); // 파일의 내용을 바이트 배열로 읽어옵니다.
 
 			Path path = Paths.get(userFolder); // 파일을 저장할 절대경로 객체(Path)
