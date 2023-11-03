@@ -152,10 +152,6 @@ $(function() {
 	});
 
 
-	
-	
-	
-
 	$('input[type=file]').change(function(e){
 		const inputfile = $(this).val().split('\\');
 		const profileName = inputfile[inputfile.length - 1];		//inputfile.length - 1 = 2
