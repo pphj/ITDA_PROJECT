@@ -1,0 +1,140 @@
+pipeline {
+    environment { 
+        repository = "parkhj0209/itda"  //docker hub id와 repository 이름
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-itda') // dockerhub : jenkins에 등록해 놓은 docker hub credentials 이름      
+        TARGET_HOST = "ubuntu@3.35.136.225"
+    }
+    agent any
+
+    tools {
+        // 설치된 Maven의 이름
+        maven "maven-itda"
+    }
+
+    stages {
+        stage('Git Pull') {
+            steps {
+                 // Get some code from a GitHub repository
+                git branch: 'main', credentialsId: 'github-itda', url: 'https://github.com/pphj/ITDA_PROJECT'
+            }
+            post {
+                success { 
+                    sh 'echo "Successfully Cloned Repository"'
+                }
+                failure {
+                    sh 'echo "Fail Cloned Repository"'
+                    exit 1
+                }
+            }    
+        }
+
+         //clone 받은 프로젝트 안의 Spring10_Security_War 디렉토리에서 stage 실행
+        stage('Build') {
+            steps {    
+                dir("ITDA"){   ///var/jenkins_home/workspace/test_item/Spring10_Security_War
+                    sh "mvn -DskipTests clean compile package"
+                    }  
+            }
+            post {
+                success {
+                    echo 'maven build success'
+                }
+
+                failure {
+                    echo 'maven build failed'
+                    exit 1
+                }
+            } 
+
+        }
+
+        stage('Dockerizing'){
+            steps{
+                dir("ITDA"){   ///var/jenkins_home/workspace/test_item/Spring10_Security_War/Dockerfile 위치
+                    sh 'echo " Image Bulid Start"'
+                    sh 'docker build . -t $repository:$BUILD_NUMBER'
+                    sh 'docker build . -t $repository'
+                }
+            }
+                post {
+                    success {
+                        sh 'echo "Bulid Docker Image Success"'
+                    }
+
+                    failure {
+                        sh 'echo "Bulid Docker Image Fail"'
+                        exit 1
+                    }
+                }
+        }
+    
+        stage('Login'){
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin' // docker hub 로그인
+                
+            }
+            
+            post {
+                success {
+                    sh 'echo "Docker Login Success"'
+                }
+
+                failure {
+                    sh 'echo "Docker Login Fail"'
+                    exit 1
+                }
+            }
+        }
+
+        stage('Docker hub push'){
+            steps{
+                sh 'echo " docker hub push"'
+                sh 'docker push  $repository:$BUILD_NUMBER'
+                sh 'docker push  $repository'
+            }
+            post {
+                success {
+                    sh 'echo "Docker hub push Success"'
+                }
+
+                failure {
+                    sh 'echo "Docker hub push Fail"'
+                    exit 1
+                }
+            }
+        }    
+
+     stage('Cleaning up'){
+            steps{
+                sh 'echo " docker image rmi"'
+                sh "docker rmi $repository:$BUILD_NUMBER" // docker image 제거
+                sh "docker rmi $repository"              // docker image 제거
+            }
+            post {
+                success {
+                    sh 'echo "Docker hub push Success"'
+                }
+
+                failure {
+                    sh 'echo "Docker hub push Fail"'
+                    exit 1
+                }
+            }
+        }      
+        
+            
+       
+       stage('multiline ssh') {
+            steps {        
+                sshagent (credentials: ['itda-ec2-ssh']) {
+                sh """
+                    ssh -o StrictHostKeyChecking=no ${TARGET_HOST} '
+                    sudo docker-compose up -d
+                    '
+                """
+                }
+           }
+     }
+       
+    }
+}
