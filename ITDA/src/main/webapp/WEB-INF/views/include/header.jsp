@@ -68,8 +68,8 @@
 							<div class="dropdown">
 								<button class="dropbtn">
 									<c:choose>
-										<c:when test="${empty pinfo.userProfile}">
-											<img id="profile_img" src="${pageContext.request.contextPath}/image/main/login.png"/>
+										<c:when test="${ pinfo.userProfile.contains('resources')}">
+											<img id="profile_img" src="${pageContext.request.contextPath}/resources/image/main/login.png"/>
 										</c:when>
 										<c:otherwise>
 											<img id="profile_img" src="${pageContext.request.contextPath}/image/Member/${pinfo.username}${pinfo.userProfile}"
