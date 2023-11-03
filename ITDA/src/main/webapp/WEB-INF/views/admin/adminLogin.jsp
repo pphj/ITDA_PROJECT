@@ -61,7 +61,7 @@
 		                        <div class="form-group">
 		                        	<label>
 										<input type="checkbox" name="remember-me"
-										 style="margin-bottom: 15px;"> 로그인 유지하기
+										 style="margin-bottom: 15px;"> 로그인  유지하기
 									</label>
 		                        </div>
 		                        <div class="text-center">
