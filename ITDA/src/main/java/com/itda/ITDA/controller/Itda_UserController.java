@@ -200,8 +200,8 @@ public class Itda_UserController {
 			}
 		} else
 		{
-			mem.setUserProfile("/static/image/main/login.png");
-			session.setAttribute("userProfilePath", "/static/image/main/login.png");
+			mem.setUserProfile("/resources/image/main/login.png");
+			session.setAttribute("userProfilePath", "/resources/image/main/login.png");
 
 			// 기본 이미지 경로를 쿠키에서 제거하기 위해 만료 시간을 설정합니다.
 			Cookie profileCookie = new Cookie("userProfilePath", "");
