@@ -520,10 +520,10 @@ public class UserInfoController {
 			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
 
 
-			fileDBName = fileDBName(fileName, saveFolder + "/Member/" + id);
+			fileDBName = fileDBName(fileName, saveFolder + "Member/" + id);
 			logger.info("fileDBName = " + fileDBName);
 			
-			String userFolder = saveFolder + "/Member/" + id + File.separator + fileDBName;
+			String userFolder = saveFolder + "Member/" + id + File.separator + fileDBName;
 
 			byte[] bytes = uploadfile.getBytes(); // 파일의 내용을 바이트 배열로 읽어옵니다.
 
