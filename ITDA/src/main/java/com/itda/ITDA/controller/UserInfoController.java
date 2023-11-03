@@ -463,7 +463,7 @@ public class UserInfoController {
 		
 		File idPath1 = new File(saveFolder);
 		if (!(idPath1.exists()))
-		{
+		{	logger.info(saveFolder + "존재하지 않음");
 			idPath1.mkdir();// 새로운 폴더를 생성
 		}
 		
