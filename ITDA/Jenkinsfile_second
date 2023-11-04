@@ -1,13 +1,13 @@
 pipeline {
     environment { 
         repository = "parkhj0209/itda"  //docker hub id와 repository 이름
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-itda') // jenkins에 등록해 놓은 docker hub credentials 이름        
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub') // jenkins에 등록해 놓은 docker hub credentials 이름        
     }
     agent any
 
     tools {
         // 설치된 Maven의 이름
-        maven "maven-itda"
+        maven "maven"
     }
 
     stages {

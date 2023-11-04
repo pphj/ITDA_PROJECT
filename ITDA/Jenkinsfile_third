@@ -1,21 +1,21 @@
 pipeline {
     environment { 
         repository = "parkhj0209/itda"  //docker hub id와 repository 이름
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-itda') // dockerhub : jenkins에 등록해 놓은 docker hub credentials 이름      
-        TARGET_HOST = "ubuntu@3.35.136.225"
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub') // dockerhub :  jenkins에 등록해 놓은 docker hub credentials 이름      
+        TARGET_HOST = "ubuntu@43.202.65.103"
     }
     agent any
 
     tools {
         // 설치된 Maven의 이름
-        maven "maven-itda"
+        maven "maven"
     }
 
     stages {
         stage('Git Pull') {
             steps {
                  // Get some code from a GitHub repository
-                git branch: 'main', credentialsId: 'github-itda', url: 'https://github.com/pphj/ITDA_PROJECT'
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/pphj/ITDA_PROJECT'
             }
             post {
                 success { 
@@ -109,6 +109,7 @@ pipeline {
                 sh 'echo " docker image rmi"'
                 sh "docker rmi $repository:$BUILD_NUMBER" // docker image 제거
                 sh "docker rmi $repository"              // docker image 제거
+                sh "docker system prune -f"
             }
             post {
                 success {
@@ -126,9 +127,10 @@ pipeline {
        
        stage('multiline ssh') {
             steps {        
-                sshagent (credentials: ['itda-ec2-ssh']) {
+                sshagent (credentials: ['itda-ec2']) {
                 sh """
                     ssh -o StrictHostKeyChecking=no ${TARGET_HOST} '
+                    sudo docker-compose down --rmi all
                     sudo docker-compose up -d
                     '
                 """

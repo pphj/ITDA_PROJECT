@@ -31,7 +31,7 @@
 			<div class="col-lg-7 mb-lg-0 mb-4">
 				<div class="card z-index-2 h-300" style="background: #00c6be5e">
 					<div class="card-header pb-0 pt-3 bg-transparent">
-						<h2 class="text-capitalize text-center">로그인 페이지</h2>
+						<h2 class="text-capitalize text-center">로그인 페이지2</h2>
 	            	</div>
 		            <div class="card-body p-3">
 		            	<form role="form" action="${pageContext.request.contextPath}/adMember/loginProcess"
@@ -61,7 +61,7 @@
 		                        <div class="form-group">
 		                        	<label>
 										<input type="checkbox" name="remember-me"
-										 style="margin-bottom: 15px;"> 로그인 유지하기
+										 style="margin-bottom: 15px;"> 로그인  유지하기
 									</label>
 		                        </div>
 		                        <div class="text-center">

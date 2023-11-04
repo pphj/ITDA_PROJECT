@@ -459,19 +459,32 @@ public class UserInfoController {
 		int month = c.get(Calendar.MONTH) + 1;// 오늘 월 구합니다.
 		int date = c.get(Calendar.DATE);// 오늘 일 구합니다.
 
+		logger.info("유저폴더 생성 전" + saveFolder);
 		
 		File idPath1 = new File(saveFolder);
 		if (!(idPath1.exists()))
-		{
-			idPath1.mkdir();// 새로운 폴더를 생성
+		{	logger.info(saveFolder + "존재하지 않음");
+			
+			if (idPath1.mkdir()) {
+				logger.info("폴더 생성");
+				
+			}else {
+				logger.info("생성 실패ㅠㅠ");
+			}
 		}
 		
 		String homedir = saveFolder + "/" + year + "-" + month + "-" + date;
 		logger.info(homedir);
 		File path1 = new File(homedir);
 		if (!(path1.exists()))
-		{
-			path1.mkdir();// 새로운 폴더를 생성
+		{	
+			//path1.mkdir();// 새로운 폴더를 생성
+			if (path1.mkdir()) {
+				logger.info("폴더 생성");
+				
+			}else {
+				logger.info("생성 실패ㅠㅠ");
+			}
 		}
 
 		// 난수를 구합니다.
@@ -520,11 +533,11 @@ public class UserInfoController {
 			String fileName = uploadfile.getOriginalFilename(); // 원래 파일명
 
 
-			fileDBName = fileDBName(fileName, saveFolder + "/Member/" + id);
+			fileDBName = fileDBName(fileName, saveFolder + "Member/" + id);
 			logger.info("fileDBName = " + fileDBName);
 			
-			String userFolder = saveFolder + "/Member/" + id + File.separator + fileDBName;
-
+			String userFolder = saveFolder + "Member/" + id + File.separator + fileDBName;
+			
 			byte[] bytes = uploadfile.getBytes(); // 파일의 내용을 바이트 배열로 읽어옵니다.
 
 			Path path = Paths.get(userFolder); // 파일을 저장할 절대경로 객체(Path)
